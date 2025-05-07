@@ -120,8 +120,9 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Center"
-                BorderThickness="1"
+                BorderThickness="0"
                 FontSize="12"
+                materialDesign:HintAssist.Hint="Language"
                 MaxDropDownHeight="300"
                 SelectionChanged="LanguageComboBox_OnSelectionChanged"
                 Style="{StaticResource MaterialDesignOutlinedComboBox}">
