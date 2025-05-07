@@ -10,11 +10,21 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme
                     BaseTheme="Light"
-                    PrimaryColor="DeepPurple"
+                    PrimaryColor="DeepOrange"
                     SecondaryColor="Lime" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesign2.defaults.xaml" />
+                
+                <ResourceDictionary Source="Language/zh-CN.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Language/en-US.xaml"></ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
+
+            <FontFamily x:Key="HarmonyOsFontFamily">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC Regular</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyMedium">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Medium.ttf#HarmonyOS Sans SC Medium</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyBold">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Bold.ttf#HarmonyOS Sans SC Bold</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyLight">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Light.ttf#HarmonyOS Sans SC Light</FontFamily>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

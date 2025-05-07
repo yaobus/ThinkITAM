@@ -9,7 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Functions\" />
+    <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Bold.ttf" />
+    <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Light.ttf" />
+    <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Medium.ttf" />
+    <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Medium.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Windows\" />
     <Folder Include="DataBridge\" />
     <Folder Include="UserControls\" />
@@ -32,6 +53,21 @@
     <PackageReference Include="System.Management" Version="9.0.4" />
     <PackageReference Include="ZXing.Net" Version="0.16.10" />
     <PackageReference Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

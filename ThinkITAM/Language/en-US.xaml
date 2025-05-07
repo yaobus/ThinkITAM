@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+
+    <!--  MainWindow  -->
+    <s:String x:Key="AddProject">Add Project</s:String>
+    <s:String x:Key="SetGeneralSetting">sss</s:String>
+    <s:String x:Key="SetClipSetting">www</s:String>
+    <s:String x:Key="SetHotKeySetting">www</s:String>
+    <s:String x:Key="SetPreviewSetting">sss</s:String>
+    <s:String x:Key="SetScreenShotSetting">sss</s:String>
+    <s:String x:Key="SetAbout">关于</s:String>
+
+</ResourceDictionary>
