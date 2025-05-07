@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ThinkITAM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Style="{StaticResource ResourceKey=MaterialDesignWindow}"
+        Title="MainWindow" 
+        Height="450" Width="800"
+        Loaded="MainWindow_OnLoaded"
+        >
     <Grid>
 
     </Grid>

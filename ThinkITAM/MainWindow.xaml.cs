@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace ThinkITAM;
 /// <summary>
@@ -18,5 +19,20 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+    }
+
+    private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        SetTheme();
+    }
+
+    /// <summary>
+    /// 设置初始主题
+    /// </summary>
+    private void SetTheme()
+    {
+        var paletteHelper = new PaletteHelper();
+        var theme = Theme.Create(BaseTheme.Dark, Colors.DarkOrange, Colors.Lime); // 使用默认颜色
+        paletteHelper.SetTheme(theme);
     }
 }
