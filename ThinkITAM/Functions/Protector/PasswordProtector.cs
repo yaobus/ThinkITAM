@@ -72,7 +72,18 @@ namespace ThinkITAM.Functions.Protector
             return "unknown";
         }
 
+
         private static void GetAesKeyAndIV(out byte[] key, out byte[] iv)
+        {
+            using var sha256 = SHA256.Create();
+            var hwKey = Encoding.UTF8.GetBytes("ThinkITAM-HaHa");
+            var hash = sha256.ComputeHash(hwKey);
+
+            key = hash.Take(16).ToArray(); // AES-128 Key
+            iv = hash.Skip(16).Take(16).ToArray(); // AES IV
+        }
+
+        private static void GetAesKeyAndIV2(out byte[] key, out byte[] iv)
         {
             using var sha256 = SHA256.Create();
             var hwKey = Encoding.UTF8.GetBytes(GetHardwareKey());
@@ -99,9 +110,54 @@ namespace ThinkITAM.Functions.Protector
             return Convert.ToBase64String(cipherBytes);
         }
 
+
+        /// <summary>
+        /// 使用硬件ID加密
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
+        public static string Encrypt2(string plainText)
+        {
+            GetAesKeyAndIV2(out var key, out var iv);
+
+            using var aes = Aes.Create();
+            aes.Key = key;
+            aes.IV = iv;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+
+            var plainBytes = Encoding.UTF8.GetBytes(plainText);
+            using var encryptor = aes.CreateEncryptor();
+            var cipherBytes = encryptor.TransformFinalBlock(plainBytes, 0, plainBytes.Length);
+
+            return Convert.ToBase64String(cipherBytes);
+        }
+
         public static string Decrypt(string base64CipherText)
         {
             GetAesKeyAndIV(out var key, out var iv);
+
+            using var aes = Aes.Create();
+            aes.Key = key;
+            aes.IV = iv;
+            aes.Mode = CipherMode.CBC;
+            aes.Padding = PaddingMode.PKCS7;
+
+            var cipherBytes = Convert.FromBase64String(base64CipherText);
+            using var decryptor = aes.CreateDecryptor();
+            var plainBytes = decryptor.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+
+            return Encoding.UTF8.GetString(plainBytes);
+        }
+
+        /// <summary>
+        /// 使用硬件ID解密
+        /// </summary>
+        /// <param name="base64CipherText"></param>
+        /// <returns></returns>
+        public static string Decrypt2(string base64CipherText)
+        {
+            GetAesKeyAndIV2(out var key, out var iv);
 
             using var aes = Aes.Create();
             aes.Key = key;

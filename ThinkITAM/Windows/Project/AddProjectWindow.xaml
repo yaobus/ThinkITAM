@@ -10,7 +10,7 @@
         MinWidth="405"
         MinHeight="350"
         MaxHeight="650"
-
+        Height="650"
         ResizeMode="CanResize"
         FontFamily="{StaticResource HarmonyOsFontFamily}"
         Style="{StaticResource ResourceKey=MaterialDesignWindow}"
@@ -69,13 +69,14 @@
                 Margin="0"
                 Content="{DynamicResource ApwSave}"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-
+                Click="AddProjectButton_Click"
                 />
 
 
         </Grid>
 
         <Grid
+           
             Visibility="Collapsed"
             x:Name="SqliteProjectPlane"
             Grid.Row="1">
@@ -155,6 +156,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbNickName"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -166,6 +168,7 @@
         </Grid>
 
         <Grid
+            d:Visibility="Visible"
             x:Name="OtherDatabasePlane"
             Visibility="Collapsed"
             Grid.Row="1">
@@ -193,7 +196,7 @@
 
 
                 <TextBox
-                    x:Name="DbFilePath2"
+                    x:Name="DbHost"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10,5,10"
@@ -217,6 +220,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbPort"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -240,6 +244,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbUserName"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -263,6 +268,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbPassword"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -286,6 +292,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbDatabaseName"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -309,6 +316,7 @@
                     />
 
                 <TextBox
+                    x:Name="DbProjectName"
                     Grid.Row="1"
                     Margin="5"
                     Padding="5,10"
@@ -320,7 +328,14 @@
         </Grid>
 
 
-
+        <!--  提示信息  -->
+        <materialDesign:DialogHost
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            d:Visibility="Collapsed"
+            Identifier="AddProjectWindowMessageDialogHost">
+            <!--  DialogHost的内容  -->
+        </materialDesign:DialogHost>
 
 
     </Grid>

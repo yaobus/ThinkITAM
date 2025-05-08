@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Resources;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.UserControls.InformationDisplay;
+using ThinkITAM.ViewModels.DataBaseConfig;
 using ThinkITAM.Windows.Project;
 using Path = System.IO.Path;
 
@@ -21,7 +24,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-
+    private ObservableCollection<DataBaseConfigViewModel> configs = new ObservableCollection<DataBaseConfigViewModel>();
 
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -29,8 +32,10 @@ public partial class MainWindow : Window
        
         InitializationStatus();
         GetEncryptString();
+        ProjectListView.ItemsSource = configs;
 
-
+        //Properties.Settings.Default.EncryptString = "";
+        //Properties.Settings.Default.Save();
 
 
     }
@@ -102,11 +107,20 @@ public partial class MainWindow : Window
     /// </summary>
     private void GetEncryptString()
     {
+
+        
         if (string.IsNullOrWhiteSpace(Properties.Settings.Default.EncryptString))
         {
+
+
             SetPasswordZone.Visibility = Visibility.Visible;
             LoginZone.Visibility = Visibility.Collapsed;
-
+            ProjectZone.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            SetPasswordZone.Visibility = Visibility.Collapsed;
+            LoginZone.Visibility = Visibility.Visible;
         }
 
 
@@ -183,11 +197,14 @@ public partial class MainWindow : Window
             else //保存密码
             {
 
-                string passwordString = Functions.Protector.PasswordProtector.Encrypt(PasswordBoxAgain.Password);
+                string passwordString = Functions.Protector.PasswordProtector.Encrypt2(PasswordBoxAgain.Password);
 
                 Properties.Settings.Default.EncryptString = passwordString;
 
                 Properties.Settings.Default.Save();
+
+                SetPasswordZone.Visibility = Visibility.Collapsed;
+                LoginZone.Visibility = Visibility.Visible;
             }
 
 
@@ -203,7 +220,9 @@ public partial class MainWindow : Window
     /// <exception cref="NotImplementedException"></exception>
     private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
     {
-        string passwordString = Functions.Protector.PasswordProtector.Encrypt(InputPasswordBox.Password);
+        string passwordString = Functions.Protector.PasswordProtector.Encrypt2(InputPasswordBox.Password);
+
+        Console.WriteLine(passwordString);
 
         if (passwordString != Properties.Settings.Default.EncryptString)
         {
@@ -225,10 +244,11 @@ public partial class MainWindow : Window
         else //验证成功,解密加载数据库配置文件
         {
 
+
+            ProjectZone.Visibility = Visibility.Visible;
+            LoginZone.Visibility = Visibility.Collapsed;
             //加载数据库配置文件
             LoadDatabaseConfig();
-
-
 
         }
 
@@ -262,13 +282,40 @@ public partial class MainWindow : Window
         }
         else
         {
-            string content = File.ReadAllText(dbConfigPath);
+            configs.Clear();
+
+
+            if (File.Exists(dbConfigPath))
+            {
+                var encryptJson = File.ReadAllText(dbConfigPath);
+
+                Console.WriteLine(encryptJson);
+
+                var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
+
+                Console.WriteLine(json);
+
+                var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+                var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
+
+                if (loaded != null)
+                {
+                    foreach (var item in loaded)
+                    {
+                        //Console.WriteLine(PasswordProtector.Decrypt(item.Password));
+
+                        configs.Add(item);
+                    }
+                }
+            }
 
             //解密并加载配置文件
 
         }
 
     }
+
+
 
     private void AddProjectButton_OnClick(object sender, RoutedEventArgs e)
     {
@@ -282,6 +329,8 @@ public partial class MainWindow : Window
 
         if (newWindow.ShowDialog() == true)
         {
+            LoadDatabaseConfig();
+
         }
     }
 

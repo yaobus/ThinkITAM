@@ -40,6 +40,7 @@
 
     <s:String x:Key="ApwOpenFileFilter">数据库文件 (*.db)|*.db|所有文件 (*.*)|*.*</s:String>
     <s:String x:Key="ApwOpenFileTitle">请选择一个Sqlite.db 文件</s:String>
+    <s:String x:Key="ApwSaveFileMessage">选择存储文件夹</s:String>
 
     <s:String x:Key="ApwHost">数据库主机地址</s:String>
     <s:String x:Key="ApwPort">端口号</s:String>
@@ -47,5 +48,9 @@
     <s:String x:Key="ApwPassword">数据库密码</s:String>
     <s:String x:Key="ApwDatabaseName">数据库名称</s:String>
     <s:String x:Key="ApwProjectName">设定项目名称</s:String>
+
+    <!--  Windows.Project.AddProjectWindow信息不完整MessageDialogHost  -->
+    <s:String x:Key="ApwMdTitle">信息不完整</s:String>
+    <s:String x:Key="ApwMdPrompt">请填写完整信息</s:String>
 
 </ResourceDictionary>

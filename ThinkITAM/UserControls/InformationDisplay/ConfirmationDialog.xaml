@@ -6,17 +6,16 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.InformationDisplay"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    FontFamily="{StaticResource HarmonyOsFontFamily}"
     MinWidth="250"
     MinHeight="150"
-    >
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
 
@@ -24,41 +23,39 @@
         <TextBlock
             Grid.Row="0"
             Margin="10"
+            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
             FontSize="14"
             FontWeight="ExtraBlack"
             Foreground="{Binding TitleColor}"
             Style="{StaticResource MaterialDesignTextBlock}"
-            Text="{Binding Title}"
-            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
-            />
+            Text="{Binding Title}" />
 
         <!--  提示内容  -->
         <TextBlock
             Grid.Row="1"
             MaxWidth="400"
             Margin="10"
-            FontSize="14"
-            Style="{StaticResource MaterialDesignTextBlock}"
-            Foreground="{Binding PromptColor}"
-            Text="{Binding Prompt}"
             FontFamily="{StaticResource HarmonyOsFontFamily}"
+            FontSize="14"
+            Foreground="{Binding PromptColor}"
+            Style="{StaticResource MaterialDesignTextBlock}"
+            Text="{Binding Prompt}"
             TextWrapping="Wrap" />
 
         <!--  按钮组  -->
         <Grid Grid.Row="2">
             <StackPanel
-
                 Margin="0,0"
-                HorizontalAlignment="Right" Orientation="Horizontal">
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
                 <!--  确认按钮  -->
                 <Button
                     Margin="10"
+                    HorizontalAlignment="Right"
                     Command="{Binding ConfirmCommand}"
                     Content="{Binding ConfirmButtonText}"
                     Foreground="{Binding ConfirmButtonColor}"
-                    Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}"
-                    HorizontalAlignment="Right"
-                    >
+                    Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}">
                     <Button.CommandParameter>
                         <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">True</system:Boolean>
                     </Button.CommandParameter>
@@ -67,12 +64,11 @@
                 <!--  取消按钮  -->
                 <Button
                     Margin="10"
+                    HorizontalAlignment="Right"
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                     Content="{DynamicResource CdClose}"
                     IsCancel="True"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                    HorizontalAlignment="Right"
-                    >
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}">
                     <Button.CommandParameter>
                         <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
                     </Button.CommandParameter>

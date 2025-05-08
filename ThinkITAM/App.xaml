@@ -7,18 +7,23 @@
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
+
                 <materialDesign:BundledTheme
                     BaseTheme="Light"
+                    ColorAdjustment="{materialDesign:ColorAdjustment}"
                     PrimaryColor="DeepOrange"
                     SecondaryColor="Lime" />
 
+                <!-- Set your base theme -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesign2.defaults.xaml" />
-                
-                <ResourceDictionary Source="Language/zh-CN.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Language/en-US.xaml"></ResourceDictionary>
 
+                <ResourceDictionary Source="Language/zh-CN.xaml" />
+                <ResourceDictionary Source="Language/en-US.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+
 
             <FontFamily x:Key="HarmonyOsFontFamily">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC Regular</FontFamily>
             <FontFamily x:Key="HarmonyOsFontFamilyMedium">pack://application:,,,/Resources/fonts/HarmonyOS_Sans_SC_Medium.ttf#HarmonyOS Sans SC Medium</FontFamily>
