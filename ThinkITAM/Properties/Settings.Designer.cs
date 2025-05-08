@@ -34,5 +34,29 @@ namespace ThinkITAM.Properties {
                 this["LanguageIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EncryptString {
+            get {
+                return ((string)(this["EncryptString"]));
+            }
+            set {
+                this["EncryptString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ThemeIndex {
+            get {
+                return ((int)(this["ThemeIndex"]));
+            }
+            set {
+                this["ThemeIndex"] = value;
+            }
+        }
     }
 }

@@ -1,0 +1,83 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.InformationDisplay.ConfirmationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.InformationDisplay"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    MinWidth="250"
+    MinHeight="150"
+    >
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+
+        <!--  标题  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="10"
+            FontSize="14"
+            FontWeight="ExtraBlack"
+            Foreground="{Binding TitleColor}"
+            Style="{StaticResource MaterialDesignTextBlock}"
+            Text="{Binding Title}"
+            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+            />
+
+        <!--  提示内容  -->
+        <TextBlock
+            Grid.Row="1"
+            MaxWidth="400"
+            Margin="10"
+            FontSize="14"
+            Style="{StaticResource MaterialDesignTextBlock}"
+            Foreground="{Binding PromptColor}"
+            Text="{Binding Prompt}"
+            FontFamily="{StaticResource HarmonyOsFontFamily}"
+            TextWrapping="Wrap" />
+
+        <!--  按钮组  -->
+        <Grid Grid.Row="2">
+            <StackPanel
+
+                Margin="0,0"
+                HorizontalAlignment="Right" Orientation="Horizontal">
+                <!--  确认按钮  -->
+                <Button
+                    Margin="10"
+                    Command="{Binding ConfirmCommand}"
+                    Content="{Binding ConfirmButtonText}"
+                    Foreground="{Binding ConfirmButtonColor}"
+                    Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}"
+                    HorizontalAlignment="Right"
+                    >
+                    <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+
+                <!--  取消按钮  -->
+                <Button
+                    Margin="10"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Content="{DynamicResource CdClose}"
+                    IsCancel="True"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    HorizontalAlignment="Right"
+                    >
+                    <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

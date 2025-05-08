@@ -6,11 +6,40 @@
 
     <!--  MainWindow  -->
     <s:String x:Key="AddProject">Add Project</s:String>
-    <s:String x:Key="SetGeneralSetting">sss</s:String>
-    <s:String x:Key="SetClipSetting">www</s:String>
-    <s:String x:Key="SetHotKeySetting">www</s:String>
-    <s:String x:Key="SetPreviewSetting">sss</s:String>
-    <s:String x:Key="SetScreenShotSetting">sss</s:String>
-    <s:String x:Key="SetAbout">关于</s:String>
+    <s:String x:Key="SetPassword">Set Password</s:String>
+    <s:String x:Key="SetPasswordAgain">Confirm Password</s:String>
+    <s:String x:Key="SavePassword">Save Password</s:String>
+
+
+    <s:String x:Key="InputPassword">Input Password</s:String>
+    <s:String x:Key="Login">Verification Password</s:String>
+
+
+    <!--  UserControls.InformationDisplay.ConfirmationDialog  -->
+    <s:String x:Key="CdClose">Close</s:String>
+    <s:String x:Key="CdConfirm">Confirm</s:String>
+    <s:String x:Key="CdTitle">Please set your password</s:String>
+    <s:String x:Key="CdPrompt">Password must not be empty</s:String>
+
+
+    <s:String x:Key="CdPrompt2">Inconsistent password inputs</s:String>
+
+    <s:String x:Key="CdFailedVerificationTitle">Validation failed</s:String>
+    <s:String x:Key="CdFailedVerificationPrompt">Verification failed, password error</s:String>
+
+
+
+    <!--  Windows.Project.AddProjectWindow  -->
+    <s:String x:Key="ApwTitle">Add Project</s:String>
+    <s:String x:Key="ApwType">Select the project storage method</s:String>
+    <s:String x:Key="ApwSqlitePath">Select the storage path</s:String>
+    <s:String x:Key="ApwSqliteNew">New</s:String>
+    <s:String x:Key="ApwSqliteName">Set the project name</s:String>
+
+    <s:String x:Key="ApwSave">Save</s:String>
+
+    <s:String x:Key="ApwOpenFileFilter">Database file (*.db)|*.db</s:String>
+    <s:String x:Key="ApwOpenFileTitle">Please select an Sqlite.db file</s:String>
+
 
 </ResourceDictionary>

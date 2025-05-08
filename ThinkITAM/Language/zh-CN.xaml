@@ -5,14 +5,47 @@
 
     <!--  MainWindow  -->
     <s:String x:Key="AddProject">添加项目</s:String>
-    <s:String x:Key="SetGeneralSetting">常规项设置</s:String>
-    <s:String x:Key="SetClipSetting">剪切板设置</s:String>
-    <s:String x:Key="SetHotKeySetting">快捷键设置</s:String>
-    <s:String x:Key="SetPreviewSetting">预览设置</s:String>
-    <s:String x:Key="SetScreenShotSetting">截屏设置</s:String>
-    <s:String x:Key="SetAbout">关于</s:String>
+    <s:String x:Key="SetPassword">设置密码</s:String>
+    <s:String x:Key="SetPasswordAgain">确认密码</s:String>
+    <s:String x:Key="SavePassword">保存密码</s:String>
+
+
+    <s:String x:Key="InputPassword">输入密码</s:String>
+    <s:String x:Key="Login">验证密码</s:String>
 
 
 
+    <!--  UserControls.InformationDisplay.ConfirmationDialog  -->
+    <s:String x:Key="CdClose">关闭</s:String>
+    <s:String x:Key="CdConfirm">确认</s:String>
+    <s:String x:Key="CdTitle">请设置密码</s:String>
+
+    <s:String x:Key="CdPrompt">密码不得为空</s:String>
+
+    <s:String x:Key="CdPrompt2">两次密码输入不一致</s:String>
+
+    <s:String x:Key="CdFailedVerificationTitle">验证失败</s:String>
+    <s:String x:Key="CdFailedVerificationPrompt">验证失败，密码错误</s:String>
+
+
+
+    <!--  Windows.Project.AddProjectWindow  -->
+    <s:String x:Key="ApwTitle">添加项目</s:String>
+    <s:String x:Key="ApwType">选择项目存储方式</s:String>
+    <s:String x:Key="ApwSqlitePath">选择项目存储路径</s:String>
+    <s:String x:Key="ApwSqliteNew">新建</s:String>
+    <s:String x:Key="ApwSqliteName">设定项目名称</s:String>
+
+    <s:String x:Key="ApwSave">保存</s:String>
+
+    <s:String x:Key="ApwOpenFileFilter">数据库文件 (*.db)|*.db|所有文件 (*.*)|*.*</s:String>
+    <s:String x:Key="ApwOpenFileTitle">请选择一个Sqlite.db 文件</s:String>
+
+    <s:String x:Key="ApwHost">数据库主机地址</s:String>
+    <s:String x:Key="ApwPort">端口号</s:String>
+    <s:String x:Key="ApwUserName">数据库用户名</s:String>
+    <s:String x:Key="ApwPassword">数据库密码</s:String>
+    <s:String x:Key="ApwDatabaseName">数据库名称</s:String>
+    <s:String x:Key="ApwProjectName">设定项目名称</s:String>
 
 </ResourceDictionary>

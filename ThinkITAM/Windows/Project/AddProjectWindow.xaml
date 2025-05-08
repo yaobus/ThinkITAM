@@ -1,0 +1,327 @@
+﻿<Window x:Class="ThinkITAM.Windows.Project.AddProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ThinkITAM.Windows.Project"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="{DynamicResource ApwTitle}"
+        MaxWidth="405"
+        MinWidth="405"
+        MinHeight="350"
+        MaxHeight="650"
+
+        ResizeMode="CanResize"
+        FontFamily="{StaticResource HarmonyOsFontFamily}"
+        Style="{StaticResource ResourceKey=MaterialDesignWindow}"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Loaded="AddProjectWindow_OnLoaded"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Margin="5,0"
+                Content="{DynamicResource ApwType}"
+                />
+
+            <ComboBox
+                Grid.Row="1"
+                x:Name="DatabaseTypeGroups"
+                Margin="5"
+                Padding="5,10"
+                BorderThickness="0.2"
+                MaxDropDownHeight="300"
+                materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                SelectionChanged="DatabaseTypeGroups_OnSelectionChanged"
+                >
+
+                <ComboBoxItem
+                    Content="Sqlite" />
+                <ComboBoxItem
+                    Content="Mysql" />
+                <ComboBoxItem
+                    Content="MariaDB" />
+                <ComboBoxItem
+                    Content="SqlServer" />
+
+            </ComboBox>
+
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,5">
+
+            <Button
+                x:Name="AddProjectButton"
+                Margin="0"
+                Content="{DynamicResource ApwSave}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+
+                />
+
+
+        </Grid>
+
+        <Grid
+            Visibility="Collapsed"
+            x:Name="SqliteProjectPlane"
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Margin="5,0"
+                        Content="{DynamicResource ApwSqlitePath}"
+                        />
+
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+
+                        <Label
+                            Content="{DynamicResource ApwSqliteNew}"
+                            HorizontalAlignment="Left"
+                            Opacity="0.4"
+                            />
+
+                        <ToggleButton
+                            x:Name="NewToggleButton"
+                            Margin="5,0"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                            Click="NewToggleButton_OnClick"
+                            />
+                    </StackPanel>
+
+                </Grid>
+                <TextBox
+                    x:Name="DbFilePath"
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10,35,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+                <Button
+                    Grid.Row="1"
+                    x:Name="BrowseButton"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Click="BrowseButton_OnClick"
+                    >
+                    <materialDesign:PackIcon
+                        Margin="5"
+                        Kind="DotsHorizontal" />
+                </Button>
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwSqliteName}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+        </Grid>
+
+        <Grid
+            x:Name="OtherDatabasePlane"
+            Visibility="Collapsed"
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwHost}"
+                    />
+
+
+                <TextBox
+                    x:Name="DbFilePath2"
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10,5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwPort}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+            <Grid
+                Grid.Row="2"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwUserName}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+            <Grid
+                Grid.Row="3"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwPassword}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+            <Grid
+                Grid.Row="4"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwDatabaseName}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+            <Grid
+                Grid.Row="5"
+                Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Margin="5,0"
+                    Content="{DynamicResource ApwProjectName}"
+                    />
+
+                <TextBox
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="5,10"
+                    BorderThickness="0.2"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    />
+
+            </Grid>
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Window>
