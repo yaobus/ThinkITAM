@@ -51,9 +51,14 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp2">
-                                <Grid Width="300" Height="50">
+                                <materialDesign:ColorZone
+                                    Padding="0"
+                                    Mode="PrimaryMid"
+                                >
 
-                                    <Grid >
+                                    <Grid Width="300" Height="50">
+
+
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="70*" />
                                             <RowDefinition Height="30*" />
@@ -70,7 +75,6 @@
                                                 Grid.Column="0"
                                                 VerticalAlignment="Center"
                                                 FontWeight="Bold"
-                                                Background="{DynamicResource}"
                                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                                 Text="{Binding NickName}" />
 
@@ -98,9 +102,7 @@
 
                                     </Grid>
 
-                                </Grid>
-
-
+                                </materialDesign:ColorZone>
                             </materialDesign:Card>
                         </DataTemplate>
                     </ListView.ItemTemplate>
