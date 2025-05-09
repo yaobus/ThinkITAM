@@ -296,7 +296,7 @@ public partial class DevicePortManage : UserControl
 
                 //如果颜色索引数据库返回值为空数据，则使用默认颜色
 
-                if (row["PortColor"] == DBNull.Value)
+                if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
                 {
                     info.PortColor = 0;
                 }
@@ -306,7 +306,7 @@ public partial class DevicePortManage : UserControl
                 }
 
 
-                if (row["OnTheLine"] == DBNull.Value)
+                if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                 {
                     info.OnTheLine = -1;
                 }

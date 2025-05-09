@@ -13,6 +13,7 @@ using ThinkITAM.UserControls.InformationDisplay;
 using ThinkITAM.ViewModels.DataBaseConfig;
 using ThinkITAM.Windows.Project;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Windows.Selection;
 using Path = System.IO.Path;
 
 
@@ -346,11 +347,11 @@ public partial class MainWindow : Window
     {
         DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
 
-       // 创建服务实例（会正确映射到 MySQL）
+       // 创建服务实例
        GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
 
 
-       Console.WriteLine(GlobalVariables.DbService.TestConnection());
+
 
        //string sql = $"Select * FROM Network";
        //var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -366,9 +367,23 @@ public partial class MainWindow : Window
     {
         if (GlobalVariables.DbService.TestConnection() == true)//连接成功
         {
+            SelectionWindow newWindow=new SelectionWindow();
 
-            //TODO
+            var window = Window.GetWindow(this);
 
+
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            window.Hide();
+
+            if (newWindow.ShowDialog() == true)
+            {
+                
+
+            }
 
         }
         else
