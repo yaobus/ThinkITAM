@@ -14,6 +14,11 @@
     <s:String x:Key="Login">验证密码</s:String>
 
 
+    <!--  Windows.MainWindow连接失败MessageDialogHost  -->
+    <s:String x:Key="MainOpenFailedPrompt">数据库打开失败,请检查数据库配置</s:String>
+    <s:String x:Key="MainOpenFailedTitle">打开失败</s:String>
+
+
 
     <!--  UserControls.InformationDisplay.ConfirmationDialog  -->
     <s:String x:Key="CdClose">关闭</s:String>
@@ -52,5 +57,6 @@
     <!--  Windows.Project.AddProjectWindow信息不完整MessageDialogHost  -->
     <s:String x:Key="ApwMdTitle">信息不完整</s:String>
     <s:String x:Key="ApwMdPrompt">请填写完整信息</s:String>
+
 
 </ResourceDictionary>

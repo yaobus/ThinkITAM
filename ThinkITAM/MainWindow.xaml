@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dataBaseConfig="clr-namespace:ThinkITAM.ViewModels.DataBaseConfig"
     Title="ThinkITAM"
     Width="810"
     Height="500"
@@ -46,15 +47,20 @@
                     AllowDrop="True"
                     IsManipulationEnabled="True"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto">
-
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    SelectionChanged="ProjectListView_OnSelectionChanged"
+                    MouseDoubleClick="ProjectListView_OnMouseDoubleClick"
+                    >
+                    <ListView.DataContext>
+                        <dataBaseConfig:DataBaseConfigViewModel />
+                    </ListView.DataContext>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp2">
                                 <materialDesign:ColorZone
                                     Padding="0"
                                     Mode="PrimaryMid"
-                                >
+                                    >
 
                                     <Grid Width="300" Height="50">
 
@@ -97,8 +103,14 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             Opacity="0.5"
-                                            Text="{Binding rackNote}" />
+                                            Text="{Binding Path}" />
 
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            Opacity="0.5"
+                                            Text="{Binding Host}" />
 
                                     </Grid>
 

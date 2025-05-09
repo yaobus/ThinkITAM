@@ -5,11 +5,14 @@ using System.Resources;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.UserControls.InformationDisplay;
 using ThinkITAM.ViewModels.DataBaseConfig;
 using ThinkITAM.Windows.Project;
+using ThinkITAM.DataBridge;
 using Path = System.IO.Path;
 
 
@@ -333,6 +336,57 @@ public partial class MainWindow : Window
 
         }
     }
+    /// <summary>
+    /// 项目列表选择
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+
+    private void ProjectListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
+
+       // 创建服务实例（会正确映射到 MySQL）
+       GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
 
 
+       Console.WriteLine(GlobalVariables.DbService.TestConnection());
+
+       //string sql = $"Select * FROM Network";
+       //var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+       //foreach (var row in rows)
+       //{
+       //    Console.WriteLine(row["Name"]);
+       //}
+
+    }
+
+    private async void ProjectListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (GlobalVariables.DbService.TestConnection() == true)//连接成功
+        {
+
+
+
+
+        }
+        else
+        {
+            string title = (string)FindResource("MainOpenFailedTitle");
+            string prompt = (string)FindResource("MainOpenFailedPrompt");
+            string confirm = (string)FindResource("CdConfirm");
+
+            var dialog = new ConfirmationDialog
+            {
+                Title = $"{title}",
+                Prompt = $"{prompt}",
+                ConfirmButtonText = $"{confirm}"
+
+            };
+
+            // 显示对话框
+            await DialogHost.Show(dialog, "MessageDialogHost");
+        }
+    }
 }

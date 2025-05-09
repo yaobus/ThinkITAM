@@ -64,4 +64,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Functions\Database\" />
+  </ItemGroup>
+
 </Project>

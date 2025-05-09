@@ -1,0 +1,1650 @@
+﻿<UserControl
+    x:Class="IPAM_NOTE.FunctionPage.NetworkAddressManagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:IPAM_NOTE.FunctionPage"
+    xmlns:local3="clr-namespace:IPAM_NOTE.FunctionClass"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:networkManage="clr-namespace:IPAM_NOTE.ViewModes.NetworkManage"
+    xmlns:networkManage1="clr-namespace:IPAM_NOTE.UserControls.NetworkManage"
+    d:Background="DarkCyan"
+    d:Height="768"
+    d:Width="1366"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="NetworkAddressManage_OnLoaded"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local3:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local3:StatusToColorConverter x:Key="StatusToColorConverter" />
+        <local3:CustomColorIndexToColor x:Key="CustomColorIndexToColor" />
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <networkManage:IpAddressInfoListViewMode />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Margin="5,2.5,2.5,2.5"
+                Background="#404040">
+                <TreeView
+                    x:Name="NetworkTreeView"
+                    Margin="-5,0,0,0"
+                    Foreground="AliceBlue"
+                    IsManipulationEnabled="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    SelectedItemChanged="NetworkTreeView_OnSelectedItemChanged" />
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Margin="5,2.5,2.5,5"
+                Background="#404040">
+                <Grid
+                    Margin="10,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        x:Name="AddButton"
+                        Grid.Column="0"
+                        Margin="10"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        Click="AddButton_OnClick"
+                        Cursor="Hand"
+                        Style="{StaticResource MaterialDesignFlatLightButton}"
+                        ToolTip="新增网段">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="PlusNetworkOutline" />
+
+                    </Button>
+
+                    <Button
+                        x:Name="EditButton"
+                        Grid.Column="1"
+                        Margin="10"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFlatLightButton}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="PencilBoxOutline" />
+                    </Button>
+
+
+
+
+
+                    <Button
+                        x:Name="DeleteButton"
+                        Grid.Column="2"
+                        Margin="10"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        Click="DeleteButton_OnClick"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFlatLightButton}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Foreground="#Cf3539"
+                            Kind="DeleteOutline" />
+
+                    </Button>
+
+                </Grid>
+            </materialDesign:Card>
+
+            <Expander
+                Grid.Row="1"
+                Margin="10,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Visibility="Collapsed">
+
+                <Expander.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            Margin="-25,0,0,-15"
+                            FontSize="14"
+                            Opacity="0.5"
+                            Text="网段备注信息" />
+                    </DataTemplate>
+                </Expander.HeaderTemplate>
+
+                <StackPanel
+                    Height="275"
+                    Margin="0,5"
+                    Orientation="Vertical"
+                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                    <TextBox
+                        x:Name="NetworkNote"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="网段备注"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkParent"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding Organization}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkChild"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding Department}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkTagA"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding TagA}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkTagB"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding TagB}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkTagC"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding TagC}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox
+                        x:Name="NetworkTagD"
+                        Margin="0,5"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="{Binding TagD}"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                </StackPanel>
+            </Expander>
+        </Grid>
+
+
+
+
+
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5,5,2.5,2.5">
+
+
+
+
+
+            <Button
+                Grid.Column="0"
+                Width="40"
+                Height="30"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Center"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                BorderThickness="0"
+                Style="{StaticResource MaterialDesignOutlinedButton}"
+                ToolTip="添加网段"
+                Visibility="Collapsed">
+
+                <materialDesign:PackIcon
+                    Width="32"
+                    Height="32"
+                    Kind="PlaylistPlus" />
+
+            </Button>
+
+            <materialDesign:ColorZone
+                Height="50"
+                Margin="0"
+                VerticalAlignment="Center"
+                materialDesign:ElevationAssist.Elevation="Dp1"
+                Background="#404040"
+                CornerRadius="5"
+                Mode="Standard">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="ClearSearchKeyWord"
+                        Click="ClearSearchKeyWord_OnClick"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                    </Button>
+                    <TextBox
+                        x:Name="SearchKeyWord"
+                        Grid.Column="1"
+                        MinWidth="200"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="搜索网段关键字"
+                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                        BorderThickness="0"
+                        Opacity="0.3" />
+                    <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+
+        </Grid>
+
+        <materialDesign:Card
+            Grid.Row="0"
+            Grid.Column="1"
+            Height="50"
+            Margin="2.5,5,5,2.5"
+            Background="#404040">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Stretch"
+                    Orientation="Horizontal">
+
+
+                    <ToggleButton
+                        x:Name="ShowModeButton"
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FormatListText}"
+                        Click="ShowModeButton_OnClick"
+                        Content="{materialDesign:PackIcon Kind=Apps}"
+                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                        ToolTip="切换图形/列表显示模式" />
+
+                    <ProgressBar
+                        Width="40"
+                        Height="1"
+                        Opacity="0.3"
+                        Orientation="Vertical"
+                        Value="100" />
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            x:Name="OperationPanel"
+                            Grid.Column="0"
+                            Margin="4"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal">
+
+                            <RadioButton
+                                x:Name="SingleSelectMode"
+                                Margin="0"
+                                BorderThickness="0"
+                                Click="SingleSelectMode_OnClick"
+                                IsChecked="True"
+                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
+                                ToolTip="单选模式">
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="HexagonOutline" />
+
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                x:Name="MultipleSelectMode"
+                                Margin="5,0"
+                                Click="MultipleSelectMode_OnClick"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
+                                ToolTip="多选模式">
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="HexagonMultipleOutline" />
+
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton
+                                x:Name="OpenBrowserMode"
+                                Margin="5,0"
+                                Click="OpenBrowserMode_OnClick"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
+                                ToolTip="访问模式">
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="GoogleChrome" />
+
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                x:Name="PingMode"
+                                Margin="5,0"
+                                Click="PingMode_OnClick"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
+                                ToolTip="Ping模式">
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="Powershell" />
+
+                                </StackPanel>
+                            </RadioButton>
+
+
+                            <RadioButton
+                                x:Name="LogModeButton"
+                                Margin="5,0"
+                                Click="LogModeButton_OnClick"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
+                                ToolTip="日志模式"
+                                Visibility="Collapsed">
+                                <StackPanel>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        HorizontalAlignment="Center"
+                                        Kind="MathLog" />
+
+                                </StackPanel>
+                            </RadioButton>
+                            <ProgressBar
+                                Width="40"
+                                Height="1"
+                                Opacity="0.3"
+                                Orientation="Vertical"
+                                Value="100" />
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+                            <Button
+                                x:Name="StatusTestButton"
+                                Width="32"
+                                Height="32"
+                                Margin="5,0"
+                                materialDesign:ButtonProgressAssist.IndicatorBackground="{DynamicResource MaterialDesignDarkSeparatorBackground}"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="False"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                materialDesign:ElevationAssist.Elevation="Dp5"
+                                Click="StatusTestButton_OnClick"
+                                Content="{materialDesign:PackIcon Radar}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                ToolTip="检测所选网段地址在线状态,仅供参考" />
+
+                            <Button
+                                x:Name="ArpTestButton"
+                                Width="32"
+                                Height="32"
+                                Margin="5,0"
+                                materialDesign:ButtonProgressAssist.IndicatorBackground="{DynamicResource MaterialDesignDarkSeparatorBackground}"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="False"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                materialDesign:ElevationAssist.Elevation="Dp5"
+                                Click="ArpTestButton_Click"
+                                Content="{materialDesign:PackIcon MagnifyExpand}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                ToolTip="检测所选网段在线的地址主机名及MAC" />
+
+                        </StackPanel>
+
+
+
+                        <StackPanel
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+
+                            <ProgressBar
+                                Width="40"
+                                Height="1"
+                                Opacity="0.3"
+                                Orientation="Vertical"
+                                Value="100" />
+
+                            <StackPanel
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                                <Button
+                                    x:Name="ReSort"
+                                    Margin="5,0"
+                                    Click="ReSort_OnClick"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="重置为默认排序"
+                                    Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <materialDesign:PackIcon Kind="Restore" />
+                                </Button>
+
+                                <Button
+                                    x:Name="SetButton"
+                                    Margin="5,0"
+                                    Click="SetButton_Click"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="自定义网段信息标签">
+                                    <materialDesign:PackIcon Kind="Settings" />
+                                </Button>
+
+                            </StackPanel>
+
+
+                            <StackPanel
+                                x:Name="MultipleAllocationPanel"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=MultipleSelectMode, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                                <ProgressBar
+                                    Width="40"
+                                    Height="1"
+                                    Opacity="0.3"
+                                    Orientation="Vertical"
+                                    Value="100" />
+
+                                <TextBlock
+                                    x:Name="AddressNumber"
+                                    MinWidth="30"
+                                    Margin="15,0,5,0"
+                                    Padding="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    d:Text="5"
+                                    FontSize="22"
+                                    FontWeight="Black"
+                                    Foreground="AliceBlue"
+                                    ToolTip="当前选中的IP数量" />
+
+
+                                <Button
+                                    x:Name="MultipleAllocationButton"
+                                    Margin="0"
+                                    Click="MultipleAllocationButton_OnClick"
+                                    Foreground="LawnGreen"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="一键分配所选地址">
+                                    <materialDesign:PackIcon Kind="Play" />
+                                </Button>
+
+                                <Button
+                                    x:Name="ClearSelected"
+                                    Margin="0"
+                                    Click="ClearSelected_OnClick"
+                                    Foreground="OrangeRed"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="清空所选地址">
+                                    <materialDesign:PackIcon Kind="Delete" />
+                                </Button>
+
+                            </StackPanel>
+
+                            <StackPanel
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=OpenBrowserMode, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ComboBox
+                                    x:Name="ProtocolCombobox"
+                                    Width="100"
+                                    Height="32"
+                                    Margin="5,0"
+                                    Padding="0"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="LanguageTypescript"
+                                    DisplayMemberPath="Protocol"
+                                    SelectedIndex="0"
+                                    SelectionChanged="ProtocolCombobox_OnSelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    ToolTip="选择协议" />
+
+
+
+                                <ComboBox
+                                    x:Name="PortComboBox"
+                                    Width="100"
+                                    Height="32"
+                                    Margin="5,0"
+                                    Padding="0"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="MidiPort"
+                                    DisplayMemberPath="Port"
+                                    IsEditable="False"
+                                    PreviewKeyDown="PortComboBox_OnKeyDown"
+                                    SelectedIndex="0"
+                                    SelectionChanged="PortComboBox_OnSelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    ToolTip="选择端口" />
+
+                                <ComboBox
+                                    x:Name="BrowserCombobox"
+                                    Width="100"
+                                    Height="32"
+                                    MinWidth="72"
+                                    Margin="5,0"
+                                    Padding="0"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="GoogleChrome"
+                                    DisplayMemberPath="Browser"
+                                    SelectionChanged="BrowserCombobox_OnSelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    ToolTip="选择用来打开地址的浏览器，可在预设页面管理浏览器" />
+                            </StackPanel>
+
+
+
+                        </StackPanel>
+                    </Grid>
+
+
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="被搜索网段"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+
+                    <ComboBox
+                        x:Name="AddressBox"
+                        Width="120"
+                        Margin="5"
+                        VerticalAlignment="Bottom"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        ItemsSource="{Binding ShortStringList}"
+                        MaxDropDownHeight="300">
+                        <ComboBox.SelectedItem>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="SelectedValidationOutlined"
+                                UpdateSourceTrigger="PropertyChanged" />
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
+
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="搜索范围"
+                        Orientation="Horizontal" />
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="搜索关键词"
+                        Orientation="Horizontal">
+
+                        <TextBox
+                            x:Name="KeyWord"
+                            Width="120"
+                            Margin="5"
+                            VerticalAlignment="Top"
+                            materialDesign:HintAssist.FloatingScale="0"
+                            materialDesign:HintAssist.Hint="搜索关键词"
+                            AcceptsReturn="False"
+                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="NoWrap" />
+
+                    </StackPanel>
+
+
+                    <!--<ToggleButton
+                    Width="26"
+                    Height="26"
+                    x:Name="Accurate"
+                    Margin="5"
+                    IsChecked="False"
+
+                    materialDesign:ElevationAssist.Elevation="Dp5"
+                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Equal}"
+                    Content="{materialDesign:PackIcon Kind=ApproximatelyEqual}"
+                    Style="{StaticResource MaterialDesignActionToggleButton}"
+                    ToolTip="模糊/精确" />-->
+
+
+
+
+
+                    <Button
+                        x:Name="SearchClear"
+                        Width="50"
+                        Height="30"
+                        Margin="5"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderThickness="0"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="清空搜索"
+                        Visibility="Visible">
+                        <materialDesign:PackIcon
+                            Width="24"
+                            Height="24"
+                            Kind="ClearCircleOutline" />
+                    </Button>
+
+
+
+                    <!--<Button
+                    Height="30"
+                    Width="50"
+                    Padding="0"
+                    Margin="5"
+                    x:Name="ExportButton"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    BorderThickness="0"
+                    ToolTip="页面数据导出(不可作为数据源反向导入)"
+                    IsEnabled="False"
+
+                    materialDesign:ButtonAssist.CornerRadius="15"
+                    >
+
+
+                        <materialDesign:PackIcon Kind="TableArrowRight" Width="24" Height="24"/>
+                    </Button>
+
+
+                    <Button
+                    Height="30"
+                    Width="50"
+                    Padding="0"
+                    Margin="5"
+                    x:Name="ExportNetwork"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    BorderThickness="0"
+                    ToolTip="导出网段信息报表"
+                    IsEnabled="False"
+
+                    materialDesign:ButtonAssist.CornerRadius="15"
+                    >
+
+
+                        <materialDesign:PackIcon Kind="ApplicationExport" Width="20" Height="20"/>
+                    </Button>-->
+
+                </StackPanel>
+
+
+            </Grid>
+
+        </materialDesign:Card>
+
+        <!--<Grid
+
+            Visibility="Collapsed"
+            Grid.Column="1"
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Grid
+                Row="0"
+                >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="4"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    >
+
+
+                    <RadioButton
+                        x:Name="GraphicsButton"
+                        Margin="0"
+                        IsChecked="True"
+                        Click="GraphicsButton_Click"
+                        ToolTip="以图形方式显示所选网段地址"
+
+                        Style="{StaticResource MaterialDesignTabRadioButtonTop}" >
+
+                        <materialDesign:PackIcon Kind="Apps" Width="24" Height="24"/>
+
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="ListButton"
+                        Margin="0"
+                        IsChecked="False"
+                        Click="ListButton_Click"
+                        ToolTip="以列表方式显示所选网段地址"
+                        Style="{StaticResource MaterialDesignTabRadioButtonTop}"
+
+                        >
+
+                        <materialDesign:PackIcon  Kind="FormatListText" Width="24" Height="24"/>
+
+                    </RadioButton>
+
+
+
+                </StackPanel>
+
+
+
+            </Grid>
+
+
+
+
+        </Grid>-->
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <materialDesign:Card
+                Grid.Column="0"
+                Margin="2.5,2.5,5,2"
+                Background="#404040">
+                <Grid>
+                    <ScrollViewer
+                        x:Name="GraphicalPlan"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+
+
+                        <ItemsControl x:Name="AddressPanel" Padding="10">
+                            <!--  设置 ItemsPanel 为 WrapPanel  -->
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <networkManage1:IpAddressInfo DataContext="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+                    </ScrollViewer>
+
+
+                    <DataGrid
+                        x:Name="AddressListView"
+                        Grid.Column="0"
+                        Margin="0,0,0,10"
+                        d:Visibility="Collapsed"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        MouseDoubleClick="AddressListView_OnMouseDoubleClick"
+                        SelectionMode="Extended"
+                        SelectionUnit="FullRow"
+                        Visibility="Collapsed">
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="False">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="OrderBoolAscendingVariant" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="选择"
+                                            ToolTip="选择IP地址" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <ToggleButton
+                                                x:Name="SelectToggleButton"
+                                                Grid.Column="0"
+                                                Padding="0"
+                                                BorderThickness="0"
+                                                Checked="SelectToggleButton_Checked"
+                                                IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                                                IsEnabled="{Binding AddressType}"
+                                                Unchecked="SelectToggleButton_OnUnchecked">
+                                                <materialDesign:PackIcon Kind="CheckboxBlankOutline" />
+
+                                                <ToggleButton.Style>
+                                                    <Style BasedOn="{StaticResource MaterialDesignActionLightToggleButton}" TargetType="ToggleButton">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsChecked" Value="True">
+                                                                <Setter Property="Background" Value="LightSeaGreen" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsChecked" Value="False">
+                                                                <Setter Property="Background" Value="Transparent" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ToggleButton.Style>
+
+                                            </ToggleButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Address">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="IpOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="IP地址"
+                                            ToolTip="网段内的IP地址" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="20"
+                                                FontWeight="ExtraBold"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Address}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PingTime">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Radar" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="PING"
+                                            ToolTip="PING检测状态及响应时间" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="Green" Background="{Binding PingStatusColor}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontWeight="ExtraBold"
+                                                Foreground="#009B77"
+                                                Text="{Binding PingTime}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PingTime">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Palette" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="色标"
+                                            ToolTip="颜色标签" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="Green" Background="{Binding AddressColor, Converter={StaticResource CustomColorIndexToColor}}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="User" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="使用人"
+                                            ToolTip="使用该IP的用户" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Name}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Organization">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="SitemapOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="使用人单位"
+                                            ToolTip="使用人所在单位" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Organization}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Department">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="BallotOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="使用人部门"
+                                            ToolTip="使用人所在部门" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Department}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Group">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="BallotOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="使用人群组"
+                                            ToolTip="使用人所在群组" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Group}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Phone">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="phone" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="使用人电话"
+                                            ToolTip="使用人电话联系方式" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding Phone}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="HostName">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Laptop" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="分配主机名"
+                                            ToolTip="使用该IP的设备主机名" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding HostName}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="MacAddress">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="ExpansionCard" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="分配MAC地址"
+                                            ToolTip="使用该IP的设备MAC" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding MacAddress}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="NowHostName">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Laptop" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="当前主机名"
+                                            ToolTip="该IP当前检测到的主机名" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="Orange" Background="{Binding NowHostNameStatus}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding NowHostName}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="NowMacAddress">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="ExpansionCard" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="当前MAC地址"
+                                            ToolTip="该IP当前检测到的MAC" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="Orange" Background="{Binding NowMacAddressStatus}">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding NowMacAddress}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="LinkDevice">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="ServerNetwork" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="关联资产"
+                                            ToolTip="使用该IP的资产" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding LinkDevice}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagA">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagA"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签A" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagA}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagB">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagB"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签B" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagB}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagC">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagC"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签C" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagC}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagD">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagD"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签D" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagD}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagE">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagE"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签E" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagE}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagF">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="TagHeartOutline" />
+                                        <TextBlock
+                                            x:Name="TagF"
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="自定义标签F" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="AliceBlue"
+                                                Text="{Binding TagF}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
+
+
+                    <!--  Visibility="{Binding Path=IsChecked, ElementName=GraphicsButton, Converter={StaticResource BoolToVisibilityConverter}}"  -->
+
+
+                    <Expander
+                        x:Name="LogExpander"
+                        Margin="0,0"
+                        Padding="0"
+                        Collapsed="LogExpander_OnCollapsed"
+                        ExpandDirection="Left"
+                        Expanded="LogExpander_OnExpanded"
+                        IsExpanded="{Binding Path=IsChecked, ElementName=LogModeButton}"
+                        Visibility="hidden">
+                        <Expander.Header>
+                            <TextBlock RenderTransformOrigin=".5,.5" Text="IP地址操作日志">
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="90" />
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Expander.Header>
+                        <Grid
+                            Width="300"
+                            Margin="0"
+                            HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <ProgressBar
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Height="2"
+                                HorizontalAlignment="Left"
+                                Orientation="Vertical"
+                                Value="100" />
+
+                            <ListView Grid.Row="0" BorderThickness="1">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Index}" Header="序号" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="时间" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Logs}" Header="操作日志" />
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <TextBox
+                                Grid.Row="1"
+                                Width="Auto"
+                                Height="150"
+                                Margin="0,0"
+                                VerticalAlignment="Stretch"
+                                materialDesign:HintAssist.FloatingHintHorizontalAlignment="Center"
+                                materialDesign:HintAssist.Hint="  日志详情:"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                VerticalScrollBarVisibility="Auto" />
+
+                        </Grid>
+                    </Expander>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
+        <materialDesign:Card
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="2.5,2.5,5,5"
+            Background="#404040">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+                    <TextBox
+                        x:Name="OnlineHost"
+                        Width="80"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="在线主机"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="LanConnect"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+
+                    <TextBox
+                        x:Name="Network"
+                        Width="130"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="当前网络"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        x:Name="MaskText"
+                        Width="135"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="子网掩码"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Lastpass"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                    <TextBox
+                        x:Name="First"
+                        Width="130"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="第一个可用IP"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="PageFirst"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+                    <TextBox
+                        x:Name="Last"
+                        Width="130"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="最后一个可用IP"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="PageLast"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        x:Name="Broadcast"
+                        Width="130"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="广播地址"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="broadcast"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                    <TextBox
+                        x:Name="NumBox"
+                        Width="130"
+                        Margin="5,0,5,10"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:HintAssist.Hint="网段地址总数"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Counter"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Snackbar
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="0,0,0,10"
+            MessageQueue="{Binding MessageQueue}" />
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,1143 @@
+﻿using System.Collections.ObjectModel;
+using System.Data.SQLite;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
+using IPAM_NOTE.ChildrenWindows.DevicePortManage;
+using IPAM_NOTE.ChildrenWindows.NetworkManage;
+using IPAM_NOTE.DatabaseOperation;
+using IPAM_NOTE.DataBridge;
+using IPAM_NOTE.FunctionClass;
+using IPAM_NOTE.UserControls.Asset;
+using IPAM_NOTE.UserControls.DevicePortManage;
+using IPAM_NOTE.UserControls.NetworkManage;
+using IPAM_NOTE.ViewModes.AssetManage;
+using IPAM_NOTE.ViewModes.DevicePortManage;
+using IPAM_NOTE.ViewModes.NetworkManage;
+using IPAM_NOTE.ViewModes.Others;
+using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
+using static IPAM_NOTE.ChildrenWindows.NetworkManage.AddressAllocationWindow;
+using static IPAM_NOTE.ViewModes.DevicePortManage.PortTypeClass;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+
+
+
+
+namespace IPAM_NOTE.FunctionPage;
+/// <summary>
+/// DevicePortManage.xaml 的交互逻辑
+/// </summary>
+public partial class DevicePortManage : UserControl
+{
+    public DevicePortManage()
+    {
+        InitializeComponent();
+    }
+
+    private DbClass dbClass;
+
+    private  void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
+        dbClass.OpenConnection();
+
+        PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
+        DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
+        
+        LoadAssetTreeViewInfos();
+    }
+
+    private void PortSelectCount_CollectionChanged(object? sender,
+        System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        
+        // 使用Dispatcher来更新UI
+        NumberBlock.Dispatcher.Invoke(() =>
+        {
+            NumberBlock.Text = GetSelectedCount().ToString();
+
+        });
+    }
+
+    private void AddButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        DeviceCreateGuideWindow addDevice = new DeviceCreateGuideWindow();
+
+
+        //窗口放中间
+        var window = Window.GetWindow(this);
+        if (window != null)
+        {
+            addDevice.Owner = window;
+        }
+
+
+
+        if (addDevice.ShowDialog() == true)
+        {
+
+            // 当子窗口关闭后执行这里的代码
+            LoadAssetTreeViewInfos();
+
+            //加载设备信息
+            //LoadTags();
+        }
+    }
+
+
+
+    private ObservableCollection<AssetTypeViewModel> assetTypes = new ObservableCollection<AssetTypeViewModel>();
+
+    private async void LoadAssetTreeViewInfos()
+    {
+        assetTypes.Clear();
+        AssetTreeView.Items.Clear();
+        string sqlTemp = $"SELECT COUNT(*) FROM Devices";
+
+        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+
+        if (num > 0)
+        {
+            string query = "SELECT DISTINCT AssetType FROM Devices;";
+
+            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            int index = 0;
+
+            while (reader.Read())
+            {
+                index++;
+
+                var info = new AssetTypeViewModel();
+
+                info.Index = index;
+
+                string assetTypeInfo = reader["AssetType"].ToString();
+
+                info.AssetType = assetTypeInfo;//资产类型
+
+                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}'";
+
+                SQLiteCommand command2 = new SQLiteCommand(sqlTemp, dbClass.connection);
+                SQLiteDataReader reader2 = command2.ExecuteReader();
+
+                int index2 = 0;
+
+
+                var deviceTypeItems = new TreeViewItem();
+                while (reader2.Read())
+                {
+                    index2++;
+                    var device = new DeviceInfo();
+                    var deviceInfo = new DeviceTypeViewModel();
+
+                    deviceInfo.Index = index2;
+                    deviceInfo.DeviceType = reader2["DeviceType"].ToString();
+                    deviceInfo.AssetId = reader2["AssetId"].ToString();
+                    deviceInfo.AssetType = assetTypeInfo;
+                    deviceInfo.Description = reader2["Description"].ToString();
+                    deviceInfo.Model = reader2["Model"].ToString();
+                    deviceInfo.AssetNumber = reader2["AssetNumber"].ToString();
+                    deviceInfo.ToolTip = $"[{deviceInfo.Description}]-[{deviceInfo.Model}]-[{deviceInfo.AssetNumber}]";
+
+
+                    device.DataContext = deviceInfo;
+
+
+                    deviceTypeItems.Items.Add(device);
+
+                }
+
+                info.DeviceTypeCount = "设备总数:" + index2;//设备类型总数
+
+                var assetTypeControl = new AssetTypeUserControl();
+
+                assetTypeControl.DataContext = info;
+
+                deviceTypeItems.Header = assetTypeControl;
+
+
+                AssetTreeView.Items.Add(deviceTypeItems);
+
+                await Task.Delay(50);
+
+                assetTypes.Add(info);
+            }
+
+            //Organization.ItemsSource = organizationInfo;
+
+
+
+
+
+
+
+        }
+    }
+
+
+
+    private async void AssetTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (e != null)
+        {
+            //清空已选端口列表
+            ClearSelectedPort();
+
+            PortManagePanel.Children.Clear();
+           
+
+
+            if (this.IsLoaded == true)
+            {
+                //  AddressListView.Visibility = Visibility.Collapsed;
+
+                //   GraphicalPlan.Visibility = Visibility.Visible;
+                // 获取用户选择的项
+                var selectedNode = e.NewValue;
+
+                if (selectedNode is DeviceInfo) //如果是子项
+                {
+
+                    // 如果选择的是子节点类型，则处理子节点的逻辑
+                    DeviceInfo childNode = selectedNode as DeviceInfo;
+
+                    DeviceTypeViewModel info = childNode.DataContext as DeviceTypeViewModel;
+
+                    DataBridge.DataBridge.SelectDeviceTableInfo = info;
+
+                    await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+
+
+                    await AnalysisPortInfos();
+
+                    //加载网段标签
+                     LoadCustomTag();
+
+                    //加载网段备注
+                    //LoadNetworkNote(info);
+
+                    //await LoadAddressInfo(tableName);
+
+
+
+
+                }
+                else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
+                {
+
+
+                    TreeViewItem selectedItem = selectedNode as TreeViewItem;
+
+                    if (selectedItem != null)
+                    {
+                        // 判断节点是否展开
+                        if (selectedItem.IsExpanded)
+                        {
+                            // 如果已经展开，就折叠节点
+                            selectedItem.IsExpanded = false;
+                        }
+                        else
+                        {
+                            // 如果未展开，就展开节点
+                            selectedItem.IsExpanded = true;
+                        }
+                    }
+
+                }
+
+            }
+
+
+        }
+
+    }
+
+
+
+
+    /// <summary>
+    /// 加载端口信息
+    /// </summary>
+    /// <param name="tableName"></param>
+    private async Task LoadPortInfos(DeviceTypeViewModel tableInfo)
+    {
+        string tableName = $"De_{tableInfo.AssetId}";
+
+        if (tableName != "" && tableName != null)
+        {
+            PortManagePanel.Children.Clear();
+
+            DataBridge.DataBridge.PortDetailedInfos.Clear();
+
+            string query = $"SELECT * FROM {tableName};";
+
+            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                //读取端口信息，并写入列表
+                var info = new PortDetailedInfo();
+                info.UID = Convert.ToInt32(reader["UID"]);
+                info.PortType = reader["PortType"].ToString();
+                info.PortTag = reader["PortTag"].ToString();
+                info.PortSlotNumber = Convert.ToInt32(reader["PortSlotNumber"]);
+                info.PortId = reader["PortId"].ToString();
+                info.Status = Convert.ToInt32(reader["Status"].ToString());
+                info.Mode = reader["Mode"].ToString();
+                info.PortName = reader["PortName"].ToString();
+                info.VlanId = reader["VlanId"].ToString();
+                
+                
+               
+
+                //如果颜色索引数据库返回值为空数据，则使用默认颜色
+
+                if (reader["PortColor"] == DBNull.Value)
+                {
+                    info.PortColor =0;
+                }
+                else
+                {
+                 info.PortColor = Convert.ToInt32(reader["PortColor"]);
+                }
+
+
+                if (reader["OnTheLine"] == DBNull.Value)
+                {
+                    info.OnTheLine = -1;
+                }
+                else
+                {
+                    info.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                }
+
+
+
+
+                info.TagA = reader["TagA"].ToString();
+                info.TagB = reader["TagB"].ToString();
+                info.TagC = reader["TagC"].ToString();
+                info.TagD = reader["TagD"].ToString();
+                info.TagE = reader["TagE"].ToString();
+                info.TagF = reader["TagF"].ToString();
+                info.AssetId = reader["AssetId"].ToString();
+
+                info.ToolTip = JoinTip(info);
+
+                DataBridge.DataBridge.PortDetailedInfos.Add(info);
+
+            }
+
+        }
+
+    }
+
+    /// <summary>
+    /// 自动拼接端口提示信息
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    private  string JoinTip(PortDetailedInfo info)
+    {
+        string tip = null;
+
+        tip += $"端口编号: {info.PortTag}{info.PortSlotNumber}{info.PortId}\r";
+
+        //0为未分配，1为已分配未启用，2为已分配，已启用，3为故障
+
+        switch (info.Status)
+        {
+            case 0:
+                tip += $"端口状态: 未分配\r";
+                break;
+            case 1:
+                tip += $"端口状态: 已分配未启用\r";
+                break;
+            case 2:
+                tip += $"端口状态: 已分配\r";
+                break;
+            case 3:
+                tip += $"端口状态: 故障\r";
+                break;
+
+
+        }
+
+        //端口类型，E为以太网口，F为光纤口，D为硬盘，M为管理口
+        switch (info.PortType)
+        {
+            case "E":
+                tip += $"端口类型: 以太网口\r";
+                break;
+            case "F":
+                tip += $"端口类型: 光纤网口\r";
+                break;
+            case "D":
+                tip += $"端口类型: 硬盘插槽\r";
+                break;
+            case "M":
+                tip += $"端口类型: 管理网口\r";
+                break;
+        }
+
+        //端口模式
+        if (!string.IsNullOrWhiteSpace(info.Mode))
+        {
+            tip += $"端口模式: {info.Mode}\r";
+        }
+
+
+
+        //VLAN或RAID
+        if (!string.IsNullOrWhiteSpace(info.VlanId))
+        {
+            if (info.PortType == "D")//如果是磁盘插槽
+            {
+                tip += $"RAID类型: {info.VlanId}\r";
+            }
+            else
+            {
+                tip += $"VLAN ID: {info.VlanId}\r";
+            }
+
+        }
+
+
+
+
+        if (settingTags != null)
+        {
+            dynamic settings = JsonConvert.DeserializeObject(settingTags);
+
+            if (!string.IsNullOrWhiteSpace(info.TagA))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagA))
+                {
+                    tip += $"{settings.TagA}: {info.TagA}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签A: {info.TagA}\r";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagB))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagB))
+                {
+                    tip += $"{settings.TagB}: {info.TagB}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签B: {info.TagB}\r";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagC))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagC))
+                {
+                    tip += $"{settings.TagC}: {info.TagC}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签C: {info.TagC}\r";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagD))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagD))
+                {
+                    tip += $"{settings.TagD}: {info.TagD}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签D: {info.TagD}\r";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagE))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagE))
+                {
+                    tip += $"{settings.TagE}: {info.TagE}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签A: {info.TagE}\r";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagF))
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagF))
+                {
+                    tip += $"{settings.TagF}: {info.TagF}\r";
+                }
+                else
+                {
+                    tip += $"自定义标签F: {info.TagF}\r";
+                }
+            }
+
+        }
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(info.TagA))
+            {
+
+                tip += $"自定义标签A: {info.TagA}\r";
+
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagB))
+            {
+
+
+                tip += $"自定义标签B: {info.TagB}\r";
+
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagC))
+            {
+
+                tip += $"自定义标签C: {info.TagC}\r";
+
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagD))
+            {
+
+                tip += $"自定义标签D: {info.TagD}\r";
+
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagE))
+            {
+
+                tip += $"自定义标签A: {info.TagE}\r";
+
+            }
+            if (!string.IsNullOrWhiteSpace(info.TagF))
+            {
+
+                tip += $"自定义标签F: {info.TagF}\r";
+
+            }
+
+        }
+
+
+        return tip.TrimEnd('\r');
+
+    }
+
+    /// <summary>
+    /// 解析端口配置
+    /// </summary>
+    private async Task  AnalysisPortInfos()
+    {
+        //图形化解析
+
+        //把具有相同PortSlotNumber和PortType的项分组
+
+        var groupedItems = DataBridge.DataBridge.PortDetailedInfos
+            .GroupBy(item => new { item.PortSlotNumber, item.PortType });
+        foreach (var group in groupedItems)
+        {
+            foreach (var item in group) // 直接遍历group中的元素
+            {
+                var port = new DevicePort();
+
+                port.PortAllocationWindowClosed += PortAllocationWindowClosed;
+                port.Margin = new Thickness(5);
+                item.FullPortId = $"{item.PortSlotNumber}{item.PortId}";
+                port.DataContext = item;
+
+
+                PortManagePanel.Dispatcher.Invoke(() =>
+                {
+                    PortManagePanel.Children.Add(port);
+                });
+
+
+                await Task.Delay(1);
+            }
+
+            // 添加分割线
+            Separator separator = new Separator();
+            separator.Width = 10000; // 设置横线的宽度，根据需要调整
+            separator.Opacity = 0.3;
+
+            PortManagePanel.Dispatcher.Invoke(() =>
+            {
+                PortManagePanel.Children.Add(separator);
+            });
+           
+        }
+
+
+    }
+
+
+    /// <summary>
+    /// 订阅窗口关闭事件
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void PortAllocationWindowClosed(object sender, BoolEventArgs e)
+    {
+        if (e.Result == true)
+        {
+            //Console.WriteLine("信息传递成功！");
+
+            //更新显示
+            //LoadAddressInfo(DataBridge.DataBridge.NetworkTableName);
+            await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+
+            // 解析端口信息
+            await AnalysisPortInfos();
+
+            //MessageBox.Show("信息传递成功！");
+
+            //端口模式设置
+            if (SingleSelectMode.IsChecked == true)
+            {
+                DataBridge.DataBridge.PortOperationType = 0;
+            }
+            else
+            {
+                DataBridge.DataBridge.PortOperationType = 1;
+            }
+
+        }
+
+    }
+    
+
+
+    /// <summary>
+    /// 单选模式
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void SingleSelectMode_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (SingleSelectMode.IsChecked == true)
+        {
+            MultipleAllocationPanel.Visibility = Visibility.Collapsed;
+
+            DataBridge.DataBridge.SelectPortMode = 0;//默认选择未分配地址
+
+            DataBridge.DataBridge.PortOperationType = 0;//模式为单选模式
+
+
+            ClearSelectedPort();
+
+            //if (DataBridge.DataBridge.PortSelectLists.Count > 0)
+            //{
+            //    //清空已选择的端口
+            //    DataBridge.DataBridge.PortSelectLists.Clear();
+
+            //    //重新加载端口列表
+            //    await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+
+            //    //重新解析端口信息
+            //    AnalysisPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+            //}
+        }
+
+
+    }
+
+    /// <summary>
+    /// 多选模式
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MultipleSelectMode_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (MultipleSelectMode.IsChecked == true)
+        {
+            MultipleAllocationPanel.Visibility= Visibility.Visible;
+
+            DataBridge.DataBridge.PortOperationType = 1;//模式为多选模式
+            //DataBridge.DataBridge.SelectPortMode = 0;
+        }
+
+
+
+       
+    }
+
+
+
+
+    /// <summary>
+    /// 多选模式一键分配
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void MultipleAllocationButton_Click(object sender, RoutedEventArgs e)
+    {
+
+        if (GetSelectedCount()<1)
+        {
+            return;
+        }
+
+
+        PortAllocationWindow portAllocationWindow = new PortAllocationWindow();
+
+
+        //窗口放中间
+        var window = Window.GetWindow(this);
+
+        if (window != null)
+        {
+            portAllocationWindow.Owner = window;
+        }
+
+        //window.Owner = Application.Current.MainWindow;
+        //portAllocationWindow.PortAllocationWindowClosed += Window_PortAllocationWindowClosed;
+        if (portAllocationWindow.ShowDialog() == true)
+        {
+            //清空选择
+            foreach (var item in DataBridge.DataBridge.PortDetailedInfos.ToList()) // ToList()创建了一个快照，避免在遍历时修改集合引发的问题
+            {
+                item.IsSelected = false;
+            }
+
+            //重新加载
+            await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+
+            // 解析端口信息
+            await AnalysisPortInfos();
+
+            ////清空已选端口列表
+            ClearSelectedPort();
+
+
+            if (SingleSelectMode.IsChecked == true)
+            {
+                DataBridge.DataBridge.PortOperationType = 0;
+            }
+            else
+            {
+                DataBridge.DataBridge.PortOperationType = 1;
+            }
+
+
+        }
+    }
+
+
+    /// <summary>
+    /// 清除已选端口
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ClearSelected_OnClick(object sender, RoutedEventArgs e)
+    {
+        ClearSelectedPort();
+
+    }
+
+    /// <summary>
+    /// 清空已选端口
+    /// </summary>
+    private void ClearSelectedPort()
+    {
+        foreach (var item in DataBridge.DataBridge.PortDetailedInfos.ToList()) // ToList()创建了一个快照，避免在遍历时修改集合引发的问题
+        {
+
+            item.IsSelected = false;
+
+        }
+        DataBridge.DataBridge.PortSelectCount.Clear();
+    }
+
+
+    private void Window_PortAllocationWindowClosed(object? sender, AddressAllocationWindow.BoolEventArgs e)
+    {
+        if (e.Result == true)
+        {
+            // 传递布尔值参数
+            //PortAllocationWindowClosed?.Invoke(this, e);
+        }
+    }
+
+
+    private int LoadMode = 0;//0为图形化加载，1为列表化加载
+
+
+
+
+    /// <summary>
+    /// 进行自定义标签设置
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SetButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        PortTagSetWindow set = new PortTagSetWindow();
+
+        //窗口放中间
+        var window = Window.GetWindow(this);
+        if (window != null)
+        {
+            set.Owner = window;
+        }
+
+
+        if (set.ShowDialog() == true)
+        {
+            
+            LoadCustomTag();
+
+        }
+    }
+
+
+    /// <summary>
+    /// 自定义标签
+    /// </summary>
+    private dynamic settingTags = null;
+
+
+    /// <summary>
+    /// 加载端口信息自定义标签
+    /// </summary>
+    private void LoadCustomTag()
+    {
+        
+
+        var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
+        
+        
+
+
+        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+
+        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+
+
+
+        if (num > 0) //存在本地自定义标签
+        {
+            var tags = dbClass.LoadWindowTag(tagWindow);
+
+            if (tags != null)
+            {
+                settingTags = tags;
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                //标签存到全局变量
+                DataBridge.DataBridge.SelectNetworkTags = settings;
+
+                TagA.Text = settings.TagA;
+                TagB.Text = settings.TagB;
+                TagC.Text = settings.TagC;
+                TagD.Text = settings.TagD;
+                TagE.Text = settings.TagE;
+                TagF.Text = settings.TagF;
+
+            }
+
+        }
+        else //全局标签
+        {
+            var tags = dbClass.LoadWindowTag("DevicePortTag");
+
+            if (tags != null)
+            {
+                settingTags = tags;
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                //标签存到全局变量
+                DataBridge.DataBridge.SelectNetworkTags = settings;
+
+                TagA.Text = settings.TagA;
+                TagB.Text = settings.TagB;
+                TagC.Text = settings.TagC;
+                TagD.Text = settings.TagD;
+                TagE.Text = settings.TagE;
+                TagF.Text = settings.TagF;
+
+            }
+
+        }
+
+
+
+    }
+
+
+
+    /// <summary>
+    /// 重置排序
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ReSort_OnClick(object sender, RoutedEventArgs e)
+    {
+        PortListView.ItemsSource = null;
+        foreach (var column in PortListView.Columns)
+        {
+            if (column.SortDirection != null)
+            {
+                column.SortDirection = null;
+            }
+        }
+        PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
+    }
+
+
+
+
+    private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+    {
+
+        var toggleButton = sender as FrameworkElement;
+
+        if (toggleButton != null)
+        {
+            var rowData = toggleButton.DataContext as PortDetailedInfo;
+
+            if (rowData != null)
+            {
+
+                // 在这里运行你的逻辑代码
+                string portType = rowData.PortType;
+
+                int portMode = (int) rowData.Status;
+
+                //1、判断选择的第一个地址是已分配还是未分配
+                //1.1 判断是否是第一个地址
+                if (GetSelectedCount() == 1) //当前选择的是第一个端口
+                {
+                    //记录当前选择的端口是已分配还是未分配
+
+
+                    DataBridge.DataBridge.SelectPortMode = portMode; // 接下来要选择的端口状态只能为当前选中的端口的状态
+                    DataBridge.DataBridge.SelectPortType = portType; // 接下来要选择的端口类型只能为当前选中的端口的类型
+
+                    //Console.WriteLine($"端口模式:{portMode}");
+
+                    string portName = $"{rowData.PortType}{rowData.PortSlotNumber}{rowData.PortId}";
+
+                    DataBridge.DataBridge.PortSelectCount.Add(portName);
+                    UpdateNumberBlock();
+                }
+                else//当前选择的不是第一个地址
+                {
+
+                    //判断当前选择的地址是已分配还是未分配
+                    if (portMode == DataBridge.DataBridge.SelectPortMode && portType == DataBridge.DataBridge.SelectPortType)//同种类型的地址则添加到列表中，否则不添加
+                    {
+
+                        rowData.IsSelected = true;
+                        string portName = $"{rowData.PortType}{rowData.PortSlotNumber}{rowData.PortId}";
+
+                        DataBridge.DataBridge.PortSelectCount.Add(portName);
+
+
+                    }
+                    else
+                    {
+                        rowData.IsSelected = false;
+                        //DataBridge.DataBridge.PortSelectCount.RemoveAt(0);
+                    }
+
+                    //AddressNumber.Text = SelectAddress.Count.ToString();
+                    UpdateNumberBlock();
+                }
+
+            }
+        }
+    }
+
+    private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        var toggleButton = sender as FrameworkElement;
+        if (toggleButton != null)
+        {
+            var rowData = toggleButton.DataContext as PortDetailedInfo;
+
+            if (rowData != null)
+            {
+                // 在这里运行你的逻辑代码
+
+                rowData.IsSelected = false;
+
+
+                string portName = $"{rowData.PortType}{rowData.PortSlotNumber}{rowData.PortId}";
+
+                DataBridge.DataBridge.PortSelectCount.Remove(portName);
+
+
+                //DataBridge.DataBridge.PortSelectCount.RemoveAt(0);
+                UpdateNumberBlock();
+
+            }
+        }
+    }
+
+
+
+    /// <summary>
+    /// 获取选中的个数
+    /// </summary>
+    /// <returns></returns>
+    private int GetSelectedCount()
+    {
+        return DataBridge.DataBridge.PortDetailedInfos.Sum(item => Convert.ToInt32(item.IsSelected));
+
+
+    }
+
+    /// <summary>
+    /// 更新已选数据总数
+    /// </summary>
+    private void UpdateNumberBlock()
+    {
+
+        // 确保在UI线程上执行更新
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            //NumberBlock.Text = GetSelectedCount().ToString();
+            if (GetSelectedCount() >= 1)
+            {
+                MultipleAllocationPanel.Visibility = Visibility.Visible;
+            }
+        });
+    }
+
+
+    private void PortListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+
+        DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+        // 迭代视觉树以找到 DataGridRow
+        while ((dep != null) && !(dep is DataGridRow))
+        {
+            dep = VisualTreeHelper.GetParent(dep);
+        }
+
+        if (dep == null)
+            return;
+
+        // 获取 DataGridRow
+        DataGridRow row = dep as DataGridRow;
+        if (row == null)
+            return;
+
+        // 获取行数据对象
+        var rowData = row.Item as PortDetailedInfo;
+        if (rowData != null)
+        {
+            // 逻辑代码
+            RunOnDoubleClick(rowData);
+        }
+    }
+
+    /// <summary>
+    /// 双击数据行
+    /// </summary>
+    /// <param name="rowData"></param>
+    private async void RunOnDoubleClick(PortDetailedInfo rowData)
+    {
+        //rowData.IsSelected = true;
+
+        DataBridge.DataBridge.SelectPortMode = rowData.Status;
+        DataBridge.DataBridge.SelectPortType = rowData.PortType;
+
+
+        PortAllocationWindow allocationWindow = new PortAllocationWindow();
+
+        // addressAllocationWindow.AddressAllocationWindowClosed += AddressAllocationWindow_AddressAllocationWindowClosed;
+
+        //窗口放中间
+        var window = Window.GetWindow(this);
+        if (window != null)
+        {
+            allocationWindow.Owner = window;
+        }
+
+
+
+        if (allocationWindow.ShowDialog() == true)
+        {
+
+            //清空已选端口列表
+            ClearSelectedPort();
+
+            //更新显示
+            //LoadAddressInfo(DataBridge.DataBridge.NetworkTableName);
+            await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+
+            // 解析端口信息
+            await AnalysisPortInfos();
+
+            //MessageBox.Show("信息传递成功！");
+
+
+            if (SingleSelectMode.IsChecked == true)
+            {
+                DataBridge.DataBridge.PortOperationType = 0;
+            }
+            else
+            {
+                DataBridge.DataBridge.PortOperationType = 1;
+            }
+
+        }
+    }
+
+
+    /// <summary>
+    /// 删除搜索关键词
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+    {
+        SearchKeyWord.Text = null;
+
+
+    }
+
+    /// <summary>
+    /// 删除设备
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        
+    }
+
+
+    private async void ShowModeButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        //已选端口数量大于1，就切换为多选模式
+        int sum = DataBridge.DataBridge.PortDetailedInfos.Sum(item => Convert.ToInt32(item.IsSelected));
+
+        if (sum > 1)
+        {
+            MultipleSelectMode.IsChecked = true;
+            MultipleAllocationPanel.Visibility = Visibility.Visible;
+            DataBridge.DataBridge.PortOperationType = 1;
+        }
+        else
+        {
+            SingleSelectMode.IsChecked = true;
+            MultipleAllocationPanel.Visibility = Visibility.Collapsed;
+            DataBridge.DataBridge.PortOperationType = 0;
+        }
+
+
+
+    }
+
+
+
+}
