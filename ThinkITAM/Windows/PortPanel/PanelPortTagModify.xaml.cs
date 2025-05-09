@@ -12,10 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
 using Microsoft.Xaml.Behaviors.Layout;
 using Newtonsoft.Json;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.Windows.PortPanel
 {
@@ -32,13 +33,10 @@ namespace ThinkITAM.Windows.PortPanel
 
 
         private PortClass port;
-        private DbClass dbClass;
+
         private void PanelPortTagModify_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
 
             TitleTextBlock.Text = port.PortIndex;
@@ -58,7 +56,8 @@ namespace ThinkITAM.Windows.PortPanel
                  sql = $"UPDATE \"Bu_{DataBridge.DataBridge.SelectBuildingId}\" SET \"PortTag\" = '{tag}' WHERE  UID = '{port.UID}' ";
 
                 
-                dbClass.ExecuteQuery(sql);
+               
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 DialogResult = true;
 

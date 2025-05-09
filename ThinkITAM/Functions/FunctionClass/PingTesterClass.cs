@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ThinkITAM.Functions.Converters;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Functions.FunctionClass

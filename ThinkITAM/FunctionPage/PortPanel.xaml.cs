@@ -1,15 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.ChildrenWindows.PortPanel;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PortPanel;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.UserControls.PortPanel;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -23,12 +24,11 @@ namespace ThinkITAM.FunctionPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void PortPanel_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
             LoadPanelPortTreeList();
 
@@ -63,33 +63,32 @@ namespace ThinkITAM.FunctionPage
             //第一步：读取所有建筑信息
             string query = "SELECT *  FROM  Buildings;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows=    GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
 
                 var info = new BuildingInfoClass();
                 var building = new BuildingUserControl();
                 info.Index = index;
                 
-                string buildingId = reader["BuildingId"].ToString();
+                string buildingId = row["BuildingId"].ToString();
 
                 info.BuildingId = buildingId;
 
-                dbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
+                DbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
 
                 //取出建筑名称
-                info.Building = reader["Building"].ToString();
+                info.Building = row["Building"].ToString();
 
-                info.Address = reader["Address"].ToString();
-                info.User = reader["User"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
-                info.Count = dbClass.StatisticsPortRoomFloor(buildingId);
+                info.Address = row["Address"].ToString();
+                info.User = row["User"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
+                info.Count = DbClass.StatisticsPortRoomFloor(buildingId);
 
                 building.DataContext = info;
 
@@ -97,36 +96,41 @@ namespace ThinkITAM.FunctionPage
                 string sql = $"SELECT DISTINCT SlotId FROM Bu_{buildingId}";
                
 
-                SQLiteCommand command1 = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader1 = command1.ExecuteReader();
+                var rows1 = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
                 int index2 = 0;
 
                 var buildingItem = new TreeViewItem();
 
-                while (reader1.Read())
+                foreach (var row1 in rows1)
                 {
-                    index2++;
+                                        index2++;
                     var floorClass = new FloorInfoClass();
                     var floor = new FloorUserControl();
 
                     floorClass.Index = index2;
-                    floorClass.Floor = reader1["SlotId"].ToString();
+                    floorClass.Floor = row1["SlotId"].ToString();
                     floorClass.BuildingId = info.BuildingId;
-                    floorClass.RoomCount = dbClass.GetRoomForFloorCount(buildingId, floorClass.Floor);
-                    floorClass.PortCount = dbClass.GetPortForFloorCount(buildingId, floorClass.Floor);
+                    floorClass.RoomCount = DbClass.GetRoomForFloorCount(buildingId, floorClass.Floor);
+                    floorClass.PortCount = DbClass.GetPortForFloorCount(buildingId, floorClass.Floor);
 
                     floor.DataContext = floorClass;
                     
 
 
                     buildingItem.Items.Add(floor);
-
                 }
+
+
+
 
                 buildingItem.Header = building;
 
                 BuildingTreeView.Items.Add(buildingItem);
             }
+
+
 
         }
 
@@ -230,27 +234,27 @@ namespace ThinkITAM.FunctionPage
         {
             string sql = $"SELECT DISTINCT RoomId FROM bu_{buildingId} WHERE  SlotId ='{floor}'";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
 
                 RoomClass room = new RoomClass();
 
                 room.Index = index;
-                room.RoomNumber = reader["RoomId"].ToString();
+                room.RoomNumber = row["RoomId"].ToString();
                 
-                room.PortCount = dbClass.GetRoomPortCount(buildingId,floor, room.RoomNumber);
+                room.PortCount = DbClass.GetRoomPortCount(buildingId,floor, room.RoomNumber);
 
 
                 string noteId = $"{buildingId}{floor}{room.RoomNumber}";
                 //根据Id查询备注
 
-                string note = dbClass.LoadNote(noteId);
+                string note = DbClass.LoadNote(noteId);
 
                 if (!string.IsNullOrWhiteSpace(note))
                 {
@@ -262,9 +266,9 @@ namespace ThinkITAM.FunctionPage
                 }
 
                 roomNumbers.Add(room);
-
-
             }
+
+
 
         }
 
@@ -284,33 +288,36 @@ namespace ThinkITAM.FunctionPage
                 string sql =
                     $"SELECT * FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}' AND RoomId='{room.RoomNumber}'";
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+               
+
+
+
 
                 int index = 0;
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    index++;
+                                        index++;
 
                     PortClass portClass = new PortClass();
 
-                    portClass.UID= Convert.ToInt32(reader["UID"]);
-                    portClass.PortType = reader["PortType"].ToString();
-                    portClass.PortIndex = reader["PortId"].ToString();
-                    portClass.PortTag= reader["PortTag"].ToString();
-                    portClass.Room = reader["RoomId"].ToString();
-                    portClass.PortColor = Convert.ToInt32(reader["PortColor"]);
+                    portClass.UID= Convert.ToInt32(row["UID"]);
+                    portClass.PortType = row["PortType"].ToString();
+                    portClass.PortIndex = row["PortId"].ToString();
+                    portClass.PortTag= row["PortTag"].ToString();
+                    portClass.Room = row["RoomId"].ToString();
+                    portClass.PortColor = Convert.ToInt32(row["PortColor"]);
 
 
 
-                    if (reader["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value)
                     {
                         portClass.OnTheLine = -1;
                     }
                     else
                     {
-                        portClass.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                        portClass.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
                     }
 
 
@@ -322,6 +329,8 @@ namespace ThinkITAM.FunctionPage
 
                     PortManagePanel.Items.Add(port);
                 }
+
+
             }
 
         }

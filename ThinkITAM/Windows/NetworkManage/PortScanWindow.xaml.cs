@@ -17,8 +17,11 @@ using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.General;
 using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModes.Others;
+using ThinkITAM.ViewModels.Others;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.Converters;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -300,13 +303,10 @@ namespace ThinkITAM.Windows.NetworkManage
 
         }
 
-        private DbClass dbClass;
+
 
         private void PortScanWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //打开数据库连接
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
 
             PortPresetComboBox.ItemsSource = scanPorts;
 
@@ -318,28 +318,28 @@ namespace ThinkITAM.Windows.NetworkManage
 
         }
 
-        private ObservableCollection<ViewModes.Preset.ScanPortsViewModel> scanPorts =
-            new ObservableCollection<ViewModes.Preset.ScanPortsViewModel>();
+        private ObservableCollection<ViewModels.Preset.ScanPortsViewModel> scanPorts =
+            new ObservableCollection<ViewModels.Preset.ScanPortsViewModel>();
 
         private void LoadScanPortsPreset()
         {
             scanPorts.Clear();
             string sql = $"SELECT * FROM ScanPorts";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                var ports = new ViewModes.Preset.ScanPortsViewModel();
+                var ports = new ViewModels.Preset.ScanPortsViewModel();
 
-                ports.Name = reader["Name"].ToString();
-                ports.Ports = reader["Ports"].ToString();
+                ports.Name = row["Name"].ToString();
+                ports.Ports = row["Ports"].ToString();
 
                 scanPorts.Add(ports);
-
             }
+
+
         }
 
         private void PortPresetComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -396,7 +396,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 //查询名称是否存在
                 string sqlTemp = $"SELECT COUNT(*) FROM ScanPorts WHERE Name ='{name}'";
 
-                var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (countNum >= 1)
                 {
@@ -410,8 +410,8 @@ namespace ThinkITAM.Windows.NetworkManage
                     if (portList.Count > 0)
                     {
                         string sql = $"INSERT INTO ScanPorts (Name,Ports) VALUES ('{name}','{PortTextBox.Text}')";
-                        dbClass.ExecuteQuery(sql);
-
+                        
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
                         CancelButton_OnClick(null, null);
                     }
                     else

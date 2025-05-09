@@ -2,9 +2,10 @@
 using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.DevicePortManage;
+using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.DevicePortManage;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.Windows.DevicePortManage
@@ -31,9 +32,6 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
             InitializeComponent();
 
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             portInfos = DataBridge.DataBridge.PortDetailedInfos.Where(port => port.IsSelected).ToList();
 
@@ -94,7 +92,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         }
 
-        private DbClass dbClass;
+
 
         private void PortAllocationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -382,7 +380,8 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             string sql = $"UPDATE \"{tableName}\" SET \"Status\" = {status}, \"Mode\" = '{mode}', \"PortName\" = '{portName}', \"VlanId\" = '{vlanId}',\"OnTheLine\" = '{onTheLine}', \"PortColor\" = '{portColor}', \"TagA\" = '{tagA}', \"TagB\" = '{tagB}', \"TagC\" = '{tagC}', \"TagD\" = '{tagD}', \"TagE\" = '{tagE}', \"TagF\" = '{tagF}' , \"AssetId\" = '{assetId}' WHERE  (\"PortTag\" = '{portTag}' AND \"PortSlotNumber\" = {portSlotNumber} AND \"PortId\" ='{portId}' AND \"PortType\" ='{portType}')";
            
-            dbClass.ExecuteQuery(sql);
+            
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
         }
 
         private void PortAllocationWindow_OnClosed(object? sender, EventArgs e)

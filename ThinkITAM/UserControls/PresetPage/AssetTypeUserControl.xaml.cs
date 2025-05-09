@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -30,13 +31,11 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AssetTypeUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
+
 
 
 
@@ -62,26 +61,24 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM AssetTag;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            SQLiteDataReader reader = command.ExecuteReader();
 
 
             int index = 0;
-            while (reader.Read())
+
+            foreach (var row in rows)
             {
                 index++;
                 var info = new AssetTagClass();
                 info.Index = index;
-                info.AssetType = reader["AssetType"].ToString();
-                info.DeviceType = reader["DeviceType"].ToString();
-                info.NumberPrefix = reader["AssetTag"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.AssetType = row["AssetType"].ToString();
+                info.DeviceType = row["DeviceType"].ToString();
+                info.NumberPrefix = row["AssetTag"].ToString();
+                info.Note = row["Note"].ToString();
 
                 assetTags.Add(info);
             }
-
-            
 
         }
 

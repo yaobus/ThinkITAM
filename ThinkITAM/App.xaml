@@ -16,7 +16,7 @@
                     PrimaryColor="DeepOrange"
                     SecondaryColor="Lime" />
 
-                <!-- Set your base theme -->
+                <!--  Set your base theme  -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesign2.defaults.xaml" />
 
                 <ResourceDictionary Source="Language/zh-CN.xaml" />

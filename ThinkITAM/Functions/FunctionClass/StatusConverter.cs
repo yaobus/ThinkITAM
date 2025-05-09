@@ -24,16 +24,16 @@ namespace ThinkITAM.Functions.FunctionClass
                 switch (status)
                 {
                     case 1:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#f2b632");
+                        return Converters.ColorConverterClass.ColorToBrush("#f2b632");
                     case 2:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#ff6f61");
+                        return Converters.ColorConverterClass.ColorToBrush("#ff6f61");
                     case 3:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#4F4E48");
+                        return Converters.ColorConverterClass.ColorToBrush("#4F4E48");
                     default:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#21a675");
+                        return Converters.ColorConverterClass.ColorToBrush("#21a675");
                 }
             }
-            return FunctionClass.ColorConverterClass.ColorToBrush("#21a675");
+            return Converters.ColorConverterClass.ColorToBrush("#21a675");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -89,20 +89,20 @@ namespace ThinkITAM.Functions.FunctionClass
                 switch (status)
                 {
                     case 1:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#FF0080");
+                        return Converters.ColorConverterClass.ColorToBrush("#FF0080");
                     case 2:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#F15A24");
+                        return Converters.ColorConverterClass.ColorToBrush("#F15A24");
                     case 3:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#FBC02D");
+                        return Converters.ColorConverterClass.ColorToBrush("#FBC02D");
 
                     case 4:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#64DD17");
+                        return Converters.ColorConverterClass.ColorToBrush("#64DD17");
                     case 5:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#00A8FF");
+                        return Converters.ColorConverterClass.ColorToBrush("#00A8FF");
                     case 6:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#008080");
+                        return Converters.ColorConverterClass.ColorToBrush("#008080");
                     case 7:
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#362391");
+                        return Converters.ColorConverterClass.ColorToBrush("#362391");
 
                     default://0
                         return Brushes.Transparent;

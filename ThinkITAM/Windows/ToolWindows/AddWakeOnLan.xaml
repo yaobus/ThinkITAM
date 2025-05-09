@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:others="clr-namespace:ThinkITAM.ViewModes.Others"
+        xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
         Title="添加网络唤醒"
         Width="630"
         Height="410"

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +16,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ThinkITAM.FunctionClass;
 using System.Text.RegularExpressions;
-using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.IndexPage;
 
 namespace ThinkITAM.FunctionPage
@@ -34,14 +34,12 @@ namespace ThinkITAM.FunctionPage
             InitializeComponent();
         }
 
-        ObservableCollection<ViewModes.Index.IndexGroupViewModel> groups =
-            new ObservableCollection<ViewModes.Index.IndexGroupViewModel>();
+        ObservableCollection<ViewModels.Index.IndexGroupViewModel> groups =
+            new ObservableCollection<ViewModels.Index.IndexGroupViewModel>();
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
-
+           
             GroupsListView.ItemsSource = groups;
             IndexPanel.ItemsSource = tags;
 
@@ -65,20 +63,19 @@ namespace ThinkITAM.FunctionPage
             if (query != null)
             {
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    var info = GroupsListView.SelectedItem as ViewModes.Index.IndexGroupViewModel;
-                    var tagInfo = new ViewModes.Index.IndexTagViewModel();
-                    tagInfo.IndexId = reader["IndexId"].ToString();
-                    tagInfo.Name = reader["Name"].ToString();
-                    tagInfo.Protocol = reader["Protocol"].ToString();
-                    tagInfo.Host = reader["Host"].ToString();
-                    tagInfo.Port = reader["Port"].ToString();
-                    tagInfo.Browser = reader["Browser"].ToString();
+                    var info = GroupsListView.SelectedItem as ViewModels.Index.IndexGroupViewModel;
+                    var tagInfo = new ViewModels.Index.IndexTagViewModel();
+                    tagInfo.IndexId = row["IndexId"].ToString();
+                    tagInfo.Name = row["Name"].ToString();
+                    tagInfo.Protocol = row["Protocol"].ToString();
+                    tagInfo.Host = row["Host"].ToString();
+                    tagInfo.Port = row["Port"].ToString();
+                    tagInfo.Browser = row["Browser"].ToString();
 
                     string url = $"{tagInfo.Protocol}{tagInfo.Host}";
 
@@ -95,7 +92,7 @@ namespace ThinkITAM.FunctionPage
                     int colorIndex = 0;
                     try
                     {
-                        colorIndex = Convert.ToInt32(reader["Color"]);
+                        colorIndex = Convert.ToInt32(row["Color"]);
                     }
                     catch (Exception exception)
                     {
@@ -104,7 +101,7 @@ namespace ThinkITAM.FunctionPage
 
                     tagInfo.Color = colorIndex;
 
-                   
+
 
                     var item = tags.FirstOrDefault(item => item.IndexId == tagInfo.IndexId);
 
@@ -126,9 +123,8 @@ namespace ThinkITAM.FunctionPage
                     }
 
 
-
-
                 }
+
 
 
 
@@ -160,36 +156,30 @@ namespace ThinkITAM.FunctionPage
             }
 
 
-            
-
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
-            while (reader.Read())
+
+            foreach (var row in rows)
             {
                 index++;
-                var info = new ViewModes.Index.IndexGroupViewModel();
+                var info = new ViewModels.Index.IndexGroupViewModel();
                 info.Index = index;
-                info.Group = reader["Group"].ToString();
+                info.Group = row["Group"].ToString();
                 string sql = $"SELECT COUNT(*) FROM 'Index' WHERE `group` = '{info.Group}'";
 
-                info.Count = dbClass.ExecuteScalarTableNum(sql, dbClass.connection);
+                info.Count = DbClass.ExecuteScalarTableNum(sql);
 
                 await Task.Delay(50);
                 groups.Add(info);
             }
 
-
-
-
         }
 
 
 
-        private DbClass dbClass;
 
-        ObservableCollection<ViewModes.Index.IndexTagViewModel> tags = new ObservableCollection<ViewModes.Index.IndexTagViewModel>();
+        ObservableCollection<ViewModels.Index.IndexTagViewModel> tags = new ObservableCollection<ViewModels.Index.IndexTagViewModel>();
 
         private async void GroupsListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -197,7 +187,7 @@ namespace ThinkITAM.FunctionPage
             {
                 tags.Clear();
 
-                var info = GroupsListView.SelectedItem as ViewModes.Index.IndexGroupViewModel;
+                var info = GroupsListView.SelectedItem as ViewModels.Index.IndexGroupViewModel;
 
                 string sql;
 
@@ -217,21 +207,18 @@ namespace ThinkITAM.FunctionPage
 
                 lastQuery = sql;
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+                var rows =  GlobalVariables.DbService.ExecuteQuery(sql);
 
-
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-
-                    var tagInfo = new ViewModes.Index.IndexTagViewModel();
-                    tagInfo.IndexId= reader["IndexId"].ToString();
+                    var tagInfo = new ViewModels.Index.IndexTagViewModel();
+                    tagInfo.IndexId = row["IndexId"].ToString();
                     tagInfo.Group = info.Group;
-                    tagInfo.Name = reader["Name"].ToString();
-                    tagInfo.Protocol = reader["Protocol"].ToString();
-                    tagInfo.Host = reader["Host"].ToString();
-                    tagInfo.Port = reader["Port"].ToString();
-                    tagInfo.Browser = reader["Browser"].ToString();
+                    tagInfo.Name = row["Name"].ToString();
+                    tagInfo.Protocol = row["Protocol"].ToString();
+                    tagInfo.Host = row["Host"].ToString();
+                    tagInfo.Port = row["Port"].ToString();
+                    tagInfo.Browser = row["Browser"].ToString();
                     string url = $"{tagInfo.Protocol}{tagInfo.Host}";
 
                     if (tagInfo.Port.Length == 0)//未配置端口
@@ -248,7 +235,7 @@ namespace ThinkITAM.FunctionPage
                     int colorIndex = 0;
                     try
                     {
-                        colorIndex = Convert.ToInt32(reader["Color"]);
+                        colorIndex = Convert.ToInt32(row["Color"]);
                     }
                     catch (Exception exception)
                     {
@@ -259,7 +246,6 @@ namespace ThinkITAM.FunctionPage
                     tags.Add(tagInfo);
                     await Task.Delay(50);
                 }
-
 
                 DeleteButton.IsEnabled = true;
             }
@@ -340,7 +326,7 @@ namespace ThinkITAM.FunctionPage
                 int index = GroupsListView.SelectedIndex;
                 string group = groups[index].Group;
                 string sql = $"UPDATE  \"Index\" SET \"Del\"='0' WHERE \"Group\" = '{group}'";
-                dbClass.ExecuteQuery(sql);
+                await GlobalVariables.DbService.ExecuteQueryAsync(sql);
             }
 
             LoadIndexGroups();

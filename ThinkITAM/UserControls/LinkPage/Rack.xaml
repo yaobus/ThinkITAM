@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nodify="https://miroiu.github.io/nodify"
-    xmlns:vm="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:vm="clr-namespace:ThinkITAM.ViewModels.LinkManage"
     Width="1085"
     d:Height="100"
     FontFamily="{StaticResource HarmonyOsFontFamily}"

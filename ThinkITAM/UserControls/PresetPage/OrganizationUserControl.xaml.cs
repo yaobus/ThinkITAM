@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,10 +15,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.DevicePortManage;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -67,21 +68,23 @@ namespace ThinkITAM.UserControls.PresetPage
             
             Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 OrganizationOneViewModel info = new OrganizationOneViewModel();
 
                 info.Index = index;
-                info.Organization = reader["Organization"].ToString();
+                info.Organization = row["Organization"].ToString();
 
                 organizationInfos.Add(info);
             }
+
+
 
             //OrganizationListView.ItemsSource = organizationInfos;
 
@@ -95,9 +98,6 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <param name="e"></param>
         private void OrganizationUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             OneListView.ItemsSource=organizationInfos;
             TowListView.ItemsSource = departmentInfos;
@@ -124,23 +124,24 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{name}' AND ( Department IS NOT NULL OR Department != '') AND ( GROUPS IS NULL OR GROUPS = '')  {sqlsub}";
 
-                Console.WriteLine(query);
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
                 int index = 0;
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    index++;
+                                        index++;
                     DepartmentViewModel info = new DepartmentViewModel();
 
                     info.Index = index;
-                    info.Department = reader["Department"].ToString();
+                    info.Department = row["Department"].ToString();
 
                     departmentInfos.Add(info);
                 }
+
+  
 
                 
 
@@ -166,23 +167,24 @@ namespace ThinkITAM.UserControls.PresetPage
 
                     string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (Groups  NOT NULL OR Groups != '')  {sqlsub}";
 
-                    Console.WriteLine(query);
+                   
 
-                    SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                    SQLiteDataReader reader = command.ExecuteReader();
+                    var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
                     int index = 0;
 
-                    while (reader.Read())
+                    foreach (var row in rows)
                     {
-                        index++;
+                                              index++;
                         GroupViewModel info = new GroupViewModel();
 
                         info.Index = index;
-                        info.Group = reader["Groups"].ToString();
+                        info.Group = row["Groups"].ToString();
 
                         groupsInfos.Add(info);
                     }
+
+  
 
                 }
 
@@ -270,21 +272,22 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization ='{organization}' AND(Department NOT NULL OR Department !='') AND (Groups IS NULL OR Groups = '')  {sqlsub}";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 DepartmentViewModel info = new DepartmentViewModel();
 
                 info.Index = index;
-                info.Department = reader["Department"].ToString();
+                info.Department = row["Department"].ToString();
 
                 departmentInfos.Add(info);
             }
+
+
 
 
         }
@@ -303,21 +306,21 @@ namespace ThinkITAM.UserControls.PresetPage
 
             Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 GroupViewModel info = new GroupViewModel();
 
                 info.Index = index;
-                info.Group = reader["Groups"].ToString();
+                info.Group = row["Groups"].ToString();
 
                 groupsInfos.Add(info);
             }
+
+
 
 
         }
@@ -370,7 +373,8 @@ namespace ThinkITAM.UserControls.PresetPage
                 string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
 
                 
-                dbClass.ExecuteQuery(sql);
+             
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
                 
                 //重新加载数据
                 LoadOrganization();
@@ -389,7 +393,8 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND Department = '{department}' AND (Groups IS NULL OR Groups = '')";
                 
-                dbClass.ExecuteQuery(sql);
+               
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 //重新加载数据
                 LoadDepartment(organization);
@@ -408,7 +413,8 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}'";
 
-                dbClass.ExecuteQuery(sql);
+                
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 //重新加载数据
                 LoadGroups(organization, department);

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using Newtonsoft.Json;
 
-namespace ThinkITAM.ChildrenWindows.AssetManage;
+namespace ThinkITAM.Windows.AssetManage;
 /// <summary>
 /// AddAssetWindowSet.xaml 的交互逻辑
 /// </summary>
@@ -25,16 +25,13 @@ public partial class AddAssetWindowSet : Window
         InitializeComponent();
     }
 
-    private DbClass dbClass;
+
 
     private void AddAssetWindowSet_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
 
-        var tags = dbClass.LoadWindowTag("AddAsset");
+        var tags = DbClass.LoadWindowTag("AddAsset");
 
         if (tags != null)
         {
@@ -64,7 +61,7 @@ public partial class AddAssetWindowSet : Window
         // 将匿名对象序列化为JSON字符串
         string json = JsonConvert.SerializeObject(settings);
 
-        dbClass.SaveWindowTag("AddAsset", json);
+        DbClass.SaveWindowTag("AddAsset", json);
 
         this.DialogResult = true;
         this.Close();

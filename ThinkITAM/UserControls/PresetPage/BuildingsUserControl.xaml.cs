@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
+using System.Collections;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -31,7 +33,7 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -55,8 +57,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void BuildingsUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
             BuildingListView.ItemsSource = buildingInfos;
             LoadBuildingInfos();
@@ -71,29 +72,29 @@ namespace ThinkITAM.UserControls.PresetPage
             string sql = "SELECT * FROM Buildings";
 
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 BuildingInfoClass info = new BuildingInfoClass();
 
                 info.Index = index;
-                info.BuildingId = reader["BuildingId"].ToString();
-                info.Building = reader["Building"].ToString();
-                info.Address = reader["Address"].ToString();
-                info.User = reader["User"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.BuildingId = row["BuildingId"].ToString();
+                info.Building = row["Building"].ToString();
+                info.Address = row["Address"].ToString();
+                info.User = row["User"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 buildingInfos.Add(info);
 
 
-
             }
+
         }
     }
 }

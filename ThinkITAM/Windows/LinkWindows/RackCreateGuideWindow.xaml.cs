@@ -14,9 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.LinkManage;
 using Newtonsoft.Json;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.LinkWindows;
 /// <summary>
@@ -47,9 +49,7 @@ public partial class RackCreateGuideWindow : Window
 
     private void RackCreateGuideWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
+
 
         SlotCombobox.ItemsSource = slotNumList;
         PortTypeCombobox.SelectedIndex = 0;
@@ -72,25 +72,21 @@ public partial class RackCreateGuideWindow : Window
         roomInfos.Clear();
         string query = "SELECT * FROM DeviceRoom";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        SQLiteDataReader reader = command.ExecuteReader();
-
-        if (reader != null)
+        foreach (var row in rows)
         {
-            while (reader.Read())
-            {
-
-                DeviceRoomClass room = new DeviceRoomClass();
-                room.DeviceRoomQrId = reader["DeviceRoomQrId"].ToString();
-                room.Name = reader["RoomName"].ToString();
-                room.Location = reader["Location"].ToString();
-                room.User = reader["User"].ToString();
-                room.UserPhone = reader["UserPhone"].ToString();
-                room.Note = reader["Note"].ToString();
-                roomInfos.Add(room);
-            }
+            DeviceRoomClass room = new DeviceRoomClass();
+            room.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
+            room.Name = row["RoomName"].ToString();
+            room.Location = row["Location"].ToString();
+            room.User = row["User"].ToString();
+            room.UserPhone = row["UserPhone"].ToString();
+            room.Note = row["Note"].ToString();
+            roomInfos.Add(room);
         }
+
+
 
     }
 
@@ -209,23 +205,21 @@ public partial class RackCreateGuideWindow : Window
 
             string query = $"SELECT * FROM  DeviceCabinet WHERE DeviceRoomQrId = '{roomId}'";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
 
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            if (reader != null)
+            foreach (var row in rows)
             {
-                while (reader.Read())
-                {
-                    CabinetClass cabinet = new CabinetClass();
-                    cabinet.CabinetId = reader["CabinetId"].ToString();
-                    cabinet.Name = reader["CabinetName"].ToString();
-                    cabinet.Position = reader["Position"].ToString();
-                    cabinet.Note = reader["Note"].ToString();
+                CabinetClass cabinet = new CabinetClass();
+                cabinet.CabinetId = row["CabinetId"].ToString();
+                cabinet.Name = row["CabinetName"].ToString();
+                cabinet.Position = row["Position"].ToString();
+                cabinet.Note = row["Note"].ToString();
 
-                    cabinetInfos.Add(cabinet);
-                }
+                cabinetInfos.Add(cabinet);
             }
+
+
         }
         else
         {
@@ -269,23 +263,21 @@ public partial class RackCreateGuideWindow : Window
 
             string query = $"SELECT * FROM  DeviceCabinet WHERE DeviceRoomQrId = '{roomId}'";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
 
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            if (reader != null)
+            foreach (var row in rows)
             {
-                while (reader.Read())
-                {
-                    CabinetClass cabinet = new CabinetClass();
-                    cabinet.CabinetId = reader["CabinetId"].ToString();
-                    cabinet.Name = reader["CabinetName"].ToString();
-                    cabinet.Position = reader["Position"].ToString();
-                    cabinet.Note = reader["Note"].ToString();
+                                    CabinetClass cabinet = new CabinetClass();
+                    cabinet.CabinetId = row["CabinetId"].ToString();
+                    cabinet.Name = row["CabinetName"].ToString();
+                    cabinet.Position = row["Position"].ToString();
+                    cabinet.Note = row["Note"].ToString();
 
                     cabinetInfos2.Add(cabinet);
-                }
             }
+
+ 
         }
         else
         {
@@ -371,11 +363,12 @@ public partial class RackCreateGuideWindow : Window
         //第一步，写入机架信息到机架总表
         string sql = $"INSERT INTO \"Racks\" (\"RackId\", \"CabinetId\", \"RackName\", \"RackNote\", \"SlotInfos\",  \"SlotCount\") VALUES ('{rackId}', '{cabinetId}', '{rackCreateInfos.rackName}', '{rackCreateInfos.rackNote}','{infos}', '{rackCreateInfos.slotCount}')";
 
-        dbClass.ExecuteQuery(sql);
+
+        GlobalVariables.DbService.ExecuteNonQuery(sql);
 
         //第二步，创建机架设备表
 
-        dbClass.CreateDynamicsTableIfNotExists(rackStr1, 0);
+        DbClass.CreateDynamicsTableIfNotExists(rackStr1, 0);
 
 
         int uid = 1;
@@ -387,7 +380,8 @@ public partial class RackCreateGuideWindow : Window
             {
                 string sql2 = $"INSERT INTO \"Ra_{rackStr1}\" (\"UID\",\"SlotId\",\"PortId\",\"PortType\") VALUES ({uid},{slot.SlotIndex}, {i},'{slot.SlotType}')";
 
-                dbClass.ExecuteQuery(sql2);
+               
+                GlobalVariables.DbService.ExecuteNonQuery(sql2);
 
                 uid++;
             }

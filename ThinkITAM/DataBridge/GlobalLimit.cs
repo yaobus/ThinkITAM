@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.DataBaseConfig;
 
 namespace ThinkITAM.DataBridge
 {
-    public class GlobalVariables
+    public class GlobalLimit
     {
         /// <summary>
-        /// 数据库服务
+        /// 端口扫描器单次扫描的主机数量限制，512台
         /// </summary>
-        public static IDatabaseService DbService;
-
+        public static int ScanHostNumber = 512;
 
 
     }

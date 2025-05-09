@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.NetworkManage
@@ -31,7 +32,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private IpAddressInfoListViewMode ipInfo;
 
-        private DbClass dbClass;
+
         private void IpColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             //Console.WriteLine(DataBridge.DataBridge.NetworkTableName);
@@ -42,8 +43,6 @@ namespace ThinkITAM.Windows.NetworkManage
 
             //ColorGrid.Background = item.Background;
 
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
 
 
 
@@ -96,7 +95,8 @@ namespace ThinkITAM.Windows.NetworkManage
             string sql = $"UPDATE {DataBridge.DataBridge.NetworkTableName}  SET  AddressColor  = '{colorCode}' WHERE Address = {ipInfo.Address}";
 
 
-            dbClass.ExecuteQuery(sql);
+          
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
             DataBridge.DataBridge.IpAddressInfoLists[ipInfo.Address].AddressColor = PortColor.SelectedIndex;
             

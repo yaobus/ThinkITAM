@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -28,14 +29,10 @@ namespace ThinkITAM.Windows.PresetWindows
         }
 
 
-        private DbClass dbClass;
+
 
         private void AddAssetTagWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             LoadAssetType();
         }
@@ -53,17 +50,14 @@ namespace ThinkITAM.Windows.PresetWindows
 
             string query = "SELECT DISTINCT AssetType FROM AssetTag;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
 
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            if (reader != null)
+            foreach (var row in rows)
             {
-                while (reader.Read())
-                {
-                    assetTypeInfos.Add(reader["AssetType"].ToString());
-                }
+                assetTypeInfos.Add(row["AssetType"].ToString());
             }
+
 
 
             AssetType.ItemsSource = assetTypeInfos;
@@ -88,14 +82,15 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 Console.WriteLine(query);
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    deviceTypeInfos.Add(reader["DeviceType"].ToString());
+                    deviceTypeInfos.Add(row["DeviceType"].ToString());
                 }
+
+
 
                 DeviceType.ItemsSource = deviceTypeInfos;
             }
@@ -129,21 +124,22 @@ namespace ThinkITAM.Windows.PresetWindows
                 string sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetType ='{assetType}' AND DeviceType = '{deviceType}'";
 
 
-                var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (num <= 0)
                 {
                     //检查编号是否重复
                     sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetTag ='{assetTag}'";
 
-                    num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     if (num <= 0)//如果都没有
                     {
 
                         string sql = $"INSERT INTO  \"AssetTag\" (\"AssetType\", \"DeviceType\", \"AssetTag\", \"Note\") VALUES ('{assetType}', '{deviceType}', '{assetTag}', '{Note.Text}')";
 
-                        dbClass.ExecuteQuery(sql);
+                      
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                         this.DialogResult = true;
                         this.Close();

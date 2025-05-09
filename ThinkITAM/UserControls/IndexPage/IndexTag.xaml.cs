@@ -1,4 +1,4 @@
-﻿using ThinkITAM.ChildrenWindows.NetworkManage;
+﻿using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.IndexPage
 {
@@ -28,10 +29,10 @@ namespace ThinkITAM.UserControls.IndexPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
         private void IndexButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var tagInfo = (sender as Button).DataContext as ViewModes.Index.IndexTagViewModel;
+            var tagInfo = (sender as Button).DataContext as ViewModels.Index.IndexTagViewModel;
 
             string url = $"{tagInfo.Protocol}{tagInfo.Host}";
             string browser = tagInfo.Browser;
@@ -49,7 +50,7 @@ namespace ThinkITAM.UserControls.IndexPage
             {
                 if (browser != null && browser.Length > 0)//有指定浏览器
                 {
-                    FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(url, browser);
+                   Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(url, browser);
                 }
                 else
                 {
@@ -80,7 +81,7 @@ namespace ThinkITAM.UserControls.IndexPage
         /// <param name="e"></param>
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModes.Index.IndexTagViewModel tagInfo=null;
+            ViewModels.Index.IndexTagViewModel tagInfo=null;
             var menuItem = sender as MenuItem;
             if (menuItem != null)
             {
@@ -90,7 +91,7 @@ namespace ThinkITAM.UserControls.IndexPage
                     var button = contextMenu.PlacementTarget as Button;
                     if (button != null)
                     {
-                        tagInfo = button.DataContext as ViewModes.Index.IndexTagViewModel;
+                        tagInfo = button.DataContext as ViewModels.Index.IndexTagViewModel;
                         // 在这里进行进一步的操作...
                     }
                 }
@@ -107,9 +108,7 @@ namespace ThinkITAM.UserControls.IndexPage
                 {
                     case "删除标签":
 
-                        // 执行选项1的操作
-                        dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-                        dbClass.OpenConnection();
+
 
                         string portSql;
                         if (tagInfo.Port.Length == 0)
@@ -127,7 +126,8 @@ namespace ThinkITAM.UserControls.IndexPage
 
                         
 
-                        dbClass.ExecuteQuery(sql);
+
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                         DataBridge.DataBridge.modifyIndexTags.Add("1");
 

@@ -1,13 +1,14 @@
-﻿using ThinkITAM.ChildrenWindows.NetworkManage;
-using ThinkITAM.ViewModes.NetworkManage;
+﻿using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.ViewModels.NetworkManage;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ThinkITAM.FunctionPage;
-using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
-using ThinkITAM.ChildrenWindows.ToolWindows;
-using ThinkITAM.ViewModes.Others;
+using ThinkITAM.Functions.FunctionClass;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.Windows.ToolWindows;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.UserControls.NetworkManage;
 
@@ -132,7 +133,7 @@ public partial class IpAddressInfo : UserControl
                         string url2 = $"{DataBridge.DataBridge.Protocol}{url}:{DataBridge.DataBridge.SelectPort}";
 
 
-                        FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
+                        OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
 
 
                         break;

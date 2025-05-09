@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.PortPanel"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:portPanel="clr-namespace:ThinkITAM.ViewModes.PortPanel"
+    xmlns:portPanel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
     Width="243"
     Height="50"
     FontFamily="{StaticResource HarmonyOsFontFamily}"

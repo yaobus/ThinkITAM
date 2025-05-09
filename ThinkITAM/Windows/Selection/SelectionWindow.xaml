@@ -1,10 +1,10 @@
 ﻿<Window
-    x:Class="ThinkITAM.Windows.FunctionWindow"
+    x:Class="ThinkITAM.Windows.Selection.SelectionWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionPage="clr-namespace:ThinkITAM.FunctionPage"
-    xmlns:local="clr-namespace:ThinkITAM"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.Selection"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -14,7 +14,7 @@
     MinWidth="1366"
     MinHeight="768"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-
+    Loaded="SelectionWindow_OnLoaded"
     ResizeMode="CanResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"

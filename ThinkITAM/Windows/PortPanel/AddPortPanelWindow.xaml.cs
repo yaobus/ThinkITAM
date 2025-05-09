@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.PortPanel;
 
 namespace ThinkITAM.Windows.PortPanel
 {
@@ -29,7 +31,7 @@ namespace ThinkITAM.Windows.PortPanel
 
         }
 
-        private DbClass dbClass;
+
 
         /// <summary>
         /// 端口号列表
@@ -103,8 +105,7 @@ namespace ThinkITAM.Windows.PortPanel
 
         private void AddPortPanelWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
 
             FloorCombobox.ItemsSource = floorInfos;
@@ -134,27 +135,28 @@ namespace ThinkITAM.Windows.PortPanel
             string sql = "SELECT * FROM Buildings";
 
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 BuildingInfoClass info = new BuildingInfoClass();
 
                 info.Index = index;
-                info.BuildingId = reader["BuildingId"].ToString();
-                info.Building = reader["Building"].ToString();
-                info.Address = reader["Address"].ToString();
-                info.User = reader["User"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.BuildingId = row["BuildingId"].ToString();
+                info.Building = row["Building"].ToString();
+                info.Address = row["Address"].ToString();
+                info.User = row["User"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 buildingInfos.Add(info);
-
             }
+
+
 
             if (DataBridge.DataBridge.SelectBuildingId != null)
             {
@@ -193,22 +195,23 @@ namespace ThinkITAM.Windows.PortPanel
 
             string sql = $"SELECT DISTINCT SlotId FROM bu_{buildingId}";
 
-            SQLiteCommand command1 = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader1 = command1.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int index = 0;
 
 
-            while (reader1.Read())
+            foreach (var row in rows)
             {
-                index++;
+                  index++;
                 FloorInfoClass floor = new FloorInfoClass();
 
-                floor.Floor = reader1["SlotId"].ToString();
+                floor.Floor = row["SlotId"].ToString();
 
                 floorInfos.Add(floor);
-
             }
+
+
         }
 
         private void FloorCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -239,18 +242,17 @@ namespace ThinkITAM.Windows.PortPanel
             string sql =
                 $"SELECT DISTINCT RoomId FROM bu_{DataBridge.DataBridge.SelectBuildingId}  WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}'";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                string room = reader["RoomId"].ToString();
+                string room = row["RoomId"].ToString();
 
                 roomIds.Add(room);
-
-
             }
+
+
         }
 
         /// <summary>
@@ -291,16 +293,18 @@ namespace ThinkITAM.Windows.PortPanel
         {
             string sql = $"SELECT DISTINCT PortGroup FROM PortPanels ";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                string group = reader["PortGroup"].ToString();
+                 string group = row["PortGroup"].ToString();
                 groups.Add(group);
             }
+
+
         }
 
         /// <summary>
@@ -318,7 +322,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
 
-                dbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
+                DbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
 
 
                 string floor = FloorCombobox.Text;
@@ -338,14 +342,15 @@ namespace ThinkITAM.Windows.PortPanel
                 {
                     //先看端口是否存在
                     string sqlTemp =$"SELECT COUNT(*) FROM bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
-                    var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     string message ="以下端口已存在,该端口将不会被添加:\r";
                     int count = 0;
                     if (countNum == 0)//端口不存在
                     {
                         string sql = $"INSERT INTO \"bu_{buildingId}\" ( \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\", \"PortColor\") VALUES ('{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
-                        dbClass.ExecuteQuery(sql);
+                       
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                     }
                     else
@@ -539,7 +544,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
 
-                dbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
+                DbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
 
                 string floor = FloorCombobox.Text;
 
@@ -561,7 +566,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                     string query = $"SELECT COUNT(*) FROM Notes WHERE NoteId='{noteId}'";
 
-                    int countNum = dbClass.ExecuteScalarTableNum(query, dbClass.connection);
+                    int countNum = DbClass.ExecuteScalarTableNum(query);
 
                     string sqlNote;
 
@@ -576,7 +581,8 @@ namespace ThinkITAM.Windows.PortPanel
 
 
                     
-                    dbClass.ExecuteQuery(sqlNote);
+                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sqlNote);
                 }
 
 
@@ -585,7 +591,7 @@ namespace ThinkITAM.Windows.PortPanel
                     //先看端口是否存在
                     string sqlTemp =
                         $"SELECT COUNT(*) FROM Bu_{buildingId} WHERE SlotId='{floor}' AND RoomId='{room}' AND PortId='{port}'";
-                    var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     string message = "以下端口已存在,该端口将不会被添加:\r";
                     int count = 0;
@@ -595,7 +601,8 @@ namespace ThinkITAM.Windows.PortPanel
 
                         string sql = $"INSERT INTO \"Bu_{buildingId}\" (\"UID\", \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\",  \"PortColor\") VALUES ( '{uid}', '{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
                         
-                        dbClass.ExecuteQuery(sql);
+                       
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                     }
                     else
@@ -634,14 +641,14 @@ namespace ThinkITAM.Windows.PortPanel
 
             string sql = $"SELECT UID FROM  Bu_{tableName}"; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                usedNumbers.Add(Convert.ToInt32(reader["UID"]));
-
+                 usedNumbers.Add(Convert.ToInt32(row["UID"]));
             }
+
+
 
 
 

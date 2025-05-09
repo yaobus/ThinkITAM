@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static MaterialDesignThemes.Wpf.Theme;
+using ThinkITAM.DataBridge;
+using System.Collections;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -34,14 +36,11 @@ namespace ThinkITAM.Windows.NetworkManage
             this.Owner = Application.Current.MainWindow;
         }
 
-        private DbClass dbClass;
+
 
         private void FindAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             //加载全部资产信息
             LoadSelectAssetInfo();
@@ -83,35 +82,32 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
-           
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
             int i = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
                 var item = new AssetViewModel();
                 i++;
                 item.Index = i;
 
-                item.AssetId = reader["AssetId"].ToString();
-                item.AssetQrCode = reader["AssetQrCode"].ToString();
-                item.AssetType = reader["AssetType"].ToString();
-                item.DeviceType = reader["DeviceType"].ToString();
-                item.AssetNumber = reader["AssetTag"].ToString() + reader["AssetNumber"].ToString();
+                item.AssetId = row["AssetId"].ToString();
+                item.AssetQrCode = row["AssetQrCode"].ToString();
+                item.AssetType = row["AssetType"].ToString();
+                item.DeviceType = row["DeviceType"].ToString();
+                item.AssetNumber = row["AssetTag"].ToString() + row["AssetNumber"].ToString();
 
                 AssetType.Text = item.AssetType;
                 DeviceType.Text = item.DeviceType;
-                
 
-                string purchaseDate = reader["PurchaseDate"].ToString();
+
+                string purchaseDate = row["PurchaseDate"].ToString();
                 DateTime time1;
                 if (purchaseDate.Length > 0)
                 {
-                    time1 = DateTime.Parse(reader["PurchaseDate"].ToString());
+                    time1 = DateTime.Parse(row["PurchaseDate"].ToString());
                     item.PurchaseDate = time1.ToString("d");
                 }
                 else
@@ -124,21 +120,21 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
 
-                item.PurchasePrice = reader["PurchasePrice"].ToString();
-                item.Manufacturer = reader["Manufacturer"].ToString();
-                item.Model = reader["Model"].ToString();
-                item.SerialNumber = reader["SerialNumber"].ToString();
-                item.Configuration = reader["Configuration"].ToString();
-                item.Location = reader["Location"].ToString();
-                item.UserOrganization = reader["UserOrganization"].ToString();
-                item.UserDepartment = reader["UserDepartment"].ToString();
-                item.User = reader["User"].ToString();
-                item.UserPhone = reader["UserPhone"].ToString();
-                item.Consumer = reader["Consumer"].ToString();
-                item.Status = reader["Status"].ToString();
-                item.UsedYear = reader["UsedYear"].ToString();
+                item.PurchasePrice = row["PurchasePrice"].ToString();
+                item.Manufacturer = row["Manufacturer"].ToString();
+                item.Model = row["Model"].ToString();
+                item.SerialNumber = row["SerialNumber"].ToString();
+                item.Configuration = row["Configuration"].ToString();
+                item.Location = row["Location"].ToString();
+                item.UserOrganization = row["UserOrganization"].ToString();
+                item.UserDepartment = row["UserDepartment"].ToString();
+                item.User = row["User"].ToString();
+                item.UserPhone = row["UserPhone"].ToString();
+                item.Consumer = row["Consumer"].ToString();
+                item.Status = row["Status"].ToString();
+                item.UsedYear = row["UsedYear"].ToString();
 
-                string timeStr = reader["ScrapDate"].ToString();
+                string timeStr = row["ScrapDate"].ToString();
 
                 if (timeStr.Length > 3)
                 {
@@ -153,13 +149,13 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
 
-                item.Notes = reader["Notes"].ToString();
-                item.TagA = reader["TagA"].ToString();
-                item.TagB = reader["TagB"].ToString();
-                item.TagC = reader["TagC"].ToString();
-                item.TagD = reader["TagD"].ToString();
-                item.TagE = reader["TagE"].ToString();
-                item.TagF = reader["TagF"].ToString();
+                item.Notes = row["Notes"].ToString();
+                item.TagA = row["TagA"].ToString();
+                item.TagB = row["TagB"].ToString();
+                item.TagC = row["TagC"].ToString();
+                item.TagD = row["TagD"].ToString();
+                item.TagE = row["TagE"].ToString();
+                item.TagF = row["TagF"].ToString();
 
                 //var asset = new AssetInfoUserControl();
 
@@ -168,8 +164,10 @@ namespace ThinkITAM.Windows.NetworkManage
                 //AssetListView.Items.Add(asset);
 
                 assetViewModels.Add(item);
-
             }
+
+
+
         }
 
 
@@ -185,17 +183,15 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string query = "SELECT DISTINCT AssetType FROM AssetTag;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
 
-            SQLiteDataReader reader = command.ExecuteReader();
 
-            if (reader != null)
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            foreach (var row in rows)
             {
-                while (reader.Read())
-                {
-                    assetTypeInfos.Add(reader["AssetType"].ToString());
-                }
+                 assetTypeInfos.Add(row["AssetType"].ToString());
             }
+
 
 
             AssetType.ItemsSource = assetTypeInfos;
@@ -225,14 +221,15 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 //Console.WriteLine(query);
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    deviceTypeInfos.Add(reader["DeviceType"].ToString());
+                    deviceTypeInfos.Add(row["DeviceType"].ToString());
                 }
+
+
 
                 DeviceType.ItemsSource = deviceTypeInfos;
             }
@@ -278,31 +275,30 @@ namespace ThinkITAM.Windows.NetworkManage
                 sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
             }
 
-            
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+           
 
             int i = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                var item = new AssetViewModel();
+                                var item = new AssetViewModel();
                 i++;
                 item.Index = i;
 
-                item.AssetId = reader["AssetId"].ToString();
-                item.AssetQrCode = reader["AssetQrCode"].ToString();
-                item.AssetType = reader["AssetType"].ToString();
-                item.DeviceType = reader["DeviceType"].ToString();
-                item.AssetNumber = reader["AssetTag"].ToString() + reader["AssetNumber"].ToString();
+                item.AssetId = row["AssetId"].ToString();
+                item.AssetQrCode = row["AssetQrCode"].ToString();
+                item.AssetType = row["AssetType"].ToString();
+                item.DeviceType = row["DeviceType"].ToString();
+                item.AssetNumber = row["AssetTag"].ToString() + row["AssetNumber"].ToString();
 
 
-                string purchaseDate = reader["PurchaseDate"].ToString();
+                string purchaseDate = row["PurchaseDate"].ToString();
                 DateTime time1;
                 if (purchaseDate.Length > 0)
                 {
-                    time1 = DateTime.Parse(reader["PurchaseDate"].ToString());
+                    time1 = DateTime.Parse(row["PurchaseDate"].ToString());
                     item.PurchaseDate = time1.ToString("d");
                 }
                 else
@@ -315,21 +311,21 @@ namespace ThinkITAM.Windows.NetworkManage
 
                
 
-                item.PurchasePrice = reader["PurchasePrice"].ToString();
-                item.Manufacturer = reader["Manufacturer"].ToString();
-                item.Model = reader["Model"].ToString();
-                item.SerialNumber = reader["SerialNumber"].ToString();
-                item.Configuration = reader["Configuration"].ToString();
-                item.Location = reader["Location"].ToString();
-                item.UserOrganization = reader["UserOrganization"].ToString();
-                item.UserDepartment = reader["UserDepartment"].ToString();
-                item.User = reader["User"].ToString();
-                item.UserPhone = reader["UserPhone"].ToString();
-                item.Consumer = reader["Consumer"].ToString();
-                item.Status = reader["Status"].ToString();
-                item.UsedYear = reader["UsedYear"].ToString();
+                item.PurchasePrice = row["PurchasePrice"].ToString();
+                item.Manufacturer = row["Manufacturer"].ToString();
+                item.Model = row["Model"].ToString();
+                item.SerialNumber = row["SerialNumber"].ToString();
+                item.Configuration = row["Configuration"].ToString();
+                item.Location = row["Location"].ToString();
+                item.UserOrganization = row["UserOrganization"].ToString();
+                item.UserDepartment = row["UserDepartment"].ToString();
+                item.User = row["User"].ToString();
+                item.UserPhone = row["UserPhone"].ToString();
+                item.Consumer = row["Consumer"].ToString();
+                item.Status = row["Status"].ToString();
+                item.UsedYear = row["UsedYear"].ToString();
 
-                string timeStr = reader["ScrapDate"].ToString();
+                string timeStr = row["ScrapDate"].ToString();
 
                 if (timeStr.Length > 3)
                 {
@@ -344,13 +340,13 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
 
-                item.Notes = reader["Notes"].ToString();
-                item.TagA = reader["TagA"].ToString();
-                item.TagB = reader["TagB"].ToString();
-                item.TagC = reader["TagC"].ToString();
-                item.TagD = reader["TagD"].ToString();
-                item.TagE = reader["TagE"].ToString();
-                item.TagF = reader["TagF"].ToString();
+                item.Notes = row["Notes"].ToString();
+                item.TagA = row["TagA"].ToString();
+                item.TagB = row["TagB"].ToString();
+                item.TagC = row["TagC"].ToString();
+                item.TagD = row["TagD"].ToString();
+                item.TagE = row["TagE"].ToString();
+                item.TagF = row["TagF"].ToString();
 
                 //var asset = new AssetInfoUserControl();
 
@@ -359,8 +355,8 @@ namespace ThinkITAM.Windows.NetworkManage
                 //AssetListView.Items.Add(asset);
 
                 assetViewModels.Add(item);
-
             }
+
         }
 
         private string assetId;//关联的资产全局唯一ID

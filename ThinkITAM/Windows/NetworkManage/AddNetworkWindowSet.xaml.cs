@@ -23,7 +23,7 @@ namespace ThinkITAM.Windows.NetworkManage
     /// </summary>
     public partial class AddNetworkWindowSet : Window
     {
-        private DbClass dbClass;
+
 
         public AddNetworkWindowSet()
         {
@@ -33,12 +33,9 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AddNetworkWindowSet_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
-            var tags = dbClass.LoadWindowTag("AddNetwork");
+            var tags = DbClass.LoadWindowTag("AddNetwork");
 
             if (tags != null)
             {
@@ -71,7 +68,7 @@ namespace ThinkITAM.Windows.NetworkManage
             // 将匿名对象序列化为JSON字符串
             string json = JsonConvert.SerializeObject(settings);
 
-            dbClass.SaveWindowTag("AddNetwork",json);
+            DbClass.SaveWindowTag("AddNetwork",json);
             
             this.DialogResult = true;
             this.Close();

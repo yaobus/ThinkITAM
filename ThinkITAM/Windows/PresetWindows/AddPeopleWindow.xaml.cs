@@ -15,8 +15,11 @@ using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.General;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DataBridge;
+using System.Collections;
+using ThinkITAM.Functions.FunctionClass;
 
 
 namespace ThinkITAM.Windows.PresetWindows;
@@ -35,10 +38,6 @@ public partial class AddPeopleWindow : Window
     private void AddPeopleWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
 
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
         LoadOrganizationInfo();
         LoadUserNumberPrefix();//加载用户编号前缀
 
@@ -58,28 +57,24 @@ public partial class AddPeopleWindow : Window
     /// </summary>
     private void LoadUserNumberPrefix()
     {
-        string query = "SELECT *  FROM CustomSetting WHERE Option='UserNumberPrefix';";
+        string query = "SELECT Content FROM CustomSetting WHERE Option='UserNumberPrefix';";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+        var prefix = GlobalVariables.DbService.ExecuteScalar(query).ToString();
 
-
-        if (reader.Read())
+        if (!string.IsNullOrWhiteSpace(prefix))
         {
-            string prefix = reader["Content"].ToString();
-
-
             UserNumberPrefix.Dispatcher.Invoke(() =>
-            {
-                UserNumberPrefix.Text = prefix;
-            });
+                {
+                    UserNumberPrefix.Text = prefix;
+                });
         }
         else
         {
-
             SavePrefixDialogHost.IsOpen = true;
-
         }
+
+
+
 
 
 
@@ -101,15 +96,15 @@ public partial class AddPeopleWindow : Window
 
         string sql = "SELECT Number FROM UserInfo "; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
 
-        SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
 
-        while (reader.Read())
+        var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+        foreach (var row in rows)
         {
-            usedNumbers.Add(Convert.ToInt32(reader["Number"]));
-
-
+               usedNumbers.Add(Convert.ToInt32(row["Number"]));
         }
+
+
 
 
 
@@ -132,14 +127,14 @@ public partial class AddPeopleWindow : Window
 
         string query = "SELECT DISTINCT Organization FROM Organization;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
 
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            organizationInfo.Add(reader["Organization"].ToString());
+             organizationInfo.Add(row["Organization"].ToString());
         }
+
 
         Organization.ItemsSource = organizationInfo;
 
@@ -160,14 +155,14 @@ public partial class AddPeopleWindow : Window
 
             Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                departmentInfo.Add(reader["Department"].ToString());
+                departmentInfo.Add(row["Department"].ToString());
             }
+
+
 
             Department.ItemsSource = departmentInfo;
         }
@@ -245,7 +240,7 @@ public partial class AddPeopleWindow : Window
         string sqlTemp = $"SELECT COUNT(*) FROM UserInfo WHERE Number ='{UserNumber.Text}'";
 
         //查询记录是否存在
-        var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
         if (countNum > 0)
@@ -269,13 +264,14 @@ public partial class AddPeopleWindow : Window
 
 
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num <= 0)
         {
             string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
 
-            dbClass.ExecuteQuery(sql);
+   
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
         }
 
@@ -299,8 +295,9 @@ public partial class AddPeopleWindow : Window
 
         string sql = $"INSERT INTO \"main\".\"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"Group\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
 
-        Console.WriteLine(sql);
-        dbClass.ExecuteQuery(sql);
+    
+
+        GlobalVariables.DbService.ExecuteNonQuery(sql);
         this.DialogResult = true;
 
 
@@ -318,14 +315,14 @@ public partial class AddPeopleWindow : Window
 
             Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                groupsInfo.Add(reader["Groups"].ToString());
+                 groupsInfo.Add(row["Groups"].ToString());
             }
+
+
 
             Groups.ItemsSource = groupsInfo;
         }
@@ -347,21 +344,23 @@ public partial class AddPeopleWindow : Window
             string sqlTemp = $"SELECT COUNT(*) FROM CustomSetting WHERE Option ='UserNumberPrefix'";
 
             //查询记录是否存在
-            var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
             if (countNum == 0)//判断记录是否存在，不存在的情况
             {
 
                 string sql = $"INSERT INTO \"main\".\"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
 
-                dbClass.ExecuteQuery(sql);
+              
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
             }
             else//存在
             {
                 string sql = $"UPDATE \"main\".\"CustomSetting\" SET \"Content\" = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
-                dbClass.ExecuteQuery(sql);
+                
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
             SavePrefixDialogHost.IsOpen = false;
         }

@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.ChildrenWindows.LinkWindows;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.Windows.LinkWindows;
+using ThinkITAM.ViewModels.LinkManage;
 using Point = System.Windows.Point;
 
 namespace ThinkITAM.UserControls.LinkPage

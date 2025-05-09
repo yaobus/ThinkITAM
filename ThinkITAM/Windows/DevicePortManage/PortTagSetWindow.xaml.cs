@@ -22,7 +22,7 @@ namespace ThinkITAM.Windows.DevicePortManage
     /// </summary>
     public partial class PortTagSetWindow : Window
     {
-        private DbClass dbClass;
+
         public PortTagSetWindow()
         {
             InitializeComponent();
@@ -30,17 +30,13 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         private void PortTagSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             
             var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
 
             string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-            var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
             if (DataBridge.DataBridge.SelectDeviceTableInfo.AssetId != null)
@@ -55,7 +51,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             if (num > 0)//存在本地自定义标签
             {
-                var tags = dbClass.LoadWindowTag(tagWindow);
+                var tags = DbClass.LoadWindowTag(tagWindow);
 
                 if (tags != null)
                 {
@@ -75,7 +71,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
             else//全局标签
             {
-                var tags = dbClass.LoadWindowTag("DevicePortTag");
+                var tags = DbClass.LoadWindowTag("DevicePortTag");
 
                 if (tags != null)
                 {
@@ -178,7 +174,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             // 将匿名对象序列化为JSON字符串
             string json = JsonConvert.SerializeObject(settings);
 
-            dbClass.SaveWindowTag(tagWindow, json);
+            DbClass.SaveWindowTag(tagWindow, json);
 
             this.DialogResult = true;
             this.Close();

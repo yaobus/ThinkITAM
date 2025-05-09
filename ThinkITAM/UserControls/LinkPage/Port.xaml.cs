@@ -14,11 +14,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.LinkWindows;
+using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
@@ -54,13 +56,12 @@ namespace ThinkITAM.UserControls.LinkPage
 
         }
 
-        private DbClass dbClass;
+
 
         private void Port_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
 
         }
@@ -95,7 +96,7 @@ namespace ThinkITAM.UserControls.LinkPage
                     DataBridge.DataBridge.SelectRackId.Add(rackInfo.RackId);
 
                     //保存MDF信息
-                    portInfo.MdfRackClass = dbClass.GetRackInfo(rackInfo.RackId); ;
+                    portInfo.MdfRackClass = DbClass.GetRackInfo(rackInfo.RackId); ;
                 }
 
 
@@ -285,7 +286,8 @@ namespace ThinkITAM.UserControls.LinkPage
                             //清除本端
                             string sql = $"UPDATE \"{tableHeaerA}_{portInfo.MdfRackClass.RackId}\" SET \"PermanentType\" = NULL, \"PermanentRackId\" = NULL, \"PermanentSlot\" = NULL, \"PermanentRoom\" = NULL, \"PermanentPort\" = '' WHERE SlotId = '{portInfo.SlotClass.SlotIndex}' AND PortId='{portInfo.PortClass.PortIndex}'";
 
-                            dbClass.ExecuteQuery(sql);
+                            
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
                             DataBridge.DataBridge.SelectUpdateRackId.Add(portInfo.MdfRackClass.RackId);
 
 
@@ -308,8 +310,8 @@ namespace ThinkITAM.UserControls.LinkPage
                             //清除本端
                             string sql = $"UPDATE \"{tableHeaerB}_{portInfo.MdfRackClass.RackId}\" SET \"TempType\" = NULL, \"TempRackId\" = NULL, \"TempSlot\" = NULL, \"TempRoom\" = NULL, \"TempPort\" = '' WHERE SlotId = '{portInfo.SlotClass.SlotIndex}' AND PortId='{portInfo.PortClass.PortIndex}'";
 
-                            dbClass.ExecuteQuery(sql);
-
+                           
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
                             DataBridge.DataBridge.SelectUpdateRackId.Add(portInfo.MdfRackClass.RackId);
 
                             //DataBridge.DataBridge.ModifyTagList.Add("PortTempLinkClear");

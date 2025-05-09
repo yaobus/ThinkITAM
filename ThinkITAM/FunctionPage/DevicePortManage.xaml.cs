@@ -1,27 +1,27 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using ThinkITAM.ChildrenWindows.DevicePortManage;
-using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
 using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.NetworkManage;
-using ThinkITAM.ViewModes.Others;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Others;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
-using static ThinkITAM.ViewModes.DevicePortManage.PortTypeClass;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using Microsoft.Data.Sqlite;
 
 
 
@@ -37,12 +37,9 @@ public partial class DevicePortManage : UserControl
         InitializeComponent();
     }
 
-    private DbClass dbClass;
-
+  
     private  void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
     {
-        dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-        dbClass.OpenConnection();
 
         PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
@@ -97,18 +94,18 @@ public partial class DevicePortManage : UserControl
         AssetTreeView.Items.Clear();
         string sqlTemp = $"SELECT COUNT(*) FROM Devices";
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
             string query = "SELECT DISTINCT AssetType FROM Devices;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
                 index++;
 
@@ -116,32 +113,31 @@ public partial class DevicePortManage : UserControl
 
                 info.Index = index;
 
-                string assetTypeInfo = reader["AssetType"].ToString();
+                string assetTypeInfo = row["AssetType"].ToString();
 
                 info.AssetType = assetTypeInfo;//资产类型
 
                 sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}'";
 
-                SQLiteCommand command2 = new SQLiteCommand(sqlTemp, dbClass.connection);
-                SQLiteDataReader reader2 = command2.ExecuteReader();
+                var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
                 int index2 = 0;
 
-
                 var deviceTypeItems = new TreeViewItem();
-                while (reader2.Read())
+
+                foreach (var row2 in rows2)
                 {
                     index2++;
                     var device = new DeviceInfo();
                     var deviceInfo = new DeviceTypeViewModel();
 
                     deviceInfo.Index = index2;
-                    deviceInfo.DeviceType = reader2["DeviceType"].ToString();
-                    deviceInfo.AssetId = reader2["AssetId"].ToString();
+                    deviceInfo.DeviceType = row2["DeviceType"].ToString();
+                    deviceInfo.AssetId = row2["AssetId"].ToString();
                     deviceInfo.AssetType = assetTypeInfo;
-                    deviceInfo.Description = reader2["Description"].ToString();
-                    deviceInfo.Model = reader2["Model"].ToString();
-                    deviceInfo.AssetNumber = reader2["AssetNumber"].ToString();
+                    deviceInfo.Description = row2["Description"].ToString();
+                    deviceInfo.Model = row2["Model"].ToString();
+                    deviceInfo.AssetNumber = row2["AssetNumber"].ToString();
                     deviceInfo.ToolTip = $"[{deviceInfo.Description}]-[{deviceInfo.Model}]-[{deviceInfo.AssetNumber}]";
 
 
@@ -149,8 +145,8 @@ public partial class DevicePortManage : UserControl
 
 
                     deviceTypeItems.Items.Add(device);
-
                 }
+
 
                 info.DeviceTypeCount = "设备总数:" + index2;//设备类型总数
 
@@ -167,6 +163,8 @@ public partial class DevicePortManage : UserControl
 
                 assetTypes.Add(info);
             }
+
+
 
             //Organization.ItemsSource = organizationInfo;
 
@@ -276,62 +274,65 @@ public partial class DevicePortManage : UserControl
 
             string query = $"SELECT * FROM {tableName};";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+
+            foreach (var row in rows)
             {
                 //读取端口信息，并写入列表
                 var info = new PortDetailedInfo();
-                info.UID = Convert.ToInt32(reader["UID"]);
-                info.PortType = reader["PortType"].ToString();
-                info.PortTag = reader["PortTag"].ToString();
-                info.PortSlotNumber = Convert.ToInt32(reader["PortSlotNumber"]);
-                info.PortId = reader["PortId"].ToString();
-                info.Status = Convert.ToInt32(reader["Status"].ToString());
-                info.Mode = reader["Mode"].ToString();
-                info.PortName = reader["PortName"].ToString();
-                info.VlanId = reader["VlanId"].ToString();
-                
-                
-               
+                info.UID = Convert.ToInt32(row["UID"]);
+                info.PortType = row["PortType"].ToString();
+                info.PortTag = row["PortTag"].ToString();
+                info.PortSlotNumber = Convert.ToInt32(row["PortSlotNumber"]);
+                info.PortId = row["PortId"].ToString();
+                info.Status = Convert.ToInt32(row["Status"].ToString());
+                info.Mode = row["Mode"].ToString();
+                info.PortName = row["PortName"].ToString();
+                info.VlanId = row["VlanId"].ToString();
+
+
+
 
                 //如果颜色索引数据库返回值为空数据，则使用默认颜色
 
-                if (reader["PortColor"] == DBNull.Value)
+                if (row["PortColor"] == DBNull.Value)
                 {
-                    info.PortColor =0;
+                    info.PortColor = 0;
                 }
                 else
                 {
-                 info.PortColor = Convert.ToInt32(reader["PortColor"]);
+                    info.PortColor = Convert.ToInt32(row["PortColor"]);
                 }
 
 
-                if (reader["OnTheLine"] == DBNull.Value)
+                if (row["OnTheLine"] == DBNull.Value)
                 {
                     info.OnTheLine = -1;
                 }
                 else
                 {
-                    info.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                    info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
                 }
 
 
 
 
-                info.TagA = reader["TagA"].ToString();
-                info.TagB = reader["TagB"].ToString();
-                info.TagC = reader["TagC"].ToString();
-                info.TagD = reader["TagD"].ToString();
-                info.TagE = reader["TagE"].ToString();
-                info.TagF = reader["TagF"].ToString();
-                info.AssetId = reader["AssetId"].ToString();
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
+                info.AssetId = row["AssetId"].ToString();
 
                 info.ToolTip = JoinTip(info);
 
                 DataBridge.DataBridge.PortDetailedInfos.Add(info);
 
             }
+
+
 
         }
 
@@ -816,13 +817,13 @@ public partial class DevicePortManage : UserControl
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
 
         if (num > 0) //存在本地自定义标签
         {
-            var tags = dbClass.LoadWindowTag(tagWindow);
+            var tags = DbClass.LoadWindowTag(tagWindow);
 
             if (tags != null)
             {
@@ -844,7 +845,7 @@ public partial class DevicePortManage : UserControl
         }
         else //全局标签
         {
-            var tags = dbClass.LoadWindowTag("DevicePortTag");
+            var tags = DbClass.LoadWindowTag("DevicePortTag");
 
             if (tags != null)
             {

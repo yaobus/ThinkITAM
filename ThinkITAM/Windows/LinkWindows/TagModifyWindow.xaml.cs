@@ -13,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.ViewModels.LinkManage;
 using Newtonsoft.Json;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.Windows.LinkWindows
 {
@@ -38,17 +39,13 @@ namespace ThinkITAM.Windows.LinkWindows
         private string tagType;
         private object tagInfo;
 
-        private DbClass dbClass;
+
 
 
 
 
         private void TagModifyWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
 
             switch (tagType)
@@ -58,8 +55,8 @@ namespace ThinkITAM.Windows.LinkWindows
                     PortClass portInfo = (PortClass)tagInfo;
 
                     TitleTextBlock.Text = portInfo.PortIndex.ToString();
-                    
-                    TagTextBox.Text =portInfo.PortTag;
+
+                    TagTextBox.Text = portInfo.PortTag;
 
                     break;
 
@@ -79,7 +76,7 @@ namespace ThinkITAM.Windows.LinkWindows
                     MdfRackClass rackInfo = (MdfRackClass)tagInfo;
 
                     TitleTextBlock.Text = "当前修改机架标签";
-                    TagTextBox.Text=rackInfo.RackName;
+                    TagTextBox.Text = rackInfo.RackName;
                     break;
 
 
@@ -95,78 +92,79 @@ namespace ThinkITAM.Windows.LinkWindows
 
             //if (TagTextBox.Text.Replace(" ", "").Length >= 2)
             //{
-                string tag = TagTextBox.Text;
-                string sql;
-                
-                switch (tagType)
-                {
-                    case "port":
+            string tag = TagTextBox.Text;
+            string sql;
 
-                        PortClass portInfo = (PortClass)tagInfo;
+            switch (tagType)
+            {
+                case "port":
 
-                        sql = $"UPDATE \"Ra_{DataBridge.DataBridge.SelectRackId[0]}\" SET \"PortTag\" = '{tag}' WHERE UID = '{portInfo.UID}'";
-                        
-                        dbClass.ExecuteQuery(sql);
+                    PortClass portInfo = (PortClass)tagInfo;
 
-                        DialogResult = true;
-
-                        break;
-
-                    case "slot":
-
-                        var slots = DataBridge.DataBridge.SelectRackInfo.slotInfos;
-
-                        SlotClass slotInfo = (SlotClass)tagInfo;
+                    sql = $"UPDATE \"Ra_{DataBridge.DataBridge.SelectRackId[0]}\" SET \"PortTag\" = '{tag}' WHERE UID = '{portInfo.UID}'";
 
 
-                        var itemToUpdate = slots.FirstOrDefault(item => item.SlotIndex == slotInfo.SlotIndex);
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
 
-                        if (itemToUpdate != null)
-                        {
-                            itemToUpdate.SlotName = $"{tag}";
-                            
-                        }
+                    DialogResult = true;
 
-                        foreach (var slot in slots)
-                        {
-                            slot.Ports = null;
-                        }
+                    break;
 
+                case "slot":
 
-                        // 将列表序列化为JSON字符串
-                        string json = JsonConvert.SerializeObject(slots);
+                    var slots = DataBridge.DataBridge.SelectRackInfo.slotInfos;
+
+                    SlotClass slotInfo = (SlotClass)tagInfo;
 
 
-                        sql = $"UPDATE \"Racks\" SET \"SlotInfos\" = '{json}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
+                    var itemToUpdate = slots.FirstOrDefault(item => item.SlotIndex == slotInfo.SlotIndex);
+
+                    if (itemToUpdate != null)
+                    {
+                        itemToUpdate.SlotName = $"{tag}";
+
+                    }
+
+                    foreach (var slot in slots)
+                    {
+                        slot.Ports = null;
+                    }
 
 
-                        dbClass.ExecuteQuery(sql);
-
-                        DialogResult = true;
-
-
-                        break;
+                    // 将列表序列化为JSON字符串
+                    string json = JsonConvert.SerializeObject(slots);
 
 
-                    case "rack":
-                        
-                        sql = $"UPDATE \"Racks\" SET \"RackName\" = '{tag}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
-
-                        
-                        dbClass.ExecuteQuery(sql);
-                        
-                        DialogResult=true;
-
-                        break;
-
-
-                }
+                    sql = $"UPDATE \"Racks\" SET \"SlotInfos\" = '{json}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
 
 
 
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    DialogResult = true;
 
 
-           // }
+                    break;
+
+
+                case "rack":
+
+                    sql = $"UPDATE \"Racks\" SET \"RackName\" = '{tag}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
+
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    DialogResult = true;
+
+                    break;
+
+
+            }
+
+
+
+
+
+            // }
 
         }
 

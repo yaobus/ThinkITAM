@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
 {
@@ -28,12 +30,11 @@ namespace ThinkITAM.Windows.PresetWindows
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AddBuildingWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
             AddressCombobox.ItemsSource = addressInfos;
 
@@ -53,22 +54,22 @@ namespace ThinkITAM.Windows.PresetWindows
 
             string query = "SELECT * FROM Address;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;
-                info.Location = reader["Location"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Location = row["Location"].ToString();
+                info.Note = row["Note"].ToString();
 
                 addressInfos.Add(info);
             }
+
 
 
 
@@ -82,25 +83,25 @@ namespace ThinkITAM.Windows.PresetWindows
 
             string query = "SELECT * FROM UserInfo;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                               index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
-                peopleInfos.Add(info);
+                peopleInfos.Add(info); 
             }
+
 
         }
 
@@ -119,7 +120,7 @@ namespace ThinkITAM.Windows.PresetWindows
             {
                 string sql = $"SELECT COUNT(*) FROM Buildings WHERE Building='{building}' AND Address='{address}'";
 
-                var countNum = dbClass.ExecuteScalarTableNum(sql, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sql);
 
                 if (countNum == 0)
                 {
@@ -128,14 +129,15 @@ namespace ThinkITAM.Windows.PresetWindows
                     string assetId = AssetIdCreate.CreateAssetId(building + address);
 
                     //创建资产ID,0为机房，1为机柜，2为设备,3为机架，8为建筑，9为人员
-                    string buildingId = "8" + FunctionClass.AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+                    string buildingId = "8" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
                     string people = PeopleCombobox.Text;
                     string phone = Phone.Text;
                     string note = Note.Text;
 
                     sql = $"INSERT INTO \"Buildings\" (\"BuildingId\", \"Building\", \"Address\", \"User\", \"Phone\", \"Note\") VALUES ('{buildingId}', '{building}', '{address}', '{people}', '{phone}', '{note}')";
 
-                    dbClass.ExecuteQuery(sql);
+            
+                    GlobalVariables.DbService.ExecuteNonQuery(sql); 
 
                     DialogResult = true;
                 }

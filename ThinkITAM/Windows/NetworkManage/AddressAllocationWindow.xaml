@@ -2,6 +2,7 @@
     x:Class="ThinkITAM.Windows.NetworkManage.AddressAllocationWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:local="clr-namespace:ThinkITAM.Windows.NetworkManage"
@@ -20,7 +21,7 @@
     mc:Ignorable="d">
     <Window.Resources>
         <Thickness x:Key="DefaultMargin">0,15,45,15</Thickness>
-        <functionClass:AddressStatusToBoolConverter x:Key="AddressStatusToBoolConverter" />
+        <converters:AddressStatusToBoolConverter x:Key="AddressStatusToBoolConverter" />
     </Window.Resources>
     <Grid>
 

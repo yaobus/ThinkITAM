@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.LinkWindows;
+using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -32,12 +33,9 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
         private void CabinetUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             RoomListView.ItemsSource = deviceRoomInfos;
             CabinetListView.ItemsSource= deviceCabinetInfos;
@@ -49,7 +47,7 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <summary>
         /// 机房信息列表
         /// </summary>
-        private ObservableCollection<ViewModes.LinkManage.DeviceRoomClass> deviceRoomInfos = new ObservableCollection<ViewModes.LinkManage.DeviceRoomClass>();
+        private ObservableCollection<ViewModels.LinkManage.DeviceRoomClass> deviceRoomInfos = new ObservableCollection<ViewModels.LinkManage.DeviceRoomClass>();
 
 
         /// <summary>
@@ -61,27 +59,27 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM DeviceRoom;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
-                ViewModes.LinkManage.DeviceRoomClass info = new ViewModes.LinkManage.DeviceRoomClass();
+                                index++;
+                ViewModels.LinkManage.DeviceRoomClass info = new ViewModels.LinkManage.DeviceRoomClass();
                 info.Index = index;
-                info.DeviceRoomQrId = reader["DeviceRoomQrId"].ToString();
-                info.Name = reader["RoomName"].ToString();
-                info.Location = reader["Location"].ToString();
-                info.User = reader["User"].ToString();
-                info.UserPhone = reader["UserPhone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
+                info.Name = row["RoomName"].ToString();
+                info.Location = row["Location"].ToString();
+                info.User = row["User"].ToString();
+                info.UserPhone = row["UserPhone"].ToString();
+                info.Note = row["Note"].ToString();
 
 
 
                 deviceRoomInfos.Add(info);
             }
+
 
 
 
@@ -124,25 +122,26 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = $"SELECT * FROM DeviceCabinet WHERE DeviceRoomQrId='{deviceRoomQrId}';";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
 
                 CabinetClass info = new CabinetClass();
                 info.Index = index;
-                info.CabinetId = reader["CabinetId"].ToString();
-                info.Name = reader["CabinetName"].ToString();
-                info.Position = reader["Position"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.CabinetId = row["CabinetId"].ToString();
+                info.Name = row["CabinetName"].ToString();
+                info.Position = row["Position"].ToString();
+                info.Note = row["Note"].ToString();
 
 
                 deviceCabinetInfos.Add(info);
             }
+
+
 
         }
 

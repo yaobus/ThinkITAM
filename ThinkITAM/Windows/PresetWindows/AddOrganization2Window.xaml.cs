@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using static MaterialDesignThemes.Wpf.Theme;
 using TextBox = System.Windows.Controls.TextBox;
 
@@ -31,10 +32,7 @@ public partial class AddOrganization2Window : Window
 
     private void AddOrganization2Window_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
         LoadOrganizationInfo();
     }
 
@@ -67,13 +65,14 @@ public partial class AddOrganization2Window : Window
 
         
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num <= 0)
         {
             string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
 
-            dbClass.ExecuteQuery(sql);
+           
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
             this.DialogResult = true;
             this.Close();
         }
@@ -84,7 +83,7 @@ public partial class AddOrganization2Window : Window
 
             Console.WriteLine(sql);
 
-            var num2 = dbClass.ExecuteScalarTableNum(sql, dbClass.connection);
+            var num2 = DbClass.ExecuteScalarTableNum(sql);
 
             if (num2 == 1)
             {
@@ -94,7 +93,8 @@ public partial class AddOrganization2Window : Window
                 {
                     string sql2 =
                         $"UPDATE \"Organization\" SET \"Note\" = '' WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') ";
-                    dbClass.ExecuteQuery(sql2);
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;
                     this.Close();
                 }
@@ -124,14 +124,14 @@ public partial class AddOrganization2Window : Window
         string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) AND (Note != '0' OR Note IS NULL);";
 
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            organizationInfo.Add(reader["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
+
+
 
         Organization.ItemsSource = organizationInfo;
 
@@ -153,14 +153,13 @@ public partial class AddOrganization2Window : Window
 
             Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                departmentInfo.Add(reader["Department"].ToString());
+                  departmentInfo.Add(row["Department"].ToString());
             }
+
 
             Department.ItemsSource = departmentInfo;
         }

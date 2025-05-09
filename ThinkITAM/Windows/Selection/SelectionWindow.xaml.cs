@@ -1,26 +1,18 @@
-﻿using System;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.FunctionPage;
 using MaterialDesignThemes.Wpf;
 
 
-namespace ThinkITAM;
+namespace ThinkITAM.Windows.Selection;
+
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class FunctionWindow : Window
+public partial class SelectionWindow : Window
 {
-    public FunctionWindow()
+    public SelectionWindow()
     {
         InitializeComponent();
         WindowsShow();
@@ -31,7 +23,8 @@ public partial class FunctionWindow : Window
     /// </summary>
     private int WindowLoadStatus = 0;
 
-    private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+
+    private void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         WindowLoadStatus = 1;
         //BottomControl.SelectedIndex = -1;
@@ -45,6 +38,8 @@ public partial class FunctionWindow : Window
 
 
     }
+
+
 
     /// <summary>
     /// 设置窗口显示方式，分辨率小于1080P就全屏显示，否则居中显示
@@ -102,7 +97,7 @@ public partial class FunctionWindow : Window
     /// <param name="e"></param>
     private void QrcodeScan_OnClick(object sender, RoutedEventArgs e)
     {
-        ChildrenWindows.Scan.ScanWindow scan = new ChildrenWindows.Scan.ScanWindow();
+        Windows.Scan.ScanWindow scan = new Windows.Scan.ScanWindow();
         scan.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         scan.ShowDialog();
     }
@@ -115,15 +110,15 @@ public partial class FunctionWindow : Window
         ClearGlobleValue();
 
 
-       
+
 
         switch (index)
         {
             case 0: //导航栏开关
                 double currentWidth = (double)MenuList.ActualWidth;
-                
+
                 //MenuList.Width = currentWidth == 160.0 ? 45.0 : 160.0;
-                
+
                 if (currentWidth != 140.0)
                 {
                     MenuList.Width = 140.0;
@@ -159,7 +154,7 @@ public partial class FunctionWindow : Window
 
             case 3:
                 FunctionPanel.Children.Clear();
-                DevicePortManage devicePortManage = new DevicePortManage();
+                FunctionPage.DevicePortManage devicePortManage = new FunctionPage.DevicePortManage();
 
                 devicePortManage.Style = (Style)FindResource("DevicePortManageStyle");
 
@@ -192,7 +187,7 @@ public partial class FunctionWindow : Window
 
             case 6:
                 FunctionPanel.Children.Clear();
-                AssetManage assetManage = new AssetManage();
+                var assetManage = new FunctionPage.AssetManage();
 
                 assetManage.Style = (Style)FindResource("AssetPageStyle");
 
@@ -211,7 +206,7 @@ public partial class FunctionWindow : Window
 
             case 8:
                 FunctionPanel.Children.Clear();
-                PortPanel portPanel = new PortPanel();
+                var portPanel = new FunctionPage.PortPanel();
 
                 portPanel.Style = (Style)FindResource("PortPanelStyle");
 
@@ -229,12 +224,14 @@ public partial class FunctionWindow : Window
                 break;
 
 
-                
+
 
         }
 
 
     }
+
+
 }
 
 

@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.ViewModels.LinkManage;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace ThinkITAM.Windows.LinkWindows
@@ -162,7 +162,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
             for (int i = 0; i < count; i++)
             {
-                ViewModes.LinkManage.PortInfoClass info = new ViewModes.LinkManage.PortInfoClass();
+                ViewModels.LinkManage.PortInfoClass info = new ViewModels.LinkManage.PortInfoClass();
 
 
 

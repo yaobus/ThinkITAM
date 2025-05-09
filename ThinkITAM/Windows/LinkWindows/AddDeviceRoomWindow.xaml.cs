@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.LinkWindows
 {
@@ -28,13 +30,11 @@ namespace ThinkITAM.Windows.LinkWindows
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AddDeviceRoomWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
+
 
             //加载地址信息
             LoadAddressInfo();
@@ -57,15 +57,15 @@ namespace ThinkITAM.Windows.LinkWindows
         {
             string query = "SELECT Location FROM  Address";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                addressList.Add(reader["Location"].ToString());
-
+                 addressList.Add(row["Location"].ToString());
             }
+
+
         }
 
         private ObservableCollection<PeopleViewModel> peopleInfos = new ObservableCollection<PeopleViewModel>();
@@ -80,30 +80,31 @@ namespace ThinkITAM.Windows.LinkWindows
 
             string query = "SELECT * FROM UserInfo;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
                 index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 peopleList.Add($"{info.Name}-{info.Organization}-{info.Department}-{info.Phone}");
 
                 peopleInfos.Add(info);
             }
 
-            
+
+
+
 
 
         }
@@ -134,10 +135,10 @@ namespace ThinkITAM.Windows.LinkWindows
                 //MessageBox.Show("TODO/检查机房是否存在");
 
                 //创建资产ID
-                string assetId = AssetIdCreate.CreateAssetId(DeviceRoom.Text);
+                string assetId =AssetIdCreate.CreateAssetId(DeviceRoom.Text);
 
                 //创建资产二维码,0为机房，1为机柜，2为设备
-                string qrCode = "0" + FunctionClass.AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+                string qrCode = "0" +AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
 
                 string sql = $"INSERT INTO DeviceRoom (DeviceRoomQrId,RoomName,Location,User,UserPhone,Note) VALUES ('{qrCode}','{DeviceRoom.Text}','{AddressCombobox.Text}','{PeopleName.Text}','{Phone.Text}','{Note.Text}')";
@@ -145,7 +146,8 @@ namespace ThinkITAM.Windows.LinkWindows
 
                 Console.WriteLine(sql);
 
-                dbClass.ExecuteQuery(sql);
+             
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
                 this.DialogResult = true;
 
 

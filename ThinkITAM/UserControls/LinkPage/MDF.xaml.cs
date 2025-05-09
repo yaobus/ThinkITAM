@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.LinkWindows;
+using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
@@ -31,7 +32,7 @@ namespace ThinkITAM.UserControls.LinkPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void TagButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -78,8 +79,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
         private void MDF_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
         }
     }
 }

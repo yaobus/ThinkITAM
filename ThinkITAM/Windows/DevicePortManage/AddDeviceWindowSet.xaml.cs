@@ -23,7 +23,7 @@ namespace ThinkITAM.Windows.DevicePortManage
     public partial class AddDeviceWindowSet : Window
     {
 
-        private DbClass dbClass;
+
         public AddDeviceWindowSet()
         {
             InitializeComponent();
@@ -31,10 +31,9 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         private void AddDeviceWindowSet_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
 
-            var tags = dbClass.LoadWindowTag("AddDevice");
+
+            var tags = DbClass.LoadWindowTag("AddDevice");
 
             if (tags != null)
             {
@@ -70,7 +69,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             // 将匿名对象序列化为JSON字符串
             string json = JsonConvert.SerializeObject(settings);
 
-            dbClass.SaveWindowTag("AddDevice", json);
+            DbClass.SaveWindowTag("AddDevice", json);
 
             this.DialogResult = true;
             this.Close();

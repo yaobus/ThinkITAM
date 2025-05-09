@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -47,8 +47,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void AddressUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
             AddressListView.ItemsSource = addressInfos;
 
@@ -62,22 +61,23 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM Address;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;
-                info.Location = reader["Location"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Location = row["Location"].ToString();
+                info.Note = row["Note"].ToString();
 
                 addressInfos.Add(info);
             }
+
+
 
             AddressListView.ItemsSource = addressInfos;
 

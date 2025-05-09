@@ -2,20 +2,21 @@
     x:Class="ThinkITAM.UserControls.NetworkManage.IpAddressInfo"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:local="clr-namespace:ThinkITAM.UserControls.NetworkManage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:networkManage="clr-namespace:ThinkITAM.ViewModes.NetworkManage"
+    xmlns:networkManage="clr-namespace:ThinkITAM.ViewModels.NetworkManage"
     Width="55"
     Height="47.5"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <functionClass:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
-        <functionClass:StatusToColorConverter x:Key="StatusToColorConverter" />
-        <functionClass:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
+        <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+        <converters:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
     </UserControl.Resources>
 
 

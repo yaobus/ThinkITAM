@@ -1,31 +1,31 @@
-﻿<Window x:Class="ThinkITAM.Windows.ToolWindows.WakeOnLanWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
-        xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
-        Title="网络唤醒"
-        Width="1366"
-        Height="768"
-        MinWidth="1366"
-        MinHeight="768"
-        Background="#303030"
-        FontFamily="{StaticResource HarmonyOsFontFamily}"
-        Foreground="AliceBlue"
-        WindowStartupLocation="CenterOwner"
-        mc:Ignorable="d"
-
-        Loaded="WakeOnLanWindow_OnLoaded"
-        >
+﻿<Window
+    x:Class="ThinkITAM.Windows.ToolWindows.WakeOnLanWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
+    Title="网络唤醒"
+    Width="1366"
+    Height="768"
+    MinWidth="1366"
+    MinHeight="768"
+    Background="#303030"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Foreground="AliceBlue"
+    Loaded="WakeOnLanWindow_OnLoaded"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
     <Window.Resources>
-        <functionClass:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+        <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
 
     </Window.Resources>
     <Window.DataContext>
-        <others:WakeOnLanHostViewModel/>
+        <others:WakeOnLanHostViewModel />
     </Window.DataContext>
 
     <Grid Margin="0,0,0,0">
@@ -110,9 +110,7 @@
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                 materialDesign:TextFieldAssist.LeadingIcon="Hdd"
-
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                />
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
                         </StackPanel>
 
@@ -123,11 +121,9 @@
 
                             <Button
                                 x:Name="AddHostButton"
-                                Content="ADD"
-
-                                Style="{StaticResource MaterialDesignRaisedLightButton}"
                                 Click="AddHostButton_OnClick"
-                                />
+                                Content="ADD"
+                                Style="{StaticResource MaterialDesignRaisedLightButton}" />
                         </StackPanel>
 
                     </StackPanel>
@@ -138,15 +134,15 @@
                         <StackPanel
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal"/>
+                            Orientation="Horizontal" />
                         <StackPanel
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal"/>
+                            Orientation="Horizontal" />
                         <StackPanel
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal"/>
+                            Orientation="Horizontal" />
 
                     </StackPanel>
 
@@ -158,21 +154,17 @@
         </materialDesign:Card>
 
 
-        <materialDesign:Card
-            Grid.Row="1"
-            Margin="5,2.5,5,5"
-            >
+        <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,5">
 
             <DataGrid
                 x:Name="HostsDataGrid"
                 VerticalAlignment="Stretch"
                 AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                SelectionMode="Extended"
                 Background="#404040"
-                SelectionUnit="FullRow"
+                CanUserAddRows="False"
                 MouseDoubleClick="HostsDataGrid_OnMouseDoubleClick"
-                >
+                SelectionMode="Extended"
+                SelectionUnit="FullRow">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn
                         Width="100"
@@ -389,9 +381,9 @@
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn
                         Width="120"
-                        Visibility="Collapsed"
                         CanUserSort="False"
-                        SortMemberPath="StorageSpace">
+                        SortMemberPath="StorageSpace"
+                        Visibility="Collapsed">
                         <DataGridTemplateColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon
@@ -441,9 +433,9 @@
                                     <Button
                                         x:Name="WakeOnLanButton0"
                                         Margin="5,0"
-                                        Content="精准唤醒"
                                         Click="WakeOnLanButton0_OnClick"
-                                        IsEnabled="{Binding IpAddress,Converter={StaticResource StringToBooleanConverter}}"
+                                        Content="精准唤醒"
+                                        IsEnabled="{Binding IpAddress, Converter={StaticResource StringToBooleanConverter}}"
                                         Style="{StaticResource MaterialDesignRaisedLightButton}" />
                                 </Grid>
                             </DataTemplate>
@@ -470,8 +462,8 @@
                                     <Button
                                         x:Name="WakeOnLanButton"
                                         Margin="5,0"
-                                        Content="广播唤醒"
                                         Click="WakeOnLanButton_OnClick"
+                                        Content="广播唤醒"
                                         Style="{StaticResource MaterialDesignRaisedLightButton}" />
                                 </Grid>
                             </DataTemplate>

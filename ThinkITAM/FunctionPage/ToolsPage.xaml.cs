@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.NetworkManage;
-using ThinkITAM.ChildrenWindows.ToolWindows;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.ToolWindows;
 
 namespace ThinkITAM.FunctionPage
 {

@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModes.PortPanel"
+    xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
     xmlns:portPanel="clr-namespace:ThinkITAM.UserControls.PortPanel"
     MinWidth="1200"
     MinHeight="700"

@@ -6,11 +6,13 @@ using System.Windows.Media;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.General;
-using ThinkITAM.ViewModes.Index;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Index;
+using ThinkITAM.ViewModels.Preset;
 using MaterialDesignThemes.Wpf;
 using static MaterialDesignThemes.Wpf.Theme;
 using ListBoxItem = System.Windows.Controls.ListBoxItem;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.NetworkManage;
 /// <summary>
@@ -21,8 +23,7 @@ public partial class AddressCollectWindow : Window
     public AddressCollectWindow(string addressInput = null, IndexTagViewModel indexTag = null)
     {
         InitializeComponent();
-        dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-        dbClass.OpenConnection();
+
         LoadGroupsInfo();
         LoadBrowserInfo();
 
@@ -120,14 +121,15 @@ public partial class AddressCollectWindow : Window
         string query = $"SELECT DISTINCT \"Group\" FROM \"Index\" WHERE Del != 0 OR Del IS NULL;";
 
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
 
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            groups.Add(reader["Group"].ToString());
+             groups.Add(row["Group"].ToString());
         }
+
+
 
     }
 
@@ -146,22 +148,25 @@ public partial class AddressCollectWindow : Window
 
         string query = "SELECT * FROM Browser;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            index++;
+                        index++;
             BrowserInfoViewModel info = new BrowserInfoViewModel();
 
             info.Index = index;
-            info.Browser = reader["Browser"].ToString();
-            info.Path = reader["Path"].ToString();
+            info.Browser = row["Browser"].ToString();
+            info.Path = row["Path"].ToString();
 
             browserInfos.Add(info);
         }
+
+
+
 
 
         BrowserCombobox.ItemsSource = browserInfos;
@@ -205,7 +210,8 @@ public partial class AddressCollectWindow : Window
         int index = Groups.SelectedIndex;
         string group = groups[index];
         string sql = $"UPDATE  \"Index\" SET \"Del\"='0' WHERE \"Group\" = '{group}'";
-        dbClass.ExecuteQuery(sql);
+
+        GlobalVariables.DbService.ExecuteNonQuery(sql);
         Reject_OnClick(null, null);
         LoadGroupsInfo();
     }
@@ -232,7 +238,7 @@ public partial class AddressCollectWindow : Window
                 string sqlTemp = $"SELECT COUNT(*) FROM 'Index' WHERE ( 'Group'='{updateTag.Group}' AND Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
                 //查询记录是否存在
-                var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
                 if (countNum > 1)
@@ -262,9 +268,10 @@ public partial class AddressCollectWindow : Window
 
                     string sql = $"UPDATE \"main\".\"Index\" SET \"Group\" =  '{Groups.Text}',\"Name\" = '{Name.Text}', \"Protocol\" = '{Protocol.Text}',\"Host\" = '{Host.Text}',\"Port\" = '{Port.Text}',\"Color\" = '{IndexColor.SelectedIndex}' ,\"Browser\" = '{browser}' WHERE  \"IndexId\"='{dbIndexId}'";
                     
-                    dbClass.ExecuteQuery(sql);
 
-                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
 
                     this.Close();
@@ -303,7 +310,7 @@ public partial class AddressCollectWindow : Window
                 string sqlTemp = $"SELECT COUNT(*) FROM 'Index' WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
                 //查询记录是否存在
-                var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
                 if (countNum > 0)
@@ -334,7 +341,7 @@ public partial class AddressCollectWindow : Window
 
                     string sql2 = $"SELECT COUNT(*) FROM 'Index' WHERE \"Group\" = '{group}' AND \"Del\"='0'";
 
-                    if (dbClass.ExecuteScalarTableNum(sql2, dbClass.connection) > 0)
+                    if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {
 
                         var dialog = new ConfirmationDialog
@@ -353,9 +360,9 @@ public partial class AddressCollectWindow : Window
                       if (result)
                       {
                           sql2 = $"UPDATE \"main\".\"Index\" SET \"Del\" = NULL WHERE \"Group\" = '{group}'";
-                          dbClass.ExecuteQuery(sql2);
-
-                      }
+                         
+                          GlobalVariables.DbService.ExecuteNonQuery(sql2);
+                        }
                       else
                       {
                           return;
@@ -368,7 +375,8 @@ public partial class AddressCollectWindow : Window
 
 
                     string sql = $"INSERT INTO \"main\".\"Index\" (\"IndexId\",\"Group\", \"Name\", \"Protocol\", \"Host\", \"Port\", \"Color\", \"Browser\") VALUES ('{indexId}','{group}', '{Name.Text}', '{Protocol.Text}', '{Host.Text}', '{Port.Text}', '{IndexColor.SelectedIndex}','{browser}')";
-                    dbClass.ExecuteQuery(sql);
+                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
                     this.Close();
                 }

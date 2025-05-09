@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.IPAddressCalculations;
-using Path = System.IO.Path;
 using Newtonsoft.Json;
-using System.ComponentModel;
-using System.Reflection.Emit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using ThinkITAM.FunctionClass;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.Functions.IPAddressHelper;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -34,8 +19,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         public bool LoadStatus = false;
 
-        private DbClass dbClass;
-
+       
         public AddNetworkWindow()
         {
             InitializeComponent();
@@ -44,12 +28,6 @@ namespace ThinkITAM.Windows.NetworkManage
         private void AddNetworkWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             LoadStatus = true;
-
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
-
 
 
             LoadTags();//加载自定义标签
@@ -70,14 +48,14 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string query = "SELECT DISTINCT Parent FROM Hierarchy;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                parentList.Add(reader["Parent"].ToString());
+                 parentList.Add(row["Parent"].ToString());
             }
+
 
             TbParent.ItemsSource = parentList;
 
@@ -99,16 +77,13 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 string sql = $"SELECT Child FROM Hierarchy WHERE Parent='{parentList[TbParent.SelectedIndex]}'";
 
-                Console.WriteLine(sql);
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    childList.Add(reader["Child"].ToString());
+                    childList.Add(row["Child"].ToString());
                 }
+
 
                 Child.ItemsSource = childList;
 
@@ -167,7 +142,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (IPAddress.TryParse(IpTextBox.Text, out ip))
                 {
                     int maskLength = (int)MaskSlider.Value;
-                    IPAddress mask = IPAddressCalculations.IPAddressCalculations.SubnetMaskFromPrefixLength(maskLength);
+                    IPAddress mask = IPAddressCalculations.SubnetMaskFromPrefixLength(maskLength);
                     Netmask.Text = mask.ToString();
 
                     IPAddress networkAddress = ip.GetNetworkAddress(mask);
@@ -184,7 +159,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     Broadcast.Text = broadcastAddress.ToString();
 
 
-                    long addressCount = IPAddressCalculations.IPAddressCalculations.AddressCount(maskLength);
+                    long addressCount = IPAddressCalculations.AddressCount(maskLength);
                     NumBox.Text = addressCount.ToString();
                 }
             }
@@ -230,7 +205,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     string sqlTemp = string.Format("SELECT COUNT(*) FROM Network WHERE `Network` = '{0}' AND `Netmask` = '{1}'", network, netmask);
 
 
-                    int num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    int num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
                     if (MaskSlider.Value < 24)//如果是大型网段
@@ -259,11 +234,11 @@ namespace ThinkITAM.Windows.NetworkManage
                                 //SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
-                                dbClass.ExecuteQuery(sql);
 
+                                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                                 //创建分表
-                                dbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, NetworkId);
+                                DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, NetworkId);
 
 
                                 //装载初始化数据
@@ -297,7 +272,8 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
                             string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
-                            dbClass.ExecuteQuery(sql);
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+
 
                             SaveHierarchyInfo(parent, child);
 
@@ -306,7 +282,7 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
 
                             //创建分表
-                            dbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,NetworkId);
+                            DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,NetworkId);
 
 
 
@@ -349,11 +325,11 @@ namespace ThinkITAM.Windows.NetworkManage
                                 SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
-                                dbClass.ExecuteQuery(sql);
-
+                                
+                                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                                 //创建表
-                                dbClass.CreateNetworkTable(NetworkId);
+                                DbClass.CreateNetworkTable(NetworkId);
 
 
                                 //装载初始化数据
@@ -387,8 +363,8 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
                             string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent} ', ' {child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
-                            dbClass.ExecuteQuery(sql);
-
+                          
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
                             SaveHierarchyInfo(parent, child);
 
 
@@ -396,7 +372,7 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
 
                             //创建表
-                            dbClass.CreateNetworkTable(NetworkId);
+                            DbClass.CreateNetworkTable(NetworkId);
 
 
                             //装载初始化数据
@@ -495,7 +471,8 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 //Console.WriteLine(sql);
                 //异步执行
-                dbClass.ExecuteQuery(sql);
+
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
 
 
@@ -513,12 +490,13 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 string sqlTemp = string.Format("SELECT COUNT(*) FROM Hierarchy WHERE `Parent` = '{0}' AND `Child` = '{1}'", parent, child);
 
-                int num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                int num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (num == 0)//不存在，则添加
                 {
                     string sql = $"INSERT INTO \"Hierarchy\" (\"Parent\", \"Child\") VALUES ('{parent}', '{child}')";
-                    dbClass.ExecuteQuery(sql);
+                  
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
                 }
             }
 
@@ -547,7 +525,7 @@ namespace ThinkITAM.Windows.NetworkManage
         private void LoadTags()
         {
 
-            var tags = dbClass.LoadWindowTag("AddNetwork");
+            var tags = DbClass.LoadWindowTag("AddNetwork");
 
             if (tags != null)
             {

@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.IndexPage;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -29,14 +30,12 @@ namespace ThinkITAM.Windows.NetworkManage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
         private ObservableCollection<PeopleViewModel> peopleInfos = new ObservableCollection<PeopleViewModel>();
 
         private void FindUserWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
+
 
             PeopleListView.ItemsSource = peopleInfos;
 
@@ -99,29 +98,30 @@ namespace ThinkITAM.Windows.NetworkManage
 
             
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
-                info.UserId = reader["UserId"].ToString();
-                info.UserNumber = $"{GetUserNumberPrefix()}{reader["Number"].ToString()}";
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Group = reader["Group"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.UserId = row["UserId"].ToString();
+                info.UserNumber = $"{GetUserNumberPrefix()}{row["Number"].ToString()}";
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Group = row["Group"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 peopleInfos.Add(info);
             }
+
+
 
             PeopleListView.ItemsSource = peopleInfos;
 
@@ -133,23 +133,15 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         private string GetUserNumberPrefix()
         {
-            string query = "SELECT *  FROM CustomSetting WHERE Option='UserNumberPrefix';";
-
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
 
 
-            if (reader.Read())
-            {
-                string prefix = reader["Content"].ToString();
+            var prefix = GlobalVariables.DbService.ExecuteScalar(query).ToString();
 
-                return prefix;
+            return prefix;
 
-            }
-            else
-            {
-                return "";
-            }
+
+
 
         }
 
@@ -166,14 +158,14 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string query = "SELECT DISTINCT Organization FROM Organization;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                organizationInfo.Add(reader["Organization"].ToString());
+                 organizationInfo.Add(row["Organization"].ToString());
             }
+
+
 
             OrganizationBox.ItemsSource = organizationInfo;
 
@@ -193,14 +185,16 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 Console.WriteLine(query);
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    departmentInfo.Add(reader["Department"].ToString());
+                    departmentInfo.Add(row["Department"].ToString());
+
                 }
+
 
                 DepartmentBox.ItemsSource = departmentInfo;
             }
@@ -231,14 +225,15 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 Console.WriteLine(query);
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    groupsInfo.Add(reader["Groups"].ToString());
+                    groupsInfo.Add(row["Groups"].ToString());
                 }
+
+
 
                 GroupBox.ItemsSource = groupsInfo;
             }

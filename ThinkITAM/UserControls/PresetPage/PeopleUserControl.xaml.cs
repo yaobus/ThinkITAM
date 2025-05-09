@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -30,7 +31,7 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -54,9 +55,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void PeopleUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
+
 
             PeopleListView.ItemsSource = peopleInfos;
 
@@ -68,31 +67,21 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
 
-        
+
         /// <summary>
         /// 获取用户编号前缀
         /// </summary>
         private string GetUserNumberPrefix()
         {
-            string query = "SELECT *  FROM CustomSetting WHERE Option='UserNumberPrefix';";
-
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
 
 
-            if (reader.Read())
-            {
-                string prefix = reader["Content"].ToString();
+            var prefix = GlobalVariables.DbService.ExecuteScalar(query).ToString();
 
-                return prefix;
-
-            }
-            else
-            {
-                return "";
-            }
+            return prefix;
 
         }
+
 
 
 
@@ -105,28 +94,27 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM UserInfo;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
-                info.UserNumber =$"{GetUserNumberPrefix()}{reader["Number"].ToString()}";
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Group = reader["Group"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.UserNumber = $"{GetUserNumberPrefix()}{row["Number"].ToString()}";
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Group = row["Group"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 peopleInfos.Add(info);
             }
+
+
 
             PeopleListView.ItemsSource = peopleInfos;
 

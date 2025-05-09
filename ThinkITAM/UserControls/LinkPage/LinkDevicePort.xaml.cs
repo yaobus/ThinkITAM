@@ -2,13 +2,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ThinkITAM.ChildrenWindows.DevicePortManage;
-using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.NetworkManage;
-using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.NetworkManage;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.LinkPage;
 /// <summary>
@@ -21,7 +21,7 @@ public partial class LinkDevicePort : UserControl
         InitializeComponent();
     }
     public event EventHandler<BoolEventArgs> PortAllocationWindowClosed;
-    private DbClass dbClass;
+
     private void EthernetButton_OnClick(object sender, RoutedEventArgs e)
     {
 
@@ -40,7 +40,7 @@ public partial class LinkDevicePort : UserControl
 
 
         //机架信息
-        portInfo.MdfRackClass = dbClass.GetRackInfo(assetId);
+        portInfo.MdfRackClass = DbClass.GetRackInfo(assetId);
 
         //端口信息
         portInfo.PortClass = portLinkClass.PortClass;
@@ -65,7 +65,7 @@ public partial class LinkDevicePort : UserControl
         
         
 
-        portInfo.SlotClass = dbClass.GetDeviceSlotInfo(assetId, portLinkClass.PortClass.UID);
+        portInfo.SlotClass = DbClass.GetDeviceSlotInfo(assetId, portLinkClass.PortClass.UID);
 
         //槽位信息
         //portInfo.SlotClass.SlotIndex = portLinkClass.PortClass.SlotIndex;
@@ -202,7 +202,6 @@ public partial class LinkDevicePort : UserControl
 
     private void LinkDevicePort_OnLoaded(object sender, RoutedEventArgs e)
     {
-        dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-        dbClass.OpenConnection();
+
     }
 }

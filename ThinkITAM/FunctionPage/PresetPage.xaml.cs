@@ -1,16 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.ChildrenWindows.NetworkManage;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.IPAddressCalculations;
 using ThinkITAM.UserControls.NetworkManage;
 using ThinkITAM.UserControls.PresetPage;
-using ThinkITAM.ViewModes.NetworkManage;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -28,11 +28,6 @@ namespace ThinkITAM.FunctionPage
 
         private void PresetPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
-
 
             //初始化时打开第一个标签页
             PresetTreeView.SelectedIndex = 0;
@@ -56,22 +51,24 @@ namespace ThinkITAM.FunctionPage
 
             string query = "SELECT * FROM Browser;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 BrowserInfoViewModel info = new BrowserInfoViewModel();
 
                 info.Index = index;
-                info.Browser = reader["Browser"].ToString();
-                info.Path = reader["Path"].ToString();
+                info.Browser = row["Browser"].ToString();
+                info.Path = row["Path"].ToString();
 
                 browserInfos.Add(info);
             }
+
+
 
             //BrowserListView.ItemsSource = browserInfos;
 
@@ -87,22 +84,24 @@ namespace ThinkITAM.FunctionPage
 
             string query = "SELECT * FROM Address;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;
-               info.Location = reader["Location"].ToString();
-                info.Note = reader["Note"].ToString();
+               info.Location = row["Location"].ToString();
+                info.Note = row["Note"].ToString();
 
                 addressInfos.Add(info);
             }
+
+
+
 
             //AddressListView.ItemsSource = addressInfos;
 
@@ -137,23 +136,23 @@ namespace ThinkITAM.FunctionPage
 
             string query = "SELECT * FROM Organization;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 OrganizationViewModel info = new OrganizationViewModel();
 
                 info.Index = index;
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Note = row["Note"].ToString();
 
                 organizationInfos.Add(info);
             }
+
 
             //OrganizationListView.ItemsSource = organizationInfos;
 
@@ -188,26 +187,26 @@ namespace ThinkITAM.FunctionPage
 
             string query = "SELECT * FROM UserInfo;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
-            
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
                 peopleInfos.Add(info);
             }
+
+
 
             //PeopleListView.ItemsSource = peopleInfos;
 
@@ -244,24 +243,25 @@ namespace ThinkITAM.FunctionPage
 
             string query = "SELECT * FROM AssetTag;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
 
-            SQLiteDataReader reader = command.ExecuteReader();
-
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
-            while (reader.Read())
-            {
+
+            foreach (var row in rows)
+            { 
                 index++;
                 var info = new AssetTagClass();
                 info.Index=index;
-                info.AssetType = reader["AssetType"].ToString();
-                info.DeviceType = reader["DeviceType"].ToString();
-                info.NumberPrefix = reader["AssetTag"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.AssetType = row["AssetType"].ToString();
+                info.DeviceType = row["DeviceType"].ToString();
+                info.NumberPrefix = row["AssetTag"].ToString();
+                info.Note = row["Note"].ToString();
 
                 assetTags.Add(info);
             }
+
+
 
             //AssetTagListView.ItemsSource = assetTags;
 

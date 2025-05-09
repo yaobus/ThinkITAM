@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.UserControls.LinkPage
 {

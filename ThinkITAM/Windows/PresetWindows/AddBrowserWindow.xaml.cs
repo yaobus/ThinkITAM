@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using Microsoft.Win32;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.Windows.PresetWindows
 {
@@ -26,7 +27,7 @@ namespace ThinkITAM.Windows.PresetWindows
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -36,13 +37,14 @@ namespace ThinkITAM.Windows.PresetWindows
             if (name.Replace(" ", "").Length >= 2 && path.Replace(" ", "").Length >= 2)
             {
                 string sqlTemp = $"SELECT COUNT(*) FROM Browser WHERE Path ='{path}'";
-                var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (num <= 0)
                 {
                     sqlTemp = $"INSERT INTO \"Browser\" (\"Browser\", \"Path\", \"Note\") VALUES ('{name}', '{path}', '{Note.Text}')";
 
-                    dbClass.ExecuteQuery(sqlTemp);
+                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
 
                     this.DialogResult = true;
 
@@ -59,10 +61,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
         private void AddBrowserWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
 
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
         }
 
         private void FindBrowserPathButton_OnClick(object sender, RoutedEventArgs e)

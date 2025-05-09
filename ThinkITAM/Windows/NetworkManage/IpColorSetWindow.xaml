@@ -2,6 +2,7 @@
     x:Class="ThinkITAM.Windows.NetworkManage.IpColorSetWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:local="clr-namespace:ThinkITAM.Windows.LinkWindows"
@@ -18,7 +19,7 @@
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
-        <functionClass:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
 
     </Window.Resources>
     <Grid>

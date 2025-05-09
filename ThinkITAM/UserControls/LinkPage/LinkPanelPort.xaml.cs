@@ -13,13 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.LinkWindows;
-using ThinkITAM.ChildrenWindows.PortPanel;
+using ThinkITAM.Windows.LinkWindows;
+using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
 using Nmap.NET.Container;
 
 namespace ThinkITAM.UserControls.LinkPage
@@ -33,7 +33,7 @@ namespace ThinkITAM.UserControls.LinkPage
             DependencyProperty.Register("PortPanelInfo", typeof(PortPanelClass), typeof(LinkPanelPort), new PropertyMetadata(null));
 
 
-        private DbClass dbClass;
+
         public PortPanelClass PortPanelInfo
         {
             get
@@ -59,10 +59,6 @@ namespace ThinkITAM.UserControls.LinkPage
         private void Port_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-
-
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
         }
 
 
@@ -79,7 +75,7 @@ namespace ThinkITAM.UserControls.LinkPage
             // portInfo.PortClass
 
             MdfRackClass mdfRack = new MdfRackClass();
-            mdfRack = dbClass.GetRackInfo(DataBridge.DataBridge.SelectedBuildingId);
+            mdfRack = DbClass.GetRackInfo(DataBridge.DataBridge.SelectedBuildingId);
             
             
 
@@ -97,7 +93,7 @@ namespace ThinkITAM.UserControls.LinkPage
             
             portInfo.PortClass = info;
 
-            portInfo.SlotClass = dbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId,info.UID);
+            portInfo.SlotClass = DbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId,info.UID);
 
             portInfo.MdfRackClass.CabinetName = portInfo.SlotClass.SlotName;
             portInfo.MdfRackClass.RackName = portInfo.SlotClass.SlotTag;

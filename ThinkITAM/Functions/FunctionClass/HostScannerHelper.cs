@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using ThinkITAM.ViewModels.Others;
 using System.Windows.Threading;
 using System.Net.Mail;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.FunctionClass;
 

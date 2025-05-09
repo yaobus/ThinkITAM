@@ -11,6 +11,7 @@ using AForge.Video;
 using AForge.Video.DirectShow;
 using Microsoft.Win32;
 using SkiaSharp;
+using ThinkITAM.Functions.FunctionClass;
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
@@ -276,12 +277,12 @@ namespace ThinkITAM.Windows.Scan
 
         private void Button_OnClick(object sender, RoutedEventArgs e)
         {
-            AssetCode.Text = FunctionClass.AssetCodeClass.GenerateChecksum(AssetCodeSource.Text);
+            AssetCode.Text = AssetCodeClass.GenerateChecksum(AssetCodeSource.Text);
         }
 
         private void Button2_OnClick(object sender, RoutedEventArgs e)
         {
-            FunctionClass.AssetCodeClass.CheckAssetCode(AssetCode.Text);
+            AssetCodeClass.CheckAssetCode(AssetCode.Text);
         }
     }
 }

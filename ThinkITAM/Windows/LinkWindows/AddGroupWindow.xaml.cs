@@ -13,7 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.LinkWindows;
 /// <summary>
@@ -33,7 +35,7 @@ public partial class AddGroupWindow : Window
         //检查同一个机房是否有同名的机柜
         //机房ID
 
-        
+
         if (RoomCombobox.Text.Length > 2 && GroupNameTextBox.Text.Length > 2)
         {
             string deviceRoomQrId = deviceRoomInfo[RoomCombobox.SelectedIndex].DeviceRoomQrId;
@@ -42,19 +44,20 @@ public partial class AddGroupWindow : Window
             string position = Position.Text;
             string sqlTemp = $"SELECT COUNT(*) FROM DeviceCabinet WHERE DeviceRoomQrId ='{deviceRoomQrId}' AND CabinetName='{groupName}'";
 
-            var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
             if (countNum == 0)
             {
-                    //创建资产ID
-                string assetId = AssetIdCreate.CreateAssetId(deviceRoomQrId+groupName);
+                //创建资产ID
+                string assetId = AssetIdCreate.CreateAssetId(deviceRoomQrId + groupName);
 
                 //创建资产二维码,0为机房，1为机柜，2为设备
-                string cabinetId = "1" + FunctionClass.AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+                string cabinetId = "1" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
                 string sql = $"INSERT INTO DeviceCabinet(CabinetId,DeviceRoomQrId,CabinetName,Position,Note) VALUES('{cabinetId}','{deviceRoomQrId}','{groupName}','{position}','{note}')";
 
-                dbClass.ExecuteQuery(sql);
+
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 this.DialogResult = true;
             }
@@ -65,7 +68,7 @@ public partial class AddGroupWindow : Window
         }
         else
         {
-          MessageBox.Show("请输入正确的机房和机柜/组名","信息不完整",MessageBoxButton.OK,MessageBoxImage.Warning);
+            MessageBox.Show("请输入正确的机房和机柜/组名", "信息不完整", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
 
@@ -75,9 +78,7 @@ public partial class AddGroupWindow : Window
 
     private void AddGroupWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
+
 
         LoadDeviceRoomInfo();
         RoomCombobox.ItemsSource = deviceRoomInfo;
@@ -88,7 +89,7 @@ public partial class AddGroupWindow : Window
     /// <summary>
     /// 机房信息列表
     /// </summary>
-    private ObservableCollection<ViewModes.LinkManage.DeviceRoomClass> deviceRoomInfo = new ObservableCollection<ViewModes.LinkManage.DeviceRoomClass>();
+    private ObservableCollection<ViewModels.LinkManage.DeviceRoomClass> deviceRoomInfo = new ObservableCollection<ViewModels.LinkManage.DeviceRoomClass>();
 
 
     /// <summary>
@@ -100,26 +101,26 @@ public partial class AddGroupWindow : Window
 
         string query = "SELECT * FROM DeviceRoom;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
 
-        
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            ViewModes.LinkManage.DeviceRoomClass info = new ViewModes.LinkManage.DeviceRoomClass();
+            ViewModels.LinkManage.DeviceRoomClass info = new ViewModels.LinkManage.DeviceRoomClass();
 
-            info.DeviceRoomQrId = reader["DeviceRoomQrId"].ToString();
-            info.Name = reader["RoomName"].ToString();
-            info.Location = reader["Location"].ToString();
-            info.User = reader["User"].ToString();
-            info.UserPhone = reader["UserPhone"].ToString();
-            info.Note = reader["Note"].ToString();
+            info.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
+            info.Name = row["RoomName"].ToString();
+            info.Location = row["Location"].ToString();
+            info.User = row["User"].ToString();
+            info.UserPhone = row["UserPhone"].ToString();
+            info.Note = row["Note"].ToString();
 
-            
+
 
             deviceRoomInfo.Add(info);
         }
+
+
 
 
 

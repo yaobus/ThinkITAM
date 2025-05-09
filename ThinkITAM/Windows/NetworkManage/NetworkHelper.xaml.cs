@@ -13,10 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.FunctionClass;
-using ThinkITAM.IPAddressCalculations;
 using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json.Linq;
+using ThinkITAM.Functions.Converters;
+using ThinkITAM.Functions.IPAddressHelper;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -99,7 +100,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (IPAddress.TryParse(IpTextBox.Text, out ip))
                 {
                     int maskLength = (int)MaskSlider.Value;
-                    IPAddress mask = IPAddressCalculations.IPAddressCalculations.SubnetMaskFromPrefixLength(maskLength);
+                    IPAddress mask = IPAddressCalculations.SubnetMaskFromPrefixLength(maskLength);
                     Netmask.Text = mask.ToString();
 
                     IPAddress networkAddress = ip.GetNetworkAddress(mask);
@@ -116,7 +117,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     Broadcast.Text = broadcastAddress.ToString();
 
 
-                    var addressCount = IPAddressCalculations.IPAddressCalculations.AddressCount(maskLength)-2;
+                    var addressCount = IPAddressCalculations.AddressCount(maskLength)-2;
                     NumBox.Text = addressCount.ToString();
                 }
             }
@@ -148,10 +149,10 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 int value = Convert.ToInt32(MaskSlider2.Value);
                 MaskLengthBox2.Text = value.ToString();
-                MaskDecBox2.Text = IPAddressCalculations.IPAddressCalculations.GetSubnetMask(10, value);
-                MaskHexBox2.Text = IPAddressCalculations.IPAddressCalculations.GetSubnetMask(16, value);
-                MaskBinBox2.Text = IPAddressCalculations.IPAddressCalculations.GetSubnetMask(2, value);
-                AvailableAddressBox.Text = IPAddressCalculations.IPAddressCalculations.GetAvailableAddresses(value).ToString();
+                MaskDecBox2.Text = IPAddressCalculations.GetSubnetMask(10, value);
+                MaskHexBox2.Text = IPAddressCalculations.GetSubnetMask(16, value);
+                MaskBinBox2.Text = IPAddressCalculations.GetSubnetMask(2, value);
+                AvailableAddressBox.Text = IPAddressCalculations.GetAvailableAddresses(value).ToString();
             }
         }
 
@@ -169,11 +170,11 @@ namespace ThinkITAM.Windows.NetworkManage
                number = 0;
             }
 
-            int num = IPAddressCalculations.IPAddressCalculations.GetMinimumSubnetMaskBits(number);
+            int num = IPAddressCalculations.GetMinimumSubnetMaskBits(number);
 
             MaskLengthBox.Text = num.ToString();
-            AvailableNumBox.Text= IPAddressCalculations.IPAddressCalculations.GetAvailableAddresses(num).ToString();
-            MaskBox.Text= IPAddressCalculations.IPAddressCalculations.GetSubnetMask(10, int.Parse(MaskLengthBox.Text));
+            AvailableNumBox.Text = IPAddressCalculations.GetAvailableAddresses(num).ToString();
+            MaskBox.Text = IPAddressCalculations.GetSubnetMask(10, int.Parse(MaskLengthBox.Text));
 
         }
     }

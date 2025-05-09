@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.Others;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.Others;
 using Nodify;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.IPAddressHelper;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -34,12 +36,10 @@ namespace ThinkITAM.Windows.ToolWindows
 
         }
 
-        private DbClass dbClass;
         private WakeOnLanHostViewModel wakeOnLanHostViewModel;
         private void AddWakeOnLan_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -49,11 +49,11 @@ namespace ThinkITAM.Windows.ToolWindows
 
             if (info.Item1 == 0)
             {
-                string mac = FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(MacTextBox.Text);
+                string mac =Functions.FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(MacTextBox.Text);
 
                 string sqlTemp = $"SELECT COUNT(*) FROM WakeOnLan WHERE Mac='{mac}'";
 
-                var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (countNum == 0)
                 {
@@ -62,7 +62,7 @@ namespace ThinkITAM.Windows.ToolWindows
                     string sql =
                         $"INSERT INTO WakeOnLan (UID,HostGroup,Name,IpAddress,Netmask,Port,Mac,PinToStart) VALUES ('{uid}','{GroupTextBox.Text}','{NameTextBox.Text}','{IpAddressTextBox.Text}','{NetmaskTextBox.Text}','{PortTextBox.Text}','{mac}','{PinToStart.IsChecked}')";
 
-                    dbClass.ExecuteQuery(sql);
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
                 }
                 else
                 {
@@ -70,7 +70,8 @@ namespace ThinkITAM.Windows.ToolWindows
                     string sql =
                         $"UPDATE WakeOnLan SET HostGroup='{GroupTextBox.Text}',Name='{NameTextBox.Text}',IpAddress='{IpAddressTextBox.Text}',Netmask='{NetmaskTextBox.Text}',Port='{PortTextBox.Text}',PinToStart='{PinToStart.IsChecked}' WHERE Mac='{mac}'";
 
-                    dbClass.ExecuteQuery(sql);
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
                 }
@@ -96,15 +97,13 @@ namespace ThinkITAM.Windows.ToolWindows
 
             string sql = "SELECT UID FROM WakeOnLan "; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                usedNumbers.Add(Convert.ToInt32(reader["UID"]));
-
-
+                usedNumbers.Add(Convert.ToInt32(row["UID"]));
             }
+
 
 
 
@@ -130,7 +129,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 string ip = IpAddressTextBox.Text;
 
 
-                if (IPAddressCalculations.IPAddressCalculations.IsValidIp(ip) == false)
+                if (IPAddressCalculations.IsValidIp(ip) == false)
                 {
 
                     index++;
@@ -145,7 +144,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 string ip = IpAddressTextBox.Text;
 
 
-                if (IPAddressCalculations.IPAddressCalculations.IsValidIp(ip) == false)
+                if (IPAddressCalculations.IsValidIp(ip) == false)
                 {
 
                     index++;
@@ -162,7 +161,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 string ip = NetmaskTextBox.Text;
 
 
-                if (IPAddressCalculations.IPAddressCalculations.IsValidIp(ip) == false)
+                if (IPAddressCalculations.IsValidIp(ip) == false)
                 {
 
                     index++;
@@ -179,7 +178,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 string mac = MacTextBox.Text;
 
 
-                if (FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(mac) == null)
+                if (Functions.FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(mac) == null)
                 {
                     index++;
 
@@ -201,7 +200,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
                 string port = PortTextBox.Text;
 
-                if (FunctionClass.PortValidator.ValidatePort(port) == null)
+                if (Functions.FunctionClass.PortValidator.ValidatePort(port) == null)
                 {
                     index++;
 

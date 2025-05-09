@@ -13,14 +13,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.LinkWindows;
-using ThinkITAM.ChildrenWindows.PortPanel;
+using ThinkITAM.Windows.LinkWindows;
+using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
 
 namespace ThinkITAM.UserControls.PortPanel
 {

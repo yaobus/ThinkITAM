@@ -20,6 +20,9 @@ using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
 using Nodify;
 using static MaterialDesignThemes.Wpf.Theme;
+using ThinkITAM.DataBridge;
+using System.Collections;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -33,11 +36,10 @@ namespace ThinkITAM.Windows.ToolWindows
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
         private void WakeOnLanWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+            
 
             HostsDataGrid.ItemsSource = hosts;
 
@@ -70,48 +72,42 @@ namespace ThinkITAM.Windows.ToolWindows
             hosts.Clear();  
             string sql = $"SELECT *  FROM WakeOnLan";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            if (reader != null)
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+            int index = 0;
+            foreach (var row in rows)
             {
-                int index = 0;
-
-                while (reader.Read())
-                {
-                    index++;
+                                    index++;
                     var host = new WakeOnLanHostViewModel();
                    
                     host.Index = index;
-                    host.UID = Convert.ToInt32(reader["UID"]);
+                    host.UID = Convert.ToInt32(row["UID"]);
                    
-                    if (reader["Name"] != DBNull.Value)
+                    if (row["Name"] != DBNull.Value)
                     {
-                        host.Name = reader["Name"].ToString();
+                        host.Name = row["Name"].ToString();
                     }
 
-                    if (reader["HostGroup"] != DBNull.Value)
+                    if (row["HostGroup"] != DBNull.Value)
                     {
-                        host.HostGroup= reader["HostGroup"].ToString();
+                        host.HostGroup= row["HostGroup"].ToString();
                     }
 
-                    if (reader["IpAddress"] != DBNull.Value)
+                    if (row["IpAddress"] != DBNull.Value)
                     {
-                        host.IpAddress = reader["IpAddress"].ToString();
+                        host.IpAddress = row["IpAddress"].ToString();
                     }
 
-                    if (reader["NetMask"] != DBNull.Value)
+                    if (row["NetMask"] != DBNull.Value)
                     {
-                        host.Netmask = reader["NetMask"].ToString();
+                        host.Netmask = row["NetMask"].ToString();
                     }
 
 
-                    if (reader["Port"] != DBNull.Value)
+                    if (row["Port"] != DBNull.Value)
                     {
                         try
                         {
-                            host.Port = Convert.ToInt32(reader["Port"]);
+                            host.Port = Convert.ToInt32(row["Port"]);
                         }
                         catch (Exception e)
                         {
@@ -120,9 +116,9 @@ namespace ThinkITAM.Windows.ToolWindows
                        
                     }
 
-                    if (reader["PinToStart"]!= DBNull.Value)
+                    if (row["PinToStart"]!= DBNull.Value)
                     {
-                        string value = reader["PinToStart"].ToString();
+                        string value = row["PinToStart"].ToString();
 
                         if (value=="True")
                         {
@@ -143,13 +139,13 @@ namespace ThinkITAM.Windows.ToolWindows
 
                    
 
-                    host.Mac = reader["Mac"].ToString();
+                    host.Mac = row["Mac"].ToString();
 
 
                     hosts.Add(host);
-
-                }
             }
+
+
         }
 
 

@@ -1,24 +1,22 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using ThinkITAM.ChildrenWindows.NetworkManage;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.IPAddressCalculations;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModes.NetworkManage;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Preset;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
+using ThinkITAM.DatabaseOperation;
 using static ThinkITAM.DataBridge.DataBridge;
-using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
-using ThinkITAM.ChildrenWindows.ToolWindows;
-using Button = System.Windows.Controls.Button;
-using System;
-using ThinkITAM.Properties;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.Windows.ToolWindows;
+using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.FunctionPage;
 
@@ -33,9 +31,6 @@ public partial class NetworkAddressManagePage : UserControl
         DataContext = this;
         MessageQueue = new SnackbarMessageQueue();
     }
-
-
-    private DbClass dbClass;
 
 
     /// <summary>
@@ -53,10 +48,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private async void NetworkAddressManage_OnLoaded(object sender, RoutedEventArgs e)
     {
-
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
 
         AddressListView.ItemsSource = IpAddressInfoLists;
 
@@ -131,7 +122,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-    private ObservableCollection<ViewModes.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
+    private ObservableCollection<ViewModels.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
 
     private void LoadProtocolInfo()
     {
@@ -141,25 +132,21 @@ public partial class NetworkAddressManagePage : UserControl
 
         string query = "SELECT * FROM Protocol;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
             index++;
             ProtocolClass info = new ProtocolClass();
 
             info.Index = index;
-            info.Protocol = reader["Protocol"].ToString();
-            info.Note = reader["Note"].ToString();
+            info.Protocol = row["Protocol"].ToString();
+            info.Note = row["Note"].ToString();
 
             protocolInfos.Add(info);
         }
-
-
-
 
     }
 
@@ -178,26 +165,22 @@ public partial class NetworkAddressManagePage : UserControl
 
         string sqlTemp = $"SELECT COUNT(*) FROM PortList";
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
             string query = "SELECT * FROM PortList;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
 
                 var port = new PortViewModel();
 
-                port.Port = Convert.ToInt32(reader["Port"]);
+                port.Port = Convert.ToInt32(row["Port"]);
 
                 portList.Add(port);
-
             }
 
 
@@ -214,43 +197,47 @@ public partial class NetworkAddressManagePage : UserControl
 
         string sqlTemp = $"SELECT COUNT(*) FROM Network";
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
             string query = "SELECT * FROM Network;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
 
             int i = 0;
-            while (reader.Read())
+
+
+            foreach (var row in rows)
             {
                 i++;
                 var info = new NetworkInfoViewMode();
                 info.Index = i;
-                string tableName = "Net_" + reader["NetworkId"].ToString();
+                string tableName = "Net_" + row["NetworkId"].ToString();
 
                 info.TableName = tableName;
-                info.Name = reader["Name"].ToString();
-                info.Description = reader["Description"].ToString();
-                info.Network = reader["Network"].ToString();
-                info.Netmask = reader["Netmask"].ToString();
-                info.Parent = reader["Parent"].ToString();
-                info.Child = reader["Child"].ToString();
-                info.TagA = reader["TagA"].ToString();
-                info.TagB = reader["TagB"].ToString();
-                info.TagC = reader["TagC"].ToString();
-                info.TagD = reader["TagD"].ToString();
-                info.TagE = reader["TagE"].ToString();
-                info.TagF = reader["TagF"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Description = row["Description"].ToString();
+                info.Network = row["Network"].ToString();
+                info.Netmask = row["Netmask"].ToString();
+                info.Parent = row["Parent"].ToString();
+                info.Child = row["Child"].ToString();
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
                 //info.Percentage = CalculateUseValue(tableName);
 
 
 
 
                 IPAddress mask = IPAddress.Parse(info.Netmask);
-                int subMask = IPAddressCalculations.IPAddressCalculations.CalculateSubnetMaskLength(mask);
+                int subMask = IPAddressCalculations.CalculateSubnetMaskLength(mask);
 
                 if (subMask < 24) //如果是大型网段
                 {
@@ -284,6 +271,9 @@ public partial class NetworkAddressManagePage : UserControl
             }
 
 
+
+
+
         }
 
 
@@ -299,15 +289,15 @@ public partial class NetworkAddressManagePage : UserControl
     private int GetUseValue(string tableName, string netMask, string network = null)
     {
 
-        int maskLength = IPAddressCalculations.IPAddressCalculations.SubnetMaskToCidr(netMask);
+        int maskLength = IPAddressCalculations.SubnetMaskToCidr(netMask);
 
-        var addressCount = IPAddressCalculations.IPAddressCalculations.AddressCount(maskLength) - 2;
+        var addressCount = IPAddressCalculations.AddressCount(maskLength) - 2;
 
         int value = 0;
 
         if (maskLength < 24)//如果是大型网段
         {
-            var info = IPAddressCalculations.SubnetCalculator.CalculateSubnets(network, maskLength);
+            var info = SubnetCalculator.CalculateSubnets(network, maskLength);
 
             int index = 0;
             int useNum = 0;
@@ -351,7 +341,7 @@ public partial class NetworkAddressManagePage : UserControl
         string sql = $"SELECT COUNT(*) FROM {tableName} WHERE Status != '1'";//查询已分配的地址数量
 
 
-        return dbClass.ExecuteScalarTableNum(sql, dbClass.connection);
+        return DbClass.ExecuteScalarTableNum(sql);
     }
 
 
@@ -368,22 +358,23 @@ public partial class NetworkAddressManagePage : UserControl
 
         string query = "SELECT * FROM Browser;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            index++;
+                      index++;
             BrowserInfoViewModel info = new BrowserInfoViewModel();
 
             info.Index = index;
-            info.Browser = reader["Browser"].ToString();
-            info.Path = reader["Path"].ToString();
+            info.Browser = row["Browser"].ToString();
+            info.Path = row["Path"].ToString();
 
-            browserInfos.Add(info);
+            browserInfos.Add(info);  
         }
+
 
 
         BrowserCombobox.ItemsSource = browserInfos;
@@ -468,13 +459,13 @@ public partial class NetworkAddressManagePage : UserControl
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-        var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
 
         if (num > 0) //存在本地自定义标签
         {
-            var tags = dbClass.LoadWindowTag(tagWindow);
+            var tags = DbClass.LoadWindowTag(tagWindow);
 
             if (tags != null)
             {
@@ -495,7 +486,7 @@ public partial class NetworkAddressManagePage : UserControl
         }
         else //全局标签
         {
-            var tags = dbClass.LoadWindowTag("IpAddressInfoTag");
+            var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
             if (tags != null)
             {
@@ -532,13 +523,13 @@ public partial class NetworkAddressManagePage : UserControl
         //查询表对应共有的IP数量
         string sqlTemp = $"SELECT COUNT(*) FROM {tableName}";
 
-        var all = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var all = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
 
         sqlTemp = $"SELECT COUNT(*) FROM {tableName} WHERE Status != 1";
 
-        var used = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+        var used = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
         return ((double)used / all) * 100;
@@ -560,8 +551,8 @@ public partial class NetworkAddressManagePage : UserControl
 
     private async void NetworkTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
-       
-        
+
+
 
         if (e != null)
         {
@@ -609,7 +600,7 @@ public partial class NetworkAddressManagePage : UserControl
                 }
                 else if (selectedNode is SubNetworkInfo) //如果是子项
                 {
-                    
+
                     // 如果选择的是子节点类型，则处理子节点的逻辑
                     SubNetworkInfo childNode = selectedNode as SubNetworkInfo;
 
@@ -642,7 +633,7 @@ public partial class NetworkAddressManagePage : UserControl
                     //1.判断分表是否为空表
                     string sqlTemp = $"SELECT COUNT(*) FROM {tableName}";
 
-                    var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     string[] ipParts = tableName.Split('_');
 
@@ -657,18 +648,21 @@ public partial class NetworkAddressManagePage : UserControl
 
                     string query = $"SELECT * FROM Network WHERE NetworkId ='{parentTableName}';";
 
-                    SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                    SQLiteDataReader reader = command.ExecuteReader();
+                    var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+
                     var parentInfo = new NetworkInfoViewMode();
-                    while (reader.Read())
+
+                    foreach (var row in rows)
                     {
                         parentInfo.TableName = parentTableName;
-                        parentInfo.Name = reader["Name"].ToString();
-                        parentInfo.Description = reader["Description"].ToString();
-                        parentInfo.Network = reader["Network"].ToString();
-                        parentInfo.Netmask = reader["Netmask"].ToString();
+                        parentInfo.Name = row["Name"].ToString();
+                        parentInfo.Description = row["Description"].ToString();
+                        parentInfo.Network = row["Network"].ToString();
+                        parentInfo.Netmask = row["Netmask"].ToString();
 
                     }
+
 
                     DataBridge.DataBridge.SelectNetworkInfo = parentInfo;
 
@@ -793,7 +787,10 @@ public partial class NetworkAddressManagePage : UserControl
 
             //Console.WriteLine(sql);
             //异步执行
-            dbClass.InsertDataAsync(sql);
+
+            await GlobalVariables.DbService.ExecuteQueryAsync(sql);
+
+
         }
 
 
@@ -854,7 +851,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         int mask = SubnetCalculator.SubnetMaskToLength(netmask);
 
-        var networkInfo = IPAddressCalculations.SubnetCalculator.CalculateSubnets(network, mask);
+        var networkInfo = SubnetCalculator.CalculateSubnets(network, mask);
 
         //foreach (var VARIABLE in networkInfo.Item2)
         //{
@@ -889,7 +886,7 @@ public partial class NetworkAddressManagePage : UserControl
     private void LoadTags()
     {
 
-        settingTags = dbClass.LoadWindowTag("AddNetwork");
+        settingTags = DbClass.LoadWindowTag("AddNetwork");
 
 
         if (settingTags != null)
@@ -981,7 +978,7 @@ public partial class NetworkAddressManagePage : UserControl
             {
 
                 IPAddress mask = IPAddress.Parse(MaskText.Text);
-                int maskLength = IPAddressCalculations.IPAddressCalculations.CalculateSubnetMaskLength(mask);
+                int maskLength = IPAddressCalculations.CalculateSubnetMaskLength(mask);
 
 
                 IPAddress networkAddress = ip.GetNetworkAddress(mask);
@@ -998,7 +995,7 @@ public partial class NetworkAddressManagePage : UserControl
                 Broadcast.Text = broadcastAddress.ToString();
 
 
-                long addressCount = IPAddressCalculations.IPAddressCalculations.AddressCount(maskLength);
+                long addressCount = IPAddressCalculations.AddressCount(maskLength);
                 NumBox.Text = addressCount.ToString();
             }
         }
@@ -1030,14 +1027,13 @@ public partial class NetworkAddressManagePage : UserControl
             string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.`Group`, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
 
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                var info = new IpAddressInfoListViewMode();
-                info.Address = Convert.ToInt32(reader["Address"].ToString());
-                int status = Convert.ToInt32(reader["Status"].ToString());
+                               var info = new IpAddressInfoListViewMode();
+                info.Address = Convert.ToInt32(row["Address"].ToString());
+                int status = Convert.ToInt32(row["Status"].ToString());
 
                 info.Status = status;
 
@@ -1056,7 +1052,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 try
                 {
-                    info.AddressColor = reader["AddressColor"] != DBNull.Value ? Convert.ToInt32(reader["AddressColor"]) : 0;
+                    info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
                 }
                 catch (Exception e)
                 {
@@ -1066,21 +1062,21 @@ public partial class NetworkAddressManagePage : UserControl
 
                 info.PingTime = "N/A";
                 info.PingStatusColor = Brushes.Azure;
-                info.User = reader["User"].ToString();
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Group = reader["Group"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.HostName = reader["HostName"].ToString();
-                info.MacAddress = reader["MacAddress"].ToString();
-                info.LinkDevice = reader["LinkDevice"].ToString();
-                info.TagA = reader["TagA"].ToString();
-                info.TagB = reader["TagB"].ToString();
-                info.TagC = reader["TagC"].ToString();
-                info.TagD = reader["TagD"].ToString();
-                info.TagE = reader["TagE"].ToString();
-                info.TagF = reader["TagF"].ToString();
+                info.User = row["User"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Group = row["Group"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.HostName = row["HostName"].ToString();
+                info.MacAddress = row["MacAddress"].ToString();
+                info.LinkDevice = row["LinkDevice"].ToString();
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
                 var tip = JoInTip(info);
                 info.AddressToolTip = tip;
 
@@ -1116,16 +1112,17 @@ public partial class NetworkAddressManagePage : UserControl
                     itemToUpdate.TagD = info.TagD;
                     itemToUpdate.TagE = info.TagE;
                     itemToUpdate.TagF = info.TagF;
-                    itemToUpdate.AddressToolTip= tip;
-                   
-                    
+                    itemToUpdate.AddressToolTip = tip;
+
+
 
 
                 }
 
 
-
+ 
             }
+
 
 
 
@@ -1139,7 +1136,7 @@ public partial class NetworkAddressManagePage : UserControl
             //获取当前选中的网段
             string[] segments = tableName.ToString().Split('_');
             string networkId = segments[1];
-            var networkInfo = dbClass.GetNetworkInfoFromId(networkId);
+            //var networkInfo = dbClass.GetNetworkInfoFromId(networkId);
 
 
 
@@ -1166,15 +1163,18 @@ public partial class NetworkAddressManagePage : UserControl
 
             string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.`Group`, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
 
-            Console.WriteLine(query);
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+
+
+
+
+            foreach (var row in rows)
             {
+                            
                 var info = new IpAddressInfoListViewMode();
-                info.Address = Convert.ToInt32(reader["Address"].ToString());
-                int status = Convert.ToInt32(reader["Status"].ToString());
+                info.Address = Convert.ToInt32(row["Address"].ToString());
+                int status = Convert.ToInt32(row["Status"].ToString());
 
                 info.Status = status;
 
@@ -1193,7 +1193,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 try
                 {
-                    info.AddressColor = reader["AddressColor"] != DBNull.Value ? Convert.ToInt32(reader["AddressColor"]) : 0;
+                    info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
                 }
                 catch (Exception e)
                 {
@@ -1203,24 +1203,24 @@ public partial class NetworkAddressManagePage : UserControl
 
                 info.PingTime = "N/A";
                 info.PingStatusColor = Brushes.Azure;
-                info.User = reader["User"].ToString();
-                info.Name = reader["Name"].ToString();
-                info.Organization = reader["Organization"].ToString();
-                info.Department = reader["Department"].ToString();
-                info.Group = reader["Group"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.HostName = reader["HostName"].ToString();
-                info.MacAddress = reader["MacAddress"].ToString();
-                info.LinkDeviceAssetTag = reader["AssetTag"].ToString();
-                info.LinkDeviceAssetNumber = reader["AssetNumber"].ToString();
+                info.User = row["User"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Group = row["Group"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.HostName = row["HostName"].ToString();
+                info.MacAddress = row["MacAddress"].ToString();
+                info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+                info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
                 info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
-                info.LinkDeviceId = reader["LinkDevice"].ToString();
-                info.TagA = reader["TagA"].ToString();
-                info.TagB = reader["TagB"].ToString();
-                info.TagC = reader["TagC"].ToString();
-                info.TagD = reader["TagD"].ToString();
-                info.TagE = reader["TagE"].ToString();
-                info.TagF = reader["TagF"].ToString();
+                info.LinkDeviceId = row["LinkDevice"].ToString();
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
 
                 var tip = JoInTip(info);
 
@@ -1237,6 +1237,9 @@ public partial class NetworkAddressManagePage : UserControl
 
                 IpAddressInfoLists.Add(info);
             }
+
+
+
 
 
         }
@@ -1648,7 +1651,7 @@ public partial class NetworkAddressManagePage : UserControl
     private async void StatusTestButton_OnClick(object sender, RoutedEventArgs e)
     {
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, true);
-        await FunctionClass.PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
+        await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
 
         int onlineHost = IpAddressInfoLists.Count(item => item.PingTime != "-1");
         OnlineHost.Text = onlineHost.ToString();
@@ -1717,11 +1720,11 @@ public partial class NetworkAddressManagePage : UserControl
     {
 
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, true);
-        await FunctionClass.PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
+        await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, false);
 
         ButtonProgressAssist.SetIsIndeterminate(ArpTestButton, true);
-        await FunctionClass.DeviceInfoUpdater.UpdateDeviceInfoListAsync(IpAddressInfoLists);
+        await DeviceInfoUpdater.UpdateDeviceInfoListAsync(IpAddressInfoLists);
         ButtonProgressAssist.SetIsIndeterminate(ArpTestButton, false);
 
 
@@ -1742,7 +1745,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 string sql = $"DELETE FROM \"PortList\" WHERE Port = {PortComboBox.Text}";
 
-                dbClass.ExecuteQuery(sql);
+                GlobalVariables.DbService.ExecuteQuery(sql);
 
                 LoadPort();
             }
@@ -1757,13 +1760,14 @@ public partial class NetworkAddressManagePage : UserControl
                 {
                     string sqlTemp = $"SELECT COUNT(*) FROM PortList WHERE Port ={port}";
 
-                    var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                    var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     if (countNum == 0)//判断端口是否已存在，不存在的情况
                     {
                         string sql = $"INSERT INTO \"PortList\" (\"Port\") VALUES ({port})";
 
-                        dbClass.ExecuteQuery(sql);
+                       GlobalVariables.DbService.ExecuteNonQuery(sql);
+
                         DataBridge.DataBridge.SelectPort = port.ToString();
                         LoadPort();
                     }

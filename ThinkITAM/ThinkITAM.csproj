@@ -35,6 +35,7 @@
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MacAddressVendorLookup" Version="1.1.13" />
     <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
@@ -42,6 +43,7 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.4" />
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Nmap.NET" Version="1.0.4" />
     <PackageReference Include="Nodify" Version="7.0.3" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="System.Management" Version="9.0.4" />

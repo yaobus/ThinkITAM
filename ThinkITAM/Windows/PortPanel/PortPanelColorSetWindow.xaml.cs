@@ -12,9 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModels.PortPanel;
 
 namespace ThinkITAM.Windows.PortPanel
 {
@@ -31,14 +32,11 @@ namespace ThinkITAM.Windows.PortPanel
 
 
         private PortClass port;
-        private DbClass dbClass;
+
 
         private void PortPanelColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ColorGrid.Background = GetBrushByIndex(port.PortColor) ;
 
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
 
         }
 
@@ -120,7 +118,8 @@ namespace ThinkITAM.Windows.PortPanel
 
            
 
-            dbClass.ExecuteQuery(sql);
+          
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
             DialogResult = true;
         }

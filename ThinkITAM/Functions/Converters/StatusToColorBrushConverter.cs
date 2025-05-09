@@ -19,13 +19,13 @@ namespace ThinkITAM.Functions.Converters
                 switch (status)
                 {
                     case 0: //未分配
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#21a675");
+                        return ColorConverterClass.ColorToBrush("#21a675");
                     case 1: //已分配未启用
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#f2b632");
+                        return ColorConverterClass.ColorToBrush("#f2b632");
                     case 2: //已分配，已启用
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#ff6f61");
+                        return ColorConverterClass.ColorToBrush("#ff6f61");
                     case 3: //故障
-                        return FunctionClass.ColorConverterClass.ColorToBrush("#4F4E48");
+                        return ColorConverterClass.ColorToBrush("#4F4E48");
                     default:
                         return Brushes.AliceBlue; // 默认颜色
                 }

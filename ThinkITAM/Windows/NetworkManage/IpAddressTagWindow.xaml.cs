@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -30,16 +31,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
 
             string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-            var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
             if (DataBridge.DataBridge.NetworkTableName != null)
@@ -54,7 +51,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (num > 0)//存在本地自定义标签
             {
-                var tags = dbClass.LoadWindowTag(tagWindow);
+                var tags = DbClass.LoadWindowTag(tagWindow);
                 
                 if (tags != null)
                 {
@@ -73,7 +70,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             }else//全局标签
             {
-                var tags = dbClass.LoadWindowTag("IpAddressInfoTag");
+                var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
                 if (tags != null)
                 {
@@ -132,7 +129,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 // 将匿名对象序列化为JSON字符串
                 string json = JsonConvert.SerializeObject(settings);
 
-                dbClass.SaveWindowTag(tagWindow, json);
+                DbClass.SaveWindowTag(tagWindow, json);
 
                 this.DialogResult = true;
                 this.Close();
@@ -166,7 +163,8 @@ namespace ThinkITAM.Windows.NetworkManage
             if (result == MessageBoxResult.Yes)
             {
                 string sql = $"DELETE FROM \"WindowTag\" WHERE Window='{tagWindow}'";
-                dbClass.ExecuteQuery(sql);
+                
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
         }
 
@@ -183,7 +181,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
 
-                var tags = dbClass.LoadWindowTag(tagWindow);
+                var tags = DbClass.LoadWindowTag(tagWindow);
 
                 if (tags != null)
                 {
@@ -211,7 +209,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             if (GlobalRadioButton.IsChecked==true)
             {
-                var tags = dbClass.LoadWindowTag("IpAddressInfoTag");
+                var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
                 if (tags != null)
                 {

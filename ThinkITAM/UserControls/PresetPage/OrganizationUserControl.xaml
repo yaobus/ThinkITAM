@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:preset="clr-namespace:ThinkITAM.ViewModes.Preset"
+    xmlns:preset="clr-namespace:ThinkITAM.ViewModels.Preset"
     d:Height="800"
     d:Width="1200"
     Loaded="OrganizationUserControl_OnLoaded"

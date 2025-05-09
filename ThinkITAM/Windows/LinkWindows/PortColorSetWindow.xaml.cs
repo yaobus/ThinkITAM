@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Windows.LinkWindows
@@ -30,13 +32,12 @@ namespace ThinkITAM.Windows.LinkWindows
 
         private PortClass port;
 
-        private DbClass dbClass;
+
         private void PortColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             //ColorGrid.Background = port.PortTagBrush;
 
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
 
 
@@ -91,7 +92,8 @@ namespace ThinkITAM.Windows.LinkWindows
             string sql = $"UPDATE \"Ra_{DataBridge.DataBridge.SelectRackId[0]}\" SET \"PortColor\" = '{colorIndex}' WHERE UID = '{port.UID}'";
 
 
-            dbClass.ExecuteQuery(sql);
+            
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
             DialogResult = true;
         }

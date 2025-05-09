@@ -6,10 +6,12 @@ using System.Windows.Controls;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModes.NetworkManage;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Preset;
 using MaterialDesignThemes.Wpf;
 using Nmap.NET.Container;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -18,9 +20,6 @@ namespace ThinkITAM.Windows.NetworkManage
     /// </summary>
     public partial class AddressAllocationWindow : Window
     {
-        private DbClass dbClass;
-
-
 
         // 定义一个事件，本窗口关闭时触发
         // 定义一个带布尔值参数的事件
@@ -43,10 +42,6 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AddressAllocationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
 
             //清空可能在上一次打开窗口产生的关联数据
             DataBridge.DataBridge.SelectPeopleViewModel = null;//用户关联ID
@@ -382,7 +377,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             //            string sqlTemp = $"SELECT COUNT(*) FROM Asset WHERE AssetTag ='{assetTag}' AND AssetNumber={num}";
 
-            //            var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            //            var countNum = DbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
 
             //            if (countNum == 0)
             //            {
@@ -601,8 +596,8 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
             //Console.WriteLine(sql);
-            dbClass.ExecuteQuery(sql);
-
+            
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
         }
 
@@ -688,7 +683,8 @@ namespace ThinkITAM.Windows.NetworkManage
                     int address = item.Address;
 
                     string sql = $"UPDATE \"{tableName}\" SET \"Status\" = 1, \"User\" = '', \"AddressColor\"='0', \"HostName\" = '', \"MacAddress\" = '', \"LinkDevice\" = '', \"TagA\" = '', \"TagB\" = '', \"TagC\" = '', \"TagD\" = '', \"TagE\" = '', \"TagF\" = '' WHERE Address = {address}";
-                    dbClass.ExecuteQuery(sql);
+                  
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                     DataBridge.DataBridge.IpAddressInfoLists[address].Status = 1;
                     DataBridge.DataBridge.IpAddressInfoLists[address].User = "";

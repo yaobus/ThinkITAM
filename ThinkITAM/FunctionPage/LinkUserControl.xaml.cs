@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using ThinkITAM.ChildrenWindows.LinkWindows;
+using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.UserControls.PortPanel;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.PortPanel;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
+using ThinkITAM.ViewModels.Preset;
 using Nodify;
-using static ThinkITAM.ViewModes.DevicePortManage.PortTypeClass;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 
@@ -32,7 +34,7 @@ namespace ThinkITAM.FunctionPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         /// <summary>
         /// 链路是否可以保存
@@ -41,9 +43,6 @@ namespace ThinkITAM.FunctionPage
 
         private void LinkUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
-
 
             CabinetListView.ItemsSource = rackInfos;
 
@@ -101,24 +100,25 @@ namespace ThinkITAM.FunctionPage
 
             string sqlTemp = $"SELECT COUNT(*) FROM Devices";
 
-            var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
             if (num > 0)
             {
                 string query = "SELECT DISTINCT AssetType FROM Devices;";
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+                foreach (var row in rows)
                 {
+                     AssetTypeViewModel asset = new AssetTypeViewModel();
 
-                    AssetTypeViewModel asset = new AssetTypeViewModel();
-
-                    asset.AssetType = reader["Assettype"].ToString();
+                    asset.AssetType = row["Assettype"].ToString();
 
                     groupsTypes.Add(asset);
                 }
+
+
             }
         }
 
@@ -342,27 +342,29 @@ namespace ThinkITAM.FunctionPage
             {
                 string sql = $"SELECT Building FROM Buildings WHERE BuildingId='{rackId}'";
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                foreach (var row in rows)
                 {
-                    info.RoomOrBuilding = reader["Building"].ToString();
+                    info.RoomOrBuilding = row["Building"].ToString();
                 }
+
+
 
             }
             else
             {
                 string sql = $"SELECT dr.Name AS RoomName, dc.Name AS CabinetName,r.RackName AS RackName\r\nFROM Racks r\r\nJOIN DeviceCabinet dc ON r.CabinetId = dc.CabinetId\r\nJOIN DeviceRoom dr ON dc.DeviceRoomQrId = dr.DeviceRoomQrId\r\nWHERE r.RackId = '{rackId}';";
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+                foreach (var row in rows)
                 {
-                    info.RoomOrBuilding = reader["RoomName"].ToString();
-                    info.Cabinet = reader["CabinetName"].ToString();
-                    info.RackName = reader["RackName"].ToString();
+                    info.RoomOrBuilding = row["RoomName"].ToString();
+                    info.Cabinet = row["CabinetName"].ToString();
+                    info.RackName = row["RackName"].ToString();
                 }
+
+
 
                 //从数据库获取端口信息
 
@@ -395,7 +397,7 @@ namespace ThinkITAM.FunctionPage
             if (DataBridge.DataBridge.SelectRackId.Count > 0)
             {
                 //Console.WriteLine($"loadRack{DataBridge.DataBridge.SelectRackId[0]}");
-                dbClass.LoadSelectRackInfo(DataBridge.DataBridge.SelectRackId[0]);
+                DbClass.LoadSelectRackInfo(DataBridge.DataBridge.SelectRackId[0]);
             }
 
         }
@@ -426,30 +428,28 @@ namespace ThinkITAM.FunctionPage
 
             string sql = $"SELECT * FROM Racks WHERE RackId = '{rackId}'";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             RackInfo rack = new RackInfo();
 
-            while (reader.Read())
+
+            foreach (var row in rows)
             {
-
-
-                rack.rackId = reader["RackId"].ToString();
-                rack.rackGroup = reader["RackGroup"].ToString();
-                rack.rackName = reader["RackName"].ToString();
-                rack.rackNote = reader["RackNote"].ToString();
-                string infos = reader["SlotInfos"].ToString();
+                rack.rackId = row["RackId"].ToString();
+                rack.rackGroup = row["RackGroup"].ToString();
+                rack.rackName = row["RackName"].ToString();
+                rack.rackNote = row["RackNote"].ToString();
+                string infos = row["SlotInfos"].ToString();
 
                 var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
 
                 rack.slotInfos = slotInfos;
 
-                rack.slotCount = Convert.ToInt32(reader["SlotCount"]);
-
+                rack.slotCount = Convert.ToInt32(row["SlotCount"]);
 
             }
+
+
 
 
 
@@ -462,33 +462,32 @@ namespace ThinkITAM.FunctionPage
         {
             string query = "SELECT DISTINCT DeviceRoomQrId FROM DeviceCabinet;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                              index++;
                 //取出机房ID
-                string deviceRoomQrId = reader["DeviceRoomQrId"].ToString();
+                string deviceRoomQrId = row["DeviceRoomQrId"].ToString();
 
                 //取出机房信息
                 string sql = $"SELECT * FROM DeviceRoom  WHERE DeviceRoomQrId = '{deviceRoomQrId}'";
 
-                SQLiteCommand command1 = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader1 = command1.ExecuteReader();
+                var rows1 = GlobalVariables.DbService.ExecuteQuery(sql);
 
-                if (reader1.Read())
+                foreach (var row1 in rows1)
                 {
-                    var info = new DeviceRoomClass();
+                                        var info = new DeviceRoomClass();
                     info.Index = index;
-                    info.Name = reader1["RoomName"].ToString();
-                    info.Location = reader1["Location"].ToString();
-                    info.User = reader1["User"].ToString();
-                    info.UserPhone = reader1["UserPhone"].ToString();
-                    info.Note = reader1["Note"].ToString();
-                    info.DeviceRoomQrId = reader1["DeviceRoomQrId"].ToString();
+                    info.Name = row1["RoomName"].ToString();
+                    info.Location = row1["Location"].ToString();
+                    info.User = row1["User"].ToString();
+                    info.UserPhone = row1["UserPhone"].ToString();
+                    info.Note = row1["Note"].ToString();
+                    info.DeviceRoomQrId = row1["DeviceRoomQrId"].ToString();
 
                     var room = new UserControls.LinkPage.DeviceRoomInfo();
 
@@ -497,43 +496,44 @@ namespace ThinkITAM.FunctionPage
 
                     string sqlTemp = $"SELECT * FROM DeviceCabinet  WHERE DeviceRoomQrId = '{deviceRoomQrId}'";
 
-                    SQLiteCommand command2 = new SQLiteCommand(sqlTemp, dbClass.connection);
-                    SQLiteDataReader reader2 = command2.ExecuteReader();
+                    var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
                     int index2 = 0;
 
 
                     var deviceRoomItems = new TreeViewItem();
 
-                    while (reader2.Read())
+                    foreach (var row2 in rows2)
                     {
-                        index2++;
+                                                index2++;
                         var cabinet = new UserControls.LinkPage.CabinetUserControl();
 
                         var cabinetInfo = new CabinetClass();
                         cabinetInfo.Index = index2;
-                        cabinetInfo.Name = reader2["CabinetName"].ToString();
-                        cabinetInfo.CabinetId = reader2["CabinetId"].ToString();
-                        cabinetInfo.Position = reader2["Position"].ToString();
-                        cabinetInfo.Note = reader2["Note"].ToString();
-                        cabinetInfo.DeviceRoomQrId = reader2["DeviceRoomQrId"].ToString();
+                        cabinetInfo.Name = row2["CabinetName"].ToString();
+                        cabinetInfo.CabinetId = row2["CabinetId"].ToString();
+                        cabinetInfo.Position = row2["Position"].ToString();
+                        cabinetInfo.Note = row2["Note"].ToString();
+                        cabinetInfo.DeviceRoomQrId = row2["DeviceRoomQrId"].ToString();
                         cabinet.DataContext = cabinetInfo;
 
                         deviceRoomItems.Items.Add(cabinet);
                     }
 
+
+
                     deviceRoomItems.Header = room;
                     await Task.Delay(50);
                     LinkTreeView.Items.Add(deviceRoomItems);
-
                 }
 
 
 
 
 
-
             }
+
+
         }
 
 
@@ -669,21 +669,22 @@ namespace ThinkITAM.FunctionPage
 
             string query = $"SELECT * FROM Racks WHERE CabinetId='{cabinetId}'";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
                 index++;
                 RackInfo info = new RackInfo();
                 info.Index = index;
-                info.rackId = reader["RackId"].ToString();
-                info.rackGroup = reader["RackGroup"].ToString();
-                info.rackName = reader["RackName"].ToString();
-                info.rackNote = reader["RackNote"].ToString();
-                string infos = reader["SlotInfos"].ToString();
+                info.rackId = row["RackId"].ToString();
+                info.rackGroup = row["RackGroup"].ToString();
+                info.rackName = row["RackName"].ToString();
+                info.rackNote = row["RackNote"].ToString();
+                string infos = row["SlotInfos"].ToString();
 
 
 
@@ -691,12 +692,12 @@ namespace ThinkITAM.FunctionPage
                 var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
                 info.slotInfos = slotInfos;
 
-                info.slotCount = Convert.ToInt32(reader["SlotCount"]);
+                info.slotCount = Convert.ToInt32(row["SlotCount"]);
 
                 rackInfos.Add(info);
-
-
             }
+
+
         }
 
         /// <summary>
@@ -710,26 +711,25 @@ namespace ThinkITAM.FunctionPage
 
             string query = $"SELECT * FROM Racks WHERE RackId='{rackId}'";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-
-                mdf.RackId = reader["RackId"].ToString();
-                mdf.RackGroup = reader["RackGroup"].ToString();
-                mdf.RackName = reader["RackName"].ToString();
-                mdf.RackNote = reader["RackNote"].ToString();
-                string infos = reader["SlotInfos"].ToString();
+                mdf.RackId = row["RackId"].ToString();
+                mdf.RackGroup = row["RackGroup"].ToString();
+                mdf.RackName = row["RackName"].ToString();
+                mdf.RackNote = row["RackNote"].ToString();
+                string infos = row["SlotInfos"].ToString();
 
 
                 var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
                 mdf.Slots = slotInfos;
 
-                mdf.SlotCount = Convert.ToInt32(reader["SlotCount"]);
-
+                mdf.SlotCount = Convert.ToInt32(row["SlotCount"]);
             }
+
+
+
 
             return mdf;
         }
@@ -812,46 +812,48 @@ namespace ThinkITAM.FunctionPage
                 //2.1，读取该槽位全部号信息
                 string query = $"SELECT * FROM ra_{rackId} WHERE SlotId = {slotIndex};";
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+                foreach (var row in rows)
                 {
                     PortClass port = new PortClass();
 
                     //端口基础信息
-                    port.UID = Convert.ToInt32(reader["UID"]);
-                    port.PortIndex = reader["PortId"].ToString();
+                    port.UID = Convert.ToInt32(row["UID"]);
+                    port.PortIndex = row["PortId"].ToString();
 
                     //如果获取到的颜色为空，则设置为默认颜色
-                    if (reader["PortColor"] == DBNull.Value)
+                    if (row["PortColor"] == DBNull.Value)
                     {
                         port.PortColor = 0;
                     }
                     else
                     {
-                        port.PortColor = Convert.ToInt32(reader["PortColor"]);
+                        port.PortColor = Convert.ToInt32(row["PortColor"]);
                     }
 
 
-                    port.PortTag = reader["PortTag"].ToString();
-                    port.PortStatus = reader["PortStatus"].ToString();
+                    port.PortTag = row["PortTag"].ToString();
+                    port.PortStatus = row["PortStatus"].ToString();
                     port.PortType = slots[index].SlotType;
 
 
-                    if (reader["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value)
                     {
                         port.OnTheLine = -1;
                     }
                     else
                     {
-                        port.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                        port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
                     }
 
 
 
                     ports.Add(port);
                 }
+
+
 
                 //类型索引
                 index++;
@@ -1092,7 +1094,8 @@ namespace ThinkITAM.FunctionPage
                             //往A端的表存入B端的信息(建筑端口类)
                             string sqlA =
                                 $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"PermanentType\" = {typeB}, \"PermanentRackId\" = '{rackIdB}', \"PermanentSlot\" = '{slotIdB}', \"PermanentPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' AND RoomId='{roomA}'";
-                            dbClass.ExecuteQuery(sqlA);
+                            
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
 
                             ReLoadRack(rackIdA);
 
@@ -1110,7 +1113,8 @@ namespace ThinkITAM.FunctionPage
                             //往A端的表存入B端的信息(配线架端口类)
                             string sqlA =
                                 $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"PermanentType\" = {typeB}, \"PermanentRackId\" = '{rackIdB}', \"PermanentSlot\" = '{slotIdB}', \"PermanentPort\" = '{portIdB}'  {roomSql}  WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}'";
-                            dbClass.ExecuteQuery(sqlA);
+                           
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
 
                             ReLoadRack(rackIdA);
 
@@ -1132,7 +1136,7 @@ namespace ThinkITAM.FunctionPage
                             string sqlB =
                                 $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"PermanentType\" = {typeA}, \"PermanentRackId\" = '{rackIdA}', \"PermanentSlot\" = '{slotIdA}', \"PermanentPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}' AND RoomId='{roomB}'";
 
-                            dbClass.ExecuteQuery(sqlB);
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
                             ReLoadRack(rackIdB);
 
                         }
@@ -1150,7 +1154,7 @@ namespace ThinkITAM.FunctionPage
                             string sqlB =
                                 $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"PermanentType\" = {typeA}, \"PermanentRackId\" = '{rackIdA}', \"PermanentSlot\" = '{slotIdA}', \"PermanentPort\" = '{portIdA}'  {roomSql}  WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}'";
 
-                            dbClass.ExecuteQuery(sqlB);
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
                             ReLoadRack(rackIdB);
                         }
 
@@ -1212,7 +1216,8 @@ namespace ThinkITAM.FunctionPage
                             //往A端的表存入B端的信息
                             string sqlA =
                                 $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"TempType\" = {typeB}, \"TempRackId\" = '{rackIdB}', \"TempSlot\" = '{slotIdB}', \"TempPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' AND RoomId='{roomA}'";
-                            dbClass.ExecuteQuery(sqlA);
+
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
                             ReLoadRack(rackIdA);
                         }
                         else
@@ -1228,7 +1233,7 @@ namespace ThinkITAM.FunctionPage
                             //往A端的表存入B端的信息
                             string sqlA =
                                 $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"TempType\" = {typeB}, \"TempRackId\" = '{rackIdB}', \"TempSlot\" = '{slotIdB}', \"TempPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' ";
-                            dbClass.ExecuteQuery(sqlA);
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
                             ReLoadRack(rackIdA);
                         }
 
@@ -1246,7 +1251,9 @@ namespace ThinkITAM.FunctionPage
                             //往B端的表存入A端的信息
                             string sqlB =
                                 $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"TempType\" = {typeA}, \"TempRackId\" = '{rackIdA}', \"TempSlot\" = '{slotIdA}', \"TempPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}' AND RoomId='{roomB}'";
-                            dbClass.ExecuteQuery(sqlB);
+
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
+
                             ReLoadRack(rackIdB);
                         }
                         else
@@ -1263,7 +1270,9 @@ namespace ThinkITAM.FunctionPage
                             //往B端的表存入A端的信息
                             string sqlB =
                                 $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"TempType\" = {typeA}, \"TempRackId\" = '{rackIdA}', \"TempSlot\" = '{slotIdA}', \"TempPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}'";
-                            dbClass.ExecuteQuery(sqlB);
+
+
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
                             ReLoadRack(rackIdB);
                         }
 
@@ -1294,30 +1303,28 @@ namespace ThinkITAM.FunctionPage
             {
                 string sql = $"SELECT * FROM Racks WHERE RackId = '{rackId}'";
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
 
 
                 RackInfo rack = new RackInfo();
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-
-
-                    rack.rackId = reader["RackId"].ToString();
-                    rack.rackGroup = reader["RackGroup"].ToString();
-                    rack.rackName = reader["RackName"].ToString();
-                    rack.rackNote = reader["RackNote"].ToString();
-                    string infos = reader["SlotInfos"].ToString();
+                    rack.rackId = row["RackId"].ToString();
+                    rack.rackGroup = row["RackGroup"].ToString();
+                    rack.rackName = row["RackName"].ToString();
+                    rack.rackNote = row["RackNote"].ToString();
+                    string infos = row["SlotInfos"].ToString();
 
                     var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
 
                     rack.slotInfos = slotInfos;
 
-                    rack.slotCount = Convert.ToInt32(reader["SlotCount"]);
-
+                    rack.slotCount = Convert.ToInt32(row["SlotCount"]);
 
                 }
+
 
                 //RackPanel.Items.Clear();
 
@@ -1411,37 +1418,39 @@ namespace ThinkITAM.FunctionPage
             //第一步：读取所有建筑信息
             string query = "SELECT *  FROM  Buildings;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
 
                 var info = new BuildingInfoClass();
 
                 info.Index = index;
 
-                string buildingId = reader["BuildingId"].ToString();
+                string buildingId = row["BuildingId"].ToString();
 
                 info.BuildingId = buildingId;
 
 
 
                 //取出建筑名称
-                info.Building = reader["Building"].ToString();
+                info.Building = row["Building"].ToString();
 
-                info.Address = reader["Address"].ToString();
-                info.User = reader["User"].ToString();
-                info.Phone = reader["Phone"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Address = row["Address"].ToString();
+                info.User = row["User"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.Note = row["Note"].ToString();
 
 
                 buildings.Add(info);
-
             }
+
+
+
         }
 
 
@@ -1467,28 +1476,30 @@ namespace ThinkITAM.FunctionPage
                 DataBridge.DataBridge.SelectedBuildingId = buildingId;
 
 
-                dbClass.CreateDynamicsTableIfNotExists($"{buildingId}", 1);
+                DbClass.CreateDynamicsTableIfNotExists($"{buildingId}", 1);
 
                 //取出建筑楼层信息
                 string sql = $"SELECT DISTINCT SlotId FROM bu_{buildingId}";
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+                
 
 
                 int index2 = 0;
-                while (reader.Read())
+
+                foreach (var row in rows)
                 {
-                    index2++;
+                                        index2++;
                     var floorClass = new FloorInfoClass();
 
                     floorClass.Index = index2;
-                    floorClass.Floor = reader["SlotId"].ToString();
+                    floorClass.Floor = row["SlotId"].ToString();
                     floorClass.BuildingId = buildingId;
 
                     floors.Add(floorClass);
-
                 }
+
+
 
 
             }
@@ -1527,21 +1538,21 @@ namespace ThinkITAM.FunctionPage
 
         private void LoadRooms(string buildingId, string floor)
         {
-            string sql = $"SELECT DISTINCT RoomId FROM Bu_{buildingId} WHERE  SlotId ='{floor}'";
+            string query = $"SELECT DISTINCT RoomId FROM Bu_{buildingId} WHERE  SlotId ='{floor}'";
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
 
                 RoomClass room = new RoomClass();
 
                 room.Index = index;
-                room.RoomNumber = reader["RoomId"].ToString();
+                room.RoomNumber = row["RoomId"].ToString();
 
                 //string roomNote = reader["RoomNote"].ToString();
 
@@ -1550,9 +1561,10 @@ namespace ThinkITAM.FunctionPage
                 //    : "";
 
                 roomNumbers.Add(room);
-
-
             }
+
+
+
 
         }
 
@@ -1578,14 +1590,14 @@ namespace ThinkITAM.FunctionPage
                 string sql =
                     $"SELECT * FROM Bu_{buildingId} WHERE  SlotId ='{floor}' AND RoomId='{room}'";
 
-                SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
 
                 int index = 0;
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    index++;
+                                        index++;
 
                     PortLinkClass p = new PortLinkClass();
 
@@ -1593,30 +1605,30 @@ namespace ThinkITAM.FunctionPage
 
 
 
-                    if (reader["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value)
                     {
                         info.OnTheLine = -1;
                     }
                     else
                     {
-                        info.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                        info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
                     }
 
 
 
-                    info.UID = Convert.ToInt32(reader["UID"].ToString());
+                    info.UID = Convert.ToInt32(row["UID"].ToString());
                     info.RackId = buildingId;
-                    info.PortType = reader["PortType"].ToString();
-                    info.PortIndex = reader["PortId"].ToString();
-                    info.PortTag = reader["PortTag"].ToString();
-                    info.SlotIndex = reader["SlotId"].ToString();
+                    info.PortType = row["PortType"].ToString();
+                    info.PortIndex = row["PortId"].ToString();
+                    info.PortTag = row["PortTag"].ToString();
+                    info.SlotIndex = row["SlotId"].ToString();
                     info.Room = room;
 
 
                     SlotClass slot = new SlotClass();
-                    slot.SlotIndex = reader["SlotId"].ToString();
+                    slot.SlotIndex = row["SlotId"].ToString();
 
-                    info.PortColor = Convert.ToInt32(reader["PortColor"].ToString());
+                    info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
 
                     p.PortClass = info;
                     p.SlotClass = slot;
@@ -1627,6 +1639,8 @@ namespace ThinkITAM.FunctionPage
 
                     PortManagePanel.Children.Add(port);
                 }
+
+
             }
 
         }
@@ -1643,22 +1657,24 @@ namespace ThinkITAM.FunctionPage
 
                 string sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{asset}'";
 
-                SQLiteCommand command = new SQLiteCommand(sqlTemp, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                var rows = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
+
+                foreach (var row in rows)
                 {
-                    var info = new DeviceTypeViewModel();
-                    info.AssetId = reader["AssetId"].ToString();
-                    info.AssetType = reader["AssetType"].ToString();
-                    info.DeviceType = reader["DeviceType"].ToString();
-                    info.Description = reader["Description"].ToString();
-                    info.Model = reader["Model"].ToString();
-                    info.AssetNumber = reader["AssetNumber"].ToString();
+                                        var info = new DeviceTypeViewModel();
+                    info.AssetId = row["AssetId"].ToString();
+                    info.AssetType = row["AssetType"].ToString();
+                    info.DeviceType = row["DeviceType"].ToString();
+                    info.Description = row["Description"].ToString();
+                    info.Model = row["Model"].ToString();
+                    info.AssetNumber = row["AssetNumber"].ToString();
 
 
                     assets.Add(info);
                 }
+
+
 
             }
         }
@@ -1706,9 +1722,7 @@ namespace ThinkITAM.FunctionPage
             {
                 string query = $"SELECT * FROM {tableName};";
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
                 #region 
 
@@ -1768,9 +1782,9 @@ namespace ThinkITAM.FunctionPage
 
                 int index = 0;
 
-                while (reader.Read())
+                foreach (var row in rows)
                 {
-                    string portType = reader["PortType"].ToString();
+                    string portType = row["PortType"].ToString();
 
 
 
@@ -1786,27 +1800,27 @@ namespace ThinkITAM.FunctionPage
                     PortClass info = new PortClass();
 
 
-                    if (reader["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value)
                     {
                         info.OnTheLine = -1;
                     }
                     else
                     {
-                        info.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
+                        info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
                     }
 
 
 
-                    info.UID = Convert.ToInt32(reader["UID"].ToString());
+                    info.UID = Convert.ToInt32(row["UID"].ToString());
                     info.RackId = assetId;
 
 
-                    int slotNumber = Convert.ToInt32(reader["PortSlotNumber"]);
+                    int slotNumber = Convert.ToInt32(row["PortSlotNumber"]);
 
 
 
 
-                    string portId = reader["PortId"].ToString();
+                    string portId = row["PortId"].ToString();
 
                     #region MyRegion
 
@@ -1824,25 +1838,25 @@ namespace ThinkITAM.FunctionPage
                     //}
                     #endregion
 
-                    info.PortType = reader["PortType"].ToString();
+                    info.PortType = row["PortType"].ToString();
                     info.PortIndex = $"{slotNumber}{portId}";
-                    info.PortTag = reader["PortTag"].ToString();
+                    info.PortTag = row["PortTag"].ToString();
                     info.SlotIndex = slotNumber.ToString();
 
 
 
                     SlotClass slot = new SlotClass();
 
-                    slot.SlotIndex = reader["PortSlotNumber"].ToString();
+                    slot.SlotIndex = row["PortSlotNumber"].ToString();
 
 
-                    if (reader["PortColor"] == DBNull.Value)
+                    if (row["PortColor"] == DBNull.Value)
                     {
                         info.PortColor = 0;
                     }
                     else
                     {
-                        info.PortColor = Convert.ToInt32(reader["PortColor"].ToString());
+                        info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
                     }
 
 
@@ -1858,6 +1872,8 @@ namespace ThinkITAM.FunctionPage
 
                     DevicePortPanel.Children.Add(port);
                 }
+
+
 
             }
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Intrinsics.Arm;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,19 +8,15 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ThinkITAM.Windows.AssetManage;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.NetworkManage;
 using Newtonsoft.Json;
 using QRCoder;
-using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
-using static MaterialDesignThemes.Wpf.Theme;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using ThinkITAM.DatabaseOperation;
 using CheckBox = System.Windows.Controls.CheckBox;
-using Color = System.Drawing.Color;
 using Size = System.Windows.Size;
+using ThinkITAM.DataBridge;
+using Microsoft.Data.Sqlite;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -36,12 +31,10 @@ namespace ThinkITAM.FunctionPage
         }
 
 
-        private DbClass dbClass;
+       
 
         private void AssetManage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
 
 
             LoadTags();
@@ -55,7 +48,7 @@ namespace ThinkITAM.FunctionPage
         /// </summary>
         private void LoadTags()
         {
-            var tags = dbClass.LoadWindowTag("AddAsset");
+            var tags =DbClass.LoadWindowTag("AddAsset");
 
             if (tags != null)
             {
@@ -82,55 +75,66 @@ namespace ThinkITAM.FunctionPage
 
             string sqlTemp = $"SELECT COUNT(*) FROM AssetTag";
 
-            var num = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
             if (num > 0)
             {
                 string query = "SELECT DISTINCT AssetType FROM AssetTag;";
 
-                SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-                SQLiteDataReader reader = command.ExecuteReader();
+
+
+                var rows = await GlobalVariables.DbService.ExecuteQueryAsync(query);
+
+
 
                 int index = 0;
 
-                while (reader.Read())
+
+                foreach (var row in rows)
                 {
+
                     index++;
                     var info = new AssetTypeViewModel();
 
                     info.Index = index;
 
-                    string assetTypeInfo = reader["AssetType"].ToString();
+                    string assetTypeInfo = row["AssetType"].ToString();
 
                     info.AssetType = assetTypeInfo;//资产类型
 
                     sqlTemp = $"SELECT * FROM AssetTag  WHERE AssetType = '{assetTypeInfo}'";
 
-                    SQLiteCommand command2 = new SQLiteCommand(sqlTemp, dbClass.connection);
-                    SQLiteDataReader reader2 = command2.ExecuteReader();
+
+                    var rows2=await GlobalVariables.DbService.ExecuteQueryAsync(query);
+
 
                     int index2 = 0;
 
 
                     var deviceTypeItems = new TreeViewItem();
 
-                    while (reader2.Read())
+
+                    foreach (var row2 in rows2)
                     {
+
                         index2++;
                         var device = new DeviceTypeUserControl();
                         var deviceInfo = new DeviceTypeViewModel();
 
                         deviceInfo.Index = index2;
-                        deviceInfo.DeviceType = reader2["DeviceType"].ToString();
+                        deviceInfo.DeviceType = row2["DeviceType"].ToString();
                         deviceInfo.AssetType = assetTypeInfo;
 
                         string sql = $"SELECT COUNT(*) FROM Asset WHERE AssetType = '{assetTypeInfo}'";
-                        deviceInfo.AssetCount = dbClass.ExecuteScalarTableNum(sql, dbClass.connection);
+                        deviceInfo.AssetCount = DbClass.ExecuteScalarTableNum(sql);
 
                         device.DataContext = deviceInfo;
                         deviceTypeItems.Items.Add(device);
 
+
                     }
+
+
 
                     info.DeviceTypeCount = "设备类型总数:" + index2;//设备类型总数
 
@@ -145,7 +149,13 @@ namespace ThinkITAM.FunctionPage
                     await Task.Delay(50);
 
                     assetTypes.Add(info);
+
+
+
                 }
+
+
+ 
 
                 //Organization.ItemsSource = organizationInfo;
 
@@ -304,59 +314,56 @@ namespace ThinkITAM.FunctionPage
                 sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
             }
 
-            SQLiteCommand command = new SQLiteCommand(sql, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+
+            var rows =  GlobalVariables.DbService.ExecuteQuery(sql);
 
             int i = 0;
 
-            while (reader.Read())
+
+            foreach (var row in rows)
             {
                 var item = new AssetViewModel();
                 i++;
                 item.Index = i;
-                
-                item.AssetId = reader["AssetId"].ToString();
-                item.AssetQrCode= reader["AssetQrCode"].ToString();
-                item.AssetType = reader["AssetType"].ToString();
-                item.DeviceType = reader["DeviceType"].ToString();
 
-                item.AssetTag = reader["AssetTag"].ToString();
-                item.TagNumber = reader["AssetNumber"].ToString();
+                item.AssetId = row["AssetId"].ToString();
+                item.AssetQrCode = row["AssetQrCode"].ToString();
+                item.AssetType = row["AssetType"].ToString();
+                item.DeviceType = row["DeviceType"].ToString();
+
+                item.AssetTag = row["AssetTag"].ToString();
+                item.TagNumber = row["AssetNumber"].ToString();
                 item.AssetNumber = item.AssetTag + item.TagNumber;
 
-                string purchaseDate = reader["PurchaseDate"].ToString();
+                string purchaseDate = row["PurchaseDate"].ToString();
                 DateTime time1;
                 if (purchaseDate.Length > 0)
                 {
-                    time1 = DateTime.Parse(reader["PurchaseDate"].ToString());
+                    time1 = DateTime.Parse(row["PurchaseDate"].ToString());
                     item.PurchaseDate = time1.ToString("d");
                 }
                 else
                 {
-                   
+
                     item.PurchaseDate = null;
                 }
 
+                item.PurchasePrice = row["PurchasePrice"].ToString();
+                item.Manufacturer = row["Manufacturer"].ToString();
+                item.Model = row["Model"].ToString();
+                item.SerialNumber = row["SerialNumber"].ToString();
+                item.Configuration = row["Configuration"].ToString();
+                item.Location = row["Location"].ToString();
+                item.UserOrganization = row["UserOrganization"].ToString();
+                item.UserDepartment = row["UserDepartment"].ToString();
+                item.User = row["User"].ToString();
+                item.UserPhone = row["UserPhone"].ToString();
+                item.Consumer = row["Consumer"].ToString();
+                item.Status = row["Status"].ToString();
+                item.UsedYear = row["UsedYear"].ToString();
 
-                
-                
-
-
-                item.PurchasePrice = reader["PurchasePrice"].ToString();
-                item.Manufacturer = reader["Manufacturer"].ToString();
-                item.Model = reader["Model"].ToString();
-                item.SerialNumber = reader["SerialNumber"].ToString();
-                item.Configuration = reader["Configuration"].ToString();
-                item.Location = reader["Location"].ToString();
-                item.UserOrganization = reader["UserOrganization"].ToString();
-                item.UserDepartment = reader["UserDepartment"].ToString();
-                item.User = reader["User"].ToString();
-                item.UserPhone= reader["UserPhone"].ToString();
-                item.Consumer = reader["Consumer"].ToString();
-                item.Status = reader["Status"].ToString();
-                item.UsedYear = reader["UsedYear"].ToString();
-
-                string timeStr = reader["ScrapDate"].ToString();
+                string timeStr = row["ScrapDate"].ToString();
 
                 if (timeStr.Length > 3)
                 {
@@ -369,15 +376,15 @@ namespace ThinkITAM.FunctionPage
                     item.ScrapDate = null;
                 }
 
-               
 
-                item.Notes = reader["Notes"].ToString();
-                item.TagA = reader["TagA"].ToString();
-                item.TagB = reader["TagB"].ToString();
-                item.TagC = reader["TagC"].ToString();
-                item.TagD = reader["TagD"].ToString();
-                item.TagE = reader["TagE"].ToString();
-                item.TagF = reader["TagF"].ToString();
+
+                item.Notes = row["Notes"].ToString();
+                item.TagA = row["TagA"].ToString();
+                item.TagB = row["TagB"].ToString();
+                item.TagC = row["TagC"].ToString();
+                item.TagD = row["TagD"].ToString();
+                item.TagE = row["TagE"].ToString();
+                item.TagF = row["TagF"].ToString();
 
                 //var asset = new AssetInfoUserControl();
 
@@ -386,8 +393,9 @@ namespace ThinkITAM.FunctionPage
                 //AssetListView.Items.Add(asset);
 
                 assetViewModels.Add(item);
-
             }
+
+
         }
 
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SQLite;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -30,7 +31,7 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-        private DbClass dbClass;
+
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -57,22 +58,22 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM Browser;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 BrowserInfoViewModel info = new BrowserInfoViewModel();
 
                 info.Index = index;
-                info.Browser = reader["Browser"].ToString();
-                info.Path = reader["Path"].ToString();
+                info.Browser = row["Browser"].ToString();
+                info.Path = row["Path"].ToString();
 
                 browserInfos.Add(info);
             }
+
 
             //BrowserListView.ItemsSource = browserInfos;
 
@@ -90,22 +91,23 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM PortList;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 PresetPortClass info = new PresetPortClass();
 
                 info.Index = index;
-                info.Port = Convert.ToInt32(reader["Port"].ToString());
-                info.Note = reader["Note"].ToString();
+                info.Port = Convert.ToInt32(row["Port"].ToString());
+                info.Note = row["Note"].ToString();
 
                 portInfos.Add(info);
             }
+
+
 
         }
 
@@ -113,9 +115,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void BrowserUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
+
 
 
             ProtocolListView.ItemsSource = protocolInfos;
@@ -168,7 +168,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         
 
-        private ObservableCollection<ViewModes.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
+        private ObservableCollection<ViewModels.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
 
         private void LoadProtocolInfo()
         {
@@ -176,22 +176,22 @@ namespace ThinkITAM.UserControls.PresetPage
 
             string query = "SELECT * FROM Protocol;";
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index = 0;
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                index++;
+                                index++;
                 ProtocolClass info = new ProtocolClass();
 
                 info.Index = index;
-                info.Protocol = reader["Protocol"].ToString();
-                info.Note = reader["Note"].ToString();
+                info.Protocol = row["Protocol"].ToString();
+                info.Note = row["Note"].ToString();
 
                 protocolInfos.Add(info);
             }
+
 
 
 

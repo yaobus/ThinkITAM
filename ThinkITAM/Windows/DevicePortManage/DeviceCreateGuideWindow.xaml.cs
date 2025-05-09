@@ -16,14 +16,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.AssetManage;
-using ThinkITAM.ViewModes.DevicePortManage;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.DevicePortManage;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using static ThinkITAM.ViewModes.DevicePortManage.PortTypeClass;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 using System.Reflection.Emit;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.DevicePortManage;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
@@ -42,7 +43,6 @@ namespace ThinkITAM.Windows.DevicePortManage
         }
 
 
-        private DbClass dbClass;
 
         /// <summary>
         /// 端口配置信息列表，用于保存到预设库
@@ -185,11 +185,6 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void DeviceCreateGuideWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-            dbClass = new DbClass(dbFilePath);
-            dbClass.OpenConnection();
-
             PortTag.ItemsSource = portTag;
             PortPrefix.ItemsSource = portPrefix;
             LoadPortTag();
@@ -331,7 +326,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                     Console.WriteLine(presetInfo);
 
-                    dbClass.SaveModelPreset(model, presetInfo);
+                    DbClass.SaveModelPreset(model, presetInfo);
 
                     MessageQueue.Enqueue("预设信息已保存");
                 }
@@ -364,7 +359,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             if (model.Length > 0)
             {
 
-                modelPresetList = dbClass.LoadModelPresetList(model);
+                modelPresetList = DbClass.LoadModelPresetList(model);
 
 
                 if (modelPresetList != null && modelPresetList.Count > 0)
@@ -413,7 +408,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
 
-                var infoJson = dbClass.LoadModelPreset(model);
+                var infoJson = DbClass.LoadModelPreset(model);
 
 
 
@@ -666,7 +661,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                 string sqlTemp = $"SELECT COUNT(*) FROM Devices WHERE AssetId ='{assetId}'";
 
-                var countNum = dbClass.ExecuteScalarTableNum(sqlTemp, dbClass.connection);
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                 if (countNum == 0)
                 {
@@ -675,10 +670,11 @@ namespace ThinkITAM.Windows.DevicePortManage
                         $"INSERT INTO \"Devices\" (\"AssetId\", \"AssetNumber\", \"AssetType\", \"DeviceType\", \"Model\",\"Description\", \"User\", \"UserPhone\", \"EnableDate\", \"UseDepartment\", \"Address\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}', '{assetNumber}', '{assetType}', '{deviceType}', '{model}','{description}', '{user}', '{userPhone}', '{enableDate}', '{userDepartment}', '{address}', '{tagA}', '{tagB}', '{tagC}', '{tagD}', '{tagE}', '{tagF}')";
 
                     //插入设备信息到总表
-                    dbClass.ExecuteQuery(sql);
+                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
                    
                     //创建设备信息详表
-                    dbClass.CreateDynamicsTableIfNotExists(assetId,2);
+                    DbClass.CreateDynamicsTableIfNotExists(assetId,2);
 
 
 
@@ -740,7 +736,8 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                     string sql = $"INSERT INTO \"{table}\" (\"UID\",\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{uid}','{portType}','{portTag}',{portSlotNumber} ,'{portId}', 0)";
 
-                    dbClass.ExecuteQuery(sql);
+                   
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
                     uid++;
                 }
 
@@ -847,7 +844,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void LoadTags()
         {
 
-            var tags = dbClass.LoadWindowTag("AddDevice");
+            var tags = DbClass.LoadWindowTag("AddDevice");
 
             if (tags != null)
             {

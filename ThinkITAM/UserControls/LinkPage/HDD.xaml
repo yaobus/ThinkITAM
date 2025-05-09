@@ -2,9 +2,10 @@
     x:Class="ThinkITAM.UserControls.LinkPage.Hdd"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
-    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModels.LinkManage"
     xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +16,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <functionClass:StatusToColorBrushConverter x:Key="StatusToColorBrushConverter" />
+        <converters:StatusToColorBrushConverter x:Key="StatusToColorBrushConverter" />
         <system:Double x:Key="ControlSize">10</system:Double>
         <system:Double x:Key="ControlSize2">34</system:Double>
         <Thickness x:Key="ControlMargin">12,0</Thickness>
@@ -29,8 +30,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             d:Foreground="OliveDrab"
-            Kind="Hdd"
             Foreground="{Binding Status, Converter={StaticResource StatusToColorBrushConverter}}"
+            Kind="Hdd"
             Opacity="1" />
 
     </Grid>

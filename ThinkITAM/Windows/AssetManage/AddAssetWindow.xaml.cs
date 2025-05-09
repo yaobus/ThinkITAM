@@ -3,11 +3,14 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.ViewModes.Preset;
+using ThinkITAM.ViewModels.Preset;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using ThinkITAM.ViewModes.AssetManage;
+using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.FunctionClass;
+using ThinkITAM.Functions.EncryptionDecryption;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.AssetManage;
 /// <summary>
@@ -37,15 +40,9 @@ public partial class AddAssetWindow : Window
 
     }
 
-    private DbClass dbClass;
 
     private void AddAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-        dbClass = new DbClass(dbFilePath);
-        dbClass.OpenConnection();
-
         LoadTags();
         LoadAssetType();
         LoadOrganizationInfo();
@@ -68,22 +65,24 @@ public partial class AddAssetWindow : Window
 
         string query = "SELECT * FROM Address;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
 
-        while (reader.Read())
+        foreach (var row in rows)
         {
-            index++;
+                        index++;
             AddressInfoViewModel info = new AddressInfoViewModel();
 
             info.Index = index;
-            info.Location = reader["Location"].ToString();
-            info.Note = reader["Note"].ToString();
+            info.Location = row["Location"].ToString();
+            info.Note = row["Note"].ToString();
 
             addressInfos.Add(info);
         }
+
+
+
 
         PresetAddress.ItemsSource = addressInfos;
 
@@ -102,14 +101,14 @@ public partial class AddAssetWindow : Window
 
         string query = "SELECT DISTINCT Organization FROM Organization;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
 
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        while (reader.Read())
+        foreach (var row in rows)  
         {
-            organizationInfo.Add(reader["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
+
 
         UserOrganization.ItemsSource = organizationInfo;
 
@@ -132,17 +131,16 @@ public partial class AddAssetWindow : Window
 
         string query = "SELECT DISTINCT AssetType FROM AssetTag;";
 
-        SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-        SQLiteDataReader reader = command.ExecuteReader();
 
-        if (reader != null)
+        foreach (var row in rows)
         {
-            while (reader.Read())
-            {
-                assetTypeInfos.Add(reader["AssetType"].ToString());
-            }
+            assetTypeInfos.Add(row["AssetType"].ToString());
         }
+
+
+
 
 
         AssetType.ItemsSource = assetTypeInfos;
@@ -174,14 +172,14 @@ public partial class AddAssetWindow : Window
 
             //Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
 
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                deviceTypeInfos.Add(reader["DeviceType"].ToString());
+                deviceTypeInfos.Add(row["DeviceType"].ToString());
             }
+
 
             DeviceType.ItemsSource = deviceTypeInfos;
         }
@@ -207,17 +205,18 @@ public partial class AddAssetWindow : Window
 
             //Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             string tag = "";
-            while (reader.Read())
+
+
+            foreach (var row in rows)
             {
-
-
-                tag = reader["AssetTag"].ToString();
-
+                 tag = row["AssetTag"].ToString();
             }
+
+
 
             if (tag != "")
             {
@@ -237,16 +236,19 @@ public partial class AddAssetWindow : Window
     {
         //计算已有编号数量
 
-        string sqlTemp = string.Format($"SELECT AssetNumber FROM Asset WHERE AssetTag ='{assetTag}'");
-        SQLiteCommand command = new SQLiteCommand(sqlTemp, dbClass.connection);
-        SQLiteDataReader reader = command.ExecuteReader();
+        string query = string.Format($"SELECT AssetNumber FROM Asset WHERE AssetTag ='{assetTag}'");
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
 
         List<int> idList = new List<int>();
 
-        while (reader.Read())
+
+        foreach (var row in rows)
         {
-            idList.Add(Convert.ToInt32(reader["AssetNumber"]));
+             idList.Add(Convert.ToInt32(row["AssetNumber"]));
         }
+
 
 
         return FindMissingNumber(idList);
@@ -317,7 +319,7 @@ public partial class AddAssetWindow : Window
     private void LoadTags()
     {
 
-        var tags = dbClass.LoadWindowTag("AddAsset");
+        var tags = DbClass.LoadWindowTag("AddAsset");
 
         if (tags != null)
         {
@@ -370,16 +372,13 @@ public partial class AddAssetWindow : Window
 
             string query = $"SELECT  Department FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}';";
 
-            Console.WriteLine(query);
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                departmentInfo.Add(reader["Department"].ToString());
+                departmentInfo.Add(row["Department"].ToString());
             }
+
 
             UserDepartment.ItemsSource = departmentInfo;
         }
@@ -412,19 +411,18 @@ public partial class AddAssetWindow : Window
 
             //Console.WriteLine(query);
 
-            SQLiteCommand command = new SQLiteCommand(query, dbClass.connection);
-            SQLiteDataReader reader = command.ExecuteReader();
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
-            while (reader.Read())
+            foreach (var row in rows)
             {
-                var info = new PeopleViewModel();
+                                var info = new PeopleViewModel();
 
-                info.Name = reader["Name"].ToString();
-                info.Phone = reader["Phone"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Phone = row["Phone"].ToString();
                 peopleInfo.Add(info);
-
             }
+
+
 
 
             AssignedTo.ItemsSource = peopleInfo;
@@ -503,7 +501,10 @@ public partial class AddAssetWindow : Window
 
                
 
-                dbClass.ExecuteQuery(sql);
+               
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+
 
             }
             else//进入新建模式
@@ -516,14 +517,14 @@ public partial class AddAssetWindow : Window
 
 
                 //创建资产二维码,0为机房，1为机柜，2为设备
-                string qrCode = "ITAM:" + FunctionClass.AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+                string qrCode = "ITAM:" +AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
                 string sql =
                     $"INSERT INTO \"Asset\" (\"AssetId\",\"AssetQrCode\",\"AssetType\", \"DeviceType\", \"AssetTag\", \"AssetNumber\", \"PurchaseDate\", \"PurchasePrice\", \"Manufacturer\", \"Model\", \"SerialNumber\", \"Configuration\", \"Location\", \"UserOrganization\", \"UserDepartment\", \"User\", \"UserPhone\", \"Consumer\", \"Status\", \"UsedYear\", \"ScrapDate\", \"Notes\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}','{qrCode}','{AssetType.Text}', '{DeviceType.Text}', '{AssetTag.Text}', {Convert.ToInt32(AssetNumber.Text)}, '{BuyDate.SelectedDate.ToString()}', '{Price.Text}', '{Maker.Text}', '{Model.Text}', '{SerialNumber.Text}', '{Parameter.Text}', '{PresetAddress.Text}', '{UserOrganization.Text}', '{UserDepartment.Text}', '{AssignedTo.Text}', '{Phone.Text}', '{Consumer.Text}', '{AssetStatus.Text}', '{ServiceLife.Text}', '{ScrapDate.SelectedDate.ToString()}', '{Description.Text}', '{TagA.Text}', '{TagB.Text}', '{TagC.Text}', '{TagD.Text}', '{TagE.Text}', '{TagF.Text}')";
 
               
 
-                dbClass.ExecuteQuery(sql);
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
 
 
@@ -544,7 +545,7 @@ public partial class AddAssetWindow : Window
     {
         string str = DateTime.Now.ToString() + assetTagNumber;
 
-        return EncryptionDecryption.EncryptionDecryption.CalculateMD5(str).ToUpper();
+        return EncryptionDecryption.CalculateMD5(str).ToUpper();
 
     }
 

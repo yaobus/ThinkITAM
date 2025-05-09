@@ -13,10 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.LinkManage;
-using ThinkITAM.ViewModes.NetworkManage;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.NetworkManage;
 using Microsoft.Win32;
+using ThinkITAM.DataBridge;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 
 namespace ThinkITAM.Windows.DevicePortManage
@@ -36,15 +37,14 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         private PortDetailedInfo portInfo;
 
-        private DbClass dbClass;
+
 
         private int? index;
         private bool saved=false;
         private void IpColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             index = portInfo.PortColor;
-            dbClass = new DbClass(DataBridge.DataBridge.dbFilePath);
-            dbClass.OpenConnection();
+
 
 
 
@@ -136,7 +136,8 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             string sql = $"UPDATE \"{tableName}\" SET \"Status\" = {status}, \"Mode\" = '{mode}', \"PortName\" = '{portName}', \"VlanId\" = '{vlanId}', \"OnTheLine\" = '{onTheLine}', \"PortColor\" = '{portColor}', \"TagA\" = '{tagA}', \"TagB\" = '{tagB}', \"TagC\" = '{tagC}', \"TagD\" = '{tagD}', \"TagE\" = '{tagE}', \"TagF\" = '{tagF}' , \"AssetId\" = '{assetId}' WHERE  (\"UID\" = '{portInfo.UID}' )";
 
-            dbClass.ExecuteQuery(sql);
+       
+            GlobalVariables.DbService.ExecuteNonQuery(sql);
         }
 
         private void PortColorSetWindow_OnClosing(object? sender, CancelEventArgs e)

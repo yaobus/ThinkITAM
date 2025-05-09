@@ -2,11 +2,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ThinkITAM.ChildrenWindows.DevicePortManage;
-using ThinkITAM.ChildrenWindows.NetworkManage;
-using ThinkITAM.ViewModes.DevicePortManage;
-using ThinkITAM.ViewModes.NetworkManage;
-using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.NetworkManage;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.DevicePortManage;
 /// <summary>
@@ -27,7 +27,7 @@ public partial class DevicePort : UserControl
         if (sender is Button button)
         {
 
-            var info = button.DataContext as ViewModes.DevicePortManage.PortTypeClass.PortDetailedInfo;
+            var info = button.DataContext as ViewModels.DevicePortManage.PortTypeClass.PortDetailedInfo;
 
             int sum = DataBridge.DataBridge.PortDetailedInfos.Sum(item => Convert.ToInt32(item.IsSelected));
 

@@ -16,6 +16,7 @@ using ThinkITAM.UserControls.General;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.Functions.FunctionClass;
 
 
 namespace ThinkITAM.Windows.ToolWindows
@@ -464,7 +465,7 @@ namespace ThinkITAM.Windows.ToolWindows
             }
             storage.SaveDay = saveDay;
 
-            storage.StorageSpace =Convert.ToInt32( FunctionClass.StorageCalculator.CalculateStorageRequirement(storage.CodingType, storage.Resolution, cameraNumber, saveDay)).ToString();
+            storage.StorageSpace =Convert.ToInt32( StorageCalculator.CalculateStorageRequirement(storage.CodingType, storage.Resolution, cameraNumber, saveDay)).ToString();
             
             storageCalculatorList.Add(storage);
         }
@@ -574,7 +575,7 @@ namespace ThinkITAM.Windows.ToolWindows
             storage.SaveDay = saveDay;
 
 
-            storage.StorageSpace = Convert.ToInt32(FunctionClass.StorageCalculator.CalculateStorageRequirementByBitrate(bitRate, cameraNumber,  saveDay)).ToString();
+            storage.StorageSpace = Convert.ToInt32(StorageCalculator.CalculateStorageRequirementByBitrate(bitRate, cameraNumber,  saveDay)).ToString();
 
             storageBitRateViewModels.Add(storage);
 
