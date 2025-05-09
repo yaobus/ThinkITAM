@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 
-namespace IPAM_NOTE.FunctionPage;
+namespace ThinkITAM.FunctionPage;
 /// <summary>
 /// Dashboard.xaml 的交互逻辑
 /// </summary>

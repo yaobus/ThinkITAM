@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Intrinsics.Arm;
@@ -9,22 +8,22 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using IPAM_NOTE.ChildrenWindows.AssetManage;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.DatabaseOperation;
-using IPAM_NOTE.UserControls.Asset;
-using IPAM_NOTE.ViewModes.AssetManage;
-using IPAM_NOTE.ViewModes.NetworkManage;
+using ThinkITAM.Windows.AssetManage;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.UserControls.Asset;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.NetworkManage;
 using Newtonsoft.Json;
 using QRCoder;
-using static IPAM_NOTE.ViewModes.DevicePortManage.PortTypeClass;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 using CheckBox = System.Windows.Controls.CheckBox;
 using Color = System.Drawing.Color;
 using Size = System.Windows.Size;
 
-namespace IPAM_NOTE.FunctionPage
+namespace ThinkITAM.FunctionPage
 {
     /// <summary>
     /// AssetManage.xaml 的交互逻辑

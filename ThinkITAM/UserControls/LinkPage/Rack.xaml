@@ -1,0 +1,230 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.LinkPage.Rack"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:vm="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    Width="1085"
+    d:Height="100"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="Rack_OnLoaded"
+    MouseDown="Rack_OnMouseDown"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:MdfRackClass />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone
+            Grid.Row="0"
+            Margin="0"
+            Padding="0"
+            VerticalAlignment="Stretch"
+            materialDesign:ElevationAssist.Elevation="Dp2"
+            Background="#484848"
+            CornerRadius="3"
+            Mode="PrimaryDark">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    x:Name="SlotPanel"
+                    Grid.Column="1"
+                    Margin="0,5"
+                    Background="#333333" />
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25" />
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity=".05"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="0,0,0,0"
+                            Kind="Circle" />
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="CheckboxBlank" />
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="Circle" />
+                    </StackPanel>
+
+
+                    <Grid
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="AliceBlue"
+                        Opacity=".5">
+
+
+                        <Button
+                            x:Name="RackButton"
+                            Height="25"
+                            MaxWidth="300"
+                            Padding="0"
+                            BorderThickness="0"
+                            Click="RackButton_OnClick"
+                            RenderTransformOrigin=".5,.5"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            ToolTip="点击修改机架名称">
+                            <Button.LayoutTransform>
+                                <RotateTransform Angle="90" />
+                            </Button.LayoutTransform>
+
+                            <TextBlock
+
+                                FontSize="10"
+                                Margin="2,0"
+                                d:Text="Abcd"
+                                Text="{Binding RackName}" />
+                        </Button>
+
+
+
+
+
+                    </Grid>
+
+
+                    <StackPanel
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity=".05"
+                        Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="0,0,0,0"
+                            Kind="Circle" />
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="CheckboxBlank" />
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="Circle" />
+
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Column="2" HorizontalAlignment="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity=".05"
+                        Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="0,0,0,0"
+                            Kind="Circle" />
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="CheckboxBlank" />
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="Circle" />
+
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <Button
+                            x:Name="InfoButton"
+                            Width="30"
+                            Height="30"
+                            Padding="0"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="设备所在位置">
+                            <materialDesign:PackIcon Kind="InformationOutline" />
+                        </Button>
+                    </Grid>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Opacity=".05"
+                        Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="0,0,0,0"
+                            Kind="Circle" />
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="CheckboxBlank" />
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="20"
+                            Margin="-12,0,0,0"
+                            Kind="Circle" />
+
+
+                    </StackPanel>
+
+
+                </Grid>
+            </Grid>
+
+
+
+
+
+
+        </materialDesign:ColorZone>
+    </Grid>
+
+</UserControl>

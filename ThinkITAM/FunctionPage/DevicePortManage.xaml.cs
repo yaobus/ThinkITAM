@@ -5,28 +5,28 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using IPAM_NOTE.ChildrenWindows.DevicePortManage;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.DatabaseOperation;
-using IPAM_NOTE.DataBridge;
-using IPAM_NOTE.FunctionClass;
-using IPAM_NOTE.UserControls.Asset;
-using IPAM_NOTE.UserControls.DevicePortManage;
-using IPAM_NOTE.UserControls.NetworkManage;
-using IPAM_NOTE.ViewModes.AssetManage;
-using IPAM_NOTE.ViewModes.DevicePortManage;
-using IPAM_NOTE.ViewModes.NetworkManage;
-using IPAM_NOTE.ViewModes.Others;
+using ThinkITAM.ChildrenWindows.DevicePortManage;
+using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
+using ThinkITAM.FunctionClass;
+using ThinkITAM.UserControls.Asset;
+using ThinkITAM.UserControls.DevicePortManage;
+using ThinkITAM.UserControls.NetworkManage;
+using ThinkITAM.ViewModes.AssetManage;
+using ThinkITAM.ViewModes.DevicePortManage;
+using ThinkITAM.ViewModes.NetworkManage;
+using ThinkITAM.ViewModes.Others;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using static IPAM_NOTE.ChildrenWindows.NetworkManage.AddressAllocationWindow;
-using static IPAM_NOTE.ViewModes.DevicePortManage.PortTypeClass;
+using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
+using static ThinkITAM.ViewModes.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 
 
 
-namespace IPAM_NOTE.FunctionPage;
+namespace ThinkITAM.FunctionPage;
 /// <summary>
 /// DevicePortManage.xaml 的交互逻辑
 /// </summary>

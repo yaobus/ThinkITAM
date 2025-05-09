@@ -1,0 +1,217 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.LinkPage.NodePort"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
+    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Width="80"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="Eth">
+            <local:Eth />
+        </DataTemplate>
+        <DataTemplate x:Key="SC">
+            <local:SC />
+        </DataTemplate>
+        <DataTemplate x:Key="FC">
+            <local:FC />
+        </DataTemplate>
+        <DataTemplate x:Key="LC">
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <!--  设置中心点旋转  -->
+                <Grid.RenderTransform>
+                    <RotateTransform Angle="90" />
+                </Grid.RenderTransform>
+
+                <!--  原始内容  -->
+                <local:LC />
+            </Grid>
+        </DataTemplate>
+        <functionClass:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <functionClass:BackgroundColorConverter x:Key="BackgroundColorConverter" />
+    </UserControl.Resources>
+
+
+    <materialDesign:Card Margin="0" Background="#196b69">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="12" />
+                <RowDefinition Height="14" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Margin="0,1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                d:Text="6"
+                FontSize="12"
+                Foreground="#ddfee4"
+                Text="{Binding PortClass.NodeIndex}"
+                ToolTip="节点位置" />
+
+            <Button
+                x:Name="PortButton"
+                Grid.Row="1"
+                Height="40"
+                Margin="1"
+                Padding="0"
+                d:Background="#ddfee4"
+                Background="{Binding PortClass.RackId, Converter={StaticResource BackgroundColorConverter}}"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Click="PortButton_OnClick"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="点击移除节点\拖动调整顺序">
+
+
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="Eth">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Eth}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="SC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource SC}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="FC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource FC}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="LC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource LC}" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="E">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Eth}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="M">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Eth}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="F">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource LC}" />
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+
+
+
+
+            </Button>
+
+
+
+
+            <Grid Grid.Row="2" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        d:Text="1"
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="#ddfee4"
+                        Opacity="1"
+                        Text="{Binding SlotClass.SlotIndex}" />
+
+                    <TextBlock
+                        Margin="5,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="#ddfee4"
+                        Opacity="1"
+                        Text="/"
+                        Visibility="{Binding SlotClass.SlotIndex, Converter={StaticResource StringToVisibilityConverter}}" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        d:Text="12"
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="#ddfee4"
+                        Opacity="1"
+                        Text="{Binding PortClass.PortIndex}" />
+
+                </StackPanel>
+
+
+
+
+            </Grid>
+
+            <Grid
+                Grid.Row="3"
+                Width="80"
+                Margin="1"
+                Background="#28cc9e">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="A305-10"
+                    FontSize="11"
+                    Foreground="#ddfee4"
+                    Opacity="1"
+                    Text="{Binding PortClass.PortTag}"
+                    ToolTip="{Binding PortClass.PortTag}" />
+
+            </Grid>
+
+
+
+            <StackPanel
+                Grid.Row="4"
+                Margin="1"
+                HorizontalAlignment="Left"
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="1,2"
+                    FontSize="12"
+                    Text="{Binding MdfRackClass.RoomName}"
+                    ToolTip="{Binding MdfRackClass.RoomName}" />
+                <TextBlock
+                    Margin="1,2"
+                    FontSize="12"
+                    Text="{Binding MdfRackClass.CabinetName}"
+                    ToolTip="{Binding MdfRackClass.CabinetName}" />
+                <TextBlock
+                    Margin="1,2"
+                    FontSize="12"
+                    Text="{Binding MdfRackClass.RackName}"
+                    ToolTip="{Binding MdfRackClass.RackName}" />
+            </StackPanel>
+
+
+
+
+
+
+
+
+
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

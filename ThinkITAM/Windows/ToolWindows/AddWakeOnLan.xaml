@@ -1,0 +1,267 @@
+﻿<Window x:Class="ThinkITAM.Windows.ToolWindows.AddWakeOnLan"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:others="clr-namespace:ThinkITAM.ViewModes.Others"
+        Title="添加网络唤醒"
+        Width="630"
+        Height="410"
+        Background="#303030"
+        FontFamily="{StaticResource HarmonyOsFontFamily}"
+        Foreground="AliceBlue"
+
+        WindowStartupLocation="CenterOwner"
+        Loaded="AddWakeOnLan_OnLoaded"
+        >
+    <Window.DataContext>
+        <others:WakeOnLanHostViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <materialDesign:PackIcon
+                Width="30"
+                Height="30"
+                Margin="10"
+                VerticalAlignment="Center"
+                Kind="ConsoleNetwork" />
+
+            <TextBlock
+                Margin="10"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="添加网络唤醒对象" />
+
+        </StackPanel>
+
+
+        <StackPanel
+            Grid.Column="0"
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="*IP地址:" />
+            <TextBox
+                x:Name="IpAddressTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="IpOutline"
+                IsEnabled="True"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding IpAddress,Mode=TwoWay}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="子网掩码:" />
+            <TextBox
+                x:Name="NetmaskTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="LastPass"
+                IsEnabled="True"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Netmask,Mode=TwoWay}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="0"
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="*MAC:" />
+            <TextBox
+                x:Name="MacTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
+                IsEnabled="True"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Mac,Mode=TwoWay}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="端口号:" />
+            <TextBox
+                x:Name="PortTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="Numeric9CircleOutline"
+                IsEnabled="True"
+                ToolTip="如无特殊指定，默认端口为9"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Port,Mode=TwoWay}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="群组:" />
+
+            <ComboBox
+                x:Name="GroupTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"
+                IsEditable="True"
+                MaxDropDownHeight="300"
+                Text="{Binding HostGroup,Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Width="60"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="名称:" />
+            <TextBox
+                x:Name="NameTextBox"
+                Width="200"
+                Height="28"
+                Margin="0,0,30,0"
+                Padding="3"
+                VerticalAlignment="Center"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="NotebookEditOutline"
+                IsEnabled="True"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Text="{Binding Name,Mode=TwoWay}" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="4"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Label
+                Margin="25,0,0,0"
+                Width="70"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="固定到首页:" />
+
+            <ToggleButton
+                x:Name="PinToStart"
+                IsChecked="{Binding PinToStart,Mode=TwoWay}"
+
+                Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}"
+                ToolTip="MaterialDesignSwitchSecondaryToggleButton"
+                />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <Button
+                x:Name="SaveButton"
+                Width="150"
+                Margin="0,0,30,0"
+                HorizontalAlignment="Right"
+                BorderThickness="0"
+                Content="保存"
+                Click="SaveButton_OnClick"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+
+        </StackPanel>
+
+    </Grid>
+</Window>

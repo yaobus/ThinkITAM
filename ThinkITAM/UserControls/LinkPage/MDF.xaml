@@ -1,0 +1,176 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.LinkPage.MDF"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Width="995"
+    Height="96"
+    Loaded="MDF_OnLoaded"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+
+
+    <UserControl.DataContext>
+        <linkManage:SlotClass />
+    </UserControl.DataContext>
+
+    <materialDesign:ColorZone
+        Height="94"
+        Margin="1"
+        Padding="0"
+        materialDesign:ElevationAssist.Elevation="Dp0"
+        Background="#484848"
+        CornerRadius="2"
+        Mode="PrimaryDark">
+        <Grid>
+            <Grid.ColumnDefinitions>
+
+
+                <ColumnDefinition Width="*" />
+
+
+            </Grid.ColumnDefinitions>
+
+            <!--  以下端口  -->
+            <UniformGrid
+                x:Name="PortPanel"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
+
+
+            <!--  以下标签  -->
+            <Grid
+                Grid.Column="0"
+                Height="15"
+                Margin="0,1,1,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="AliceBlue"
+                Opacity=".5">
+
+                <Button
+                    x:Name="TagButton"
+                    Grid.Column="0"
+                    Height="15"
+                    MinWidth="100"
+                    MaxWidth="300"
+                    Padding="0"
+                    BorderThickness="0"
+                    Click="TagButton_OnClick"
+                    Foreground="DarkCyan"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="点击修改槽位标签">
+                    <TextBlock
+                        Margin="2,0"
+                        VerticalAlignment="Center"
+                        d:Text="ABCDE"
+                        FontSize="10"
+                        Text="{Binding SlotName}" />
+                </Button>
+
+
+            </Grid>
+
+
+            <Grid
+                Grid.Column="0"
+                Width="50"
+                Height="15"
+                Margin="1,1,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Opacity="1">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="AliceBlue"
+                    Text="{Binding SlotTag}" />
+            </Grid>
+
+            <Grid
+                Grid.Column="0"
+                Height="15"
+                Margin="0,1,1,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom">
+
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignCentres" ToolTipService.Placement="Right">
+                    <materialDesign:PopupBox.ToggleContent>
+
+                        <materialDesign:ColorZone Background="Transparent" ClipToBounds="False">
+                            <materialDesign:PackIcon
+                                Width="15"
+                                Height="15"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="DarkCyan"
+                                Kind="DotsHorizontalCircleOutline" />
+
+
+                        </materialDesign:ColorZone>
+
+
+
+
+                    </materialDesign:PopupBox.ToggleContent>
+
+
+                    <StackPanel>
+                        <Button Opacity="0.5" ToolTip="修改当前槽位配置">
+                            <materialDesign:PackIcon Kind="FormatListNumbered" />
+
+                        </Button>
+                        <Button Opacity="0.5" ToolTip="配置槽位永久链路">
+                            <materialDesign:PackIcon Kind="LinkVariant" />
+
+                        </Button>
+                        <Button Opacity="0.5" ToolTip="创建槽位对端设备">
+                            <materialDesign:PackIcon Kind="TableColumnPlusBefore" />
+
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+
+
+
+
+
+
+
+
+            </Grid>
+
+
+            <!--  以下外观设计  -->
+
+            <!--<Grid Grid.Column="1" Background="AliceBlue" Opacity="0.3"/>
+            <Grid Grid.Column="3" Background="AliceBlue" Opacity="0.3"/>
+
+            <StackPanel Grid.Column="0" Opacity=".3" Orientation="Vertical" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="PlusCircleOutline" Width="20" Height="20" Margin="5,0,0,0"/>
+            <materialDesign:PackIcon Kind="PlusCircleOutline" Width="20" Height="20" Margin="5,30,0,0"/>
+
+            </StackPanel>
+
+
+
+
+            <StackPanel Grid.Column="4" Opacity=".3" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="PlusCircleOutline" Width="20" Height="20"  Margin="0,0,5,0"/>
+            <materialDesign:PackIcon Kind="PlusCircleOutline" Width="20" Height="20" Margin="0,30,5,0"/>
+            </StackPanel>-->
+
+
+        </Grid>
+    </materialDesign:ColorZone>
+</UserControl>

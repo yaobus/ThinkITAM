@@ -66,6 +66,7 @@
 
   <ItemGroup>
     <Folder Include="Functions\Database\" />
+    <Folder Include="UserControls\Menus\" />
   </ItemGroup>
 
 </Project>

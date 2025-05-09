@@ -1,0 +1,173 @@
+﻿<Window
+    x:Class="ThinkITAM.Windows.NetworkManage.IpColorSetWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.LinkWindows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="设置端口颜色标记"
+    Width="500"
+    Height="250"
+    d:Background="#383838"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="IpColorSetWindow_OnLoaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <functionClass:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="20"
+            Text="当前颜色:" />
+        <Grid
+            x:Name="ColorGrid"
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="330"
+            Height="30"
+            Margin="0"
+            d:Background="DarkCyan"
+            Opacity="1" />
+
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="20"
+            Text="颜色选择:" />
+
+
+        <Grid Grid.Row="1" Grid.Column="1">
+
+            <ListBox
+                x:Name="PortColor"
+                Width="340"
+                Height="30"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                SelectedIndex="{Binding AddressColor, Mode=TwoWay}"
+                SelectionChanged="PortColor_OnSelectionChanged"
+                Style="{StaticResource MaterialDesignToolToggleListBox}">
+                <ListBoxItem
+                    Width="40"
+                    Margin="0,0,0,0"
+                    Padding="0"
+                    Background="Transparent"
+                    ToolTip="选择此项将不显示标签">
+                    <Grid HorizontalAlignment="Center">
+
+                        <TextBlock
+                            Margin="8,0"
+                            Padding="0"
+                            HorizontalAlignment="Center"
+                            Text="Null" />
+
+                    </Grid>
+
+
+
+                </ListBoxItem>
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#FF0080"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#F15A24"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#FBC02D"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#64DD17"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#00A8FF"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#008080"
+                    Opacity="1" />
+                <ListBoxItem
+                    Width="40"
+                    Height="30"
+                    Margin="1,0"
+                    Background="#362391"
+                    Opacity="1" />
+
+
+            </ListBox>
+        </Grid>
+
+        <Grid
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="340">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <Button
+                x:Name="CancelButton"
+                Grid.Column="0"
+                Width="100"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Left"
+                Click="CancelButton_OnClick"
+                Content="取消"
+                Style="{StaticResource MaterialDesignRaisedLightButton}" />
+
+            <Button
+                x:Name="SaveButton"
+                Grid.Column="1"
+                Width="100"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Right"
+                Click="SaveButton_OnClick"
+                Content="保存"
+                Style="{StaticResource MaterialDesignRaisedLightButton}" />
+        </Grid>
+
+    </Grid>
+</Window>

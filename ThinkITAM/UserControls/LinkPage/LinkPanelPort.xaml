@@ -1,0 +1,149 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.LinkPage.LinkPanelPort"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
+    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:portPanel="clr-namespace:ThinkITAM.ViewModes.PortPanel"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Width="50"
+    Height="93"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="Port_OnLoaded"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <functionClass:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
+        <functionClass:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+        <functionClass:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <functionClass:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
+        <DataTemplate x:Key="Eth">
+            <local:Eth />
+        </DataTemplate>
+        <DataTemplate x:Key="SC">
+            <local:SC />
+        </DataTemplate>
+        <DataTemplate x:Key="FC">
+            <local:FC />
+        </DataTemplate>
+        <DataTemplate x:Key="LC">
+            <local:LC />
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <linkManage:PortLinkClass />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="17" />
+            <RowDefinition Height="18" />
+            <RowDefinition Height="8" />
+        </Grid.RowDefinitions>
+        <Button
+            x:Name="PortButton"
+            Grid.Row="0"
+            Width="50"
+            Height="50"
+            Padding="0"
+            BorderBrush="SeaGreen"
+            BorderThickness="{Binding PortClass.IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}}"
+            Click="PortButton_OnClick"
+            Style="{StaticResource MaterialDesignFlatLightButton}">
+
+            <Grid>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="{Binding PortClass.NodeIndex}"
+                    Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
+
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="Eth">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Eth}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="SC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource SC}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="FC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource FC}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PortClass.PortType}" Value="LC">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource LC}" />
+                                </DataTrigger>
+
+                                <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
+                                <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
+                                    <Setter Property="Opacity" Value="0.1" />
+                                </DataTrigger>
+
+                                <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="True">
+                                    <Setter Property="Opacity" Value="1" />
+                                </DataTrigger>
+
+
+
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+            </Grid>
+        </Button>
+
+        <Grid Grid.Row="1" Margin="0">
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                d:Text="A-10"
+                FontSize="10"
+                FontWeight="Bold"
+                Foreground="AliceBlue"
+                Text="{Binding PortClass.PortIndex}" />
+
+
+        </Grid>
+
+
+        <Grid
+            Grid.Row="2"
+            Width="50"
+            Margin="0,1"
+            Background="AliceBlue"
+            Opacity="0.8">
+
+            <Button
+                x:Name="TagButton"
+                Height="16"
+                Padding="0"
+                VerticalAlignment="Center"
+                d:Content="TAG-A"
+                BorderThickness="0"
+                Content="{Binding PortClass.PortTag}"
+                FontSize="12"
+                FontWeight="Bold"
+                Foreground="DarkCyan"
+                Style="{StaticResource MaterialDesignOutlinedButton}"
+                ToolTip="{Binding PortClass.PortTag}" />
+
+
+        </Grid>
+
+        <Grid
+            Grid.Row="3"
+            Width="50"
+            Margin="0"
+            Background="{Binding PortClass.PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
+            Opacity="0.8" />
+    </Grid>
+</UserControl>

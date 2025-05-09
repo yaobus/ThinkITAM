@@ -6,21 +6,21 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using IPAM_NOTE.ChildrenWindows.LinkWindows;
-using IPAM_NOTE.DatabaseOperation;
-using IPAM_NOTE.FunctionClass;
-using IPAM_NOTE.UserControls.LinkPage;
-using IPAM_NOTE.UserControls.PortPanel;
-using IPAM_NOTE.ViewModes.AssetManage;
-using IPAM_NOTE.ViewModes.LinkManage;
-using IPAM_NOTE.ViewModes.PortPanel;
-using IPAM_NOTE.ViewModes.Preset;
+using ThinkITAM.ChildrenWindows.LinkWindows;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.FunctionClass;
+using ThinkITAM.UserControls.LinkPage;
+using ThinkITAM.UserControls.PortPanel;
+using ThinkITAM.ViewModes.AssetManage;
+using ThinkITAM.ViewModes.LinkManage;
+using ThinkITAM.ViewModes.PortPanel;
+using ThinkITAM.ViewModes.Preset;
 using Nodify;
-using static IPAM_NOTE.ViewModes.DevicePortManage.PortTypeClass;
+using static ThinkITAM.ViewModes.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 
-namespace IPAM_NOTE.FunctionPage
+namespace ThinkITAM.FunctionPage
 {
     /// <summary>
     /// LinkUserControl.xaml 的交互逻辑

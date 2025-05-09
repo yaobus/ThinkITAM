@@ -1,4 +1,4 @@
-﻿using IPAM_NOTE.DatabaseOperation;
+﻿using ThinkITAM.DatabaseOperation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,14 +15,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IPAM_NOTE.FunctionClass;
+using ThinkITAM.FunctionClass;
 using System.Text.RegularExpressions;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.UserControls.General;
+using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
-using IPAM_NOTE.UserControls.IndexPage;
+using ThinkITAM.UserControls.IndexPage;
 
-namespace IPAM_NOTE.FunctionPage
+namespace ThinkITAM.FunctionPage
 {
     /// <summary>
     /// IndexPage.xaml 的交互逻辑

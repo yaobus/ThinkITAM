@@ -3,16 +3,16 @@ using System.Data.SQLite;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.ChildrenWindows.PresetWindows;
-using IPAM_NOTE.DatabaseOperation;
-using IPAM_NOTE.IPAddressCalculations;
-using IPAM_NOTE.UserControls.NetworkManage;
-using IPAM_NOTE.UserControls.PresetPage;
-using IPAM_NOTE.ViewModes.NetworkManage;
-using IPAM_NOTE.ViewModes.Preset;
+using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.ChildrenWindows.PresetWindows;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.IPAddressCalculations;
+using ThinkITAM.UserControls.NetworkManage;
+using ThinkITAM.UserControls.PresetPage;
+using ThinkITAM.ViewModes.NetworkManage;
+using ThinkITAM.ViewModes.Preset;
 
-namespace IPAM_NOTE.FunctionPage
+namespace ThinkITAM.FunctionPage
 {
     /// <summary>
     /// PresetPage.xaml 的交互逻辑

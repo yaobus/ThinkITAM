@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.PortPanel.FloorUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.PortPanel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:portPanel="clr-namespace:ThinkITAM.ViewModes.PortPanel"
+    Width="243"
+    Height="50"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <portPanel:FloorInfoClass />
+    </UserControl.DataContext>
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.5}">
+        <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp3">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Background="#009688">
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        d:Text="22"
+                        FontWeight="ExtraBlack"
+                        Foreground="AliceBlue"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="{Binding Index}" />
+                </Grid>
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Background="#008080">
+
+
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="楼层: " />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            d:Text="Floor 12"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="{Binding Floor}" />
+
+                    </StackPanel>
+
+
+
+                </Grid>
+
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Background="SeaGreen">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Opacity="0.5"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="房间数:" />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            d:Text="36"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Opacity="0.5"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="{Binding RoomCount}" />
+
+
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Opacity="0.5"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="端口数:" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            d:Text="36"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Opacity="0.5"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="{Binding PortCount}" />
+
+
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+
+        </materialDesign:Card>
+
+    </materialDesign:TransitioningContent>
+
+</UserControl>

@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.NetworkManage.NetworkInfo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.NetworkManage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="260"
+    Height="50"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.5}">
+        <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp3">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Background="SeaGreen" />
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Background="Teal" />
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="22"
+                    FontWeight="ExtraBlack"
+                    Foreground="AliceBlue"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="{Binding Index}" />
+
+
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="5,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        d:Text="192.168.222.222"
+                        FontWeight="Bold"
+                        Foreground="AliceBlue"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        Text="{Binding Network}" />
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Foreground="AliceBlue"
+                            Opacity="0.3"
+                            Text="{Binding Percentage}" />
+
+                        <TextBlock
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Foreground="AliceBlue"
+                            Opacity="0.3"
+                            Text="%" />
+
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*" />
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <ProgressBar
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Height="20"
+                        VerticalAlignment="Bottom"
+                        d:Value="80"
+                        materialDesign:TransitionAssist.DisableTransitions="True"
+                        Foreground="SeaGreen"
+                        Maximum="100"
+                        Minimum="0"
+                        Opacity="0.5"
+                        Value="{Binding Percentage}" />
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        d:Text="255.255.255.255"
+                        FontWeight="Bold"
+                        Foreground="AliceBlue"
+                        Opacity="0.5"
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                        Text="{Binding Netmask}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        d:Text="服务器网段"
+                        FontWeight="Bold"
+                        Foreground="AliceBlue"
+                        Opacity="0.5"
+                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                        Text="{Binding Name}" />
+
+
+
+                </Grid>
+
+            </Grid>
+
+
+
+        </materialDesign:Card>
+
+    </materialDesign:TransitioningContent>
+
+
+</UserControl>

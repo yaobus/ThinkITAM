@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.ChildrenWindows.ToolWindows;
+using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.ChildrenWindows.ToolWindows;
 
-namespace IPAM_NOTE.FunctionPage
+namespace ThinkITAM.FunctionPage
 {
     /// <summary>
     /// ToolsPage.xaml 的交互逻辑

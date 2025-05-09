@@ -1,0 +1,38 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.LinkPage.Eth"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:linkManage="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Width="34"
+    Height="36"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <system:Double x:Key="ControlSize">10</system:Double>
+        <system:Double x:Key="ControlSize2">34</system:Double>
+        <Thickness x:Key="ControlMargin">12,0</Thickness>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <linkManage:PortClass />
+    </UserControl.DataContext>
+    <Grid>
+
+        <materialDesign:PackIcon
+            Width="{StaticResource ControlSize2}"
+            Height="{StaticResource ControlSize2}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            d:Foreground="AliceBlue"
+            Foreground="AliceBlue"
+            Kind="Ethernet"
+            Opacity="1" />
+
+    </Grid>
+</UserControl>

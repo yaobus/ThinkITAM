@@ -1,0 +1,564 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.PresetPage.CabinetUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ThinkITAM.ViewModes.LinkManage"
+    d:Height="800"
+    d:Width="1200"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="CabinetUserControl_OnLoaded"
+    mc:Ignorable="d">
+
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="2.5,5,2.5,2.5"
+                Background="#404040">
+
+
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <materialDesign:PackIcon
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Foreground="#52c7b8"
+                        Kind="Home" />
+
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="AliceBlue">
+                        机房/配线间预设
+                    </TextBlock>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="2.5,2.5,2.5,5"
+                Background="#404040">
+
+
+
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel
+                        Margin="0,5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+
+                        <Button
+                            x:Name="AddRoomButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#aeea00"
+                            BorderBrush="Transparent"
+                            Click="AddRoomButton_OnClick"
+                            Content="{materialDesign:PackIcon ViewGridPlus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="新增机房或配线间" />
+
+                        <Button
+                            x:Name="EditAssetButton0"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#52c7b8"
+                            BorderBrush="Transparent"
+                            Content="{materialDesign:PackIcon PencilBoxOutline}"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="编辑资产信息" />
+
+                        <Button
+                            x:Name="DeleteAssetButton0"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#Cf3539"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{materialDesign:PackIcon DeleteOutline}"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="编辑资产信息" />
+
+
+
+
+
+
+                    </StackPanel>
+
+                    <ProgressBar
+                        Height="1"
+                        Margin="0"
+                        Opacity="0.3"
+                        Orientation="Horizontal"
+                        Value="100" />
+
+                    <DataGrid
+                        x:Name="RoomListView"
+                        Margin="0,5,0,10"
+                        d:Visibility="Visible"
+                        AutoGenerateColumns="False"
+                        Background="#404040"
+                        CanUserAddRows="False"
+                        DataContext="vm:DeviceRoomClass"
+                        SelectionChanged="RoomListView_OnSelectionChanged"
+                        SelectionMode="Extended"
+                        SelectionUnit="FullRow"
+                        Visibility="Visible">
+
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Counter" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="序号" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Index}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Home" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="名称" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Name}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Location">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="AddressMarker" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="位置" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Location}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="User">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="User" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="责任人" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding User}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Phone">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Phone" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="责任人电话" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Phone}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Note">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="FileFind" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="备注" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Note}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+            </materialDesign:Card>
+
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="2.5,5,5,2.5"
+                Background="#404040">
+
+                <StackPanel
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <materialDesign:PackIcon
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Foreground="#52c7b8"
+                        Kind="ViewCarousel" />
+
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="AliceBlue"
+                        Text="机柜预设" />
+
+                </StackPanel>
+
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="2.5,2.5,5,5"
+                Background="#404040">
+                <StackPanel>
+                    <StackPanel
+                        Margin="0,5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+
+                        <Button
+                            x:Name="AddButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#aeea00"
+                            BorderBrush="Transparent"
+                            Click="AddButton_OnClick"
+                            Content="{materialDesign:PackIcon ViewGridPlus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="新增机柜" />
+
+                        <Button
+                            x:Name="EditAssetButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#52c7b8"
+                            BorderBrush="Transparent"
+                            Content="{materialDesign:PackIcon PencilBoxOutline}"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="编辑资产信息" />
+
+                        <Button
+                            x:Name="DeleteAssetButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#Cf3539"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{materialDesign:PackIcon DeleteOutline}"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="编辑资产信息" />
+
+
+
+                    </StackPanel>
+
+                    <ProgressBar
+                        Height="1"
+                        Margin="0"
+                        Opacity="0.3"
+                        Orientation="Horizontal"
+                        Value="100" />
+
+                    <DataGrid
+                        x:Name="CabinetListView"
+                        Margin="0,5,0,10"
+                        d:Visibility="Visible"
+                        AutoGenerateColumns="False"
+                        Background="#404040"
+                        CanUserAddRows="False"
+                        DataContext="vm:CabinetClass"
+                        SelectionMode="Extended"
+                        SelectionUnit="FullRow"
+                        Visibility="Visible">
+
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Counter" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="序号" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Index}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="ViewCarousel" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="机柜名称" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Name}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Position">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="ViewCarouselOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="位置" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Position}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Note">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="FileFind" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="备注" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Note}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </materialDesign:Card>
+
+
+
+
+
+
+        </Grid>
+
+
+
+
+    </materialDesign:TransitioningContent>
+
+
+</UserControl>

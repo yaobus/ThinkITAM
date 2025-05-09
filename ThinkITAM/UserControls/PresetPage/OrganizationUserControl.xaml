@@ -1,0 +1,560 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.PresetPage.OrganizationUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:preset="clr-namespace:ThinkITAM.ViewModes.Preset"
+    d:Height="800"
+    d:Width="1200"
+    Loaded="OrganizationUserControl_OnLoaded"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+
+
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="2.5,5,2.5,2.5"
+                Background="#404040">
+
+
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <materialDesign:PackIcon
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Foreground="#52c7b8"
+                        Kind="SourceCommitStartNextLocal" />
+
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="AliceBlue">
+                        一级组织架构
+                    </TextBlock>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="2.5,2.5,2.5,5"
+                Background="#404040">
+
+
+
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel
+                        Margin="0,5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+
+                        <Button
+                            x:Name="Add1Button"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#aeea00"
+                            BorderBrush="Transparent"
+                            Click="Add1Button_OnClick"
+                            Content="{materialDesign:PackIcon ViewGridPlus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="新增一级组织架构" />
+
+
+
+                        <Button
+                            x:Name="Delete1Button"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#Cf3539"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="Delete1Button_OnClick"
+                            Content="{materialDesign:PackIcon DeleteOutline}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="删除选中项" />
+
+
+
+
+
+
+                    </StackPanel>
+
+                    <ProgressBar
+                        Height="1"
+                        Margin="0"
+                        Opacity="0.3"
+                        Orientation="Horizontal"
+                        Value="100" />
+
+                    <DataGrid
+                        x:Name="OneListView"
+                        Margin="0,5,0,10"
+                        d:Visibility="Visible"
+                        AutoGenerateColumns="False"
+                        Background="#404040"
+                        CanUserAddRows="False"
+                        SelectionChanged="OneListView_OnSelectionChanged"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow"
+                        Visibility="Visible">
+                        <DataGrid.DataContext>
+                            <preset:OrganizationOneViewModel />
+                        </DataGrid.DataContext>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="FormatListNumbered" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="序号" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Index}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="250"
+                                CanUserSort="True"
+                                SortMemberPath="Organization">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="SourceCommitStartNextLocal" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="一级组织架构名称" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Organization}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+
+            </materialDesign:Card>
+
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="2.5,5,5,2.5"
+                Background="#404040">
+
+                <StackPanel
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <materialDesign:PackIcon
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Foreground="#52c7b8"
+                        Kind="GraphOutline" />
+
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="AliceBlue">
+                        三级组织架构
+                    </TextBlock>
+
+                </StackPanel>
+
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="2.5,2.5,5,5"
+                Background="#404040">
+                <StackPanel>
+                    <StackPanel
+                        Margin="0,5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+
+                        <Button
+                            x:Name="Add3Button"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#aeea00"
+                            BorderBrush="Transparent"
+                            Click="Add3Button_OnClick"
+                            Content="{materialDesign:PackIcon ViewGridPlus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="新增三级组织架构" />
+
+
+
+                        <Button
+                            x:Name="DeleteThreeButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#Cf3539"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="DeleteThreeButton_OnClick"
+                            Content="{materialDesign:PackIcon DeleteOutline}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="删除选中项" />
+
+
+
+                    </StackPanel>
+
+                    <ProgressBar
+                        Height="1"
+                        Margin="0"
+                        Opacity="0.3"
+                        Orientation="Horizontal"
+                        Value="100" />
+                    <DataGrid
+                        x:Name="ThreeListView"
+                        Margin="0,5,0,10"
+                        d:Visibility="Visible"
+                        AutoGenerateColumns="False"
+                        Background="#404040"
+                        CanUserAddRows="False"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow"
+                        Visibility="Visible">
+                        <DataGrid.DataContext>
+                            <preset:OrganizationOneViewModel />
+                        </DataGrid.DataContext>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="FormatListNumbered" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="序号" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Index}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="250"
+                                CanUserSort="True"
+                                SortMemberPath="Organization">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="GraphOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="三级组织架构名称" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Group}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </materialDesign:Card>
+
+
+            <materialDesign:Card
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="2.5,5,2.5,2.5"
+                Background="#404040">
+
+                <StackPanel
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <materialDesign:PackIcon
+                        Width="32"
+                        Height="32"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Foreground="#52c7b8"
+                        Kind="SourceMerge" />
+
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Foreground="AliceBlue">
+                        二级组织架构
+                    </TextBlock>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="2.5,2.5,2.5,5"
+                Background="#404040">
+
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel
+                        Margin="0,5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+
+                        <Button
+                            x:Name="Add2Button"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#aeea00"
+                            BorderBrush="Transparent"
+                            Click="Add2Button_OnClick"
+                            Content="{materialDesign:PackIcon ViewGridPlus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="新增二级组织架构" />
+
+
+
+                        <Button
+                            x:Name="DeleteTowButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            Background="#Cf3539"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="DeleteTowButton_OnClick"
+                            Content="{materialDesign:PackIcon DeleteOutline}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="删除选中项" />
+
+
+
+
+
+
+                    </StackPanel>
+
+                    <ProgressBar
+                        Height="1"
+                        Margin="0"
+                        Opacity="0.3"
+                        Orientation="Horizontal"
+                        Value="100" />
+
+                    <DataGrid
+                        x:Name="TowListView"
+                        Margin="0,5,0,10"
+                        d:Visibility="Visible"
+                        AutoGenerateColumns="False"
+                        Background="#404040"
+                        CanUserAddRows="False"
+                        SelectionChanged="TowListView_OnSelectionChanged"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow"
+                        Visibility="Visible">
+                        <DataGrid.DataContext>
+                            <preset:OrganizationOneViewModel />
+                        </DataGrid.DataContext>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="FormatListNumbered" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="序号" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Index}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="250"
+                                CanUserSort="True"
+                                SortMemberPath="Department">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="SourceMerge" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="二级组织架构名称" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Foreground="AliceBlue"
+                                            Text="{Binding Department}" />
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </materialDesign:Card>
+
+
+
+
+        </Grid>
+
+    </materialDesign:TransitioningContent>
+
+
+
+</UserControl>

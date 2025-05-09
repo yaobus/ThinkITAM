@@ -1,0 +1,145 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.DevicePortManage.DevicePort"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.DevicePortManage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:linkPage="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    Width="70"
+    Height="70"
+    Background="Transparent"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <functionClass:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <functionClass:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
+        <functionClass:PortTypeToIconKindConverter x:Key="PortTypeToIconKindConverter" />
+        <functionClass:StatusToColorBrushConverter x:Key="StatusToColorBrushConverter" />
+
+
+    </UserControl.Resources>
+
+
+    <materialDesign:TransitioningContent Margin="2.5,0" OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.2}">
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="15" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+
+                <Button
+                    x:Name="EthernetButton"
+                    Width="60"
+                    Height="45"
+                    Padding="0"
+                    VerticalAlignment="Top"
+                    d:BorderThickness="4"
+                    Background="Transparent"
+                    BorderBrush="LawnGreen"
+                    BorderThickness="{Binding IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}, Mode=TwoWay}"
+                    Click="EthernetButton_OnClick"
+                    Foreground="Azure"
+                    Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                    ToolTip="{Binding ToolTip}">
+                    <Grid>
+
+                        <TextBlock
+                            Width="12"
+                            Height="12"
+                            Margin="0,0,-10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            d:Background="Tomato"
+                            Visibility="Collapsed" />
+
+
+
+                        <materialDesign:PackIcon
+                            Grid.Row="0"
+                            Width="30"
+                            Height="30"
+                            Margin="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            d:Kind="Ethernet"
+
+                            Foreground="{Binding Status, Converter={StaticResource StatusToColorBrushConverter}}"
+                            Kind="{Binding PortType, Converter={StaticResource PortTypeToIconKindConverter}}" >
+
+                        </materialDesign:PackIcon>
+
+                    </Grid>
+
+                </Button>
+
+
+            </Grid>
+
+            <Grid
+                Margin="10,1"
+                Background="{Binding PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
+                Row="1">
+                <Button
+                    x:Name="ColorTagSet"
+                    Height="8"
+                    Padding="0"
+                    BorderThickness="0"
+                    Click="ColorTagSet_OnClick"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="点击修改颜色标记" />
+
+            </Grid>
+
+            <Grid Grid.Row="2" Background="{Binding PingStatusColor}">
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        d:Text="10G "
+                        FontSize="12"
+                        FontWeight="ExtraBlack"
+                        Foreground="AliceBlue"
+                        Text="{Binding PortTag}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        d:Text=" "
+                        FontSize="11"
+                        FontWeight="ExtraBlack"
+                        Foreground="AliceBlue"
+                        Text=" " />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        d:Text="12/0/48"
+                        FontSize="12"
+                        FontWeight="ExtraBlack"
+                        Foreground="AliceBlue"
+                        Text="{Binding FullPortId}" />
+                </StackPanel>
+
+
+            </Grid>
+
+
+        </Grid>
+
+
+
+
+
+
+
+
+    </materialDesign:TransitioningContent>
+</UserControl>

@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.General.ConfirmationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.General"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource HarmonyOsFontFamily}">
+    <Grid>
+        <StackPanel Margin="10">
+            <!--  标题  -->
+            <TextBlock
+                FontSize="14"
+                FontWeight="ExtraBlack"
+                Foreground="{Binding TitleColor}"
+                Text="{Binding Title}" />
+
+            <!--  提示内容  -->
+            <TextBlock
+                MaxWidth="400"
+                Margin="0,10,0,0"
+                FontSize="14"
+                Foreground="{Binding PromptColor}"
+                Text="{Binding Prompt}"
+                TextWrapping="Wrap" />
+
+            <!--  按钮组  -->
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <!--  确认按钮  -->
+                <Button
+                    Margin="0,8,8,0"
+                    Command="{Binding ConfirmCommand}"
+                    Content="{Binding ConfirmButtonText}"
+                    Foreground="{Binding ConfirmButtonColor}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">True</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+
+                <!--  取消按钮  -->
+                <Button
+                    Margin="0,8,8,0"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Content="关闭"
+                    IsCancel="True"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

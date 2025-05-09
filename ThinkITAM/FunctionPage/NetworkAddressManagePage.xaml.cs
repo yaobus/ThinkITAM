@@ -5,22 +5,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using IPAM_NOTE.ChildrenWindows.NetworkManage;
-using IPAM_NOTE.DatabaseOperation;
-using IPAM_NOTE.IPAddressCalculations;
-using IPAM_NOTE.UserControls.NetworkManage;
-using IPAM_NOTE.ViewModes.NetworkManage;
-using IPAM_NOTE.ViewModes.Preset;
+using ThinkITAM.ChildrenWindows.NetworkManage;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.IPAddressCalculations;
+using ThinkITAM.UserControls.NetworkManage;
+using ThinkITAM.ViewModes.NetworkManage;
+using ThinkITAM.ViewModes.Preset;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using static IPAM_NOTE.DataBridge.DataBridge;
-using static IPAM_NOTE.ChildrenWindows.NetworkManage.AddressAllocationWindow;
-using IPAM_NOTE.ChildrenWindows.ToolWindows;
+using static ThinkITAM.DataBridge.DataBridge;
+using static ThinkITAM.ChildrenWindows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.ChildrenWindows.ToolWindows;
 using Button = System.Windows.Controls.Button;
 using System;
-using IPAM_NOTE.Properties;
+using ThinkITAM.Properties;
 
-namespace IPAM_NOTE.FunctionPage;
+namespace ThinkITAM.FunctionPage;
 
 /// <summary>
 /// NetworkAddressManage.xaml 的交互逻辑
