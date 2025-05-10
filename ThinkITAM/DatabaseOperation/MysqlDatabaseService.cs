@@ -168,6 +168,8 @@ namespace ThinkITAM.DatabaseOperation
         {
             string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
 
+            Console.WriteLine(translatedSql);
+
             using var connection = CreateConnection();
             connection.Open();
             using var command = CreateCommand(connection, translatedSql, param);

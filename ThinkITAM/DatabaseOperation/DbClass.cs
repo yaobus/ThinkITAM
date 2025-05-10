@@ -893,7 +893,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Asset"://资产表
 
                                 sql =
-                                    $"CREATE TABLE `Asset` (\r\n  `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\r\n  `AssetId` VARCHAR(255),\r\n  `AssetQrCode` TEXT,\r\n  `AssetType` TEXT,\r\n  `DeviceType` TEXT,\r\n  `AssetTag` TEXT,\r\n  `AssetNumber` INT,\r\n  `PurchaseDate` VARCHAR(255),\r\n  `PurchasePrice` INT,\r\n  `Manufacturer` TEXT,\r\n  `Model` TEXT,\r\n  `SerialNumber` VARCHAR(255),\r\n  `Configuration` TEXT,\r\n  `Location` TEXT,\r\n  `UserOrganization` TEXT,\r\n  `UserDepartment` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `Consumer` TEXT,\r\n  `Status` TEXT,\r\n  `UsedYear` TEXT,\r\n  `ScrapDate` VARCHAR(255),\r\n  `Notes` TEXT,\r\n  `TagA` TEXT,\r\n  `TagB` TEXT,\r\n  `TagC` TEXT,\r\n  `TagD` TEXT,\r\n  `TagE` TEXT,\r\n  `TagF` TEXT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Asset` (\r\n  `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\r\n  `AssetId` VARCHAR(255),\r\n  `AssetQrCode` TEXT,\r\n  `AssetType` TEXT,\r\n  `DeviceType` TEXT,\r\n  `AssetTag` TEXT,\r\n  `AssetNumber` INT,\r\n  `PurchaseDate` VARCHAR(255),\r\n  `PurchasePrice` VARCHAR(255),\r\n  `Manufacturer` TEXT,\r\n  `Model` TEXT,\r\n  `SerialNumber` VARCHAR(255),\r\n  `Configuration` TEXT,\r\n  `Location` TEXT,\r\n  `UserOrganization` TEXT,\r\n  `UserDepartment` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `Consumer` TEXT,\r\n  `Status` TEXT,\r\n  `UsedYear` TEXT,\r\n  `ScrapDate` VARCHAR(255),\r\n  `Notes` TEXT,\r\n  `TagA` TEXT,\r\n  `TagB` TEXT,\r\n  `TagC` TEXT,\r\n  `TagD` TEXT,\r\n  `TagE` TEXT,\r\n  `TagF` TEXT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
                                 break;
 
                             case "Browser"://浏览器路径表
@@ -919,7 +919,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Devices"://设备总表
 
                                 sql =
-                                    $"CREATE TABLE `Devices` (\r\n  `AssetId` VARCHAR(255) NOT NULL,\r\n  `AssetNumber` VARCHAR(255) NOT NULL,\r\n  `AssetType` TEXT,\r\n  `DeviceType` TEXT,\r\n  `Model` TEXT,\r\n  `Description` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `EnableDate` DATE,\r\n  `UseDepartment` TEXT,\r\n  `Address` TEXT,\r\n  `TagA` TEXT,\r\n  `TagB` TEXT,\r\n  `TagC` TEXT,\r\n  `TagD` TEXT,\r\n  `TagE` TEXT,\r\n  `TagF` TEXT,\r\n  PRIMARY KEY (`AssetId`, `AssetNumber`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Devices` (\r\n  `AssetId` VARCHAR(255) NOT NULL,\r\n  `AssetNumber` VARCHAR(255) NOT NULL,\r\n  `AssetType` TEXT,\r\n  `DeviceType` TEXT,\r\n  `Model` TEXT,\r\n  `Description` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `EnableDate` VARCHAR(255),\r\n  `UseDepartment` TEXT,\r\n  `Address` TEXT,\r\n  `TagA` TEXT,\r\n  `TagB` TEXT,\r\n  `TagC` TEXT,\r\n  `TagD` TEXT,\r\n  `TagE` TEXT,\r\n  `TagF` TEXT,\r\n  PRIMARY KEY (`AssetId`, `AssetNumber`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 

@@ -307,7 +307,7 @@ public partial class AddressCollectWindow : Window
                 //检查地址是否已存在
                 string url = $"{Protocol.Text}{Host.Text}{Port.Text}";
 
-                string sqlTemp = $"SELECT COUNT(*) FROM 'Bookmark' WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
+                string sqlTemp = $"SELECT COUNT(*) FROM Bookmark WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
                 //查询记录是否存在
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -339,7 +339,7 @@ public partial class AddressCollectWindow : Window
 
                     string group = Groups.Text;
 
-                    string sql2 = $"SELECT COUNT(*) FROM 'Bookmark' WHERE \"TypeGroup\" = '{group}' AND \"Del\"='0'";
+                    string sql2 = $"SELECT COUNT(*) FROM Bookmark WHERE \"TypeGroup\" = '{group}' AND \"Del\"='0'";
 
                     if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {

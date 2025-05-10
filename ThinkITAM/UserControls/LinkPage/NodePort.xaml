@@ -192,16 +192,19 @@
                 <TextBlock
                     Margin="1,2"
                     FontSize="12"
+                    Foreground="AliceBlue"
                     Text="{Binding MdfRackClass.RoomName}"
                     ToolTip="{Binding MdfRackClass.RoomName}" />
                 <TextBlock
                     Margin="1,2"
                     FontSize="12"
+                    Foreground="AliceBlue"
                     Text="{Binding MdfRackClass.CabinetName}"
                     ToolTip="{Binding MdfRackClass.CabinetName}" />
                 <TextBlock
                     Margin="1,2"
                     FontSize="12"
+                    Foreground="AliceBlue"
                     Text="{Binding MdfRackClass.RackName}"
                     ToolTip="{Binding MdfRackClass.RackName}" />
             </StackPanel>
