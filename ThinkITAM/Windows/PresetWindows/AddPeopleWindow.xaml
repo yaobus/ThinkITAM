@@ -9,8 +9,6 @@
     Title="添加用户信息"
     Width="500"
     Height="500"
-    d:Background="#383838"
-    d:Foreground="AliceBlue"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddPeopleWindow_OnLoaded"
     ResizeMode="NoResize"

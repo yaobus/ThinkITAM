@@ -118,7 +118,7 @@ public partial class AddressCollectWindow : Window
     {
         groups.Clear();
 
-        string query = $"SELECT DISTINCT \"Group\" FROM \"Index\" WHERE Del != 0 OR Del IS NULL;";
+        string query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL;";
 
 
 
@@ -126,7 +126,7 @@ public partial class AddressCollectWindow : Window
 
         foreach (var row in rows)
         {
-             groups.Add(row["Group"].ToString());
+             groups.Add(row["TypeGroup"].ToString());
         }
 
 
@@ -235,7 +235,7 @@ public partial class AddressCollectWindow : Window
                 //检查地址是否已存在
                 string url = $"{Protocol.Text}{Host.Text}{Port.Text}";
 
-                string sqlTemp = $"SELECT COUNT(*) FROM 'Index' WHERE ( 'Group'='{updateTag.Group}' AND Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
+                string sqlTemp = $"SELECT COUNT(*) FROM Bookmark WHERE ( TypeGroup='{updateTag.Group}' AND Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
                 //查询记录是否存在
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -266,7 +266,7 @@ public partial class AddressCollectWindow : Window
                         browser = browserInfos[BrowserCombobox.SelectedIndex].Path;
                     }
 
-                    string sql = $"UPDATE \"main\".\"Index\" SET \"Group\" =  '{Groups.Text}',\"Name\" = '{Name.Text}', \"Protocol\" = '{Protocol.Text}',\"Host\" = '{Host.Text}',\"Port\" = '{Port.Text}',\"Color\" = '{IndexColor.SelectedIndex}' ,\"Browser\" = '{browser}' WHERE  \"IndexId\"='{dbIndexId}'";
+                    string sql = $"UPDATE \"Bookmark\" SET \"TypeGroup\" =  '{Groups.Text}',\"Name\" = '{Name.Text}', \"Protocol\" = '{Protocol.Text}',\"Host\" = '{Host.Text}',\"Port\" = '{Port.Text}',\"Color\" = '{IndexColor.SelectedIndex}' ,\"Browser\" = '{browser}' WHERE  \"IndexId\"='{dbIndexId}'";
                     
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -307,7 +307,7 @@ public partial class AddressCollectWindow : Window
                 //检查地址是否已存在
                 string url = $"{Protocol.Text}{Host.Text}{Port.Text}";
 
-                string sqlTemp = $"SELECT COUNT(*) FROM 'Index' WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
+                string sqlTemp = $"SELECT COUNT(*) FROM 'Bookmark' WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
                 //查询记录是否存在
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -339,7 +339,7 @@ public partial class AddressCollectWindow : Window
 
                     string group = Groups.Text;
 
-                    string sql2 = $"SELECT COUNT(*) FROM 'Index' WHERE \"Group\" = '{group}' AND \"Del\"='0'";
+                    string sql2 = $"SELECT COUNT(*) FROM 'Bookmark' WHERE \"TypeGroup\" = '{group}' AND \"Del\"='0'";
 
                     if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {
@@ -359,7 +359,7 @@ public partial class AddressCollectWindow : Window
 
                       if (result)
                       {
-                          sql2 = $"UPDATE \"main\".\"Index\" SET \"Del\" = NULL WHERE \"Group\" = '{group}'";
+                          sql2 = $"UPDATE \"Bookmark\" SET \"Del\" = NULL WHERE \"TypeGroup\" = '{group}'";
                          
                           GlobalVariables.DbService.ExecuteNonQuery(sql2);
                         }
@@ -374,7 +374,7 @@ public partial class AddressCollectWindow : Window
                     string indexId=  $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
 
-                    string sql = $"INSERT INTO \"main\".\"Index\" (\"IndexId\",\"Group\", \"Name\", \"Protocol\", \"Host\", \"Port\", \"Color\", \"Browser\") VALUES ('{indexId}','{group}', '{Name.Text}', '{Protocol.Text}', '{Host.Text}', '{Port.Text}', '{IndexColor.SelectedIndex}','{browser}')";
+                    string sql = $"INSERT INTO \"Bookmark\" (\"IndexId\",\"TypeGroup\", \"Name\", \"Protocol\", \"Host\", \"Port\", \"Color\", \"Browser\") VALUES ('{indexId}','{group}', '{Name.Text}', '{Protocol.Text}', '{Host.Text}', '{Port.Text}', '{IndexColor.SelectedIndex}','{browser}')";
                    
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
                     DataBridge.DataBridge.modifyIndexTags.Add(url);

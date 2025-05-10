@@ -13,6 +13,7 @@
     Height="1080"
     MinWidth="1366"
     MinHeight="768"
+    d:Background="DimGray"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="SelectionWindow_OnLoaded"
     ResizeMode="CanResize"
@@ -105,28 +106,27 @@
             Width="45"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             SelectionChanged="MenuList_OnSelectionChanged">
-            <ListViewItem Margin="0,2" >
+            <ListViewItem Margin="0,2">
 
                 <materialDesign:Card
                     Width="200"
                     Padding="0"
                     Background="{DynamicResource PrimaryHueLightBrush}"
-                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                >
+                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
 
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
                         <materialDesign:PackIcon
-                        x:Name="MenuIcon"
-                        Width="32"
-                        Height="32"
-                        VerticalAlignment="Center"
-                        Kind="MenuClose" />
+                            x:Name="MenuIcon"
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="MenuClose" />
 
                         <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="功能选择列表" />
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwMenuSelect}" />
 
 
                     </StackPanel>
@@ -149,7 +149,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="资产信息总览" />
+                        Text="{DynamicResource SwDashboard}" />
 
 
                 </StackPanel>
@@ -168,7 +168,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="网段资源管理" />
+                        Text="{DynamicResource SwNetwork}" />
 
 
                 </StackPanel>
@@ -186,7 +186,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="设备端口管理" />
+                        Text="{DynamicResource SwDevicePort}" />
 
 
                 </StackPanel>
@@ -204,7 +204,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="索引标签管理" />
+                        Text="{DynamicResource SwIndexTag}" />
 
 
                 </StackPanel>
@@ -225,7 +225,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="链路信息管理" />
+                        Text="{DynamicResource SwLink}" />
 
 
                 </StackPanel>
@@ -245,7 +245,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="资产信息管理" />
+                        Text="{DynamicResource SwAsset}" />
 
 
                 </StackPanel>
@@ -264,7 +264,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="预设信息管理" />
+                        Text="{DynamicResource SwPreset}" />
 
                 </StackPanel>
 
@@ -292,7 +292,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="面板端口管理" />
+                        Text="{DynamicResource SwPanelPort}" />
 
                 </StackPanel>
 
@@ -319,7 +319,7 @@
                     <TextBlock
                         Margin="10"
                         VerticalAlignment="Center"
-                        Text="运维工具箱" />
+                        Text="{DynamicResource SwToolBox}" />
 
                 </StackPanel>
 

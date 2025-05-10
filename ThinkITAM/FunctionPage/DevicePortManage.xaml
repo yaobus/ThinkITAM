@@ -432,8 +432,8 @@
                                     Padding="0"
                                     VerticalAlignment="Center"
                                     d:Text="5"
-                                    FontSize="22"
                                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                                    FontSize="22"
                                     ToolTip="当前选中的IP数量" />
 
 

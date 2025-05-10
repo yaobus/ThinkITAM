@@ -80,8 +80,7 @@
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
-            materialDesign:ElevationAssist.Elevation="Dp1"
->
+            materialDesign:ElevationAssist.Elevation="Dp1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -684,7 +683,7 @@
                         VerticalAlignment="Bottom"
                         d:Text="12"
                         FontSize="16"
-                        Foreground="AliceBlue" />
+                        Foreground="DarkCyan" />
 
                     <nodify:NodifyEditor
                         x:Name="RackPanel"
@@ -710,7 +709,6 @@
                         x:Name="GraphPanel"
                         Grid.Row="1"
                         Margin="0"
-                        Background="#333333"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
                                                                         Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">

@@ -42,21 +42,6 @@ namespace ThinkITAM.DatabaseOperation
             return command;
         }
 
-        //private List<Dictionary<string, object>> ReadToDictionaryList(MySqlDataReader reader)
-        //{
-        //    var results = new List<Dictionary<string, object>>();
-        //    while (reader.Read())
-        //    {
-        //        var row = new Dictionary<string, object>();
-        //        for (var i = 0; i < reader.FieldCount; i++)
-        //        {
-        //            row[reader.GetName(i)] = reader.IsDBNull(i) ? null! : reader.GetValue(i);
-        //        }
-        //        results.Add(row);
-        //    }
-        //    return results;
-        //}
-
 
         private List<Dictionary<string, object>> ReadToDictionaryList(MySqlDataReader reader)
         {
@@ -111,9 +96,15 @@ namespace ThinkITAM.DatabaseOperation
 
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {
+            Console.WriteLine(sql);
+            // 对 SQL 语句进行翻译
+            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
+
+            Console.WriteLine(translatedSql);
+
             using var connection = CreateConnection();
             connection.Open();
-            using var command = CreateCommand(connection, sql, param);
+            using var command = CreateCommand(connection, translatedSql, param);
             using var reader = command.ExecuteReader();
             return ReadToDictionaryList(reader);
         }
@@ -154,10 +145,13 @@ namespace ThinkITAM.DatabaseOperation
 
         public object? ExecuteScalar(string sql)
         {
+            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
+
+
             using var connection = CreateConnection();
             connection.Open();
             using var command = connection.CreateCommand();
-            command.CommandText = sql;
+            command.CommandText = translatedSql;
             return command.ExecuteScalar();
         }
 
@@ -172,9 +166,11 @@ namespace ThinkITAM.DatabaseOperation
 
         public int ExecuteNonQuery(string sql, object? param = null)
         {
+            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
+
             using var connection = CreateConnection();
             connection.Open();
-            using var command = CreateCommand(connection, sql, param);
+            using var command = CreateCommand(connection, translatedSql, param);
             return command.ExecuteNonQuery();
         }
 
@@ -208,6 +204,96 @@ namespace ThinkITAM.DatabaseOperation
             command.Parameters.AddWithValue("@TableName", tableName);
             var result = await command.ExecuteScalarAsync(cancellationToken);
             return Convert.ToInt32(result) > 0;
+        }
+
+
+        public bool CreateTableFromEntity<T>() where T : class
+        {
+            try
+            {
+                var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
+                var mysqlSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.MySql);
+
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var cmd = new MySqlCommand(mysqlSql, connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"创建 MySQL 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateTableFromEntityAsync<T>(CancellationToken ct = default) where T : class
+        {
+            try
+            {
+                var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
+                var mysqlSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.MySql);
+
+                await using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync(ct);
+                    await using (var cmd = new MySqlCommand(mysqlSql, connection))
+                    {
+                        await cmd.ExecuteNonQueryAsync(ct);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"异步创建 MySQL 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+
+        public bool CreateTableFromSql(string sqliteSql)
+        {
+            Console.WriteLine(sqliteSql);
+            if (!string.IsNullOrWhiteSpace(sqliteSql))
+            {
+                var translatedSql = TranslateSqlIfNeeded(sqliteSql);
+
+                using var connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                using var command = new MySqlCommand(translatedSql, connection);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+
+           
+        }
+
+        public async Task<bool> CreateTableFromSqlAsync(string sql, CancellationToken ct = default)
+        {
+            Console.WriteLine(sql);
+            await using var connection = new MySqlConnection(_connectionString);
+            await connection.OpenAsync(ct);
+            await using var command = new MySqlCommand(sql, connection);
+            await command.ExecuteNonQueryAsync(ct);
+            return true;
+        }
+
+        private string TranslateSqlIfNeeded(string sql)
+        {
+            return SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
         }
     }
 }

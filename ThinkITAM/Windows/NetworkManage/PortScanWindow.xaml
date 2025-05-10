@@ -11,10 +11,9 @@
     Height="768"
     MinWidth="1366"
     MinHeight="768"
-    Background="#303030"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Foreground="AliceBlue"
     Loaded="PortScanWindow_OnLoaded"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid>
@@ -24,10 +23,7 @@
             <RowDefinition Height="15" />
         </Grid.RowDefinitions>
 
-        <materialDesign:Card
-            Grid.Row="0"
-            Margin="5,5,5,2.5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="0" Margin="5,5,5,2.5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -66,6 +62,7 @@
                             Padding="0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
+                            BorderThickness="0.5"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
 
@@ -173,6 +170,7 @@
                         Height="36"
                         Margin="0,0,0,0"
                         Padding="0"
+                        BorderThickness="0.5"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="80,443" />
 
@@ -303,10 +301,7 @@
 
         </materialDesign:Card>
 
-        <materialDesign:Card
-            Grid.Row="1"
-            Margin="5,2.5,5,2.5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,2.5">
             <Grid>
 
 
@@ -315,7 +310,6 @@
                     x:Name="HostStatusDataGrid"
                     Margin="0,5,0,0"
                     AutoGenerateColumns="False"
-                    Background="#404040"
                     CanUserAddRows="False"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
@@ -349,7 +343,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Index}" />
 
                                 </DataTemplate>
@@ -380,7 +373,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Host}" />
 
                                 </DataTemplate>
@@ -411,7 +403,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding HostName}" />
 
                                 </DataTemplate>
@@ -442,7 +433,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Mac}" />
 
                                 </DataTemplate>
@@ -473,7 +463,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Vendor}" />
 
                                 </DataTemplate>
@@ -505,7 +494,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding OpenedPorts}" />
 
                                 </DataTemplate>
@@ -524,10 +512,7 @@
         </materialDesign:Card>
 
 
-        <materialDesign:Card
-            Grid.Row="2"
-            Margin="5,2.5,5,5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="2" Margin="5,2.5,5,5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

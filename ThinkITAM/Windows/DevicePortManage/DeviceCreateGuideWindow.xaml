@@ -765,7 +765,6 @@
                                 Margin="0,0,10,0"
                                 Padding="0"
                                 Click="ClearPortButton_OnClick"
-                                Foreground="AliceBlue"
                                 ToolTip="清空设备预览区的配置">
                                 <StackPanel Orientation="Horizontal">
 
@@ -785,7 +784,6 @@
                                 Margin="0,0,20,0"
                                 Padding="0"
                                 Click="AddPortButton_OnClick"
-                                Foreground="AliceBlue"
                                 ToolTip="添加端口到设备预览区">
                                 <StackPanel Orientation="Horizontal">
 
@@ -815,7 +813,6 @@
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="SavePreset_OnClick"
-                                Foreground="AliceBlue"
                                 ToolTip="保存该型号设备对应的配置信息到数据库">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -837,7 +834,6 @@
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="SaveButton_OnClick"
-                                Foreground="AliceBlue"
                                 ToolTip="应用设备配置，将创建预览区对应的设备到数据库中">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MotionPlayOutline" />

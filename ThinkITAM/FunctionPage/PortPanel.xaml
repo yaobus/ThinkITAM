@@ -37,8 +37,7 @@
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
-            materialDesign:ElevationAssist.Elevation="Dp1"
-            >
+            materialDesign:ElevationAssist.Elevation="Dp1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -167,15 +166,15 @@
                                                         Margin="5,0"
                                                         VerticalAlignment="Center"
                                                         FontWeight="Bold"
-                                                        Opacity="0.3"
                                                         Foreground="AliceBlue"
+                                                        Opacity="0.5"
                                                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                         Text="端口总数:" />
                                                     <TextBlock
                                                         Margin="5,0"
                                                         VerticalAlignment="Center"
-                                                        Opacity="0.5"
                                                         Foreground="AliceBlue"
+                                                        Opacity="0.5"
                                                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                         Text="{Binding PortCount}" />
                                                 </StackPanel>
@@ -184,8 +183,8 @@
                                                     Grid.Column="1"
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
-                                                    Opacity="0.5 "
                                                     Foreground="AliceBlue"
+                                                    Opacity="0.5 "
                                                     Text="{Binding RoomNote}" />
 
 

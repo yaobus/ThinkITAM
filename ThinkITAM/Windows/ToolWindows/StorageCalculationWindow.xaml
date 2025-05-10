@@ -13,6 +13,7 @@
     MinHeight="768"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     SizeChanged="StorageCalculationWindow_OnSizeChanged"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -28,8 +29,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Margin="5,5,5,2.5"
-                HorizontalAlignment="Stretch"
-                Background="#404040">
+                HorizontalAlignment="Stretch">
 
                 <Grid Grid.Row="0" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
@@ -411,10 +411,7 @@
                 </Grid>
             </materialDesign:Card>
 
-            <materialDesign:Card
-                Grid.Row="1"
-                Margin="5,2.5,5,2.5"
-                Background="#404040">
+            <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,2.5">
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -444,8 +441,8 @@
                     <StackPanel Grid.Row="1" Orientation="Vertical">
 
                         <materialDesign:Card>
-                            <TabControl HorizontalContentAlignment="Left" Foreground="AliceBlue">
-                                <TabItem Foreground="AliceBlue" Header="按分辨率计算">
+                            <TabControl HorizontalContentAlignment="Left">
+                                <TabItem Header="按分辨率计算">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -595,7 +592,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding CodingType}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -624,7 +620,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding Resolution}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -653,7 +648,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding CameraNumber}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -683,7 +677,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding SaveDay}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -713,7 +706,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding StorageSpace}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -933,7 +925,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding BitRate}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -962,7 +953,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding CameraNumber}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -992,7 +982,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding SaveDay}" />
                                                             </Grid>
                                                         </DataTemplate>
@@ -1022,7 +1011,6 @@
                                                                 <TextBlock
                                                                     HorizontalAlignment="Left"
                                                                     VerticalAlignment="Center"
-                                                                    Foreground="AliceBlue"
                                                                     Text="{Binding StorageSpace}" />
                                                             </Grid>
                                                         </DataTemplate>

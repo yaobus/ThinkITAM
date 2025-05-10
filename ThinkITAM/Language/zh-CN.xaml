@@ -59,4 +59,127 @@
     <s:String x:Key="ApwMdPrompt">请填写完整信息</s:String>
 
 
+
+    <!--  SelectionWindow  -->
+    <s:String x:Key="SwMenuSelect">功能选择列表</s:String>
+    <s:String x:Key="SwDashboard">资产信息总览</s:String>
+    <s:String x:Key="SwNetwork">网段资源管理</s:String>
+
+    <s:String x:Key="SwDevicePort">设备端口管理</s:String>
+    <s:String x:Key="SwIndexTag">索引标签管理</s:String>
+    <s:String x:Key="SwLink">链路信息管理</s:String>
+    <s:String x:Key="SwAsset">资产信息管理</s:String>
+
+    <s:String x:Key="SwPreset">预设信息管理</s:String>
+    <s:String x:Key="SwPanelPort">面板端口管理</s:String>
+    <s:String x:Key="SwToolBox">运维工具箱</s:String>
+
+    <!--  Dashboard  -->
+    <s:String x:Key="DasNetwork">网段信息总览</s:String>
+    <s:String x:Key="DasNetworkNote">网段信息及可用IP地址信息</s:String>
+    <s:String x:Key="DasNetworkCount">网段总数</s:String>
+    <s:String x:Key="DasNetworkIpCount">地址总数</s:String>
+    <s:String x:Key="DasNetworkIpNoUse">可用地址数</s:String>
+
+    <s:String x:Key="DasDevice">设备信息总览</s:String>
+    <s:String x:Key="DasDeviceNote">设备信息及设备端口信息</s:String>
+    <s:String x:Key="DasDeviceCount">设备总数</s:String>
+    <s:String x:Key="DasDevicePortCount">端口总数</s:String>
+    <s:String x:Key="DasDevicePortNoUse">可用端口数</s:String>
+
+    <s:String x:Key="DasLink">链路信息总览</s:String>
+    <s:String x:Key="DasLinkNote">链路及设备连接信息</s:String>
+    <s:String x:Key="DasLinkCount">链路总数</s:String>
+    <s:String x:Key="DasLinkUsed">已用链路数量</s:String>
+    <s:String x:Key="DasLinkNoUse">可用链路数</s:String>
+
+    <s:String x:Key="DasAsset">资产信息总览</s:String>
+    <s:String x:Key="DasAssetNote">资产信息及资产日志</s:String>
+    <s:String x:Key="DasAssetType">资产类型数</s:String>
+    <s:String x:Key="DasAssetCount">资产总数</s:String>
+    <s:String x:Key="DasAssetPortUsed">在用资产数</s:String>
+
+
+    <!--  NetworkAddressManagePage  -->
+    <s:String x:Key="NmpAddNetwork">新增地址段</s:String>
+    <s:String x:Key="NmpSearchKeyWord">搜索关键字</s:String>
+    <s:String x:Key="NmpSelectShowMode">切换显示模式</s:String>
+    <s:String x:Key="NmpSingle">单选模式</s:String>
+    <s:String x:Key="NmpMulti">多选模式</s:String>
+    <s:String x:Key="NmpBrowser">访问模式</s:String>
+    <s:String x:Key="NmpPing">Ping模式</s:String>
+    <s:String x:Key="NmpPingAddress">检测所选网段地址在线状态</s:String>
+    <s:String x:Key="NmpGetHostName">检测所选网段在线的地址主机名及MAC</s:String>
+
+    <s:String x:Key="NmpResetSort">重置排序</s:String>
+    <s:String x:Key="NmpSetNetworkTag">设置网段信息标签</s:String>
+    <s:String x:Key="NmpSelectedIp">当前选中的IP数量</s:String>
+    <s:String x:Key="NmpConfigSelectedIp">配置所选IP地址</s:String>
+    <s:String x:Key="NmpClearSelectedIp">清空所选地址</s:String>
+
+
+    <s:String x:Key="NmpSelectProtocol">选择协议</s:String>
+    <s:String x:Key="NmpSelectPort">选择端口</s:String>
+    <s:String x:Key="NmpSelectBrowser">选择浏览器</s:String>
+    <s:String x:Key="NmpSearchNetwork">被搜索网段</s:String>
+
+    <s:String x:Key="NmpDgSelect">选择</s:String>
+    <s:String x:Key="NmpDgSelectNote">选择IP地址</s:String>
+
+    <s:String x:Key="NmpDgIp">选择</s:String>
+    <s:String x:Key="NmpDgIpNote">选择IP地址</s:String>
+
+    <s:String x:Key="NmpDgPing">PING</s:String>
+    <s:String x:Key="NmpDgPingNote">PING检测状态及响应时间</s:String>
+
+    <s:String x:Key="NmpDgColor">色标</s:String>
+    <s:String x:Key="NmpDgColorNote">颜色标签</s:String>
+
+    <s:String x:Key="NmpDgIpUser">使用人</s:String>
+    <s:String x:Key="NmpDgIpUserNote">使用该IP的用户</s:String>
+
+    <s:String x:Key="NmpDgUserOrganization">用户单位</s:String>
+    <s:String x:Key="NmpDgUserOrganizationNote">使用人所在单位</s:String>
+
+    <s:String x:Key="NmpDgUserDepartment">用户部门</s:String>
+    <s:String x:Key="NmpDgUserDepartmentNote">使用人所在部门</s:String>
+
+    <s:String x:Key="NmpDgUserGroup">用户群组</s:String>
+    <s:String x:Key="NmpDgUserGroupNote">使用人所在群组</s:String>
+
+    <s:String x:Key="NmpDgUserPhone">联系方式</s:String>
+    <s:String x:Key="NmpDgUserPhoneNote">使用人联系电话</s:String>
+
+    <s:String x:Key="NmpDgHostName">主机名</s:String>
+    <s:String x:Key="NmpDgHostNameNote">使用该IP的设备主机名</s:String>
+
+    <s:String x:Key="NmpDgMac">MAC地址</s:String>
+    <s:String x:Key="NmpDgMacNote">使用该IP的设备MAC</s:String>
+
+
+    <s:String x:Key="NmpDgNowHostName">当前主机名</s:String>
+    <s:String x:Key="NmpDgNowHostNameNote">该IP当前检测到的主机名</s:String>
+
+    <s:String x:Key="NmpDgNowMac">当前MAC</s:String>
+    <s:String x:Key="NmpDgNowMacNote">该IP当前检测到的MAC</s:String>
+
+
+    <s:String x:Key="NmpDgRelevanceAsset">关联资产</s:String>
+    <s:String x:Key="NmpDgRelevanceAssetNote">使用该IP的资产</s:String>
+
+    <s:String x:Key="NmpDgTagA">自定义标签A</s:String>
+    <s:String x:Key="NmpDgTagB">自定义标签B</s:String>
+    <s:String x:Key="NmpDgTagC">自定义标签C</s:String>
+    <s:String x:Key="NmpDgTagD">自定义标签D</s:String>
+    <s:String x:Key="NmpDgTagE">自定义标签E</s:String>
+    <s:String x:Key="NmpDgTagF">自定义标签F</s:String>
+
+    <s:String x:Key="NmpDgOnline">在线主机</s:String>
+    <s:String x:Key="NmpDgNowNetwork">当前网段</s:String>
+    <s:String x:Key="NmpDgNowMask">子网掩码</s:String>
+    <s:String x:Key="NmpDgFirstIp">第一个可用IP</s:String>
+    <s:String x:Key="NmpDgLastIp">最后一个可用IP</s:String>
+    <s:String x:Key="NmpDgBroadcast">广播地址</s:String>
+    <s:String x:Key="NmpDgNetworkIpCount">网段地址总数</s:String>
+
 </ResourceDictionary>

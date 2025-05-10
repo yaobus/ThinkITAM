@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using ThinkITAM.FunctionPage;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 
 
 namespace ThinkITAM.Windows.Selection;
@@ -28,6 +30,7 @@ public partial class SelectionWindow : Window
     {
         WindowLoadStatus = 1;
         //BottomControl.SelectedIndex = -1;
+        InitializeDatabase();
 
         //加载初始页面
         Dashboard dashboard = new Dashboard();
@@ -38,8 +41,56 @@ public partial class SelectionWindow : Window
 
 
     }
+    /// <summary>
+    /// 初始化数据库
+    /// </summary>
+    private async void InitializeDatabase()
+    {
+       
 
+        List<string> t = new List<string>();
 
+        t.Add("Network");
+        t.Add("UserInfo");
+        t.Add("WindowTag");
+        t.Add("Hierarchy");
+        t.Add("Organization");
+        t.Add("AssetTag");
+        t.Add("Address");
+        t.Add("Asset");
+        t.Add("Browser");
+        t.Add("PortList");
+
+        t.Add("ModelPreset");
+        t.Add("Devices");
+        t.Add("DeviceRoom");
+        t.Add("Protocol");
+
+        t.Add("DeviceCabinet");
+        t.Add("Racks");
+        t.Add("Buildings");
+        t.Add("ScanPorts");
+
+        t.Add("Notes");
+        t.Add("CustomSetting");
+        t.Add("Bookmark");
+        t.Add("Link");
+
+        t.Add("LinkDetail");
+        t.Add("WakeOnLan");
+
+        string message=string.Empty;
+
+        foreach (var table in t)
+        {
+            var result = DbClass.CreateTableIfNotExists(table);
+
+            message += $"{table}表创建结果：{result}\n";
+
+           
+        }
+        Console.WriteLine(message);
+    }
 
     /// <summary>
     /// 设置窗口显示方式，分辨率小于1080P就全屏显示，否则居中显示

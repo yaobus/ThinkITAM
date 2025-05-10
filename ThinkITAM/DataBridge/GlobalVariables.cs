@@ -16,7 +16,7 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static IDatabaseService DbService;
 
-
+        public static DataBaseConfigViewModel dbConfig;
 
     }
 }

@@ -572,11 +572,11 @@ namespace ThinkITAM.Windows.PortPanel
 
                     if (countNum == 0)
                     {
-                        sqlNote = $"INSERT INTO \"main\".\"Notes\" (\"NoteId\", \"Note\") VALUES ('{noteId}', '{roomNote}')";
+                        sqlNote = $"INSERT INTO \"Notes\" (\"NoteId\", \"Note\") VALUES ('{noteId}', '{roomNote}')";
                     }
                     else
                     {
-                        sqlNote = $"UPDATE \"main\".\"Notes\" SET \"Note\" = '{roomNote}' WHERE \"NoteId\" = '{noteId}'";
+                        sqlNote = $"UPDATE \"Notes\" SET \"Note\" = '{roomNote}' WHERE \"NoteId\" = '{noteId}'";
                     }
 
 

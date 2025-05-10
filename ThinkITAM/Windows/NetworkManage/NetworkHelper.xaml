@@ -12,6 +12,7 @@
     MinWidth="1366"
     MinHeight="768"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
 
@@ -23,10 +24,7 @@
 
         </Grid.RowDefinitions>
 
-        <materialDesign:Card
-            Grid.Row="0"
-            Margin="5,5,5,2.5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="0" Margin="5,5,5,2.5">
 
             <Grid Grid.Row="0" HorizontalAlignment="Stretch">
                 <Grid.RowDefinitions>
@@ -249,10 +247,7 @@
             </Grid>
         </materialDesign:Card>
 
-        <materialDesign:Card
-            Grid.Row="1"
-            Margin="5,2.5,5,2.5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,2.5">
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -430,10 +425,7 @@
         </materialDesign:Card>
 
 
-        <materialDesign:Card
-            Grid.Row="2"
-            Margin="5,2.5,5,5"
-            Background="#404040">
+        <materialDesign:Card Grid.Row="2" Margin="5,2.5,5,5">
 
 
             <Grid Grid.Row="2">

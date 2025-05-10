@@ -592,7 +592,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             string tableName = DataBridge.DataBridge.NetworkTableName;
 
-            string sql = $"UPDATE \"main\".\"{tableName}\" SET \"User\" = '{info.User}', \"Status\" = '{info.Status}', \"AddressColor\" = '{info.AddressColor}', \"HostName\" = '{info.HostName}', \"MacAddress\" = '{info.MacAddress}', \"LinkDevice\" = '{info.LinkDevice}', \"TagA\" = '{info.TagA}', \"TagB\" = '{info.TagB}', \"TagC\" = '{info.TagC}', \"TagD\" = '{info.TagD}', \"TagE\" = '{info.TagE}', \"TagF\" = '{info.TagF}' WHERE Address = {info.Address}";
+            string sql = $"UPDATE \"{tableName}\" SET \"User\" = '{info.User}', \"Status\" = '{info.Status}', \"AddressColor\" = '{info.AddressColor}', \"HostName\" = '{info.HostName}', \"MacAddress\" = '{info.MacAddress}', \"LinkDevice\" = '{info.LinkDevice}', \"TagA\" = '{info.TagA}', \"TagB\" = '{info.TagB}', \"TagC\" = '{info.TagC}', \"TagD\" = '{info.TagD}', \"TagE\" = '{info.TagE}', \"TagF\" = '{info.TagF}' WHERE Address = {info.Address}";
 
 
             //Console.WriteLine(sql);

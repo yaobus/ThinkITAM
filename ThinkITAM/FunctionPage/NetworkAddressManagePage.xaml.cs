@@ -1024,7 +1024,7 @@ public partial class NetworkAddressManagePage : UserControl
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
 
-            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.`Group`, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.UserGroup, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -1161,7 +1161,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.`Group`, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.UserGroup, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1207,7 +1207,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Name = row["Name"].ToString();
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
-                info.Group = row["Group"].ToString();
+                info.Group = row["UserGroup"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();

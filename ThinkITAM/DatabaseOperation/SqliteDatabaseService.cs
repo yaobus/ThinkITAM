@@ -210,5 +210,82 @@ namespace ThinkITAM.DatabaseOperation
             var result = await command.ExecuteScalarAsync(cancellationToken);
             return Convert.ToInt32(result) > 0;
         }
+
+        public bool CreateTableFromEntity<T>() where T : class
+        {
+            try
+            {
+                var sql = SqliteTableCreator.GenerateCreateTableScript<T>();
+
+                if (string.IsNullOrWhiteSpace(sql))
+                {
+                    Console.WriteLine($"未能为类型 {typeof(T).Name} 生成有效的建表语句。");
+                    return false;
+                }
+
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = connection.CreateCommand();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"创建 SQLite 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateTableFromEntityAsync<T>(CancellationToken ct = default) where T : class
+        {
+            try
+            {
+                var sql = SqliteTableCreator.GenerateCreateTableScript<T>();
+
+                if (string.IsNullOrWhiteSpace(sql))
+                {
+                    Console.WriteLine($"未能为类型 {typeof(T).Name} 生成有效的建表语句。");
+                    return false;
+                }
+
+                await using var connection = CreateConnection();
+                await connection.OpenAsync(ct);
+                await using var command = connection.CreateCommand();
+                command.CommandText = sql;
+                await command.ExecuteNonQueryAsync(ct);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"异步创建 SQLite 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+
+
+        public bool CreateTableFromSql(string sqliteSql)
+        {
+            using var connection = CreateConnection();
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandText = sqliteSql;
+            command.ExecuteNonQuery();
+            return true;
+        }
+
+        public async Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default)
+        {
+            await using var connection = CreateConnection();
+            await connection.OpenAsync(ct);
+            await using var command = connection.CreateCommand();
+            command.CommandText = sqliteSql;
+            await command.ExecuteNonQueryAsync(ct);
+            return true;
+        }
+
     }
 }

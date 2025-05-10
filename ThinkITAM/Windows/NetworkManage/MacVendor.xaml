@@ -11,10 +11,9 @@
     Height="768"
     MinWidth="1366"
     MinHeight="768"
-    Background="#303030"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Foreground="AliceBlue"
     Loaded="MacVendor_OnLoaded"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
 
@@ -27,7 +26,6 @@
         <materialDesign:Card
             Grid.Row="0"
             Margin="5,5,5,2.5"
-            Background="#404040"
             BorderThickness="0"
             Style="{StaticResource MaterialDesignOutlinedCard}">
             <Grid>
@@ -97,10 +95,10 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     AcceptsReturn="True"
-                    Background="#505050"
+                    BorderThickness="0.5"
                     HorizontalScrollBarVisibility="Disabled"
-                    Opacity="0.8"
-                    Style="{StaticResource MaterialDesignTextBox}"
+                    Opacity="1"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     TextWrapping="Wrap"
                     VerticalScrollBarVisibility="Auto" />
 
@@ -118,7 +116,6 @@
         <materialDesign:Card
             Grid.Row="1"
             Margin="5,2.5,5,5"
-            Background="#404040"
             BorderThickness="0"
             Style="{StaticResource MaterialDesignOutlinedCard}">
 
@@ -126,7 +123,6 @@
                 x:Name="MacVendorDataGrid"
                 Margin="5,5,0,0"
                 AutoGenerateColumns="False"
-                Background="#404040"
                 CanUserAddRows="False"
                 SelectionMode="Extended"
                 SelectionUnit="FullRow"
@@ -160,7 +156,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Index}" />
 
                             </DataTemplate>
@@ -191,7 +186,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Mac}" />
 
                             </DataTemplate>
@@ -221,7 +215,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Vendor}" />
 
                             </DataTemplate>

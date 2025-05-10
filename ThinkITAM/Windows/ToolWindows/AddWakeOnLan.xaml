@@ -10,9 +10,7 @@
     Title="添加网络唤醒"
     Width="630"
     Height="410"
-    Background="#303030"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Foreground="AliceBlue"
     Loaded="AddWakeOnLan_OnLoaded"
     WindowStartupLocation="CenterOwner">
     <Window.DataContext>

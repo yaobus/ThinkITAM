@@ -43,6 +43,10 @@ namespace ThinkITAM.FunctionPage
 
         private void LinkUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
+            
+
+
+
 
             CabinetListView.ItemsSource = rackInfos;
 
@@ -87,6 +91,8 @@ namespace ThinkITAM.FunctionPage
 
 
         }
+
+
 
 
         private ObservableCollection<AssetTypeViewModel> groupsTypes = new ObservableCollection<AssetTypeViewModel>();

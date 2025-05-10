@@ -118,10 +118,10 @@
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
-                                        Margin="0"
-                                        VerticalAlignment="Center"
+                                        Margin="0,0,0,1"
+                                        VerticalAlignment="Bottom"
                                         FontSize="24"
-                                        Text="网段信息总览" />
+                                        Text="{DynamicResource DasNetwork}" />
 
 
                                     <TextBlock
@@ -130,7 +130,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="网段信息及可用IP地址信息展示" />
+                                        Text="{DynamicResource DasNetworkNote}" />
                                 </Grid>
 
 
@@ -166,7 +166,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="网段总数" />
+                                        Text="{DynamicResource DasNetworkCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
@@ -192,7 +192,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="地址总数" />
+                                        Text="{DynamicResource DasNetworkIpCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -218,7 +218,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="可用地址数" />
+                                        Text="{DynamicResource DasNetworkIpNoUse}" />
                                 </Grid>
                             </Grid>
 
@@ -271,7 +271,7 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Text="设备信息总览" />
+                                        Text="{DynamicResource DasDevice}" />
 
 
                                     <TextBlock
@@ -280,7 +280,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="设备信息及设备端口信息展示" />
+                                        Text="{DynamicResource DasDeviceNote}" />
                                 </Grid>
 
 
@@ -316,7 +316,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="设备总数" />
+                                        Text="{DynamicResource DasDeviceCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
@@ -342,7 +342,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="端口总数" />
+                                        Text="{DynamicResource DasDevicePortCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -368,7 +368,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="可用端口数" />
+                                        Text="{DynamicResource DasDevicePortNoUse}" />
                                 </Grid>
                             </Grid>
 
@@ -421,7 +421,7 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Text="链路信息总览" />
+                                        Text="{DynamicResource DasLink}" />
 
 
                                     <TextBlock
@@ -430,7 +430,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="设备连接链路信息展示" />
+                                        Text="{DynamicResource DasLinkNote}" />
                                 </Grid>
 
 
@@ -466,7 +466,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="链路总数" />
+                                        Text="{DynamicResource DasLinkCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
@@ -492,7 +492,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="双绞线链路" />
+                                        Text="{DynamicResource DasLinkUsed}" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -518,7 +518,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="光纤链路" />
+                                        Text="{DynamicResource DasLinkNoUse}" />
                                 </Grid>
                             </Grid>
 
@@ -571,7 +571,7 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Text="资产信息总览" />
+                                        Text="{DynamicResource DasAsset}" />
 
 
                                     <TextBlock
@@ -580,7 +580,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="设备连接链路信息展示" />
+                                        Text="{DynamicResource DasAssetNote}" />
                                 </Grid>
 
 
@@ -616,7 +616,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="资产类型数" />
+                                        Text="{DynamicResource DasAssetType}" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
@@ -642,7 +642,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="资产总数" />
+                                        Text="{DynamicResource DasAssetCount}" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -668,7 +668,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="在用资产数" />
+                                        Text="{DynamicResource DasAssetPortUsed}" />
                                 </Grid>
                             </Grid>
 

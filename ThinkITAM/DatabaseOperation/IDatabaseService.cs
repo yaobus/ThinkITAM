@@ -101,5 +101,15 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns>是否存在</returns>
         Task<bool> IsTableExistsAsync(string tableName, CancellationToken cancellationToken = default);
+
+
+        bool CreateTableFromEntity<T>() where T : class;
+        Task<bool> CreateTableFromEntityAsync<T>(CancellationToken ct = default) where T : class;
+
+
+        bool CreateTableFromSql(string sqliteSql);
+        Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default);
+
+
     }
 }

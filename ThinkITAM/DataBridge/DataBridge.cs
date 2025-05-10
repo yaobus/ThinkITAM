@@ -16,12 +16,6 @@ namespace ThinkITAM.DataBridge
     class DataBridge
     {
 
-        //-----------------全局数据库路径-------------------
-
-        public static string dbFilePath = AppDomain.CurrentDomain.BaseDirectory + @"db\Address_database.db";
-
-
-        //------------------------------------
 
 
 

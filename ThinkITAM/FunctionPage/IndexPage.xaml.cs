@@ -147,11 +147,11 @@ namespace ThinkITAM.FunctionPage
             string query;
             if (searchKeyWord.Replace(" ","").Length == 0)
             {
-                query = $"SELECT DISTINCT \"Group\" FROM \"Index\" WHERE Del != 0 OR Del IS NULL;";
+                query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL;";
             }
             else
             {
-                query = $"SELECT DISTINCT \"Group\" FROM \"Index\" WHERE Del != 0 OR Del IS NULL AND \"Name\" LIKE '%{searchKeyWord}%';";
+                query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL AND \"Name\" LIKE '%{searchKeyWord}%';";
 
             }
 
@@ -165,8 +165,8 @@ namespace ThinkITAM.FunctionPage
                 index++;
                 var info = new ViewModels.Index.IndexGroupViewModel();
                 info.Index = index;
-                info.Group = row["Group"].ToString();
-                string sql = $"SELECT COUNT(*) FROM 'Index' WHERE `group` = '{info.Group}'";
+                info.Group = row["TypeGroup"].ToString();
+                string sql = $"SELECT COUNT(*) FROM Bookmark WHERE TypeGroup = '{info.Group}'";
 
                 info.Count = DbClass.ExecuteScalarTableNum(sql);
 
@@ -195,12 +195,12 @@ namespace ThinkITAM.FunctionPage
 
                 if (kyeWord.Replace(" ", "").Length == 0)
                 {
-                    sql = $"SELECT * FROM \"Index\" WHERE \"Group\"='{info.Group}'";
+                    sql = $"SELECT * FROM \"Bookmark\" WHERE \"TypeGroup\"='{info.Group}'";
                 }
                 else
                 {
 
-                    sql = $"SELECT * FROM \"Index\" WHERE \"Group\"='{info.Group}' AND \"Name\" LIKE '%{SearchKeyWord.Text}%';";
+                    sql = $"SELECT * FROM \"Bookmark\" WHERE \"TypeGroup\"='{info.Group}' AND \"Name\" LIKE '%{SearchKeyWord.Text}%';";
 
                 }
 
@@ -325,7 +325,7 @@ namespace ThinkITAM.FunctionPage
             {
                 int index = GroupsListView.SelectedIndex;
                 string group = groups[index].Group;
-                string sql = $"UPDATE  \"Index\" SET \"Del\"='0' WHERE \"Group\" = '{group}'";
+                string sql = $"UPDATE  \"Bookmark\" SET \"Del\"='0' WHERE \"TypeGroup\" = '{group}'";
                 await GlobalVariables.DbService.ExecuteQueryAsync(sql);
             }
 

@@ -107,7 +107,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 info.Name = row["Name"].ToString();
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
-                info.Group = row["Group"].ToString();
+                info.Group = row["UserGroup"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.Note = row["Note"].ToString();
 

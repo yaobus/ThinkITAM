@@ -47,6 +47,7 @@
                     AllowDrop="True"
                     IsManipulationEnabled="True"
                     MouseDoubleClick="ProjectListView_OnMouseDoubleClick"
+                    MouseRightButtonDown="ProjectListView_OnMouseRightButtonDown"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     SelectionChanged="ProjectListView_OnSelectionChanged">
@@ -112,12 +113,14 @@
 
                                 </materialDesign:ColorZone>
                             </materialDesign:Card>
+
+
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
                 </ListView>
 
-                <Grid Grid.Row="1" Margin="0,5">
+                <Grid Grid.Row="1" Margin="0,0">
 
                     <Button
                         x:Name="AddProjectButton"
@@ -213,6 +216,7 @@
                             Padding="0,5"
                             materialDesign:TextFieldAssist.HasLeadingIcon="True"
                             materialDesign:TextFieldAssist.LeadingIcon="Password"
+                            KeyDown="InputPasswordBox_OnKeyDown"
                             Style="{StaticResource MaterialDesignFilledPasswordBox}" />
 
                     </StackPanel>
@@ -283,7 +287,7 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             d:Visibility="Collapsed"
-            Identifier="MessageDialogHost">
+            Identifier="MainWindowMessageDialogHost">
             <!--  DialogHost的内容  -->
         </materialDesign:DialogHost>
     </Grid>

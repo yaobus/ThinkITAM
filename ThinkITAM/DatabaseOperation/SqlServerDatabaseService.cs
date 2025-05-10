@@ -218,5 +218,115 @@ namespace ThinkITAM.DatabaseOperation
             var result = await command.ExecuteScalarAsync(cancellationToken);
             return Convert.ToInt32(result) > 0;
         }
+
+
+        public bool CreateTableFromEntity<T>() where T : class
+        {
+            try
+            {
+                var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
+                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var cmd = new SqlCommand(sqlserverSql, connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"创建 SQL Server 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateTableFromEntityAsync<T>(CancellationToken ct = default) where T : class
+        {
+            try
+            {
+                var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
+                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+
+                await using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync(ct);
+                    await using (var cmd = new SqlCommand(sqlserverSql, connection))
+                    {
+                        await cmd.ExecuteNonQueryAsync(ct);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"异步创建 SQL Server 表失败: {ex.Message}");
+                return false;
+            }
+        }
+
+
+        public bool CreateTableFromSql(string sqliteSql)
+        {
+            if (string.IsNullOrWhiteSpace(sqliteSql))
+                throw new ArgumentException("SQLite 建表语句不能为空。", nameof(sqliteSql));
+
+            try
+            {
+                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+
+                using (var connection = CreateConnection())
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand(sqlserverSql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SQL Server 执行建表失败（原始SQL）: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default)
+        {
+            if (string.IsNullOrWhiteSpace(sqliteSql))
+                throw new ArgumentException("SQLite 建表语句不能为空。", nameof(sqliteSql));
+
+            try
+            {
+                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+
+                await using (var connection = CreateConnection())
+                {
+                    await connection.OpenAsync(ct);
+                    await using (var command = new SqlCommand(sqlserverSql, connection))
+                    {
+                        await command.ExecuteNonQueryAsync(ct);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SQL Server 异步执行建表失败（原始SQL）: {ex.Message}");
+                return false;
+            }
+        }
+
     }
+
+
 }
+

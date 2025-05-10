@@ -15,6 +15,7 @@ using ThinkITAM.Windows.Project;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Windows.Selection;
 using Path = System.IO.Path;
+using MaterialDesignColors;
 
 
 namespace ThinkITAM;
@@ -63,8 +64,13 @@ public partial class MainWindow : Window
             ThemeToggleButton.IsChecked = true;
         }
 
+
+
         //设置语言
         Functions.Language.LanguageSet.LanguageSelect(Properties.Settings.Default.LanguageIndex);
+
+        ApplyTheme();
+
     }
 
 
@@ -74,10 +80,13 @@ public partial class MainWindow : Window
     private void SetThemeLight()
     {
         var paletteHelper = new PaletteHelper();
-        var theme = Theme.Create(BaseTheme.Light, Colors.Tomato, Colors.Lime); // 使用默认颜色
+        var theme = Theme.Create(BaseTheme.Light, Colors.DarkCyan, Colors.YellowGreen); // 使用默认颜色
         paletteHelper.SetTheme(theme);
         Properties.Settings.Default.ThemeIndex = 0;
         Properties.Settings.Default.Save();
+
+
+
     }
 
     /// <summary>
@@ -86,10 +95,15 @@ public partial class MainWindow : Window
     private void SetThemeDark()
     {
         var paletteHelper = new PaletteHelper();
-        var theme = Theme.Create(BaseTheme.Dark, Colors.DarkCyan, Colors.Olive); // 使用默认颜色
+        var theme = Theme.Create(BaseTheme.Dark, Colors.DarkCyan, Colors.YellowGreen); // 使用默认颜色
         paletteHelper.SetTheme(theme);
         Properties.Settings.Default.ThemeIndex = 1;
         Properties.Settings.Default.Save();
+
+
+
+
+
     }
 
     private void ThemeToggleButton_OnClick(object sender, RoutedEventArgs e)
@@ -102,9 +116,58 @@ public partial class MainWindow : Window
         else
         {
             SetThemeLight();
-           
+            
         }
+
+        //Nodify应用面板主题
+        ApplyTheme();
+
     }
+
+    /// <summary>
+    /// 切换画板主题
+    /// </summary>
+    /// <param name="themeName"></param>
+    /// <exception cref="ArgumentException"></exception>
+    private void ApplyTheme()
+    {
+
+        // 加载主题资源字典
+        var _darkTheme = new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/Nodify;component/Themes/Dark.xaml")
+        };
+
+        var _lightTheme = new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/Nodify;component/Themes/Light.xaml")
+        };
+
+        var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+
+
+
+
+        int index = Properties.Settings.Default.ThemeIndex;
+
+        switch (index)
+        {
+            case 1:
+                mergedDictionaries.Remove(_lightTheme);
+                mergedDictionaries.Add(_darkTheme);
+
+                break;
+            default:
+                mergedDictionaries.Remove(_darkTheme);
+                mergedDictionaries.Add(_lightTheme);
+
+                break;
+        }
+
+
+    }
+
+
 
     /// <summary>
     /// 判断是否存在加密字符串，不存在则显示密码输入框
@@ -177,7 +240,7 @@ public partial class MainWindow : Window
             };
 
             // 显示对话框
-            await DialogHost.Show(dialog, "MessageDialogHost");
+            await DialogHost.Show(dialog, "MainWindowMessageDialogHost");
         }
         else
         {
@@ -196,7 +259,7 @@ public partial class MainWindow : Window
                 };
 
                 // 显示对话框
-                await DialogHost.Show(dialog, "MessageDialogHost");
+                await DialogHost.Show(dialog, "MainWindowMessageDialogHost");
             }
             else //保存密码
             {
@@ -243,7 +306,7 @@ public partial class MainWindow : Window
             };
 
             // 显示对话框
-            await DialogHost.Show(dialog, "MessageDialogHost");
+            await DialogHost.Show(dialog, "MainWindowMessageDialogHost");
         }
         else //验证成功,解密加载数据库配置文件
         {
@@ -319,6 +382,30 @@ public partial class MainWindow : Window
 
     }
 
+    /// <summary>
+    /// 保存配置文件到文件
+    /// </summary>
+    private void SaveConfigsToFile()
+    {
+        // 检查 数据库配置文件是否存在
+        var dbConfigPath = AppDomain.CurrentDomain.BaseDirectory + @"DatabaseConfig\";
+        var name = "DatabaseConfig.json";
+
+        if (!Directory.Exists(dbConfigPath))
+        {
+            Directory.CreateDirectory(dbConfigPath);
+        }
+
+        dbConfigPath = Path.Combine(dbConfigPath, name);
+
+
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        var json = JsonSerializer.Serialize(configs.ToList(), options);
+
+        var encryptJson = Functions.Protector.PasswordProtector.Encrypt(json);
+
+        File.WriteAllText(dbConfigPath, encryptJson);
+    }
 
 
     private void AddProjectButton_OnClick(object sender, RoutedEventArgs e)
@@ -346,6 +433,8 @@ public partial class MainWindow : Window
     private void ProjectListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
+
+        GlobalVariables.dbConfig =  dbConfig;
 
        // 创建服务实例
        GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
@@ -402,7 +491,26 @@ public partial class MainWindow : Window
             };
 
             // 显示对话框
-            await DialogHost.Show(dialog, "MessageDialogHost");
+            await DialogHost.Show(dialog, "MainWindowMessageDialogHost");
         }
+    }
+
+    private void InputPasswordBox_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key==Key.Enter)
+        {
+            LoginButton_OnClick(null,null);
+        }
+    }
+
+
+
+    private void ProjectListView_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
+
+        configs.Remove(dbConfig);
+
+        SaveConfigsToFile();
     }
 }

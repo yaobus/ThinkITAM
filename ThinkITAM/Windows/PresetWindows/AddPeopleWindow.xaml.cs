@@ -293,7 +293,7 @@ public partial class AddPeopleWindow : Window
 
 
 
-        string sql = $"INSERT INTO \"main\".\"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"Group\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
+        string sql = $"INSERT INTO \"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"UserGroup\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
 
     
 
@@ -349,7 +349,7 @@ public partial class AddPeopleWindow : Window
             if (countNum == 0)//判断记录是否存在，不存在的情况
             {
 
-                string sql = $"INSERT INTO \"main\".\"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
+                string sql = $"INSERT INTO \"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
 
               
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -358,7 +358,7 @@ public partial class AddPeopleWindow : Window
             }
             else//存在
             {
-                string sql = $"UPDATE \"main\".\"CustomSetting\" SET \"Content\" = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
+                string sql = $"UPDATE \"CustomSetting\" SET \"Content\" = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
                 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }

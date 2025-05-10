@@ -14,9 +14,7 @@
     Height="768"
     MinWidth="1366"
     MinHeight="768"
-    Background="#303030"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Foreground="AliceBlue"
     Loaded="WakeOnLanWindow_OnLoaded"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
@@ -38,8 +36,7 @@
         <materialDesign:Card
             Grid.Row="0"
             Margin="5,5,5,2.5"
-            HorizontalAlignment="Stretch"
-            Background="#404040">
+            HorizontalAlignment="Stretch">
 
             <Grid Grid.Row="0" HorizontalAlignment="Stretch">
                 <Grid.RowDefinitions>
@@ -160,7 +157,6 @@
                 x:Name="HostsDataGrid"
                 VerticalAlignment="Stretch"
                 AutoGenerateColumns="False"
-                Background="#404040"
                 CanUserAddRows="False"
                 MouseDoubleClick="HostsDataGrid_OnMouseDoubleClick"
                 SelectionMode="Extended"
@@ -192,7 +188,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Index}" />
                                 </Grid>
                             </DataTemplate>
@@ -223,7 +218,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Mac}" />
                                 </Grid>
                             </DataTemplate>
@@ -253,7 +247,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding IpAddress}" />
                                 </Grid>
                             </DataTemplate>
@@ -283,7 +276,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Netmask}" />
                                 </Grid>
                             </DataTemplate>
@@ -313,7 +305,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Port}" />
                                 </Grid>
                             </DataTemplate>
@@ -344,7 +335,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding HostGroup}" />
                                 </Grid>
                             </DataTemplate>
@@ -373,7 +363,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Name}" />
                                 </Grid>
                             </DataTemplate>
@@ -403,7 +392,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Status}" />
                                 </Grid>
                             </DataTemplate>

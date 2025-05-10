@@ -10,8 +10,6 @@
     Title="机架式配线架设计器"
     Width="1100"
     Height="700"
-    d:Foreground="AliceBlue"
-    Background="#383838"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="RackCreateGuideWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -33,8 +31,7 @@
             Grid.Row="0"
             Grid.Column="0"
             Margin="5,5,2.5,5"
-            HorizontalAlignment="Stretch"
-            Background="#404040">
+            HorizontalAlignment="Stretch">
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
@@ -363,15 +360,13 @@
             Grid.Row="0"
             Grid.Column="1"
             Margin="2.5,5,2.5,5"
-            HorizontalAlignment="Stretch"
-            Background="#404040">
+            HorizontalAlignment="Stretch">
 
             <DataGrid
                 x:Name="SlotDataGrid"
                 Margin="0,0,0,10"
                 HorizontalAlignment="Stretch"
                 AutoGenerateColumns="False"
-                Background="#404040"
                 IsReadOnly="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 SelectionMode="Extended"
@@ -448,7 +443,6 @@
             Margin="2.5,5,5,5"
             HorizontalAlignment="Stretch"
             d:Visibility="{Binding Path=IsChecked, ElementName=CreateEndDevice, Converter={StaticResource BoolToVisibilityConverter}}"
-            Background="#404040"
             Visibility="Collapsed">
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">

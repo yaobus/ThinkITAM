@@ -122,7 +122,7 @@ namespace ThinkITAM.UserControls.IndexPage
 
 
 
-                        string sql = $"DELETE FROM \"Index\" WHERE ( \"Group\"='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
+                        string sql = $"DELETE FROM \"Bookmark\" WHERE ( \"TypeGroup\"='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
 
                         
 

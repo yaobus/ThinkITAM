@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:networkManage="clr-namespace:ThinkITAM.ViewModels.NetworkManage"
     xmlns:networkManage1="clr-namespace:ThinkITAM.UserControls.NetworkManage"
+    d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -81,7 +82,7 @@
                         Click="AddButton_OnClick"
                         Cursor="Hand"
                         Style="{StaticResource MaterialDesignFlatLightButton}"
-                        ToolTip="新增网段">
+                        ToolTip="{DynamicResource NmpAddNetwork}">
                         <materialDesign:PackIcon
                             Width="20"
                             Height="20"
@@ -235,7 +236,7 @@
                 materialDesign:ButtonAssist.CornerRadius="5"
                 BorderThickness="0"
                 Style="{StaticResource MaterialDesignOutlinedButton}"
-                ToolTip="添加网段"
+                ToolTip="{DynamicResource NmpAddNetwork}"
                 Visibility="Collapsed">
 
                 <materialDesign:PackIcon
@@ -268,7 +269,7 @@
                         MinWidth="200"
                         Margin="8,0,0,0"
                         VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="搜索网段关键字"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"
                         Opacity="0.3" />
@@ -307,7 +308,7 @@
                         Click="ShowModeButton_OnClick"
                         Content="{materialDesign:PackIcon Kind=Apps}"
                         Style="{StaticResource MaterialDesignActionToggleButton}"
-                        ToolTip="切换图形/列表显示模式" />
+                        ToolTip="{DynamicResource NmpSelectShowMode}" />
 
                     <ProgressBar
                         Width="40"
@@ -338,7 +339,7 @@
                                 Click="SingleSelectMode_OnClick"
                                 IsChecked="True"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="单选模式">
+                                ToolTip="{DynamicResource NmpSingle}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -354,7 +355,7 @@
                                 Click="MultipleSelectMode_OnClick"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="多选模式">
+                                ToolTip="{DynamicResource NmpMulti}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -371,7 +372,7 @@
                                 Click="OpenBrowserMode_OnClick"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="访问模式">
+                                ToolTip="{DynamicResource NmpBrowser}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -387,7 +388,7 @@
                                 Click="PingMode_OnClick"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="Ping模式">
+                                ToolTip="{DynamicResource NmpPing}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -440,7 +441,7 @@
                                 Click="StatusTestButton_OnClick"
                                 Content="{materialDesign:PackIcon Radar}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                ToolTip="检测所选网段地址在线状态,仅供参考" />
+                                ToolTip="{DynamicResource NmpPingAddress}" />
 
                             <Button
                                 x:Name="ArpTestButton"
@@ -455,7 +456,7 @@
                                 Click="ArpTestButton_Click"
                                 Content="{materialDesign:PackIcon MagnifyExpand}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                ToolTip="检测所选网段在线的地址主机名及MAC" />
+                                ToolTip="{DynamicResource NmpGetHostName}" />
 
                         </StackPanel>
 
@@ -484,7 +485,7 @@
                                     Margin="5,0"
                                     Click="ReSort_OnClick"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="重置为默认排序"
+                                    ToolTip="{DynamicResource NmpResetSort}"
                                     Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <materialDesign:PackIcon Kind="Restore" />
                                 </Button>
@@ -494,7 +495,7 @@
                                     Margin="5,0"
                                     Click="SetButton_Click"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="自定义网段信息标签">
+                                    ToolTip="{DynamicResource NmpSetNetworkTag}">
                                     <materialDesign:PackIcon Kind="Settings" />
                                 </Button>
 
@@ -526,7 +527,7 @@
                                     FontSize="22"
                                     FontWeight="Black"
                                     Foreground="AliceBlue"
-                                    ToolTip="当前选中的IP数量" />
+                                    ToolTip="{DynamicResource NmpSelectedIp}" />
 
 
                                 <Button
@@ -535,7 +536,7 @@
                                     Click="MultipleAllocationButton_OnClick"
                                     Foreground="LawnGreen"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="一键分配所选地址">
+                                    ToolTip="{DynamicResource NmpConfigSelectedIp}">
                                     <materialDesign:PackIcon Kind="Play" />
                                 </Button>
 
@@ -545,7 +546,7 @@
                                     Click="ClearSelected_OnClick"
                                     Foreground="OrangeRed"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="清空所选地址">
+                                    ToolTip="{DynamicResource NmpClearSelectedIp}">
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
 
@@ -567,7 +568,7 @@
                                     SelectedIndex="0"
                                     SelectionChanged="ProtocolCombobox_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                    ToolTip="选择协议" />
+                                    ToolTip="{DynamicResource NmpSelectProtocol}" />
 
 
 
@@ -599,7 +600,7 @@
                                     DisplayMemberPath="Browser"
                                     SelectionChanged="BrowserCombobox_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                    ToolTip="选择用来打开地址的浏览器，可在预设页面管理浏览器" />
+                                    ToolTip="{DynamicResource NmpSelectBrowser}" />
                             </StackPanel>
 
 
@@ -615,7 +616,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="被搜索网段"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchNetwork}"
                     Orientation="Horizontal"
                     Visibility="Collapsed">
 
@@ -868,8 +869,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="选择"
-                                            ToolTip="选择IP地址" />
+                                            Text="{DynamicResource NmpDgSelect}"
+                                            ToolTip="{DynamicResource NmpDgSelectNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -918,8 +919,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="IP地址"
-                                            ToolTip="网段内的IP地址" />
+                                            Text="{DynamicResource NmpDgIp}"
+                                            ToolTip="{DynamicResource NmpDgIpNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -948,8 +949,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="PING"
-                                            ToolTip="PING检测状态及响应时间" />
+                                            Text="{DynamicResource NmpDgPing}"
+                                            ToolTip="{DynamicResource NmpDgPingNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -977,8 +978,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="色标"
-                                            ToolTip="颜色标签" />
+                                            Text="{DynamicResource NmpDgColor}"
+                                            ToolTip="{DynamicResource NmpDgColorNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1001,8 +1002,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="使用人"
-                                            ToolTip="使用该IP的用户" />
+                                            Text="{DynamicResource NmpDgIpUser}"
+                                            ToolTip="{DynamicResource NmpDgIpUserNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1029,8 +1030,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="使用人单位"
-                                            ToolTip="使用人所在单位" />
+                                            Text="{DynamicResource NmpDgUserOrganization}"
+                                            ToolTip="{DynamicResource NmpDgUserOrganizationNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1057,8 +1058,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="使用人部门"
-                                            ToolTip="使用人所在部门" />
+                                            Text="{DynamicResource NmpDgUserDepartment}"
+                                            ToolTip="{DynamicResource NmpDgUserDepartmentNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1086,8 +1087,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="使用人群组"
-                                            ToolTip="使用人所在群组" />
+                                            Text="{DynamicResource NmpDgUserGroup}"
+                                            ToolTip="{DynamicResource NmpDgUserGroupNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1114,8 +1115,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="使用人电话"
-                                            ToolTip="使用人电话联系方式" />
+                                            Text="{DynamicResource NmpDgUserPhone}"
+                                            ToolTip="{DynamicResource NmpDgUserPhoneNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1142,8 +1143,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="分配主机名"
-                                            ToolTip="使用该IP的设备主机名" />
+                                            Text="{DynamicResource NmpDgHostName}"
+                                            ToolTip="{DynamicResource nmpdghon}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1170,8 +1171,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="分配MAC地址"
-                                            ToolTip="使用该IP的设备MAC" />
+                                            Text="{DynamicResource NmpDgMac}"
+                                            ToolTip="{DynamicResource NmpDgMacNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1199,8 +1200,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="当前主机名"
-                                            ToolTip="该IP当前检测到的主机名" />
+                                            Text="{DynamicResource NmpDgNowHostName}"
+                                            ToolTip="{DynamicResource NmpDgNowHostNameNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1227,8 +1228,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="当前MAC地址"
-                                            ToolTip="该IP当前检测到的MAC" />
+                                            Text="{DynamicResource NmpDgNowMac}"
+                                            ToolTip="{DynamicResource NmpDgNowHostNameNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1255,8 +1256,8 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="关联资产"
-                                            ToolTip="使用该IP的资产" />
+                                            Text="{DynamicResource NmpDgRelevanceAsset}"
+                                            ToolTip="{DynamicResource NmpDgRelevanceAssetNote}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1284,7 +1285,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签A" />
+                                            Text="{DynamicResource NmpDgTagA}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1312,7 +1313,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签B" />
+                                            Text="{DynamicResource NmpDgTagB}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1340,7 +1341,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签C" />
+                                            Text="{DynamicResource NmpDgTagC}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1368,7 +1369,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签D" />
+                                            Text="{DynamicResource NmpDgTagD}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1396,7 +1397,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签E" />
+                                            Text="{DynamicResource NmpDgTagE}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1424,7 +1425,7 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             FontSize="14"
-                                            Text="自定义标签F" />
+                                            Text="{DynamicResource NmpDgTagF}" />
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -1531,7 +1532,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="在线主机"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgOnline}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="LanConnect"
                         IsEnabled="False"
@@ -1551,7 +1552,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="当前网络"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
                         IsEnabled="False"
@@ -1563,7 +1564,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="子网掩码"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowMask}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Lastpass"
                         IsEnabled="False"
@@ -1576,7 +1577,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="第一个可用IP"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgFirstIp}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="PageFirst"
                         IsEnabled="False"
@@ -1590,7 +1591,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="最后一个可用IP"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgLastIp}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="PageLast"
                         IsEnabled="False"
@@ -1602,7 +1603,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="广播地址"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgBroadcast}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="broadcast"
                         IsEnabled="False"
@@ -1615,7 +1616,7 @@
                         Margin="5,0,5,10"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="网段地址总数"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNetworkIpCount}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Counter"
                         IsEnabled="False"
