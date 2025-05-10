@@ -824,7 +824,7 @@ namespace ThinkITAM.FunctionPage
                     port.PortIndex = row["PortId"].ToString();
 
                     //如果获取到的颜色为空，则设置为默认颜色
-                    if (row["PortColor"] == DBNull.Value)
+                    if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
                     {
                         port.PortColor = 0;
                     }
@@ -839,7 +839,7 @@ namespace ThinkITAM.FunctionPage
                     port.PortType = slots[index].SlotType;
 
 
-                    if (row["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                     {
                         port.OnTheLine = -1;
                     }
@@ -1605,7 +1605,7 @@ namespace ThinkITAM.FunctionPage
 
 
 
-                    if (row["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                     {
                         info.OnTheLine = -1;
                     }
@@ -1628,7 +1628,17 @@ namespace ThinkITAM.FunctionPage
                     SlotClass slot = new SlotClass();
                     slot.SlotIndex = row["SlotId"].ToString();
 
-                    info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                    if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                    {
+                        info.PortColor = 0;
+                    }
+                    else
+                    {
+                          info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                    }
+
+
+                  
 
                     p.PortClass = info;
                     p.SlotClass = slot;
@@ -1800,7 +1810,7 @@ namespace ThinkITAM.FunctionPage
                     PortClass info = new PortClass();
 
 
-                    if (row["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                     {
                         info.OnTheLine = -1;
                     }
@@ -1850,7 +1860,7 @@ namespace ThinkITAM.FunctionPage
                     slot.SlotIndex = row["PortSlotNumber"].ToString();
 
 
-                    if (row["PortColor"] == DBNull.Value)
+                    if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
                     {
                         info.PortColor = 0;
                     }

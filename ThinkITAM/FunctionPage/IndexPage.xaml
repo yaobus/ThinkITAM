@@ -9,11 +9,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#333333"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="UserControl_Loaded"
+    d:Background="AliceBlue"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,16 +26,14 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
-        <materialDesign:ColorZone
+        <materialDesign:Card
             Grid.Row="0"
             Grid.Column="0"
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
             materialDesign:ElevationAssist.Elevation="Dp1"
-            Background="#404040"
-            CornerRadius="5"
-            Mode="Standard">
+            >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -67,13 +65,12 @@
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
-        </materialDesign:ColorZone>
+        </materialDesign:Card>
 
         <materialDesign:Card
             Grid.Row="1"
             Grid.Column="0"
-            Margin="5,2.5,2.5,2.5"
-            Background="#404040">
+            Margin="5,2.5,2.5,2.5">
 
             <ListView
                 x:Name="GroupsListView"
@@ -94,8 +91,7 @@
             Grid.Row="0"
             Grid.RowSpan="3"
             Grid.Column="1"
-            Margin="5,2.5,2.5,5"
-            Background="#404040">
+            Margin="5,2.5,2.5,5">
 
             <ScrollViewer
                 Grid.Row="1"
@@ -128,8 +124,7 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="0"
-            Margin="5,2.5,2.5,5"
-            Background="#404040">
+            Margin="5,2.5,2.5,5">
             <Grid
                 Margin="10,0"
                 HorizontalAlignment="Stretch"

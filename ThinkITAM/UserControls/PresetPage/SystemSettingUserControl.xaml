@@ -6,9 +6,9 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:Background="AliceBlue"
     d:Height="800"
     d:Width="1200"
-    Background="#404040"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
     <Grid>

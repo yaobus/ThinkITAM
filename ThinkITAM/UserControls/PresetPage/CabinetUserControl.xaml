@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ThinkITAM.ViewModels.LinkManage"
+    d:Background="AliceBlue"
     d:Height="800"
     d:Width="1200"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -29,8 +30,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="2.5,5,2.5,2.5"
-                Background="#404040">
+                Margin="2.5,5,2.5,2.5">
 
 
                 <StackPanel
@@ -50,8 +50,7 @@
                     <TextBlock
                         Margin="10,0"
                         VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="AliceBlue">
+                        FontSize="20">
                         机房/配线间预设
                     </TextBlock>
 
@@ -62,8 +61,7 @@
             <materialDesign:Card
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="2.5,2.5,2.5,5"
-                Background="#404040">
+                Margin="2.5,2.5,2.5,5">
 
 
 
@@ -134,7 +132,6 @@
                         Margin="0,5,0,10"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
-                        Background="#404040"
                         CanUserAddRows="False"
                         DataContext="vm:DeviceRoomClass"
                         SelectionChanged="RoomListView_OnSelectionChanged"
@@ -166,7 +163,6 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="20"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Index}" />
 
                                     </DataTemplate>
@@ -193,7 +189,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Name}" />
 
                                     </DataTemplate>
@@ -223,7 +218,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Location}" />
 
                                     </DataTemplate>
@@ -250,7 +244,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding User}" />
 
                                     </DataTemplate>
@@ -277,7 +270,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Phone}" />
 
                                     </DataTemplate>
@@ -304,7 +296,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Note}" />
 
                                     </DataTemplate>
@@ -323,8 +314,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="2.5,5,5,2.5"
-                Background="#404040">
+                Margin="2.5,5,5,2.5">
 
                 <StackPanel
                     HorizontalAlignment="Left"
@@ -343,7 +333,6 @@
                         Margin="10,0"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Foreground="AliceBlue"
                         Text="机柜预设" />
 
                 </StackPanel>
@@ -354,8 +343,7 @@
             <materialDesign:Card
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="2.5,2.5,5,5"
-                Background="#404040">
+                Margin="2.5,2.5,5,5">
                 <StackPanel>
                     <StackPanel
                         Margin="0,5"
@@ -419,7 +407,6 @@
                         Margin="0,5,0,10"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
-                        Background="#404040"
                         CanUserAddRows="False"
                         DataContext="vm:CabinetClass"
                         SelectionMode="Extended"
@@ -450,7 +437,6 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="20"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Index}" />
 
                                     </DataTemplate>
@@ -477,7 +463,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Name}" />
 
                                     </DataTemplate>
@@ -507,7 +492,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Position}" />
 
                                     </DataTemplate>
@@ -535,7 +519,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Note}" />
 
                                     </DataTemplate>

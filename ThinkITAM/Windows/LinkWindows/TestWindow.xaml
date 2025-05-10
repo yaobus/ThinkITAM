@@ -9,9 +9,9 @@
     Title="TestWindow"
     Width="1280"
     Height="720"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="TestWindow_OnLoaded"
     MouseWheel="Panel_OnMouseWheel"
-    FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

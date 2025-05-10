@@ -29,7 +29,6 @@
             Height="{StaticResource ControlSize2}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="AliceBlue"
             Kind="HexagonOutline"
             Opacity="0.8"
             Visibility="Collapsed" />
@@ -37,7 +36,7 @@
         <Border
             Width="25"
             Height="18"
-            BorderBrush="AliceBlue"
+            BorderBrush="Cyan"
             BorderThickness="1">
             <TextBlock
                 HorizontalAlignment="Center"
@@ -50,7 +49,6 @@
             Height="{StaticResource ControlSize}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="AliceBlue"
             Kind="CircleOutline"
             Opacity="0.5" />
     </Grid>

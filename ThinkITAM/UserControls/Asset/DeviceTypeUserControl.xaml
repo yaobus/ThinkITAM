@@ -23,11 +23,12 @@
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
 
+
                 <Grid
                     Grid.Row="0"
                     Grid.RowSpan="2"
                     Grid.Column="0"
-                    Background="LimeGreen">
+                    Background="Turquoise">
 
                     <TextBlock
                         HorizontalAlignment="Center"

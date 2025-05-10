@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#333333"
+    d:Background="#383838"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -39,8 +39,7 @@
         <materialDesign:Card
             Grid.Row="1"
             Grid.Column="0"
-            Margin="5,2.5,2.5,2.5"
-            Background="#404040">
+            Margin="5,2.5,2.5,2.5">
 
             <Grid VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
@@ -160,14 +159,11 @@
 
 
 
-            <materialDesign:ColorZone
+            <materialDesign:Card
                 Height="50"
                 Margin="0"
                 VerticalAlignment="Center"
-                materialDesign:ElevationAssist.Elevation="Dp1"
-                Background="#404040"
-                CornerRadius="2"
-                Mode="Standard">
+                materialDesign:ElevationAssist.Elevation="Dp1">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -194,15 +190,14 @@
                         <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                     </Button>
                 </Grid>
-            </materialDesign:ColorZone>
+            </materialDesign:Card>
 
         </Grid>
 
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="0"
-            Margin="5,2.5,2.5,5"
-            Background="#404040">
+            Margin="5,2.5,2.5,5">
             <Grid
                 Margin="10,0"
                 HorizontalAlignment="Stretch"
@@ -277,8 +272,7 @@
             Grid.Row="0"
             Grid.Column="1"
             Height="50"
-            Margin="2.5,5,5,2.5"
-            Background="#404040">
+            Margin="2.5,5,5,2.5">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -439,8 +433,7 @@
                                     VerticalAlignment="Center"
                                     d:Text="5"
                                     FontSize="22"
-                                    FontWeight="Black"
-                                    Foreground="AliceBlue"
+                                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                                     ToolTip="当前选中的IP数量" />
 
 
@@ -484,8 +477,7 @@
         <materialDesign:Card
             Grid.Row="1"
             Grid.Column="1"
-            Margin="2.5,2.5,5,2.5"
-            Background="#404040">
+            Margin="2.5,2.5,5,2.5">
 
             <Grid>
 

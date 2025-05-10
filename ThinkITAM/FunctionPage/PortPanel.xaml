@@ -6,11 +6,11 @@
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
     xmlns:portPanel="clr-namespace:ThinkITAM.UserControls.PortPanel"
+    xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#333333"
+    d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -31,16 +31,14 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
-        <materialDesign:ColorZone
+        <materialDesign:Card
             Grid.Row="0"
             Grid.Column="0"
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
             materialDesign:ElevationAssist.Elevation="Dp1"
-            Background="#404040"
-            CornerRadius="5"
-            Mode="Standard">
+            >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -64,14 +62,13 @@
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
-        </materialDesign:ColorZone>
+        </materialDesign:Card>
 
 
         <materialDesign:Card
             Grid.Row="1"
             Grid.Column="0"
-            Margin="5,2.5,2.5,2.5"
-            Background="#404040">
+            Margin="5,2.5,2.5,2.5">
 
 
             <TreeView
@@ -103,7 +100,7 @@
 
             <Grid>
 
-                <materialDesign:Card Margin="2.5,2.5,2.5,5" Background="#404040">
+                <materialDesign:Card Margin="2.5,2.5,2.5,5">
 
                     <ListView
                         x:Name="RoomListView"
@@ -131,6 +128,7 @@
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
                                                 FontWeight="ExtraBlack"
+                                                Foreground="AliceBlue"
                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                                 Text="{Binding Index}" />
                                         </Grid>
@@ -146,18 +144,20 @@
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
                                                     FontWeight="Bold"
+                                                    Foreground="AliceBlue"
                                                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                                     Text="房间号:" />
                                                 <TextBlock
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
                                                     FontWeight="Bold"
+                                                    Foreground="AliceBlue"
                                                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                                     Text="{Binding RoomNumber}" />
 
                                             </StackPanel>
 
-                                            <Grid Grid.Row="1" Background="SeaGreen">
+                                            <Grid Grid.Row="1" Background="MediumSeaGreen">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="*" />
@@ -168,12 +168,14 @@
                                                         VerticalAlignment="Center"
                                                         FontWeight="Bold"
                                                         Opacity="0.3"
+                                                        Foreground="AliceBlue"
                                                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                         Text="端口总数:" />
                                                     <TextBlock
                                                         Margin="5,0"
                                                         VerticalAlignment="Center"
-                                                        Opacity="0.3"
+                                                        Opacity="0.5"
+                                                        Foreground="AliceBlue"
                                                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                                         Text="{Binding PortCount}" />
                                                 </StackPanel>
@@ -182,7 +184,8 @@
                                                     Grid.Column="1"
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
-                                                    Opacity="0.3 "
+                                                    Opacity="0.5 "
+                                                    Foreground="AliceBlue"
                                                     Text="{Binding RoomNote}" />
 
 
@@ -209,8 +212,7 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="0"
-            Margin="5,2.5,2.5,5"
-            Background="#404040">
+            Margin="5,2.5,2.5,5">
             <Grid
                 Margin="10,0"
                 HorizontalAlignment="Stretch"
@@ -360,8 +362,7 @@
             Grid.Row="0"
             Grid.Column="2"
             Height="50"
-            Margin="2.5,5,5,2.5"
-            Background="#404040">
+            Margin="2.5,5,5,2.5">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -557,8 +558,7 @@
         <materialDesign:Card
             Grid.Row="1"
             Grid.Column="2"
-            Margin="2.5,2.5,5,2.5"
-            Background="#404040">
+            Margin="2.5,2.5,5,2.5">
 
             <Grid>
 
@@ -576,14 +576,11 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
 
-                                <portPanel:PanelPort 
-                                    Margin="10" 
-                                    
-                                    />
+                                <portPanel:PanelPort Margin="10" />
 
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        
+
                     </ItemsControl>
 
 

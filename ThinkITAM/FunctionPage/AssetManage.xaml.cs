@@ -105,7 +105,7 @@ namespace ThinkITAM.FunctionPage
                     sqlTemp = $"SELECT * FROM AssetTag  WHERE AssetType = '{assetTypeInfo}'";
 
 
-                    var rows2=await GlobalVariables.DbService.ExecuteQueryAsync(query);
+                    var rows2=await GlobalVariables.DbService.ExecuteQueryAsync(sqlTemp);
 
 
                     int index2 = 0;

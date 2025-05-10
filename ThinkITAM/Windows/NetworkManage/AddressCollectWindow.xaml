@@ -9,9 +9,7 @@
     Title="将地址添加到收藏夹"
     Width="500"
     Height="580"
-
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-
     Loaded="AddressCollectWindow_OnLoaded"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterOwner"

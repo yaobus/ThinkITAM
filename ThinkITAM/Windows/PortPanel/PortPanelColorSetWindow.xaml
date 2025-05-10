@@ -9,10 +9,10 @@
     Title="设置端口颜色标记"
     Width="500"
     Height="250"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="PortPanelColorSetWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
-    FontFamily="{StaticResource HarmonyOsFontFamily}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid>

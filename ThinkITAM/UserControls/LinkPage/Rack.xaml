@@ -101,10 +101,9 @@
                             </Button.LayoutTransform>
 
                             <TextBlock
-
-                                FontSize="10"
                                 Margin="2,0"
                                 d:Text="Abcd"
+                                FontSize="10"
                                 Text="{Binding RackName}" />
                         </Button>
 

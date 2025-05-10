@@ -2,6 +2,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using Dapper;
 using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
@@ -35,7 +36,7 @@ namespace ThinkITAM.FunctionPage
 
             RoomListView.ItemsSource = roomNumbers;
 
-            
+
 
 
             //端口色彩标签发生改变
@@ -63,18 +64,18 @@ namespace ThinkITAM.FunctionPage
             //第一步：读取所有建筑信息
             string query = "SELECT *  FROM  Buildings;";
 
-            var rows=    GlobalVariables.DbService.ExecuteQuery(query);
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
 
                 var info = new BuildingInfoClass();
                 var building = new BuildingUserControl();
                 info.Index = index;
-                
+
                 string buildingId = row["BuildingId"].ToString();
 
                 info.BuildingId = buildingId;
@@ -94,7 +95,7 @@ namespace ThinkITAM.FunctionPage
 
                 //取出建筑楼层信息
                 string sql = $"SELECT DISTINCT SlotId FROM Bu_{buildingId}";
-               
+
 
                 var rows1 = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -105,7 +106,7 @@ namespace ThinkITAM.FunctionPage
 
                 foreach (var row1 in rows1)
                 {
-                                        index2++;
+                    index2++;
                     var floorClass = new FloorInfoClass();
                     var floor = new FloorUserControl();
 
@@ -116,7 +117,7 @@ namespace ThinkITAM.FunctionPage
                     floorClass.PortCount = DbClass.GetPortForFloorCount(buildingId, floorClass.Floor);
 
                     floor.DataContext = floorClass;
-                    
+
 
 
                     buildingItem.Items.Add(floor);
@@ -241,14 +242,14 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
 
                 RoomClass room = new RoomClass();
 
                 room.Index = index;
                 room.RoomNumber = row["RoomId"].ToString();
-                
-                room.PortCount = DbClass.GetRoomPortCount(buildingId,floor, room.RoomNumber);
+
+                room.PortCount = DbClass.GetRoomPortCount(buildingId, floor, room.RoomNumber);
 
 
                 string noteId = $"{buildingId}{floor}{room.RoomNumber}";
@@ -258,7 +259,7 @@ namespace ThinkITAM.FunctionPage
 
                 if (!string.IsNullOrWhiteSpace(note))
                 {
-                    room.RoomNote =note;
+                    room.RoomNote = note;
                 }
                 else
                 {
@@ -272,7 +273,7 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-       
+
 
         private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -289,7 +290,7 @@ namespace ThinkITAM.FunctionPage
                     $"SELECT * FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}' AND RoomId='{room.RoomNumber}'";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
-               
+
 
 
 
@@ -298,20 +299,20 @@ namespace ThinkITAM.FunctionPage
 
                 foreach (var row in rows)
                 {
-                                        index++;
+                    index++;
 
                     PortClass portClass = new PortClass();
 
-                    portClass.UID= Convert.ToInt32(row["UID"]);
+                    portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.PortType = row["PortType"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
-                    portClass.PortTag= row["PortTag"].ToString();
+                    portClass.PortTag = row["PortTag"].ToString();
                     portClass.Room = row["RoomId"].ToString();
                     portClass.PortColor = Convert.ToInt32(row["PortColor"]);
 
 
 
-                    if (row["OnTheLine"] == DBNull.Value)
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                     {
                         portClass.OnTheLine = -1;
                     }
@@ -357,5 +358,5 @@ namespace ThinkITAM.FunctionPage
             }
         }
     }
-    
+
 }

@@ -10,8 +10,8 @@
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     Width="995"
     Height="96"
-    Loaded="MDF_OnLoaded"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="MDF_OnLoaded"
     mc:Ignorable="d">
 
 

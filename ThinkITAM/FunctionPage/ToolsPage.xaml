@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="1300"
     MinHeight="800"
-    d:Background="#383838"
+    d:Background="DimGray"
     d:DesignHeight="450"
     d:DesignWidth="800"
     d:Height="768"
@@ -34,8 +34,8 @@
                     Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     FontSize="48"
-                    Foreground="AliceBlue"
                     Text="IT 工具箱" />
 
 
@@ -43,7 +43,11 @@
                     Margin="0,0,0,0"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-                    <materialDesign:Card x:Name="NetworkCalculator" Margin="10,20">
+                    <materialDesign:ColorZone
+                        x:Name="NetworkCalculator"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
 
                         <Button
                             x:Name="NetworkCalculate"
@@ -70,6 +74,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
+                                        Foreground="AliceBlue"
                                         Kind="Ipnetwork" />
 
                                     <Grid
@@ -86,6 +91,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="24"
                                             Foreground="AliceBlue"
+                                            Style="{StaticResource MaterialDesignTextBlock}"
                                             Text="IP地址计算器" />
 
 
@@ -206,9 +212,13 @@
                         </Button>
 
 
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card x:Name="PortScanTool" Margin="10,20">
+                    <materialDesign:ColorZone
+                        x:Name="PortScanTool"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
 
                         <Button
                             x:Name="PortScanToolButton"
@@ -235,6 +245,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
+                                        Foreground="WhiteSmoke"
                                         Kind="MidiPort" />
 
                                     <Grid
@@ -371,9 +382,13 @@
                         </Button>
 
 
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card x:Name="MacVendorTool" Margin="10,20">
+                    <materialDesign:ColorZone
+                        x:Name="MacVendorTool"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
 
                         <Button
                             x:Name="MacVendorButton"
@@ -400,6 +415,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
+                                        Foreground="AliceBlue"
                                         Kind="ExpansionCard" />
 
                                     <Grid
@@ -481,9 +497,14 @@
                         </Button>
 
 
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card x:Name="DiskCalculation" Margin="10,20">
+                    <materialDesign:ColorZone
+                        x:Name="DiskCalculation"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
+
 
                         <Button
                             x:Name="DiskCalculationButton"
@@ -510,6 +531,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
+                                        Foreground="Aquamarine"
                                         Kind="Hdd" />
 
                                     <Grid
@@ -648,9 +670,13 @@
                         </Button>
 
 
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card x:Name="WakeOnLan" Margin="10,20">
+                    <materialDesign:ColorZone
+                        x:Name="WakeOnLan"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
 
                         <Button
                             x:Name="WakeOnLanButton"
@@ -677,6 +703,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
+                                        Foreground="CornflowerBlue"
                                         Kind="PowerSettings" />
 
                                     <Grid
@@ -757,7 +784,7 @@
                         </Button>
 
 
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
                 </WrapPanel>
 

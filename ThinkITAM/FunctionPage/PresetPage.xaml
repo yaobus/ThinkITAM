@@ -8,7 +8,7 @@
     xmlns:presetPage="clr-namespace:ThinkITAM.UserControls.PresetPage"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#333333"
+    d:Background="DimGray"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -34,8 +34,7 @@
             Grid.Row="0"
             Grid.RowSpan="3"
             Grid.Column="0"
-            Margin="5,5,2.5,5"
-            Background="#404040">
+            Margin="5,5,2.5,5">
 
 
             <ListView
@@ -61,13 +60,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="SitemapOutline" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="组织机构管理" />
 
 
@@ -93,13 +90,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="AccountGroup" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="人员信息管理" />
 
 
@@ -125,13 +120,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="MapOutline" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="地点位置预设" />
 
 
@@ -157,13 +150,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="ViewCarouselOutline" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="机房机柜管理" />
 
 
@@ -190,13 +181,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="OfficeBuilding" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="建筑信息管理" />
 
 
@@ -222,13 +211,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="Devices" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="资产分组预设" />
 
 
@@ -254,13 +241,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="GoogleChrome" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="快捷访问预设" />
 
 
@@ -286,13 +271,11 @@
                                         Width="28"
                                         Height="28"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Kind="SettingsBox" />
 
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="系统参数设置" />
 
 

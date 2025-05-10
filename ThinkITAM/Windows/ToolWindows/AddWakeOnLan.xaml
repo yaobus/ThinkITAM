@@ -1,41 +1,40 @@
-﻿<Window x:Class="ThinkITAM.Windows.ToolWindows.AddWakeOnLan"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
-        Title="添加网络唤醒"
-        Width="630"
-        Height="410"
-        Background="#303030"
-        FontFamily="{StaticResource HarmonyOsFontFamily}"
-        Foreground="AliceBlue"
-
-        WindowStartupLocation="CenterOwner"
-        Loaded="AddWakeOnLan_OnLoaded"
-        >
+﻿<Window
+    x:Class="ThinkITAM.Windows.ToolWindows.AddWakeOnLan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
+    Title="添加网络唤醒"
+    Width="630"
+    Height="410"
+    Background="#303030"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Foreground="AliceBlue"
+    Loaded="AddWakeOnLan_OnLoaded"
+    WindowStartupLocation="CenterOwner">
     <Window.DataContext>
-        <others:WakeOnLanHostViewModel/>
+        <others:WakeOnLanHostViewModel />
     </Window.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
 
 
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <StackPanel
@@ -62,8 +61,8 @@
 
 
         <StackPanel
-            Grid.Column="0"
             Grid.Row="1"
+            Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -83,13 +82,13 @@
                 materialDesign:TextFieldAssist.LeadingIcon="IpOutline"
                 IsEnabled="True"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding IpAddress,Mode=TwoWay}" />
+                Text="{Binding IpAddress, Mode=TwoWay}" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="0"
             Grid.Row="2"
+            Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -109,13 +108,13 @@
                 materialDesign:TextFieldAssist.LeadingIcon="LastPass"
                 IsEnabled="True"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding Netmask,Mode=TwoWay}" />
+                Text="{Binding Netmask, Mode=TwoWay}" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="0"
             Grid.Row="3"
+            Grid.Column="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -135,13 +134,13 @@
                 materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
                 IsEnabled="True"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding Mac,Mode=TwoWay}" />
+                Text="{Binding Mac, Mode=TwoWay}" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="1"
             Grid.Row="1"
+            Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -160,15 +159,15 @@
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="Numeric9CircleOutline"
                 IsEnabled="True"
-                ToolTip="如无特殊指定，默认端口为9"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding Port,Mode=TwoWay}" />
+                Text="{Binding Port, Mode=TwoWay}"
+                ToolTip="如无特殊指定，默认端口为9" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="1"
             Grid.Row="2"
+            Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -189,14 +188,14 @@
                 materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"
                 IsEditable="True"
                 MaxDropDownHeight="300"
-                Text="{Binding HostGroup,Mode=TwoWay}"
-                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                Text="{Binding HostGroup, Mode=TwoWay}" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="1"
             Grid.Row="3"
+            Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -216,36 +215,34 @@
                 materialDesign:TextFieldAssist.LeadingIcon="NotebookEditOutline"
                 IsEnabled="True"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                Text="{Binding Name,Mode=TwoWay}" />
+                Text="{Binding Name, Mode=TwoWay}" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="1"
             Grid.Row="4"
+            Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Orientation="Horizontal">
             <Label
-                Margin="25,0,0,0"
                 Width="70"
+                Margin="25,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Content="固定到首页:" />
 
             <ToggleButton
                 x:Name="PinToStart"
-                IsChecked="{Binding PinToStart,Mode=TwoWay}"
-
+                IsChecked="{Binding PinToStart, Mode=TwoWay}"
                 Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}"
-                ToolTip="MaterialDesignSwitchSecondaryToggleButton"
-                />
+                ToolTip="MaterialDesignSwitchSecondaryToggleButton" />
 
         </StackPanel>
 
         <StackPanel
-            Grid.Column="1"
             Grid.Row="5"
+            Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Orientation="Horizontal">
@@ -256,8 +253,8 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 BorderThickness="0"
-                Content="保存"
                 Click="SaveButton_OnClick"
+                Content="保存"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}" />
 
 

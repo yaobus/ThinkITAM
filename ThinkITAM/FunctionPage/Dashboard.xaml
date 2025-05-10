@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="1300"
     MinHeight="800"
-    d:Background="#383838"
+    d:Background="AliceBlue"
     d:DesignHeight="450"
     d:DesignWidth="800"
     d:Height="768"
@@ -60,9 +60,9 @@
                         Margin="0,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                         FontSize="48"
-                        Foreground="AliceBlue"
-                        Text="IT Asset Manage" />
+                        Text="ThinkITAM" />
 
                     <materialDesign:Chip
                         Grid.Column="1"
@@ -78,11 +78,13 @@
 
                 <StackPanel Orientation="Horizontal">
 
-                    <materialDesign:Card
+                    <materialDesign:ColorZone
                         x:Name="FirstCard"
                         Width="300"
                         Height="150"
-                        Margin="10">
+                        Margin="10"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />
@@ -119,7 +121,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Foreground="AliceBlue"
                                         Text="网段信息总览" />
 
 
@@ -128,7 +129,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="网段信息及可用IP地址信息展示" />
                                 </Grid>
@@ -156,7 +156,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="128" />
 
@@ -166,7 +165,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="网段总数" />
                                 </Grid>
@@ -184,7 +182,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="8192" />
 
@@ -194,7 +191,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="地址总数" />
                                 </Grid>
@@ -212,7 +208,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="4096" />
 
@@ -222,7 +217,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="可用地址数" />
                                 </Grid>
@@ -232,12 +226,14 @@
 
 
                         </Grid>
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card
+                    <materialDesign:ColorZone
                         Width="300"
                         Height="150"
-                        Margin="10">
+                        Margin="10"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />
@@ -275,7 +271,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Foreground="AliceBlue"
                                         Text="设备信息总览" />
 
 
@@ -284,7 +279,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="设备信息及设备端口信息展示" />
                                 </Grid>
@@ -312,7 +306,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="64" />
 
@@ -322,7 +315,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="设备总数" />
                                 </Grid>
@@ -340,7 +332,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="1024" />
 
@@ -350,7 +341,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="端口总数" />
                                 </Grid>
@@ -368,7 +358,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="256" />
 
@@ -378,7 +367,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="可用端口数" />
                                 </Grid>
@@ -388,12 +376,14 @@
 
 
                         </Grid>
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card
+                    <materialDesign:ColorZone
                         Width="300"
                         Height="150"
-                        Margin="10">
+                        Margin="10"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />
@@ -431,7 +421,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Foreground="AliceBlue"
                                         Text="链路信息总览" />
 
 
@@ -440,7 +429,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="设备连接链路信息展示" />
                                 </Grid>
@@ -468,7 +456,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="1024" />
 
@@ -478,7 +465,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="链路总数" />
                                 </Grid>
@@ -496,7 +482,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="512" />
 
@@ -506,7 +491,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="双绞线链路" />
                                 </Grid>
@@ -524,7 +508,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="512" />
 
@@ -534,7 +517,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="光纤链路" />
                                 </Grid>
@@ -544,12 +526,14 @@
 
 
                         </Grid>
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
-                    <materialDesign:Card
+                    <materialDesign:ColorZone
                         Width="300"
                         Height="150"
-                        Margin="10">
+                        Margin="10"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60*" />
@@ -587,7 +571,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="24"
-                                        Foreground="AliceBlue"
                                         Text="资产信息总览" />
 
 
@@ -596,7 +579,6 @@
                                         Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="设备连接链路信息展示" />
                                 </Grid>
@@ -624,7 +606,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="32" />
 
@@ -634,7 +615,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="资产类型数" />
                                 </Grid>
@@ -652,7 +632,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="512" />
 
@@ -662,7 +641,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="资产总数" />
                                 </Grid>
@@ -680,7 +658,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Opacity="0.9"
                                         Text="256" />
 
@@ -690,7 +667,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
-                                        Foreground="AliceBlue"
                                         Opacity="0.5"
                                         Text="在用资产数" />
                                 </Grid>
@@ -700,11 +676,15 @@
 
 
                         </Grid>
-                    </materialDesign:Card>
+                    </materialDesign:ColorZone>
 
                 </StackPanel>
 
-                <materialDesign:Card Height="300" Margin="10">
+                <materialDesign:ColorZone
+                    Height="300"
+                    Margin="10"
+                    CornerRadius="5"
+                    Mode="PrimaryLight">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
                         <lvc:PieChart
@@ -739,7 +719,7 @@
 
                     </StackPanel>
 
-                </materialDesign:Card>
+                </materialDesign:ColorZone>
 
             </StackPanel>
 

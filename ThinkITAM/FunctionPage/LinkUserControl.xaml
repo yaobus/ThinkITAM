@@ -13,7 +13,7 @@
     xmlns:nodify="https://miroiu.github.io/nodify"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#333333"
+    d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -74,16 +74,14 @@
         </Grid.RowDefinitions>
 
 
-        <materialDesign:ColorZone
+        <materialDesign:Card
             Grid.Row="0"
             Grid.Column="0"
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
             materialDesign:ElevationAssist.Elevation="Dp1"
-            Background="#404040"
-            CornerRadius="5"
-            Mode="Standard">
+>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -107,18 +105,15 @@
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
-        </materialDesign:ColorZone>
+        </materialDesign:Card>
 
 
-        <materialDesign:ColorZone
+        <materialDesign:Card
             Grid.Row="1"
             Grid.Column="0"
             Margin="5,2.5,2.5,2.5"
             VerticalAlignment="Stretch"
-            materialDesign:ElevationAssist.Elevation="Dp1"
-            Background="#404040"
-            CornerRadius="5"
-            Mode="Standard">
+            materialDesign:ElevationAssist.Elevation="Dp1">
             <TreeView
                 x:Name="LinkTreeView"
                 IsManipulationEnabled="True"
@@ -127,7 +122,7 @@
                 SelectedItemChanged="LinkTreeView_OnSelectedItemChanged" />
 
 
-        </materialDesign:ColorZone>
+        </materialDesign:Card>
 
 
 
@@ -135,8 +130,7 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="0"
-            Margin="5,2.5,2.5,5"
-            Background="#404040">
+            Margin="5,2.5,2.5,5">
             <Grid
                 Margin="10,0"
                 HorizontalAlignment="Stretch"
@@ -300,7 +294,7 @@
 
             <Grid>
 
-                <materialDesign:Card Margin="2.5,2.5,2.5,5" Background="#404040">
+                <materialDesign:Card Margin="2.5,2.5,2.5,5">
 
                     <ListView
                         x:Name="CabinetListView"
@@ -389,8 +383,7 @@
             Grid.Row="0"
             Grid.Column="2"
             Height="50"
-            Margin="2.5,5,5,2.5"
-            Background="#404040">
+            Margin="2.5,5,5,2.5">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -691,7 +684,6 @@
                         VerticalAlignment="Bottom"
                         d:Text="12"
                         FontSize="16"
-                        FontWeight="ExtraBold"
                         Foreground="AliceBlue" />
 
                     <nodify:NodifyEditor
@@ -779,7 +771,6 @@
                 <Expander
                     Grid.Column="1"
                     materialDesign:ExpanderAssist.VerticalHeaderPadding="0,0,0,0"
-                    Background="#333333"
                     ExpandDirection="Right"
                     IsExpanded="True"
                     Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -795,16 +786,12 @@
                         </TextBlock>
                     </Expander.Header>
 
-                    <materialDesign:Card
-                        Margin="0,0,5,0"
-                        materialDesign:ElevationAssist.Elevation="Dp0"
-                        Background="#333333">
+                    <materialDesign:Card Margin="0,0,5,0" materialDesign:ElevationAssist.Elevation="Dp0">
                         <TabControl
                             Width="300"
                             Margin="0"
                             HorizontalContentAlignment="Stretch"
-                            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                            Background="#333333">
+                            materialDesign:ColorZoneAssist.Mode="PrimaryLight">
                             <TabItem Header="设备端口">
 
                                 <Grid>
@@ -823,7 +810,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
                                             <Grid>
@@ -858,7 +844,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
 
@@ -879,7 +864,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
                                             <ComboBox
@@ -905,7 +889,6 @@
                                             Margin="2.5,0,0,0"
                                             VerticalAlignment="Stretch"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
 
@@ -953,7 +936,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
                                             <Grid>
@@ -986,7 +968,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
                                             <ComboBox
@@ -1007,7 +988,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
                                             <ComboBox
@@ -1027,7 +1007,6 @@
                                             Margin="2.5,5,0,2.5"
                                             VerticalAlignment="Center"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
 
@@ -1054,7 +1033,6 @@
                                             Margin="2.5,0,0,0"
                                             VerticalAlignment="Stretch"
                                             materialDesign:ElevationAssist.Elevation="Dp1"
-                                            Background="#404040"
                                             CornerRadius="5"
                                             Mode="Standard">
 

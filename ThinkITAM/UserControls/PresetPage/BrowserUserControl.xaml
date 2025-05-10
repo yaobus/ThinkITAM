@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:Background="AliceBlue"
     d:Height="800"
     d:Width="1200"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -29,8 +30,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="2.5,5,2.5,2.5"
-                Background="#404040">
+                Margin="2.5,5,2.5,2.5">
 
 
                 <StackPanel
@@ -50,8 +50,7 @@
                     <TextBlock
                         Margin="10,0"
                         VerticalAlignment="Center"
-                        FontSize="20"
-                        Foreground="AliceBlue">
+                        FontSize="20">
                         访问协议预设
                     </TextBlock>
 
@@ -62,8 +61,7 @@
             <materialDesign:Card
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="2.5,2.5,2.5,5"
-                Background="#404040">
+                Margin="2.5,2.5,2.5,5">
 
 
 
@@ -134,7 +132,6 @@
                         Margin="0,5,0,10"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
-                        Background="#404040"
                         CanUserAddRows="False"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
@@ -164,7 +161,6 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="20"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Index}" />
 
                                     </DataTemplate>
@@ -191,7 +187,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Protocol}" />
 
                                     </DataTemplate>
@@ -221,7 +216,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Note}" />
 
                                     </DataTemplate>
@@ -241,8 +235,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="2"
-                Margin="2.5,5,5,2.5"
-                Background="#404040">
+                Margin="2.5,5,5,2.5">
 
                 <StackPanel
                     HorizontalAlignment="Left"
@@ -261,7 +254,6 @@
                         Margin="10,0"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Foreground="AliceBlue"
                         Text="浏览器预设" />
 
                 </StackPanel>
@@ -272,8 +264,7 @@
             <materialDesign:Card
                 Grid.Row="1"
                 Grid.Column="2"
-                Margin="2.5,2.5,5,5"
-                Background="#404040">
+                Margin="2.5,2.5,5,5">
                 <StackPanel>
                     <StackPanel
                         Margin="0,5"
@@ -337,7 +328,6 @@
                         Margin="0,5,0,10"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
-                        Background="#404040"
                         CanUserAddRows="False"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
@@ -367,7 +357,6 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="20"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Index}" />
 
                                     </DataTemplate>
@@ -394,7 +383,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Browser}" />
 
                                     </DataTemplate>
@@ -427,7 +415,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Path}" />
 
                                     </DataTemplate>
@@ -445,8 +432,7 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="2.5,5,2.5,2.5"
-                Background="#404040">
+                Margin="2.5,5,2.5,2.5">
 
                 <StackPanel
                     HorizontalAlignment="Left"
@@ -465,7 +451,6 @@
                         Margin="10,0"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Foreground="AliceBlue"
                         Text="访问端口预设" />
 
                 </StackPanel>
@@ -475,8 +460,7 @@
             <materialDesign:Card
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="2.5,2.5,2.5,5"
-                Background="#404040">
+                Margin="2.5,2.5,2.5,5">
 
                 <StackPanel Orientation="Vertical">
 
@@ -545,7 +529,6 @@
                         Margin="0,5,0,10"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
-                        Background="#404040"
                         CanUserAddRows="False"
                         HorizontalScrollBarVisibility="Disabled"
                         SelectionMode="Extended"
@@ -576,7 +559,6 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="20"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Index}" />
 
                                     </DataTemplate>
@@ -603,7 +585,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Port}" />
 
                                     </DataTemplate>
@@ -633,7 +614,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
                                             Text="{Binding Note}" />
 
                                     </DataTemplate>

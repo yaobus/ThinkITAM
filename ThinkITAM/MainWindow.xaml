@@ -56,7 +56,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp2">
-                                <materialDesign:ColorZone Padding="0" Mode="PrimaryMid">
+                                <materialDesign:ColorZone Padding="0" Mode="PrimaryLight">
 
                                     <Grid Width="300" Height="50">
 

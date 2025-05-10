@@ -105,24 +105,22 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text="10G "
+                        FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
                         FontSize="12"
-                        FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text="{Binding PortTag}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text=" "
                         FontSize="11"
                         FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text=" " />
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         d:Text="12/0/48"
+                        FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
                         FontSize="12"
                         FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text="{Binding FullPortId}" />
                 </StackPanel>
 

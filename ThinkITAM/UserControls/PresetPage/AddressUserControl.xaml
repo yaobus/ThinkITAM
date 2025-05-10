@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.PresetPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:Background="AliceBlue"
     d:Height="800"
     d:Width="1200"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -19,10 +20,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <materialDesign:Card
-                Grid.Row="0"
-                Margin="2.5,5,5,2.5"
-                Background="#404040">
+            <materialDesign:Card Grid.Row="0" Margin="2.5,5,5,2.5">
 
 
                 <StackPanel
@@ -93,17 +91,13 @@
 
             </materialDesign:Card>
 
-            <materialDesign:Card
-                Grid.Row="1"
-                Margin="2.5,2.5,5,5"
-                Background="#404040">
+            <materialDesign:Card Grid.Row="1" Margin="2.5,2.5,5,5">
 
                 <DataGrid
                     x:Name="AddressListView"
                     Margin="0,0,0,10"
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
-                    Background="#404040"
                     CanUserAddRows="False"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
@@ -133,7 +127,6 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="20"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Index}" />
 
                                 </DataTemplate>
@@ -163,7 +156,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Location}" />
 
                                 </DataTemplate>
@@ -193,7 +185,6 @@
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="AliceBlue"
                                         Text="{Binding Description}" />
 
                                 </DataTemplate>

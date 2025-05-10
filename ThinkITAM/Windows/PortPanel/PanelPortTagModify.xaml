@@ -63,12 +63,12 @@
 
             <TextBox
                 x:Name="TagTextBox"
-                BorderThickness="0"
                 Width="340"
                 Height="50"
                 Margin="5,0"
                 Padding="0"
                 d:Text="TAG-ABCD"
+                BorderThickness="0"
                 FontSize="16"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 

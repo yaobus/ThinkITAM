@@ -74,7 +74,7 @@ public partial class MainWindow : Window
     private void SetThemeLight()
     {
         var paletteHelper = new PaletteHelper();
-        var theme = Theme.Create(BaseTheme.Light, Colors.DarkOrange, Colors.Lime); // 使用默认颜色
+        var theme = Theme.Create(BaseTheme.Light, Colors.Tomato, Colors.Lime); // 使用默认颜色
         paletteHelper.SetTheme(theme);
         Properties.Settings.Default.ThemeIndex = 0;
         Properties.Settings.Default.Save();
@@ -376,6 +376,7 @@ public partial class MainWindow : Window
             {
                 newWindow.Owner = window;
             }
+            newWindow.Closed += (s, args) => this.Show();
 
             window.Hide();
 

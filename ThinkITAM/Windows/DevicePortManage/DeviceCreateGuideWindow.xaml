@@ -11,7 +11,6 @@
     Height="768"
     MinWidth="1366"
     MinHeight="768"
-    
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="DeviceCreateGuideWindow_OnLoaded"
     ResizeMode="NoResize"

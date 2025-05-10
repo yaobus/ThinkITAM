@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,20 +42,59 @@ namespace ThinkITAM.DatabaseOperation
             return command;
         }
 
+        //private List<Dictionary<string, object>> ReadToDictionaryList(SqlDataReader reader)
+        //{
+        //    var results = new List<Dictionary<string, object>>();
+        //    while (reader.Read())
+        //    {
+        //        var row = new Dictionary<string, object>();
+        //        for (var i = 0; i < reader.FieldCount; i++)
+        //        {
+        //            row[reader.GetName(i)] = reader.IsDBNull(i) ? null! : reader.GetValue(i);
+        //        }
+        //        results.Add(row);
+        //    }
+        //    return results;
+        //}
+
+
+
         private List<Dictionary<string, object>> ReadToDictionaryList(SqlDataReader reader)
         {
             var results = new List<Dictionary<string, object>>();
+
             while (reader.Read())
             {
-                var row = new Dictionary<string, object>();
+                var row = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase); // 忽略大小写
+
                 for (var i = 0; i < reader.FieldCount; i++)
                 {
-                    row[reader.GetName(i)] = reader.IsDBNull(i) ? null! : reader.GetValue(i);
+                    string columnName = reader.GetName(i);
+
+                    if (reader.IsDBNull(i))
+                    {
+                        row[columnName] = string.Empty; // 替换 null 为 string.Empty
+                    }
+                    else
+                    {
+                        // 可选：统一处理常见类型，提升健壮性
+                        var value = reader.GetValue(i);
+                        if (value is DBNull)
+                            row[columnName] = string.Empty;
+                        else if (value is byte[] byteArray)
+                            row[columnName] = Encoding.UTF8.GetString(byteArray); // 如果需要转字符串
+                        else
+                            row[columnName] = value;
+                    }
                 }
+
                 results.Add(row);
             }
+
             return results;
         }
+
+
 
         public bool TestConnection()
         {

@@ -18,6 +18,7 @@
     <UserControl.Resources>
         <system:Double x:Key="ControlSize">6</system:Double>
         <system:Double x:Key="ControlSize2">34</system:Double>
+        <Brush x:Key="Color">#ff5959</Brush>
     </UserControl.Resources>
     <Grid Width="18" Height="25">
 
@@ -27,14 +28,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Background="AliceBlue" />
+        <Grid Grid.Row="1" Background="{DynamicResource Color}" />
 
         <Border
             Grid.Row="0"
             Grid.RowSpan="3"
             Width="18"
             Height="25"
-            BorderBrush="AliceBlue"
+            BorderBrush="{DynamicResource Color}"
             BorderThickness="1" />
 
 
@@ -45,7 +46,7 @@
                 Margin="6,1,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
             <Border
                 Width="2"
@@ -53,7 +54,7 @@
                 Margin="1,1,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
             <materialDesign:PackIcon
                 Width="{StaticResource ControlSize}"
@@ -72,7 +73,7 @@
                 Margin="1,1,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
 
             <Border
@@ -81,7 +82,7 @@
                 Margin="6,1,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
         </Grid>
 
@@ -93,7 +94,7 @@
                 Margin="6,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
             <Border
                 Width="2"
@@ -101,7 +102,7 @@
                 Margin="1,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
             <materialDesign:PackIcon
                 Width="{StaticResource ControlSize}"
@@ -120,7 +121,7 @@
                 Margin="1,0,0,1"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
 
             <Border
@@ -129,7 +130,7 @@
                 Margin="6,1,0,1"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Background="AliceBlue" />
+                Background="{DynamicResource Color}" />
 
         </Grid>
 

@@ -45,8 +45,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="17" />
-            <RowDefinition Height="18" />
             <RowDefinition Height="8" />
+            <RowDefinition Height="18" />
         </Grid.RowDefinitions>
         <Button
             x:Name="PortButton"
@@ -63,6 +63,7 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     Text="{Binding PortClass.NodeIndex}"
                     Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 
@@ -85,7 +86,7 @@
 
                                 <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
                                 <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
-                                    <Setter Property="Opacity" Value="0.1" />
+                                    <Setter Property="Opacity" Value="0.3" />
                                 </DataTrigger>
 
                                 <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="True">
@@ -109,7 +110,6 @@
                 d:Text="A-10"
                 FontSize="10"
                 FontWeight="Bold"
-                Foreground="AliceBlue"
                 Text="{Binding PortClass.PortIndex}" />
 
 
@@ -117,7 +117,7 @@
 
 
         <Grid
-            Grid.Row="2"
+            Grid.Row="3"
             Width="50"
             Margin="0,1"
             Background="AliceBlue"
@@ -141,7 +141,7 @@
         </Grid>
 
         <Grid
-            Grid.Row="3"
+            Grid.Row="2"
             Width="50"
             Margin="0"
             Background="{Binding PortClass.PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"

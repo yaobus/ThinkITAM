@@ -9,7 +9,6 @@
     Title="设置端口颜色标记"
     Width="500"
     Height="250"
-
     Closing="PortColorSetWindow_OnClosing"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="IpColorSetWindow_OnLoaded"

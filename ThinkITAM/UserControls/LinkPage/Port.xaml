@@ -61,6 +61,7 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     Text="{Binding NodeIndex}"
                     Visibility="{Binding NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
                 <ContentControl>

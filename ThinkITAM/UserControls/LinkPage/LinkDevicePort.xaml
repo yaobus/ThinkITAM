@@ -73,17 +73,16 @@
                     Padding="0"
                     VerticalAlignment="Top"
                     d:BorderThickness="4"
-                    Background="Transparent"
                     BorderBrush="SeaGreen"
                     BorderThickness="{Binding PortClass.IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}, Mode=TwoWay}"
                     Click="EthernetButton_OnClick"
-                    Foreground="Azure"
-                    Style="{StaticResource MaterialDesignFlatMidBgButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}">
                     <Grid>
 
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                             Text="{Binding PortClass.NodeIndex}"
                             Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 
@@ -174,14 +173,12 @@
                         d:Text="10G "
                         FontSize="12"
                         FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text="{Binding PortClass.PortTag}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text=" "
                         FontSize="11"
                         FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text=" " />
                     <TextBlock
                         HorizontalAlignment="Center"
@@ -189,7 +186,6 @@
                         d:Text="12/0/48"
                         FontSize="12"
                         FontWeight="ExtraBlack"
-                        Foreground="AliceBlue"
                         Text="{Binding PortClass.PortIndex}" />
                 </StackPanel>
 

@@ -106,6 +106,8 @@
                         VerticalAlignment="Bottom"
                         d:Value="80"
                         materialDesign:TransitionAssist.DisableTransitions="True"
+                        Background="YellowGreen"
+                        BorderThickness="0"
                         Foreground="SeaGreen"
                         Maximum="100"
                         Minimum="0"
