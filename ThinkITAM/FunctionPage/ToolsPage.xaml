@@ -786,6 +786,19 @@
 
                     </materialDesign:ColorZone>
 
+                    <materialDesign:ColorZone
+                        x:Name="TEST"
+                        Margin="10,20"
+                        CornerRadius="5"
+                        Mode="PrimaryLight">
+
+                        <Button 
+                            x:Name="TestButton" 
+                            Width="100" Height="50"
+                            Content="TEST"
+                            Click="TestButton_OnClick"
+                            ></Button>
+                    </materialDesign:ColorZone>
                 </WrapPanel>
 
             </StackPanel>

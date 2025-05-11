@@ -1,12 +1,15 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using Dapper;
+using Microsoft.Data.Sqlite;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper.Contrib.Extensions;
 
 namespace ThinkITAM.DatabaseOperation
 {
@@ -282,6 +285,102 @@ namespace ThinkITAM.DatabaseOperation
             return true;
         }
 
+
+
+        #region 增删查改
+
+        // 插入实体
+        public long InsertEntity<T>(string tableName, T entity) where T : class
+        {
+            using var connection = CreateConnection();
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var columns = properties.Select(p => p.Name).ToList();
+            var values = properties.Select(p => p.GetValue(entity)).ToList();
+
+            var sql = $"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", columns.Select(c => "@" + c))}); SELECT LAST_INSERT_ID();";
+            var result = connection.ExecuteScalar(sql, entity);
+            return Convert.ToInt64(result);
+        }
+
+        public async Task<long> InsertEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var columns = properties.Select(p => p.Name).ToList();
+
+            var sql = $"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", columns.Select(c => "@" + c))}); SELECT LAST_INSERT_ID();";
+            var result = await connection.ExecuteScalarAsync(sql, entity);
+            return Convert.ToInt64(result);
+        }
+
+        // 更新实体
+        public bool UpdateEntity<T>(string tableName, T entity) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var updates = properties.Where(p => !p.Equals(keyProperty))
+                                    .Select(p => $"{p.Name} = @{p.Name}")
+                                    .ToList();
+
+            var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
+            return connection.Execute(sql, entity) > 0;
+        }
+
+        public async Task<bool> UpdateEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var updates = properties.Where(p => !p.Equals(keyProperty))
+                                    .Select(p => $"{p.Name} = @{p.Name}")
+                                    .ToList();
+
+            var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
+            return await connection.ExecuteAsync(sql, entity) > 0;
+        }
+
+        // 查询所有实体
+        public List<T> GetAllEntities<T>(string tableName) where T : class
+        {
+            using var connection = CreateConnection();
+            var sql = $"SELECT * FROM {tableName}";
+            return connection.Query<T>(sql).ToList();
+        }
+
+        public async Task<List<T>> GetAllEntitiesAsync<T>(string tableName, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var sql = $"SELECT * FROM {tableName}";
+            return (await connection.QueryAsync<T>(sql)).ToList();
+        }
+
+        // 根据主键查询实体
+        public T GetEntityById<T>(string tableName, object id) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var sql = $"SELECT * FROM {tableName} WHERE {keyProperty.Name} = @Id";
+            return connection.QuerySingleOrDefault<T>(sql, new { Id = id });
+        }
+
+        public async Task<T> GetEntityByIdAsync<T>(string tableName, object id, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var sql = $"SELECT * FROM {tableName} WHERE {keyProperty.Name} = @Id";
+            return await connection.QuerySingleOrDefaultAsync<T>(sql, new { Id = id });
+        }
+
+        #endregion
 
     }
 }

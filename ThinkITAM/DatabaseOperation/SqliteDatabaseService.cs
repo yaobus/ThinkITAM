@@ -1,12 +1,14 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper;
+using Dapper.Contrib.Extensions;
+using Microsoft.Data.Sqlite;
 
 namespace ThinkITAM.DatabaseOperation
 {
@@ -16,81 +18,14 @@ namespace ThinkITAM.DatabaseOperation
 
         public SqliteDatabaseService(string connectionString)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
         }
 
-        private SqliteConnection CreateConnection()
+        private IDbConnection CreateConnection()
         {
-            return new SqliteConnection(_connectionString);
-        }
-
-        private SqliteCommand CreateCommand(SqliteConnection connection, string sql, object? param)
-        {
-            var command = connection.CreateCommand();
-            command.CommandText = sql;
-
-            if (param != null)
-            {
-                foreach (var prop in param.GetType().GetProperties())
-                {
-                    var name = "@" + prop.Name;
-                    var value = prop.GetValue(param) ?? DBNull.Value;
-                    command.Parameters.AddWithValue(name, value);
-                }
-            }
-
-            return command;
-        }
-
-        //private List<Dictionary<string, object>> ReadToDictionaryList(SqliteDataReader reader)
-        //{
-        //    var results = new List<Dictionary<string, object>>();
-        //    while (reader.Read())
-        //    {
-        //        var row = new Dictionary<string, object>();
-        //        for (var i = 0; i < reader.FieldCount; i++)
-        //        {
-        //            row[reader.GetName(i)] = reader.IsDBNull(i) ? null! : reader.GetValue(i);
-        //        }
-        //        results.Add(row);
-        //    }
-        //    return results;
-        //}
-
-
-        private List<Dictionary<string, object>> ReadToDictionaryList(SqliteDataReader reader)
-        {
-            var results = new List<Dictionary<string, object>>();
-
-            while (reader.Read())
-            {
-                var row = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase); // 忽略大小写
-
-                for (var i = 0; i < reader.FieldCount; i++)
-                {
-                    string columnName = reader.GetName(i);
-
-                    if (reader.IsDBNull(i))
-                    {
-                        row[columnName] = string.Empty; // 替换 null 为 string.Empty
-                    }
-                    else
-                    {
-                        // 可选：统一处理常见类型，提升健壮性
-                        var value = reader.GetValue(i);
-                        if (value is DBNull)
-                            row[columnName] = string.Empty;
-                        else if (value is byte[] byteArray)
-                            row[columnName] = Encoding.UTF8.GetString(byteArray); // 如果需要转字符串
-                        else
-                            row[columnName] = value;
-                    }
-                }
-
-                results.Add(row);
-            }
-
-            return results;
+            var connection = new SqliteConnection(_connectionString);
+            connection.Open();
+            return connection;
         }
 
         public bool TestConnection()
@@ -98,7 +33,6 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 using var connection = CreateConnection();
-                connection.Open();
                 return connection.State == ConnectionState.Open;
             }
             catch
@@ -109,106 +43,70 @@ namespace ThinkITAM.DatabaseOperation
 
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {
+            Console.WriteLine("ExecuteQuery:\r" + sql);
             using var connection = CreateConnection();
-            connection.Open();
-            using var command = CreateCommand(connection, sql, param);
-            using var reader = command.ExecuteReader();
-            return ReadToDictionaryList(reader);
+            var result = connection.Query(sql, param).ToList();
+            return ConvertDynamicToDictionaryList(result);
         }
-
-
-
 
         public async Task<List<Dictionary<string, object>>> ExecuteQueryAsync(string sql, object? param = null, CancellationToken cancellationToken = default)
         {
-            await using var connection = CreateConnection();
-            await connection.OpenAsync(cancellationToken);
-            await using var command = CreateCommand(connection, sql, param);
-            await using var reader = await command.ExecuteReaderAsync(cancellationToken);
-            return ReadToDictionaryList(reader);
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            var result = (await connection.QueryAsync(sql, param)).ToList();
+            return ConvertDynamicToDictionaryList(result);
         }
 
         public List<T> ExecuteQuery<T>(string sql, object? param = null) where T : class
         {
-            var rows = ExecuteQuery(sql, param);
-            return ConvertRowsToObjects<T>(rows);
+            using var connection = CreateConnection();
+            return connection.Query<T>(sql, param).ToList();
         }
 
         public async Task<List<T>> ExecuteQueryAsync<T>(string sql, object? param = null, CancellationToken cancellationToken = default) where T : class
         {
-            var rows = await ExecuteQueryAsync(sql, param, cancellationToken);
-            return ConvertRowsToObjects<T>(rows);
-        }
-
-        private List<T> ConvertRowsToObjects<T>(List<Dictionary<string, object>> rows) where T : class
-        {
-            var list = new List<T>();
-            foreach (var row in rows)
-            {
-                var json = JsonSerializer.Serialize(row);
-                var obj = JsonSerializer.Deserialize<T>(json);
-                if (obj != null)
-                    list.Add(obj);
-            }
-            return list;
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            return (await connection.QueryAsync<T>(sql, param)).ToList();
         }
 
         public object? ExecuteScalar(string sql)
         {
             using var connection = CreateConnection();
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return command.ExecuteScalar();
+            return connection.ExecuteScalar(sql);
         }
 
         public async Task<object?> ExecuteScalarAsync(string sql, CancellationToken cancellationToken = default)
         {
-            await using var connection = CreateConnection();
-            await connection.OpenAsync(cancellationToken);
-            await using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return await command.ExecuteScalarAsync(cancellationToken);
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            return await connection.ExecuteScalarAsync(sql);
         }
 
         public int ExecuteNonQuery(string sql, object? param = null)
         {
+            Console.WriteLine("ExecuteNonQuery:\r" + sql);
             using var connection = CreateConnection();
-            connection.Open();
-            using var command = CreateCommand(connection, sql, param);
-            return command.ExecuteNonQuery();
+            return connection.Execute(sql, param);
         }
 
         public async Task<int> ExecuteNonQueryAsync(string sql, object? param = null, CancellationToken cancellationToken = default)
         {
-            await using var connection = CreateConnection();
-            await connection.OpenAsync(cancellationToken);
-            await using var command = CreateCommand(connection, sql, param);
-            return await command.ExecuteNonQueryAsync(cancellationToken);
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            return await connection.ExecuteAsync(sql, param);
         }
 
         public bool IsTableExists(string tableName)
         {
             var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
             using var connection = CreateConnection();
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            command.Parameters.AddWithValue("@TableName", tableName);
-            var result = command.ExecuteScalar();
-            return Convert.ToInt32(result) > 0;
+            var count = connection.ExecuteScalar<int>(sql, new { TableName = tableName });
+            return count > 0;
         }
 
         public async Task<bool> IsTableExistsAsync(string tableName, CancellationToken cancellationToken = default)
         {
             var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
-            await using var connection = CreateConnection();
-            await connection.OpenAsync(cancellationToken);
-            await using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            command.Parameters.AddWithValue("@TableName", tableName);
-            var result = await command.ExecuteScalarAsync(cancellationToken);
-            return Convert.ToInt32(result) > 0;
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            var count = await connection.ExecuteScalarAsync<int>(sql, new { TableName = tableName });
+            return count > 0;
         }
 
         public bool CreateTableFromEntity<T>() where T : class
@@ -216,19 +114,11 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sql = SqliteTableCreator.GenerateCreateTableScript<T>();
-
                 if (string.IsNullOrWhiteSpace(sql))
-                {
-                    Console.WriteLine($"未能为类型 {typeof(T).Name} 生成有效的建表语句。");
                     return false;
-                }
 
                 using var connection = CreateConnection();
-                connection.Open();
-                using var command = connection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-
+                connection.Execute(sql);
                 return true;
             }
             catch (Exception ex)
@@ -243,19 +133,11 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sql = SqliteTableCreator.GenerateCreateTableScript<T>();
-
                 if (string.IsNullOrWhiteSpace(sql))
-                {
-                    Console.WriteLine($"未能为类型 {typeof(T).Name} 生成有效的建表语句。");
                     return false;
-                }
 
-                await using var connection = CreateConnection();
-                await connection.OpenAsync(ct);
-                await using var command = connection.CreateCommand();
-                command.CommandText = sql;
-                await command.ExecuteNonQueryAsync(ct);
-
+                using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+                await connection.ExecuteAsync(sql);
                 return true;
             }
             catch (Exception ex)
@@ -265,27 +147,140 @@ namespace ThinkITAM.DatabaseOperation
             }
         }
 
-
-
         public bool CreateTableFromSql(string sqliteSql)
         {
             using var connection = CreateConnection();
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandText = sqliteSql;
-            command.ExecuteNonQuery();
+            connection.Execute(sqliteSql);
             return true;
         }
 
         public async Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default)
         {
-            await using var connection = CreateConnection();
-            await connection.OpenAsync(ct);
-            await using var command = connection.CreateCommand();
-            command.CommandText = sqliteSql;
-            await command.ExecuteNonQueryAsync(ct);
+            using var connection = CreateConnection(); // 使用 'using' 而不是 'await using'
+            await connection.ExecuteAsync(sqliteSql);
             return true;
         }
+
+        // Helper method: 将 dynamic 转换为 Dictionary<string, object>
+        private static List<Dictionary<string, object>> ConvertDynamicToDictionaryList(IEnumerable<dynamic> rows)
+        {
+            var result = new List<Dictionary<string, object>>();
+            foreach (var row in rows)
+            {
+                var dict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+                foreach (var prop in ((IDictionary<string, object>)row))
+                {
+                    // 处理 DBNull 和 null 值
+                    var value = prop.Value;
+                    if (value is DBNull || value == null)
+                    {
+                        dict[prop.Key] = string.Empty;
+                    }
+                    else
+                    {
+                        dict[prop.Key] = value;
+                    }
+                }
+                result.Add(dict);
+            }
+            return result;
+        }
+
+
+        #region 增删查改
+
+        // 插入实体
+    public long InsertEntity<T>(string tableName, T entity) where T : class
+        {
+            using var connection = CreateConnection();
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var columns = properties.Select(p => p.Name).ToList();
+            var values = properties.Select(p => p.GetValue(entity)).ToList();
+
+            var sql = $"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", columns.Select(c => "@" + c))})";
+            return connection.Execute(sql, entity);
+        }
+
+        public async Task<long> InsertEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var columns = properties.Select(p => p.Name).ToList();
+            var values = properties.Select(p => p.GetValue(entity)).ToList();
+
+            var sql = $"INSERT INTO {tableName} ({string.Join(", ", columns)}) VALUES ({string.Join(", ", columns.Select(c => "@" + c))})";
+            return await connection.ExecuteAsync(sql, entity);
+        }
+
+        // 更新实体
+        public bool UpdateEntity<T>(string tableName, T entity) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var updates = properties.Where(p => !p.Equals(keyProperty))
+                                    .Select(p => $"{p.Name} = @{p.Name}")
+                                    .ToList();
+
+            var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
+            return connection.Execute(sql, entity) > 0;
+        }
+
+        public async Task<bool> UpdateEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var updates = properties.Where(p => !p.Equals(keyProperty))
+                                    .Select(p => $"{p.Name} = @{p.Name}")
+                                    .ToList();
+
+            var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
+            return await connection.ExecuteAsync(sql, entity) > 0;
+        }
+
+        // 查询所有实体
+        public List<T> GetAllEntities<T>(string tableName) where T : class
+        {
+            using var connection = CreateConnection();
+            var sql = $"SELECT * FROM {tableName}";
+            return connection.Query<T>(sql).ToList();
+        }
+
+        public async Task<List<T>> GetAllEntitiesAsync<T>(string tableName, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var sql = $"SELECT * FROM {tableName}";
+            return (await connection.QueryAsync<T>(sql)).ToList();
+        }
+
+        // 根据主键查询实体
+        public T GetEntityById<T>(string tableName, object id) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var sql = $"SELECT * FROM {tableName} WHERE {keyProperty.Name} = @Id";
+            return connection.QuerySingleOrDefault<T>(sql, new { Id = id });
+        }
+
+        public async Task<T> GetEntityByIdAsync<T>(string tableName, object id, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+            var keyProperty = typeof(T).GetProperties().FirstOrDefault(p => p.GetCustomAttributes<KeyAttribute>().Any());
+            if (keyProperty == null) throw new InvalidOperationException("Entity must have a property marked with [Key] attribute.");
+
+            var sql = $"SELECT * FROM {tableName} WHERE {keyProperty.Name} = @Id";
+            return await connection.QuerySingleOrDefaultAsync<T>(sql, new { Id = id });
+        }
+
+        #endregion
+
 
     }
 }

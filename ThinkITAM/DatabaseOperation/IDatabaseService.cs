@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Nodify;
 
 namespace ThinkITAM.DatabaseOperation
 {
@@ -110,9 +112,51 @@ namespace ThinkITAM.DatabaseOperation
         bool CreateTableFromSql(string sqliteSql);
         Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default);
 
+        #region 增删查改
 
+        /// <summary>
+        /// 插入一条记录到指定的数据库表中
+        /// </summary>
+        long InsertEntity<T>(string tableName, T entity) where T : class;
 
+        /// <summary>
+        /// 异步插入一条记录到指定的数据库表中
+        /// </summary>
+        Task<long> InsertEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class;
 
+        /// <summary>
+        /// 更新一条记录到指定的数据库表中
+        /// </summary>
+        bool UpdateEntity<T>(string tableName, T entity) where T : class;
+
+        /// <summary>
+        /// 异步更新一条记录到指定的数据库表中
+        /// </summary>
+        Task<bool> UpdateEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class;
+
+        /// <summary>
+        /// 查询所有记录
+        /// </summary>
+        List<T> GetAllEntities<T>(string tableName) where T : class;
+
+        /// <summary>
+        /// 异步查询所有记录
+        /// </summary>
+        Task<List<T>> GetAllEntitiesAsync<T>(string tableName, CancellationToken cancellationToken = default) where T : class;
+
+        /// <summary>
+        /// 根据主键查询记录
+        /// </summary>
+        T GetEntityById<T>(string tableName, object id) where T : class;
+
+        /// <summary>
+        /// 异步根据主键查询记录
+        /// </summary>
+        Task<T> GetEntityByIdAsync<T>(string tableName, object id, CancellationToken cancellationToken = default) where T : class;
+
+        #endregion
 
     }
+
 }
+
