@@ -1161,7 +1161,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.UserGroup, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 

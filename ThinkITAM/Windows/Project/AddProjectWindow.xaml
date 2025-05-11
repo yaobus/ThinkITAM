@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataBaseConfig="clr-namespace:ThinkITAM.ViewModels.DataBaseConfig"
     xmlns:local="clr-namespace:ThinkITAM.Windows.Project"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,6 +19,10 @@
     Style="{StaticResource ResourceKey=MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
+    <Window.DataContext>
+        <dataBaseConfig:DataBaseConfigViewModel />
+    </Window.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -44,7 +49,8 @@
                 BorderThickness="0.2"
                 MaxDropDownHeight="300"
                 SelectionChanged="DatabaseTypeGroups_OnSelectionChanged"
-                Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                Text="{Binding Type, Mode=OneWay}">
 
                 <ComboBoxItem Content="Sqlite" />
                 <ComboBoxItem Content="Mysql" />
@@ -115,7 +121,8 @@
                     Margin="5"
                     Padding="5,10,35,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Path, Mode=OneWay}" />
                 <Button
                     x:Name="BrowseButton"
                     Grid.Row="1"
@@ -142,7 +149,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding NickName, Mode=OneWay}" />
 
             </Grid>
         </Grid>
@@ -178,7 +186,8 @@
                     Margin="5"
                     Padding="5,10,5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Host, Mode=OneWay}" />
 
             </Grid>
             <Grid Grid.Row="1" Margin="0,10,0,0">
@@ -198,7 +207,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Port, Mode=OneWay}" />
 
             </Grid>
             <Grid Grid.Row="2" Margin="0,10,0,0">
@@ -218,7 +228,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding UserName, Mode=OneWay}" />
 
             </Grid>
             <Grid Grid.Row="3" Margin="0,10,0,0">
@@ -238,7 +249,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Password, Mode=OneWay}" />
 
             </Grid>
             <Grid Grid.Row="4" Margin="0,10,0,0">
@@ -258,7 +270,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding DatabaseName, Mode=OneWay}" />
 
             </Grid>
             <Grid Grid.Row="5" Margin="0,10,0,0">
@@ -278,7 +291,8 @@
                     Margin="5"
                     Padding="5,10"
                     BorderThickness="0.2"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding NickName, Mode=OneWay}" />
 
             </Grid>
         </Grid>

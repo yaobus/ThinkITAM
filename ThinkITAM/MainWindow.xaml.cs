@@ -400,6 +400,7 @@ public partial class MainWindow : Window
 
 
         var options = new JsonSerializerOptions { WriteIndented = true };
+
         var json = JsonSerializer.Serialize(configs.ToList(), options);
 
         var encryptJson = Functions.Protector.PasswordProtector.Encrypt(json);
@@ -410,7 +411,7 @@ public partial class MainWindow : Window
 
     private void AddProjectButton_OnClick(object sender, RoutedEventArgs e)
     {
-        AddProjectWindow newWindow = new AddProjectWindow();
+        var newWindow = new AddProjectWindow();
         //窗口放中间
         var window = Window.GetWindow(this);
         if (window != null)
@@ -432,23 +433,21 @@ public partial class MainWindow : Window
 
     private void ProjectListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
+        if (ProjectListView.SelectedIndex!=-1)
+        {
+            var dbConfig = configs[ProjectListView.SelectedIndex];
 
-        GlobalVariables.dbConfig =  dbConfig;
+            GlobalVariables.dbConfig = dbConfig;
 
-       // 创建服务实例
-       GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
+            // 创建服务实例
+            GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
+        }
+
+        
 
 
 
 
-       //string sql = $"Select * FROM Network";
-       //var rows = GlobalVariables.DbService.ExecuteQuery(sql);
-
-       //foreach (var row in rows)
-       //{
-       //    Console.WriteLine(row["Name"]);
-       //}
 
     }
 
@@ -505,12 +504,14 @@ public partial class MainWindow : Window
 
 
 
-    private void ProjectListView_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+
+
+
+    private void DelProjectButton_OnClick(object sender, RoutedEventArgs e)
     {
-        DataBaseConfigViewModel dbConfig = configs[ProjectListView.SelectedIndex];
+        configs.RemoveAt(ProjectListView.SelectedIndex);
 
-        configs.Remove(dbConfig);
+            SaveConfigsToFile();
 
-        SaveConfigsToFile();
     }
 }

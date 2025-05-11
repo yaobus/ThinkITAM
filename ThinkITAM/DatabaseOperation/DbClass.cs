@@ -610,10 +610,12 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="tableName"></param>
         public static Task<bool> CreateTableIfNotExists(string tableName)
         {
+            
 
-
-            switch (GlobalVariables.dbConfig.Type)
+            switch (GlobalVariables.dbConfig.Type.ToLower())
             {
+                   
+
                 case "sqlite":
 
                     if (!GlobalVariables.DbService.IsTableExists(tableName))
@@ -624,7 +626,7 @@ namespace ThinkITAM.DatabaseOperation
                         {
                             case "SystemUser"://用户表,废弃功能
 
-                                sql = $"CREATE TABLE \"SystemUser\" (\r\n  \"ipam_user\" TEXT,\r\n  \"Password\" TEXT\r\n);";
+                                sql = $"CREATE TABLE \"SystemUser\" (\r\n  \"Ipam_user\" TEXT,\r\n  \"Password\" TEXT\r\n);";
 
                                 break;
 
@@ -716,7 +718,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "DeviceRoom"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceRoom\" (\r\n  \"DeviceRoomQrId\" text NOT NULL,\r\n  \"Name\" TEXT,\r\n  \"Location\" TEXT,\r\n  \"User\" TEXT,\r\n  \"UserPhone\" TEXT,\r\n  \"Note\" TEXT,\r\n  PRIMARY KEY (\"DeviceRoomQrId\")\r\n);";
+                                sql = $"CREATE TABLE \"DeviceRoom\" (\r\n  \"DeviceRoomQrId\" text NOT NULL,\r\n  \"RoomName\" TEXT,\r\n  \"Location\" TEXT,\r\n  \"User\" TEXT,\r\n  \"UserPhone\" TEXT,\r\n  \"Note\" TEXT,\r\n  PRIMARY KEY (\"DeviceRoomQrId\")\r\n);";
 
 
 
@@ -733,7 +735,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "DeviceCabinet"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceCabinet\" (\r\n  \"CabinetId\" text NOT NULL,\r\n  \"DeviceRoomQrId\" text,\r\n  \"Name\" TEXT,\r\n  \"Position\" TEXT,\r\n  \"Note\" TEXT,\r\n  PRIMARY KEY (\"CabinetId\")\r\n);\r\n";
+                                sql = $"CREATE TABLE \"DeviceCabinet\" (\r\n  \"CabinetId\" text NOT NULL,\r\n  \"DeviceRoomQrId\" text,\r\n  \"CabinetName\" TEXT,\r\n  \"Position\" TEXT,\r\n  \"Note\" TEXT,\r\n  PRIMARY KEY (\"CabinetId\")\r\n);\r\n";
 
 
                                 break;
@@ -926,7 +928,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceRoom"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceRoom` (\r\n  `DeviceRoomQrId` VARCHAR(255) NOT NULL,\r\n  `Name` TEXT,\r\n  `Location` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `Note` TEXT,\r\n  PRIMARY KEY (`DeviceRoomQrId`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceRoom` (\r\n  `DeviceRoomQrId` VARCHAR(255) NOT NULL,\r\n  `RoomName` TEXT,\r\n  `Location` TEXT,\r\n  `User` TEXT,\r\n  `UserPhone` TEXT,\r\n  `Note` TEXT,\r\n  PRIMARY KEY (`DeviceRoomQrId`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;
@@ -943,7 +945,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceCabinet"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceCabinet` (\r\n  `CabinetId` VARCHAR(255) NOT NULL,\r\n  `DeviceRoomQrId` VARCHAR(255),\r\n  `Name` TEXT,\r\n  `Position` TEXT,\r\n  `Note` TEXT,\r\n  PRIMARY KEY (`CabinetId`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceCabinet` (\r\n  `CabinetId` VARCHAR(255) NOT NULL,\r\n  `DeviceRoomQrId` VARCHAR(255),\r\n  `CabinetName` TEXT,\r\n  `Position` TEXT,\r\n  `Note` TEXT,\r\n  PRIMARY KEY (`CabinetId`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 
@@ -1042,6 +1044,10 @@ namespace ThinkITAM.DatabaseOperation
             return null;
 
         }
+
+
+
+
 
 
     }

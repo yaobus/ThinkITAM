@@ -83,6 +83,9 @@ public partial class SelectionWindow : Window
 
         foreach (var table in t)
         {
+
+            Console.WriteLine(table);
+
             var result = DbClass.CreateTableIfNotExists(table);
 
             message += $"{table}表创建结果：{result}\n";

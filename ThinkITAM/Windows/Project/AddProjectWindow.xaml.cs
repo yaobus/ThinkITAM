@@ -28,15 +28,29 @@ namespace ThinkITAM.Windows.Project
     /// </summary>
     public partial class AddProjectWindow : Window
     {
-        public AddProjectWindow()
+        public AddProjectWindow(DataBaseConfigViewModel config = null)
         {
             InitializeComponent();
+            inputConfig = config;
+            if (config!=null)
+            {
+                DataContext = config;
+               
+            }
+
+            
             LoadExistingConfigs();
         }
 
+        private DataBaseConfigViewModel inputConfig;
         private void AddProjectWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DatabaseTypeGroups.SelectedIndex = 0;
+            if (inputConfig == null)
+            {
+                DatabaseTypeGroups.SelectedIndex = 0;
+            }
+
+
         }
 
         private void BrowseButton_OnClick(object sender, RoutedEventArgs e)
@@ -114,7 +128,14 @@ namespace ThinkITAM.Windows.Project
         /// <param name="e"></param>
         private async void AddProjectButton_Click(object sender, RoutedEventArgs e)
         {
-            DataBaseConfigViewModel dataBaseConfig = new DataBaseConfigViewModel();
+
+            if (inputConfig != null)
+            {
+                configs.Remove(inputConfig);
+            }
+
+
+            var dataBaseConfig = new DataBaseConfigViewModel();
 
             var index = DatabaseTypeGroups.SelectedIndex;
 
@@ -124,16 +145,16 @@ namespace ThinkITAM.Windows.Project
             switch (index)
             {
                 case 0:
-                    type = "sqlite";
+                    type = "Sqlite";
                     break;
                 case 1:
-                    type = "mysql";
+                    type = "Mysql";
                     break;
                 case 2:
-                    type = "mariadb";
+                    type = "MariaDB";
                     break;
                 case 3:
-                    type = "sqlserver";
+                    type = "SqlServer";
                     break;
             }
 
@@ -243,9 +264,7 @@ namespace ThinkITAM.Windows.Project
             {
                 var encryptJson = File.ReadAllText(dbConfigPath);
 
-                Console.WriteLine(encryptJson);
-
-                var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
+                var json = PasswordProtector.Decrypt(encryptJson);
 
                 Console.WriteLine(json);
 
@@ -256,7 +275,6 @@ namespace ThinkITAM.Windows.Project
                 {
                     foreach (var item in loaded)
                     {
-                        //Console.WriteLine(PasswordProtector.Decrypt(item.Password));
 
                         configs.Add(item);
                     }

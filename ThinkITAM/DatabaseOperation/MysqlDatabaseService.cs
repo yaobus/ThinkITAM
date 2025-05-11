@@ -96,15 +96,10 @@ namespace ThinkITAM.DatabaseOperation
 
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {
-            Console.WriteLine(sql);
-            // 对 SQL 语句进行翻译
-            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
-
-            Console.WriteLine(translatedSql);
 
             using var connection = CreateConnection();
             connection.Open();
-            using var command = CreateCommand(connection, translatedSql, param);
+            using var command = CreateCommand(connection, sql, param);
             using var reader = command.ExecuteReader();
             return ReadToDictionaryList(reader);
         }
@@ -145,13 +140,13 @@ namespace ThinkITAM.DatabaseOperation
 
         public object? ExecuteScalar(string sql)
         {
-            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
+
 
 
             using var connection = CreateConnection();
             connection.Open();
             using var command = connection.CreateCommand();
-            command.CommandText = translatedSql;
+            command.CommandText = sql;
             return command.ExecuteScalar();
         }
 
@@ -166,13 +161,9 @@ namespace ThinkITAM.DatabaseOperation
 
         public int ExecuteNonQuery(string sql, object? param = null)
         {
-            string translatedSql = SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
-
-            Console.WriteLine(translatedSql);
-
             using var connection = CreateConnection();
             connection.Open();
-            using var command = CreateCommand(connection, translatedSql, param);
+            using var command = CreateCommand(connection, sql, param);
             return command.ExecuteNonQuery();
         }
 
@@ -214,12 +205,12 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-                var mysqlSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.MySql);
+               
 
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     connection.Open();
-                    using (var cmd = new MySqlCommand(mysqlSql, connection))
+                    using (var cmd = new MySqlCommand(sqliteSql, connection))
                     {
                         cmd.ExecuteNonQuery();
                     }
@@ -239,12 +230,12 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-                var mysqlSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.MySql);
+               
 
                 await using (var connection = new MySqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(ct);
-                    await using (var cmd = new MySqlCommand(mysqlSql, connection))
+                    await using (var cmd = new MySqlCommand(sqliteSql, connection))
                     {
                         await cmd.ExecuteNonQueryAsync(ct);
                     }
@@ -262,14 +253,12 @@ namespace ThinkITAM.DatabaseOperation
 
         public bool CreateTableFromSql(string sqliteSql)
         {
-            Console.WriteLine(sqliteSql);
+            
             if (!string.IsNullOrWhiteSpace(sqliteSql))
             {
-                var translatedSql = TranslateSqlIfNeeded(sqliteSql);
-
                 using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
-                using var command = new MySqlCommand(translatedSql, connection);
+                using var command = new MySqlCommand(sqliteSql, connection);
                 command.ExecuteNonQuery();
                 return true;
             }
@@ -293,9 +282,6 @@ namespace ThinkITAM.DatabaseOperation
             return true;
         }
 
-        private string TranslateSqlIfNeeded(string sql)
-        {
-            return SqlTranslator.TranslateCreateTable(sql, TargetDatabaseType.MySql);
-        }
+
     }
 }

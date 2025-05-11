@@ -5,6 +5,8 @@
 
     <!--  MainWindow  -->
     <s:String x:Key="AddProject">Add Project</s:String>
+    <s:String x:Key="DelProject">Delete Project</s:String>
+
     <s:String x:Key="SetPassword">Set Password</s:String>
     <s:String x:Key="SetPasswordAgain">Confirm Password</s:String>
     <s:String x:Key="SavePassword">Save Password</s:String>

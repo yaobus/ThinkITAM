@@ -225,12 +225,12 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+                
 
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    using (var cmd = new SqlCommand(sqlserverSql, connection))
+                    using (var cmd = new SqlCommand(sqliteSql, connection))
                     {
                         cmd.ExecuteNonQuery();
                     }
@@ -250,12 +250,12 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+               
 
                 await using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(ct);
-                    await using (var cmd = new SqlCommand(sqlserverSql, connection))
+                    await using (var cmd = new SqlCommand(sqliteSql, connection))
                     {
                         await cmd.ExecuteNonQueryAsync(ct);
                     }
@@ -278,12 +278,12 @@ namespace ThinkITAM.DatabaseOperation
 
             try
             {
-                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+               
 
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
-                    using (var command = new SqlCommand(sqlserverSql, connection))
+                    using (var command = new SqlCommand(sqliteSql, connection))
                     {
                         command.ExecuteNonQuery();
                     }
@@ -305,12 +305,12 @@ namespace ThinkITAM.DatabaseOperation
 
             try
             {
-                var sqlserverSql = SqlTranslator.TranslateCreateTable(sqliteSql, TargetDatabaseType.SqlServer);
+               
 
                 await using (var connection = CreateConnection())
                 {
                     await connection.OpenAsync(ct);
-                    await using (var command = new SqlCommand(sqlserverSql, connection))
+                    await using (var command = new SqlCommand(sqliteSql, connection))
                     {
                         await command.ExecuteNonQueryAsync(ct);
                     }

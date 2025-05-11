@@ -663,8 +663,7 @@
             Grid.RowSpan="2"
             Grid.Column="2"
             Margin="2.5,2.5,2.5,5"
-            BorderThickness="0.5"
-            >
+            BorderThickness="0.5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -720,8 +719,7 @@
                                 x:Name="RoutePanel"
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True"
-                                BorderThickness="0.5"
-                                >
+                                BorderThickness="0.5">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
 

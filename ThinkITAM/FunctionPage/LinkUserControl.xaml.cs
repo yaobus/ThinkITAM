@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using Newtonsoft.Json;
 using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.FunctionClass;
@@ -44,9 +45,6 @@ namespace ThinkITAM.FunctionPage
         private void LinkUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
             
-
-
-
 
             CabinetListView.ItemsSource = rackInfos;
 
@@ -572,7 +570,7 @@ namespace ThinkITAM.FunctionPage
 
                 // 当子窗口关闭后执行这里的代码
 
-
+                LoadDevicesTreeView();
                 //加载设备信息
                 //LoadTags();
             }
@@ -692,11 +690,14 @@ namespace ThinkITAM.FunctionPage
                 info.rackNote = row["RackNote"].ToString();
                 string infos = row["SlotInfos"].ToString();
 
+                Console.WriteLine(infos);
 
+                var slotInfos = JsonConvert.DeserializeObject<ObservableCollection<SlotClass>>(infos);
 
-
-                var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
                 info.slotInfos = slotInfos;
+
+
+               
 
                 info.slotCount = Convert.ToInt32(row["SlotCount"]);
 

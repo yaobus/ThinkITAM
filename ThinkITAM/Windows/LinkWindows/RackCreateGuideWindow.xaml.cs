@@ -347,9 +347,7 @@ public partial class RackCreateGuideWindow : Window
 
         string rackStr1;
 
-        string rackStr2;
-
-
+        
         //创建资产ID字符串
         rackStr1 = $"3{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(rackCreateInfos.rackName + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
@@ -361,6 +359,7 @@ public partial class RackCreateGuideWindow : Window
         string rackId = rackStr1;
 
         //第一步，写入机架信息到机架总表
+
         string sql = $"INSERT INTO \"Racks\" (\"RackId\", \"CabinetId\", \"RackName\", \"RackNote\", \"SlotInfos\",  \"SlotCount\") VALUES ('{rackId}', '{cabinetId}', '{rackCreateInfos.rackName}', '{rackCreateInfos.rackNote}','{infos}', '{rackCreateInfos.slotCount}')";
 
 
