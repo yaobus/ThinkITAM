@@ -992,7 +992,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Bookmark"://导航索引
 
                                 sql =
-                                    $"CREATE TABLE `Bookmark` (\r\n  `IndexId` TEXT,\r\n  `TypeGroup` TEXT,\r\n  `Name` TEXT,\r\n  `Protocol` TEXT,\r\n  `Host` TEXT,\r\n  `Port` TEXT,\r\n  `Color` INT,\r\n  `Browser` TEXT,\r\n  `Del` INT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Bookmark` (\r\n  `IndexId` VARCHAR(32) PRIMARY KEY,\r\n  `TypeGroup` TEXT,\r\n  `Name` TEXT,\r\n  `Protocol` TEXT,\r\n  `Host` TEXT,\r\n  `Port` TEXT,\r\n  `Color` INT,\r\n  `Browser` TEXT,\r\n  `Del` INT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;

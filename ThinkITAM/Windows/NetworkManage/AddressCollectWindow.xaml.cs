@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,6 +12,8 @@ using static MaterialDesignThemes.Wpf.Theme;
 using ListBoxItem = System.Windows.Controls.ListBoxItem;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.FunctionPage;
+using System;
 
 namespace ThinkITAM.Windows.NetworkManage;
 /// <summary>
@@ -34,7 +35,7 @@ public partial class AddressCollectWindow : Window
             dbIndexId = updateTag.IndexId;
 
 
-            
+
 
 
             var matchedItem = browserInfos.FirstOrDefault(item => item.Path == indexTag.Browser);
@@ -46,7 +47,7 @@ public partial class AddressCollectWindow : Window
                 int index = browserInfos.IndexOf(matchedItem);
 
                 indexTag.Index = index;
-                BrowserCombobox.SelectedIndex= index;
+                BrowserCombobox.SelectedIndex = index;
                 //Console.WriteLine($"BrowserIndex{index}");
             }
             else
@@ -55,7 +56,7 @@ public partial class AddressCollectWindow : Window
                 BrowserCombobox.SelectedIndex = -1;
                 //Console.WriteLine($"BrowserIndex -1");
             }
-           
+
 
 
         }
@@ -69,7 +70,7 @@ public partial class AddressCollectWindow : Window
 
     private readonly string dbIndexId;
 
-    
+
 
 
 
@@ -79,7 +80,7 @@ public partial class AddressCollectWindow : Window
         Groups.ItemsSource = groups;
         //打开数据库连接
 
-        
+
         //LoadBrowserInfo();
 
         BrowserCombobox.ItemsSource = browserInfos;
@@ -99,16 +100,16 @@ public partial class AddressCollectWindow : Window
             {
                 Protocol = "Http://",
                 Index = -1
-                
+
             };
-           
+
             this.DataContext = tempTag;
         }
 
 
 
     }
-    private DbClass dbClass;
+
     ObservableCollection<string> groups = new ObservableCollection<string>();
 
     /// <summary>
@@ -118,7 +119,7 @@ public partial class AddressCollectWindow : Window
     {
         groups.Clear();
 
-        string query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL;";
+        string query = $"SELECT DISTINCT  TypeGroup  FROM Bookmark  WHERE Del != 0 OR Del IS NULL;";
 
 
 
@@ -126,7 +127,7 @@ public partial class AddressCollectWindow : Window
 
         foreach (var row in rows)
         {
-             groups.Add(row["TypeGroup"].ToString());
+            groups.Add(row["TypeGroup"].ToString());
         }
 
 
@@ -155,7 +156,7 @@ public partial class AddressCollectWindow : Window
 
         foreach (var row in rows)
         {
-                        index++;
+            index++;
             BrowserInfoViewModel info = new BrowserInfoViewModel();
 
             info.Index = index;
@@ -170,7 +171,7 @@ public partial class AddressCollectWindow : Window
 
 
         BrowserCombobox.ItemsSource = browserInfos;
-       
+
 
     }
 
@@ -188,8 +189,8 @@ public partial class AddressCollectWindow : Window
 
         if (index != -1)
         {
-          
-            DeleteDialogHost.IsOpen = true;
+
+            CollectDeleteDialogHost.IsOpen = true;
 
 
         }
@@ -209,7 +210,7 @@ public partial class AddressCollectWindow : Window
     {
         int index = Groups.SelectedIndex;
         string group = groups[index];
-        string sql = $"UPDATE  \"Index\" SET \"Del\"='0' WHERE \"Group\" = '{group}'";
+        string sql = $"UPDATE  Bookmark  SET Del='0' WHERE TypeGroup = '{group}'";
 
         GlobalVariables.DbService.ExecuteNonQuery(sql);
         Reject_OnClick(null, null);
@@ -220,7 +221,7 @@ public partial class AddressCollectWindow : Window
     {
         // 直接调用 DialogHost 的 IsOpen 属性来打开对话框
         // 打开对话框
-        DeleteDialogHost.IsOpen = false;
+        CollectDeleteDialogHost.IsOpen = false;
     }
 
     private async void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -254,7 +255,7 @@ public partial class AddressCollectWindow : Window
                     };
 
                     // 显示对话框
-                    await DialogHost.Show(dialog, "MessageDialogHost");
+                    await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
                 }
                 else
@@ -266,10 +267,30 @@ public partial class AddressCollectWindow : Window
                         browser = browserInfos[BrowserCombobox.SelectedIndex].Path;
                     }
 
-                    string sql = $"UPDATE \"Bookmark\" SET \"TypeGroup\" =  '{Groups.Text}',\"Name\" = '{Name.Text}', \"Protocol\" = '{Protocol.Text}',\"Host\" = '{Host.Text}',\"Port\" = '{Port.Text}',\"Color\" = '{IndexColor.SelectedIndex}' ,\"Browser\" = '{browser}' WHERE  \"IndexId\"='{dbIndexId}'";
-                    
+                    var bookmarkInfo = new ViewModels.DatabaseEntity.Bookmark.BookmarkViewModel
+                    {
+                        IndexId=  dbIndexId ,
+                        TypeGroup = Groups.Text,
+                        Name = Name.Text,
+                        Protocol = Protocol.Text,
+                        Host = Host.Text,
+                        Port = Port.Text,
+                        Color = IndexColor.SelectedIndex,
+                        Browser = browser
+                    };
 
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    var conditions = new { IndexId = $"{dbIndexId}" };
+
+
+                    GlobalVariables.DbService.UpdateEntity("Bookmark", bookmarkInfo, conditions);
+
+
+
+
+                    //string sql = $"UPDATE Bookmark  SET TypeGroup =  '{Groups.Text}',Name = '{Name.Text}', Protocol = '{Protocol.Text}',Host = '{Host.Text}',Port = '{Port.Text}',Color = '{IndexColor.SelectedIndex}' ,Browser = '{browser}' WHERE  IndexId='{dbIndexId}'";
+
+
+                    //GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
@@ -292,7 +313,7 @@ public partial class AddressCollectWindow : Window
                 };
 
                 // 显示对话框
-                await DialogHost.Show(dialog, "MessageDialogHost");
+                await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
 
             }
@@ -326,20 +347,20 @@ public partial class AddressCollectWindow : Window
                     };
 
                     // 显示对话框
-                    await DialogHost.Show(dialog, "MessageDialogHost");
+                    await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
                 }
                 else
                 {
                     string browser = "";
-                    if (BrowserCombobox.SelectedIndex!=-1)
+                    if (BrowserCombobox.SelectedIndex != -1)
                     {
-                         browser = browserInfos[BrowserCombobox.SelectedIndex].Path;
+                        browser = browserInfos[BrowserCombobox.SelectedIndex].Path;
                     }
 
                     string group = Groups.Text;
 
-                    string sql2 = $"SELECT COUNT(*) FROM Bookmark WHERE \"TypeGroup\" = '{group}' AND \"Del\"='0'";
+                    string sql2 = $"SELECT COUNT(*) FROM Bookmark WHERE TypeGroup = '{group}' AND Del='0'";
 
                     if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {
@@ -355,28 +376,39 @@ public partial class AddressCollectWindow : Window
                         };
 
                         // 显示对话框
-                      bool result = (bool)await DialogHost.Show(dialog, "MessageDialogHost");
+                        bool result = (bool)await DialogHost.Show(dialog, "MessageDialogHost");
 
-                      if (result)
-                      {
-                          sql2 = $"UPDATE \"Bookmark\" SET \"Del\" = NULL WHERE \"TypeGroup\" = '{group}'";
-                         
-                          GlobalVariables.DbService.ExecuteNonQuery(sql2);
+                        if (result)
+                        {
+                            sql2 = $"UPDATE Bookmark SET Del = NULL WHERE TypeGroup = '{group}'";
+
+                            GlobalVariables.DbService.ExecuteNonQuery(sql2);
                         }
-                      else
-                      {
-                          return;
-                      }                
+                        else
+                        {
+                            return;
+                        }
 
 
                     }
 
-                    string indexId=  $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                    string indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+
+                    var bookmarkInfo = new ViewModels.DatabaseEntity.Bookmark.BookmarkViewModel
+                    {
+                        IndexId = indexId,
+                        TypeGroup = group,
+                        Name = Name.Text,
+                        Protocol = Protocol.Text,
+                        Host = Host.Text,
+                        Port = Port.Text,   
+                        Color = IndexColor.SelectedIndex,
+                        Browser = browser
+                    };
 
 
-                    string sql = $"INSERT INTO \"Bookmark\" (\"IndexId\",\"TypeGroup\", \"Name\", \"Protocol\", \"Host\", \"Port\", \"Color\", \"Browser\") VALUES ('{indexId}','{group}', '{Name.Text}', '{Protocol.Text}', '{Host.Text}', '{Port.Text}', '{IndexColor.SelectedIndex}','{browser}')";
-                   
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    GlobalVariables.DbService.InsertEntity("Bookmark", bookmarkInfo);
+
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
                     this.Close();
                 }
@@ -396,7 +428,7 @@ public partial class AddressCollectWindow : Window
                 };
 
                 // 显示对话框
-                await DialogHost.Show(dialog, "MessageDialogHost");
+                await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
 
             }

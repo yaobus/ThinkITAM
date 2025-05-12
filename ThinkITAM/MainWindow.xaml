@@ -91,7 +91,9 @@
                                             Margin="5,0"
                                             VerticalAlignment="Center"
                                             Opacity="0.5"
-                                            Text="{Binding Path}" />
+                                            Text="{Binding Path}"
+                                            ToolTip="{Binding Path}"
+                                            />
 
                                         <TextBlock
                                             Grid.Row="1"

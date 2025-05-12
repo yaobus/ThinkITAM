@@ -279,6 +279,82 @@ namespace ThinkITAM.DatabaseOperation
             return await connection.QuerySingleOrDefaultAsync<T>(sql, new { Id = id });
         }
 
+
+
+        // 根据自定义条件更新实体
+        public bool UpdateEntity<T>(string tableName, T entity, object conditions) where T : class
+        {
+            using var connection = CreateConnection();
+
+            var entityType = typeof(T);
+
+            // 获取实体中要更新的属性（排除主键）
+            var propertiesToUpdate = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                               .Where(p => p.CanRead && p.GetMethod != null && !IsKeyProperty(p))
+                                               .Select(p => $"`{p.Name}` = @{p.Name}")
+                                               .ToList();
+
+            if (!propertiesToUpdate.Any())
+                throw new InvalidOperationException("No updatable properties found in the entity.");
+
+            // 获取条件对象中的属性
+            var conditionProps = conditions.GetType().GetProperties();
+            var whereClauses = conditionProps.Select(p => $"`{p.Name}` = @{p.Name}_condition").ToList();
+
+            // 构建 SQL
+            var sql = $@"
+            UPDATE `{tableName}`
+            SET {string.Join(", ", propertiesToUpdate)}
+            WHERE {string.Join(" AND ", whereClauses)}";
+
+            // 使用 DynamicParameters 来合并参数
+            var parameters = new DynamicParameters(entity);
+            foreach (var prop in conditionProps)
+            {
+                parameters.Add($"{prop.Name}_condition", prop.GetValue(conditions));
+            }
+
+            return connection.Execute(sql, parameters) > 0;
+        }
+
+        public async Task<bool> UpdateEntityAsync<T>(string tableName, T entity, object conditions, CancellationToken cancellationToken = default) where T : class
+        {
+            using var connection = CreateConnection();
+
+            var entityType = typeof(T);
+
+            var propertiesToUpdate = entityType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                               .Where(p => p.CanRead && p.GetMethod != null && !IsKeyProperty(p))
+                                               .Select(p => $"`{p.Name}` = @{p.Name}")
+                                               .ToList();
+
+            if (!propertiesToUpdate.Any())
+                throw new InvalidOperationException("No updatable properties found in the entity.");
+
+            var conditionProps = conditions.GetType().GetProperties();
+            var whereClauses = conditionProps.Select(p => $"`{p.Name}` = @{p.Name}_condition").ToList();
+
+            var sql = $@"
+            UPDATE `{tableName}`
+            SET {string.Join(", ", propertiesToUpdate)}
+            WHERE {string.Join(" AND ", whereClauses)}";
+
+            var parameters = new DynamicParameters(entity);
+            foreach (var prop in conditionProps)
+            {
+                parameters.Add($"{prop.Name}_condition", prop.GetValue(conditions));
+            }
+
+            var rowsAffected = await connection.ExecuteAsync(sql, parameters);
+            return rowsAffected > 0;
+        }
+
+        private bool IsKeyProperty(PropertyInfo property)
+        {
+            return property.GetCustomAttributes(typeof(KeyAttribute), false).Any();
+        }
+
+
         #endregion
 
 

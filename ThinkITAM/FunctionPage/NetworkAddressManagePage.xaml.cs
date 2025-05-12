@@ -1024,8 +1024,9 @@ public partial class NetworkAddressManagePage : UserControl
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
 
-            string query = $"SELECT \r\n    {tableName}.*, \r\n    UserInfo.Name, \r\n    UserInfo.Organization, \r\n    UserInfo.Department, \r\n    UserInfo.UserGroup, \r\n    UserInfo.Phone,\r\n    Asset.AssetTag, \r\n    Asset.AssetNumber\r\nFROM \r\n    {tableName} \r\nLEFT JOIN \r\n    UserInfo \r\nON \r\n    {tableName}.User = UserInfo.UserId\r\nLEFT JOIN \r\n    Asset \r\nON \r\n    {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId;";
 
+            Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1764,10 +1765,15 @@ public partial class NetworkAddressManagePage : UserControl
 
                     if (countNum == 0)//判断端口是否已存在，不存在的情况
                     {
-                        string sql = $"INSERT INTO \"PortList\" (\"Port\") VALUES ({port})";
 
-                       GlobalVariables.DbService.ExecuteNonQuery(sql);
+                        var portInfo = new ViewModels.DatabaseEntity.Network.PortListViewModel()
+                        {
+                            Port = port
+                        };
 
+                        GlobalVariables.DbService.InsertEntity("PortList", portInfo);
+
+                        
                         DataBridge.DataBridge.SelectPort = port.ToString();
                         LoadPort();
                     }

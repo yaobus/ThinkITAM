@@ -129,10 +129,19 @@ namespace ThinkITAM.DatabaseOperation
         /// </summary>
         bool UpdateEntity<T>(string tableName, T entity) where T : class;
 
+
         /// <summary>
         /// 异步更新一条记录到指定的数据库表中
         /// </summary>
         Task<bool> UpdateEntityAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class;
+
+
+        // 同步版本
+        bool UpdateEntity<T>(string tableName, T entity, object conditions) where T : class;
+
+        // 异步版本
+        Task<bool> UpdateEntityAsync<T>(string tableName, T entity, object conditions, CancellationToken cancellationToken = default) where T : class;
+
 
         /// <summary>
         /// 查询所有记录

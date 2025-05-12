@@ -63,7 +63,6 @@ namespace ThinkITAM.FunctionPage
             if (query != null)
             {
 
-
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
                 foreach (var row in rows)
@@ -100,7 +99,6 @@ namespace ThinkITAM.FunctionPage
                     }
 
                     tagInfo.Color = colorIndex;
-
 
 
                     var item = tags.FirstOrDefault(item => item.IndexId == tagInfo.IndexId);
@@ -147,11 +145,11 @@ namespace ThinkITAM.FunctionPage
             string query;
             if (searchKeyWord.Replace(" ","").Length == 0)
             {
-                query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL;";
+                query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE Del != 0 OR Del IS NULL;";
             }
             else
             {
-                query = $"SELECT DISTINCT \"TypeGroup\" FROM \"Bookmark\" WHERE Del != 0 OR Del IS NULL AND \"Name\" LIKE '%{searchKeyWord}%';";
+                query = $"SELECT DISTINCT TypeGroup FROM Bookmark WHERE Del != 0 OR Del IS NULL AND Name LIKE '%{searchKeyWord}%';";
 
             }
 
@@ -195,12 +193,12 @@ namespace ThinkITAM.FunctionPage
 
                 if (kyeWord.Replace(" ", "").Length == 0)
                 {
-                    sql = $"SELECT * FROM \"Bookmark\" WHERE \"TypeGroup\"='{info.Group}'";
+                    sql = $"SELECT * FROM Bookmark WHERE TypeGroup='{info.Group}'";
                 }
                 else
                 {
 
-                    sql = $"SELECT * FROM \"Bookmark\" WHERE \"TypeGroup\"='{info.Group}' AND \"Name\" LIKE '%{SearchKeyWord.Text}%';";
+                    sql = $"SELECT * FROM Bookmark WHERE TypeGroup='{info.Group}' AND Name LIKE '%{SearchKeyWord.Text}%';";
 
                 }
 
@@ -325,7 +323,7 @@ namespace ThinkITAM.FunctionPage
             {
                 int index = GroupsListView.SelectedIndex;
                 string group = groups[index].Group;
-                string sql = $"UPDATE  \"Bookmark\" SET \"Del\"='0' WHERE \"TypeGroup\" = '{group}'";
+                string sql = $"UPDATE  Bookmark SET Del='0' WHERE TypeGroup = '{group}'";
                 await GlobalVariables.DbService.ExecuteQueryAsync(sql);
             }
 

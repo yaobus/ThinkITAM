@@ -9,6 +9,7 @@
     Title="将地址添加到收藏夹"
     Width="500"
     Height="580"
+    Style="{StaticResource MaterialDesignWindow}"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddressCollectWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -318,7 +319,7 @@
 
 
         <materialDesign:DialogHost
-            x:Name="DeleteDialogHost"
+            x:Name="CollectDeleteDialogHost"
             Grid.Row="0"
             d:Visibility="Collapsed"
             DialogClosed="DeleteDialogHost_OnDialogClosed"

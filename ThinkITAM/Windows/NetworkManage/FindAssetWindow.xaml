@@ -11,6 +11,7 @@
     Height="720"
     MinHeight="400"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Style="{StaticResource MaterialDesignWindow}"
     Loaded="FindAssetWindow_OnLoaded"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterOwner"
