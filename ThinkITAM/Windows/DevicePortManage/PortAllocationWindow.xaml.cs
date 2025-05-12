@@ -378,7 +378,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             string tagF = info.TagF;
             string assetId = DataBridge.DataBridge.LinkAssetId;
 
-            string sql = $"UPDATE \"{tableName}\" SET \"Status\" = {status}, \"Mode\" = '{mode}', \"PortName\" = '{portName}', \"VlanId\" = '{vlanId}',\"OnTheLine\" = '{onTheLine}', \"PortColor\" = '{portColor}', \"TagA\" = '{tagA}', \"TagB\" = '{tagB}', \"TagC\" = '{tagC}', \"TagD\" = '{tagD}', \"TagE\" = '{tagE}', \"TagF\" = '{tagF}' , \"AssetId\" = '{assetId}' WHERE  (\"PortTag\" = '{portTag}' AND \"PortSlotNumber\" = {portSlotNumber} AND \"PortId\" ='{portId}' AND \"PortType\" ='{portType}')";
+            string sql = $"UPDATE  {tableName}  SET  Status  = {status},  Mode  = '{mode}',  PortName  = '{portName}',  VlanId  = '{vlanId}', OnTheLine  = '{onTheLine}',  PortColor  = '{portColor}',  TagA  = '{tagA}',  TagB  = '{tagB}',  TagC  = '{tagC}',  TagD  = '{tagD}',  TagE  = '{tagE}',  TagF  = '{tagF}' ,  AssetId  = '{assetId}' WHERE  ( PortTag  = '{portTag}' AND  PortSlotNumber  = {portSlotNumber} AND  PortId  ='{portId}' AND  PortType  ='{portType}')";
            
             
             GlobalVariables.DbService.ExecuteNonQuery(sql);

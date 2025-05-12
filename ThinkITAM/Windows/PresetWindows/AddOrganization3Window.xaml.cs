@@ -67,10 +67,13 @@ public partial class AddOrganization3Window : Window
 
         if (num <= 0)
         {
-            string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\", \"Groups\") VALUES ('{organizationInfo}', '{departmentInfo}', '{groupsInfo}')";
+
+            var org = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo };
+
+            //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\", \"Groups\") VALUES ('{organizationInfo}', '{departmentInfo}', '{groupsInfo}')";
 
 
-            GlobalVariables.DbService.ExecuteNonQuery(sql);
+            GlobalVariables.DbService.InsertEntity("Organization", org);
             this.DialogResult = true;
             this.Close();
         }
@@ -90,7 +93,7 @@ public partial class AddOrganization3Window : Window
                 if (result == MessageBoxResult.Yes)
                 {
                     string sql2 =
-                        $"UPDATE \"Organization\" SET \"Note\" = '' WHERE Organization = '{organization}' AND  Department = '{department}' AND   Groups = '{groupsInfo}' ";
+                        $"UPDATE Organization SET Note = '' WHERE Organization = '{organization}' AND  Department = '{department}' AND   Groups = '{groupsInfo}' ";
  
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;

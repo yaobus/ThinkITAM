@@ -360,10 +360,22 @@ public partial class RackCreateGuideWindow : Window
 
         //第一步，写入机架信息到机架总表
 
-        string sql = $"INSERT INTO \"Racks\" (\"RackId\", \"CabinetId\", \"RackName\", \"RackNote\", \"SlotInfos\",  \"SlotCount\") VALUES ('{rackId}', '{cabinetId}', '{rackCreateInfos.rackName}', '{rackCreateInfos.rackNote}','{infos}', '{rackCreateInfos.slotCount}')";
+        var rackInfo = new ViewModels.DatabaseEntity.Link.RackViewModel()
+        {
+            RackId = rackId,
+            CabinetId = cabinetId,
+            RackName = rackCreateInfos.rackName,
+            RackNote = rackCreateInfos.rackNote,
+            SlotInfos = infos,
+            SlotCount = rackCreateInfos.slotCount
+        };
 
 
-        GlobalVariables.DbService.ExecuteNonQuery(sql);
+        //string sql = $"INSERT INTO \"Racks\" (\"RackId\", \"CabinetId\", \"RackName\", \"RackNote\", \"SlotInfos\",  \"SlotCount\") VALUES ('{rackId}', '{cabinetId}', '{rackCreateInfos.rackName}', '{rackCreateInfos.rackNote}','{infos}', '{rackCreateInfos.slotCount}')";
+
+
+        //插入机架总表
+        GlobalVariables.DbService.InsertEntity("Racks", rackInfo);
 
         //第二步，创建机架设备表
 
@@ -377,10 +389,19 @@ public partial class RackCreateGuideWindow : Window
 
             for (int i = 1; i < slot.PortCount + 1; i++)
             {
-                string sql2 = $"INSERT INTO \"Ra_{rackStr1}\" (\"UID\",\"SlotId\",\"PortId\",\"PortType\") VALUES ({uid},{slot.SlotIndex}, {i},'{slot.SlotType}')";
+                var rackPortInfo = new ViewModels.DatabaseEntity.Link.RackTableViewModel()
+                {
+                    UID = uid,
+                    SlotId = slot.SlotIndex,
+                    PortId = i.ToString(),
+                    PortType = slot.SlotType
+                };
 
-               
-                GlobalVariables.DbService.ExecuteNonQuery(sql2);
+
+                //string sql2 = $"INSERT INTO \"Ra_{rackStr1}\" (\"UID\",\"SlotId\",\"PortId\",\"PortType\") VALUES ({uid},{slot.SlotIndex}, {i},'{slot.SlotType}')";
+
+                GlobalVariables.DbService.InsertEntity($"Ra_{rackStr1}", rackPortInfo);
+                // GlobalVariables.DbService.ExecuteNonQuery(sql2);
 
                 uid++;
             }

@@ -9,10 +9,10 @@
     Title="将地址添加到收藏夹"
     Width="500"
     Height="580"
-    Style="{StaticResource MaterialDesignWindow}"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddressCollectWindow_OnLoaded"
     ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Grid>

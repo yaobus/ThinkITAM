@@ -82,6 +82,11 @@ namespace ThinkITAM.ViewModels.AssetManage
 
         public string? UserDepartment { get; set; } //责任人部门
 
+        public string? UserGroup
+        {
+            get; set;
+        } //责任人群组
+
         public string? User { get; set; } // 责任人
 
         public string? UserPhone { get; set; } //责任人电话

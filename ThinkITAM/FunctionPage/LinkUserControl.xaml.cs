@@ -817,7 +817,7 @@ namespace ThinkITAM.FunctionPage
                 ObservableCollection<PortClass> ports = new ObservableCollection<PortClass>();
 
                 //2.1，读取该槽位全部号信息
-                string query = $"SELECT * FROM ra_{rackId} WHERE SlotId = {slotIndex};";
+                string query = $"SELECT * FROM Ra_{rackId} WHERE SlotId = {slotIndex};";
 
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);

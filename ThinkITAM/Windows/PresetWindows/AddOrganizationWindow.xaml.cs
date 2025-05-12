@@ -66,10 +66,12 @@ public partial class AddOrganizationWindow : Window
 
         if (num <= 0)
         {
-            string sql = $"INSERT INTO  \"Organization\" (\"Organization\") VALUES ('{organizationInfo}')";
+            var org = new { Organization = organizationInfo };
 
-     
-            GlobalVariables.DbService.ExecuteNonQuery(sql);
+            //string sql = $"INSERT INTO  \"Organization\" (\"Organization\") VALUES ('{organizationInfo}')";
+
+            GlobalVariables.DbService.InsertEntity("Organization", org);
+            //GlobalVariables.DbService.ExecuteNonQuery(sql);
             this.DialogResult = true;
             this.Close();
         }
@@ -86,8 +88,7 @@ public partial class AddOrganizationWindow : Window
                 var result = MessageBox.Show($"当前添加的{organization}，在数据库中已被标记为删除，是否进行恢复？", "请注意", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    string sql2 =
-                        $"UPDATE \"Organization\" SET \"Note\" = '' WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '') AND Note = '0'";
+                    string sql2 = $"UPDATE Organization SET Note = '' WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '') AND Note = '0'";
        
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;

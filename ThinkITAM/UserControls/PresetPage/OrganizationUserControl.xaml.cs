@@ -165,7 +165,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 {
                     string name2 = departmentInfos[TowListView.SelectedIndex].Department;
 
-                    string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (Groups  NOT NULL OR Groups != '')  {sqlsub}";
+                    string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (Groups IS NOT NULL OR Groups != '')  {sqlsub}";
 
                    
 
@@ -270,7 +270,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             departmentInfos.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization ='{organization}' AND(Department NOT NULL OR Department !='') AND (Groups IS NULL OR Groups = '')  {sqlsub}";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization ='{organization}' AND(Department IS NOT NULL OR Department !='') AND (Groups IS NULL OR Groups = '')  {sqlsub}";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -302,7 +302,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             groupsInfos.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization ='{organization}' AND Department='{department}' AND (Groups NOT NULL OR Groups != '')  {sqlsub}";
+            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization ='{organization}' AND Department='{department}' AND (Groups IS NOT NULL OR Groups != '')  {sqlsub}";
 
             Console.WriteLine(query);
 

@@ -27,6 +27,7 @@ using System.Reflection.Emit;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.DevicePortManage;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using System.Security.Cryptography;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -665,13 +666,35 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                 if (countNum == 0)
                 {
+                    var deviceInfo = new ViewModels.DatabaseEntity.Device.DeviceViewModel()
+                    {
+                        AssetId = assetId,
+                        AssetNumber = assetNumber,
+                        AssetType    = assetType,
+                        Model = model,
+                        Description = description,
+                        User = user,
+                        UserPhone = userPhone,
+                        EnableDate = enableDate,
+                        UseDepartment = userDepartment,
+                        Address = address,
+                        TagA = tagA,
+                        TagB = tagB,
+                        TagC = tagC,
+                        TagD = tagD,
+                        TagE = tagE,
+                        TagF = tagF
 
-                    string sql =
-                        $"INSERT INTO \"Devices\" (\"AssetId\", \"AssetNumber\", \"AssetType\", \"DeviceType\", \"Model\",\"Description\", \"User\", \"UserPhone\", \"EnableDate\", \"UseDepartment\", \"Address\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}', '{assetNumber}', '{assetType}', '{deviceType}', '{model}','{description}', '{user}', '{userPhone}', '{enableDate}', '{userDepartment}', '{address}', '{tagA}', '{tagB}', '{tagC}', '{tagD}', '{tagE}', '{tagF}')";
+                    };
+
+
+                    //string sql =
+                    //    $"INSERT INTO \"Devices\" (\"AssetId\", \"AssetNumber\", \"AssetType\", \"DeviceType\", \"Model\",\"Description\", \"User\", \"UserPhone\", \"EnableDate\", \"UseDepartment\", \"Address\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}', '{assetNumber}', '{assetType}', '{deviceType}', '{model}','{description}', '{user}', '{userPhone}', '{enableDate}', '{userDepartment}', '{address}', '{tagA}', '{tagB}', '{tagC}', '{tagD}', '{tagE}', '{tagF}')";
 
                     //插入设备信息到总表
-                   
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                    GlobalVariables.DbService.InsertEntity("Devices", deviceInfo);
+
                    
                     //创建设备信息详表
                     DbClass.CreateDynamicsTableIfNotExists(assetId,2);
@@ -734,10 +757,21 @@ namespace ThinkITAM.Windows.DevicePortManage
                 {
                     string portId = $"{info.PortPrefix}{i}";
 
-                    string sql = $"INSERT INTO \"{table}\" (\"UID\",\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{uid}','{portType}','{portTag}',{portSlotNumber} ,'{portId}', 0)";
+                    var port = new
+                    {
+                        UID = uid,
+                        PortType = portType,
+                        PortTag = portTag,
+                        PortSlotNumber = portSlotNumber,
+                        PortId = portId,
+                        Status = 0
+                    };
 
-                   
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                    //string sql = $"INSERT INTO \"{table}\" (\"UID\",\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{uid}','{portType}','{portTag}',{portSlotNumber} ,'{portId}', 0)";
+
+
+                    GlobalVariables.DbService.InsertEntity(table, port);
                     uid++;
                 }
 

@@ -357,6 +357,7 @@ namespace ThinkITAM.FunctionPage
                 item.Location = row["Location"].ToString();
                 item.UserOrganization = row["UserOrganization"].ToString();
                 item.UserDepartment = row["UserDepartment"].ToString();
+                item.UserGroup = row["UserGroup"].ToString();
                 item.User = row["User"].ToString();
                 item.UserPhone = row["UserPhone"].ToString();
                 item.Consumer = row["Consumer"].ToString();

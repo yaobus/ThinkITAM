@@ -369,8 +369,8 @@ public partial class AddAssetWindow : Window
         if (UserOrganization.SelectedIndex != -1)
         {
             departmentInfo.Clear();
-
-            string query = $"SELECT  Department FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}';";
+            
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}';";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -396,6 +396,8 @@ public partial class AddAssetWindow : Window
 
 
 
+    private ObservableCollection<string> userGroups = new ObservableCollection<string>();
+
     /// <summary>
     /// 部门被选择
     /// </summary>
@@ -403,11 +405,41 @@ public partial class AddAssetWindow : Window
     /// <param name="e"></param>
     private void UserDepartment_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+
+
         if (UserDepartment.SelectedIndex != -1)
+        {
+            userGroups.Clear();
+
+            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}' AND Department ='{departmentInfo[UserDepartment.SelectedIndex].ToString()}';";
+            
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            foreach (var row in rows)
+            {
+                userGroups.Add(row["Groups"].ToString());
+            }
+
+
+            UserGroup.ItemsSource = userGroups;
+        }
+        else
+        {
+            userGroups.Clear();
+        }
+
+    }
+
+
+    private void UserGroup_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+
+        if (UserGroup.SelectedIndex != -1)
         {
             peopleInfo.Clear();
 
-            string query = $"SELECT * FROM UserInfo WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}' AND Department='{departmentInfo[UserDepartment.SelectedIndex].ToString()}';";
+            string query = $"SELECT * FROM UserInfo WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}' AND Department='{departmentInfo[UserDepartment.SelectedIndex].ToString()}' AND UserGroup ='{userGroups[UserGroup.SelectedIndex]}';";
 
             //Console.WriteLine(query);
 
@@ -415,7 +447,7 @@ public partial class AddAssetWindow : Window
 
             foreach (var row in rows)
             {
-                                var info = new PeopleViewModel();
+                var info = new PeopleViewModel();
 
                 info.Name = row["Name"].ToString();
                 info.Phone = row["Phone"].ToString();
@@ -495,14 +527,50 @@ public partial class AddAssetWindow : Window
             //判断是新建模式还是编辑模式
             if (editMode == 1)//进入编辑模式
             {
+                var assetEntity = new ViewModels.DatabaseEntity.Asset.AssetViewModel()
+                {
+                    AssetId = assetInfo.AssetId,
+                    AssetQrCode = assetInfo.AssetQrCode,
+                    AssetType = AssetType.Text,
+                    DeviceType = DeviceType.Text,
+                    AssetTag = AssetTag.Text,
+                    AssetNumber = Convert.ToInt32(AssetNumber.Text),
+                    PurchaseDate = BuyDate.SelectedDate.ToString(),
+                    PurchasePrice = Price.Text,
+                    Manufacturer = Maker.Text,
+                    Model = Model.Text,
+                    SerialNumber = SerialNumber.Text,
+                    Configuration = Parameter.Text,
+                    Location = PresetAddress.Text,
+                    UserOrganization = UserOrganization.Text,
+                    UserDepartment = UserDepartment.Text,
+                    UserGroup = UserGroup.Text,
+                    User = AssignedTo.Text,
+                    UserPhone = Phone.Text,
+                    Consumer = Consumer.Text,
+                    Status =AssetStatus.Text,
+                    UsedYear = ServiceLife.Text,
+                    ScrapDate = ScrapDate.SelectedDate.ToString(),
+                    Notes = Description.Text,
+                    TagA = TagA.Text,
+                    TagB = TagB.Text,
+                    TagC = TagC.Text,
+                    TagD = TagD.Text,
+                    TagE = TagE.Text,
+                    TagF = TagF.Text,
+
+                };
 
 
-                string sql = $"UPDATE \"Asset\" SET  \"AssetType\" = '{AssetType.Text}',\r\n    \"DeviceType\" = '{DeviceType.Text}',\r\n    \"AssetTag\" = '{AssetTag.Text}',\r\n    \"AssetNumber\" = {Convert.ToInt32(AssetNumber.Text)},\r\n    \"PurchaseDate\" = '{BuyDate.SelectedDate.ToString()}',\r\n    \"PurchasePrice\" = '{Price.Text}',\r\n    \"Manufacturer\" = '{Maker.Text}',\r\n    \"Model\" = '{Model.Text}',\r\n    \"SerialNumber\" = '{SerialNumber.Text}',\r\n    \"Configuration\" = '{Parameter.Text}',\r\n    \"Location\" = '{PresetAddress.Text}',\r\n    \"UserOrganization\" = '{UserOrganization.Text}',\r\n    \"UserDepartment\" = '{UserDepartment.Text}',\r\n    \"User\" = '{AssignedTo.Text}',\r\n    \"UserPhone\" = '{Phone.Text}',\r\n    \"Consumer\" = '{Consumer.Text}',\r\n    \"Status\" = '{AssetStatus.Text}',\r\n    \"UsedYear\" = '{ServiceLife.Text}',\r\n    \"ScrapDate\" = '{ScrapDate.SelectedDate.ToString()}',\r\n    \"Notes\" = '{Description.Text}',\r\n    \"TagA\" = '{TagA.Text}',\r\n    \"TagB\" = '{TagB.Text}',\r\n    \"TagC\" = '{TagC.Text}',\r\n    \"TagD\" = '{TagD.Text}',\r\n    \"TagE\" = '{TagE.Text}',\r\n    \"TagF\" = '{TagF.Text}'\r\nWHERE\r\n    \"AssetId\" = '{assetInfo.AssetId}';";
+                var conditions = new {AssetId = assetInfo.AssetId };
 
+
+                //string sql = $"UPDATE \"Asset\" SET  \"AssetType\" = '{AssetType.Text}',\r\n    \"DeviceType\" = '{DeviceType.Text}',\r\n    \"AssetTag\" = '{AssetTag.Text}',\r\n    \"AssetNumber\" = {Convert.ToInt32(AssetNumber.Text)},\r\n    \"PurchaseDate\" = '{BuyDate.SelectedDate.ToString()}',\r\n    \"PurchasePrice\" = '{Price.Text}',\r\n    \"Manufacturer\" = '{Maker.Text}',\r\n    \"Model\" = '{Model.Text}',\r\n    \"SerialNumber\" = '{SerialNumber.Text}',\r\n    \"Configuration\" = '{Parameter.Text}',\r\n    \"Location\" = '{PresetAddress.Text}',\r\n    \"UserOrganization\" = '{UserOrganization.Text}',\r\n    \"UserDepartment\" = '{UserDepartment.Text}',\r\n    \"User\" = '{AssignedTo.Text}',\r\n    \"UserPhone\" = '{Phone.Text}',\r\n    \"Consumer\" = '{Consumer.Text}',\r\n    \"Status\" = '{AssetStatus.Text}',\r\n    \"UsedYear\" = '{ServiceLife.Text}',\r\n    \"ScrapDate\" = '{ScrapDate.SelectedDate.ToString()}',\r\n    \"Notes\" = '{Description.Text}',\r\n    \"TagA\" = '{TagA.Text}',\r\n    \"TagB\" = '{TagB.Text}',\r\n    \"TagC\" = '{TagC.Text}',\r\n    \"TagD\" = '{TagD.Text}',\r\n    \"TagE\" = '{TagE.Text}',\r\n    \"TagF\" = '{TagF.Text}'\r\nWHERE\r\n    \"AssetId\" = '{assetInfo.AssetId}';";
+
+
+                GlobalVariables.DbService.UpdateEntity("Asset", assetEntity,conditions);
                
-
-               
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                //GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
 
@@ -513,18 +581,55 @@ public partial class AddAssetWindow : Window
                 //创建资产ID
 
                 //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架
-                string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId( DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
 
                 //创建资产二维码,0为机房，1为机柜，2为设备
-                string qrCode = "ITAM:" +AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+                string qrCode = "ITAM:" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
-                string sql =
-                    $"INSERT INTO \"Asset\" (\"AssetId\",\"AssetQrCode\",\"AssetType\", \"DeviceType\", \"AssetTag\", \"AssetNumber\", \"PurchaseDate\", \"PurchasePrice\", \"Manufacturer\", \"Model\", \"SerialNumber\", \"Configuration\", \"Location\", \"UserOrganization\", \"UserDepartment\", \"User\", \"UserPhone\", \"Consumer\", \"Status\", \"UsedYear\", \"ScrapDate\", \"Notes\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}','{qrCode}','{AssetType.Text}', '{DeviceType.Text}', '{AssetTag.Text}', {Convert.ToInt32(AssetNumber.Text)}, '{BuyDate.SelectedDate.ToString()}', '{Price.Text}', '{Maker.Text}', '{Model.Text}', '{SerialNumber.Text}', '{Parameter.Text}', '{PresetAddress.Text}', '{UserOrganization.Text}', '{UserDepartment.Text}', '{AssignedTo.Text}', '{Phone.Text}', '{Consumer.Text}', '{AssetStatus.Text}', '{ServiceLife.Text}', '{ScrapDate.SelectedDate.ToString()}', '{Description.Text}', '{TagA.Text}', '{TagB.Text}', '{TagC.Text}', '{TagD.Text}', '{TagE.Text}', '{TagF.Text}')";
 
-              
 
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                var assetEntity = new ViewModels.DatabaseEntity.Asset.AssetViewModel()
+                {
+                    AssetId = assetId,
+                    AssetQrCode = qrCode,
+                    AssetType = AssetType.Text,
+                    DeviceType = DeviceType.Text,
+                    AssetTag = AssetTag.Text,
+                    AssetNumber = Convert.ToInt32(AssetNumber.Text),
+                    PurchaseDate = BuyDate.SelectedDate.ToString(),
+                    PurchasePrice = Price.Text,
+                    Manufacturer = Maker.Text,
+                    Model = Model.Text,
+                    SerialNumber = SerialNumber.Text,
+                    Configuration = Parameter.Text,
+                    Location = PresetAddress.Text,
+                    UserOrganization = UserOrganization.Text,
+                    UserDepartment = UserDepartment.Text,
+                    UserGroup = UserGroup.Text,
+                    User = AssignedTo.Text,
+                    UserPhone = Phone.Text,
+                    Consumer = Consumer.Text,
+                    Status = AssetStatus.Text,
+                    UsedYear = ServiceLife.Text,
+                    ScrapDate = ScrapDate.SelectedDate.ToString(),
+                    Notes = Description.Text,
+                    TagA = TagA.Text,
+                    TagB = TagB.Text,
+                    TagC = TagC.Text,
+                    TagD = TagD.Text,
+                    TagE = TagE.Text,
+                    TagF = TagF.Text,
+
+                };
+
+
+                //string sql =
+                //   $"INSERT INTO \"Asset\" (\"AssetId\",\"AssetQrCode\",\"AssetType\", \"DeviceType\", \"AssetTag\", \"AssetNumber\", \"PurchaseDate\", \"PurchasePrice\", \"Manufacturer\", \"Model\", \"SerialNumber\", \"Configuration\", \"Location\", \"UserOrganization\", \"UserDepartment\", \"User\", \"UserPhone\", \"Consumer\", \"Status\", \"UsedYear\", \"ScrapDate\", \"Notes\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}','{qrCode}','{AssetType.Text}', '{DeviceType.Text}', '{AssetTag.Text}', {Convert.ToInt32(AssetNumber.Text)}, '{BuyDate.SelectedDate.ToString()}', '{Price.Text}', '{Maker.Text}', '{Model.Text}', '{SerialNumber.Text}', '{Parameter.Text}', '{PresetAddress.Text}', '{UserOrganization.Text}', '{UserDepartment.Text}', '{AssignedTo.Text}', '{Phone.Text}', '{Consumer.Text}', '{AssetStatus.Text}', '{ServiceLife.Text}', '{ScrapDate.SelectedDate.ToString()}', '{Description.Text}', '{TagA.Text}', '{TagB.Text}', '{TagC.Text}', '{TagD.Text}', '{TagE.Text}', '{TagF.Text}')";
+
+                GlobalVariables.DbService.InsertEntity("Asset", assetEntity);
+
+                //GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
 
 
@@ -592,6 +697,7 @@ public partial class AddAssetWindow : Window
 
         return (index, message);
     }
+
 
 
 }

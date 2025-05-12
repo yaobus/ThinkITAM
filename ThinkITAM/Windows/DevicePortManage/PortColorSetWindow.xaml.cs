@@ -134,7 +134,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             string tagF = info.TagF;
             string assetId = DataBridge.DataBridge.LinkAssetId;
 
-            string sql = $"UPDATE \"{tableName}\" SET \"Status\" = {status}, \"Mode\" = '{mode}', \"PortName\" = '{portName}', \"VlanId\" = '{vlanId}', \"OnTheLine\" = '{onTheLine}', \"PortColor\" = '{portColor}', \"TagA\" = '{tagA}', \"TagB\" = '{tagB}', \"TagC\" = '{tagC}', \"TagD\" = '{tagD}', \"TagE\" = '{tagE}', \"TagF\" = '{tagF}' , \"AssetId\" = '{assetId}' WHERE  (\"UID\" = '{portInfo.UID}' )";
+            string sql = $"UPDATE  {tableName}  SET  Status  = {status},  Mode  = '{mode}',  PortName  = '{portName}',  VlanId  = '{vlanId}',  OnTheLine  = '{onTheLine}',  PortColor  = '{portColor}',  TagA  = '{tagA}',  TagB  = '{tagB}',  TagC  = '{tagC}',  TagD  = '{tagD}',  TagE  = '{tagE}',  TagF  = '{tagF}' ,  AssetId  = '{assetId}' WHERE  ( UID  = '{portInfo.UID}' )";
 
        
             GlobalVariables.DbService.ExecuteNonQuery(sql);
