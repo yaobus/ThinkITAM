@@ -128,7 +128,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
 
                 CabinetClass info = new CabinetClass();
                 info.Index = index;

@@ -19,64 +19,57 @@
         <converters:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
 
 
-        <LinearGradientBrush x:Key="AnimatedBrush"
-                             StartPoint="0 0"
-                             EndPoint="1 0">
-            <GradientStop Color="#6366f1"
-                          Offset="0" />
-            <GradientStop Color="#a855f7"
-                          Offset="0.5" />
-            <GradientStop Color="#ec4899"
-                          Offset="1" />
+        <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
+            <GradientStop Offset="0" Color="#00FFFF" />
+            <GradientStop Offset="0.5" Color="#FFFF00" />
+            <GradientStop Offset="1" Color="#FF0000" />
         </LinearGradientBrush>
+        <Storyboard x:Key="AnimateBorder" RepeatBehavior="Forever">
+            <!--  修改 StartPoint 和 EndPoint  -->
+            <PointAnimation
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="1 0"
+                Duration="0:0:2" />
 
-        <Border x:Key="AnimatedBorderPlaceholder"
-                BorderBrush="{StaticResource AnimatedBrush}" />
-
-        <Storyboard x:Key="AnimateBorder"
-                    RepeatBehavior="Forever">
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="1 0" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="1 1"
-                            BeginTime="0:0:2" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="0 1"
-                            BeginTime="0:0:4" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="0 0"
-                            BeginTime="0:0:6" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="1 1" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="0 1"
-                            BeginTime="0:0:2" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="0 0"
-                            BeginTime="0:0:4" />
-            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
-                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
-                            Duration="0:0:2"
-                            To="1 0"
-                            BeginTime="0:0:6" />
+            <PointAnimation
+                BeginTime="0:0:2"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="1 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:4"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="0 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:6"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="0 0"
+                Duration="0:0:2" />
+            <PointAnimation
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="1 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:2"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="0 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:4"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="0 0"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:6"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="1 0"
+                Duration="0:0:2" />
         </Storyboard>
 
-
     </UserControl.Resources>
+
+
 
 
 
@@ -105,7 +98,7 @@
                 d:Background="DarkCyan"
                 d:BorderThickness="3"
                 Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
-                BorderBrush="{StaticResource AnimatedBorderPlaceholder}"
+                BorderBrush="{StaticResource AnimatedBrush}"
                 BorderThickness="{Binding IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}, Mode=TwoWay}"
                 Click="AddressButton_Click"
                 IsEnabled="{Binding AddressType}"
@@ -120,20 +113,26 @@
                     </ContextMenu>
                 </Button.ContextMenu>
 
-
-
-                <!-- 扩展现有的样式并添加新的触发器 -->
                 <Button.Style>
-                    <Style BasedOn="{StaticResource MaterialDesignFlatMidBgButton}" TargetType="Button">
+                    <!--  继承 MaterialDesignFlatLightButton 并扩展触发器  -->
+                    <Style BasedOn="{StaticResource MaterialDesignFlatLightButton}" TargetType="Button">
+                        <!--  保留 Material Design 的默认属性  -->
+                        <Setter Property="BorderBrush" Value="{StaticResource AnimatedBrush}" />
+                        <!--  确保动画画刷优先级  -->
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <!--  当 IsSelected 为 true 时启动动画  -->
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                 <DataTrigger.EnterActions>
-                                    <BeginStoryboard Name="AnimateBorder" Storyboard="{StaticResource AnimateBorder}" />
+                                    <BeginStoryboard Name="AnimateBorderStoryboard" Storyboard="{StaticResource AnimateBorder}" />
                                 </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="AnimateBorderStoryboard" />
+                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+
 
                 <Grid x:Name="AddressGrid" Width="50">
                     <Grid.RowDefinitions>

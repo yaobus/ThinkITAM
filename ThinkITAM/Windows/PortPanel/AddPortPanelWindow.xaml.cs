@@ -193,7 +193,7 @@ namespace ThinkITAM.Windows.PortPanel
         {
             floorInfos.Clear();
 
-            string sql = $"SELECT DISTINCT SlotId FROM bu_{buildingId}";
+            string sql = $"SELECT DISTINCT SlotId FROM Bu_{buildingId}";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -240,7 +240,7 @@ namespace ThinkITAM.Windows.PortPanel
         {
             roomIds.Clear();
             string sql =
-                $"SELECT DISTINCT RoomId FROM bu_{DataBridge.DataBridge.SelectBuildingId}  WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}'";
+                $"SELECT DISTINCT RoomId FROM Bu_{DataBridge.DataBridge.SelectBuildingId}  WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}'";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -341,7 +341,7 @@ namespace ThinkITAM.Windows.PortPanel
                 foreach (var port in portList)
                 {
                     //先看端口是否存在
-                    string sqlTemp =$"SELECT COUNT(*) FROM bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
+                    string sqlTemp =$"SELECT COUNT(*) FROM Bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
                     var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
                     string message ="以下端口已存在,该端口将不会被添加:\r";

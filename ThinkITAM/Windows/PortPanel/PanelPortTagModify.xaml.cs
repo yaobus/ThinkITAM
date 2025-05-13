@@ -37,8 +37,6 @@ namespace ThinkITAM.Windows.PortPanel
         private void PanelPortTagModify_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-
-
             TitleTextBlock.Text = port.PortIndex;
             TagTextBox.Text = port.PortTag;
 
@@ -53,7 +51,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string sql;
 
-                 sql = $"UPDATE \"Bu_{DataBridge.DataBridge.SelectBuildingId}\" SET \"PortTag\" = '{tag}' WHERE  UID = '{port.UID}' ";
+                 sql = $"UPDATE  Bu_{DataBridge.DataBridge.SelectBuildingId}  SET  PortTag  = '{tag}' WHERE  UID = '{port.UID}' ";
 
                 
                

@@ -10,9 +10,9 @@
     Width="1280"
     Height="720"
     MinHeight="400"
-    Background="#383838"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="FindUserWindow_OnLoaded"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
@@ -44,7 +44,6 @@
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
-                        Foreground="AliceBlue"
                         MaxDropDownHeight="300"
                         SelectionChanged="OrganizationBox_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -65,7 +64,6 @@
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
-                        Foreground="AliceBlue"
                         MaxDropDownHeight="300"
                         SelectionChanged="DepartmentBox_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -86,7 +84,6 @@
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
-                        Foreground="AliceBlue"
                         MaxDropDownHeight="300"
                         SelectionChanged="GroupBox_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -109,7 +106,6 @@
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="User"
-                        Foreground="AliceBlue"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     <Button
                         x:Name="SearchButton"
@@ -144,7 +140,6 @@
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Ticket"
-                        Foreground="AliceBlue"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
@@ -213,7 +208,6 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     FontSize="20"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Index}" />
 
                             </DataTemplate>
@@ -240,7 +234,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding UserNumber}" />
 
                             </DataTemplate>
@@ -267,7 +260,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Name}" />
 
                             </DataTemplate>
@@ -296,7 +288,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Organization}" />
 
                             </DataTemplate>
@@ -323,7 +314,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Department}" />
 
                             </DataTemplate>
@@ -350,7 +340,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Group}" />
 
                             </DataTemplate>
@@ -377,7 +366,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Phone}" />
 
                             </DataTemplate>
@@ -405,7 +393,6 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Foreground="AliceBlue"
                                     Text="{Binding Description}" />
 
                             </DataTemplate>

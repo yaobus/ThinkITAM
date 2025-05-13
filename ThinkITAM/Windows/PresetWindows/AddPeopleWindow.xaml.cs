@@ -60,13 +60,13 @@ public partial class AddPeopleWindow : Window
     {
         string query = "SELECT Content FROM CustomSetting WHERE Option='UserNumberPrefix';";
 
-        var prefix = GlobalVariables.DbService.ExecuteScalar(query).ToString();
+        var prefix = GlobalVariables.DbService.ExecuteScalar(query);
 
-        if (!string.IsNullOrWhiteSpace(prefix))
+        if (prefix != null)
         {
             UserNumberPrefix.Dispatcher.Invoke(() =>
                 {
-                    UserNumberPrefix.Text = prefix;
+                    UserNumberPrefix.Text = prefix.ToString();
                 });
         }
         else
@@ -102,7 +102,7 @@ public partial class AddPeopleWindow : Window
 
         foreach (var row in rows)
         {
-               usedNumbers.Add(Convert.ToInt32(row["Number"]));
+            usedNumbers.Add(Convert.ToInt32(row["Number"]));
         }
 
 
@@ -133,7 +133,7 @@ public partial class AddPeopleWindow : Window
 
         foreach (var row in rows)
         {
-             organizationInfo.Add(row["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
 
 
@@ -269,11 +269,11 @@ public partial class AddPeopleWindow : Window
 
         if (num <= 0)
         {
-            var info = new { Organization=organizationInfo,Department=departmentInfo };
+            var info = new { Organization = organizationInfo, Department = departmentInfo };
 
             //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
 
-   
+
             GlobalVariables.DbService.InsertEntity("Organization", info);
 
         }
@@ -284,7 +284,7 @@ public partial class AddPeopleWindow : Window
     private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _phone, string _note)
     {
 
-        string userId =$"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+        string userId = $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
         var name = _userName.Replace(" ", "");
         string number = _userNumber.Replace(" ", "");
@@ -332,7 +332,7 @@ public partial class AddPeopleWindow : Window
 
             foreach (var row in rows)
             {
-                 groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["Groups"].ToString());
             }
 
 
@@ -361,7 +361,7 @@ public partial class AddPeopleWindow : Window
 
             if (countNum == 0)//判断记录是否存在，不存在的情况
             {
-                var info = new { Option="UserNumberPrefix", Content=NameTextBox.Text };
+                var info = new { Option = "UserNumberPrefix", Content = NameTextBox.Text };
 
                 //string sql = $"INSERT INTO \"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
 
@@ -373,7 +373,7 @@ public partial class AddPeopleWindow : Window
             else//存在
             {
                 string sql = $"UPDATE  CustomSetting  SET  Content  = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
-                
+
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
             SavePrefixDialogHost.IsOpen = false;

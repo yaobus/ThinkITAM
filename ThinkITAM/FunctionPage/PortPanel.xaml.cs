@@ -233,7 +233,7 @@ namespace ThinkITAM.FunctionPage
 
         private void LoadRooms(string buildingId, string floor)
         {
-            string sql = $"SELECT DISTINCT RoomId FROM bu_{buildingId} WHERE  SlotId ='{floor}'";
+            string sql = $"SELECT DISTINCT RoomId FROM Bu_{buildingId} WHERE  SlotId ='{floor}'";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);

@@ -120,12 +120,6 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
 
                     <DataGrid
                         x:Name="RoomListView"
@@ -270,7 +264,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Text="{Binding Phone}" />
+                                            Text="{Binding UserPhone}" />
 
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -395,12 +389,7 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
+
 
                     <DataGrid
                         x:Name="CabinetListView"

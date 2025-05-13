@@ -543,7 +543,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 //Console.WriteLine(sql);
                 //异步执行
 
-                GlobalVariables.DbService.InsertEntity($"Net_{tableName}", info);
+                GlobalVariables.DbService.InsertEntityAsync($"Net_{tableName}", info);
             }
 
 

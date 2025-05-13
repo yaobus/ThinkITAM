@@ -104,34 +104,31 @@
             x:Name="MenuList"
             Grid.Column="0"
             Width="45"
+            Opacity="0.8"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             SelectionChanged="MenuList_OnSelectionChanged">
             <ListViewItem Margin="0,2">
 
-                <materialDesign:Card
-                    Width="200"
-                    Padding="0"
-                    Background="{DynamicResource PrimaryHueLightBrush}"
-                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
-
-                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                        <materialDesign:PackIcon
-                            x:Name="MenuIcon"
-                            Width="32"
-                            Height="32"
-                            VerticalAlignment="Center"
-                            Kind="MenuClose" />
-
-                        <TextBlock
-                            Margin="10"
-                            VerticalAlignment="Center"
-                            Text="{DynamicResource SwMenuSelect}" />
 
 
-                    </StackPanel>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-                </materialDesign:Card>
+                    <materialDesign:PackIcon
+                        x:Name="MenuIcon"
+                        Width="32"
+                        Height="32"
+                        VerticalAlignment="Center"
+                        Kind="MenuClose" />
+
+                    <TextBlock
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        Text="{DynamicResource SwMenuSelect}" />
+
+
+                </StackPanel>
+
+
 
             </ListViewItem>
 

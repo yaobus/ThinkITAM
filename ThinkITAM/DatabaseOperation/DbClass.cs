@@ -196,12 +196,16 @@ namespace ThinkITAM.DatabaseOperation
 
                 sql = $"SELECT Preset FROM ModelPreset WHERE Model = '{model}'";
 
-                var tag = GlobalVariables.DbService.ExecuteScalar(sql).ToString();
+                var tag = GlobalVariables.DbService.ExecuteScalar(sql);
 
-
-                return tag;
-
-
+                if (tag != null)
+                {
+                    return tag.ToString();
+                }
+                else
+                {
+                    return "";
+                }
 
             }
             else
@@ -376,10 +380,10 @@ namespace ThinkITAM.DatabaseOperation
         public static string StatisticsPortRoomFloor(string buildingId)
         {
 
-            string sql = $"SELECT COUNT(DISTINCT SlotId) FROM  'Bu_{buildingId}'";
+            string sql = $"SELECT COUNT(DISTINCT SlotId) FROM  Bu_{buildingId}";
             int floor = ExecuteScalarTableNum(sql);
-            int room = ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  'Bu_{buildingId}'");
-            int port = ExecuteScalarTableNum($"SELECT COUNT(*) FROM  'Bu_{buildingId}'");
+            int room = ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
+            int port = ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Bu_{buildingId}");
 
 
             return $"{floor}/{room}/{port}";
@@ -394,7 +398,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static int GetRoomForFloorCount(string buildingId, string floor)
         {
-            return ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  'Bu_{buildingId}'");
+            return ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
         }
 
         /// <summary>
@@ -405,7 +409,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static int GetPortForFloorCount(string buildingId, string floor)
         {
-            return ExecuteScalarTableNum($"SELECT COUNT(PortId) FROM  'Bu_{buildingId}' WHERE SlotId ='{floor}'");
+            return ExecuteScalarTableNum($"SELECT COUNT(PortId) FROM  Bu_{buildingId} WHERE SlotId ='{floor}'");
         }
 
         /// <summary>
@@ -432,9 +436,19 @@ namespace ThinkITAM.DatabaseOperation
         {
             string sql = $"SELECT Note FROM Notes WHERE NoteId ='{noteId}'";
 
+            var result = GlobalVariables.DbService.ExecuteScalar(sql);
 
-           return GlobalVariables.DbService.ExecuteScalar(sql).ToString();
 
+            if (result!=null)
+            {
+                return result.ToString();
+            }
+            else
+            {
+                return "";
+            }
+
+            
         }
 
 

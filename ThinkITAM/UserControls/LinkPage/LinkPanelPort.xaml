@@ -35,6 +35,57 @@
             <local:LC />
         </DataTemplate>
 
+        <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
+            <GradientStop Offset="0" Color="#00FFFF" />
+            <GradientStop Offset="0.5" Color="#FFFF00" />
+            <GradientStop Offset="1" Color="#FF0000" />
+        </LinearGradientBrush>
+
+        <Storyboard x:Key="AnimateBorder" RepeatBehavior="Forever">
+            <!--  修改 StartPoint 和 EndPoint  -->
+            <PointAnimation
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="1 0"
+                Duration="0:0:2" />
+
+            <PointAnimation
+                BeginTime="0:0:2"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="1 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:4"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="0 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:6"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                To="0 0"
+                Duration="0:0:2" />
+            <PointAnimation
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="1 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:2"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="0 1"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:4"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="0 0"
+                Duration="0:0:2" />
+            <PointAnimation
+                BeginTime="0:0:6"
+                Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                To="1 0"
+                Duration="0:0:2" />
+        </Storyboard>
+
+
+
     </UserControl.Resources>
 
     <UserControl.DataContext>
@@ -54,10 +105,30 @@
             Width="50"
             Height="50"
             Padding="0"
-            BorderBrush="SeaGreen"
+            d:BorderThickness="3"
+            BorderBrush="{StaticResource AnimatedBrush}"
             BorderThickness="{Binding PortClass.IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}}"
-            Click="PortButton_OnClick"
-            Style="{StaticResource MaterialDesignFlatLightButton}">
+            Click="PortButton_OnClick">
+            <Button.Style>
+                <!--  继承 MaterialDesignFlatLightButton 并扩展触发器  -->
+                <Style BasedOn="{StaticResource MaterialDesignFlatLightButton}" TargetType="Button">
+                    <!--  保留 Material Design 的默认属性  -->
+                    <Setter Property="BorderBrush" Value="{StaticResource AnimatedBrush}" />
+                    <!--  确保动画画刷优先级  -->
+                    <Style.Triggers>
+                        <!--  当 IsSelected 为 true 时启动动画  -->
+                        <DataTrigger Binding="{Binding PortClass.IsSelected}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Name="AnimateBorderStoryboard" Storyboard="{StaticResource AnimateBorder}" />
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="AnimateBorderStoryboard" />
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
 
             <Grid>
                 <TextBlock

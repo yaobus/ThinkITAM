@@ -114,7 +114,7 @@ namespace ThinkITAM.Windows.PortPanel
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
            
-            string sql = $"UPDATE \"Bu_{DataBridge.DataBridge.SelectBuildingId}\" SET \"PortColor\" = '{PortColor.SelectedIndex}' WHERE  UID='{port.UID}'";
+            string sql = $"UPDATE  Bu_{DataBridge.DataBridge.SelectBuildingId}  SET  PortColor  = '{PortColor.SelectedIndex}' WHERE  UID='{port.UID}'";
 
            
 

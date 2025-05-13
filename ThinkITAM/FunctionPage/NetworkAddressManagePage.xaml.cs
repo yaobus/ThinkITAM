@@ -575,7 +575,7 @@ public partial class NetworkAddressManagePage : UserControl
                 // 判断选择的项的类型
                 if (selectedNode is NetworkInfo)
                 {
-                    Console.WriteLine("小型网段");
+                    //Console.WriteLine("小型网段");
 
 
                     // 如果选择的是树节点类型，则处理树节点的逻辑
@@ -1024,7 +1024,7 @@ public partial class NetworkAddressManagePage : UserControl
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
 
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
             Console.WriteLine(query);
 
@@ -1162,7 +1162,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 

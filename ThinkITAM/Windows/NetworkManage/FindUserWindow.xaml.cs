@@ -136,13 +136,18 @@ namespace ThinkITAM.Windows.NetworkManage
             string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
 
 
-            var prefix = GlobalVariables.DbService.ExecuteScalar(query).ToString();
+            var prefix = GlobalVariables.DbService.ExecuteScalar(query);
 
-            return prefix;
+            if (prefix!=null)
+            {
+                 return prefix.ToString();
+            }
+            else
+            {
+                   return "";
+            }
 
-
-
-
+           
         }
 
 

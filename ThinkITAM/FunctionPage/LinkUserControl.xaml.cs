@@ -1486,7 +1486,7 @@ namespace ThinkITAM.FunctionPage
                 DbClass.CreateDynamicsTableIfNotExists($"{buildingId}", 1);
 
                 //取出建筑楼层信息
-                string sql = $"SELECT DISTINCT SlotId FROM bu_{buildingId}";
+                string sql = $"SELECT DISTINCT SlotId FROM Bu_{buildingId}";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
                 

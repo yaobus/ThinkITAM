@@ -37,7 +37,9 @@ namespace ThinkITAM.UserControls.IndexPage
             string url = $"{tagInfo.Protocol}{tagInfo.Host}";
             string browser = tagInfo.Browser;
 
-            if (tagInfo.Port.Length == 0)//未配置端口
+            
+
+            if (tagInfo.Port == null)//未配置端口
             {
                 tagInfo.Url = url;
             }
@@ -46,11 +48,13 @@ namespace ThinkITAM.UserControls.IndexPage
                 tagInfo.Url = $"{url}:{tagInfo.Port}";
             }
 
+           
+
             try
             {
                 if (browser != null && browser.Length > 0)//有指定浏览器
                 {
-                   Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(url, browser);
+                   Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
                 }
                 else
                 {

@@ -67,7 +67,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;

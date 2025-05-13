@@ -185,7 +185,7 @@
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Description}" />
+                                        Text="{Binding Note}" />
 
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
