@@ -17,7 +17,67 @@
         <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
         <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
         <converters:BoolToBorderThicknessConverter x:Key="BoolToBorderThicknessConverter" />
+
+
+        <LinearGradientBrush x:Key="AnimatedBrush"
+                             StartPoint="0 0"
+                             EndPoint="1 0">
+            <GradientStop Color="#6366f1"
+                          Offset="0" />
+            <GradientStop Color="#a855f7"
+                          Offset="0.5" />
+            <GradientStop Color="#ec4899"
+                          Offset="1" />
+        </LinearGradientBrush>
+
+        <Border x:Key="AnimatedBorderPlaceholder"
+                BorderBrush="{StaticResource AnimatedBrush}" />
+
+        <Storyboard x:Key="AnimateBorder"
+                    RepeatBehavior="Forever">
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="1 0" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="1 1"
+                            BeginTime="0:0:2" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="0 1"
+                            BeginTime="0:0:4" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.StartPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="0 0"
+                            BeginTime="0:0:6" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="1 1" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="0 1"
+                            BeginTime="0:0:2" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="0 0"
+                            BeginTime="0:0:4" />
+            <PointAnimation Storyboard.TargetProperty="BorderBrush.(LinearGradientBrush.EndPoint)"
+                            Storyboard.Target="{StaticResource AnimatedBorderPlaceholder}"
+                            Duration="0:0:2"
+                            To="1 0"
+                            BeginTime="0:0:6" />
+        </Storyboard>
+
+
     </UserControl.Resources>
+
 
 
     <!--<UserControl.DataContext>
@@ -27,6 +87,9 @@
         <materialDesign:TransitioningContent.OpeningEffects>
             <materialDesign:TransitionEffect Kind="ExpandIn" />
         </materialDesign:TransitioningContent.OpeningEffects>
+
+
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
@@ -42,11 +105,10 @@
                 d:Background="DarkCyan"
                 d:BorderThickness="3"
                 Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
-                BorderBrush="LawnGreen"
+                BorderBrush="{StaticResource AnimatedBorderPlaceholder}"
                 BorderThickness="{Binding IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}, Mode=TwoWay}"
                 Click="AddressButton_Click"
                 IsEnabled="{Binding AddressType}"
-                Style="{StaticResource MaterialDesignFlatMidBgButton}"
                 Tag="{Binding Status}"
                 ToolTip="{Binding AddressToolTip}">
                 <Button.ContextMenu>
@@ -59,6 +121,19 @@
                 </Button.ContextMenu>
 
 
+
+                <!-- 扩展现有的样式并添加新的触发器 -->
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignFlatMidBgButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Name="AnimateBorder" Storyboard="{StaticResource AnimateBorder}" />
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
 
                 <Grid x:Name="AddressGrid" Width="50">
                     <Grid.RowDefinitions>
@@ -85,6 +160,7 @@
 
 
             </Button>
+
             <Grid
                 Grid.Row="1"
                 Margin="0,1"
