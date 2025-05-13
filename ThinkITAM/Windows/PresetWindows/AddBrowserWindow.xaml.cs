@@ -41,10 +41,13 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 if (num <= 0)
                 {
-                    sqlTemp = $"INSERT INTO \"Browser\" (\"Browser\", \"Path\", \"Note\") VALUES ('{name}', '{path}', '{Note.Text}')";
+                    var browserInfo = new {Browser= name, Path = path, Note = Note.Text };
+
+
+                    //sqlTemp = $"INSERT INTO \"Browser\" (\"Browser\", \"Path\", \"Note\") VALUES ('{name}', '{path}', '{Note.Text}')";
 
                    
-                    GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
+                    GlobalVariables.DbService.InsertEntity("Browser", browserInfo);
 
                     this.DialogResult = true;
 

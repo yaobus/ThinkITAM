@@ -54,10 +54,20 @@ public partial class AddGroupWindow : Window
                 //创建资产二维码,0为机房，1为机柜，2为设备
                 string cabinetId = "1" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
-                string sql = $"INSERT INTO DeviceCabinet(CabinetId,DeviceRoomQrId,CabinetName,Position,Note) VALUES('{cabinetId}','{deviceRoomQrId}','{groupName}','{position}','{note}')";
+
+                var cabinetInfo = new
+                {
+                    CabinetId = cabinetId,
+                    DeviceRoomQrId = deviceRoomQrId,
+                    CabinetName = groupName,
+                    Position = position,
+                    Note = note
+                };
+
+                //string sql = $"INSERT INTO DeviceCabinet(CabinetId,DeviceRoomQrId,CabinetName,Position,Note) VALUES('{cabinetId}','{deviceRoomQrId}','{groupName}','{position}','{note}')";
 
 
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                GlobalVariables.DbService.InsertEntity("DeviceCabinet", cabinetInfo);
 
                 this.DialogResult = true;
             }

@@ -348,9 +348,21 @@ namespace ThinkITAM.Windows.PortPanel
                     int count = 0;
                     if (countNum == 0)//端口不存在
                     {
-                        string sql = $"INSERT INTO \"bu_{buildingId}\" ( \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\", \"PortColor\") VALUES ('{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
-                       
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                        var buildingInfo = new
+                        {
+                            SlotId = floor,
+                            RoomId = room,
+                            PortType = portType,
+                            PortId = port,
+                            PortGroup = portGroup,
+                            PortColor = portColor
+                        };
+
+
+                        //string sql = $"INSERT INTO \"bu_{buildingId}\" ( \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\", \"PortColor\") VALUES ('{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
+
+                        GlobalVariables.DbService.InsertEntity($"Bu_{buildingId}", buildingInfo);
 
                     }
                     else
@@ -572,17 +584,23 @@ namespace ThinkITAM.Windows.PortPanel
 
                     if (countNum == 0)
                     {
-                        sqlNote = $"INSERT INTO \"Notes\" (\"NoteId\", \"Note\") VALUES ('{noteId}', '{roomNote}')";
+
+                        var noteInfo = new { NoteId = noteId, Note = roomNote };
+
+                        //sqlNote = $"INSERT INTO \"Notes\" (\"NoteId\", \"Note\") VALUES ('{noteId}', '{roomNote}')";
+
+                        GlobalVariables.DbService.InsertEntity("Notes", noteInfo);
                     }
                     else
                     {
-                        sqlNote = $"UPDATE \"Notes\" SET \"Note\" = '{roomNote}' WHERE \"NoteId\" = '{noteId}'";
+                        sqlNote = $"UPDATE  Notes  SET  Note  = '{roomNote}' WHERE  NoteId  = '{noteId}'";
+                        GlobalVariables.DbService.ExecuteNonQuery(sqlNote);
                     }
 
 
                     
                    
-                    GlobalVariables.DbService.ExecuteNonQuery(sqlNote);
+                    
                 }
 
 
@@ -599,10 +617,21 @@ namespace ThinkITAM.Windows.PortPanel
                     {
                         int uid = GetNextAvailableNumber(buildingId);
 
-                        string sql = $"INSERT INTO \"Bu_{buildingId}\" (\"UID\", \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\",  \"PortColor\") VALUES ( '{uid}', '{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
-                        
-                       
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+                        var buildingInfo = new
+                        {
+                            UID = uid,
+                            SlotId = floor,
+                            RoomId = room,
+                            PortType = portType,
+                            PortId = port,
+                            PortGroup = portGroup,
+                            PortColor = portColor   
+                        };
+
+                        //string sql = $"INSERT INTO \"Bu_{buildingId}\" (\"UID\", \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\",  \"PortColor\") VALUES ( '{uid}', '{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
+
+
+                        GlobalVariables.DbService.InsertEntity($"Bu_{buildingId}", buildingInfo);
 
                     }
                     else

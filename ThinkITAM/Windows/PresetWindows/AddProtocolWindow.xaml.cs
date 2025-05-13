@@ -40,9 +40,11 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 if (num <= 0)
                 {
-                    sqlTemp = $"INSERT INTO \"Protocol\" (\"Protocol\", \"Note\") VALUES ('{protocol}', '{note}')";
+                    var info = new { Protocol = protocol, Note = note };
 
-                    GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
+                   // sqlTemp = $"INSERT INTO \"Protocol\" (\"Protocol\", \"Note\") VALUES ('{protocol}', '{note}')";
+
+                    GlobalVariables.DbService.InsertEntity("Protocol", info);
 
                     this.DialogResult = true;
 

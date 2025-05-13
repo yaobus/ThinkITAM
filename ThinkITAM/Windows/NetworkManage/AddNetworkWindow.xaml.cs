@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -200,7 +201,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (name != "")
                 {
 
-                    string NetworkId;
+                    string networkId;
 
                     string sqlTemp = string.Format("SELECT COUNT(*) FROM Network WHERE `Network` = '{0}' AND `Netmask` = '{1}'", network, netmask);
 
@@ -223,22 +224,37 @@ namespace ThinkITAM.Windows.NetworkManage
                             {
 
                                 //创建资产ID字符串，网段ID
-                                NetworkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                                networkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
+                                var networkInfo = new
+                                {
+                                    NetworkId= networkId,
+                                    Name = name,
+                                    Description = description,
+                                    Network = network,
+                                    Netmask = netmask,
+                                    Parent = parent,
+                                    Child = child,
+                                    TagA = tagA,
+                                    TagB = tagB,
+                                    TagC = tagC,
+                                    TagD = tagD
+                                    
 
+                                };
 
                                 //插入网段信息总表的数据
-                                string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
+                                //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
                                 //保存组织架构信息
                                 //SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
 
-                                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                                GlobalVariables.DbService.InsertEntity("Network", networkInfo);
 
                                 //创建分表
-                                DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, NetworkId);
+                                DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, networkId);
 
 
                                 //装载初始化数据
@@ -263,16 +279,34 @@ namespace ThinkITAM.Windows.NetworkManage
                         else//IP地址段不存在
                         {
                             //创建资产ID字符串，网段ID
-                            NetworkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                            networkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
-                           // NetworkId = CreateTableName(network, (int)MaskSlider.Value) + "_1";
+                            // NetworkId = CreateTableName(network, (int)MaskSlider.Value) + "_1";
 
-                            Console.WriteLine(NetworkId);
+                            var networkInfo = new
+                            {
+                                NetworkId = networkId,
+                                Name = name,
+                                Description = description,
+                                Network = network,
+                                Netmask = netmask,
+                                Parent = parent,
+                                Child = child,
+                                TagA = tagA,
+                                TagB = tagB,
+                                TagC = tagC,
+                                TagD = tagD
+
+
+                            };
+
+
+                            //Console.WriteLine(networkId);
 
                             //插入网段信息总表的数据
-                            string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
+                            //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
-                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+                            GlobalVariables.DbService.InsertEntity("Network", networkInfo);
 
 
                             SaveHierarchyInfo(parent, child);
@@ -282,7 +316,7 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
 
                             //创建分表
-                            DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,NetworkId);
+                            DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,networkId);
 
 
 
@@ -314,26 +348,43 @@ namespace ThinkITAM.Windows.NetworkManage
                                 // 用户点击了"是"按钮，执行相关操作
                                 //NetworkId = CreateTableName(network, (int)MaskSlider.Value) + "_" + (num + 1).ToString();
                                 //创建资产ID字符串，网段ID
-                                NetworkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                                networkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
                                 //Console.WriteLine(tableName);
 
+                                var networkInfo = new
+                                {
+                                    NetworkId = networkId,
+                                    Name = name,
+                                    Description = description,
+                                    Network = network,
+                                    Netmask = netmask,
+                                    Parent = parent,
+                                    Child = child,
+                                    TagA = tagA,
+                                    TagB = tagB,
+                                    TagC = tagC,
+                                    TagD = tagD
+
+
+                                };
+
                                 //插入网段信息总表的数据
-                                string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
+                                // string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{networkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
                                 //保存组织架构信息
                                 SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
                                 
-                                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                                GlobalVariables.DbService.InsertEntity("Network", networkInfo);
 
                                 //创建表
-                                DbClass.CreateNetworkTable(NetworkId);
+                                DbClass.CreateNetworkTable(networkId);
 
 
                                 //装载初始化数据
-                                InitializedNetworkData(NetworkId);
+                                InitializedNetworkData(networkId);
 
 
                                 this.DialogResult = true;
@@ -356,15 +407,32 @@ namespace ThinkITAM.Windows.NetworkManage
 
                             //NetworkId = CreateTableName(network, (int)MaskSlider.Value) + "_1";
                             //创建资产ID字符串，网段ID
-                            NetworkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                            networkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
-                            Console.WriteLine(NetworkId);
+                            Console.WriteLine(networkId);
+
+                            var networkInfo = new
+                            {
+                                NetworkId = networkId,
+                                Name = name,
+                                Description = description,
+                                Network = network,
+                                Netmask = netmask,
+                                Parent = parent,
+                                Child = child,
+                                TagA = tagA,
+                                TagB = tagB,
+                                TagC = tagC,
+                                TagD = tagD
+
+
+                            };
 
                             //插入网段信息总表的数据
-                            string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent} ', ' {child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
+                            //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{networkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent} ', ' {child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
                           
-                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+                            GlobalVariables.DbService.InsertEntity("Network", networkInfo);
                             SaveHierarchyInfo(parent, child);
 
 
@@ -372,11 +440,11 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
 
                             //创建表
-                            DbClass.CreateNetworkTable(NetworkId);
+                            DbClass.CreateNetworkTable(networkId);
 
 
                             //装载初始化数据
-                            InitializedNetworkData(NetworkId);
+                            InitializedNetworkData(networkId);
 
 
                             this.DialogResult = true;
@@ -466,13 +534,16 @@ namespace ThinkITAM.Windows.NetworkManage
                     }
                 }
 
-                string sql = $"INSERT INTO `Net_{tableName}` (`Address`, `Status`) VALUES ({ip}, {addressStatus})";
-
+                var info = new
+                {
+                    Address=ip,
+                    Status=addressStatus    
+                };
 
                 //Console.WriteLine(sql);
                 //异步执行
 
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                GlobalVariables.DbService.InsertEntity($"Net_{tableName}", info);
             }
 
 
@@ -494,9 +565,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 if (num == 0)//不存在，则添加
                 {
-                    string sql = $"INSERT INTO \"Hierarchy\" (\"Parent\", \"Child\") VALUES ('{parent}', '{child}')";
+
+                    var info = new { Parent=parent, Child=child };
+
+                    //string sql = $"INSERT INTO \"Hierarchy\" (\"Parent\", \"Child\") VALUES ('{parent}', '{child}')";
                   
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    GlobalVariables.DbService.InsertEntity("Hierarchy", info);
                 }
             }
 

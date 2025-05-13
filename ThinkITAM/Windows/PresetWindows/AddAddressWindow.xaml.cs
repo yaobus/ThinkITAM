@@ -41,10 +41,15 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 if (num <= 0)
                 {
-                    sqlTemp = $"INSERT INTO \"Address\" (\"Location\", \"Note\") VALUES ('{address}', '{Note.Text}')";
 
-                   
-                    GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
+                    var locationInfo = new { Location = address, Note = Note.Text };
+
+
+
+                    //sqlTemp = $"INSERT INTO \"Address\" (\"Location\", \"Note\") VALUES ('{address}', '{Note.Text}')";
+
+
+                    GlobalVariables.DbService.InsertEntity("Address", locationInfo);
 
                     this.DialogResult = true;
 

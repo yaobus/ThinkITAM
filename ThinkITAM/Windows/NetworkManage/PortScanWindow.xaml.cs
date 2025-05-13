@@ -409,9 +409,11 @@ namespace ThinkITAM.Windows.NetworkManage
                     var portList = PortScannerHelper.ParsePortRanges(PortTextBox.Text);
                     if (portList.Count > 0)
                     {
-                        string sql = $"INSERT INTO ScanPorts (Name,Ports) VALUES ('{name}','{PortTextBox.Text}')";
+                        var info = new { Name = name, Ports = PortTextBox.Text };
+
+                        //string sql = $"INSERT INTO ScanPorts (Name,Ports) VALUES ('{name}','{PortTextBox.Text}')";
                         
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+                        GlobalVariables.DbService.InsertEntity("ScanPorts", info);
                         CancelButton_OnClick(null, null);
                     }
                     else

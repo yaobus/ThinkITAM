@@ -140,14 +140,24 @@ namespace ThinkITAM.Windows.LinkWindows
                 //创建资产二维码,0为机房，1为机柜，2为设备
                 string qrCode = "0" +AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
+                var roomInfo = new
+                {
+                    DeviceRoomQrId=qrCode,
+                    RoomName = DeviceRoom.Text, 
+                    Location = AddressCombobox.Text,  
+                    User = PeopleName.Text,
+                    UserPhone = Phone.Text,
+                    Note = Note.Text
+                };
 
-                string sql = $"INSERT INTO DeviceRoom (DeviceRoomQrId,RoomName,Location,User,UserPhone,Note) VALUES ('{qrCode}','{DeviceRoom.Text}','{AddressCombobox.Text}','{PeopleName.Text}','{Phone.Text}','{Note.Text}')";
+
+                //string sql = $"INSERT INTO DeviceRoom (DeviceRoomQrId,RoomName,Location,User,UserPhone,Note) VALUES ('{qrCode}','{DeviceRoom.Text}','{AddressCombobox.Text}','{PeopleName.Text}','{Phone.Text}','{Note.Text}')";
 
 
-                Console.WriteLine(sql);
+                //Console.WriteLine(sql);
 
              
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+                GlobalVariables.DbService.InsertEntity("DeviceRoom",roomInfo);
                 this.DialogResult = true;
 
 

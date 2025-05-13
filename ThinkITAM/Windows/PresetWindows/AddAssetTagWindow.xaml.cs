@@ -136,10 +136,18 @@ namespace ThinkITAM.Windows.PresetWindows
                     if (num <= 0)//如果都没有
                     {
 
-                        string sql = $"INSERT INTO  \"AssetTag\" (\"AssetType\", \"DeviceType\", \"AssetTag\", \"Note\") VALUES ('{assetType}', '{deviceType}', '{assetTag}', '{Note.Text}')";
+                        var assettagInfo = new
+                        {
+                            AssetType = assetType,
+                            DeviceType = deviceType,
+                            AssetTag = assetTag,
+                            Note = Note.Text
+                        };
+
+                        //string sql = $"INSERT INTO  \"AssetTag\" (\"AssetType\", \"DeviceType\", \"AssetTag\", \"Note\") VALUES ('{assetType}', '{deviceType}', '{assetTag}', '{Note.Text}')";
 
                       
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+                        GlobalVariables.DbService.InsertEntity("AssetTag", assettagInfo);
 
                         this.DialogResult = true;
                         this.Close();

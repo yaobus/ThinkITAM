@@ -94,8 +94,11 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="query"></param>
         public static void CreateNetworkTable(string tableName)
         {
-            string sql = $"CREATE TABLE \"Net_{tableName}\" (\r\n  \"Address\" integer,\r\n  \"Status\" integer,\r\n \"AddressColor\" TEXT,\r\n   \"User\" TEXT,\r\n \"HostName\" TEXT,\r\n  \"MacAddress\" TEXT,\r\n  \"LinkDevice\" TEXT,\r\n \"TagA\" TEXT,\r\n  \"TagB\" TEXT,\r\n  \"TagC\" TEXT,\r\n  \"TagD\" TEXT,\r\n  \"TagE\" TEXT,\r\n  \"TagF\" TEXT\r\n);";
 
+
+            string sql = $"CREATE TABLE Net_{tableName} ( Address INTEGER, Status INTEGER, AddressColor TEXT,  User TEXT, HostName TEXT, MacAddress TEXT, LinkDevice TEXT, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT  );";
+
+            Console.WriteLine(sql);
 
             //GlobalVariables.DbService.ExecuteNonQuery(sql);
             GlobalVariables.DbService.CreateTableFromSql(sql);

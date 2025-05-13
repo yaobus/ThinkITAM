@@ -49,10 +49,13 @@ namespace ThinkITAM.Windows.PresetWindows
 
                     if (num <= 0)
                     {
-                        sqlTemp = $"INSERT INTO \"PortList\" (\"Port\", \"Note\") VALUES ({port}, '{note}')";
+                        var info = new { Port = port, Note = note };
+
+
+                        //sqlTemp = $"INSERT INTO \"PortList\" (\"Port\", \"Note\") VALUES ({port}, '{note}')";
 
                        
-                        GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
+                        GlobalVariables.DbService.InsertEntity("PortList", info);
 
                         this.DialogResult = true;
 

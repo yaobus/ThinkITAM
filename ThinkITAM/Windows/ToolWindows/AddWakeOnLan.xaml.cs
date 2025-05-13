@@ -59,10 +59,22 @@ namespace ThinkITAM.Windows.ToolWindows
                 {
                     int uid = GetNextAvailableNumber();
 
-                    string sql =
-                        $"INSERT INTO WakeOnLan (UID,HostGroup,Name,IpAddress,Netmask,Port,Mac,PinToStart) VALUES ('{uid}','{GroupTextBox.Text}','{NameTextBox.Text}','{IpAddressTextBox.Text}','{NetmaskTextBox.Text}','{PortTextBox.Text}','{mac}','{PinToStart.IsChecked}')";
 
-                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                    var hostInfo = new
+                    {
+                        UID = uid,
+                        HostGroup = GroupTextBox.Text,
+                        Name = NameTextBox.Text,
+                        IpAddress = IpAddressTextBox.Text,
+                        Netmask = NetmaskTextBox.Text,
+                        Port = PortTextBox.Text,
+                        Mac = mac,
+                        PinToStart = PinToStart.IsChecked
+                    };
+
+                    //string sql =$"INSERT INTO WakeOnLan (UID,HostGroup,Name,IpAddress,Netmask,Port,Mac,PinToStart) VALUES ('{uid}','{GroupTextBox.Text}','{NameTextBox.Text}','{IpAddressTextBox.Text}','{NetmaskTextBox.Text}','{PortTextBox.Text}','{mac}','{PinToStart.IsChecked}')";
+
+                    GlobalVariables.DbService.InsertEntity("WakeOnLan", hostInfo);
                 }
                 else
                 {

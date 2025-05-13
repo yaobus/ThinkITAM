@@ -134,10 +134,20 @@ namespace ThinkITAM.Windows.PresetWindows
                     string phone = Phone.Text;
                     string note = Note.Text;
 
-                    sql = $"INSERT INTO \"Buildings\" (\"BuildingId\", \"Building\", \"Address\", \"User\", \"Phone\", \"Note\") VALUES ('{buildingId}', '{building}', '{address}', '{people}', '{phone}', '{note}')";
+                    var buildingInfo = new
+                    {
+                        BuildingId=buildingId,
+                        Building=building,
+                        Address=address,
+                        User = people,
+                        Phone=phone,
+                        Note=note   
+                    };
 
-            
-                    GlobalVariables.DbService.ExecuteNonQuery(sql); 
+                   // sql = $"INSERT INTO \"Buildings\" (\"BuildingId\", \"Building\", \"Address\", \"User\", \"Phone\", \"Note\") VALUES ('{buildingId}', '{building}', '{address}', '{people}', '{phone}', '{note}')";
+
+
+                    GlobalVariables.DbService.InsertEntity("Buildings", buildingInfo);
 
                     DialogResult = true;
                 }

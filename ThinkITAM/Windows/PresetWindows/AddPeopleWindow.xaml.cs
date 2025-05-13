@@ -20,6 +20,7 @@ using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
 using System.Collections;
 using ThinkITAM.Functions.FunctionClass;
+using Microsoft.VisualBasic.FileIO;
 
 
 namespace ThinkITAM.Windows.PresetWindows;
@@ -268,10 +269,12 @@ public partial class AddPeopleWindow : Window
 
         if (num <= 0)
         {
-            string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
+            var info = new { Organization=organizationInfo,Department=departmentInfo };
+
+            //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
 
    
-            GlobalVariables.DbService.ExecuteNonQuery(sql);
+            GlobalVariables.DbService.InsertEntity("Organization", info);
 
         }
 
@@ -291,13 +294,23 @@ public partial class AddPeopleWindow : Window
         var phone = _phone;
         var note = _note;
 
+        var info = new
+        {
+            UserId = userId,
+            Name = name,
+            Number = number,
+            Organization = organization,
+            Department = department,
+            UserGroup = group,
+            Phone = phone,
+            Note = note
+        };
+
+        //string sql = $"INSERT INTO \"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"UserGroup\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
 
 
-        string sql = $"INSERT INTO \"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"UserGroup\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
 
-    
-
-        GlobalVariables.DbService.ExecuteNonQuery(sql);
+        GlobalVariables.DbService.InsertEntity("UserInfo", info);
         this.DialogResult = true;
 
 
@@ -348,17 +361,18 @@ public partial class AddPeopleWindow : Window
 
             if (countNum == 0)//判断记录是否存在，不存在的情况
             {
+                var info = new { Option="UserNumberPrefix", Content=NameTextBox.Text };
 
-                string sql = $"INSERT INTO \"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
+                //string sql = $"INSERT INTO \"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
 
-              
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                GlobalVariables.DbService.InsertEntity("CustomSetting", info);
 
 
             }
             else//存在
             {
-                string sql = $"UPDATE \"CustomSetting\" SET \"Content\" = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
+                string sql = $"UPDATE  CustomSetting  SET  Content  = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
                 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
