@@ -125,7 +125,7 @@ namespace ThinkITAM.FunctionPage
                         deviceInfo.DeviceType = row2["DeviceType"].ToString();
                         deviceInfo.AssetType = assetTypeInfo;
 
-                        string sql = $"SELECT COUNT(*) FROM Asset WHERE AssetType = '{assetTypeInfo}'";
+                        string sql = $"SELECT COUNT(*) FROM Asset WHERE AssetType = '{assetTypeInfo}' AND DeviceType = '{deviceInfo.DeviceType}'";
                         deviceInfo.AssetCount = DbClass.ExecuteScalarTableNum(sql);
 
                         device.DataContext = deviceInfo;
