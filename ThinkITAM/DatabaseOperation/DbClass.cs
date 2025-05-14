@@ -281,7 +281,7 @@ namespace ThinkITAM.DatabaseOperation
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
 
-                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine BLOB, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
+                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
 
                         //GlobalVariables.DbService.ExecuteNonQuery(query);
 
@@ -300,7 +300,7 @@ namespace ThinkITAM.DatabaseOperation
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
 
-                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine BLOB, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
+                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
 
                         //GlobalVariables.DbService.ExecuteNonQuery(query);
                         GlobalVariables.DbService.CreateTableFromSql(query);
@@ -648,6 +648,41 @@ namespace ThinkITAM.DatabaseOperation
         }
 
 
+        /// <summary>
+        /// 获取指定表中指定字段的最小可用编号
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="field">字段名</param>
+        /// <returns></returns>
+        public static int GetNextAvailableNumber(string tableName, string field)
+        {
+            var usedNumbers = new HashSet<int>();
+
+            string sql = $"SELECT {field} FROM {tableName} "; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+            foreach (var row in rows)
+            {
+                usedNumbers.Add(Convert.ToInt32(row[$"{field}"]));
+            }
+
+
+
+
+
+            int nextNumber = 1; // Start with the smallest possible number
+            while (usedNumbers.Contains(nextNumber))
+            {
+                nextNumber++;
+            }
+
+            return nextNumber;
+        }
+
+
+
 
         /// <summary>
         /// 表是否存在，不存在则建立表
@@ -845,7 +880,9 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "LinkDetail"://链路详表
 
-                                sql = $"CREATE TABLE \"LinkDetail\" (   \"Detail_ID\" INTEGER PRIMARY KEY AUTOINCREMENT,   \"Link_ID\" INTEGER NOT NULL,   \"Sequence_No\" INTEGER NOT NULL,   \"Device_ID\" text NOT NULL,   \"Port_UID\" INTEGER,   FOREIGN KEY (\"Link_ID\") REFERENCES \"Link\" (\"Link_ID\") ON DELETE NO ACTION ON UPDATE NO ACTION );";
+                                sql = $"CREATE TABLE `LinkDetail` (\r\n    `UID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\r\n    `LinkId` INT NOT NULL,\r\n    `SequenceNo` INT,\r\n    `DevicesAssetId` TEXT,\r\n    `PortUID` TEXT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+
+
 
                                 break;
                             case "WakeOnLan":
@@ -1054,8 +1091,8 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "LinkDetail"://链路详表
 
-                                sql =
-                                    $"CREATE TABLE `LinkDetail` (   `Detail_ID` INT AUTO_INCREMENT PRIMARY KEY,   `Link_ID` INT NOT NULL,   `Sequence_No` INT NOT NULL,   `Device_ID` VARCHAR(255) NOT NULL,   `Port_UID` INT,   FOREIGN KEY (`Link_ID`) REFERENCES `Link` (`Link_ID`)     ON DELETE NO ACTION     ON UPDATE NO ACTION ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                sql = $"CREATE TABLE  LinkDetail  (    UID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,    LinkId  INTEGER NOT NULL,    SequenceNo  INTEGER,    DevicesAssetId  text,    PortUID  text);";
+                                
                                 break;
                             case "WakeOnLan":
 

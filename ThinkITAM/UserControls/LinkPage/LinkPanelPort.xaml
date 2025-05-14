@@ -134,7 +134,9 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    d:Text="5"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                    FontSize="20"
                     Text="{Binding PortClass.NodeIndex}"
                     Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 

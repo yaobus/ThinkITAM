@@ -24,11 +24,11 @@ namespace ThinkITAM.Functions.Converters
                 switch (firstChar)
                 {
                     case '2':
-                        return ColorConverterClass.ColorToBrush("#da5c53");//设备
+                        return ColorConverterClass.ColorToBrush("#D2535E");//设备
                     case '3':
                         return ColorConverterClass.ColorToBrush("#4aa3ba");//机架
                     case '8':
-                        return ColorConverterClass.ColorToBrush("#4bbb8b"); ;//面板
+                        return ColorConverterClass.ColorToBrush("#f7b236"); //面板
 
                 }
             }

@@ -751,11 +751,11 @@
                                 </Button>
 
                                 <Button
-
                                     x:Name="SaveLinkButton"
                                     Margin="5,5"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                                     ToolTip="保存链路规划"
+                                    Click="SaveLinkButton_OnClick"
                                     >
 
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -1073,6 +1073,60 @@
 
 
 
+        <materialDesign:DialogHost
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            x:Name="SaveLinkNameDialogHost"
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            d:Visibility="Collapsed"
+            CloseOnClickAway="True"
+            DialogContentUniformCornerRadius="5"
+            DialogTheme="Inherit">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="10">
+                    <TextBlock
+                        MaxWidth="400"
+                        FontSize="14"
+                        Text="链路名称" />
+                    <TextBox
+                        x:Name="NameTextBox"
+                        Margin="0,14,0,0"
+                        HorizontalAlignment="Stretch"
+                        FontSize="14" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button
+                            x:Name="SaveButton"
+                            Margin="0,8,8,0"
+                            Click="SaveButton_OnClick"
+                            Content="保存"
+                            IsDefault="True"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                            x:Name="CancelButton"
+                            Margin="0,8,8,0"
+                            Click="CancelButton_OnClick"
+                            Content="关闭"
+                            IsCancel="False"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    False
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+
+
+        </materialDesign:DialogHost>
 
 
     </Grid>

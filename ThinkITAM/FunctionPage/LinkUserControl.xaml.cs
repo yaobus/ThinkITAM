@@ -21,6 +21,9 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using MaterialDesignThemes.Wpf;
+using ThinkITAM.UserControls.General;
+using LiveCharts.Wpf;
 
 
 namespace ThinkITAM.FunctionPage
@@ -1896,5 +1899,95 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        /// <summary>
+        /// 保存链路配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveLinkButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (DataBridge.DataBridge.LinkManageList.Count >= 2)
+            {
+                SaveLinkNameDialogHost.IsOpen = true;
+            }
+
+
+
+
+        }
+
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveLinkNameDialogHost.IsOpen = false;
+        }
+
+
+        /// <summary>
+        /// 保存链路配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            if (!string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                int index = DbClass.GetNextAvailableNumber("Link", "Link_ID");
+
+                var info = new
+                {
+                    Link_ID=index ,
+                    Alias=NameTextBox.Text,
+                    Create_Time=DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                };
+
+                GlobalVariables.DbService.InsertEntity("Link", info);
+
+                foreach (var node in DataBridge.DataBridge.LinkManageList)
+                {
+                    var nodeInfo = new
+                    {
+
+                        LinkId = index,
+                        SequenceNo = node.PortClass.NodeIndex,
+                        DevicesAssetId = node.MdfRackClass.RackId,
+                        PortUID = node.PortClass.UID,
+                    };
+                    GlobalVariables.DbService.InsertEntity("LinkDetail", nodeInfo);
+
+                   
+
+                    //写端口的OnTheLine字段
+                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = 1  WHERE UID = {node.PortClass.UID}";
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+
+                }
+
+                SaveLinkNameDialogHost.IsOpen = false;
+            }
+
+
+        }
+
+
+        private string GetTableName(string AssetId)
+        {
+            if (string.IsNullOrEmpty(AssetId))
+                return string.Empty;
+
+            switch (AssetId[0])
+            {
+                case '3':
+                    return $"Ra_{AssetId}";
+                case '2':
+                    return $"De_{AssetId}";
+                case '8':
+                    return $"Bu_{AssetId}";
+                default:
+                    return string.Empty; // 或者你可以返回一个默认值，如 null 或其他
+            }
+        }
     }
 }

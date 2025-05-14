@@ -132,7 +132,10 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    d:Text="5"
+                    d:Visibility="Visible"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                    FontSize="20"
                     Text="{Binding NodeIndex}"
                     Visibility="{Binding NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
                 <ContentControl>

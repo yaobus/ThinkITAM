@@ -148,7 +148,9 @@ namespace ThinkITAM.UserControls.LinkPage
                             string nowType = info.PortType;
                             string oldType = DataBridge.DataBridge.LinkManageList[0].PortClass.PortType;
 
-                            if (nowType != oldType && (nowType == "Eth" || oldType == "Eth"))
+                            Console.WriteLine(nowType+":"+oldType);
+
+                            if (nowType != oldType && (oldType.Contains("E") == false))
                             {
                                 MessageBox.Show("链路介质类型应该保持一致");
 

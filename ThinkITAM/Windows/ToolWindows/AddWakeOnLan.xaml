@@ -12,6 +12,7 @@
     Height="410"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddWakeOnLan_OnLoaded"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <others:WakeOnLanHostViewModel />
