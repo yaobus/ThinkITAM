@@ -571,14 +571,7 @@
                                         Orientation="Vertical"
                                         Value="100" />
 
-                                    <Button
-                                        x:Name="ClearSelect"
-                                        Margin="0,0"
-                                        Click="ClearSelect_OnClick"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        ToolTip="清空已选端口">
-                                        <materialDesign:PackIcon Kind="FileDocumentRemoveOutline" />
-                                    </Button>
+
 
                                     <Button
                                         x:Name="SaveLinkConfig"
@@ -710,12 +703,19 @@
                         x:Name="GraphPanel"
                         Grid.Row="1"
                         Margin="0"
-                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
-                        Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Grid>
+                        d:Visibility="Visible"
+                        d:Height="150"
+                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}"
+                        Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}"
 
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
                             <ListBox
+                                Grid.Column="0"
                                 x:Name="RoutePanel"
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True"
@@ -734,34 +734,39 @@
 
                             </ListBox>
 
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
 
+                                <Button
+                                    x:Name="ClearSelect"
+                                    Margin="5,5"
+                                    Click="ClearSelect_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                                    ToolTip="清空已选端口">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon
+                                            Margin="5,0"
+                                            Kind="DeleteSweepOutline" />
+                                        <TextBlock Text="清空端口"></TextBlock>
+                                    </StackPanel>
+                                </Button>
 
-                            <!--<ScrollViewer
-                                d:Height="160"
-                                HorizontalScrollBarVisibility="Auto"
-                                VerticalScrollBarVisibility="Disabled">
+                                <Button
 
-                                <ItemsControl x:Name="RoutePanel" Padding="0">
+                                    x:Name="SaveLinkButton"
+                                    Margin="5,5"
+                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                                    ToolTip="保存链路规划"
+                                    >
 
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal" />
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon
+                                            Margin="5,0"
+                                            Kind="ContentSave" />
+                                        <TextBlock Text="保存链路"></TextBlock>
+                                    </StackPanel>
+                                </Button>
 
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <linkPage:NodePort Margin="5" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-
-                                </ItemsControl>
-
-                            </ScrollViewer>-->
+                            </StackPanel>
 
 
                         </Grid>

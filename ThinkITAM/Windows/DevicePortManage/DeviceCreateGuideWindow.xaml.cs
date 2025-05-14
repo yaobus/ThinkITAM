@@ -619,48 +619,11 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void SaveDeviceInfoAddInitializationTable()
         {
             var info = DataBridge.DataBridge.SelectAssetInfo;
-            string assetId;
-            string assetType;
-            string deviceType;
-            string model;
-            string description;
-            string assetNumber;
-            string user;
-            string userPhone;
-            string enableDate;
-            string userDepartment;
-            string address;
-            string tagA;
-            string tagB;
-            string tagC;
-            string tagD;
-            string tagE;
-            string tagF;
 
             if (Model.Text.Length > 0)
             {
-                model = info.Model;
-                description= Description.Text;
-                assetId = info.AssetId;
-                assetType = info.AssetType;
-                deviceType = info.DeviceType;
-                assetNumber = info.AssetNumber;
-                user = info.User;
-                userPhone = info.UserPhone;
-                enableDate = EnableDate.SelectedDate.ToString();
-                userDepartment = UseDepartment.Text;
-                address = Address.Text;
-                tagA = TagA.Text;
-                tagB = TagB.Text;
-                tagC = TagC.Text;
-                tagD = TagD.Text;
-                tagE = TagE.Text;
-                tagF = TagF.Text;
 
-
-
-
-                string sqlTemp = $"SELECT COUNT(*) FROM Devices WHERE AssetId ='{assetId}'";
+                string sqlTemp = $"SELECT COUNT(*) FROM Devices WHERE AssetId ='{info.AssetId}'";
 
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -668,28 +631,27 @@ namespace ThinkITAM.Windows.DevicePortManage
                 {
                     var deviceInfo = new ViewModels.DatabaseEntity.Device.DeviceViewModel()
                     {
-                        AssetId = assetId,
-                        AssetNumber = assetNumber,
-                        AssetType    = assetType,
-                        Model = model,
-                        Description = description,
-                        User = user,
-                        UserPhone = userPhone,
-                        EnableDate = enableDate,
-                        UseDepartment = userDepartment,
-                        Address = address,
-                        TagA = tagA,
-                        TagB = tagB,
-                        TagC = tagC,
-                        TagD = tagD,
-                        TagE = tagE,
-                        TagF = tagF
+                        AssetId = info.AssetId,
+                        AssetNumber = info.AssetNumber,
+                        AssetType    = info.AssetType,
+                        DeviceType = info.DeviceType,
+                        Model = info.Model,
+                        Description = Description.Text,
+                        User = info.User,
+                        UserPhone = info.UserPhone,
+                        EnableDate = EnableDate.SelectedDate.ToString(),
+                        UseDepartment = UseDepartment.Text,
+                        Address = Address.Text,
+                        TagA = TagA.Text,
+                        TagB = TagB.Text,
+                        TagC = TagC.Text,
+                        TagD = TagD.Text,
+                        TagE = TagE.Text,
+                        TagF = TagF.Text
 
                     };
 
 
-                    //string sql =
-                    //    $"INSERT INTO \"Devices\" (\"AssetId\", \"AssetNumber\", \"AssetType\", \"DeviceType\", \"Model\",\"Description\", \"User\", \"UserPhone\", \"EnableDate\", \"UseDepartment\", \"Address\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}', '{assetNumber}', '{assetType}', '{deviceType}', '{model}','{description}', '{user}', '{userPhone}', '{enableDate}', '{userDepartment}', '{address}', '{tagA}', '{tagB}', '{tagC}', '{tagD}', '{tagE}', '{tagF}')";
 
                     //插入设备信息到总表
 
@@ -697,14 +659,14 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                    
                     //创建设备信息详表
-                    DbClass.CreateDynamicsTableIfNotExists(assetId,2);
+                    DbClass.CreateDynamicsTableIfNotExists(info.AssetId, 2);
 
 
 
                     MessageQueue.Enqueue($"正在初始化设备信息表，请稍候");
 
                     //初始化设备信息详表
-                    InitializationTable(assetId, portInfos);
+                    InitializationTable(info.AssetId, portInfos);
 
                     //关闭窗口
                     this.DialogResult = true;
@@ -714,7 +676,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 }
                 else
                 {
-                    MessageBox.Show($"资产{assetNumber}已存在对应设备端口信息表，请勿重复添加", "设备重复", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"资产{info.AssetNumber}已存在对应设备端口信息表，请勿重复添加", "设备重复", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
             }
@@ -768,74 +730,12 @@ namespace ThinkITAM.Windows.DevicePortManage
                     };
 
 
-                    //string sql = $"INSERT INTO \"{table}\" (\"UID\",\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{uid}','{portType}','{portTag}',{portSlotNumber} ,'{portId}', 0)";
-
 
                     GlobalVariables.DbService.InsertEntity(table, port);
                     uid++;
                 }
 
 
-
-                //switch (portType)
-                //{
-                //    case "M":
-                //        //创建管理口Id
-                //        for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
-                //        {
-                //            portId = $"{info.PortPrefix}{i}";
-
-                //            string sql = $"INSERT INTO \"{table}\" (\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{portType}', '{portTag}',{portSlotNumber} ,'{portId}', 0)";
-
-                //            dbClass.ExecuteQuery(sql);
-                //        }
-
-                //        break;
-
-                //    case "F":
-                //        //创建光纤网口Id
-                //        for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
-                //        {
-                //            portId = $"{info.PortPrefix}{i}";
-
-                //            string sql = $"INSERT INTO \"{table}\" (\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{portType}', '{portTag}',{portSlotNumber} ,'{portId}', 0)";
-
-                //            dbClass.ExecuteQuery(sql);
-                //        }
-
-
-                //        break;
-
-                //    case "D":
-                //        //创建硬盘插槽Id
-                //        for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
-                //        {
-                //            portId = $"{i}";
-
-                //            string sql = $"INSERT INTO \"{table}\" (\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{portType}', '{portTag}',{portSlotNumber} ,'{portId}', 0)";
-
-                //            dbClass.ExecuteQuery(sql);
-                //        }
-
-
-                //        break;
-
-                //    default:
-
-                //        //创建以太网端口Id
-
-                //        for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
-                //        {
-                //            portId = $"{info.PortPrefix}{i}";
-
-                //            string sql = $"INSERT INTO \"{table}\" (\"PortType\", \"PortTag\",\"PortSlotNumber\", \"PortId\", \"Status\") VALUES ('{portType}', '{portTag}',{portSlotNumber} ,'{portId}', 0)";
-
-                //            dbClass.ExecuteQuery(sql);
-                //        }
-
-                //        break;
-
-                //}
 
             }
 
