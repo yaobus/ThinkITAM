@@ -155,6 +155,7 @@
                             d:Text="5"
                             FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                             FontSize="20"
+                            Foreground="#1eafed"
                             Text="{Binding PortClass.NodeIndex}"
                             Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 

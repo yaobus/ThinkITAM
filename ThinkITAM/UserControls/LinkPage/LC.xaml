@@ -18,7 +18,7 @@
     <UserControl.Resources>
         <system:Double x:Key="ControlSize">6</system:Double>
         <system:Double x:Key="ControlSize2">34</system:Double>
-        <Brush x:Key="Color">#ff5959</Brush>
+        <Brush x:Key="Color">#ff4b5c</Brush>
     </UserControl.Resources>
     <Grid Width="18" Height="25">
 

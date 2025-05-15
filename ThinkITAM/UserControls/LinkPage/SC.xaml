@@ -36,7 +36,7 @@
         <Border
             Width="25"
             Height="18"
-            BorderBrush="Cyan"
+            BorderBrush="#ff4b5c"
             BorderThickness="1">
             <TextBlock
                 HorizontalAlignment="Center"

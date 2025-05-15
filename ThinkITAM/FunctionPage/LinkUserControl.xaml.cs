@@ -1909,6 +1909,7 @@ namespace ThinkITAM.FunctionPage
             if (DataBridge.DataBridge.LinkManageList.Count >= 2)
             {
                 SaveLinkNameDialogHost.IsOpen = true;
+                NameTextBox.Text = null;
             }
 
 
@@ -1947,7 +1948,6 @@ namespace ThinkITAM.FunctionPage
                 {
                     var nodeInfo = new
                     {
-
                         LinkId = index,
                         SequenceNo = node.PortClass.NodeIndex,
                         DevicesAssetId = node.MdfRackClass.RackId,
@@ -1955,10 +1955,10 @@ namespace ThinkITAM.FunctionPage
                     };
                     GlobalVariables.DbService.InsertEntity("LinkDetail", nodeInfo);
 
-                   
+                   node.PortClass.OnTheLine = 1;
 
                     //写端口的OnTheLine字段
-                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = 1  WHERE UID = {node.PortClass.UID}";
+                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index}  WHERE UID = {node.PortClass.UID}";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
@@ -1966,12 +1966,17 @@ namespace ThinkITAM.FunctionPage
                 }
 
                 SaveLinkNameDialogHost.IsOpen = false;
+                ClearSelect_OnClick(null, null);
             }
 
 
         }
 
-
+        /// <summary>
+        /// 根据资产ID获取表名
+        /// </summary>
+        /// <param name="AssetId"></param>
+        /// <returns></returns>
         private string GetTableName(string AssetId)
         {
             if (string.IsNullOrEmpty(AssetId))

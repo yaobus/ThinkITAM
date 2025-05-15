@@ -84,7 +84,7 @@
                 Duration="0:0:2" />
         </Storyboard>
 
-
+        <converters:IntToOpacityConverter x:Key="IntToOpacityConverter" />
 
     </UserControl.Resources>
 
@@ -130,17 +130,18 @@
             </Button.Style>
 
 
-            <Grid>
+            <Grid >
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     d:Text="5"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     FontSize="20"
+                    Foreground="#1eafed"
                     Text="{Binding PortClass.NodeIndex}"
                     Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 
-                <ContentControl>
+                <ContentControl Opacity="{Binding PortClass.OnTheLine, Converter={StaticResource IntToOpacityConverter}}">
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
                             <Style.Triggers>
@@ -158,13 +159,13 @@
                                 </DataTrigger>
 
                                 <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
-                                <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
-                                    <Setter Property="Opacity" Value="0.3" />
+                                <!--<DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
+                                <Setter Property="Opacity" Value="0.3" />
                                 </DataTrigger>
 
                                 <DataTrigger Binding="{Binding PortClass.OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="True">
-                                    <Setter Property="Opacity" Value="1" />
-                                </DataTrigger>
+                                <Setter Property="Opacity" Value="1" />
+                                </DataTrigger>-->
 
 
 

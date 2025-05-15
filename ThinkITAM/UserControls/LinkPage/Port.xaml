@@ -136,6 +136,7 @@
                     d:Visibility="Visible"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     FontSize="20"
+                    Foreground="#1eafed"
                     Text="{Binding NodeIndex}"
                     Visibility="{Binding NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
                 <ContentControl>
@@ -158,7 +159,7 @@
 
                                 <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
                                 <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource IntToFalseIfNegativeOneConverter}, Mode=TwoWay}" Value="False">
-                                    <Setter Property="Opacity" Value="0.1" />
+                                    <Setter Property="Opacity" Value="0.5" />
                                 </DataTrigger>
 
                                 <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource IntToFalseIfNegativeOneConverter}, Mode=TwoWay}" Value="True">
@@ -182,7 +183,7 @@
                 VerticalAlignment="Center"
                 FontSize="10"
                 FontWeight="Bold"
-                Foreground="AliceBlue"
+
                 Text="{Binding PortIndex}" />
 
 

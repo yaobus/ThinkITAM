@@ -880,7 +880,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "LinkDetail"://链路详表
 
-                                sql = $"CREATE TABLE `LinkDetail` (\r\n    `UID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,\r\n    `LinkId` INT NOT NULL,\r\n    `SequenceNo` INT,\r\n    `DevicesAssetId` TEXT,\r\n    `PortUID` TEXT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+                                sql = $"CREATE TABLE \"LinkDetail\" (\r\n    \"UID\" INTEGER PRIMARY KEY AUTOINCREMENT,\r\n    \"LinkId\" INTEGER NOT NULL,\r\n    \"SequenceNo\" INTEGER,\r\n    \"DevicesAssetId\" TEXT,\r\n    \"PortUID\" TEXT\r\n);";
 
 
 

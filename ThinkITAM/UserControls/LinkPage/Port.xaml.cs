@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
-using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.UserControls.LinkPage
@@ -194,11 +178,23 @@ namespace ThinkITAM.UserControls.LinkPage
                             {
                                 //判断两个端口是否是同一大类
                                 string nowType = port.PortType;
-                                string oldType = DataBridge.DataBridge.LinkManageList[0].PortClass.PortType;
+                                string oldType = string.Empty; ;
 
-                                Console.WriteLine(nowType + ":" + oldType);
-                                //nowType != oldType && (nowType == "Eth" || oldType == "Eth")
-                                if (nowType != oldType && (oldType.Contains("E") == false))
+                                foreach (var node in DataBridge.DataBridge.LinkManageList)
+                                {
+
+                                    if (node.MdfRackClass.RackId.Substring(0, 1) != "2")//不是设备类型
+                                    {
+                                        oldType = node.PortClass.PortType;
+                                        break;
+                                    }
+                                }
+
+                                Console.WriteLine("NowType:" + nowType);
+                                Console.WriteLine("OldType:" + oldType);
+
+
+                                if (CheckStrings(nowType, oldType) == false)
                                 {
                                     MessageBox.Show("链路介质类型应该保持一致");
 
@@ -340,7 +336,33 @@ namespace ThinkITAM.UserControls.LinkPage
 
         }
 
+        /// <summary>
+        /// 判断两个端口类型是否一致
+        /// </summary>
+        /// <param name="stringA"></param>
+        /// <param name="stringB"></param>
+        /// <returns></returns>
+      private  bool CheckStrings(string stringA, string stringB)
+        {
+            bool containsEInA = stringA.Contains('E') || string.IsNullOrWhiteSpace(stringA);
+            bool containsEInB = stringB.Contains('E') || string.IsNullOrWhiteSpace(stringB);
 
+            // 如果两个字符串都包含E（无论大小写），返回true
+            // 如果只有一个字符串包含E，返回false
+            // 如果两个都不包含E，返回true
+            if (containsEInA && containsEInB)
+            {
+                return true;
+            }
+            else if (containsEInA != containsEInB) // 一个为true，另一个为false
+            {
+                return false;
+            }
+            else // 两个都不包含E的情况
+            {
+                return true;
+            }
+        }
 
 
         /// <summary>

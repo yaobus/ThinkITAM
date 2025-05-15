@@ -25,8 +25,7 @@
             Height="{StaticResource ControlSize2}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            d:Foreground="AliceBlue"
-            Foreground="AliceBlue"
+            Foreground="#ff4b5c"
             Kind="HexagonOutline"
             Opacity="0.8" />
         <materialDesign:PackIcon
