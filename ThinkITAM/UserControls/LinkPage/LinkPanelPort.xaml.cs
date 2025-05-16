@@ -4,6 +4,7 @@ using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
+using Nmap.NET.Container;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
@@ -92,12 +93,24 @@ namespace ThinkITAM.UserControls.LinkPage
 
                     if (info.OnTheLine != null && info.OnTheLine > 0)
                     {
+                        foreach (var node in DbClass.GetLinkDetail(info.OnTheLine))
+                        {
+                            if (info.RackId == node.PortClass.RackId)
+                            {
+                                info.NodeIndex = node.PortClass.NodeIndex;
+                                DataBridge.DataBridge.RackSelectPortInfo = info;
+                                info.IsSelected = true;
+                            }
 
-                        DataBridge.DataBridge.LinkManageList = DbClass.GetLinkDetail(info.OnTheLine);
+
+
+                            DataBridge.DataBridge.LinkViewList.Add(node);
+                        }
                     }
                     else
                     {
-                        DataBridge.DataBridge.LinkManageList.Clear();
+                        DataBridge.DataBridge.LinkViewList.Clear();
+
                     }
 
 

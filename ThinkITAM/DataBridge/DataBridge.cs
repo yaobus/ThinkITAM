@@ -250,6 +250,10 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static ObservableCollection<PortLinkClass> LinkViewList = new ObservableCollection<PortLinkClass>();
 
+        /// <summary>
+        /// 配线架上当前选中的链路节点信息
+        /// </summary>
+        public static PortClass RackSelectPortInfo;
 
         /// <summary>
         /// 墙面面板端口管理端口列表

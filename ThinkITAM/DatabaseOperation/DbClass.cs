@@ -704,13 +704,15 @@ namespace ThinkITAM.DatabaseOperation
             {
                
                 var assetId = row["DevicesAssetId"].ToString();
-                var SequenceNo = Convert.ToInt32(row["SequenceNo"].ToString());
-                var uid = Convert.ToInt32(row["UID"].ToString());
+                var sequenceNo = Convert.ToInt32(row["SequenceNo"].ToString());
+                
+                //var linkDetailUid = Convert.ToInt32(row["UID"].ToString());
+                var portUID = Convert.ToInt32(row["PortUID"].ToString());
 
-              
 
-                PortLinkClass node = GetLinkNodeInfo(assetId, uid);
-                node.PortClass.NodeIndex = SequenceNo;
+                PortLinkClass node = GetLinkNodeInfo(assetId, portUID);
+
+                node.PortClass.NodeIndex = sequenceNo;
 
                 nodes.Add(node);
 
@@ -724,8 +726,6 @@ namespace ThinkITAM.DatabaseOperation
             );
 
 
-          
-            
             return sortedNodes;
         }
 
@@ -778,7 +778,7 @@ namespace ThinkITAM.DatabaseOperation
                             port.PortColor = Convert.ToInt32(row["PortColor"]);
                         }
 
-
+                        port.RackId = assetId;
                         port.PortTag = row["PortTag"].ToString();
                         port.PortStatus = row["PortStatus"].ToString();
                         port.PortType = row["PortType"].ToString();
@@ -858,8 +858,6 @@ namespace ThinkITAM.DatabaseOperation
                         }
 
 
-
-
                     }
 
 
@@ -913,6 +911,8 @@ namespace ThinkITAM.DatabaseOperation
 
 
 
+                        node.MdfRackClass.CabinetName = port.SlotIndex.ToString();
+                        node.MdfRackClass.RackName = row["RoomId"].ToString();
 
                     }
 

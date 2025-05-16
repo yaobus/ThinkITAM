@@ -36,9 +36,7 @@ namespace ThinkITAM.ViewModels.PortPanel
 
         public string PortStatus { get; set; }
 
-        public PermanentLink PermanentLink { get; set; }
-
-        public PermanentLink TempLink { get; set; }
+     
 
     }
 

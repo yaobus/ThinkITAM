@@ -29,7 +29,7 @@
             Height="{StaticResource ControlSize2}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="#4bbb8b"
+            Foreground="#4bFF8b"
             Kind="Ethernet"
             Opacity="1" />
 

@@ -11,7 +11,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="70"
-    Height="70"
+    Height="85"
     Background="Transparent"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="LinkDevicePort_OnLoaded"
@@ -102,7 +102,7 @@
         <linkManage:PortLinkClass />
     </UserControl.DataContext>
 
-    <materialDesign:TransitioningContent Margin="2.5,0" OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.2}">
+    <materialDesign:TransitioningContent Margin="0,0" OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplier 0:0:0.2}">
         <materialDesign:TransitioningContent.OpeningEffects>
             <materialDesign:TransitionEffect Kind="ExpandIn" />
         </materialDesign:TransitioningContent.OpeningEffects>
@@ -110,7 +110,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="10" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="8" />
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>
 
@@ -148,16 +149,6 @@
                     </Button.Style>
 
                     <Grid>
-
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            d:Text="5"
-                            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
-                            FontSize="20"
-                            Foreground="#1eafed"
-                            Text="{Binding PortClass.NodeIndex}"
-                            Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 
 
                         <ContentControl
@@ -201,21 +192,20 @@
 
 
 
-
-
-
-                        <!--<materialDesign:PackIcon
-                            Grid.Row="0"
-                            Width="30"
-                            Height="30"
-                            Margin="0"
+                        <TextBlock
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            d:Kind="Ethernet"
-                            Opacity="{Binding PortClass.OnTheLine,Converter={StaticResource IntToOpacityConverter}}"
-                            Kind="{Binding PortClass.PortType, Converter={StaticResource PortTypeToIconKindConverter}}" >
+                            VerticalAlignment="Center"
+                            d:Text="5"
+                            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                            FontSize="25"
+                            Foreground="#F0C05A"
+                            Text="{Binding PortClass.NodeIndex}"
+                            Visibility="{Binding PortClass.NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
 
-                        </materialDesign:PackIcon>-->
+
+
+
+
 
                     </Grid>
 
@@ -225,9 +215,9 @@
             </Grid>
 
             <Grid
-                Margin="10,1"
+                Margin="10,0"
                 Background="{Binding PortClass.PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
-                Row="1">
+                Row="2">
                 <Button
                     x:Name="ColorTagSet"
                     Height="8"
@@ -238,7 +228,7 @@
 
             </Grid>
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
 
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
@@ -265,6 +255,27 @@
 
             </Grid>
 
+            <Grid
+                Grid.Row="3"
+                Margin="0,1"
+                Background="AliceBlue"
+                Opacity="0.8">
+
+                <Button
+                    x:Name="TagButton"
+                    Height="10"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    d:Content="ABCDEF"
+                    BorderThickness="0"
+                    Content="{Binding PortTag}"
+                    FontSize="8"
+                    Foreground="DarkCyan"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="{Binding PortTag}" />
+
+
+            </Grid>
 
         </Grid>
 

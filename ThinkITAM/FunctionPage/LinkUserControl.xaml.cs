@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 using Newtonsoft.Json;
 using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.UserControls.PortPanel;
 using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
-using ThinkITAM.ViewModels.Preset;
-using Nodify;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
-using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
-using MaterialDesignThemes.Wpf;
-using ThinkITAM.UserControls.General;
-using LiveCharts.Wpf;
 
 
 namespace ThinkITAM.FunctionPage
@@ -88,13 +75,27 @@ namespace ThinkITAM.FunctionPage
             //DataBridge.DataBridge.FindPorts.CollectionChanged += FindPorts_CollectionChanged;
 
             RoutePanel.ItemsSource = DataBridge.DataBridge.LinkManageList;
+            RouteViewPanel.ItemsSource = DataBridge.DataBridge.LinkViewList;
 
-            //RouteViewPanel.ItemsSource = DataBridge.DataBridge.LinkViewList;
+            DataBridge.DataBridge.LinkViewList.CollectionChanged += LinkViewList_CollectionChanged;
 
         }
 
 
+        private void LinkViewList_CollectionChanged(object? sender,
+            System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (DataBridge.DataBridge.LinkViewList.Count == 0 && DataBridge.DataBridge.RackSelectPortInfo != null)
+            {
+                DataBridge.DataBridge.RackSelectPortInfo.IsSelected = false;
 
+                DataBridge.DataBridge.RackSelectPortInfo.NodeIndex = null;
+            }
+
+
+
+
+        }
 
         private ObservableCollection<AssetTypeViewModel> groupsTypes = new ObservableCollection<AssetTypeViewModel>();
 
@@ -223,33 +224,7 @@ namespace ThinkITAM.FunctionPage
                     index++;
                     item.PortClass.NodeIndex = index;
 
-                    //string type = item.MdfRackClass.RackId.Substring(0, 1);
-
-                    //if (type == "2")
-                    //{
-                    //    item.PortClass.NodeIndex = 1;
-                    //}
-                    //else
-                    //{
-                    //    index++;
-                    //    item.PortClass.NodeIndex = index;
-                    //}
-
-
-
-
                 }
-
-                //if (AutoSaveLinkConfig.IsChecked == true)
-                //{
-                //    SaveRackLink();
-
-                //}
-
-            }
-            else
-            {
-                //RoutePanel.Children.Clear();
             }
 
 
@@ -967,7 +942,8 @@ namespace ThinkITAM.FunctionPage
         {
 
             DataBridge.DataBridge.LinkManageMode = 0;
-            //DataBridge.DataBridge.PermanentManageList.Clear();
+            DataBridge.DataBridge.LinkViewList.Clear();
+            DataBridge.DataBridge.LinkManageList.Clear();
             //RoutePanel.Children.Clear();
         }
 
@@ -981,6 +957,8 @@ namespace ThinkITAM.FunctionPage
         private void LinkManage_OnClick(object sender, RoutedEventArgs e)
         {
             DataBridge.DataBridge.LinkManageMode = 1;
+            DataBridge.DataBridge.LinkViewList.Clear();
+            DataBridge.DataBridge.LinkManageList.Clear();
             //DataBridge.DataBridge.PermanentManageList.Clear();
             //RoutePanel.Children.Clear();
         }

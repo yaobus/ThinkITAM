@@ -58,6 +58,7 @@ namespace ThinkITAM.UserControls.LinkPage
         /// <param name="e"></param>
         private void PortButton_OnClick(object sender, RoutedEventArgs e)
         {
+            DataBridge.DataBridge.LinkViewList.Clear();
             //发生修改的端口信息，含配线架及槽位号
             PortLinkClass portInfo = new PortLinkClass();
 
@@ -127,22 +128,29 @@ namespace ThinkITAM.UserControls.LinkPage
                        
 
                     case 0://添加顺藤摸瓜起点
-                        //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
 
-                        //DataBridge.DataBridge.LinkManageSelectPorts.Add(portInfo);
-                        if (port.OnTheLine!=null && port.OnTheLine>0)
+                        if (port.OnTheLine != null && port.OnTheLine > 0)
                         {
-                           
-                           DataBridge.DataBridge.LinkManageList = DbClass.GetLinkDetail(port.OnTheLine);
+
+                            foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
+                            {
+                                if (port.RackId == node.PortClass.RackId)
+                                {
+                                    port.NodeIndex = node.PortClass.NodeIndex;
+                                    DataBridge.DataBridge.RackSelectPortInfo = port;
+                                    port.IsSelected = true;
+                                }
+
+
+                                DataBridge.DataBridge.LinkViewList.Add(node);
+                            }
+
                         }
                         else
                         {
-                            DataBridge.DataBridge.LinkManageList.Clear();
+                            DataBridge.DataBridge.LinkViewList.Clear();
+
                         }
-
-
-                       
-
 
 
                         break;
@@ -152,16 +160,6 @@ namespace ThinkITAM.UserControls.LinkPage
 
                         if (count > 0)
                         {
-                            //var mdf = DataBridge.DataBridge.PermanentManageList[count - 1].MdfRackClass;
-                            //var slot = DataBridge.DataBridge.PermanentManageList[count - 1].SlotClass;
-                            //var port = DataBridge.DataBridge.PermanentManageList[count - 1].PortClass;
-
-
-                            //if (mdf.RackId.Substring(0, 1) == "8")
-                            //{
-                            //    slot.SlotType = port.PortType;
-
-                            //}
 
                             //判断列表中是否已有同一个配线架
                             var mdfs = DataBridge.DataBridge.LinkManageList.Where(item => item.MdfRackClass.RackId == rackInfo.RackId).ToList();
@@ -192,7 +190,7 @@ namespace ThinkITAM.UserControls.LinkPage
                             {
                                 //判断两个端口是否是同一大类
                                 string nowType = port.PortType;
-                                string oldType = string.Empty; ;
+                                string oldType = string.Empty; 
 
                                 foreach (var node in DataBridge.DataBridge.LinkManageList)
                                 {
@@ -202,11 +200,8 @@ namespace ThinkITAM.UserControls.LinkPage
                                         oldType = node.PortClass.PortType;
                                         break;
                                     }
+
                                 }
-
-                                Console.WriteLine("NowType:" + nowType);
-                                Console.WriteLine("OldType:" + oldType);
-
 
                                 if (CheckStrings(nowType, oldType) == false)
                                 {
@@ -353,29 +348,53 @@ namespace ThinkITAM.UserControls.LinkPage
         /// <summary>
         /// 判断两个端口类型是否一致
         /// </summary>
-        /// <param name="stringA"></param>
-        /// <param name="stringB"></param>
+        /// <param name="stringA">当前类型</param>
+        /// <param name="stringB">已有类型</param>
         /// <returns></returns>
       private  bool CheckStrings(string stringA, string stringB)
         {
-            bool containsEInA = stringA.Contains('E') || string.IsNullOrWhiteSpace(stringA);
-            bool containsEInB = stringB.Contains('E') || string.IsNullOrWhiteSpace(stringB);
+            if (string.IsNullOrWhiteSpace(stringA) || string.IsNullOrWhiteSpace(stringB))
+            {
+                return true;
+            }
+            else
+            {
 
-            // 如果两个字符串都包含E（无论大小写），返回true
-            // 如果只有一个字符串包含E，返回false
-            // 如果两个都不包含E，返回true
-            if (containsEInA && containsEInB)
-            {
-                return true;
+                if (TypeCheck(stringA) == TypeCheck(stringB))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
-            else if (containsEInA != containsEInB) // 一个为true，另一个为false
+
+
+        }
+
+
+        private string TypeCheck(string type)
+        {
+            string t = null;
+
+            switch (type)
             {
-                return false;
+                case "Eth":
+                case "E":
+                    t = "E";
+                    break;
+
+
+                case "FC":
+                case "LC":
+                case "SC":
+                case "F":
+                    t = "F";
+                    break;
             }
-            else // 两个都不包含E的情况
-            {
-                return true;
-            }
+            return t;
         }
 
 

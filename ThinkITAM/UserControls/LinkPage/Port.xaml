@@ -93,8 +93,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="36" />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="8" />
         </Grid.RowDefinitions>
         <Button
@@ -129,16 +129,7 @@
             </Button.Style>
 
             <Grid>
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    d:Text="5"
-                    d:Visibility="Visible"
-                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
-                    FontSize="20"
-                    Foreground="#1eafed"
-                    Text="{Binding NodeIndex}"
-                    Visibility="{Binding NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
+
                 <ContentControl>
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
@@ -173,6 +164,17 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="5"
+                    d:Visibility="Visible"
+                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                    FontSize="25"
+                    Foreground="#F0C05A"
+                    Text="{Binding NodeIndex}"
+                    Visibility="{Binding NodeIndex, Converter={StaticResource IntToVisibilityConverter}}" />
             </Grid>
         </Button>
 

@@ -51,8 +51,7 @@
                 Margin="0,1,1,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Background="AliceBlue"
-                Opacity=".5">
+                Opacity="1">
 
                 <Button
                     x:Name="TagButton"
@@ -63,7 +62,7 @@
                     Padding="0"
                     BorderThickness="0"
                     Click="TagButton_OnClick"
-                    Foreground="DarkCyan"
+                    Foreground="AliceBlue"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
                     ToolTip="点击修改槽位标签">
                     <TextBlock

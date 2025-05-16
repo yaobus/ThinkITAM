@@ -76,7 +76,7 @@
                 ToolTip="点击移除节点\拖动调整顺序">
 
 
-                <ContentControl>
+                <ContentControl >
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
                             <Style.Triggers>

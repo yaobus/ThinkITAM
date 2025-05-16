@@ -704,21 +704,20 @@
                         Grid.Row="1"
                         Margin="0"
                         d:Height="150"
-                        Visibility="Visible"
-                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}"
+                        d:Visibility="Collapsed"
+                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
+                                                                        Duration=0:0:0.2}"
+                        Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
-
-                        >
-                        <!--Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}"-->
 
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <ListBox
-                                Grid.Column="0"
                                 x:Name="RoutePanel"
+                                Grid.Column="0"
                                 dd:DragDrop.IsDragSource="True"
                                 dd:DragDrop.IsDropTarget="True"
                                 BorderThickness="0.5">
@@ -744,27 +743,22 @@
                                     Click="ClearSelect_OnClick"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
                                     ToolTip="清空已选端口">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon
-                                            Margin="5,0"
-                                            Kind="DeleteSweepOutline" />
-                                        <TextBlock Text="清空端口"></TextBlock>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon Margin="5,0" Kind="DeleteSweepOutline" />
+                                        <TextBlock Text="清空端口" />
                                     </StackPanel>
                                 </Button>
 
                                 <Button
                                     x:Name="SaveLinkButton"
                                     Margin="5,5"
-                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
-                                    ToolTip="保存链路规划"
                                     Click="SaveLinkButton_OnClick"
-                                    >
+                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"
+                                    ToolTip="保存链路规划">
 
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <materialDesign:PackIcon
-                                            Margin="5,0"
-                                            Kind="ContentSave" />
-                                        <TextBlock Text="保存链路"></TextBlock>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon Margin="5,0" Kind="ContentSave" />
+                                        <TextBlock Text="保存链路" />
                                     </StackPanel>
                                 </Button>
 
@@ -774,6 +768,40 @@
                         </Grid>
                     </materialDesign:TransitioningContent>
 
+                    <materialDesign:TransitioningContent
+                        x:Name="ViewPanel"
+                        Grid.Row="1"
+                        Margin="0"
+                        d:Visibility="Visible"
+                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}"
+                        Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
+
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ListBox
+                                x:Name="RouteViewPanel"
+                                Grid.Column="0"
+                                BorderThickness="1">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <linkPage:NodePort Margin="5" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+
+                        </Grid>
+                    </materialDesign:TransitioningContent>
 
                 </Grid>
 
@@ -1078,11 +1106,11 @@
 
 
         <materialDesign:DialogHost
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
             x:Name="SaveLinkNameDialogHost"
             Grid.Row="0"
             Grid.RowSpan="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
             d:Visibility="Collapsed"
             CloseOnClickAway="True"
             DialogContentUniformCornerRadius="5"

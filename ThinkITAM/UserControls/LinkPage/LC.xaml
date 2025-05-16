@@ -18,123 +18,134 @@
     <UserControl.Resources>
         <system:Double x:Key="ControlSize">6</system:Double>
         <system:Double x:Key="ControlSize2">34</system:Double>
-        <Brush x:Key="Color">#ff4b5c</Brush>
+        <Brush x:Key="Color">#08d9d6</Brush>
     </UserControl.Resources>
-    <Grid Width="18" Height="25">
+    <Border
+        Width="22"
+        Height="29"
+        BorderBrush="AliceBlue"
+        BorderThickness="2">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="1" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1" Background="{DynamicResource Color}" />
-
-        <Border
-            Grid.Row="0"
-            Grid.RowSpan="3"
+        <Grid
             Width="18"
             Height="25"
-            BorderBrush="{DynamicResource Color}"
-            BorderThickness="1" />
+            Background="#383838">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Border
-                Width="1"
-                Height="1"
-                Margin="6,1,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="{DynamicResource Color}" />
+            <Grid Grid.Row="1" Background="{DynamicResource Color}" />
 
             <Border
-                Width="2"
-                Height="2"
-                Margin="1,1,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="{DynamicResource Color}" />
-
-            <materialDesign:PackIcon
-                Width="{StaticResource ControlSize}"
-                Height="{StaticResource ControlSize}"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="AliceBlue"
-                Kind="CircleOutline"
-                Opacity="0.5" />
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Width="18"
+                Height="25"
+                BorderBrush="{DynamicResource Color}"
+                BorderThickness="1" />
 
 
-            <Border
-                Width="2"
-                Height="2"
-                Margin="1,1,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource Color}" />
+            <Grid Grid.Row="0">
+                <Border
+                    Width="1"
+                    Height="1"
+                    Margin="6,1,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource Color}" />
+
+                <Border
+                    Width="2"
+                    Height="2"
+                    Margin="1,1,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource Color}" />
+
+                <materialDesign:PackIcon
+                    Width="{StaticResource ControlSize}"
+                    Height="{StaticResource ControlSize}"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="AliceBlue"
+                    Kind="CircleOutline"
+                    Opacity="1" />
 
 
-            <Border
-                Width="1"
-                Height="1"
-                Margin="6,1,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource Color}" />
+                <Border
+                    Width="2"
+                    Height="2"
+                    Margin="1,1,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource Color}" />
+
+
+                <Border
+                    Width="1"
+                    Height="1"
+                    Margin="6,1,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource Color}" />
+
+            </Grid>
+
+
+            <Grid Grid.Row="2">
+                <Border
+                    Width="1"
+                    Height="1"
+                    Margin="6,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource Color}" />
+
+                <Border
+                    Width="2"
+                    Height="2"
+                    Margin="1,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource Color}" />
+
+                <materialDesign:PackIcon
+                    Width="{StaticResource ControlSize}"
+                    Height="{StaticResource ControlSize}"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="AliceBlue"
+                    Kind="CircleOutline"
+                    Opacity="1" />
+
+
+                <Border
+                    Width="2"
+                    Height="2"
+                    Margin="1,0,0,1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource Color}" />
+
+
+                <Border
+                    Width="1"
+                    Height="1"
+                    Margin="6,1,0,1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource Color}" />
+
+            </Grid>
+
+
 
         </Grid>
 
-
-        <Grid Grid.Row="2">
-            <Border
-                Width="1"
-                Height="1"
-                Margin="6,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="{DynamicResource Color}" />
-
-            <Border
-                Width="2"
-                Height="2"
-                Margin="1,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="{DynamicResource Color}" />
-
-            <materialDesign:PackIcon
-                Width="{StaticResource ControlSize}"
-                Height="{StaticResource ControlSize}"
-                Margin="5,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Foreground="AliceBlue"
-                Kind="CircleOutline"
-                Opacity="0.5" />
-
-
-            <Border
-                Width="2"
-                Height="2"
-                Margin="1,0,0,1"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource Color}" />
-
-
-            <Border
-                Width="1"
-                Height="1"
-                Margin="6,1,0,1"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource Color}" />
-
-        </Grid>
-
-
-
-    </Grid>
+    </Border>
 </UserControl>
