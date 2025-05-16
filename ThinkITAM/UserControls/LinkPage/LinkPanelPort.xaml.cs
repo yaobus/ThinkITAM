@@ -41,7 +41,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
         private void Port_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
 
@@ -88,9 +88,18 @@ namespace ThinkITAM.UserControls.LinkPage
 
 
                 case 0://添加顺藤摸瓜起点
-                    //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
+                       //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
 
-                    //DataBridge.DataBridge.LinkManageSelectPorts.Add(portInfo);
+                    if (info.OnTheLine != null && info.OnTheLine > 0)
+                    {
+
+                        DataBridge.DataBridge.LinkManageList = DbClass.GetLinkDetail(info.OnTheLine);
+                    }
+                    else
+                    {
+                        DataBridge.DataBridge.LinkManageList.Clear();
+                    }
+
 
                     break;
 

@@ -703,12 +703,14 @@
                         x:Name="GraphPanel"
                         Grid.Row="1"
                         Margin="0"
-                        d:Visibility="Visible"
                         d:Height="150"
+                        Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}"
-                        Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}"
+
 
                         >
+                        <!--Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}"-->
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -771,6 +773,8 @@
 
                         </Grid>
                     </materialDesign:TransitioningContent>
+
+
                 </Grid>
 
                 <Expander

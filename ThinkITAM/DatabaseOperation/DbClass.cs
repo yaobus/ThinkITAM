@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +13,7 @@ using Microsoft.Data.Sqlite;
 using Nodify;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
 
 
@@ -681,6 +685,251 @@ namespace ThinkITAM.DatabaseOperation
             return nextNumber;
         }
 
+
+        /// <summary>
+        /// 根据链路ID 获取链路节点详细信息
+        /// </summary>
+        /// <param name="linkId"></param>
+        /// <returns></returns>
+        public static ObservableCollection<PortLinkClass> GetLinkDetail(int linkId)
+        {
+
+            var nodes= new ObservableCollection<PortLinkClass>();
+
+            string query = $"SELECT * FROM LinkDetail WHERE LinkId='{linkId}'";
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+
+            foreach (var row in rows)
+            {
+               
+                var assetId = row["DevicesAssetId"].ToString();
+                var SequenceNo = Convert.ToInt32(row["SequenceNo"].ToString());
+                var uid = Convert.ToInt32(row["UID"].ToString());
+
+              
+
+                PortLinkClass node = GetLinkNodeInfo(assetId, uid);
+                node.PortClass.NodeIndex = SequenceNo;
+
+                nodes.Add(node);
+
+            }
+
+
+
+            // 创建一个新的 ObservableCollection
+            var sortedNodes = new ObservableCollection<PortLinkClass>(
+                nodes.OrderBy(n => n.PortClass.NodeIndex)
+            );
+
+
+          
+            
+            return sortedNodes;
+        }
+
+
+ 
+
+
+
+        /// <summary>
+        /// 根据资产ID对应的设备类型的Rack层信息
+        /// </summary>
+        /// <param name="AssetId"></param>
+        /// <returns></returns>
+        public static PortLinkClass GetLinkNodeInfo(string assetId, int uid)
+        {
+            if (string.IsNullOrEmpty(assetId))
+                return null;
+
+            var node= new PortLinkClass();
+            var slot = new SlotClass();
+            var port =new PortClass();
+
+            node.MdfRackClass = GetRackInfo(assetId);
+            string sql;
+
+            switch (assetId[0])
+            {
+                case '3':
+                    
+                    sql = $"SELECT * FROM Ra_{assetId} WHERE UID='{uid}'";
+                    var rows3 = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                    foreach (var row in rows3)
+                    {
+                        slot.SlotName = row["SlotId"].ToString();
+                        slot.SlotTag = row["PortType"].ToString();
+
+
+                        //端口基础信息
+                        port.UID = uid;
+                        port.PortIndex = row["PortId"].ToString();
+
+                        //如果获取到的颜色为空，则设置为默认颜色
+                        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                        {
+                            port.PortColor = 0;
+                        }
+                        else
+                        {
+                            port.PortColor = Convert.ToInt32(row["PortColor"]);
+                        }
+
+
+                        port.PortTag = row["PortTag"].ToString();
+                        port.PortStatus = row["PortStatus"].ToString();
+                        port.PortType = row["PortType"].ToString();
+
+
+                        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                        {
+                            port.OnTheLine = -1;
+                        }
+                        else
+                        {
+                            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                        }
+
+
+
+                    }
+
+
+
+                    break;
+
+
+                case '2':
+
+                    sql = $"SELECT * FROM De_{assetId} WHERE UID='{uid}'";
+
+                    var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                    foreach (var row in rows)
+                    {
+                        slot.SlotName = row["PortSlotNumber"].ToString();
+
+                        slot.SlotTag = row["PortType"].ToString();
+
+
+                        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                        {
+                            port.OnTheLine = -1;
+                        }
+                        else
+                        {
+                            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                        }
+
+
+
+                        port.UID = uid;
+                        port.RackId = assetId;
+
+
+                        string slotNumber = row["PortSlotNumber"].ToString();
+
+
+
+
+                        string portId = row["PortId"].ToString();
+
+
+                        port.PortType = row["PortType"].ToString();
+                        port.PortIndex = $"{slotNumber}{portId}";
+                        port.PortTag = row["PortTag"].ToString();
+                        port.SlotIndex = slotNumber;
+
+
+
+                       
+
+
+                        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                        {
+                            port.PortColor = 0;
+                        }
+                        else
+                        {
+                            port.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                        }
+
+
+
+
+                    }
+
+
+
+                    break;
+
+
+                case '8':
+                   
+
+                    sql = $"SELECT * FROM Bu_{assetId} WHERE UID='{uid}'";
+
+
+                    var rows8 = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                    foreach (var row in rows8)
+                    {
+                        slot.SlotName = row["SlotId"].ToString();
+                        slot.SlotTag = row["RoomId"].ToString();
+
+
+                        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                        {
+                            port.OnTheLine = -1;
+                        }
+                        else
+                        {
+                            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                        }
+
+
+
+                        port.UID = uid;
+                        port.RackId = assetId;
+                        port.PortType = row["PortType"].ToString();
+                        port.PortIndex = row["PortId"].ToString();
+                        port.PortTag = row["PortTag"].ToString();
+                        port.SlotIndex = row["SlotId"].ToString();
+                        port.Room = row["RoomId"].ToString(); ;
+
+
+
+                        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                        {
+                            port.PortColor = 0;
+                        }
+                        else
+                        {
+                            port.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                        }
+
+
+
+
+                    }
+
+                    break;
+
+            }
+
+
+            node.SlotClass = slot;
+            node.PortClass = port;
+
+
+
+
+            return node;
+
+        }
 
 
 

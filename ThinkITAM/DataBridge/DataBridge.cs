@@ -245,11 +245,16 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static ObservableCollection<PortLinkClass> LinkManageList = new ObservableCollection<PortLinkClass>();
 
+        /// <summary>
+        /// 链路展示节点列表
+        /// </summary>
+        public static ObservableCollection<PortLinkClass> LinkViewList = new ObservableCollection<PortLinkClass>();
+
 
         /// <summary>
         /// 墙面面板端口管理端口列表
         /// </summary>
-       public static ObservableCollection<PortLinkClass> PanelPorts = new ObservableCollection<PortLinkClass>();
+        public static ObservableCollection<PortLinkClass> PanelPorts = new ObservableCollection<PortLinkClass>();
 
         /// <summary>
         /// 当前选中的建筑ID/RackId

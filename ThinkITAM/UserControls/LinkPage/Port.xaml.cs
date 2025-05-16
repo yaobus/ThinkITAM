@@ -130,6 +130,20 @@ namespace ThinkITAM.UserControls.LinkPage
                         //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
 
                         //DataBridge.DataBridge.LinkManageSelectPorts.Add(portInfo);
+                        if (port.OnTheLine!=null && port.OnTheLine>0)
+                        {
+                           
+                           DataBridge.DataBridge.LinkManageList = DbClass.GetLinkDetail(port.OnTheLine);
+                        }
+                        else
+                        {
+                            DataBridge.DataBridge.LinkManageList.Clear();
+                        }
+
+
+                       
+
+
 
                         break;
 

@@ -89,7 +89,7 @@ namespace ThinkITAM.FunctionPage
 
             RoutePanel.ItemsSource = DataBridge.DataBridge.LinkManageList;
 
-
+            //RouteViewPanel.ItemsSource = DataBridge.DataBridge.LinkViewList;
 
         }
 
@@ -476,7 +476,7 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                              index++;
+                index++;
                 //取出机房ID
                 string deviceRoomQrId = row["DeviceRoomQrId"].ToString();
 
@@ -1607,7 +1607,7 @@ namespace ThinkITAM.FunctionPage
 
                 foreach (var row in rows)
                 {
-                                        index++;
+                    index++;
 
                     PortLinkClass p = new PortLinkClass();
 
@@ -1842,21 +1842,6 @@ namespace ThinkITAM.FunctionPage
 
                     string portId = row["PortId"].ToString();
 
-                    #region MyRegion
-
-                    //switch (portType)
-                    //{
-                    //    case "E":
-                    //        info.PortType = "Eth";
-                    //        break;
-                    //    case "M":
-                    //        info.PortType = "Eth";
-                    //        break;
-                    //    default:
-                    //        info.PortType = "FC";  
-                    //        break;
-                    //}
-                    #endregion
 
                     info.PortType = row["PortType"].ToString();
                     info.PortIndex = $"{slotNumber}{portId}";
