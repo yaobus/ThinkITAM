@@ -627,7 +627,7 @@
                                 VerticalAlignment="Center"
                                 Content="端口标签:" />
                             <ComboBox
-                                x:Name="PortTag"
+                                x:Name="PortSpeed"
                                 Width="230"
                                 Height="28"
                                 Margin="0,0,10,0"

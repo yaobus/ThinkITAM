@@ -62,7 +62,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             string portType = "E";
             int slotNumber = 0;
-            string portTag = "G";
+            string portSpeed = "G";
             string portPrefix = "/0/";
             int firstNumber = 0;
             int portCount = 0;
@@ -104,7 +104,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             //if (PortTag.Text != "" && PortTag.Text != null)
             //{
-            portTag = PortTag.Text;
+            portSpeed = PortSpeed.Text;
             //}
 
             //if (PortPrefix.Text != "" && PortPrefix.Text != null)
@@ -124,7 +124,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             //生成配置预设信息，应用存储到预设库
             var conf = new PortTypeClass.PortInfoClass();
             conf.PortType = portType;
-            conf.PortTag = portTag;
+            conf.PortSpeed = portSpeed;
             conf.SlotNumber = slotNumber.ToString();
             conf.PortPrefix = portPrefix;
             conf.FirstNumber = firstNumber;
@@ -139,7 +139,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             {
                 var info = new PortTypeClass.PortDetailedInfo();
                 info.PortType = portType;
-                info.PortTag = portTag;
+                info.PortSpeed = portSpeed;
                 info.PortSlotNumber = slotNumber;
 
                 var port = new UserControls.DevicePortManage.DevicePort();
@@ -175,7 +175,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         }
 
-        private ObservableCollection<string> portTag = new ObservableCollection<string>();
+        private ObservableCollection<string> portSpeeds = new ObservableCollection<string>();
         private ObservableCollection<string> portPrefix = new ObservableCollection<string>();
 
         /// <summary>
@@ -186,9 +186,9 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void DeviceCreateGuideWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            PortTag.ItemsSource = portTag;
+            PortSpeed.ItemsSource = portSpeeds;
             PortPrefix.ItemsSource = portPrefix;
-            LoadPortTag();
+            LoadPortSpeed();
             LoadTags();
 
         }
@@ -205,20 +205,20 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// <summary>
         /// 加载网络端口标签
         /// </summary>
-        private void LoadPortTag()
+        private void LoadPortSpeed()
         {
-            portTag.Clear();
+            portSpeeds.Clear();
             portPrefix.Clear();
 
-            portTag.Add("F");
-            portTag.Add("E");
-            portTag.Add("G");
-            portTag.Add("XG");
-            portTag.Add("25G");
-            portTag.Add("40G");
-            portTag.Add("100G");
-            portTag.Add("MEth");
-            portTag.Add("MGMT");
+            portSpeeds.Add("F");
+            portSpeeds.Add("E");
+            portSpeeds.Add("G");
+            portSpeeds.Add("XG");
+            portSpeeds.Add("25G");
+            portSpeeds.Add("40G");
+            portSpeeds.Add("100G");
+            portSpeeds.Add("MEth");
+            portSpeeds.Add("MGMT");
 
             portPrefix.Add("/0/");
             portPrefix.Add("/1/");
@@ -233,9 +233,9 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// </summary>
         private void LoadDiskTag()
         {
-            portTag.Clear();
-            portTag.Add("Slot");
-            portTag.Add("Disk");
+            portSpeeds.Clear();
+            portSpeeds.Add("Slot");
+            portSpeeds.Add("Disk");
 
             portPrefix.Clear();
 
@@ -251,27 +251,27 @@ namespace ThinkITAM.Windows.DevicePortManage
                 switch (index)
                 {
                     case 0: //网口
-                        LoadPortTag();
+                        LoadPortSpeed();
                         SlotNumber.SelectedIndex = 0;
-                        PortTag.SelectedIndex = 2;
+                        PortSpeed.SelectedIndex = 2;
                         PortPrefix.SelectedIndex = 0;
 
 
                         break;
 
                     case 1: //光口
-                        LoadPortTag();
+                        LoadPortSpeed();
 
                         SlotNumber.SelectedIndex = 0;
-                        PortTag.SelectedIndex = 2;
+                        PortSpeed.SelectedIndex = 2;
                         PortPrefix.SelectedIndex = 0;
 
                         break;
 
                     case 2: //管理口
-                        LoadPortTag();
+                        LoadPortSpeed();
                         SlotNumber.SelectedIndex = 12;
-                        PortTag.SelectedIndex = 7;
+                        PortSpeed.SelectedIndex = 7;
                         PortPrefix.SelectedIndex = 4;
                         break;
 
@@ -279,7 +279,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                         LoadDiskTag();
                         SlotNumber.SelectedIndex = 12;
-                        PortTag.SelectedIndex = 0;
+                        PortSpeed.SelectedIndex = 0;
                         break;
 
                 }
@@ -449,7 +449,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
                     portInfo.PortType = portType;
-                    portInfo.PortTag = info.PortTag;
+                    portInfo.PortSpeed = info.PortSpeed;
 
                     portInfo.FullPortId = $"{info.SlotNumber}{info.PortPrefix}{i}";
                     
@@ -591,7 +591,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-            if (Description.Text.Replace(" ","").Length>0)
+            if (!string.IsNullOrWhiteSpace(Description.Text))
             {
                 if (portInfos.Count > 0)
                 {
@@ -707,7 +707,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             foreach (var info in portInfo)
             {
                 string portType = info.PortType;
-                string portTag = info.PortTag;
+                string portSpeed = info.PortSpeed;
                 int portSlotNumber = 0;
 
                 if (info.SlotNumber != "")
@@ -723,10 +723,10 @@ namespace ThinkITAM.Windows.DevicePortManage
                     {
                         UID = uid,
                         PortType = portType,
-                        PortTag = portTag,
+                        PortSpeed = portSpeed,
                         PortSlotNumber = portSlotNumber,
                         PortId = portId,
-                        Status = 0
+                        PortStatus = 0
                     };
 
 

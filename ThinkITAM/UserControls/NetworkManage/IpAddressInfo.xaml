@@ -97,7 +97,7 @@
                 Padding="0"
                 d:Background="DarkCyan"
                 d:BorderThickness="3"
-                Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                Background="{Binding AddressStatus, Converter={StaticResource StatusToColorConverter}}"
                 BorderBrush="{StaticResource AnimatedBrush}"
                 BorderThickness="{Binding IsSelected, Converter={StaticResource BoolToBorderThicknessConverter}, Mode=TwoWay}"
                 Click="AddressButton_Click"

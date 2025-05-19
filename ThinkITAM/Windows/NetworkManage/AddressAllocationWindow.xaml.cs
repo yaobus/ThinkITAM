@@ -561,7 +561,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var item in selectedItemsCollection)
             {
-                item.Status = status;
+                item.AddressStatus = status;
                 item.AddressColor = PortColor.SelectedIndex;
                 item.User = userId;
                 item.Name = name;
@@ -592,7 +592,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             string tableName = DataBridge.DataBridge.NetworkTableName;
 
-            string sql = $"UPDATE {tableName} SET User = '{info.User}', Status = '{info.Status}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDevice}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
+            string sql = $"UPDATE {tableName} SET User = '{info.User}', Status = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDevice}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
 
 
             //Console.WriteLine(sql);
@@ -686,7 +686,7 @@ namespace ThinkITAM.Windows.NetworkManage
                   
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
-                    DataBridge.DataBridge.IpAddressInfoLists[address].Status = 1;
+                    DataBridge.DataBridge.IpAddressInfoLists[address].AddressStatus = 1;
                     DataBridge.DataBridge.IpAddressInfoLists[address].User = "";
                     DataBridge.DataBridge.IpAddressInfoLists[address].AddressColor = 0;
                     DataBridge.DataBridge.IpAddressInfoLists[address].Organization = "";

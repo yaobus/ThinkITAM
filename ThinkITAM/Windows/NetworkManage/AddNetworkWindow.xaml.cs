@@ -537,7 +537,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 var info = new
                 {
                     Address=ip,
-                    Status=addressStatus    
+                    AddressStatus=addressStatus    
                 };
 
                 //Console.WriteLine(sql);

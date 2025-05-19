@@ -26,6 +26,13 @@ public class PortTypeClass
         }
 
 
+
+        public string? PortSpeed
+        {
+
+            get; set;
+        }
+
         //(E,G0/0/1)
 
 
@@ -76,7 +83,7 @@ public class PortTypeClass
 
         public override string ToString()
         {
-            return $"Port: {PortType}, {PortTag}, {SlotNumber}, {PortPrefix}, {FirstNumber}, {PortCount}";
+            return $"Port: {PortType}, {PortSpeed}, {SlotNumber}, {PortPrefix}, {FirstNumber}, {PortCount}";
         }
     }
 
@@ -210,6 +217,22 @@ public class PortTypeClass
                 }
             }
         }
+
+
+        private string? portSpeed;
+        public string? PortSpeed
+        {
+            get => portSpeed;
+            set
+            {
+                if (portSpeed != value)
+                {
+                    portSpeed = value;
+                    OnPropertyChanged(nameof(PortSpeed));
+                }
+            }
+        }
+
 
         private int? portSlotNumber;
         public int? PortSlotNumber

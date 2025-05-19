@@ -1,29 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using ThinkITAM.Windows.DevicePortManage;
 using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
-using ThinkITAM.UserControls.NetworkManage;
 using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.DevicePortManage;
-using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Others;
-using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
-using Microsoft.Data.Sqlite;
-
-
 
 
 namespace ThinkITAM.FunctionPage;
@@ -283,10 +272,11 @@ public partial class DevicePortManage : UserControl
                 var info = new PortDetailedInfo();
                 info.UID = Convert.ToInt32(row["UID"]);
                 info.PortType = row["PortType"].ToString();
+                info.PortSpeed= row["PortSpeed"].ToString();
                 info.PortTag = row["PortTag"].ToString();
                 info.PortSlotNumber = Convert.ToInt32(row["PortSlotNumber"]);
                 info.PortId = row["PortId"].ToString();
-                info.Status = Convert.ToInt32(row["Status"].ToString());
+                info.Status = Convert.ToInt32(row["PortStatus"].ToString());
                 info.Mode = row["Mode"].ToString();
                 info.PortName = row["PortName"].ToString();
                 info.VlanId = row["VlanId"].ToString();
@@ -347,7 +337,7 @@ public partial class DevicePortManage : UserControl
     {
         string tip = null;
 
-        tip += $"端口编号: {info.PortTag}{info.PortSlotNumber}{info.PortId}\r";
+        tip += $"端口编号: {info.PortSpeed}{info.PortSlotNumber}{info.PortId}\r";
 
         //0为未分配，1为已分配未启用，2为已分配，已启用，3为故障
 

@@ -10,7 +10,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="70"
-    Height="70"
+    Height="86"
     Background="Transparent"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
@@ -82,9 +82,10 @@
 
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="46" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="10" />
-                <RowDefinition Height="15" />
+                <RowDefinition Height="8" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -154,22 +155,9 @@
 
             </Grid>
 
-            <Grid
-                Margin="10,1"
-                Background="{Binding PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
-                Row="1">
-                <Button
-                    x:Name="ColorTagSet"
-                    Height="8"
-                    Padding="0"
-                    BorderThickness="0"
-                    Click="ColorTagSet_OnClick"
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                    ToolTip="点击修改颜色标记" />
 
-            </Grid>
 
-            <Grid Grid.Row="2" Background="{Binding PingStatusColor}">
+            <Grid Grid.Row="1" Background="{Binding PingStatusColor}">
 
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
@@ -177,7 +165,7 @@
                         d:Text="10G "
                         FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
                         FontSize="12"
-                        Text="{Binding PortTag}" />
+                        Text="{Binding PortSpeed}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text=" "
@@ -197,6 +185,44 @@
 
             </Grid>
 
+            <Grid
+                Grid.Row="3"
+
+                Margin="7,1"
+                Background="AliceBlue"
+                Opacity="0.8">
+
+                <Button
+                    x:Name="TagButton"
+                    Height="14"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    d:Content="ABCDEF"
+                    BorderThickness="0"
+                    Content="{Binding PortTag}"
+                    FontSize="12"
+                    Foreground="DarkCyan"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="{Binding PortTag}" />
+
+
+            </Grid>
+
+
+            <Grid
+                Margin="7,0"
+                Background="{Binding PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
+                Row="2">
+                <Button
+                    x:Name="ColorTagSet"
+                    Height="8"
+                    Padding="0"
+                    BorderThickness="0"
+                    Click="ColorTagSet_OnClick"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="点击修改颜色标记" />
+
+            </Grid>
 
         </Grid>
 

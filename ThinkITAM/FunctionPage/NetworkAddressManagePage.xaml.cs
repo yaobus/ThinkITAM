@@ -338,7 +338,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns></returns>
     private int GetNetWorkUsedAddress(string tableName)
     {
-        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE Status != '1'";//查询已分配的地址数量
+        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus != '1'";//查询已分配的地址数量
 
 
         return DbClass.ExecuteScalarTableNum(sql);
@@ -527,7 +527,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-        sqlTemp = $"SELECT COUNT(*) FROM {tableName} WHERE Status != 1";
+        sqlTemp = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus != 1";
 
         var used = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -782,7 +782,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            string sql = $"INSERT INTO `{tableName}` (`Address`, `Status`) VALUES ({i}, {status})";
+            string sql = $"INSERT INTO `{tableName}` (`Address`, `AddressStatus`) VALUES ({i}, {status})";
 
 
             //Console.WriteLine(sql);
@@ -1026,22 +1026,22 @@ public partial class NetworkAddressManagePage : UserControl
 
             string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
-            Console.WriteLine(query);
+            //Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
             {
-                               var info = new IpAddressInfoListViewMode();
+                var info = new IpAddressInfoListViewMode();
                 info.Address = Convert.ToInt32(row["Address"].ToString());
-                int status = Convert.ToInt32(row["Status"].ToString());
+                int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
 
-                info.Status = status;
+                info.AddressStatus = addressStatus;
 
                 Brush brush;
 
 
-                if (status == 0 || status == 4)
+                if (addressStatus == 0 || addressStatus == 4)
                 {
                     info.AddressType = false;
                 }
@@ -1094,7 +1094,7 @@ public partial class NetworkAddressManagePage : UserControl
                     //IpAddressInfoLists.Insert(index, info);
 
 
-                    itemToUpdate.Status = info.Status;
+                    itemToUpdate.AddressStatus = info.AddressStatus;
                     itemToUpdate.AddressColor = info.AddressColor;
                     itemToUpdate.PingTime = info.PingTime;
                     itemToUpdate.PingStatusColor = info.PingStatusColor;
@@ -1175,9 +1175,9 @@ public partial class NetworkAddressManagePage : UserControl
                             
                 var info = new IpAddressInfoListViewMode();
                 info.Address = Convert.ToInt32(row["Address"].ToString());
-                int status = Convert.ToInt32(row["Status"].ToString());
+                int status = Convert.ToInt32(row["AddressStatus"].ToString());
 
-                info.Status = status;
+                info.AddressStatus = status;
 
                 Brush brush;
 
@@ -1261,7 +1261,7 @@ public partial class NetworkAddressManagePage : UserControl
     {
         string tip = "";
 
-        switch (info.Status)
+        switch (info.AddressStatus)
         {
             case 0:
                 tip += $"地址状态: 网段地址\r";
@@ -1850,7 +1850,7 @@ public partial class NetworkAddressManagePage : UserControl
             if (rowData != null)
             {
 
-                int status = rowData.Status;
+                int addressStatus = rowData.AddressStatus;
 
                 int sum = GetSelectedAddressCount();
 
@@ -1861,7 +1861,7 @@ public partial class NetworkAddressManagePage : UserControl
                 if (sum == 1) //当前选择的是第一个地址
                 {
                     //记录当前选择的地址是已分配还是未分配
-                    DataBridge.DataBridge.AddressStatus = status;
+                    DataBridge.DataBridge.AddressStatus = addressStatus;
 
 
                     DataBridge.DataBridge.SelectAddress.Add(rowData.Address);
@@ -1871,7 +1871,7 @@ public partial class NetworkAddressManagePage : UserControl
                 {
 
                     //判断当前选择的地址是已分配还是未分配
-                    if (status == DataBridge.DataBridge.AddressStatus)//同种类型的地址则添加到列表中，否则不添加
+                    if (addressStatus == DataBridge.DataBridge.AddressStatus)//同种类型的地址则添加到列表中，否则不添加
                     {
 
                         rowData.IsSelected = true;
@@ -1953,7 +1953,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         rowData.IsSelected = true;
 
-        DataBridge.DataBridge.AddressStatus = rowData.Status;//记录所选地址类型
+        DataBridge.DataBridge.AddressStatus = rowData.AddressStatus;//记录所选地址类型
 
         AddressAllocationWindow addressAllocationWindow = new AddressAllocationWindow();
 

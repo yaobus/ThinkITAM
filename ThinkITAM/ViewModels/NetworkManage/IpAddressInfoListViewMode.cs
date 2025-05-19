@@ -14,7 +14,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
         private bool isSelected;
         private int address;
         private bool addressType;
-        private int status;
+        private int addressStatus;
         private int addressColor;
         private Brush useStatusColor;
         private string pingTime;
@@ -88,15 +88,15 @@ namespace ThinkITAM.ViewModels.NetworkManage
             }
         }
 
-        public int Status
+        public int AddressStatus
         {
-            get => status;
+            get => addressStatus;
             set
             {
-                if (status != value)
+                if (addressStatus != value)
                 {
-                    status = value;
-                    OnPropertyChanged(nameof(Status));
+                    addressStatus = value;
+                    OnPropertyChanged(nameof(AddressStatus));
                 }
             }
         }

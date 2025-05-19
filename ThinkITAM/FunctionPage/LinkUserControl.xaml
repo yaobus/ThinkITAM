@@ -706,7 +706,7 @@
                         d:Height="150"
                         d:Visibility="Collapsed"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
+                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -1126,6 +1126,16 @@
                         Margin="0,14,0,0"
                         HorizontalAlignment="Stretch"
                         FontSize="14" />
+
+                    <CheckBox
+                        Margin="0,14,0,0"
+                        x:Name="TagSync"
+                        Content="标签同步"
+                        IsChecked="False"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignSecondaryCheckBox}"
+                        ToolTip="名称作为节点标签同步到链路上的全部节点"
+                        />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button
                             x:Name="SaveButton"
