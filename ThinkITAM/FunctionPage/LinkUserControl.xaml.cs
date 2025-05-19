@@ -1722,62 +1722,6 @@ namespace ThinkITAM.FunctionPage
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                #region 
-
-                //while (reader.Read())
-                //{
-                //    //读取端口信息，并写入列表
-                //    var info = new PortDetailedInfo();
-                //    info.UID = Convert.ToInt32(reader["UID"]);
-                //    info.PortType = reader["PortType"].ToString();
-                //    info.PortTag = reader["PortTag"].ToString();
-                //    info.PortSlotNumber = Convert.ToInt32(reader["PortSlotNumber"]);
-                //    info.PortId = reader["PortId"].ToString();
-                //    info.Status = Convert.ToInt32(reader["Status"].ToString());
-                //    info.Mode = reader["Mode"].ToString();
-                //    info.PortName = reader["PortName"].ToString();
-                //    info.VlanId = reader["VlanId"].ToString();
-
-                //    info.FullPortId= $"{info.PortSlotNumber}{info.PortId}";
-
-
-                //    //如果颜色索引数据库返回值为空数据，则使用默认颜色
-
-                //    if (reader["PortColor"] == DBNull.Value)
-                //    {
-                //        info.PortColor = 0;
-                //    }
-                //    else
-                //    {
-                //        info.PortColor = Convert.ToInt32(reader["PortColor"]);
-                //    }
-
-
-                //    if (reader["OnTheLine"] == DBNull.Value)
-                //    {
-                //        info.OnTheLine = -1;
-                //    }
-                //    else
-                //    {
-                //        info.OnTheLine = Convert.ToInt32(reader["OnTheLine"]);
-                //    }
-
-
-                //    info.TagA = reader["TagA"].ToString();
-                //    info.TagB = reader["TagB"].ToString();
-                //    info.TagC = reader["TagC"].ToString();
-                //    info.TagD = reader["TagD"].ToString();
-                //    info.TagE = reader["TagE"].ToString();
-                //    info.TagF = reader["TagF"].ToString();
-                //    info.AssetId = reader["AssetId"].ToString();
-
-
-
-                //    devicePorts.Add(info);
-
-                //}
-                #endregion
-
                 int index = 0;
 
                 foreach (var row in rows)
@@ -1823,6 +1767,7 @@ namespace ThinkITAM.FunctionPage
 
                     info.PortType = row["PortType"].ToString();
                     info.PortIndex = $"{slotNumber}{portId}";
+                    info.PortSpeed = row["PortSpeed"].ToString();
                     info.PortTag = row["PortTag"].ToString();
                     info.SlotIndex = slotNumber.ToString();
 
@@ -1907,6 +1852,9 @@ namespace ThinkITAM.FunctionPage
 
                 GlobalVariables.DbService.InsertEntity("Link", info);
 
+                var nodeCount= DataBridge.DataBridge.LinkManageList.Count;
+
+                
                 foreach (var node in DataBridge.DataBridge.LinkManageList)
                 {
                     var nodeInfo = new
@@ -1918,10 +1866,17 @@ namespace ThinkITAM.FunctionPage
                     };
                     GlobalVariables.DbService.InsertEntity("LinkDetail", nodeInfo);
 
-                   node.PortClass.OnTheLine = 1;
+                   node.PortClass.OnTheLine = index;
+
+                   string sync=null;
+                    if (TagSyncButton.IsChecked == true)
+                    {
+                      sync  = $",PortTag = '{NameTextBox.Text}-{nodeCount}-{node.PortClass.NodeIndex}'";
+                    }
+
 
                     //写端口的OnTheLine字段
-                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index}  WHERE UID = {node.PortClass.UID}";
+                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index} {sync}  WHERE UID = {node.PortClass.UID}";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 

@@ -1129,7 +1129,7 @@
 
                     <CheckBox
                         Margin="0,14,0,0"
-                        x:Name="TagSync"
+                        x:Name="TagSyncButton"
                         Content="标签同步"
                         IsChecked="False"
                         HorizontalAlignment="Left"

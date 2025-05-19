@@ -96,8 +96,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="8" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button
             x:Name="PortButton"
@@ -193,7 +193,7 @@
 
 
         <Grid
-            Grid.Row="2"
+            Grid.Row="3"
             Width="50"
             Margin="0,1"
             Background="AliceBlue"
@@ -207,7 +207,7 @@
                 d:Content="TAG-A"
                 BorderThickness="0"
                 Content="{Binding PortClass.PortTag}"
-                FontSize="12"
+                FontSize="8"
                 FontWeight="Bold"
                 Foreground="DarkCyan"
                 Style="{StaticResource MaterialDesignOutlinedButton}"
@@ -217,7 +217,7 @@
         </Grid>
 
         <Grid
-            Grid.Row="3"
+            Grid.Row="2"
             Width="50"
             Margin="0"
             Background="{Binding PortClass.PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"

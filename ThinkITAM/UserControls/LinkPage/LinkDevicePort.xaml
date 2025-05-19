@@ -236,7 +236,7 @@
                         d:Text="10G "
                         FontSize="12"
                         FontWeight="ExtraBlack"
-                        Text="{Binding PortClass.PortTag}" />
+                        Text="{Binding PortClass.PortSpeed}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text=" "
@@ -268,11 +268,11 @@
                     VerticalAlignment="Center"
                     d:Content="ABCDEF"
                     BorderThickness="0"
-                    Content="{Binding PortTag}"
+                    Content="{Binding  PortClass.PortTag}"
                     FontSize="8"
                     Foreground="DarkCyan"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                    ToolTip="{Binding PortTag}" />
+                    ToolTip="{Binding PortClass.PortTag}" />
 
 
             </Grid>

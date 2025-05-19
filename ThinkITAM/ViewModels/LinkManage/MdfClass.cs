@@ -283,6 +283,7 @@ namespace ThinkITAM.ViewModels.LinkManage
         private string _slotIndex;
         private string _room;
         private string _portIndex;
+        private string _portSpeed;
         private string _portTag;
         private string _portType;
         private int _portColor;
@@ -398,6 +399,22 @@ namespace ThinkITAM.ViewModels.LinkManage
                 {
                     _portTag = value;
                     OnPropertyChanged(nameof(PortTag));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 端口标签
+        /// </summary>
+        public string PortSpeed
+        {
+            get => _portSpeed;
+            set
+            {
+                if (_portSpeed != value)
+                {
+                    _portSpeed = value;
+                    OnPropertyChanged(nameof(PortSpeed));
                 }
             }
         }

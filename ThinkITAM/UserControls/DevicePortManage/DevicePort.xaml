@@ -200,7 +200,7 @@
                     d:Content="ABCDEF"
                     BorderThickness="0"
                     Content="{Binding PortTag}"
-                    FontSize="12"
+                    FontSize="8"
                     Foreground="DarkCyan"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
                     ToolTip="{Binding PortTag}" />
