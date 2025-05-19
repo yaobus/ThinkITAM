@@ -315,7 +315,8 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                FontWeight="ExtraBlack"
+                                                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                                                Foreground="AliceBlue"
                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                                 Text="{Binding Index}" />
                                         </Grid>
@@ -333,7 +334,8 @@
                                                 <TextBlock
                                                     Grid.Column="0"
                                                     VerticalAlignment="Center"
-                                                    FontWeight="Bold"
+                                                    FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
+                                                    Foreground="AliceBlue"
                                                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                                     Text="{Binding rackName}" />
 
@@ -351,12 +353,34 @@
                                             </Grid>
 
 
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Margin="5,0"
-                                                VerticalAlignment="Center"
-                                                Opacity="0.5"
-                                                Text="{Binding rackNote}" />
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5"
+                                                    Text="{Binding slotCount}"
+                                                    ToolTip="槽位数量" />
+
+                                                <Label
+                                                    Padding="0"
+                                                    Content="/"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5" />
+
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5"
+                                                    Text="{Binding portCount}"
+                                                    ToolTip="端口数量" />
+
+                                            </StackPanel>
+
 
 
                                         </Grid>
@@ -559,7 +583,7 @@
                                 </Button>
 
 
-                                <StackPanel
+                                <!--<StackPanel
                                     VerticalAlignment="Center"
                                     d:Visibility="Visible"
                                     Orientation="Horizontal"
@@ -593,9 +617,9 @@
                                         Style="{StaticResource MaterialDesignActionToggleButton}"
                                         ToolTip="启用连续自动保存链路配置" />
 
-                                </StackPanel>
+                                </StackPanel>-->
 
-                                <StackPanel
+                                <!--<StackPanel
                                     VerticalAlignment="Center"
                                     d:Visibility="Visible"
                                     Orientation="Horizontal"
@@ -630,7 +654,7 @@
                                         Style="{StaticResource MaterialDesignActionToggleButton}"
                                         ToolTip="清除临时链路配置" />
 
-                                </StackPanel>
+                                </StackPanel>-->
 
                             </StackPanel>
 
@@ -706,7 +730,7 @@
                         d:Height="150"
                         d:Visibility="Collapsed"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -773,7 +797,8 @@
                         Grid.Row="1"
                         Margin="0"
                         d:Visibility="Visible"
-                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}"
+                        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -1128,14 +1153,13 @@
                         FontSize="14" />
 
                     <CheckBox
-                        Margin="0,14,0,0"
                         x:Name="TagSyncButton"
+                        Margin="0,14,0,0"
+                        HorizontalAlignment="Left"
                         Content="标签同步"
                         IsChecked="False"
-                        HorizontalAlignment="Left"
                         Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-                        ToolTip="名称作为节点标签同步到链路上的全部节点"
-                        />
+                        ToolTip="名称作为节点标签同步到链路上的全部节点" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button
                             x:Name="SaveButton"

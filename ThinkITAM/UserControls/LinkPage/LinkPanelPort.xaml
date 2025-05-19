@@ -196,7 +196,6 @@
             Grid.Row="3"
             Width="50"
             Margin="0,1"
-            Background="AliceBlue"
             Opacity="0.8">
 
             <Button
@@ -207,8 +206,8 @@
                 d:Content="TAG-A"
                 BorderThickness="0"
                 Content="{Binding PortClass.PortTag}"
-                FontSize="8"
-                FontWeight="Bold"
+                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                FontSize="10"
                 Foreground="DarkCyan"
                 Style="{StaticResource MaterialDesignOutlinedButton}"
                 ToolTip="{Binding PortClass.PortTag}" />

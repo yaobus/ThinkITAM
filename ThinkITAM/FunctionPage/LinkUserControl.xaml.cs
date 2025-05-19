@@ -11,6 +11,7 @@ using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
+using System.Windows.Controls.Primitives;
 
 
 namespace ThinkITAM.FunctionPage
@@ -423,6 +424,8 @@ namespace ThinkITAM.FunctionPage
                 rack.rackNote = row["RackNote"].ToString();
                 string infos = row["SlotInfos"].ToString();
 
+                rack.portCount = DbClass.GetRackPortCount(rack.rackId);
+
                 var slotInfos = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<SlotClass>>(infos);
 
                 rack.slotInfos = slotInfos;
@@ -668,7 +671,7 @@ namespace ThinkITAM.FunctionPage
                 info.rackNote = row["RackNote"].ToString();
                 string infos = row["SlotInfos"].ToString();
 
-                Console.WriteLine(infos);
+                info.portCount = DbClass.GetRackPortCount(info.rackId);
 
                 var slotInfos = JsonConvert.DeserializeObject<ObservableCollection<SlotClass>>(infos);
 
@@ -777,11 +780,17 @@ namespace ThinkITAM.FunctionPage
 
             //第一步，获取机架信息
             MdfRackClass mdfRack = new MdfRackClass();
-            mdfRack.RackId = rackId;
+
+            mdfRack = DbClass.GetRackInfo(rackId);
+            
+
             mdfRack.RackGroup = rackInfo.rackGroup;
-            mdfRack.RackName = rackInfo.rackName;
+            //mdfRack.RackName = rackInfo.rackName;
             mdfRack.RackNote = rackInfo.rackNote;
             mdfRack.SlotCount = rackInfo.slotCount;
+            
+
+
 
             //第二步，获取槽位信息
             ObservableCollection<SlotClass> slots = rackInfo.slotInfos;
@@ -972,9 +981,8 @@ namespace ThinkITAM.FunctionPage
         private void LinkClear_OnClick(object sender, RoutedEventArgs e)
         {
             DataBridge.DataBridge.LinkManageMode = 3;
-            DataBridge.DataBridge.LinkPerClear = 0;
-            DataBridge.DataBridge.LinkTempClear = 0;
             DataBridge.DataBridge.LinkManageList.Clear();
+            DataBridge.DataBridge.LinkViewList.Clear();
             //RoutePanel.Children.Clear();
         }
 
@@ -999,288 +1007,8 @@ namespace ThinkITAM.FunctionPage
 
 
 
-        /// <summary>
-        /// 保存链路配置
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveLinkConfig_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (CanSave = true)
-            {
-                SaveRackLink();
 
-            }
-        }
 
-
-        /// <summary>
-        /// 保存机架链路信息
-        /// </summary>
-        private void SaveRackLink()
-        {
-            int count = DataBridge.DataBridge.LinkManageList.Count;
-            var list = DataBridge.DataBridge.LinkManageList;
-
-            for (int i = 0; i < count; i++)
-            {
-                //List 索引从0开始
-                if (i < count - 1)
-                {
-                    if (NumberCheckClass.OddOrEven(i) == 0)
-                    {
-                        //A端
-                        var linkA = list[i];
-                        string rackIdA = linkA.MdfRackClass.RackId;
-                        string slotIdA = linkA.SlotClass.SlotIndex;
-                        string portIdA = linkA.PortClass.PortIndex.ToString();
-                        string roomA = linkA.PortClass.Room;
-                        int typeA = Convert.ToInt32(rackIdA.Substring(0, 1));
-
-                        Console.WriteLine("ROOMA:" + roomA);
-
-                        int statusA = 0;//如果是0，则表示是RACK，否则是Building
-
-                        string tableHeaderA = "ra";
-
-                        if (rackIdA.Substring(0, 1) == "8")
-                        {
-                            tableHeaderA = "bu";
-                            statusA = 1;
-                        }
-
-
-
-                        //B端
-                        var linkB = list[i + 1];
-                        string rackIdB = linkB.MdfRackClass.RackId;
-                        string slotIdB = linkB.SlotClass.SlotIndex;
-                        string portIdB = linkB.PortClass.PortIndex.ToString();
-                        string roomB = linkB.PortClass.Room;
-                        int typeB = Convert.ToInt32(rackIdB.Substring(0, 1));
-                        int statusB = 0;//如果是0，则表示是RACK，否则是Building
-                        string tableHeaderB = "ra";
-
-                        Console.WriteLine("ROOMB:" + roomB);
-
-                        if (rackIdB.Substring(0, 1) == "8")
-                        {
-                            tableHeaderB = "bu";
-                            statusB = 1;
-                        }
-
-
-                        if (statusA == 1)
-                        {
-                            string roomSql = "";
-
-                            if (roomB.Length > 0)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomB}'";
-                            }
-
-                            //往A端的表存入B端的信息(建筑端口类)
-                            string sqlA =
-                                $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"PermanentType\" = {typeB}, \"PermanentRackId\" = '{rackIdB}', \"PermanentSlot\" = '{slotIdB}', \"PermanentPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' AND RoomId='{roomA}'";
-                            
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
-
-                            ReLoadRack(rackIdA);
-
-                        }
-                        else
-                        {
-                            string roomSql = "";
-
-                            if (roomB.Length > 0)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomB}'";
-                            }
-
-
-                            //往A端的表存入B端的信息(配线架端口类)
-                            string sqlA =
-                                $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"PermanentType\" = {typeB}, \"PermanentRackId\" = '{rackIdB}', \"PermanentSlot\" = '{slotIdB}', \"PermanentPort\" = '{portIdB}'  {roomSql}  WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}'";
-                           
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
-
-                            ReLoadRack(rackIdA);
-
-                        }
-
-
-                        if (statusB == 1)
-                        {
-
-                            string roomSql = "";
-
-                            if (roomA != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomA}'";
-                            }
-
-
-                            //往B端的表存入A端的信息(建筑端口类)
-                            string sqlB =
-                                $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"PermanentType\" = {typeA}, \"PermanentRackId\" = '{rackIdA}', \"PermanentSlot\" = '{slotIdA}', \"PermanentPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}' AND RoomId='{roomB}'";
-
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
-                            ReLoadRack(rackIdB);
-
-                        }
-                        else
-                        {
-
-                            string roomSql = "";
-
-                            if (roomA != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomA}'";
-                            }
-
-                            //往B端的表存入A端的信息(配线架端口类)
-                            string sqlB =
-                                $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"PermanentType\" = {typeA}, \"PermanentRackId\" = '{rackIdA}', \"PermanentSlot\" = '{slotIdA}', \"PermanentPort\" = '{portIdA}'  {roomSql}  WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}'";
-
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
-                            ReLoadRack(rackIdB);
-                        }
-
-
-
-                    }
-                    else
-                    {
-
-                        //A端
-                        var linkA = list[i];
-                        string rackIdA = linkA.MdfRackClass.RackId;
-                        string slotIdA = linkA.SlotClass.SlotIndex;
-                        string portIdA = linkA.PortClass.PortIndex.ToString();
-                        string roomA = linkA.PortClass.Room;
-                        int typeA = Convert.ToInt32(rackIdA.Substring(0, 1));
-
-                        Console.WriteLine("ROOMA:" + roomA);
-
-                        string tableHeaderA = "ra";
-                        int statusA = 0;//如果是0，则表示是RACK，否则是Building
-
-                        if (rackIdA.Substring(0, 1) == "8")
-                        {
-                            tableHeaderA = "bu";
-                            statusA = 1;
-                        }
-
-                        //B端
-                        var linkB = list[i + 1];
-                        string rackIdB = linkB.MdfRackClass.RackId;
-                        string slotIdB = linkB.SlotClass.SlotIndex;
-                        string portIdB = linkB.PortClass.PortIndex.ToString();
-                        string roomB = linkB.PortClass.Room;
-                        int typeB = Convert.ToInt32(rackIdB.Substring(0, 1));
-
-                        Console.WriteLine("ROOMB:" + roomB);
-
-                        string tableHeaderB = "ra";
-                        int statusB = 0;//如果是0，则表示是RACK，否则是Building
-
-                        if (rackIdB.Substring(0, 1) == "8")
-                        {
-                            tableHeaderB = "bu";
-                            statusB = 1;
-                        }
-
-
-                        if (statusA == 1)
-                        {
-
-                            string roomSql = "";
-
-                            if (roomB != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomB}'";
-                            }
-
-                            //往A端的表存入B端的信息
-                            string sqlA =
-                                $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"TempType\" = {typeB}, \"TempRackId\" = '{rackIdB}', \"TempSlot\" = '{slotIdB}', \"TempPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' AND RoomId='{roomA}'";
-
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
-                            ReLoadRack(rackIdA);
-                        }
-                        else
-                        {
-
-                            string roomSql = "";
-
-                            if (roomB != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomB}'";
-                            }
-
-                            //往A端的表存入B端的信息
-                            string sqlA =
-                                $"UPDATE \"{tableHeaderA}_{rackIdA}\" SET \"TempType\" = {typeB}, \"TempRackId\" = '{rackIdB}', \"TempSlot\" = '{slotIdB}', \"TempPort\" = '{portIdB}' {roomSql} WHERE SlotId='{slotIdA}' AND PortId ='{portIdA}' ";
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlA);
-                            ReLoadRack(rackIdA);
-                        }
-
-                        if (statusB == 1)
-                        {
-
-                            string roomSql = "";
-
-                            if (roomA != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomA}'";
-                            }
-
-
-                            //往B端的表存入A端的信息
-                            string sqlB =
-                                $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"TempType\" = {typeA}, \"TempRackId\" = '{rackIdA}', \"TempSlot\" = '{slotIdA}', \"TempPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}' AND RoomId='{roomB}'";
-
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
-
-                            ReLoadRack(rackIdB);
-                        }
-                        else
-                        {
-
-                            string roomSql = "";
-
-                            if (roomA != null)
-                            {
-                                roomSql = $" ,\"PermanentRoom\" = '{roomA}'";
-                            }
-
-
-                            //往B端的表存入A端的信息
-                            string sqlB =
-                                $"UPDATE \"{tableHeaderB}_{rackIdB}\" SET \"TempType\" = {typeA}, \"TempRackId\" = '{rackIdA}', \"TempSlot\" = '{slotIdA}', \"TempPort\" = '{portIdA}' {roomSql} WHERE SlotId='{slotIdB}' AND PortId ='{portIdB}'";
-
-
-                            GlobalVariables.DbService.ExecuteNonQuery(sqlB);
-                            ReLoadRack(rackIdB);
-                        }
-
-
-
-                    }
-
-
-
-
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-
-
-        }
 
         /// <summary>
         /// 重新加载机架
@@ -1353,41 +1081,49 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-        /// <summary>
-        /// 永久链路清除被勾选
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PerLink_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (PerLink.IsChecked == true)
-            {
-                DataBridge.DataBridge.LinkPerClear = 1;
-            }
-            else
-            {
-                DataBridge.DataBridge.LinkPerClear = 0;
-            }
+        #region MyRegion
 
 
-        }
 
-        /// <summary>
-        /// 临时链路清除被勾选
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TempLink_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (TempLink.IsChecked == true)
-            {
-                DataBridge.DataBridge.LinkTempClear = 1;
-            }
-            else
-            {
-                DataBridge.DataBridge.LinkTempClear = 0;
-            }
-        }
+
+
+        ///// <summary>
+        ///// 永久链路清除被勾选
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void PerLink_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (PerLink.IsChecked == true)
+        //    {
+        //        DataBridge.DataBridge.LinkPerClear = 1;
+        //    }
+        //    else
+        //    {
+        //        DataBridge.DataBridge.LinkPerClear = 0;
+        //    }
+
+
+        //}
+
+        ///// <summary>
+        ///// 临时链路清除被勾选
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void TempLink_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (TempLink.IsChecked == true)
+        //    {
+        //        DataBridge.DataBridge.LinkTempClear = 1;
+        //    }
+        //    else
+        //    {
+        //        DataBridge.DataBridge.LinkTempClear = 0;
+        //    }
+        //}
+
+        #endregion
 
 
         /// <summary>
@@ -1413,7 +1149,7 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
 
                 var info = new BuildingInfoClass();
 
@@ -1871,12 +1607,12 @@ namespace ThinkITAM.FunctionPage
                    string sync=null;
                     if (TagSyncButton.IsChecked == true)
                     {
-                      sync  = $",PortTag = '{NameTextBox.Text}-{nodeCount}-{node.PortClass.NodeIndex}'";
+                      sync  = $",PortTag = '{NameTextBox.Text}/{nodeCount}-{node.PortClass.NodeIndex}'";
                     }
 
 
                     //写端口的OnTheLine字段
-                    var sql = $"UPDATE  {GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index} {sync}  WHERE UID = {node.PortClass.UID}";
+                    var sql = $"UPDATE  {TableNameClass.GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index} {sync}  WHERE UID = {node.PortClass.UID}";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
@@ -1890,27 +1626,6 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-        /// <summary>
-        /// 根据资产ID获取表名
-        /// </summary>
-        /// <param name="AssetId"></param>
-        /// <returns></returns>
-        private string GetTableName(string AssetId)
-        {
-            if (string.IsNullOrEmpty(AssetId))
-                return string.Empty;
 
-            switch (AssetId[0])
-            {
-                case '3':
-                    return $"Ra_{AssetId}";
-                case '2':
-                    return $"De_{AssetId}";
-                case '8':
-                    return $"Bu_{AssetId}";
-                default:
-                    return string.Empty; // 或者你可以返回一个默认值，如 null 或其他
-            }
-        }
     }
 }

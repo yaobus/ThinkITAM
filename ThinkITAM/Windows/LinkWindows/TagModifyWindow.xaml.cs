@@ -101,7 +101,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
                     PortClass portInfo = (PortClass)tagInfo;
 
-                    sql = $"UPDATE \"Ra_{DataBridge.DataBridge.SelectRackId[0]}\" SET \"PortTag\" = '{tag}' WHERE UID = '{portInfo.UID}'";
+                    sql = $"UPDATE  Ra_{DataBridge.DataBridge.SelectRackId[0]}  SET  PortTag  = '{tag}' WHERE UID = '{portInfo.UID}'";
 
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -135,7 +135,7 @@ namespace ThinkITAM.Windows.LinkWindows
                     string json = JsonConvert.SerializeObject(slots);
 
 
-                    sql = $"UPDATE \"Racks\" SET \"SlotInfos\" = '{json}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
+                    sql = $"UPDATE  Racks  SET  SlotInfos  = '{json}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
 
 
 
@@ -148,7 +148,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
                 case "rack":
 
-                    sql = $"UPDATE \"Racks\" SET \"RackName\" = '{tag}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
+                    sql = $"UPDATE  Racks  SET  RackName  = '{tag}' WHERE RackId = '{DataBridge.DataBridge.SelectRackId[0]}'";
 
 
 

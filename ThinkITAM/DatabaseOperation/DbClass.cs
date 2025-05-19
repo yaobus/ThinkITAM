@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using Microsoft.Data.Sqlite;
-using Nodify;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
-using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
 
 
@@ -453,6 +441,19 @@ namespace ThinkITAM.DatabaseOperation
             }
 
             
+        }
+
+        /// <summary>
+        /// 获取机架端口数量
+        /// </summary>
+        /// <param name="rackId"></param>
+        /// <returns></returns>
+        public static int GetRackPortCount(string rackId)
+        {
+            string sql = $"SELECT COUNT(*) FROM Ra_{rackId} ";
+
+            return ExecuteScalarTableNum(sql);
+
         }
 
 

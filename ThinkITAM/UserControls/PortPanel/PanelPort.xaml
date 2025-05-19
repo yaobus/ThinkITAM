@@ -77,7 +77,7 @@
 
                             <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
                             <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
-                                <Setter Property="Opacity" Value="0.3" />
+                                <Setter Property="Opacity" Value="0.5" />
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="True">
@@ -108,7 +108,6 @@
             Grid.Row="3"
             Width="50"
             Margin="0,1"
-            Background="AliceBlue"
             Opacity="0.8">
 
             <Button
@@ -120,9 +119,8 @@
                 BorderThickness="0"
                 Click="TagButton_OnClick"
                 Content="{Binding PortTag}"
+                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                 FontSize="12"
-                FontWeight="Bold"
-                Foreground="DarkCyan"
                 Style="{StaticResource MaterialDesignOutlinedButton}"
                 ToolTip="{Binding PortTag}" />
 

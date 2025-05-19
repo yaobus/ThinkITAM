@@ -592,7 +592,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             string tableName = DataBridge.DataBridge.NetworkTableName;
 
-            string sql = $"UPDATE {tableName} SET User = '{info.User}', Status = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDevice}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
+            string sql = $"UPDATE {tableName} SET User = '{info.User}', AddressStatus = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDevice}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
 
 
             //Console.WriteLine(sql);
@@ -682,7 +682,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 {
                     int address = item.Address;
 
-                    string sql = $"UPDATE {tableName} SET Status = 1, User = '', AddressColor='0', HostName = '', MacAddress = '', LinkDevice = '', TagA = '', TagB = '', TagC = '', TagD = '', TagE = '', TagF = '' WHERE Address = {address}";
+                    string sql = $"UPDATE {tableName} SET AddressStatus = 1, User = '', AddressColor='0', HostName = '', MacAddress = '', LinkDevice = '', TagA = '', TagB = '', TagC = '', TagD = '', TagE = '', TagF = '' WHERE Address = {address}";
                   
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 

@@ -89,7 +89,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
 
 
-            string sql = $"UPDATE \"Ra_{DataBridge.DataBridge.SelectRackId[0]}\" SET \"PortColor\" = '{colorIndex}' WHERE UID = '{port.UID}'";
+            string sql = $"UPDATE  Ra_{DataBridge.DataBridge.SelectRackId[0]}  SET  PortColor  = '{colorIndex}' WHERE UID = '{port.UID}'";
 
 
             

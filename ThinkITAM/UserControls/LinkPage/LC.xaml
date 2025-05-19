@@ -23,7 +23,7 @@
     <Border
         Width="22"
         Height="29"
-        BorderBrush="AliceBlue"
+        BorderBrush="Gray"
         BorderThickness="2">
 
         <Grid

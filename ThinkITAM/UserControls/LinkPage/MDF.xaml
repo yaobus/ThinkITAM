@@ -93,61 +93,7 @@
                     Text="{Binding SlotTag}" />
             </Grid>
 
-            <Grid
-                Grid.Column="0"
-                Height="15"
-                Margin="0,1,1,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom">
 
-
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignCentres" ToolTipService.Placement="Right">
-                    <materialDesign:PopupBox.ToggleContent>
-
-                        <materialDesign:ColorZone Background="Transparent" ClipToBounds="False">
-                            <materialDesign:PackIcon
-                                Width="15"
-                                Height="15"
-                                Padding="0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Foreground="DarkCyan"
-                                Kind="DotsHorizontalCircleOutline" />
-
-
-                        </materialDesign:ColorZone>
-
-
-
-
-                    </materialDesign:PopupBox.ToggleContent>
-
-
-                    <StackPanel>
-                        <Button Opacity="0.5" ToolTip="修改当前槽位配置">
-                            <materialDesign:PackIcon Kind="FormatListNumbered" />
-
-                        </Button>
-                        <Button Opacity="0.5" ToolTip="配置槽位永久链路">
-                            <materialDesign:PackIcon Kind="LinkVariant" />
-
-                        </Button>
-                        <Button Opacity="0.5" ToolTip="创建槽位对端设备">
-                            <materialDesign:PackIcon Kind="TableColumnPlusBefore" />
-
-                        </Button>
-                    </StackPanel>
-                </materialDesign:PopupBox>
-
-
-
-
-
-
-
-
-
-            </Grid>
 
 
             <!--  以下外观设计  -->

@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     Width="34"
-    Height="65"
+    Height="60"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="Port_OnLoaded"
     mc:Ignorable="d">
@@ -95,7 +95,7 @@
             <RowDefinition Height="36" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="8" />
+            <RowDefinition Height="6" />
         </Grid.RowDefinitions>
         <Button
             x:Name="PortButton"
@@ -185,7 +185,6 @@
                 VerticalAlignment="Center"
                 FontSize="10"
                 FontWeight="Bold"
-
                 Text="{Binding PortIndex}" />
 
 
@@ -195,7 +194,6 @@
             Grid.Row="2"
             Width="34"
             Margin="0,1"
-            Background="AliceBlue"
             Opacity="0.8">
 
             <Button
@@ -207,8 +205,9 @@
                 BorderThickness="0"
                 Click="TagButton_OnClick"
                 Content="{Binding PortTag}"
+                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                 FontSize="8"
-                Foreground="DarkCyan"
+                Foreground="AliceBlue"
                 Style="{StaticResource MaterialDesignOutlinedButton}"
                 ToolTip="{Binding PortTag}" />
 

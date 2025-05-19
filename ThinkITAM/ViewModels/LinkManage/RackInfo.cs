@@ -48,5 +48,9 @@ public class RackInfo
         set;
     }
 
-
+    public int portCount
+    {
+        get;
+        set;
+    }
 }

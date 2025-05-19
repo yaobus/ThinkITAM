@@ -69,9 +69,7 @@ namespace ThinkITAM.UserControls.LinkPage
             {
                 var rackInfo = rackDataContext as MdfRackClass;
 
-               
-
-                int count = DataBridge.DataBridge.LinkManageList.Count;
+               int count = DataBridge.DataBridge.LinkManageList.Count;
 
                 
                 if (rackInfo != null)
@@ -127,7 +125,7 @@ namespace ThinkITAM.UserControls.LinkPage
                 {
                        
 
-                    case 0://添加顺藤摸瓜起点
+                    case 0://链路查看模式
 
                         if (port.OnTheLine != null && port.OnTheLine > 0)
                         {
@@ -276,53 +274,43 @@ namespace ThinkITAM.UserControls.LinkPage
 
                     case 3://链路清除模式
 
-                        if (DataBridge.DataBridge.LinkPerClear == 1)
+                       //第一步，获取链路ID
+                       var linkId = portInfo.PortClass.OnTheLine;
+
+                        if (linkId > 0)
                         {
+                            var result= MessageBox.Show("是否确认删除该链路\r该操作不可逆!", "注意", MessageBoxButton.YesNo);
 
-
-
-                            string tableHeaerA = "ra";
-
-                            if (portInfo.MdfRackClass.RackId.Substring(0, 1) == "8")
+                            if (result==MessageBoxResult.Yes)
                             {
-                                tableHeaerA = "bu";
+
+                                //清空链路在节点上的信息
+                                foreach (var node in DbClass.GetLinkDetail(linkId))
+                                {
+                                    var devicesAssetId = node.MdfRackClass.RackId;
+                                    var uid = node.PortClass.UID;
+                                    var tableName = TableNameClass.GetTableName(devicesAssetId);
+
+                                    var sql = $"UPDATE {tableName} SET OnTheLine = NULL WHERE UID='{uid}'";
+
+                                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+                                    
+                                }
+
+                                //清空链路详表信息
+
+                                var sql2 = $"DELETE FROM LinkDetail WHERE LinkId={linkId}";
+                                GlobalVariables.DbService.ExecuteNonQuery(sql2);
+
+                                var sql3 = $"DELETE FROM Link WHERE Link_ID={linkId}";
+                                GlobalVariables.DbService.ExecuteNonQuery(sql3);
                             }
 
 
-
-                            //清除本端
-                            string sql = $"UPDATE \"{tableHeaerA}_{portInfo.MdfRackClass.RackId}\" SET \"PermanentType\" = NULL, \"PermanentRackId\" = NULL, \"PermanentSlot\" = NULL, \"PermanentRoom\" = NULL, \"PermanentPort\" = '' WHERE SlotId = '{portInfo.SlotClass.SlotIndex}' AND PortId='{portInfo.PortClass.PortIndex}'";
-
-                            
-                            GlobalVariables.DbService.ExecuteNonQuery(sql);
-                            DataBridge.DataBridge.SelectUpdateRackId.Add(portInfo.MdfRackClass.RackId);
-
-
-                            //DataBridge.DataBridge.ModifyTagList.Add("PortPerLinkClear");
                         }
 
-                        if (DataBridge.DataBridge.LinkTempClear == 1)
-                        {
 
 
-
-                            string tableHeaerB = "ra";
-
-                            if (portInfo.MdfRackClass.RackId.Substring(0, 1) == "8")
-                            {
-                                tableHeaerB = "bu";
-                            }
-
-
-                            //清除本端
-                            string sql = $"UPDATE \"{tableHeaerB}_{portInfo.MdfRackClass.RackId}\" SET \"TempType\" = NULL, \"TempRackId\" = NULL, \"TempSlot\" = NULL, \"TempRoom\" = NULL, \"TempPort\" = '' WHERE SlotId = '{portInfo.SlotClass.SlotIndex}' AND PortId='{portInfo.PortClass.PortIndex}'";
-
-                           
-                            GlobalVariables.DbService.ExecuteNonQuery(sql);
-                            DataBridge.DataBridge.SelectUpdateRackId.Add(portInfo.MdfRackClass.RackId);
-
-                            //DataBridge.DataBridge.ModifyTagList.Add("PortTempLinkClear");
-                        }
 
 
                         break;

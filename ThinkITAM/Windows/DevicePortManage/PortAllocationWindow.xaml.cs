@@ -26,6 +26,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         bool AllocationStatus = false;
 
         private PortTypeClass.PortDetailedInfo portInfo;
+
         private List<PortTypeClass.PortDetailedInfo> portInfos;
 
         public PortAllocationWindow()
@@ -97,7 +98,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void PortAllocationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            if (portInfo!=null)
+            if (portInfo != null)
             {
                 LoadPortMode();
                 LoadPortStatus();
@@ -215,9 +216,9 @@ namespace ThinkITAM.Windows.DevicePortManage
         private int changedNumber = 0;
         private void PortInfo_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-           changedNumber++;
+            changedNumber++;
 
-          
+
         }
 
         /// <summary>
@@ -331,7 +332,8 @@ namespace ThinkITAM.Windows.DevicePortManage
                     info.PortSlotNumber = portDetailedInfo.PortSlotNumber;
                     info.PortId = portDetailedInfo.PortId;
                     info.PortType = portDetailedInfo.PortType;
-                    
+                    info.UID=  portDetailedInfo.UID;
+
                     //保存修改
                     await SavePortInfo(info);
                 }
@@ -380,8 +382,8 @@ namespace ThinkITAM.Windows.DevicePortManage
             string assetId = DataBridge.DataBridge.LinkAssetId;
 
             string sql = $"UPDATE  {tableName}  SET  PortStatus  = {status},  Mode  = '{mode}',  PortName  = '{portName}', PortTag  = '{portTag}',  VlanId  = '{vlanId}', OnTheLine  = '{onTheLine}',  PortColor  = '{portColor}',  TagA  = '{tagA}',  TagB  = '{tagB}',  TagC  = '{tagC}',  TagD  = '{tagD}',  TagE  = '{tagE}',  TagF  = '{tagF}' ,  AssetId  = '{assetId}' WHERE  ( UID  = '{uid}')";
-           
-            
+
+            //Console.WriteLine(sql);
             GlobalVariables.DbService.ExecuteNonQuery(sql);
         }
 

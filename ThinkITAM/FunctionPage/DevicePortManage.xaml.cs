@@ -669,7 +669,7 @@ public partial class DevicePortManage : UserControl
     private async void MultipleAllocationButton_Click(object sender, RoutedEventArgs e)
     {
 
-        if (GetSelectedCount()<1)
+        if (GetSelectedCount() < 1)
         {
             return;
         }
