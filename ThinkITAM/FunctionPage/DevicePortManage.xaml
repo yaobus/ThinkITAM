@@ -234,6 +234,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Click="EditButton_OnClick"
                     IsEnabled="False"
                     Style="{StaticResource MaterialDesignFlatLightButton}">
                     <materialDesign:PackIcon
@@ -496,7 +497,6 @@
                     Margin="0,0,0,0"
                     d:Visibility="Collapsed"
                     AutoGenerateColumns="False"
-                    Background="#404040"
                     CanUserAddRows="False"
                     MouseDoubleClick="PortListView_OnMouseDoubleClick"
                     SelectionMode="Extended"
@@ -576,7 +576,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="20"
                                             FontWeight="ExtraBold"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding PortType}" />
                                     </Grid>
                                 </DataTemplate>
@@ -633,7 +633,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding PortSlotNumber}" />
                                     </Grid>
                                 </DataTemplate>
@@ -661,7 +661,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding PortId}" />
                                     </Grid>
                                 </DataTemplate>
@@ -689,7 +689,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding Status, Converter={StaticResource StatusToNameConverter}}" />
                                     </Grid>
                                 </DataTemplate>
@@ -717,7 +717,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding Mode}" />
                                     </Grid>
                                 </DataTemplate>
@@ -745,7 +745,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding PortName}" />
                                     </Grid>
                                 </DataTemplate>
@@ -773,7 +773,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding VlanId}" />
                                     </Grid>
                                 </DataTemplate>
@@ -802,7 +802,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding DeviceLink}" />
                                     </Grid>
                                 </DataTemplate>
@@ -830,7 +830,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding LineLink}" />
                                     </Grid>
                                 </DataTemplate>
@@ -880,7 +880,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding TagA}" />
                                     </Grid>
                                 </DataTemplate>
@@ -908,7 +908,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding TagB}" />
                                     </Grid>
                                 </DataTemplate>
@@ -936,7 +936,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                           
                                             Text="{Binding TagC}" />
                                     </Grid>
                                 </DataTemplate>
@@ -964,7 +964,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding TagD}" />
                                     </Grid>
                                 </DataTemplate>
@@ -992,7 +992,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding TagE}" />
                                     </Grid>
                                 </DataTemplate>
@@ -1020,7 +1020,7 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Foreground="AliceBlue"
+                                            
                                             Text="{Binding TagF}" />
                                     </Grid>
                                 </DataTemplate>
@@ -1042,7 +1042,10 @@
                 Margin="10,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
 
 
                     <TextBox
@@ -1051,12 +1054,12 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Text="{Binding AssetNumber}"
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="FormatListNumbered"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AssetNumber}" />
 
                     <TextBox
                         MinWidth="130"
@@ -1064,12 +1067,12 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Text="{Binding AssetType}"
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Devices"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding AssetType}" />
 
                     <TextBox
                         MinWidth="130"
@@ -1077,12 +1080,12 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Text="{Binding DeviceType}"
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Laptop"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding DeviceType}" />
 
 
                     <TextBox
@@ -1091,12 +1094,12 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Text="{Binding Model}"
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="ServerOutline"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Model}" />
 
 
                     <TextBox
@@ -1105,12 +1108,12 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        Text="{Binding Description}"
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Notebook"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding Description}" />
 
 
 

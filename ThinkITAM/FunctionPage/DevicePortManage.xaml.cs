@@ -81,13 +81,13 @@ public partial class DevicePortManage : UserControl
     {
         assetTypes.Clear();
         AssetTreeView.Items.Clear();
-        string sqlTemp = $"SELECT COUNT(*) FROM Devices";
+        string sqlTemp = $"SELECT COUNT(*) FROM Devices  WHERE Del != 1 OR Del IS NULL";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
-            string query = "SELECT DISTINCT AssetType FROM Devices;";
+            string query = "SELECT DISTINCT AssetType FROM Devices ;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -106,7 +106,7 @@ public partial class DevicePortManage : UserControl
 
                 info.AssetType = assetTypeInfo;//资产类型
 
-                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}'";
+                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND Del != 1 OR Del IS NULL";
 
                 var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
@@ -203,18 +203,15 @@ public partial class DevicePortManage : UserControl
                     //加载网段标签
                      LoadCustomTag();
 
-                    //加载网段备注
-                    //LoadNetworkNote(info);
-
-                    //await LoadAddressInfo(tableName);
-
                     //加载设备信息
                      LoadDeviceInfo(info);
+
+                     EditButton.IsEnabled = true;
 
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
-
+                    EditButton.IsEnabled = false;
 
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
@@ -248,7 +245,7 @@ public partial class DevicePortManage : UserControl
     /// <param name="tableInfo"></param>
     private void LoadDeviceInfo(DeviceTypeViewModel tableInfo)
     {
-        string query = $"SELECT * FROM Devices WHERE AssetId='{tableInfo.AssetId}';";
+        string query = $"SELECT * FROM Devices WHERE AssetId='{tableInfo.AssetId}'  AND Del != 1 OR Del IS NULL;";
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1151,6 +1148,33 @@ public partial class DevicePortManage : UserControl
 
     }
 
+    /// <summary>
+    /// 编辑设备信息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void EditButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        DeviceEditWindow newWindow = new DeviceEditWindow();
 
 
+        //窗口放中间
+        var window = Window.GetWindow(this);
+        if (window != null)
+        {
+            newWindow.Owner = window;
+        }
+
+
+
+        if (newWindow.ShowDialog() == true)
+        {
+
+            // 当子窗口关闭后执行这里的代码
+            LoadAssetTreeViewInfos();
+
+            //加载设备信息
+            //LoadTags();
+        }
+    }
 }

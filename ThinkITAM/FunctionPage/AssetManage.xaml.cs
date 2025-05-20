@@ -79,7 +79,7 @@ namespace ThinkITAM.FunctionPage
 
             if (num > 0)
             {
-                string query = "SELECT DISTINCT AssetType FROM AssetTag;";
+                string query = "SELECT DISTINCT AssetType FROM AssetTag ;";
 
 
 
@@ -306,12 +306,12 @@ namespace ThinkITAM.FunctionPage
 
             if (deviceType!=null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}'";
+                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' AND  Del != 1 OR Del IS NULL";
 
             }
             else
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
+                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'  AND  Del != 1 OR Del IS NULL";
             }
 
 
@@ -361,7 +361,7 @@ namespace ThinkITAM.FunctionPage
                 item.User = row["User"].ToString();
                 item.UserPhone = row["UserPhone"].ToString();
                 item.Consumer = row["Consumer"].ToString();
-                item.Status = row["Status"].ToString();
+                item.AssetStatus = row["AssetStatus"].ToString();
                 item.UsedYear = row["UsedYear"].ToString();
 
                 string timeStr = row["ScrapDate"].ToString();

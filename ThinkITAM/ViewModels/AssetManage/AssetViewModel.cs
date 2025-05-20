@@ -94,7 +94,8 @@ namespace ThinkITAM.ViewModels.AssetManage
 
         public string? Consumer {get; set; } //使用人
 
-        public string? Status { get; set; } // 状态（使用中、闲置、维修、待报废、已报废等）
+        public string? AssetStatus
+        { get; set; } // 状态（使用中、闲置、维修、待报废、已报废等）
 
         public string? UsedYear { get; set; } // 已用年限
 

@@ -195,14 +195,14 @@ public partial class NetworkAddressManagePage : UserControl
         networkInfos.Clear();
         NetworkTreeView.Items.Clear();
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Network";
+        string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL";
 
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
-            string query = "SELECT * FROM Network;";
+            string query = "SELECT * FROM Network  WHERE Del != 1 OR Del IS NULL;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -1745,7 +1745,7 @@ public partial class NetworkAddressManagePage : UserControl
             if (result == MessageBoxResult.Yes)
             {
 
-                string sql = $"DELETE FROM \"PortList\" WHERE Port = {PortComboBox.Text}";
+                string sql = $"DELETE FROM  PortList  WHERE Port = {PortComboBox.Text}";
 
                 GlobalVariables.DbService.ExecuteQuery(sql);
 

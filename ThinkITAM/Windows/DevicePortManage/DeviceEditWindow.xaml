@@ -1,16 +1,16 @@
 ﻿<Window
-    x:Class="ThinkITAM.Windows.NetworkManage.NetworkEditWindow"
+    x:Class="ThinkITAM.Windows.DevicePortManage.DeviceEditWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ThinkITAM.Windows.NetworkManage"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.DevicePortManage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="编辑网段信息"
+    Title="编辑设备信息"
     Width="650"
-    Height="500"
+    Height="580"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Loaded="NetworkEditWindow_OnLoaded"
+    Loaded="DeviceEditWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
@@ -41,7 +41,7 @@
             <TextBlock
                 Margin="10"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="编辑网段信息" />
+                Text="编辑设备信息" />
 
         </StackPanel>
 
@@ -53,19 +53,13 @@
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
-            <TextBlock
-                Margin="10"
-                d:Text="255.255.255.252"
-                FontSize="16"
-                Opacity="0.5"
-                Text="{Binding Network}" />
 
             <TextBlock
                 Margin="10"
-                d:Text="255.255.255.252"
+                d:Text="N-SW-HX01"
                 FontSize="16"
                 Opacity="0.5"
-                Text="{Binding Netmask}" />
+                Text="{Binding AssetNumber}" />
 
         </StackPanel>
 
@@ -84,31 +78,7 @@
                     Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="网段名称:" />
-                <TextBox
-                    x:Name="TbName"
-                    Width="250"
-                    Height="28"
-                    Margin="5,0,10,10"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                    BorderThickness="0.5"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding Name}" />
-            </StackPanel>
-
-            <StackPanel
-                Margin="10,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Orientation="Vertical">
-                <Label
-                    Margin="0,5"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="网段备注:" />
+                    Content="设备名称:" />
                 <TextBox
                     x:Name="Description"
                     Width="250"
@@ -129,21 +99,43 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
-                    x:Name="LabelA"
+                    Margin="0,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="启用日期:" />
+                <DatePicker
+                    x:Name="EnableDate"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="0"
+                    Language="zh-cn"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                    Text="{Binding EnableDate}" />
+            </StackPanel>
+
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段A:"
-                    ToolTip="自定义字段A" />
+                    Content="使用单位:"
+                    ToolTip="使用单位" />
                 <ComboBox
-                    x:Name="TbParent"
+                    x:Name="UseDepartment"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
-                    SelectionChanged="TbParent_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    SelectionChanged="UseDepartment_OnSelectionChanged"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    Text="{Binding UseDepartment}" />
             </StackPanel>
 
             <StackPanel
@@ -152,19 +144,42 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
-                    x:Name="LabelB"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段B:"
-                    ToolTip="自定义字段B" />
+                    Content="安装位置:"
+                    ToolTip="使用单位" />
                 <ComboBox
-                    x:Name="Child"
+                    x:Name="Address"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    Text="{Binding Address}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelA"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="自定义字段A:"
+                    ToolTip="自定义字段A" />
+                <ComboBox
+                    x:Name="TagA"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="0"
+                    BorderThickness="0.5"
+                    IsEditable="True"
+                    SelectionChanged="TagA_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
 
@@ -182,13 +197,36 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
+                    x:Name="LabelB"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="自定义字段B:"
+                    ToolTip="自定义字段B" />
+                <ComboBox
+                    x:Name="TagB"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="0"
+                    BorderThickness="0.5"
+                    IsEditable="True"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            </StackPanel>
+
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
                     x:Name="LabelC"
                     Margin="0,5"
                     VerticalAlignment="Center"
                     Content="自定义字段C:"
                     ToolTip="自定义字段C" />
                 <TextBox
-                    x:Name="TagA"
+                    x:Name="TagC"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
@@ -213,7 +251,7 @@
                     Content="自定义字段D:"
                     ToolTip="自定义字段D" />
                 <TextBox
-                    x:Name="TagB"
+                    x:Name="TagD"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
@@ -238,7 +276,7 @@
                     Content="自定义字段E:"
                     ToolTip="自定义字段E" />
                 <TextBox
-                    x:Name="TagC"
+                    x:Name="TagE"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
@@ -263,7 +301,7 @@
                     Content="自定义字段F:"
                     ToolTip="自定义字段F" />
                 <TextBox
-                    x:Name="TagD"
+                    x:Name="TagF"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
@@ -292,8 +330,9 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 BorderThickness="0"
+                Content="保存" 
                 Click="SaveButton_OnClick"
-                Content="保存" />
+                />
 
         </StackPanel>
     </Grid>

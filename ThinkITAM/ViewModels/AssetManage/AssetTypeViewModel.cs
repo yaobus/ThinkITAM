@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThinkITAM.ViewModels.AssetManage
 {
-   public class AssetTypeViewModel
+    public class AssetTypeViewModel
     {//索引
         public int Index
         {
@@ -101,5 +101,64 @@ namespace ThinkITAM.ViewModels.AssetManage
             get;
             set;
         }
+    }
+
+
+
+    /// <summary>
+    /// 仅限于在编辑设备信息时使用
+    /// </summary>
+    public class DeviceEditViewModel
+    {
+        public string AssetNumber
+        {
+            get; set;
+        }
+
+        public string Description
+        {
+            get; set;
+        }
+
+        public string EnableDate
+        {
+            get; set;
+        }
+
+        public string UseDepartment
+        {
+            get; set;
+        }
+
+        public string Address
+        {
+            get; set;
+        }
+
+        public string TagA
+        {
+            get; set;
+        }
+        public string TagB
+        {
+            get; set;
+        }
+        public string TagC
+        {
+            get; set;
+        }
+        public string TagD
+        {
+            get; set;
+        }
+        public string TagE
+        {
+            get; set;
+        }
+        public string TagF
+        {
+            get; set;
+        }
+
     }
 }

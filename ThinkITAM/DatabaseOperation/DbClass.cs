@@ -956,13 +956,13 @@ namespace ThinkITAM.DatabaseOperation
                         {
                             case "SystemUser"://用户表,废弃功能
 
-                                sql = $"CREATE TABLE \"SystemUser\" (   \"Ipam_user\" TEXT,   \"Password\" TEXT );";
+                                sql = $"CREATE TABLE \"SystemUser\" (   \"Ipam_user\" TEXT,   \"Password\" TEXT ,   \"Del\" integer);";
 
                                 break;
 
                             case "Network"://网段信息表
 
-                                sql = $"CREATE TABLE \"Network\" (   \"NetworkId\" TEXT,   \"Name\" TEXT,   \"Description\" TEXT,   \"Network\" TEXT,   \"Netmask\" TEXT,   \"Parent\" TEXT,   \"Child\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,  \"TagE\" TEXT,   \"TagF\" TEXT); ";
+                                sql = $"CREATE TABLE \"Network\" (   \"NetworkId\" TEXT,   \"Name\" TEXT,   \"Description\" TEXT,   \"Network\" TEXT,   \"Netmask\" TEXT,   \"Parent\" TEXT,   \"Child\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,  \"TagE\" TEXT,   \"TagF\" TEXT,   \"Del\" integer); ";
 
                                 break;
                             case "WindowTag"://窗口注释表
@@ -982,7 +982,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Organization"://组织架构
 
-                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT,  \"Note\" TEXT );";
+                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT,  \"Note\" TEXT ,   \"Del\" integer);";
 
 
 
@@ -1006,14 +1006,14 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Address"://地址预设表
 
-                                sql = $"CREATE TABLE \"Address\" (   \"Location\" TEXT,   \"Note\" TEXT);";
+                                sql = $"CREATE TABLE \"Address\" (   \"Location\" TEXT,   \"Note\" TEXT,   \"Del\" integer);";
 
 
                                 break;
 
                             case "Asset"://资产表
 
-                                sql = $"CREATE TABLE \"Asset\" (   \"Id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,   \"AssetId\" text,   \"AssetQrCode\" TEXT,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"AssetTag\" TEXT,   \"AssetNumber\" INTEGER,   \"PurchaseDate\" text,   \"PurchasePrice\" INTEGER,   \"Manufacturer\" TEXT,   \"Model\" TEXT,   \"SerialNumber\" text,   \"Configuration\" TEXT,   \"Location\" TEXT,   \"UserOrganization\" TEXT,   \"UserDepartment\" TEXT, \"UserGroup\" TEXT,  \"User\" TEXT,   \"UserPhone\" TEXT,   \"Consumer\" TEXT,   \"AssetStatus\" TEXT,   \"UsedYear\" TEXT,   \"ScrapDate\" text,   \"Notes\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT );";
+                                sql = $"CREATE TABLE \"Asset\" (   \"Id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,   \"AssetId\" text,   \"AssetQrCode\" TEXT,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"AssetTag\" TEXT,   \"AssetNumber\" INTEGER,   \"PurchaseDate\" text,   \"PurchasePrice\" INTEGER,   \"Manufacturer\" TEXT,   \"Model\" TEXT,   \"SerialNumber\" text,   \"Configuration\" TEXT,   \"Location\" TEXT,   \"UserOrganization\" TEXT,   \"UserDepartment\" TEXT, \"UserGroup\" TEXT,  \"User\" TEXT,   \"UserPhone\" TEXT,   \"Consumer\" TEXT,   \"AssetStatus\" TEXT,   \"UsedYear\" TEXT,   \"ScrapDate\" text,   \"Notes\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT ,   \"Del\" integer );";
 
                                 break;
 
@@ -1024,7 +1024,7 @@ namespace ThinkITAM.DatabaseOperation
 
                                 break;
 
-                            case "PortList"://浏览器路径表
+                            case "PortList":
 
                                 sql = $"CREATE TABLE \"PortList\" (   \"Port\" integer,  \"Note\" TEXT );";
 
@@ -1041,14 +1041,14 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Devices"://设备总表
 
-                                sql = $"CREATE TABLE \"Devices\" (   \"AssetId\" TEXT NOT NULL,   \"AssetNumber\" TEXT NOT NULL,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"Model\" TEXT,   \"Description\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"EnableDate\" text,   \"UseDepartment\" TEXT,   \"Address\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT,   PRIMARY KEY (\"AssetId\", \"AssetNumber\") );";
+                                sql = $"CREATE TABLE \"Devices\" (   \"AssetId\" TEXT NOT NULL,   \"AssetNumber\" TEXT NOT NULL,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"Model\" TEXT,   \"Description\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"EnableDate\" text,   \"UseDepartment\" TEXT,   \"Address\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT,\"Del\" integer,   PRIMARY KEY (\"AssetId\", \"AssetNumber\") );";
 
 
                                 break;
 
                             case "DeviceRoom"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceRoom\" (   \"DeviceRoomQrId\" text NOT NULL,   \"RoomName\" TEXT,   \"Location\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"Note\" TEXT,   PRIMARY KEY (\"DeviceRoomQrId\") );";
+                                sql = $"CREATE TABLE \"DeviceRoom\" (   \"DeviceRoomQrId\" text NOT NULL,   \"RoomName\" TEXT,   \"Location\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"Note\" TEXT, \"Del\" integer,  PRIMARY KEY (\"DeviceRoomQrId\") );";
 
 
 
@@ -1065,7 +1065,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "DeviceCabinet"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceCabinet\" (   \"CabinetId\" text NOT NULL,   \"DeviceRoomQrId\" text,   \"CabinetName\" TEXT,   \"Position\" TEXT,   \"Note\" TEXT,   PRIMARY KEY (\"CabinetId\") ); ";
+                                sql = $"CREATE TABLE \"DeviceCabinet\" (   \"CabinetId\" text NOT NULL,   \"DeviceRoomQrId\" text,   \"CabinetName\" TEXT,   \"Position\" TEXT,   \"Note\" TEXT,  \"Del\" integer,    PRIMARY KEY (\"CabinetId\") ); ";
 
 
                                 break;
@@ -1073,7 +1073,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Racks"://设备间表
 
-                                sql = $"CREATE TABLE \"Racks\" (   \"RackId\" text NOT NULL,   \"CabinetId\" text,   \"RackName\" TEXT,    \"RackGroup\" TEXT,   \"RackNote\" TEXT,    \"SlotInfos\" TEXT,  \"SlotCount\" integer,   PRIMARY KEY (\"RackId\") );";
+                                sql = $"CREATE TABLE \"Racks\" (   \"RackId\" text NOT NULL,   \"CabinetId\" text,   \"RackName\" TEXT,    \"RackGroup\" TEXT,   \"RackNote\" TEXT,    \"SlotInfos\" TEXT,  \"SlotCount\" integer,\"Del\" integer ,  PRIMARY KEY (\"RackId\") );";
 
 
 
@@ -1083,7 +1083,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Buildings"://建筑物表
 
-                                sql = $"CREATE TABLE \"Buildings\" (   \"BuildingId\" text NOT NULL,   \"Building\" TEXT,   \"Address\" TEXT,   \"User\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT,   PRIMARY KEY (\"BuildingId\") );";
+                                sql = $"CREATE TABLE \"Buildings\" (   \"BuildingId\" text NOT NULL,   \"Building\" TEXT,   \"Address\" TEXT,   \"User\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT, \"Del\" integer ,  PRIMARY KEY (\"BuildingId\") );";
 
 
                                 break;
@@ -1095,7 +1095,7 @@ namespace ThinkITAM.DatabaseOperation
 
                                 break;
 
-                            case "Notes"://收藏夹分组
+                            case "Notes"://笔记表
 
                                 sql = $"CREATE TABLE \"Notes\" (   \"NoteId\" text NOT NULL,   \"Note\" TEXT,   PRIMARY KEY (\"NoteId\") );";
 
@@ -1103,7 +1103,7 @@ namespace ThinkITAM.DatabaseOperation
 
                                 break;
 
-                            case "CustomSetting"://自定义设置
+                            case "CustomSetting"://自定义设置-用户编号前缀等内容
 
                                 sql = $"CREATE TABLE \"CustomSetting\" (   \"Option\" TEXT,   \"Content\" TEXT,   \"Note\" TEXT);";
 
@@ -1169,13 +1169,13 @@ namespace ThinkITAM.DatabaseOperation
                         {
                             case "SystemUser"://用户表,废弃功能
 
-                                sql = $"CREATE TABLE SystemUser (Ipam_user VARCHAR(32) PRIMARY KEY, Password TEXT);;";
+                                sql = $"CREATE TABLE SystemUser (Ipam_user VARCHAR(32) PRIMARY KEY, Password TEXT, Del INT);;";
 
                                 break;
 
                             case "Network"://网段信息表
 
-                                sql = $"CREATE TABLE Network (   NetworkId VARCHAR(32),   Name TEXT,   Description TEXT,   Network TEXT,   Netmask TEXT,   Parent TEXT,   Child TEXT,   TagA TEXT,   TagB TEXT,   TagC TEXT,   TagD TEXT,   TagE TEXT,   TagF TEXT );";
+                                sql = $"CREATE TABLE Network (   NetworkId VARCHAR(32),   Name TEXT,   Description TEXT,   Network TEXT,   Netmask TEXT,   Parent TEXT,   Child TEXT,   TagA TEXT,   TagB TEXT,   TagC TEXT,   TagD TEXT,   TagE TEXT,   TagF TEXT , Del INT);";
 
                                 break;
                             case "WindowTag"://窗口注释表
@@ -1196,7 +1196,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Organization"://组织架构
 
                                 sql =
-                                    $"CREATE TABLE Organization (   Organization VARCHAR(32),   Department VARCHAR(32),   Groups VARCHAR(32),   Note VARCHAR(255) );";
+                                    $"CREATE TABLE Organization (   Organization VARCHAR(32),   Department VARCHAR(32),   Groups VARCHAR(32),   Note VARCHAR(255) , Del INT);";
 
 
                                 break;
@@ -1227,7 +1227,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Asset"://资产表
 
                                 sql =
-                                    $"CREATE TABLE `Asset` (   `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   `AssetId` VARCHAR(32),   `AssetQrCode` VARCHAR(32),   `AssetType` VARCHAR(32),   `DeviceType` VARCHAR(32),   `AssetTag` VARCHAR(32),   `AssetNumber` INT,   `PurchaseDate` VARCHAR(255),   `PurchasePrice` VARCHAR(255),   `Manufacturer` VARCHAR(255),   `Model` VARCHAR(64),   `SerialNumber` VARCHAR(255),   `Configuration` TEXT,   `Location` VARCHAR(255),   `UserOrganization` VARCHAR(32),   `UserDepartment` VARCHAR(32),  `UserGroup` VARCHAR(32),`User` VARCHAR(32),   `UserPhone` VARCHAR(32),   `Consumer` VARCHAR(32),   `AssetStatus` VARCHAR(32),   `UsedYear` TEXT,   `ScrapDate` VARCHAR(255),   `Notes` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Asset` (   `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   `AssetId` VARCHAR(32),   `AssetQrCode` VARCHAR(32),   `AssetType` VARCHAR(32),   `DeviceType` VARCHAR(32),   `AssetTag` VARCHAR(32),   `AssetNumber` INT,   `PurchaseDate` VARCHAR(255),   `PurchasePrice` VARCHAR(255),   `Manufacturer` VARCHAR(255),   `Model` VARCHAR(64),   `SerialNumber` VARCHAR(255),   `Configuration` TEXT,   `Location` VARCHAR(255),   `UserOrganization` VARCHAR(32),   `UserDepartment` VARCHAR(32),  `UserGroup` VARCHAR(32),`User` VARCHAR(32),   `UserPhone` VARCHAR(32),   `Consumer` VARCHAR(32),   `AssetStatus` VARCHAR(32),   `UsedYear` TEXT,   `ScrapDate` VARCHAR(255),   `Notes` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255), `Del` INT  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
                                 break;
 
                             case "Browser"://浏览器路径表
@@ -1253,14 +1253,14 @@ namespace ThinkITAM.DatabaseOperation
                             case "Devices"://设备总表
 
                                 sql =
-                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` TEXT,   `DeviceType` TEXT,   `Model` TEXT,   `Description` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `EnableDate` VARCHAR(255),   `UseDepartment` TEXT,   `Address` TEXT,   `TagA` TEXT,   `TagB` TEXT,   `TagC` TEXT,   `TagD` TEXT,   `TagE` TEXT,   `TagF` TEXT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` TEXT,   `DeviceType` TEXT,   `Model` TEXT,   `Description` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `EnableDate` VARCHAR(255),   `UseDepartment` TEXT,   `Address` TEXT,   `TagA` TEXT,   `TagB` TEXT,   `TagC` TEXT,   `TagD` TEXT,   `TagE` TEXT,   `TagF` TEXT, `Del` INT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 
                             case "DeviceRoom"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL,   `RoomName` TEXT,   `Location` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `Note` TEXT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL,   `RoomName` TEXT,   `Location` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `Note` TEXT, `Del` INT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;
@@ -1277,7 +1277,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceCabinet"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` TEXT,   `Position` TEXT,   `Note` TEXT,   PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` TEXT,   `Position` TEXT,   `Note` TEXT,  `Del` INT,  PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 
@@ -1285,7 +1285,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Racks"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `Racks` (   `RackId` VARCHAR(255) NOT NULL,   `CabinetId` VARCHAR(255),   `RackName` TEXT,   `RackGroup` TEXT,   `RackNote` TEXT,   `SlotInfos` TEXT,   `SlotCount` INT,   PRIMARY KEY (`RackId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Racks` (   `RackId` VARCHAR(255) NOT NULL,   `CabinetId` VARCHAR(255),   `RackName` TEXT,   `RackGroup` TEXT,   `RackNote` TEXT,   `SlotInfos` TEXT,   `SlotCount` INT, Del INT,   PRIMARY KEY (`RackId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;
@@ -1295,7 +1295,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Buildings"://建筑物表
 
                                 sql =
-                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL,   `Building` TEXT,   `Address` TEXT,   `User` TEXT,   `Phone` TEXT,   `Note` TEXT,   PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL,   `Building` TEXT,   `Address` TEXT,   `User` TEXT,   `Phone` TEXT,   `Note` TEXT,  Del INT ,  PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 

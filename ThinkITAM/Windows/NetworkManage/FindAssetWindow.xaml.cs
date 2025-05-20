@@ -132,7 +132,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.User = row["User"].ToString();
                 item.UserPhone = row["UserPhone"].ToString();
                 item.Consumer = row["Consumer"].ToString();
-                item.Status = row["Status"].ToString();
+                item.AssetStatus = row["AssetStatus"].ToString();
                 item.UsedYear = row["UsedYear"].ToString();
 
                 string timeStr = row["ScrapDate"].ToString();
@@ -324,7 +324,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.User = row["User"].ToString();
                 item.UserPhone = row["UserPhone"].ToString();
                 item.Consumer = row["Consumer"].ToString();
-                item.Status = row["Status"].ToString();
+                item.AssetStatus = row["AssetStatus"].ToString();
                 item.UsedYear = row["UsedYear"].ToString();
 
                 string timeStr = row["ScrapDate"].ToString();

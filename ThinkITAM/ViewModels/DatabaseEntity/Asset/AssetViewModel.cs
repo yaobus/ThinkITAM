@@ -95,7 +95,7 @@ public class AssetViewModel
         get;set;
     }
 
-    public string Status
+    public string AssetStatus
     {
         get; set;
     }
