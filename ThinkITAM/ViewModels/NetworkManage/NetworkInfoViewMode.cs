@@ -16,8 +16,11 @@ namespace ThinkITAM.ViewModels.NetworkManage
         {
             get; set;
         }
+        public string? NetworkId
+        {
+            get; set;
+        }
 
-        
         public string? TableName
         {
             get; set;

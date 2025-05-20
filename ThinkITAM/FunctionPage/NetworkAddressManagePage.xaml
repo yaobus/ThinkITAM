@@ -98,6 +98,7 @@
                         BorderBrush="Transparent"
                         BorderThickness="0"
                         IsEnabled="False"
+                        Click="EditButton_OnClick"
                         Style="{StaticResource MaterialDesignFlatLightButton}">
                         <materialDesign:PackIcon
                             Width="20"
@@ -1513,7 +1514,7 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="1"
-            Margin="2.5,2.5,5,0">
+            Margin="2.5,2.5,5,5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

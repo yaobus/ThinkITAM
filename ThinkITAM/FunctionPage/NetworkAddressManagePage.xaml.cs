@@ -219,6 +219,7 @@ public partial class NetworkAddressManagePage : UserControl
                 string tableName = "Net_" + row["NetworkId"].ToString();
 
                 info.TableName = tableName;
+                info.NetworkId=row["NetworkId"].ToString();
                 info.Name = row["Name"].ToString();
                 info.Description = row["Description"].ToString();
                 info.Network = row["Network"].ToString();
@@ -552,7 +553,7 @@ public partial class NetworkAddressManagePage : UserControl
     private async void NetworkTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
 
-
+        
 
         if (e != null)
         {
@@ -740,7 +741,7 @@ public partial class NetworkAddressManagePage : UserControl
             DeleteButton.IsEnabled = false;
         }
 
-
+       
     }
 
     private Task SendMessage(string message)
@@ -2141,5 +2142,26 @@ public partial class NetworkAddressManagePage : UserControl
     }
 
 
+    private void EditButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        NetworkEditWindow newWindow = new NetworkEditWindow();
 
+        //窗口放中间
+        var window = Window.GetWindow(this);
+        if (window != null)
+        {
+            newWindow.Owner = window;
+        }
+
+
+        if (newWindow.ShowDialog() == true)
+        {
+
+            // 当子窗口关闭后执行这里的代码
+            LoadNetworkInfo2();
+
+            //加载网段信息备注标签
+            LoadTags();
+        }
+    }
 }

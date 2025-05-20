@@ -47,7 +47,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             parentList.Clear();
 
-            string query = "SELECT DISTINCT Parent FROM Hierarchy;";
+            string query = "SELECT DISTINCT Parent FROM Network;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -76,7 +76,7 @@ namespace ThinkITAM.Windows.NetworkManage
             Child.ItemsSource = null;
             if (TbParent.SelectedIndex != -1)
             {
-                string sql = $"SELECT Child FROM Hierarchy WHERE Parent='{parentList[TbParent.SelectedIndex]}'";
+                string sql = $"SELECT DISTINCT Child FROM Network WHERE Parent='{parentList[TbParent.SelectedIndex]}'";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
