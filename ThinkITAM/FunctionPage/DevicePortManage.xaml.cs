@@ -181,9 +181,7 @@ public partial class DevicePortManage : UserControl
 
             if (this.IsLoaded == true)
             {
-                //  AddressListView.Visibility = Visibility.Collapsed;
 
-                //   GraphicalPlan.Visibility = Visibility.Visible;
                 // 获取用户选择的项
                 var selectedNode = e.NewValue;
 
@@ -197,7 +195,7 @@ public partial class DevicePortManage : UserControl
 
                     DataBridge.DataBridge.SelectDeviceTableInfo = info;
 
-                    await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+                    await LoadPortInfos(info);
 
 
                     await AnalysisPortInfos();
@@ -210,8 +208,8 @@ public partial class DevicePortManage : UserControl
 
                     //await LoadAddressInfo(tableName);
 
-
-
+                    //加载设备信息
+                     LoadDeviceInfo(info);
 
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
@@ -244,7 +242,31 @@ public partial class DevicePortManage : UserControl
 
     }
 
+    /// <summary>
+    /// 加载设备信息
+    /// </summary>
+    /// <param name="tableInfo"></param>
+    private void LoadDeviceInfo(DeviceTypeViewModel tableInfo)
+    {
+        string query = $"SELECT * FROM Devices WHERE AssetId='{tableInfo.AssetId}';";
 
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+        var info = new DeviceTypeViewModel();
+
+        foreach (var row in rows)
+        {
+
+            info.AssetNumber = row["AssetNumber"].ToString();
+            info.AssetType = row["AssetType"].ToString();
+            info.DeviceType = row["DeviceType"].ToString();
+            info.Model = row["Model"].ToString();
+            info.Description = row["Description"].ToString();
+
+        }
+
+        DeviceDetailInfo.DataContext = info;
+    }
 
 
     /// <summary>

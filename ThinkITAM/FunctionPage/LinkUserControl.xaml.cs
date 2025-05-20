@@ -12,6 +12,7 @@ using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using System.Windows.Controls.Primitives;
+using System;
 
 
 namespace ThinkITAM.FunctionPage
@@ -80,9 +81,51 @@ namespace ThinkITAM.FunctionPage
 
             DataBridge.DataBridge.LinkViewList.CollectionChanged += LinkViewList_CollectionChanged;
 
+
+
+            //检测是否后台删除了链路
+            DataBridge.DataBridge.ChangedLink.CollectionChanged += ChangedLink_CollectionChanged;
+
+        }
+
+        /// <summary>
+        /// 删除链路事件后重新加载链路配线架
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangedLink_CollectionChanged(object? sender,System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var rack in DataBridge.DataBridge.SelectRackId)
+            {
+                ReLoadRack(rack);
+
+                if (AssetsComboBox.SelectedIndex != -1)
+                {
+                    string assetId = assets[AssetsComboBox.SelectedIndex].AssetId;
+
+                    if (!string.IsNullOrWhiteSpace(assetId))
+                    {
+                        LoadDevicePortInfos(assetId);
+                    }
+
+                }
+
+                if (RoomComboBox.SelectedIndex != -1)
+                {
+                    LoadPanelPorts();
+                }
+            }
+            
+
         }
 
 
+
+        /// <summary>
+        ///     链路预览数据发生改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LinkViewList_CollectionChanged(object? sender,
             System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -92,9 +135,6 @@ namespace ThinkITAM.FunctionPage
 
                 DataBridge.DataBridge.RackSelectPortInfo.NodeIndex = null;
             }
-
-
-
 
         }
 
@@ -1300,84 +1340,93 @@ namespace ThinkITAM.FunctionPage
         private void RoomComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            PortManagePanel.Children.Clear();
-
             if (RoomComboBox.SelectedIndex != -1)
             {
-                string buildingId = buildings[BuildingsComboBox.SelectedIndex].BuildingId;
-
-                string floor = floors[FloorComboBox.SelectedIndex].Floor;
-
-                string room = roomNumbers[RoomComboBox.SelectedIndex].RoomNumber;
-
-
-                string sql =
-                    $"SELECT * FROM Bu_{buildingId} WHERE  SlotId ='{floor}' AND RoomId='{room}'";
-
-                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
-
-
-                int index = 0;
-
-                foreach (var row in rows)
-                {
-                    index++;
-
-                    PortLinkClass p = new PortLinkClass();
-
-                    PortClass info = new PortClass();
-
-
-
-                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
-                    {
-                        info.OnTheLine = -1;
-                    }
-                    else
-                    {
-                        info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
-                    }
-
-
-
-                    info.UID = Convert.ToInt32(row["UID"].ToString());
-                    info.RackId = buildingId;
-                    info.PortType = row["PortType"].ToString();
-                    info.PortIndex = row["PortId"].ToString();
-                    info.PortTag = row["PortTag"].ToString();
-                    info.SlotIndex = row["SlotId"].ToString();
-                    info.Room = room;
-
-
-                    SlotClass slot = new SlotClass();
-                    slot.SlotIndex = row["SlotId"].ToString();
-
-                    if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
-                    {
-                        info.PortColor = 0;
-                    }
-                    else
-                    {
-                          info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
-                    }
-
-
-                  
-
-                    p.PortClass = info;
-                    p.SlotClass = slot;
-                    LinkPanelPort port = new LinkPanelPort();
-
-                    port.Margin = new Thickness(5);
-                    port.DataContext = p;
-
-                    PortManagePanel.Children.Add(port);
-                }
-
-
+                LoadPanelPorts();
             }
 
         }
+
+        /// <summary>
+        /// 加载墙面端口信息
+        /// </summary>
+        private void LoadPanelPorts()
+        {
+            PortManagePanel.Children.Clear();
+            string buildingId = buildings[BuildingsComboBox.SelectedIndex].BuildingId;
+
+            string floor = floors[FloorComboBox.SelectedIndex].Floor;
+
+            string room = roomNumbers[RoomComboBox.SelectedIndex].RoomNumber;
+
+
+            string sql =
+                $"SELECT * FROM Bu_{buildingId} WHERE  SlotId ='{floor}' AND RoomId='{room}'";
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
+            int index = 0;
+
+            foreach (var row in rows)
+            {
+                index++;
+
+                PortLinkClass p = new PortLinkClass();
+
+                PortClass info = new PortClass();
+
+
+
+                if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                {
+                    info.OnTheLine = -1;
+                }
+                else
+                {
+                    info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                }
+
+
+
+                info.UID = Convert.ToInt32(row["UID"].ToString());
+                info.RackId = buildingId;
+                info.PortType = row["PortType"].ToString();
+                info.PortIndex = row["PortId"].ToString();
+                info.PortTag = row["PortTag"].ToString();
+                info.SlotIndex = row["SlotId"].ToString();
+                info.Room = room;
+
+
+                SlotClass slot = new SlotClass();
+                slot.SlotIndex = row["SlotId"].ToString();
+
+                if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                {
+                    info.PortColor = 0;
+                }
+                else
+                {
+                    info.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                }
+
+
+
+
+                p.PortClass = info;
+                p.SlotClass = slot;
+                LinkPanelPort port = new LinkPanelPort();
+
+                port.Margin = new Thickness(5);
+                port.DataContext = p;
+
+                PortManagePanel.Children.Add(port);
+            }
+
+
+
+        }
+
 
         private ObservableCollection<DeviceTypeViewModel> assets = new ObservableCollection<DeviceTypeViewModel>();
         private void DeviceGroups_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1620,6 +1669,7 @@ namespace ThinkITAM.FunctionPage
                 }
 
                 SaveLinkNameDialogHost.IsOpen = false;
+                DataBridge.DataBridge.ChangedLink.Add(index);
                 ClearSelect_OnClick(null, null);
             }
 

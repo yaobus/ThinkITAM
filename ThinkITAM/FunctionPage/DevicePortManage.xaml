@@ -1031,5 +1031,97 @@
             </Grid>
         </materialDesign:Card>
 
+
+
+        <materialDesign:Card
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5,2.5,2.5,5">
+            <Grid
+                x:Name="DeviceDetailInfo"
+                Margin="10,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+
+                    <TextBox
+                        MinWidth="130"
+                        MaxWidth="250"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Text="{Binding AssetNumber}"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="FormatListNumbered"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        MinWidth="130"
+                        MaxWidth="250"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Text="{Binding AssetType}"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Devices"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBox
+                        MinWidth="130"
+                        MaxWidth="250"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Text="{Binding DeviceType}"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Laptop"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                    <TextBox
+                        MinWidth="130"
+                        MaxWidth="250"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Text="{Binding Model}"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="ServerOutline"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                    <TextBox
+                        MinWidth="130"
+                        MaxWidth="250"
+                        Margin="10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Text="{Binding Description}"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Notebook"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+
+
+                </StackPanel>
+
+
+            </Grid>
+        </materialDesign:Card>
+
+
     </Grid>
 </UserControl>

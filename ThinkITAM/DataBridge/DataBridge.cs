@@ -205,9 +205,9 @@ namespace ThinkITAM.DataBridge
 
 
         /// <summary>
-        /// 顺藤摸瓜出的端口
+        /// 后台删除了链路
         /// </summary>
-        public static ObservableCollection<PortLinkClass> FindPorts = new ObservableCollection<PortLinkClass>();
+        public static ObservableCollection<int> ChangedLink = new ObservableCollection<int>();
 
 
         /// <summary>

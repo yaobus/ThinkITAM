@@ -291,7 +291,7 @@ namespace ThinkITAM.UserControls.LinkPage
                                     var uid = node.PortClass.UID;
                                     var tableName = TableNameClass.GetTableName(devicesAssetId);
 
-                                    var sql = $"UPDATE {tableName} SET OnTheLine = NULL WHERE UID='{uid}'";
+                                    var sql = $"UPDATE {tableName} SET OnTheLine = NULL,PortTag = NULL WHERE UID='{uid}'";
 
                                     GlobalVariables.DbService.ExecuteNonQuery(sql);
                                     
@@ -304,6 +304,9 @@ namespace ThinkITAM.UserControls.LinkPage
 
                                 var sql3 = $"DELETE FROM Link WHERE Link_ID={linkId}";
                                 GlobalVariables.DbService.ExecuteNonQuery(sql3);
+
+                                DataBridge.DataBridge.ChangedLink.Add(linkId);
+
                             }
 
 
