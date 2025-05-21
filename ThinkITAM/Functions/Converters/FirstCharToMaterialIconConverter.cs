@@ -16,15 +16,14 @@ namespace ThinkITAM.Functions.Converters
                 {
                     case '3':
 
-
-                        return PackIconKind.VideoInputComponent ;
+                        return PackIconKind.VideoInputComponent;
                     case '2':
                        
-                        return PackIconKind.Laptop ;
+                        return PackIconKind.ServerOutline;
                 }
             }
 
-            return null;
+            return PackIconKind.Server;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

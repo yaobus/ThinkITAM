@@ -836,13 +836,121 @@ namespace ThinkITAM.FunctionPage
                 DataBridge.DataBridge.SelectRackInfo = info;
 
 
-                //RackPanel.Items.Clear();
 
-                LoadRackInfo(info);
+
+                var firstChar = info.rackId[0];
+
+                if (firstChar.ToString() == "3")
+                {
+                    LoadRackInfo(info);
+                }
+                else
+                {
+                    LoadDeviceInfo(info);
+                }
+
+
+
+
 
             }
 
         }
+
+        private void LoadDeviceInfo(RackInfo rackInfo)
+        {
+            string assetId = rackInfo.rackId;
+
+            //第一步，获取设备信息
+            MdfRackClass mdfRack = new MdfRackClass();
+
+            mdfRack = DbClass.GetRackInfo(assetId);
+
+            int slotCount = DbClass.GetDeviceSlotCount(assetId);
+            
+            mdfRack.SlotCount = slotCount;
+
+
+
+            ////第二步，获取槽位信息
+            //ObservableCollection<SlotClass> slots = rackInfo.slotInfos;
+
+            //int index = 0;
+
+            //foreach (var slot in slots)
+            //{
+            //    string slotIndex = slot.SlotIndex;
+
+            //    ObservableCollection<PortClass> ports = new ObservableCollection<PortClass>();
+
+            //    //2.1，读取该槽位全部号信息
+            //    string query = $"SELECT * FROM De_{assetId} WHERE SlotId = {slotIndex};";
+
+
+            //    var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            //    foreach (var row in rows)
+            //    {
+            //        PortClass port = new PortClass();
+
+            //        //端口基础信息
+            //        port.UID = Convert.ToInt32(row["UID"]);
+            //        port.PortIndex = row["PortId"].ToString();
+
+            //        //如果获取到的颜色为空，则设置为默认颜色
+            //        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+            //        {
+            //            port.PortColor = 0;
+            //        }
+            //        else
+            //        {
+            //            port.PortColor = Convert.ToInt32(row["PortColor"]);
+            //        }
+
+
+            //        port.PortTag = row["PortTag"].ToString();
+            //        port.PortStatus = row["PortStatus"].ToString();
+            //        port.PortType = slots[index].SlotType;
+
+
+            //        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+            //        {
+            //            port.OnTheLine = -1;
+            //        }
+            //        else
+            //        {
+            //            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+            //        }
+
+
+
+            //        ports.Add(port);
+            //    }
+
+
+
+            //    //类型索引
+            //    index++;
+
+            //    slot.Ports = ports;
+
+            //}
+
+
+            //mdfRack.Slots = slots;
+
+
+            //Rack rack = new Rack()
+            //{
+            //    RackInfo = mdfRack,
+            //};
+
+
+
+            //AddNodeToRackPanel(rack);
+
+        }
+
 
 
         private void LoadRackInfo(RackInfo rackInfo)

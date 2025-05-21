@@ -404,7 +404,7 @@
                             HorizontalAlignment="Left"
                             SelectedIndex="0"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                            Text="{Binding Status, Mode=TwoWay}">
+                            Text="{Binding AssetStatus, Mode=TwoWay}">
                             <ComboBoxItem Content="使用中" />
                             <ComboBoxItem Content="闲置中" />
                             <ComboBoxItem Content="维修中" />

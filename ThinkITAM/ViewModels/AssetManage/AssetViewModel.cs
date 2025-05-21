@@ -9,6 +9,25 @@ namespace ThinkITAM.ViewModels.AssetManage
 {
     public class AssetViewModel : INotifyPropertyChanged
     {
+
+        //自增ID
+        private int id;
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+
         //是否选中
         private bool isSelected;
         public bool IsSelected

@@ -623,7 +623,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-            if (!string.IsNullOrWhiteSpace(Description.Text))
+            if (!string.IsNullOrWhiteSpace(Description.Text) && RoomCombobox.SelectedIndex !=-1 && CabinetCombobox.SelectedIndex!=-1)
             {
                 if (portInfos.Count > 0)
                 {
@@ -637,7 +637,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
             else
             {
-                MessageBox.Show($"设备名称未输入\r请输入适当的设备名称，以便于您对设备进行快速识别", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"设备名称或设备所在机房机柜信息未输入\r请输入必须的信息，以便于您对设备进行快速识别", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 

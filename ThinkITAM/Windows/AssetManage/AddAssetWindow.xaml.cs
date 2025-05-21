@@ -529,6 +529,7 @@ public partial class AddAssetWindow : Window
             {
                 var assetEntity = new ViewModels.DatabaseEntity.Asset.AssetViewModel()
                 {
+                    Id = assetInfo.Id,
                     AssetId = assetInfo.AssetId,
                     AssetQrCode = assetInfo.AssetQrCode,
                     AssetType = AssetType.Text,
@@ -562,7 +563,7 @@ public partial class AddAssetWindow : Window
                 };
 
 
-                var conditions = new {AssetId = assetInfo.AssetId };
+                var conditions = new {  AssetId = assetInfo.AssetId };
 
 
                 //string sql = $"UPDATE \"Asset\" SET  \"AssetType\" = '{AssetType.Text}',\r\n    \"DeviceType\" = '{DeviceType.Text}',\r\n    \"AssetTag\" = '{AssetTag.Text}',\r\n    \"AssetNumber\" = {Convert.ToInt32(AssetNumber.Text)},\r\n    \"PurchaseDate\" = '{BuyDate.SelectedDate.ToString()}',\r\n    \"PurchasePrice\" = '{Price.Text}',\r\n    \"Manufacturer\" = '{Maker.Text}',\r\n    \"Model\" = '{Model.Text}',\r\n    \"SerialNumber\" = '{SerialNumber.Text}',\r\n    \"Configuration\" = '{Parameter.Text}',\r\n    \"Location\" = '{PresetAddress.Text}',\r\n    \"UserOrganization\" = '{UserOrganization.Text}',\r\n    \"UserDepartment\" = '{UserDepartment.Text}',\r\n    \"User\" = '{AssignedTo.Text}',\r\n    \"UserPhone\" = '{Phone.Text}',\r\n    \"Consumer\" = '{Consumer.Text}',\r\n    \"Status\" = '{AssetStatus.Text}',\r\n    \"UsedYear\" = '{ServiceLife.Text}',\r\n    \"ScrapDate\" = '{ScrapDate.SelectedDate.ToString()}',\r\n    \"Notes\" = '{Description.Text}',\r\n    \"TagA\" = '{TagA.Text}',\r\n    \"TagB\" = '{TagB.Text}',\r\n    \"TagC\" = '{TagC.Text}',\r\n    \"TagD\" = '{TagD.Text}',\r\n    \"TagE\" = '{TagE.Text}',\r\n    \"TagF\" = '{TagF.Text}'\r\nWHERE\r\n    \"AssetId\" = '{assetInfo.AssetId}';";
@@ -583,11 +584,8 @@ public partial class AddAssetWindow : Window
                 //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架
                 string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
-
                 //创建资产二维码,0为机房，1为机柜，2为设备
                 string qrCode = "ITAM:" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
-
-
 
                 var assetEntity = new ViewModels.DatabaseEntity.Asset.AssetViewModel()
                 {

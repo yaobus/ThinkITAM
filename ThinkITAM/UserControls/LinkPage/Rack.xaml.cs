@@ -71,12 +71,6 @@ namespace ThinkITAM.UserControls.LinkPage
             if (RackInfo != null)
             {
 
-                //string jsonString = JsonConvert.SerializeObject(RackInfo, Formatting.Indented);
-
-                //Console.WriteLine(jsonString);
-
-
-
                 //第一步，计算设备高度
                 this.Height = 10 + RackInfo.SlotCount * 96;
 

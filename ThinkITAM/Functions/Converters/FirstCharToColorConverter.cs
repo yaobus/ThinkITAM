@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace ThinkITAM.Functions.Converters
 {
@@ -17,17 +17,18 @@ namespace ThinkITAM.Functions.Converters
             {
                 var firstChar = str[0];
 
-                Console.WriteLine(firstChar);
-
                 switch (firstChar)
                 {
-                    case '3':
-                        return Brushes.DarkCyan;
-                    case '2':
-                        return Brushes.Tomato;
+                    case '3'://RACK
+                        
+                        return ColorConverterClass.ColorToBrush("#139487");
+                    case '2'://DEVICE
+                        return ColorConverterClass.ColorToBrush("#4F9153");
                 }
             }
 
+
+           
             // 可选：返回默认颜色，如灰色
             // return Brushes.Gray;
 

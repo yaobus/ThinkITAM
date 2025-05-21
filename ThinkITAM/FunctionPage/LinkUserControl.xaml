@@ -5,7 +5,6 @@
     xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="urn:gong-wpf-dragdrop"
-    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:linkPage="clr-namespace:ThinkITAM.UserControls.LinkPage"
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -51,12 +50,11 @@
 
 
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:FirstCharToVisibilityConverter x:Key="FirstCharToVisibilityConverter"/>
         <converters:FirstChar2ToVisibilityConverter x:Key="FirstChar2ToVisibilityConverter"/>
         <converters:FirstCharToMaterialIconConverter x:Key="FirstCharToMaterialIconConverter"/>
         <converters:FirstCharToColorConverter  x:Key="FirstCharToColorConverter"/>
-
+        <converters:BackgroundColorConverter x:Key="BackgroundColorConverter"/>
 
     </UserControl.Resources>
 
@@ -317,7 +315,7 @@
                                             <ColumnDefinition Width="40" />
                                             <ColumnDefinition Width="200" />
                                         </Grid.ColumnDefinitions>
-                                        <Grid Grid.Column="0" Background="#6ddabe">
+                                        <Grid Grid.Column="0" Background="#2daf94">
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
@@ -326,6 +324,9 @@
                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                                 Text="{Binding Index}" />
                                         </Grid>
+
+
+
                                         <Grid Grid.Column="1" Background="{Binding rackId,Converter={StaticResource FirstCharToColorConverter}}">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="70*" />
@@ -340,20 +341,21 @@
                                                 <TextBlock
                                                     Grid.Column="0"
                                                     VerticalAlignment="Center"
-                                                    FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
                                                     Foreground="AliceBlue"
+                                                    FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
                                                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                                     Text="{Binding rackName}" />
+
+
 
                                                 <materialDesign:PackIcon
                                                     Grid.Column="1"
                                                     Width="20"
                                                     Height="20"
-                                                    Visibility="Collapsed"
+                                                    Foreground="AliceBlue"
                                                     Margin="5,0"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-
                                                     Kind="{Binding rackId, Converter={StaticResource FirstCharToMaterialIconConverter}}"
                                                     Opacity="0.3" />
 
@@ -392,9 +394,9 @@
                                                 <TextBlock
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
-                                                    Foreground="AliceBlue"
-                                                    Opacity="0.5"
 
+                                                    Opacity="0.5"
+                                                    Foreground="AliceBlue"
                                                     Text="{Binding AssetNumber}"
                                                     ToolTip="资产编号" />
 
@@ -408,9 +410,9 @@
                                                     Grid.Row="1"
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
-                                                    Foreground="AliceBlue"
-                                                    Opacity="0.5"
 
+                                                    Opacity="0.5"
+                                                    Foreground="AliceBlue"
                                                     Text="{Binding Model}"
                                                     ToolTip="型号" />
 

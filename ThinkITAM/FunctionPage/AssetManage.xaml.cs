@@ -306,7 +306,7 @@ namespace ThinkITAM.FunctionPage
 
             if (deviceType!=null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' AND  Del != 1 OR Del IS NULL";
+                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' AND  (Del != 1 OR Del IS NULL)";
 
             }
             else
@@ -326,7 +326,7 @@ namespace ThinkITAM.FunctionPage
                 var item = new AssetViewModel();
                 i++;
                 item.Index = i;
-
+                item.Id = Convert.ToInt32(row["Id"].ToString());
                 item.AssetId = row["AssetId"].ToString();
                 item.AssetQrCode = row["AssetQrCode"].ToString();
                 item.AssetType = row["AssetType"].ToString();

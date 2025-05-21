@@ -456,6 +456,18 @@ namespace ThinkITAM.DatabaseOperation
 
         }
 
+        /// <summary>
+        /// 查询设备槽位数量
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        public static int GetDeviceSlotCount(string deviceId)
+        {
+            string sql = $"SELECT COUNT(DISTINCT PortSlotNumber) FROM  De_{deviceId}";
+
+            return ExecuteScalarTableNum(sql);
+        }
+
 
         /// <summary>
         /// 获取机架/建筑/设备信息
@@ -1341,7 +1353,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "LinkDetail"://链路详表
 
-                                sql = $"CREATE TABLE  LinkDetail  (    UID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,    LinkId  INTEGER NOT NULL,    SequenceNo  INTEGER,    DevicesAssetId  text,    PortUID  text);";
+                                sql = $"CREATE TABLE LinkDetail ( UID INT AUTO_INCREMENT,LinkId INT NOT NULL,SequenceNo INT,DevicesAssetId VARCHAR(16),PortUID VARCHAR(8),PRIMARY KEY (UID));";
                                 
                                 break;
                             case "WakeOnLan":
