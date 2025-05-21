@@ -90,7 +90,7 @@
             Grid.Row="0"
             Grid.RowSpan="3"
             Grid.Column="1"
-            Margin="5,2.5,2.5,5">
+            Margin="2.5,2.5,2.5,5">
 
             <ScrollViewer
                 Grid.Row="1"

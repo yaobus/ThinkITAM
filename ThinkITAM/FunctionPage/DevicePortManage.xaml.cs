@@ -106,7 +106,7 @@ public partial class DevicePortManage : UserControl
 
                 info.AssetType = assetTypeInfo;//资产类型
 
-                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND Del != 1 OR Del IS NULL";
+                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND (Del != 1 OR Del IS NULL)";
 
                 var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
@@ -264,6 +264,9 @@ public partial class DevicePortManage : UserControl
 
         DeviceDetailInfo.DataContext = info;
     }
+
+
+
 
 
     /// <summary>

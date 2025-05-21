@@ -57,7 +57,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private ObservableCollection<OrganizationOneViewModel> organizationInfos = new ObservableCollection<OrganizationOneViewModel>();
 
-        private string sqlsub = "AND (Note != '0' OR Note IS NULL)";
+        private string sqlsub = "AND (Del != 1 OR Del IS NULL)";
 
 
         private void LoadOrganization()
@@ -370,7 +370,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                
 
-                string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
 
                 
              
@@ -391,7 +391,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND Department = '{department}' AND (Groups IS NULL OR Groups = '')";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND (Groups IS NULL OR Groups = '')";
                 
                
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -411,7 +411,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"UPDATE \"Organization\" SET \"Note\" = '0' WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}'";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}'";
 
                 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);

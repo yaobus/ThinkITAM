@@ -52,6 +52,12 @@
 
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:FirstCharToVisibilityConverter x:Key="FirstCharToVisibilityConverter"/>
+        <converters:FirstChar2ToVisibilityConverter x:Key="FirstChar2ToVisibilityConverter"/>
+        <converters:FirstCharToMaterialIconConverter x:Key="FirstCharToMaterialIconConverter"/>
+        <converters:FirstCharToColorConverter  x:Key="FirstCharToColorConverter"/>
+
+
     </UserControl.Resources>
 
     <!--<Grid >
@@ -320,7 +326,7 @@
                                                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                                 Text="{Binding Index}" />
                                         </Grid>
-                                        <Grid Grid.Column="1" Background="#00A0A0">
+                                        <Grid Grid.Column="1" Background="{Binding rackId,Converter={StaticResource FirstCharToColorConverter}}">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="70*" />
                                                 <RowDefinition Height="30*" />
@@ -343,20 +349,20 @@
                                                     Grid.Column="1"
                                                     Width="20"
                                                     Height="20"
+                                                    Visibility="Collapsed"
                                                     Margin="5,0"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Foreground="AliceBlue"
-                                                    Kind="VideoInputComponent"
+
+                                                    Kind="{Binding rackId, Converter={StaticResource FirstCharToMaterialIconConverter}}"
                                                     Opacity="0.3" />
 
                                             </Grid>
 
 
-                                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding rackId,Converter={StaticResource FirstCharToVisibilityConverter}}">
 
                                                 <TextBlock
-                                                    Grid.Row="1"
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="AliceBlue"
@@ -371,7 +377,6 @@
                                                     Opacity="0.5" />
 
                                                 <TextBlock
-                                                    Grid.Row="1"
                                                     Margin="5,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="AliceBlue"
@@ -381,6 +386,35 @@
 
                                             </StackPanel>
 
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding rackId,Converter={StaticResource FirstChar2ToVisibilityConverter}}">
+
+
+                                                <TextBlock
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5"
+
+                                                    Text="{Binding AssetNumber}"
+                                                    ToolTip="资产编号" />
+
+                                                <Label
+                                                    Padding="0"
+                                                    Content="/"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5" />
+
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5"
+
+                                                    Text="{Binding Model}"
+                                                    ToolTip="型号" />
+
+                                            </StackPanel>
 
 
                                         </Grid>
@@ -584,75 +618,75 @@
 
 
                                 <!--<StackPanel
-                                    VerticalAlignment="Center"
-                                    d:Visibility="Visible"
-                                    Orientation="Horizontal"
-                                    Visibility="{Binding Path=IsChecked, ElementName=PermanentManage, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <ProgressBar
-                                        Width="40"
-                                        Height="1"
-                                        Opacity="0.3"
-                                        Orientation="Vertical"
-                                        Value="100" />
+                                VerticalAlignment="Center"
+                                d:Visibility="Visible"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=PermanentManage, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ProgressBar
+                                Width="40"
+                                Height="1"
+                                Opacity="0.3"
+                                Orientation="Vertical"
+                                Value="100" />
 
 
 
-                                    <Button
-                                        x:Name="SaveLinkConfig"
-                                        Margin="0,0"
-                                        Click="SaveLinkConfig_OnClick"
-                                        IsEnabled="{Binding Path=IsChecked, ElementName=AutoSaveLinkConfig, Converter={StaticResource InverseBooleanConverter}}"
-                                        Style="{StaticResource MaterialDesignIconButton}"
-                                        ToolTip="保存链路配置">
-                                        <materialDesign:PackIcon Kind="ContentSave" />
-                                    </Button>
+                                <Button
+                                x:Name="SaveLinkConfig"
+                                Margin="0,0"
+                                Click="SaveLinkConfig_OnClick"
+                                IsEnabled="{Binding Path=IsChecked, ElementName=AutoSaveLinkConfig, Converter={StaticResource InverseBooleanConverter}}"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="保存链路配置">
+                                <materialDesign:PackIcon Kind="ContentSave" />
+                                </Button>
 
-                                    <ToggleButton
-                                        x:Name="AutoSaveLinkConfig"
-                                        Width="26"
-                                        Height="26"
-                                        Margin="10,0"
-                                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=ContentSaveMoveOutline}"
-                                        Content="{materialDesign:PackIcon Kind=Numeric1CircleOutline}"
-                                        Style="{StaticResource MaterialDesignActionToggleButton}"
-                                        ToolTip="启用连续自动保存链路配置" />
+                                <ToggleButton
+                                x:Name="AutoSaveLinkConfig"
+                                Width="26"
+                                Height="26"
+                                Margin="10,0"
+                                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=ContentSaveMoveOutline}"
+                                Content="{materialDesign:PackIcon Kind=Numeric1CircleOutline}"
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="启用连续自动保存链路配置" />
 
                                 </StackPanel>-->
 
                                 <!--<StackPanel
-                                    VerticalAlignment="Center"
-                                    d:Visibility="Visible"
-                                    Orientation="Horizontal"
-                                    Visibility="{Binding Path=IsChecked, ElementName=LinkClear, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <ProgressBar
-                                        Width="40"
-                                        Height="1"
-                                        Opacity="0.3"
-                                        Orientation="Vertical"
-                                        Value="100" />
-                                    <ToggleButton
-                                        x:Name="PerLink"
-                                        Width="26"
-                                        Height="26"
-                                        Margin="10,0"
-                                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=LinkEdit}"
-                                        Click="PerLink_OnClick"
-                                        Content="{materialDesign:PackIcon Kind=LinkVariant}"
-                                        Foreground="MediumVioletRed"
-                                        Style="{StaticResource MaterialDesignActionToggleButton}"
-                                        ToolTip="清除永久链路配置" />
+                                VerticalAlignment="Center"
+                                d:Visibility="Visible"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=LinkClear, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ProgressBar
+                                Width="40"
+                                Height="1"
+                                Opacity="0.3"
+                                Orientation="Vertical"
+                                Value="100" />
+                                <ToggleButton
+                                x:Name="PerLink"
+                                Width="26"
+                                Height="26"
+                                Margin="10,0"
+                                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=LinkEdit}"
+                                Click="PerLink_OnClick"
+                                Content="{materialDesign:PackIcon Kind=LinkVariant}"
+                                Foreground="MediumVioletRed"
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="清除永久链路配置" />
 
-                                    <ToggleButton
-                                        x:Name="TempLink"
-                                        Width="26"
-                                        Height="26"
-                                        Margin="10,0"
-                                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=LinkEdit}"
-                                        Click="TempLink_OnClick"
-                                        Content="{materialDesign:PackIcon Kind=LinkVariant}"
-                                        Foreground="LawnGreen"
-                                        Style="{StaticResource MaterialDesignActionToggleButton}"
-                                        ToolTip="清除临时链路配置" />
+                                <ToggleButton
+                                x:Name="TempLink"
+                                Width="26"
+                                Height="26"
+                                Margin="10,0"
+                                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=LinkEdit}"
+                                Click="TempLink_OnClick"
+                                Content="{materialDesign:PackIcon Kind=LinkVariant}"
+                                Foreground="LawnGreen"
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="清除临时链路配置" />
 
                                 </StackPanel>-->
 
@@ -730,7 +764,7 @@
                         d:Height="150"
                         d:Visibility="Collapsed"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
+                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -798,7 +832,7 @@
                         Margin="0"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
+                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 

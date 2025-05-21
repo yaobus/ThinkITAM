@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.DevicePortManage;
@@ -31,6 +33,7 @@ public partial class DeviceEditWindow : Window
 
     private void DeviceEditWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
+        LoadRoomInfo();
         LoadTags();
         LoadHierarchyInfo();
         LoadDeviceInfo(DataBridge.DataBridge.SelectDeviceTableInfo.AssetId);
@@ -50,8 +53,8 @@ public partial class DeviceEditWindow : Window
             info.AssetNumber = row["AssetNumber"].ToString();
             info.Description = row["Description"].ToString();
             info.EnableDate = row["EnableDate"].ToString();
-            info.UseDepartment = row["UseDepartment"].ToString();
-            info.Address = row["Address"].ToString();
+            info.DeviceRoom = row["DeviceRoom"].ToString();
+            info.DeviceCabinet = row["DeviceCabinet"].ToString();
             info.TagA = row["TagA"].ToString();
             info.TagB = row["TagB"].ToString();
             info.TagC = row["TagC"].ToString();
@@ -69,12 +72,56 @@ public partial class DeviceEditWindow : Window
                 TagB.SelectedIndex = childList.IndexOf(info.TagB);
             }
 
+            if (info.DeviceRoom != null)
+            {
+
+                // 使用LINQ查询找到第一个匹配的元素，并获取其索引。
+                var index = roomInfos.IndexOf(roomInfos.FirstOrDefault(item => item.DeviceRoomQrId == info.DeviceRoom));
+                
+                RoomCombobox.SelectedIndex = index;
+            }
+
+            if (info.DeviceCabinet != null)
+            {
+                // 使用LINQ查询找到第一个匹配的元素，并获取其索引。
+                var index = cabinetInfos.IndexOf(cabinetInfos.FirstOrDefault(item => item.CabinetId == info.DeviceCabinet));
+
+                CabinetCombobox.SelectedIndex = index;
+            }
 
         }
 
         this.DataContext = info;
     }
 
+
+
+    private ObservableCollection<DeviceRoomClass> roomInfos = new ObservableCollection<DeviceRoomClass>();
+
+    private void LoadRoomInfo()
+    {
+        RoomCombobox.ItemsSource = roomInfos;
+
+        roomInfos.Clear();
+        string query = "SELECT * FROM DeviceRoom WHERE Del != 1 OR Del IS NULL";
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+        foreach (var row in rows)
+        {
+            DeviceRoomClass room = new DeviceRoomClass();
+            room.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
+            room.Name = row["RoomName"].ToString();
+            room.Location = row["Location"].ToString();
+            room.User = row["User"].ToString();
+            room.UserPhone = row["UserPhone"].ToString();
+            room.Note = row["Note"].ToString();
+            roomInfos.Add(room);
+        }
+
+
+
+    }
 
 
 
@@ -167,8 +214,8 @@ public partial class DeviceEditWindow : Window
         if (!string.IsNullOrWhiteSpace(description))
         {
             var enableDate = EnableDate.Text;
-            var useDepartment = UseDepartment.Text;
-            var address = Address.Text;
+            var deviceRoom = roomInfos[RoomCombobox.SelectedIndex].DeviceRoomQrId;
+            var deviceCabinet = cabinetInfos[CabinetCombobox.SelectedIndex].CabinetId;
             var tagA = TagA.Text;
             var tagB = TagB.Text;
             var tagC = TagC.Text;
@@ -177,7 +224,7 @@ public partial class DeviceEditWindow : Window
             var tagF = TagF.Text;
 
 
-            var sql = $"UPDATE  Devices  SET  Description  = '{description}', EnableDate='{enableDate}',UseDepartment='{useDepartment}',Address='{address}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}',TagE='{tagE}',TagF='{tagF}' WHERE AssetId = '{id}'";
+            var sql = $"UPDATE  Devices  SET  Description  = '{description}', EnableDate='{enableDate}',DeviceRoom='{deviceRoom}',DeviceCabinet='{deviceCabinet}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}',TagE='{tagE}',TagF='{tagF}' WHERE AssetId = '{id}'";
 
 
             GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -192,5 +239,62 @@ public partial class DeviceEditWindow : Window
 
 
 
+    }
+
+
+    private ObservableCollection<CabinetClass> cabinetInfos = new ObservableCollection<CabinetClass>();
+
+
+    private void RoomCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        CabinetCombobox.ItemsSource = cabinetInfos;
+
+        if (RoomCombobox.SelectedIndex != -1)
+        {
+            CabinetCombobox.IsEnabled = true;
+            cabinetInfos.Clear();
+
+            string roomId = roomInfos[RoomCombobox.SelectedIndex].DeviceRoomQrId;
+
+            string query = $"SELECT * FROM  DeviceCabinet WHERE DeviceRoomQrId = '{roomId}' AND (Del != 1 OR Del IS NULL)";
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            foreach (var row in rows)
+            {
+                CabinetClass cabinet = new CabinetClass();
+                cabinet.CabinetId = row["CabinetId"].ToString();
+                cabinet.Name = row["CabinetName"].ToString();
+                cabinet.Position = row["Position"].ToString();
+                cabinet.Note = row["Note"].ToString();
+
+                cabinetInfos.Add(cabinet);
+            }
+
+
+        }
+        else
+        {
+            CabinetCombobox.IsEnabled = false;
+        }
+    }
+
+
+    /// <summary>
+    /// 机柜ID
+    /// </summary>
+    private string cabinetId = "";
+    private void CabinetCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CabinetCombobox.SelectedIndex != -1)
+        {
+            cabinetId = cabinetInfos[CabinetCombobox.SelectedIndex].CabinetId;
+
+        }
+        else
+        {
+            cabinetId = "";
+        }
     }
 }

@@ -125,14 +125,16 @@ namespace ThinkITAM.ViewModels.AssetManage
             get; set;
         }
 
-        public string UseDepartment
+        public string DeviceRoom
         {
-            get; set;
+            get;
+            set;
         }
 
-        public string Address
+        public string DeviceCabinet
         {
             get; set;
+
         }
 
         public string TagA

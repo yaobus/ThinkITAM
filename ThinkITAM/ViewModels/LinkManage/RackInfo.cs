@@ -53,4 +53,18 @@ public class RackInfo
         get;
         set;
     }
+
+
+    public string Model
+    {
+        get;
+        set;
+    }
+
+
+    public string AssetNumber
+    {
+        get;
+        set;
+    }
 }

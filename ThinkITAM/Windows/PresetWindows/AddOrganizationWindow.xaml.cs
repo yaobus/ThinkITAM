@@ -119,7 +119,7 @@ public partial class AddOrganizationWindow : Window
     {
         organizationInfo.Clear();
 
-        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) AND (Note != '0' OR Note IS NULL);";
+        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) AND (Del != 1 OR Del IS NULL);";
 
         // Console.WriteLine(query);
 

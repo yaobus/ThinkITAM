@@ -725,8 +725,39 @@ namespace ThinkITAM.FunctionPage
                 rackInfos.Add(info);
             }
 
+            LoadDeviceInfos(index, cabinetId);
+            
+        }
+
+
+        private void LoadDeviceInfos(int index ,string cabinetId)
+        {
+            string query = $"SELECT * FROM Devices WHERE DeviceCabinet='{cabinetId}'";
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+
+            
+
+            foreach (var row in rows)
+            {
+                index++;
+                RackInfo info = new RackInfo();
+                info.Index = index;
+                info.rackId = row["AssetId"].ToString();
+                info.rackName = row["Description"].ToString();
+                info.AssetNumber=row["AssetNumber"].ToString();
+                info.Model=row["Model"].ToString();
+
+                rackInfos.Add(info);
+            }
+
+
+
 
         }
+
 
         /// <summary>
         /// 通过RackId加载配线架信息

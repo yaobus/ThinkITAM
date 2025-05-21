@@ -31,6 +31,7 @@
             Orientation="Horizontal">
 
             <materialDesign:PackIcon
+                Margin="10,0"
                 Width="40"
                 Height="40"
                 Kind="NewspaperPlus" />

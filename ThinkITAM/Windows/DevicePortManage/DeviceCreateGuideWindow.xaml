@@ -275,17 +275,28 @@
                             <Label
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Content="使用单位:" />
-                            <TextBox
-                                x:Name="UseDepartment"
+                                Content="设备所在机房:" />
+                            <ComboBox
+                                x:Name="RoomCombobox"
                                 Width="230"
                                 Height="28"
                                 Margin="0,0,10,0"
                                 Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Company"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                HorizontalAlignment="Left"
+                                DisplayMemberPath="Name"
+                                SelectionChanged="RoomCombobox_OnSelectionChanged"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                ToolTip="选择设备所在机房" />
+                            <!--<TextBox
+                            x:Name="UseDepartment"
+                            Width="230"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="Company"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />-->
                         </StackPanel>
 
 
@@ -297,17 +308,30 @@
                             <Label
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Content="设备安装位置:" />
-                            <TextBox
-                                x:Name="Address"
+                                Content="设备所在机柜:" />
+                            <ComboBox
+                                x:Name="CabinetCombobox"
                                 Width="230"
                                 Height="28"
                                 Margin="0,0,10,0"
                                 Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="AddressMarker"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                HorizontalAlignment="Left"
+                                DisplayMemberPath="Name"
+                                IsEnabled="False"
+                                SelectionChanged="CabinetCombobox_OnSelectionChanged"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                ToolTip="选择设备所在机柜" />
+
+                            <!--<TextBox
+                            x:Name="Address"
+                            Width="230"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="AddressMarker"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />-->
                         </StackPanel>
 
                         <StackPanel

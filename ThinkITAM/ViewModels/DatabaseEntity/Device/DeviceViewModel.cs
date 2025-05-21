@@ -56,19 +56,19 @@ public class DeviceViewModel
         set;
     }
 
-    public string UseDepartment
+    public string DeviceRoom
     {
         get;
         set;
     }
-        
-        public string Address
-        {
-            get; set;
 
-        }  
+    public string DeviceCabinet
+    {
+        get; set;
 
-      public      string TagA
+    }
+
+    public      string TagA
       {
           get; set;
       }

@@ -28,6 +28,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.DevicePortManage;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 using System.Security.Cryptography;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -190,8 +191,39 @@ namespace ThinkITAM.Windows.DevicePortManage
             PortPrefix.ItemsSource = portPrefix;
             LoadPortSpeed();
             LoadTags();
+            LoadRoomInfo();
+        }
+
+
+        private ObservableCollection<DeviceRoomClass> roomInfos = new ObservableCollection<DeviceRoomClass>();
+
+        private void LoadRoomInfo()
+        {
+            RoomCombobox.ItemsSource = roomInfos;
+            
+            roomInfos.Clear();
+            string query = "SELECT * FROM DeviceRoom WHERE Del != 1 OR Del IS NULL";
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            foreach (var row in rows)
+            {
+                DeviceRoomClass room = new DeviceRoomClass();
+                room.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
+                room.Name = row["RoomName"].ToString();
+                room.Location = row["Location"].ToString();
+                room.User = row["User"].ToString();
+                room.UserPhone = row["UserPhone"].ToString();
+                room.Note = row["Note"].ToString();
+                roomInfos.Add(room);
+            }
+
+
 
         }
+
+
+
 
         /// <summary>
         /// Snackbar消息
@@ -640,8 +672,8 @@ namespace ThinkITAM.Windows.DevicePortManage
                         User = info.User,
                         UserPhone = info.UserPhone,
                         EnableDate = EnableDate.SelectedDate.ToString(),
-                        UseDepartment = UseDepartment.Text,
-                        Address = Address.Text,
+                        DeviceRoom = roomInfos[RoomCombobox.SelectedIndex].DeviceRoomQrId,
+                        DeviceCabinet = cabinetId,
                         TagA = TagA.Text,
                         TagB = TagB.Text,
                         TagC = TagC.Text,
@@ -794,5 +826,59 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         }
 
+        private ObservableCollection<CabinetClass> cabinetInfos = new ObservableCollection<CabinetClass>();
+
+
+        private void RoomCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CabinetCombobox.ItemsSource = cabinetInfos;
+
+            if (RoomCombobox.SelectedIndex != -1)
+            {
+                CabinetCombobox.IsEnabled = true;
+                cabinetInfos.Clear();
+
+                string roomId = roomInfos[RoomCombobox.SelectedIndex].DeviceRoomQrId;
+
+                string query = $"SELECT * FROM  DeviceCabinet WHERE DeviceRoomQrId = '{roomId}' AND (Del != 1 OR Del IS NULL)";
+
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+                foreach (var row in rows)
+                {
+                    CabinetClass cabinet = new CabinetClass();
+                    cabinet.CabinetId = row["CabinetId"].ToString();
+                    cabinet.Name = row["CabinetName"].ToString();
+                    cabinet.Position = row["Position"].ToString();
+                    cabinet.Note = row["Note"].ToString();
+
+                    cabinetInfos.Add(cabinet);
+                }
+
+
+            }
+            else
+            {
+                CabinetCombobox.IsEnabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 机柜ID
+        /// </summary>
+        private string cabinetId = "";
+        private void CabinetCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CabinetCombobox.SelectedIndex != -1)
+            {
+                cabinetId = cabinetInfos[CabinetCombobox.SelectedIndex].CabinetId;
+
+            }
+            else
+            {
+                cabinetId = "";
+            }
+        }
     }
 }

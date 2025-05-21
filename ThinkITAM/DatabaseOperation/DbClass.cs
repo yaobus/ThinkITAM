@@ -1041,7 +1041,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Devices"://设备总表
 
-                                sql = $"CREATE TABLE \"Devices\" (   \"AssetId\" TEXT NOT NULL,   \"AssetNumber\" TEXT NOT NULL,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"Model\" TEXT,   \"Description\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"EnableDate\" text,   \"UseDepartment\" TEXT,   \"Address\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT,\"Del\" integer,   PRIMARY KEY (\"AssetId\", \"AssetNumber\") );";
+                                sql = $"CREATE TABLE \"Devices\" (   \"AssetId\" TEXT NOT NULL,   \"AssetNumber\" TEXT NOT NULL,   \"AssetType\" TEXT,   \"DeviceType\" TEXT,   \"Model\" TEXT,   \"Description\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"EnableDate\" text,   \"DeviceRoom\" TEXT,   \"DeviceCabinet\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,   \"TagE\" TEXT,   \"TagF\" TEXT,\"Del\" integer,   PRIMARY KEY (\"AssetId\", \"AssetNumber\") );";
 
 
                                 break;
@@ -1253,7 +1253,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Devices"://设备总表
 
                                 sql =
-                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` TEXT,   `DeviceType` TEXT,   `Model` TEXT,   `Description` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `EnableDate` VARCHAR(255),   `UseDepartment` TEXT,   `Address` TEXT,   `TagA` TEXT,   `TagB` TEXT,   `TagC` TEXT,   `TagD` TEXT,   `TagE` TEXT,   `TagF` TEXT, `Del` INT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` TEXT,   `DeviceType` TEXT,   `Model` TEXT,   `Description` TEXT,   `User` TEXT,   `UserPhone` TEXT,   `EnableDate` VARCHAR(255),   `DeviceRoom` TEXT,   `DeviceCabinet` TEXT,   `TagA` TEXT,   `TagB` TEXT,   `TagC` TEXT,   `TagD` TEXT,   `TagE` TEXT,   `TagF` TEXT, `Del` INT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 

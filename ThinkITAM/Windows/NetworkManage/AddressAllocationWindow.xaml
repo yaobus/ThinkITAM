@@ -11,8 +11,7 @@
     Title="地址分配"
     Width="880"
     Height="680"
-    d:Background="#383838"
-    d:Foreground="AliceBlue"
+
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddressAllocationWindow_OnLoaded"
     ResizeMode="NoResize"

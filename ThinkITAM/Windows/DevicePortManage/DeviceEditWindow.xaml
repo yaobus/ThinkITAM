@@ -123,19 +123,32 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="使用单位:"
-                    ToolTip="使用单位" />
+                    Content="设备所在机房:"
+                    />
+
                 <ComboBox
-                    x:Name="UseDepartment"
+                    x:Name="RoomCombobox"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
                     BorderThickness="0.5"
-                    IsEditable="True"
-                    SelectionChanged="UseDepartment_OnSelectionChanged"
+                    HorizontalAlignment="Left"
+                    DisplayMemberPath="Name"
+                    SelectionChanged="RoomCombobox_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    Text="{Binding UseDepartment}" />
+                    ToolTip="选择设备所在机房" />
+                <!--<ComboBox
+                x:Name="UseDepartment"
+                Width="250"
+                Height="28"
+                Margin="5,0,10,10"
+                Padding="0"
+                BorderThickness="0.5"
+                IsEditable="True"
+                SelectionChanged="UseDepartment_OnSelectionChanged"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                Text="{Binding UseDepartment}" />-->
             </StackPanel>
 
             <StackPanel
@@ -146,18 +159,32 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="安装位置:"
-                    ToolTip="使用单位" />
+                    Content="设备所在机柜:"
+                    />
+
                 <ComboBox
-                    x:Name="Address"
+                    x:Name="CabinetCombobox"
                     Width="250"
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
                     BorderThickness="0.5"
-                    IsEditable="True"
+                    HorizontalAlignment="Left"
+                    DisplayMemberPath="Name"
+                    IsEnabled="False"
+                    SelectionChanged="CabinetCombobox_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    Text="{Binding Address}" />
+                    ToolTip="选择设备所在机柜" />
+                <!--<ComboBox
+                x:Name="Address"
+                Width="250"
+                Height="28"
+                Margin="5,0,10,10"
+                Padding="0"
+                BorderThickness="0.5"
+                IsEditable="True"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                Text="{Binding Address}" />-->
             </StackPanel>
 
             <StackPanel
@@ -236,7 +263,7 @@
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagA}" />
+                    Text="{Binding TagC}" />
             </StackPanel>
 
             <StackPanel
@@ -261,7 +288,7 @@
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagB}" />
+                    Text="{Binding TagD}" />
             </StackPanel>
 
             <StackPanel
@@ -286,7 +313,7 @@
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagC}" />
+                    Text="{Binding TagE}" />
             </StackPanel>
 
             <StackPanel
@@ -311,7 +338,7 @@
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagD}" />
+                    Text="{Binding TagF}" />
             </StackPanel>
 
 
@@ -330,7 +357,7 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 BorderThickness="0"
-                Content="保存" 
+                Content="保存"
                 Click="SaveButton_OnClick"
                 />
 
