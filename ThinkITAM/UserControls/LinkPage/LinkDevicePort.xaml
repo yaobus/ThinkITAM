@@ -10,7 +10,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.DevicePortManage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="70"
+    Width="60"
     Height="85"
     Background="Transparent"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -234,7 +234,7 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         d:Text="10G "
-                        FontSize="12"
+                        FontSize="10"
                         FontWeight="ExtraBlack"
                         Text="{Binding PortClass.PortSpeed}" />
                     <TextBlock
@@ -247,7 +247,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         d:Text="12/0/48"
-                        FontSize="12"
+                        FontSize="10"
                         FontWeight="ExtraBlack"
                         Text="{Binding PortClass.PortIndex}" />
                 </StackPanel>

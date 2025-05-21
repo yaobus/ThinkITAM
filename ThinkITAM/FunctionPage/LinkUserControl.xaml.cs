@@ -861,16 +861,9 @@ namespace ThinkITAM.FunctionPage
         {
             string assetId = rackInfo.rackId;
 
-            //第一步，获取设备信息
-            MdfRackClass mdfRack = new MdfRackClass();
-
-            mdfRack = DbClass.GetRackInfo(assetId);
-
-            int slotCount = DbClass.GetDeviceSlotCount(assetId);
-            
-            mdfRack.SlotCount = slotCount;
 
 
+            LoadDevicePortInfos(assetId);
 
             ////第二步，获取槽位信息
             //ObservableCollection<SlotClass> slots = rackInfo.slotInfos;
