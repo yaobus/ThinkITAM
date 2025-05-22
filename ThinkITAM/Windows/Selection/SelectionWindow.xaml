@@ -75,11 +75,13 @@
             <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
             <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
         </Style>
-        <!--
-        <Style x:Key="CabinetManageStyle" TargetType="userPages:CabinetManage">
-        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}"/>
-        <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}"/>
+
+        <Style x:Key="ComputerStyle" TargetType="functionPage:ComputerPagexaml">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
         </Style>
+
+        <!--
         <Style x:Key="ModelPresetStyle" TargetType="userPages:ModelPreset">
         <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}"/>
         <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}"/>
@@ -304,12 +306,7 @@
                             Height="28"
                             VerticalAlignment="Center"
                             Kind="ToolboxOutline" />
-                        <materialDesign:PackIcon
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Kind="Ethernet" />
+
 
                     </Grid>
 
@@ -321,6 +318,30 @@
                 </StackPanel>
 
             </ListViewItem>
+
+
+            <ListViewItem Margin="0,2">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                    <Grid>
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="DesktopTowerMonitor" />
+
+
+                    </Grid>
+
+                    <TextBlock
+                        Margin="10"
+                        VerticalAlignment="Center"
+                        Text="{DynamicResource SwComputer}" />
+
+                </StackPanel>
+
+            </ListViewItem>
+
 
         </ListView>
 

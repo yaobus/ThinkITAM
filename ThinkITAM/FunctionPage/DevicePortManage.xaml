@@ -576,7 +576,6 @@
                                             VerticalAlignment="Center"
                                             FontSize="20"
                                             FontWeight="ExtraBold"
-
                                             Text="{Binding PortType}" />
                                     </Grid>
                                 </DataTemplate>
@@ -633,7 +632,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding PortSlotNumber}" />
                                     </Grid>
                                 </DataTemplate>
@@ -661,7 +659,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding PortId}" />
                                     </Grid>
                                 </DataTemplate>
@@ -689,7 +686,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding Status, Converter={StaticResource StatusToNameConverter}}" />
                                     </Grid>
                                 </DataTemplate>
@@ -717,7 +713,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding Mode}" />
                                     </Grid>
                                 </DataTemplate>
@@ -745,7 +740,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding PortName}" />
                                     </Grid>
                                 </DataTemplate>
@@ -773,7 +767,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding VlanId}" />
                                     </Grid>
                                 </DataTemplate>
@@ -802,7 +795,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding DeviceLink}" />
                                     </Grid>
                                 </DataTemplate>
@@ -830,7 +822,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding LineLink}" />
                                     </Grid>
                                 </DataTemplate>
@@ -880,7 +871,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagA}" />
                                     </Grid>
                                 </DataTemplate>
@@ -908,7 +898,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagB}" />
                                     </Grid>
                                 </DataTemplate>
@@ -936,7 +925,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagC}" />
                                     </Grid>
                                 </DataTemplate>
@@ -964,7 +952,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagD}" />
                                     </Grid>
                                 </DataTemplate>
@@ -992,7 +979,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagE}" />
                                     </Grid>
                                 </DataTemplate>
@@ -1020,7 +1006,6 @@
                                         <TextBlock
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-
                                             Text="{Binding TagF}" />
                                     </Grid>
                                 </DataTemplate>

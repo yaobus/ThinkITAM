@@ -1,0 +1,401 @@
+﻿<Window
+    x:Class="ThinkITAM.Windows.Computer.AddComputerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.Computer"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="添加终端设备"
+    Width="680"
+    Height="580"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AddComputerWindow_OnLoaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">0,12</Thickness>
+    </Window.Resources>
+
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+                <materialDesign:PackIcon
+                    Width="40"
+                    Height="40"
+                    Kind="NewspaperPlus" />
+
+                <TextBlock
+                    Margin="10"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="从资产库添加终端设备" />
+
+            </StackPanel>
+
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="20">
+
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="*资产类型:" />
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBox
+                            x:Name="AssetType"
+                            Width="180"
+                            Height="28"
+                            Margin="5,0,10,10"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="Ticket"
+                            BorderThickness="0.5"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding AssetType}" />
+                        <Button
+                            x:Name="FindAsset"
+                            Width="60"
+                            Height="28"
+                            Margin="0,0,10,10"
+                            Padding="0"
+                            BorderThickness="0"
+                            Click="FindAsset_OnClick"
+                            ToolTip="查找资产">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Magnify" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="设备类型:" />
+                    <TextBox
+                        x:Name="DeviceType"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                        BorderThickness="0.5"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding DeviceType}" />
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="资产编号:" />
+                    <TextBox
+                        x:Name="AssetNumber"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                        BorderThickness="0.5"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding AssetNumber}" />
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口类型:" />
+                    <ComboBox
+                        x:Name="PortTypeCombobox"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="VectorSelection"
+                        IsEditable="False"
+                        MaxDropDownHeight="300"
+                        SelectedIndex="0"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+
+                        <ComboBoxItem Content="Ethernet" />
+                        <ComboBoxItem Content="Fiber" />
+                    </ComboBox>
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口标签:" />
+                    <TextBox
+                        x:Name="PortTag"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                        BorderThickness="0.5"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding PortTag}" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="20">
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="设备群组:" />
+
+                    <ComboBox
+                        x:Name="PortGroupCombobox"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="VectorSelection"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="部署位置:" />
+
+                    <ComboBox
+                        x:Name="BuildingCombobox"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
+                        DisplayMemberPath="Building"
+                        IsEditable="False"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="BuildingCombobox_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="所在楼层:" />
+
+                    <ComboBox
+                        x:Name="FloorCombobox"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
+                        DisplayMemberPath="Floor"
+                        IsEditable="False"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="FloorCombobox_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="所在房间:" />
+
+
+                    <ComboBox
+                        x:Name="RoomCombobox"
+                        Width="250"
+                        Height="28"
+                        Margin="5,0,10,10"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="FloorPlan"
+                        IsEditable="False"
+                        MaxDropDownHeight="300"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="设备使用人:" />
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBox
+                            x:Name="AssetUser"
+                            Width="180"
+                            Height="28"
+                            Margin="5,0,10,10"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                            BorderThickness="0.5"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding AssetNumber}" />
+
+                        <Button
+                            x:Name="FindUser"
+                            Width="60"
+                            Height="28"
+                            Margin="0,0,10,10"
+                            Padding="0"
+                            BorderThickness="0"
+                            Click="FindUser_OnClick"
+                            ToolTip="查找用户">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Magnify" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+
+        </Grid>
+
+
+        <Grid Grid.Row="2" Margin="0,0">
+
+
+            <Button
+                x:Name="SaveButton"
+                Width="150"
+                Margin="0,0,40,0"
+                HorizontalAlignment="Right"
+                BorderThickness="0"
+                Click="SaveButton_OnClick"
+                Content="保存" />
+        </Grid>
+
+
+    </Grid>
+</Window>

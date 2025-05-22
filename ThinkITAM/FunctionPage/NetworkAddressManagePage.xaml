@@ -97,8 +97,8 @@
                         materialDesign:ButtonAssist.CornerRadius="5"
                         BorderBrush="Transparent"
                         BorderThickness="0"
-                        IsEnabled="False"
                         Click="EditButton_OnClick"
+                        IsEnabled="False"
                         Style="{StaticResource MaterialDesignFlatLightButton}">
                         <materialDesign:PackIcon
                             Width="20"
@@ -821,8 +821,8 @@
             <materialDesign:Card Grid.Column="0" Margin="2.5,2.5,5,2">
                 <Grid>
                     <ScrollViewer
-                        d:Visibility="Collapsed"
                         x:Name="GraphicalPlan"
+                        d:Visibility="Collapsed"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
@@ -932,7 +932,6 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="20"
                                                 FontWeight="ExtraBold"
-                                                
                                                 Text="{Binding Address}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1013,7 +1012,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding Name}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1041,7 +1039,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding Organization}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1069,7 +1066,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding Department}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1098,7 +1094,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                               
                                                 Text="{Binding Group}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1126,7 +1121,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding Phone}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1154,7 +1148,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding HostName}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1182,7 +1175,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding MacAddress}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1211,7 +1203,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding NowHostName}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1239,7 +1230,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding NowMacAddress}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1267,7 +1257,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding LinkDevice}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1295,7 +1284,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagA}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1323,7 +1311,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagB}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1351,7 +1338,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagC}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1379,7 +1365,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagD}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1407,7 +1392,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagE}" />
                                         </Grid>
                                     </DataTemplate>
@@ -1435,7 +1419,6 @@
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                
                                                 Text="{Binding TagF}" />
                                         </Grid>
                                     </DataTemplate>

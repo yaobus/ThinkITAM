@@ -144,7 +144,7 @@
             materialDesign:TextFieldAssist.LeadingIcon="Layers"
             Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-        <TextBlock Grid.Row="5" Grid.Column="0">机房信息：</TextBlock>
+
         <Button
             x:Name="SaveButton"
             Grid.Row="5"
@@ -152,6 +152,7 @@
             Width="150"
             Margin="10"
             HorizontalAlignment="Right"
+            BorderThickness="0"
             Click="SaveButton_OnClick"
             Content="保存" />
 

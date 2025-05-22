@@ -287,6 +287,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 var info = peopleInfos[PeopleListView.SelectedIndex];
                 Number.Text = info.UserNumber;
+                UserName.Text = info.Name;
                 DataBridge.DataBridge.SelectPeopleViewModel= info;
             }
 

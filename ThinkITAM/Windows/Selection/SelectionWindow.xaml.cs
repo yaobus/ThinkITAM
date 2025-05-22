@@ -277,7 +277,15 @@ public partial class SelectionWindow : Window
                 FunctionPanel.Children.Add(toolsPage);
                 break;
 
+            case 10:
+                FunctionPanel.Children.Clear();
 
+                ComputerPagexaml computer = new ComputerPagexaml();
+
+                computer.Style = (Style)FindResource("ComputerStyle");
+
+                FunctionPanel.Children.Add(computer);
+                break;
 
 
         }

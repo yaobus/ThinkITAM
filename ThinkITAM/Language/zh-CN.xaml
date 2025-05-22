@@ -76,6 +76,7 @@
     <s:String x:Key="SwPreset">预设信息管理</s:String>
     <s:String x:Key="SwPanelPort">面板端口管理</s:String>
     <s:String x:Key="SwToolBox">运维工具箱</s:String>
+    <s:String x:Key="SwComputer">通用终端管理</s:String>
 
     <!--  Dashboard  -->
     <s:String x:Key="DasNetwork">网段信息总览</s:String>

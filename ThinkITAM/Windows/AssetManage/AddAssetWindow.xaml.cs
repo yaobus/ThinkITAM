@@ -581,7 +581,7 @@ public partial class AddAssetWindow : Window
 
                 //创建资产ID
 
-                //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架
+                //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架，4为通用终端（计算机、IP电话）
                 string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
                 //创建资产二维码,0为机房，1为机柜，2为设备

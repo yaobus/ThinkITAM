@@ -37,6 +37,7 @@ namespace ThinkITAM.Windows.NetworkManage
         }
 
 
+        private string filter = $"AND( Deploy IS NULL OR Deploy='')";
 
         private void FindAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -72,14 +73,31 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string sql;
 
-            if (id != null)
+
+            if (FilterButton.IsChecked == true)
             {
-                sql = $"SELECT * FROM Asset WHERE AssetId ='{id}'";
+                if (id != null)
+                {
+                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}'  ";
+                }
+                else
+                {
+                    sql = $"SELECT * FROM Asset WHERE Deploy IS NULL OR Deploy=''";
+                }
             }
             else
             {
-                sql = $"SELECT * FROM Asset ";
+                if (id != null)
+                {
+                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}'  ";
+                }
+                else
+                {
+                    sql = $"SELECT * FROM Asset";
+                }
             }
+
+
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -216,9 +234,9 @@ namespace ThinkITAM.Windows.NetworkManage
                 assetViewModels.Clear();
                 AssetTag.Text = "";
 
-
-
                 string query = $"SELECT  DeviceType FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}';";
+
+
 
                 //Console.WriteLine(query);
 
@@ -233,6 +251,18 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                 DeviceType.ItemsSource = deviceTypeInfos;
+
+
+                string assetType = assetTypeInfos[AssetType.SelectedIndex];
+
+                if (!string.IsNullOrWhiteSpace(assetType))
+                {
+                    LoadAssetInfos(assetType,null);
+                }
+
+
+
+
             }
             else
             {
@@ -266,15 +296,36 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string sql;
 
-            if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
+            if (FilterButton.IsChecked==true)
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}'";
+                if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
+                {
+
+                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' {filter}";
+
+                }
+                else
+                {
+                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' {filter}";
+                }
 
             }
             else
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
+                if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
+                {
+
+                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}'";
+
+                }
+                else
+                {
+                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
+                }
+
             }
+
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -284,7 +335,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var row in rows)
             {
-                                var item = new AssetViewModel();
+                var item = new AssetViewModel();
                 i++;
                 item.Index = i;
 
@@ -393,6 +444,13 @@ namespace ThinkITAM.Windows.NetworkManage
 
             this.DialogResult = true;
             this.Close();
+        }
+
+        private void FilterButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AssetType.SelectedIndex = -1;
+            DeviceType.SelectedIndex = -1;
+            LoadSelectAssetInfo();
         }
     }
 }

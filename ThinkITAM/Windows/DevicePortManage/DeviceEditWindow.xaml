@@ -123,8 +123,7 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="设备所在机房:"
-                    />
+                    Content="设备所在机房:" />
 
                 <ComboBox
                     x:Name="RoomCombobox"
@@ -132,8 +131,8 @@
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
-                    BorderThickness="0.5"
                     HorizontalAlignment="Left"
+                    BorderThickness="0.5"
                     DisplayMemberPath="Name"
                     SelectionChanged="RoomCombobox_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
@@ -159,8 +158,7 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="设备所在机柜:"
-                    />
+                    Content="设备所在机柜:" />
 
                 <ComboBox
                     x:Name="CabinetCombobox"
@@ -168,8 +166,8 @@
                     Height="28"
                     Margin="5,0,10,10"
                     Padding="0"
-                    BorderThickness="0.5"
                     HorizontalAlignment="Left"
+                    BorderThickness="0.5"
                     DisplayMemberPath="Name"
                     IsEnabled="False"
                     SelectionChanged="CabinetCombobox_OnSelectionChanged"
@@ -357,9 +355,8 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 BorderThickness="0"
-                Content="保存"
                 Click="SaveButton_OnClick"
-                />
+                Content="保存" />
 
         </StackPanel>
     </Grid>
