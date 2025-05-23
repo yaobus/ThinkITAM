@@ -76,7 +76,7 @@
             <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
         </Style>
 
-        <Style x:Key="ComputerStyle" TargetType="functionPage:ComputerPagexaml">
+        <Style x:Key="ComputerStyle" TargetType="functionPage:ComputerPage">
             <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
             <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
         </Style>

@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="ThinkITAM.FunctionPage.ComputerPagexaml"
+﻿<UserControl x:Class="ThinkITAM.FunctionPage.ComputerPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              MinWidth="1200"
@@ -11,7 +11,9 @@
              d:Height="768"
              d:Width="1366"
              FontFamily="{StaticResource HarmonyOsFontFamily}"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Loaded="ComputerPage_OnLoaded"
+             >
     <Grid>
 
 
@@ -71,6 +73,7 @@
                 IsManipulationEnabled="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectedItemChanged="BuildingTreeView_OnSelectedItemChanged"
                 />
 
 
@@ -151,6 +154,126 @@
             </Grid>
         </materialDesign:Card>
 
+        <Expander
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            materialDesign:ExpanderAssist.VerticalHeaderPadding="0,0,0,0"
+            ExpandDirection="Right"
+            IsExpanded="True">
+            <Expander.Header>
+                <TextBlock RenderTransformOrigin=".5,.5" Text="房间列表">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="90" />
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
+            </Expander.Header>
+
+            <Grid>
+
+                <materialDesign:Card Margin="2.5,2.5,2.5,5">
+
+                    <ListView
+                        x:Name="RoomListView"
+                        AllowDrop="True"
+                        IsManipulationEnabled="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        >
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+
+                                <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp3">
+
+                                    <Grid Height="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="200" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Background="DarkCyan">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontWeight="ExtraBlack"
+                                                Foreground="AliceBlue"
+                                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                Text="{Binding Index}" />
+                                        </Grid>
+
+                                        <Grid Grid.Column="1" Background="#00A0A0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30*" />
+                                                <RowDefinition Height="20*" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                                                <TextBlock
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Foreground="AliceBlue"
+                                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                                    Text="房间号:" />
+                                                <TextBlock
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Foreground="AliceBlue"
+                                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                                    Text="{Binding RoomNumber}" />
+
+                                            </StackPanel>
+
+                                            <Grid Grid.Row="1" Background="MediumSeaGreen">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                                    <TextBlock
+                                                        Margin="5,0"
+                                                        VerticalAlignment="Center"
+                                                        FontWeight="Bold"
+                                                        Foreground="AliceBlue"
+                                                        Opacity="0.5"
+                                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                                        Text="终端总数:" />
+                                                    <TextBlock
+                                                        Margin="5,0"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="AliceBlue"
+                                                        Opacity="0.5"
+                                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                                        Text="{Binding PortCount}" />
+                                                </StackPanel>
+
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="AliceBlue"
+                                                    Opacity="0.5 "
+                                                    Text="{Binding RoomNote}" />
+
+
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
+
+
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+                </materialDesign:Card>
+
+            </Grid>
+
+        </Expander>
 
 
 
@@ -353,6 +476,7 @@
 
         <materialDesign:Card
             Grid.Row="1"
+            Grid.RowSpan="2"
             Grid.Column="2"
             Margin="2.5,2.5,5,2.5">
 
@@ -372,7 +496,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
 
-                                
+
 
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

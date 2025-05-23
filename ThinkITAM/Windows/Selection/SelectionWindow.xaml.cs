@@ -26,11 +26,11 @@ public partial class SelectionWindow : Window
     private int WindowLoadStatus = 0;
 
 
-    private void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
+    private async void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         WindowLoadStatus = 1;
         //BottomControl.SelectedIndex = -1;
-        InitializeDatabase();
+
 
         //加载初始页面
         Dashboard dashboard = new Dashboard();
@@ -39,12 +39,12 @@ public partial class SelectionWindow : Window
 
         FunctionPanel.Children.Add(dashboard);
 
-
+        InitializeDatabase();
     }
     /// <summary>
     /// 初始化数据库
     /// </summary>
-    private async void InitializeDatabase()
+    private async Task InitializeDatabase()
     {
        
 
@@ -84,7 +84,7 @@ public partial class SelectionWindow : Window
         foreach (var table in t)
         {
 
-            Console.WriteLine(table);
+           // Console.WriteLine(table);
 
             var result = DbClass.CreateTableIfNotExists(table);
 
@@ -280,7 +280,7 @@ public partial class SelectionWindow : Window
             case 10:
                 FunctionPanel.Children.Clear();
 
-                ComputerPagexaml computer = new ComputerPagexaml();
+                ComputerPage computer = new ComputerPage();
 
                 computer.Style = (Style)FindResource("ComputerStyle");
 

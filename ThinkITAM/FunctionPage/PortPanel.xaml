@@ -556,6 +556,7 @@
 
         <materialDesign:Card
             Grid.Row="1"
+            Grid.RowSpan="2"
             Grid.Column="2"
             Margin="2.5,2.5,5,2.5">
 

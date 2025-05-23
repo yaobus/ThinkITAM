@@ -737,8 +737,8 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="0"
-                MaxHeight="150"
-                d:Height="150"
+                MaxHeight="95"
+                d:Height="95"
                 d:Visibility="Visible"
                 Margin="2.5,2.5,2.5,0"
                 BorderThickness="0.5">
@@ -821,7 +821,7 @@
                 MaxHeight="180"
                 Margin="2.5,0,2.5,5"
                 VerticalAlignment="Stretch"
-                
+
                 BorderThickness="0.5">
 
                 <Grid>
@@ -832,7 +832,7 @@
                         d:Height="150"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
+                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -899,7 +899,7 @@
                         Margin="0"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                                                                        Duration=0:0:0.2}"
+                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 

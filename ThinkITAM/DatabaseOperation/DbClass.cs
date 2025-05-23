@@ -383,6 +383,23 @@ namespace ThinkITAM.DatabaseOperation
 
 
         /// <summary>
+        /// 统计建筑总楼层/总房间数量/总设备数量
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
+        public static string StatisticsDeviceRoomFloor(string buildingId)
+        {
+
+            string sql = $"SELECT COUNT(DISTINCT SlotId) FROM  Bu_{buildingId}";
+            int floor = ExecuteScalarTableNum(sql);
+            int room = ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
+            int port = ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE BuildingId='{buildingId}'");
+
+
+            return $"{floor}/{room}/{port}";
+        }
+
+        /// <summary>
         /// 获取指定楼层房间总数量
         /// </summary>
         /// <param name="buildingId"></param>
@@ -390,7 +407,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static int GetRoomForFloorCount(string buildingId, string floor)
         {
-            return ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
+            return ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId} WHERE SlotId ='{floor}'");
         }
 
         /// <summary>
@@ -402,6 +419,18 @@ namespace ThinkITAM.DatabaseOperation
         public static int GetPortForFloorCount(string buildingId, string floor)
         {
             return ExecuteScalarTableNum($"SELECT COUNT(PortId) FROM  Bu_{buildingId} WHERE SlotId ='{floor}'");
+        }
+
+
+        /// <summary>
+        /// 获取指定楼层设备终端总数量
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <param name="floor"></param>
+        /// <returns></returns>
+        public static int GetDeviceForFloorCount(string buildingId, string floor)
+        {
+            return ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE Floor ='{floor}'");
         }
 
         /// <summary>
@@ -418,6 +447,20 @@ namespace ThinkITAM.DatabaseOperation
             return ExecuteScalarTableNum(sql);
         }
 
+
+        /// <summary>
+        /// 获取指定房间设备数量
+        /// </summary>
+        /// <param name="buildingId">建筑ID</param>
+        /// <param name="floor">楼层</param>
+        /// <param name="roomNumber">房间号</param>
+        /// <returns></returns>
+        public static int GetRoomDeviceCount(string buildingId, string floor, string roomNumber)
+        {
+            string sql = $"SELECT COUNT(*) FROM Computer WHERE BuildingId='{buildingId}' AND Floor ='{floor}' AND Room='{roomNumber}'";
+
+            return ExecuteScalarTableNum(sql);
+        }
 
         /// <summary>
         /// 加载备注
