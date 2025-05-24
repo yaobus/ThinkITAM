@@ -27,6 +27,8 @@ namespace ThinkITAM.Functions.Converters
                         return ColorConverterClass.ColorToBrush("#e2473f");//设备
                     case '3':
                         return ColorConverterClass.ColorToBrush("#00a0dd");//机架
+                    case '4':
+                        return ColorConverterClass.ColorToBrush("#00c853"); //终端设备
                     case '8':
                         return ColorConverterClass.ColorToBrush("#f39700"); //面板
 

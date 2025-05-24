@@ -289,36 +289,49 @@ namespace ThinkITAM.Windows.Computer
             string deviceId = $"4{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
 
+            var query = $"SELECT COUNT(*) FROM Computer WHERE AssetId='{DataBridge.DataBridge.SelectAssetInfo.AssetId}'";
 
-            if (BuildingCombobox.SelectedIndex!=-1 && FloorCombobox.SelectedIndex!=-1 && RoomCombobox.SelectedIndex!=-1)
+            var count  =Convert.ToInt32( GlobalVariables.DbService.ExecuteScalar(query));
+
+            if (count > 0)
             {
-                var info = new
-                {
-                    DeviceId = deviceId,
-                    AssetId = DataBridge.DataBridge.SelectAssetInfo.AssetId,
-                    AssetUser = DataBridge.DataBridge.SelectPeopleViewModel.UserId,
-                    PortId = 1,
-                    PortTag = PortTag.Text,
-                    PortType = portType,
-                    PortGroup = PortGroupCombobox.Text,
-                    BuildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId,
-                    Floor = floorInfos[FloorCombobox.SelectedIndex].Floor,
-                    Room = roomIds[RoomCombobox.SelectedIndex]
-
-                };
-
-                GlobalVariables.DbService.InsertEntity("Computer", info);
-
-                string sql = $"UPDATE Asset SET Deploy = 4 WHERE AssetId = '{DataBridge.DataBridge.SelectAssetInfo.AssetId}'";
-
-                GlobalVariables.DbService.ExecuteNonQuery(sql);
-
-                this.DialogResult = true;
+                MessageBox.Show("该资产已有部署信息，无法重复部署");
             }
             else
             {
-                MessageBox.Show("请选择设备所部署的建筑物、楼层、房间等信息");
+                if (BuildingCombobox.SelectedIndex != -1 && FloorCombobox.SelectedIndex != -1 && RoomCombobox.SelectedIndex != -1)
+                {
+                    var info = new
+                    {
+                        DeviceId = deviceId,
+                        AssetId = DataBridge.DataBridge.SelectAssetInfo.AssetId,
+                        AssetUser = DataBridge.DataBridge.SelectPeopleViewModel.UserId,
+                        PortId = 1,
+                        PortTag = PortTag.Text,
+                        PortType = portType,
+                        PortGroup = PortGroupCombobox.Text,
+                        BuildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId,
+                        Floor = floorInfos[FloorCombobox.SelectedIndex].Floor,
+                        Room = roomIds[RoomCombobox.SelectedIndex]
+
+                    };
+
+                    GlobalVariables.DbService.InsertEntity("Computer", info);
+
+                    string sql = $"UPDATE Asset SET Deploy = 4 WHERE AssetId = '{DataBridge.DataBridge.SelectAssetInfo.AssetId}'";
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    MessageBox.Show("请选择设备所部署的建筑物、楼层、房间等信息");
+                }
+
             }
+
+
 
 
 

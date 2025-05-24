@@ -277,6 +277,9 @@ namespace ThinkITAM.ViewModels.LinkManage
     /// </summary>
     public class PortClass : INotifyPropertyChanged
     {
+        private string _deviceId;
+        private string _assetNumber;
+        private string _userName;
         private int _uID;
         private bool _isSelected;
         private string _rackId;
@@ -292,6 +295,48 @@ namespace ThinkITAM.ViewModels.LinkManage
         private int _onTheLine;
         private int? _nodeIndex;
 
+
+        /// <summary>
+        /// 设备ID,仅用于终端部署表使用，Computer表
+        /// </summary>
+        public string DeviceId
+        {
+            get => _deviceId;
+            set
+            {
+                if (_deviceId != value)
+                {
+                    _deviceId = value;
+                    OnPropertyChanged(nameof(DeviceId));
+                }
+            }
+        }
+
+        public string AssetNumber
+        {
+            get => _assetNumber;
+            set
+            {
+                if (_assetNumber != value)
+                {
+                    _assetNumber = value;
+                    OnPropertyChanged(nameof(AssetNumber));
+                }
+            }
+        }
+
+        public string UserName
+        {
+            get => _userName;
+            set
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    OnPropertyChanged(nameof(UserName));
+                }
+            }
+        }
 
         /// <summary>
         /// 端口UID号

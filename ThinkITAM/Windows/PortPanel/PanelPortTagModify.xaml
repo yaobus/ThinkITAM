@@ -51,20 +51,20 @@
             Text="设定标签:" />
 
 
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="1"
-                x:Name="TagTextBox"
-                Width="340"
-                Height="50"
-                Margin="5,0"
-                Padding="0"
-                d:Text="TAG-ABCD"
-                BorderThickness="0.5"
-                FontSize="16"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+        <TextBox
+            x:Name="TagTextBox"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="340"
+            Height="50"
+            Margin="5,0"
+            Padding="0"
+            d:Text="TAG-ABCD"
+            BorderThickness="0.5"
+            FontSize="16"
+            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-      
+
         <Grid
             Grid.Row="2"
             Grid.Column="1"

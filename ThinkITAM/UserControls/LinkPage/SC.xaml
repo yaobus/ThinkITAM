@@ -41,9 +41,9 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="I   I" 
                 FontFamily="{StaticResource HarmonyOsFontFamilyMedium}"
-                Foreground="DeepSkyBlue"/>
+                Foreground="DeepSkyBlue"
+                Text="I   I" />
 
         </Border>
         <materialDesign:PackIcon
@@ -51,8 +51,8 @@
             Height="{StaticResource ControlSize}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Kind="CircleOutline"
             Foreground="Gray"
+            Kind="CircleOutline"
             Opacity="1" />
     </Grid>
 </UserControl>

@@ -48,7 +48,7 @@
                 <TextBlock
                     Margin="10"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="从资产库添加终端设备" />
+                    Text="从资产库部署终端设备" />
 
             </StackPanel>
 

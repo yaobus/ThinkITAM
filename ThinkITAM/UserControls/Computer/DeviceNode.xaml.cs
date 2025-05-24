@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ThinkITAM.UserControls.Computer
 {
     /// <summary>
-    /// DeviceRoomInfo.xaml 的交互逻辑
+    /// DevicePort.xaml 的交互逻辑
     /// </summary>
-    public partial class BuildingUserControl : UserControl
+    public partial class DeviceNode : UserControl
     {
-        public BuildingUserControl()
+        public DeviceNode()
         {
             InitializeComponent();
         }

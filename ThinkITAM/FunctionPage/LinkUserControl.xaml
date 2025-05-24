@@ -738,12 +738,18 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 MaxHeight="95"
+                Margin="2.5,2.5,2.5,0"
                 d:Height="95"
                 d:Visibility="Visible"
-                Margin="2.5,2.5,2.5,0"
                 BorderThickness="0.5">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
                     <ScrollViewer
+                        Grid.Row="0"
                         VerticalAlignment="Stretch"
                         d:Background="Orange"
                         HorizontalScrollBarVisibility="Disabled"
@@ -757,6 +763,29 @@
 
 
                     </ScrollViewer>
+
+                    <StackPanel
+                        x:Name="DeviceInfoPlan"
+                        Grid.Row="1"
+                        Margin="20,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Opacity="0.5"
+                        Orientation="Horizontal">
+                        <Label
+                            Margin="10,0"
+                            Padding="0"
+                            Content="{Binding rackName}" />
+                        <Label
+                            Margin="10,0"
+                            Padding="0"
+                            Content="{Binding AssetNumber}" />
+                        <Label
+                            Margin="10,0"
+                            Padding="0"
+                            Content="{Binding Model}" />
+                    </StackPanel>
+
                 </Grid>
 
 
@@ -821,7 +850,6 @@
                 MaxHeight="180"
                 Margin="2.5,0,2.5,5"
                 VerticalAlignment="Stretch"
-
                 BorderThickness="0.5">
 
                 <Grid>
@@ -832,7 +860,7 @@
                         d:Height="150"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -899,7 +927,7 @@
                         Margin="0"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -911,11 +939,13 @@
                             <ListBox
                                 x:Name="RouteViewPanel"
                                 Grid.Column="0"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                 BorderThickness="1">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
 
-                                        <WrapPanel Orientation="Horizontal" />
+                                        <StackPanel Orientation="Horizontal" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
@@ -964,279 +994,171 @@
                 </TextBlock>
             </Expander.Header>
 
-            <materialDesign:Card Margin="0,0,5,0" materialDesign:ElevationAssist.Elevation="Dp0">
-                <TabControl
-                    Width="300"
-                    Margin="0"
-                    HorizontalContentAlignment="Stretch"
-                    materialDesign:ColorZoneAssist.Mode="PrimaryLight">
+            <materialDesign:Card
+                Margin="0"
+                Padding="5"
+                materialDesign:ElevationAssist.Elevation="Dp0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="0,0,0,2.5"
+                        Orientation="Vertical">
 
-                    <TabItem Header="墙面端口">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <StackPanel
-                                Grid.Row="0"
-                                Margin="5,5,0,2.5"
-                                Orientation="Vertical">
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
+                        <materialDesign:ColorZone
+                            Height="50"
+                            Margin="0,0,0,2.5"
+                            VerticalAlignment="Center"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            CornerRadius="5"
+                            Mode="Standard">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="ClearSearchKeyWord3" Style="{StaticResource MaterialDesignToolButton}">
+                                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                                </Button>
+                                <TextBox
+                                    x:Name="SearchKeyWord3"
+                                    Grid.Column="1"
+                                    MinWidth="200"
+                                    Margin="8,0,0,0"
                                     VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Button x:Name="ClearSearchKeyWord3" Style="{StaticResource MaterialDesignToolButton}">
-                                            <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
-                                        </Button>
-                                        <TextBox
-                                            x:Name="SearchKeyWord3"
-                                            Grid.Column="1"
-                                            MinWidth="200"
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            materialDesign:HintAssist.Hint="搜索关键字"
-                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                            BorderThickness="0"
-                                            Opacity="0.3" />
-                                        <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
-                                            <materialDesign:PackIcon Margin="5,0" Kind="Search" />
-                                        </Button>
-                                    </Grid>
-                                </materialDesign:ColorZone>
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-                                    <ComboBox
-                                        x:Name="BuildingsComboBox"
-                                        Margin="5,5,2.5,2.5"
-                                        Padding="5,10"
-                                        materialDesign:HintAssist.Hint="选择建筑物"
-                                        BorderThickness="0"
-                                        DisplayMemberPath="Building"
-                                        MaxDropDownHeight="300"
-                                        SelectionChanged="BuildingsComboBox_OnSelectionChanged"
-                                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                                </materialDesign:ColorZone>
-
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-                                    <ComboBox
-                                        x:Name="FloorComboBox"
-                                        Margin="5,5,2.5,2.5"
-                                        Padding="5,10"
-                                        materialDesign:HintAssist.Hint="选择楼层"
-                                        BorderThickness="0"
-                                        DisplayMemberPath="Floor"
-                                        MaxDropDownHeight="300"
-                                        SelectionChanged="FloorComboBox_OnSelectionChanged"
-                                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                                </materialDesign:ColorZone>
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-
-                                    <ComboBox
-                                        x:Name="RoomComboBox"
-                                        Margin="5,5,2.5,2.5"
-                                        Padding="5,10"
-                                        materialDesign:HintAssist.Hint="选择房间"
-                                        BorderThickness="0"
-                                        DisplayMemberPath="RoomNumber"
-                                        MaxDropDownHeight="300"
-                                        SelectionChanged="RoomComboBox_OnSelectionChanged"
-                                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                                </materialDesign:ColorZone>
-
-
-                            </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Margin="5,2.5,0,0"
-                                VerticalAlignment="Stretch">
-                                <materialDesign:ColorZone
-                                    Margin="2.5,0,0,0"
-                                    VerticalAlignment="Stretch"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-
-                                    <ScrollViewer
-                                        VerticalAlignment="Stretch"
-                                        HorizontalScrollBarVisibility="Disabled"
-                                        VerticalScrollBarVisibility="Auto">
-
-                                        <WrapPanel
-                                            x:Name="PortManagePanel"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch" />
-
-                                    </ScrollViewer>
-
-                                </materialDesign:ColorZone>
+                                    materialDesign:HintAssist.Hint="搜索关键字"
+                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                    BorderThickness="0"
+                                    Opacity="0.3" />
+                                <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
+                                    <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                                </Button>
                             </Grid>
+                        </materialDesign:ColorZone>
+
+                        <materialDesign:ColorZone
+                            Height="50"
+                            Margin="0,5,0,2.5"
+                            VerticalAlignment="Center"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            CornerRadius="5"
+                            Mode="Standard">
+                            <ComboBox
+                                x:Name="BuildingsComboBox"
+                                Margin="5,5,2.5,2.5"
+                                Padding="5,10"
+                                materialDesign:HintAssist.Hint="选择建筑物"
+                                BorderThickness="0"
+                                DisplayMemberPath="Building"
+                                MaxDropDownHeight="300"
+                                SelectionChanged="BuildingsComboBox_OnSelectionChanged"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                        </materialDesign:ColorZone>
 
 
-                        </Grid>
+                        <materialDesign:ColorZone
+                            Height="50"
+                            Margin="0,5,0,2.5"
+                            VerticalAlignment="Center"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            CornerRadius="5"
+                            Mode="Standard">
+                            <ComboBox
+                                x:Name="FloorComboBox"
+                                Margin="5,5,2.5,2.5"
+                                Padding="5,10"
+                                materialDesign:HintAssist.Hint="选择楼层"
+                                BorderThickness="0"
+                                DisplayMemberPath="Floor"
+                                MaxDropDownHeight="300"
+                                SelectionChanged="FloorComboBox_OnSelectionChanged"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                        </materialDesign:ColorZone>
+
+                        <materialDesign:ColorZone
+                            Height="50"
+                            Margin="0,5,0,2.5"
+                            VerticalAlignment="Center"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            CornerRadius="5"
+                            Mode="Standard">
+
+                            <ComboBox
+                                x:Name="RoomComboBox"
+                                Margin="5,5,2.5,2.5"
+                                Padding="5,10"
+                                materialDesign:HintAssist.Hint="选择房间"
+                                BorderThickness="0"
+                                DisplayMemberPath="RoomNumber"
+                                MaxDropDownHeight="300"
+                                SelectionChanged="RoomComboBox_OnSelectionChanged"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                        </materialDesign:ColorZone>
 
 
-                    </TabItem>
+                    </StackPanel>
 
-                    <TabItem Header="终端设备">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <StackPanel
-                                Grid.Row="0"
-                                Margin="5,5,0,2.5"
-                                Orientation="Vertical">
-
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Button x:Name="ClearSearchKeyWord2" Style="{StaticResource MaterialDesignToolButton}">
-                                            <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
-                                        </Button>
-                                        <TextBox
-                                            x:Name="SearchKeyWord2"
-                                            Grid.Column="1"
-                                            MinWidth="200"
-                                            Margin="8,0,0,0"
-                                            VerticalAlignment="Center"
-                                            materialDesign:HintAssist.Hint="搜索设备关键字"
-                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                            BorderThickness="0"
-                                            Opacity="0.3" />
-                                        <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
-                                            <materialDesign:PackIcon Margin="5,0" Kind="Search" />
-                                        </Button>
-                                    </Grid>
-                                </materialDesign:ColorZone>
+                    <materialDesign:Card Grid.Row="1" Margin="0,2.5,0,5">
+                        <TabControl
+                            Width="300"
+                            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                            Style="{StaticResource MaterialDesignFilledTabControl}"
+                            TabStripPlacement="Bottom">
 
 
 
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
 
-                                    <ComboBox
-                                        x:Name="DeviceGroups"
-                                        Margin="5,5,2.5,2.5"
-                                        Padding="5,10"
-                                        materialDesign:HintAssist.Hint="选择设备分组"
-                                        BorderThickness="0"
-                                        DisplayMemberPath="AssetType"
-                                        MaxDropDownHeight="300"
-                                        SelectionChanged="DeviceGroups_OnSelectionChanged"
-                                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                                </materialDesign:ColorZone>
-
-                                <materialDesign:ColorZone
-                                    Height="50"
-                                    Margin="2.5,5,0,2.5"
-                                    VerticalAlignment="Center"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
-                                    <ComboBox
-                                        x:Name="AssetsComboBox"
-                                        Margin="5,5,2.5,2.5"
-                                        Padding="5,10"
-                                        materialDesign:HintAssist.Hint="选择设备"
-                                        BorderThickness="0"
-                                        DisplayMemberPath="AssetNumber"
-                                        MaxDropDownHeight="300"
-                                        SelectionChanged="AssetsComboBox_OnSelectionChanged"
-                                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                                </materialDesign:ColorZone>
+                            <TabItem Header="墙面端口">
 
 
-                            </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Margin="5,2.5,0,0"
-                                VerticalAlignment="Stretch">
-                                <materialDesign:ColorZone
-                                    Margin="2.5,0,0,0"
+                                <ScrollViewer
                                     VerticalAlignment="Stretch"
-                                    materialDesign:ElevationAssist.Elevation="Dp1"
-                                    CornerRadius="5"
-                                    Mode="Standard">
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Auto">
 
-                                    <ScrollViewer
-                                        VerticalAlignment="Stretch"
-                                        HorizontalScrollBarVisibility="Disabled"
-                                        VerticalScrollBarVisibility="Auto">
+                                    <WrapPanel
+                                        x:Name="PortManagePanel"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" />
 
-                                        <WrapPanel
-                                            x:Name="DevicePortPanel2"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch" />
+                                </ScrollViewer>
 
 
 
-                                    </ScrollViewer>
+                            </TabItem>
+
+                            <TabItem Header="终端设备">
+
+
+
+                                <ScrollViewer
+                                    VerticalAlignment="Stretch"
+                                    HorizontalScrollBarVisibility="Disabled"
+                                    VerticalScrollBarVisibility="Auto">
+
+                                    <WrapPanel
+                                        x:Name="DevicePortPanel2"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" />
+
+
+
+                                </ScrollViewer>
 
 
 
 
-                                </materialDesign:ColorZone>
-                            </Grid>
 
 
-                        </Grid>
-
-
-
-                    </TabItem>
-                </TabControl>
+                            </TabItem>
+                        </TabControl>
+                    </materialDesign:Card>
+                </Grid>
             </materialDesign:Card>
 
 

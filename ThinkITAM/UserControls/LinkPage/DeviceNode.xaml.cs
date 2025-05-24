@@ -1,86 +1,66 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.Windows.PortPanel;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.PortPanel;
-using Nmap.NET.Container;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
     /// <summary>
-    /// EthernetPort.xaml 的交互逻辑
+    /// DerviceNode.xaml 的交互逻辑
     /// </summary>
-    public partial class LinkPanelPort : UserControl
+    public partial class DeviceNode : UserControl
     {
-        public static readonly DependencyProperty RackInfoProperty =
-            DependencyProperty.Register("PortPanelInfo", typeof(PortPanelClass), typeof(LinkPanelPort), new PropertyMetadata(null));
-
-
-
-        public PortPanelClass PortPanelInfo
-        {
-            get
-            {
-                return (PortPanelClass)GetValue(RackInfoProperty);
-            }
-            set
-            {
-                SetValue(RackInfoProperty, value);
-            }
-        }
-
-
-
-        public LinkPanelPort()
+        public DeviceNode()
         {
             InitializeComponent();
-            this.DataContext = PortPanelInfo;
-
-
         }
 
-        private void Port_OnLoaded(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-
-        /// <summary>
-        /// 端口被选中
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PortButton_OnClick(object sender, RoutedEventArgs e)
+        private void DeviceNodeButton_OnClick(object sender, RoutedEventArgs e)
         {
             //发生修改的端口信息，含配线架及槽位号
             PortLinkClass portInfo = new PortLinkClass();
 
+            // 获取 Port的 DataContext
+            var portDataContext = this.DataContext;
+            var p = portDataContext as PortLinkClass;
+
             // portInfo.PortClass
 
             MdfRackClass mdfRack = new MdfRackClass();
-            mdfRack = DbClass.GetRackInfo(DataBridge.DataBridge.SelectedBuildingId);
-            
-            
+
+            mdfRack = DbClass.GetRackInfo(p.PortClass.RackId);
+
+
 
             portInfo.MdfRackClass = mdfRack;
-            
 
-            // 获取 Port的 DataContext
-            var portDataContext = this.DataContext;
 
-            var p = portDataContext as PortLinkClass;
+
+
 
             var info = p.PortClass;
 
             //Console.WriteLine("RackId:"+portInfo.MdfRackClass.RackId);
-            
+
             portInfo.PortClass = info;
 
-            portInfo.SlotClass = DbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId,info.UID);
+            portInfo.SlotClass = DbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId, info.UID);
 
-            portInfo.MdfRackClass.CabinetName = portInfo.SlotClass.SlotName;
-            portInfo.MdfRackClass.RackName = portInfo.SlotClass.SlotTag;
+            portInfo.MdfRackClass.CabinetName = p.PortClass.SlotIndex;
+
+            portInfo.MdfRackClass.RackName = p.PortClass.Room;
 
             int count = DataBridge.DataBridge.LinkManageList.Count;
 
@@ -89,7 +69,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
 
                 case 0://添加顺藤摸瓜起点
-                     
+                       //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
 
                     if (info.OnTheLine != null && info.OnTheLine > 0)
                     {
@@ -134,16 +114,15 @@ namespace ThinkITAM.UserControls.LinkPage
                             {
                                 info.IsSelected = false;
                                 info.NodeIndex = 0;
-                                Console.WriteLine(info.UID);
                                 DataBridge.DataBridge.LinkManageList.Remove(items[0]);
 
                             }
                             else
                             {
-
+                               
                                 var DeviceNodecount = 0;
 
-                                foreach (var item in mdfs)
+                                foreach (var item in items)
                                 {
                                     if (item.PortClass.DeviceId != null)
                                     {
@@ -151,7 +130,6 @@ namespace ThinkITAM.UserControls.LinkPage
                                         break;
                                     }
                                 }
-
 
                                 if (DeviceNodecount == 0)
                                 {
@@ -169,6 +147,15 @@ namespace ThinkITAM.UserControls.LinkPage
 
                                 }
 
+
+
+
+
+
+
+
+
+
                             }
 
 
@@ -183,7 +170,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
                             string oldType = string.Empty; ;
 
-                            foreach (var node  in DataBridge.DataBridge.LinkManageList)
+                            foreach (var node in DataBridge.DataBridge.LinkManageList)
                             {
 
                                 if (node.MdfRackClass.RackId.Substring(0, 1) != "2")//不是设备类型
@@ -194,15 +181,9 @@ namespace ThinkITAM.UserControls.LinkPage
                             }
 
 
-                            if (CheckStrings(nowType,oldType) == false)
-                            {
-                                MessageBox.Show("链路介质类型应该保持一致");
-                                
-                            }
-                            else
-                            {
-                                //创建链路
-                                //先获取节点是否已经在链路上
+
+                            // Console.WriteLine(nowType+":"+oldType);
+
 
                                 if (portInfo?.PortClass?.OnTheLine == -1)
                                 {
@@ -222,7 +203,7 @@ namespace ThinkITAM.UserControls.LinkPage
                                     MessageBox.Show("该端口信息已存在关联信息，如需修改请先删除关联信息");
                                 }
 
-                            }
+                            
 
 
 
@@ -271,94 +252,6 @@ namespace ThinkITAM.UserControls.LinkPage
                     break;
             }
 
-
         }
-
-        /// <summary>
-        /// 判断端口类型是否一致
-        /// </summary>
-        /// <param name="stringA"></param>
-        /// <param name="stringB"></param>
-        /// <returns></returns>
-        private bool CheckStrings(string stringA, string stringB)
-        {
-            bool containsEInA = stringA.Contains('E') || string.IsNullOrWhiteSpace(stringA);
-            bool containsEInB = stringB.Contains('E') || string.IsNullOrWhiteSpace(stringB);
-
-            // 如果两个字符串都包含E（无论大小写），返回true
-            // 如果只有一个字符串包含E，返回false
-            // 如果两个都不包含E，返回true
-            if (containsEInA && containsEInB)
-            {
-                return true;
-            }
-            else if (containsEInA != containsEInB) // 一个为true，另一个为false
-            {
-                return false;
-            }
-            else // 两个都不包含E的情况
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// 端口标签被选中
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TagButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            PortClass port = (PortClass)this.DataContext;
-
-
-
-            PanelPortTagModify add = new PanelPortTagModify(port);
-
-            //窗口放中间
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                add.Owner = window;
-            }
-
-
-
-            if (add.ShowDialog() == true)
-            {
-                DataBridge.DataBridge.PortPanelModifyTagList.Add($"{port.PortIndex}");
-                // 当子窗口关闭后执行这里的代码
-
-            }
-        }
-
-        private void ColorTagSet_OnClick(object sender, RoutedEventArgs e)
-        {
-            PortClass port = (PortClass)this.DataContext;
-
-
-
-            PortPanelColorSetWindow add = new PortPanelColorSetWindow(port);
-
-            //窗口放中间
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                add.Owner = window;
-            }
-
-
-            if (add.ShowDialog() == true)
-            {
-                DataBridge.DataBridge.PortPanelModifyTagList.Add($"{port.PortIndex}");
-                // 当子窗口关闭后执行这里的代码
-
-            }
-
-
-        }
-
-
-
     }
 }

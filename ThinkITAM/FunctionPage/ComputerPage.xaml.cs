@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.Computer;
+using ThinkITAM.UserControls.PortPanel;
+using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.Windows.Computer;
-using ThinkITAM.Windows.DevicePortManage;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -81,7 +70,7 @@ namespace ThinkITAM.FunctionPage
                 index++;
 
                 var info = new BuildingInfoClass();
-                var building = new  BuildingUserControl();
+                var building = new UserControls.Computer.DeviceBuilding();
                 info.Index = index;
 
                 string buildingId = row["BuildingId"].ToString();
@@ -117,7 +106,7 @@ namespace ThinkITAM.FunctionPage
 
                     var floorClass = new FloorInfoClass();
 
-                    var floor = new UserControls.Computer.FloorUserControl();
+                    var floor = new UserControls.Computer.DeviceFloor();
 
                     floorClass.Index = index2;
                     floorClass.Floor = row1["SlotId"].ToString();
@@ -155,11 +144,11 @@ namespace ThinkITAM.FunctionPage
 
                 var selectedNode = e.NewValue;
 
-                if (selectedNode is UserControls.Computer.FloorUserControl) //如果是建筑信息
+                if (selectedNode is UserControls.Computer.DeviceFloor) //如果是建筑信息
                 {
 
                     // 如果选择的是子节点类型，则处理子节点的逻辑
-                    var childNode = selectedNode as UserControls.Computer.FloorUserControl;
+                    var childNode = selectedNode as UserControls.Computer.DeviceFloor;
 
                     //获取到的楼层信息
                     FloorInfoClass info = childNode.DataContext as FloorInfoClass;
@@ -196,7 +185,7 @@ namespace ThinkITAM.FunctionPage
                     if (selectedNode != null)
                     {
                         //获取建筑ID
-                        var data = selectedItem.Header as UserControls.Computer.FloorUserControl;
+                        var data = selectedItem.Header as UserControls.Computer.DeviceFloor;
 
                         if (data != null)
                         {
@@ -265,5 +254,76 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PortManagePanel.Items.Clear();
+
+            if (RoomListView.SelectedIndex != -1)
+            {
+                RoomClass room = RoomListView.SelectedItem as RoomClass;
+
+
+                DataBridge.DataBridge.SelectRoom = room.RoomNumber;
+
+
+               
+                string sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.BuildingId = '{DataBridge.DataBridge.SelectBuildingId}'   AND c.Floor = '{DataBridge.DataBridge.SelectFloor}'  AND c.Room = '{DataBridge.DataBridge.SelectRoom}';";
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
+
+
+
+                int index = 0;
+
+                foreach (var row in rows)
+                {
+                    index++;
+
+                    PortClass portClass = new PortClass();
+
+                    portClass.DeviceId=  row["DeviceId"].ToString();
+                    portClass.PortType = row["PortType"].ToString();
+                    portClass.PortIndex = row["PortId"].ToString();
+                    portClass.PortTag = row["PortTag"].ToString();
+                    portClass.Room = row["Room"].ToString();
+                    portClass.AssetNumber = $"{row["AssetTag"].ToString()}{row["AssetNumber"].ToString()}"; 
+                    portClass.UserName = row["Name"].ToString();
+
+                    if (row["PortColor"] == string.Empty)
+                    {
+                        portClass.PortColor = 0;
+                    }
+                    else
+                    {
+                        portClass.PortColor = Convert.ToInt32(row["PortColor"]);
+                    }
+
+
+
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                    {
+                        portClass.OnTheLine = -1;
+                    }
+                    else
+                    {
+                        portClass.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                    }
+
+
+
+                    DeviceNode port = new DeviceNode();
+
+                    port.Margin = new Thickness(10);
+                    port.DataContext = portClass;
+
+                    PortManagePanel.Items.Add(port);
+                }
+
+
+            }
+
+        }
     }
 }

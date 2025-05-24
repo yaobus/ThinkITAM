@@ -13,6 +13,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using System.Windows.Controls.Primitives;
 using System;
+using ThinkITAM.UserControls.Computer;
 
 
 namespace ThinkITAM.FunctionPage
@@ -47,9 +48,7 @@ namespace ThinkITAM.FunctionPage
             FloorComboBox.ItemsSource = floors;
             RoomComboBox.ItemsSource = roomNumbers;
 
-            //设备分组信息框
-            DeviceGroups.ItemsSource = groupsTypes;
-            AssetsComboBox.ItemsSource = assets;
+
 
             //TODO 加载机房及配线间信息
 
@@ -99,14 +98,14 @@ namespace ThinkITAM.FunctionPage
             {
                 ReLoadRack(rack);
 
-                if (AssetsComboBox.SelectedIndex != -1)
+                if (BuildingsComboBox.SelectedIndex != -1)
                 {
-                    string assetId = assets[AssetsComboBox.SelectedIndex].AssetId;
+                  
 
-                    if (!string.IsNullOrWhiteSpace(assetId))
-                    {
-                        LoadDevicePortInfos(assetId);
-                    }
+                    //if (!string.IsNullOrWhiteSpace(assetId))
+                    //{
+                    //    LoadDevicePortInfos(assetId);
+                    //}
 
                 }
 
@@ -836,8 +835,6 @@ namespace ThinkITAM.FunctionPage
                 DataBridge.DataBridge.SelectRackInfo = info;
 
 
-
-
                 var firstChar = info.rackId[0];
 
                 if (firstChar.ToString() == "3")
@@ -847,6 +844,10 @@ namespace ThinkITAM.FunctionPage
                 else
                 {
                     LoadDeviceInfo(info);
+                   
+                    
+                    DeviceInfoPlan.DataContext = info;
+                   
                 }
 
 
@@ -865,82 +866,7 @@ namespace ThinkITAM.FunctionPage
 
             LoadDevicePortInfos(assetId);
 
-            ////第二步，获取槽位信息
-            //ObservableCollection<SlotClass> slots = rackInfo.slotInfos;
 
-            //int index = 0;
-
-            //foreach (var slot in slots)
-            //{
-            //    string slotIndex = slot.SlotIndex;
-
-            //    ObservableCollection<PortClass> ports = new ObservableCollection<PortClass>();
-
-            //    //2.1，读取该槽位全部号信息
-            //    string query = $"SELECT * FROM De_{assetId} WHERE SlotId = {slotIndex};";
-
-
-            //    var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            //    foreach (var row in rows)
-            //    {
-            //        PortClass port = new PortClass();
-
-            //        //端口基础信息
-            //        port.UID = Convert.ToInt32(row["UID"]);
-            //        port.PortIndex = row["PortId"].ToString();
-
-            //        //如果获取到的颜色为空，则设置为默认颜色
-            //        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
-            //        {
-            //            port.PortColor = 0;
-            //        }
-            //        else
-            //        {
-            //            port.PortColor = Convert.ToInt32(row["PortColor"]);
-            //        }
-
-
-            //        port.PortTag = row["PortTag"].ToString();
-            //        port.PortStatus = row["PortStatus"].ToString();
-            //        port.PortType = slots[index].SlotType;
-
-
-            //        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
-            //        {
-            //            port.OnTheLine = -1;
-            //        }
-            //        else
-            //        {
-            //            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
-            //        }
-
-
-
-            //        ports.Add(port);
-            //    }
-
-
-
-            //    //类型索引
-            //    index++;
-
-            //    slot.Ports = ports;
-
-            //}
-
-
-            //mdfRack.Slots = slots;
-
-
-            //Rack rack = new Rack()
-            //{
-            //    RackInfo = mdfRack,
-            //};
-
-
-
-            //AddNodeToRackPanel(rack);
 
         }
 
@@ -1475,6 +1401,7 @@ namespace ThinkITAM.FunctionPage
             if (RoomComboBox.SelectedIndex != -1)
             {
                 LoadPanelPorts();
+                LoadRoomDevices();
             }
 
         }
@@ -1485,6 +1412,7 @@ namespace ThinkITAM.FunctionPage
         private void LoadPanelPorts()
         {
             PortManagePanel.Children.Clear();
+
             string buildingId = buildings[BuildingsComboBox.SelectedIndex].BuildingId;
 
             string floor = floors[FloorComboBox.SelectedIndex].Floor;
@@ -1531,6 +1459,7 @@ namespace ThinkITAM.FunctionPage
 
 
                 SlotClass slot = new SlotClass();
+
                 slot.SlotIndex = row["SlotId"].ToString();
 
                 if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
@@ -1547,9 +1476,11 @@ namespace ThinkITAM.FunctionPage
 
                 p.PortClass = info;
                 p.SlotClass = slot;
+
                 LinkPanelPort port = new LinkPanelPort();
 
                 port.Margin = new Thickness(5);
+
                 port.DataContext = p;
 
                 PortManagePanel.Children.Add(port);
@@ -1560,67 +1491,6 @@ namespace ThinkITAM.FunctionPage
         }
 
 
-        private ObservableCollection<DeviceTypeViewModel> assets = new ObservableCollection<DeviceTypeViewModel>();
-        private void DeviceGroups_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = DeviceGroups.SelectedIndex;
-
-            if (index != -1)
-            {
-                assets.Clear();
-                string asset = groupsTypes[index].AssetType;
-
-                string sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{asset}'";
-
-
-                var rows = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
-
-                foreach (var row in rows)
-                {
-                                        var info = new DeviceTypeViewModel();
-                    info.AssetId = row["AssetId"].ToString();
-                    info.AssetType = row["AssetType"].ToString();
-                    info.DeviceType = row["DeviceType"].ToString();
-                    info.Description = row["Description"].ToString();
-                    info.Model = row["Model"].ToString();
-                    info.AssetNumber = row["AssetNumber"].ToString();
-
-
-                    assets.Add(info);
-                }
-
-
-
-            }
-        }
-
-        /// <summary>
-        /// 选择设备后，加载设备端口信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AssetsComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = AssetsComboBox.SelectedIndex;
-
-            if (index != -1)
-            {
-                string assetId = assets[index].AssetId;
-
-                if (!string.IsNullOrWhiteSpace(assetId))
-                {
-                    LoadDevicePortInfos(assetId);
-                }
-
-                //DevicePortPanel.ItemsSource = devicePorts;
-            }
-
-
-
-        }
-
-
-        //private ObservableCollection<PortDetailedInfo> devicePorts=  new ObservableCollection<PortDetailedInfo>();
 
         /// <summary>
         /// 加载端口信息
@@ -1808,6 +1678,95 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+
+
+
+
+
+
+
+        /// <summary>
+        /// 加载房间终端设备信息
+        /// </summary>
+        private void LoadRoomDevices()
+        {
+            DevicePortPanel2.Children.Clear();
+
+            string buildingId = buildings[BuildingsComboBox.SelectedIndex].BuildingId;
+
+            string floor = floors[FloorComboBox.SelectedIndex].Floor;
+
+            string room = roomNumbers[RoomComboBox.SelectedIndex].RoomNumber;
+
+            string sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.BuildingId = '{buildingId}'   AND c.Floor = '{floor}'  AND c.Room = '{room}';";
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
+
+            int index = 0;
+
+            foreach (var row in rows)
+            {
+                index++;
+
+                PortLinkClass p = new PortLinkClass();
+
+                PortClass portClass = new PortClass();
+                portClass.RackId = buildingId;
+                portClass.DeviceId = row["DeviceId"].ToString();
+                portClass.PortType = row["PortType"].ToString();
+                portClass.PortIndex = row["PortId"].ToString();
+                portClass.PortTag = row["PortTag"].ToString();
+                portClass.SlotIndex=  row["Floor"].ToString();
+                portClass.Room = row["Room"].ToString();
+                portClass.AssetNumber = $"{row["AssetTag"].ToString()}{row["AssetNumber"].ToString()}";
+                portClass.UserName = row["Name"].ToString();
+
+                if (row["PortColor"] == string.Empty)
+                {
+                    portClass.PortColor = 0;
+                }
+                else
+                {
+                    portClass.PortColor = Convert.ToInt32(row["PortColor"]);
+                }
+
+
+
+                if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                {
+                    portClass.OnTheLine = -1;
+                }
+                else
+                {
+                    portClass.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                }
+
+
+                SlotClass slot = new SlotClass();
+
+                slot.SlotIndex = row["Floor"].ToString();
+
+                p.PortClass = portClass;
+
+                p.SlotClass = slot;
+
+                var port = new UserControls.LinkPage.DeviceNode();
+                
+                //DebugNode port = new DebugNode();
+
+                port.Margin = new Thickness(5);
+
+                port.DataContext = p;
+
+                
+                DevicePortPanel2.Children.Add(port);
+            }
+
+
+
+        }
 
     }
 }

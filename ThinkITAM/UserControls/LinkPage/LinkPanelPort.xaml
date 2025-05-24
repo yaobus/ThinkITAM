@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:functionClass="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:linkManage="clr-namespace:ThinkITAM.ViewModels.LinkManage"
     xmlns:local="clr-namespace:ThinkITAM.UserControls.LinkPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"

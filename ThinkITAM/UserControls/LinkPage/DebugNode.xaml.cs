@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ThinkITAM.UserControls.Computer
+namespace ThinkITAM.UserControls.LinkPage
 {
     /// <summary>
-    /// FloorInfo.xaml 的交互逻辑
+    /// DebugNode.xaml 的交互逻辑
     /// </summary>
-    public partial class FloorUserControl : UserControl
+    public partial class DebugNode : UserControl
     {
-        public FloorUserControl()
+        public DebugNode()
         {
             InitializeComponent();
         }

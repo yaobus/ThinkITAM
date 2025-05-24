@@ -35,7 +35,7 @@
             </Grid>
         </DataTemplate>
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
-        <converters:BackgroundColorConverter x:Key="BackgroundColorConverter" />
+        <converters:BackgroundColorMultiConverter x:Key="BackgroundColorMultiConverter" />
     </UserControl.Resources>
 
 
@@ -68,15 +68,20 @@
                 Margin="1"
                 Padding="0"
                 d:Background="#ddfee4"
-                Background="{Binding PortClass.RackId, Converter={StaticResource BackgroundColorConverter}}"
                 BorderBrush="Transparent"
                 BorderThickness="0"
                 Click="PortButton_OnClick"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                 ToolTip="点击移除节点\拖动调整顺序">
+                <Button.Background>
+                    <MultiBinding Converter="{StaticResource BackgroundColorMultiConverter}">
+                        <Binding Path="PortClass.RackId" />
+                        <Binding Path="PortClass.DeviceId" />
+                        <!-- 第二个参数 -->
+                    </MultiBinding>
+                </Button.Background>
 
-
-                <ContentControl >
+                <ContentControl>
                     <ContentControl.Style>
                         <Style TargetType="ContentControl">
                             <Style.Triggers>

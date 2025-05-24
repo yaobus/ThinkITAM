@@ -1,0 +1,170 @@
+﻿<UserControl
+    x:Class="ThinkITAM.UserControls.Computer.DeviceNode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:linkPage="clr-namespace:ThinkITAM.UserControls.LinkPage"
+    xmlns:local="clr-namespace:ThinkITAM.UserControls.Computer"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    Width="80"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+        <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <DataTemplate x:Key="Eth">
+            <linkPage:Eth />
+        </DataTemplate>
+        <DataTemplate x:Key="LC">
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <!--  设置中心点旋转  -->
+                <Grid.RenderTransform>
+                    <RotateTransform Angle="90" />
+                </Grid.RenderTransform>
+
+                <!--  原始内容  -->
+                <linkPage:LC />
+            </Grid>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <materialDesign:Card Margin="0" Background="SkyBlue">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="18" />
+                <RowDefinition Height="8" />
+                <RowDefinition Height="18" />
+            </Grid.RowDefinitions>
+            <Button
+                x:Name="PortButton"
+                Grid.Row="0"
+                Height="55"
+                Margin="0,5"
+                Padding="0"
+                Background="DarkCyan"
+                BorderBrush="AliceBlue"
+                BorderThickness="0"
+                Foreground="AliceBlue"
+                Style="{StaticResource MaterialDesignFlatLightButton}">
+                <Viewbox>
+                    <ContentControl>
+
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PortType}" Value="E">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource Eth}" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PortType}" Value="F">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource LC}" />
+                                    </DataTrigger>
+
+
+                                    <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
+                                    <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </DataTrigger>
+
+
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+
+                    </ContentControl>
+                </Viewbox>
+            </Button>
+
+            <Grid Grid.Row="1" Margin="0">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="A-1"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Text="{Binding PortIndex}" />
+
+
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="A-1"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Text="{Binding AssetNumber}" />
+
+
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="A-1"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Text="{Binding UserName}" />
+
+
+            </Grid>
+
+            <Grid
+                Grid.Row="4"
+                Margin="0"
+                Background="{Binding PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
+                Opacity="0.8">
+
+                <Button
+                    x:Name="ColorTagSet"
+                    Height="8"
+                    Padding="0"
+                    BorderThickness="0"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="点击修改颜色标记" />
+
+
+            </Grid>
+
+            <Grid
+                Grid.Row="5"
+                Margin="0,1"
+                Opacity="0.8">
+
+                <Button
+                    x:Name="TagButton"
+                    Height="16"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    d:Content="TAG-A"
+                    BorderThickness="0"
+                    Content="{Binding PortTag}"
+                    FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                    FontSize="12"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    ToolTip="{Binding PortTag}" />
+
+
+            </Grid>
+
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
