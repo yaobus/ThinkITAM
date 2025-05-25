@@ -402,36 +402,44 @@
 
                                                 </StackPanel>
 
-                                                <StackPanel
+                                                <Grid
                                                     Grid.Row="1"
-                                                    Orientation="Horizontal"
                                                     Visibility="{Binding rackId, Converter={StaticResource FirstChar2ToVisibilityConverter}}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0">
+                                                        <Grid.OpacityMask>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                                <GradientStop Color="Black" Offset="0"/>
+                                                                <GradientStop Color="Black" Offset="0.8"/>
+                                                                <GradientStop Color="Transparent" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </Grid.OpacityMask>
+
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="AliceBlue"
+                                                            Opacity="0.5"
+                                                            Text="{Binding Model}"
+                                                            ToolTip="{Binding Model}"/>
+                                                    </Grid>
+
 
 
                                                     <TextBlock
+                                                        Grid.Column="1"
                                                         Margin="5,0"
+                                                        HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Foreground="AliceBlue"
                                                         Opacity="0.5"
                                                         Text="{Binding AssetNumber}"
-                                                        ToolTip="资产编号" />
+                                                        ToolTip="{Binding AssetNumber}" />
 
-                                                    <Label
-                                                        Padding="0"
-                                                        Content="/"
-                                                        Foreground="AliceBlue"
-                                                        Opacity="0.5" />
-
-                                                    <TextBlock
-                                                        Grid.Row="1"
-                                                        Margin="5,0"
-                                                        VerticalAlignment="Center"
-                                                        Foreground="AliceBlue"
-                                                        Opacity="0.5"
-                                                        Text="{Binding Model}"
-                                                        ToolTip="型号" />
-
-                                                </StackPanel>
+                                                </Grid>
 
 
                                             </Grid>
@@ -737,9 +745,9 @@
             <materialDesign:Card
                 Grid.Row="0"
                 Grid.Column="0"
-                MaxHeight="95"
+                MaxHeight="105"
                 Margin="2.5,2.5,2.5,0"
-                d:Height="95"
+                d:Height="105"
                 d:Visibility="Visible"
                 BorderThickness="0.5">
                 <Grid>
@@ -939,9 +947,9 @@
                             <ListBox
                                 x:Name="RouteViewPanel"
                                 Grid.Column="0"
+                                BorderThickness="1"
                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                BorderThickness="1">
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
 
@@ -976,13 +984,14 @@
 
 
         <Expander
+            x:Name="PanelPortExpander"
             Grid.Row="0"
             Grid.RowSpan="3"
             Grid.Column="3"
             materialDesign:ExpanderAssist.VerticalHeaderPadding="0,0,0,0"
             ExpandDirection="Right"
-            IsExpanded="True"
-            Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
+            IsExpanded="False">
+            <!--  Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}"  -->
             <Expander.Header>
                 <TextBlock
                     HorizontalAlignment="Center"

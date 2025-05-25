@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -12,10 +13,22 @@ namespace ThinkITAM.Functions.FunctionClass
         /// <summary>
         /// 根据资产ID获取表名
         /// </summary>
-        /// <param name="AssetId"></param>
+        /// <param name="port"></param>
         /// <returns></returns>
-        public static string GetTableName(string AssetId)
+        public static string GetTableName(PortLinkClass port)
         {
+            string AssetId = string.Empty;
+
+            if (port.PortClass.DeviceId != null)
+            {
+                AssetId=  port.PortClass.DeviceId;
+            }
+            else
+            {
+                AssetId = port.MdfRackClass.RackId;
+            }
+
+
             if (string.IsNullOrEmpty(AssetId))
                 return string.Empty;
 
@@ -25,6 +38,8 @@ namespace ThinkITAM.Functions.FunctionClass
                     return $"Ra_{AssetId}";
                 case '2':
                     return $"De_{AssetId}";
+                case '4':
+                    return $"Computer";
                 case '8':
                     return $"Bu_{AssetId}";
                 default:

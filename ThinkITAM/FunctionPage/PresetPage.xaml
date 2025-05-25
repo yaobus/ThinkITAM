@@ -52,7 +52,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -82,7 +82,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -112,7 +112,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -142,7 +142,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -173,7 +173,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -203,7 +203,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -233,7 +233,7 @@
                                 Width="295"
                                 Height="50"
                                 Padding="8"
-                                Mode="PrimaryDark">
+                                >
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -255,35 +255,7 @@
                     </Grid>
                 </ListViewItem>
 
-                <ListViewItem Margin="0">
-                    <Grid>
-                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.5}">
 
-                            <materialDesign:ColorZone
-                                Width="295"
-                                Height="50"
-                                Padding="8"
-                                Mode="PrimaryDark">
-
-                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                                    <materialDesign:PackIcon
-                                        Width="28"
-                                        Height="28"
-                                        VerticalAlignment="Center"
-                                        Kind="SettingsBox" />
-
-                                    <TextBlock
-                                        Margin="10"
-                                        VerticalAlignment="Center"
-                                        Text="系统参数设置" />
-
-
-                                </StackPanel>
-                            </materialDesign:ColorZone>
-                        </materialDesign:TransitioningContent>
-                    </Grid>
-                </ListViewItem>
 
             </ListView>
 

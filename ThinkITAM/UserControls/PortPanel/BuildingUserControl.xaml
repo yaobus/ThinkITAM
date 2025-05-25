@@ -86,19 +86,14 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-
-
-                        <!--<TextBlock
-                        Margin="5,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        FontWeight="Bold"
-                        Foreground="AliceBlue"
-                        Opacity="0.3"
-                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                        Text="地址:" />-->
-
+                    <Grid Grid.Column="0">
+                        <Grid.OpacityMask>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Black" Offset="0.75"/>
+                               <GradientStop Color="Transparent" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.OpacityMask>
                         <TextBlock
                             Margin="5,0,0,0"
                             HorizontalAlignment="Left"
@@ -113,7 +108,7 @@
 
 
 
-                    </StackPanel>
+                    </Grid>
 
                     <TextBlock
                         Grid.Column="1"
@@ -126,7 +121,9 @@
                         Opacity="0.3"
                         Style="{StaticResource MaterialDesignCaptionTextBlock}"
                         Text="{Binding Count}"
-                        Visibility="Visible" />
+                        Visibility="Visible" >
+                        
+                    </TextBlock>
                 </Grid>
             </Grid>
 

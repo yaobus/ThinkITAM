@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.UserControls.LinkPage
@@ -68,19 +70,33 @@ namespace ThinkITAM.UserControls.LinkPage
             {
 
 
-                case 0://添加顺藤摸瓜起点
-                       //DataBridge.DataBridge.LinkManageSelectPorts.Clear();
+                case 0://链路查看模式
+                       
+                       DataBridge.DataBridge.LinkViewList.Clear();
 
                     if (info.OnTheLine != null && info.OnTheLine > 0)
                     {
                         foreach (var node in DbClass.GetLinkDetail(info.OnTheLine))
                         {
-                            if (info.RackId == node.PortClass.RackId)
+                            if (node.PortClass.DeviceId != null)
                             {
                                 info.NodeIndex = node.PortClass.NodeIndex;
                                 DataBridge.DataBridge.RackSelectPortInfo = info;
                                 info.IsSelected = true;
                             }
+                            else
+                            {
+                                if (info.RackId == node.PortClass.RackId)
+                                {
+                                    info.NodeIndex = node.PortClass.NodeIndex;
+                                    DataBridge.DataBridge.RackSelectPortInfo = info;
+                                    info.IsSelected = true;
+                                }
+                            }
+
+
+
+
 
 
 
@@ -119,41 +135,49 @@ namespace ThinkITAM.UserControls.LinkPage
                             }
                             else
                             {
-                               
-                                var DeviceNodecount = 0;
 
-                                foreach (var item in items)
+                                //存在与新增节点同一个父节点的Node，判断链路中已有节点是设备节点还是墙面节点
+                                var deviceNodeCount = 0;
+                                var panelNodeCount = 0;
+                                foreach (var mdf in mdfs)
                                 {
-                                    if (item.PortClass.DeviceId != null)
+                                    if (mdf.PortClass.DeviceId != null)
                                     {
-                                        DeviceNodecount++;
-                                        break;
+                                        deviceNodeCount++;
+                                    }
+                                    else
+                                    {
+                                        panelNodeCount++;
+                                    }
+
+                                }
+
+
+                                if (p.PortClass.DeviceId != null )//新增节点是设备节点
+                                {
+                                    if (deviceNodeCount == 0)
+                                    {
+                                        DataBridge.DataBridge.LinkManageList.Add(portInfo);
+                                        portInfo.PortClass.IsSelected = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("链路中只能有一个终端设备节点");
+                                    }
+
+                                }
+                                else//墙面节点
+                                {
+                                    if (panelNodeCount==0)
+                                    {
+                                        DataBridge.DataBridge.LinkManageList.Add(portInfo);
+                                        portInfo.PortClass.IsSelected = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("链路中只能有一个墙面端口节点");
                                     }
                                 }
-
-                                if (DeviceNodecount == 0)
-                                {
-
-                                    DataBridge.DataBridge.LinkManageList.Add(portInfo);
-                                    portInfo.PortClass.IsSelected = true;
-                                    Console.WriteLine("Count:" + DataBridge.DataBridge.LinkManageList.Count);
-
-
-                                }
-                                else
-                                {
-                                    MessageBox.Show("链路不能重复通过同一个父节点,且链路中只能有一个终端设备节点");
-                                    //判断是否全都是设备，还是一个是设备一个是墙面端口
-
-                                }
-
-
-
-
-
-
-
-
 
 
                             }
@@ -164,50 +188,28 @@ namespace ThinkITAM.UserControls.LinkPage
                         }
                         else//不是同一个
                         {
-                            //判断两个端口是否是同一大类
-                            string nowType = info.PortType;
-
-
-                            string oldType = string.Empty; ;
-
-                            foreach (var node in DataBridge.DataBridge.LinkManageList)
-                            {
-
-                                if (node.MdfRackClass.RackId.Substring(0, 1) != "2")//不是设备类型
-                                {
-                                    oldType = node.PortClass.PortType;
-                                    break;
-                                }
-                            }
-
 
 
                             // Console.WriteLine(nowType+":"+oldType);
 
 
-                                if (portInfo?.PortClass?.OnTheLine == -1)
+                            if (portInfo?.PortClass?.OnTheLine == -1)
+                            {
+                                if (!DataBridge.DataBridge.LinkManageList.Contains(portInfo))
                                 {
-                                    if (!DataBridge.DataBridge.LinkManageList.Contains(portInfo))
-                                    {
-                                        DataBridge.DataBridge.LinkManageList.Add(portInfo);
-                                        portInfo.PortClass.IsSelected = true;
-                                        Console.WriteLine("Count:" + DataBridge.DataBridge.LinkManageList.Count);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("该端口信息已添加到操作列表，请勿重复添加");
-                                    }
+                                    DataBridge.DataBridge.LinkManageList.Add(portInfo);
+                                    portInfo.PortClass.IsSelected = true;
+                                    Console.WriteLine("Count:" + DataBridge.DataBridge.LinkManageList.Count);
                                 }
                                 else
                                 {
-                                    MessageBox.Show("该端口信息已存在关联信息，如需修改请先删除关联信息");
+                                    Console.WriteLine("该端口信息已添加到操作列表，请勿重复添加");
                                 }
-
-                            
-
-
-
-
+                            }
+                            else
+                            {
+                                MessageBox.Show("该端口信息已存在关联信息，如需修改请先删除关联信息");
+                            }
 
 
                         }
@@ -247,6 +249,44 @@ namespace ThinkITAM.UserControls.LinkPage
                     break;
 
                 case 3://链路清除模式
+                    //第一步，获取链路ID
+                    var linkId = portInfo.PortClass.OnTheLine;
+
+                    if (linkId > 0)
+                    {
+                        var result = MessageBox.Show("是否确认删除该链路\r该操作不可逆!", "注意", MessageBoxButton.YesNo);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+
+                            //清空链路在节点上的信息
+                            foreach (var node in DbClass.GetLinkDetail(linkId))
+                            {
+                                var devicesAssetId = node.MdfRackClass.RackId;
+                                var uid = node.PortClass.UID;
+
+                                var tableName = TableNameClass.GetTableName(node);
+
+                                var sql = $"UPDATE {tableName} SET OnTheLine = NULL,PortTag = NULL WHERE UID='{uid}'";
+
+                                GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                            }
+
+                            //清空链路详表信息
+
+                            var sql2 = $"DELETE FROM LinkDetail WHERE LinkId={linkId}";
+                            GlobalVariables.DbService.ExecuteNonQuery(sql2);
+
+                            var sql3 = $"DELETE FROM Link WHERE Link_ID={linkId}";
+                            GlobalVariables.DbService.ExecuteNonQuery(sql3);
+
+                            DataBridge.DataBridge.ChangedLink.Add(linkId);
+
+                        }
+
+
+                    }
 
 
                     break;

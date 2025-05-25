@@ -15,7 +15,7 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="LinkDevicePort_OnLoaded"
     mc:Ignorable="d">
-<!--交换机端口-->
+    <!--  交换机端口  -->
     <UserControl.Resources>
         <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
         <converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />

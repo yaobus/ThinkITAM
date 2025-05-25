@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.PortPanel;
@@ -285,6 +286,9 @@ namespace ThinkITAM.Windows.Computer
                 portType = "F";
             }
 
+           
+
+
             //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架，4为通用终端（计算机、IP电话）
             string deviceId = $"4{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
@@ -302,7 +306,8 @@ namespace ThinkITAM.Windows.Computer
                 if (BuildingCombobox.SelectedIndex != -1 && FloorCombobox.SelectedIndex != -1 && RoomCombobox.SelectedIndex != -1)
                 {
                     var info = new
-                    {
+                    {   
+                        UID= DbClass.GetNextAvailableNumber("Computer", "UID"),
                         DeviceId = deviceId,
                         AssetId = DataBridge.DataBridge.SelectAssetInfo.AssetId,
                         AssetUser = DataBridge.DataBridge.SelectPeopleViewModel.UserId,

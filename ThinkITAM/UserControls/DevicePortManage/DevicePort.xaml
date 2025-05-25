@@ -200,7 +200,6 @@
                     Content="{Binding PortTag}"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     FontSize="10"
-                    Foreground="DarkCyan"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
                     ToolTip="{Binding PortTag}" />
 

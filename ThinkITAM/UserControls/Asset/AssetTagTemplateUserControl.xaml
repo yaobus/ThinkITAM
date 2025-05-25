@@ -204,7 +204,7 @@
                 VerticalAlignment="Bottom"
                 FontSize="6.9"
                 Foreground="#2f9f9f">
-                使用ITAM扫描二维码查看更多信息
+                扫描二维码查看更多信息
             </Label>
         </Grid>
 
@@ -217,7 +217,7 @@
             FontWeight="Bold"
             Foreground="#2f9f9f"
             Opacity="0.3">
-            IT Asset Manage
+            ThinkITAM
         </Label>
         <Label
             Grid.Row="0"

@@ -41,12 +41,13 @@ public partial class SelectionWindow : Window
 
         InitializeDatabase();
     }
+
     /// <summary>
     /// 初始化数据库
     /// </summary>
     private async Task InitializeDatabase()
     {
-       
+
 
         List<string> t = new List<string>();
 
@@ -79,19 +80,20 @@ public partial class SelectionWindow : Window
         t.Add("LinkDetail");
         t.Add("WakeOnLan");
 
-        string message=string.Empty;
+        string message = string.Empty;
 
         foreach (var table in t)
         {
 
-           // Console.WriteLine(table);
+            // Console.WriteLine(table);
 
             var result = DbClass.CreateTableIfNotExists(table);
 
             message += $"{table}表创建结果：{result}\n";
 
-           
+
         }
+
         Console.WriteLine(message);
     }
 
@@ -164,7 +166,7 @@ public partial class SelectionWindow : Window
         ClearGlobleValue();
 
 
-
+        MenuList2.SelectedIndex=-1;
 
         switch (index)
         {
@@ -176,11 +178,13 @@ public partial class SelectionWindow : Window
                 if (currentWidth != 140.0)
                 {
                     MenuList.Width = 140.0;
+                    MenuList2.Width = 140.0;
                     MenuIcon.Kind = PackIconKind.MenuOpen;
                 }
                 else
                 {
                     MenuList.Width = 45.0;
+                    MenuList2.Width = 45.0;
                     MenuIcon.Kind = PackIconKind.MenuClose;
                 }
 
@@ -249,22 +253,24 @@ public partial class SelectionWindow : Window
 
                 break;
 
+
             case 7:
-                FunctionPanel.Children.Clear();
-                PresetPage presetPage = new PresetPage();
-
-                presetPage.Style = (Style)FindResource("PresetPageStyle");
-
-                FunctionPanel.Children.Add(presetPage);
-                break;
-
-            case 8:
                 FunctionPanel.Children.Clear();
                 var portPanel = new FunctionPage.PortPanel();
 
                 portPanel.Style = (Style)FindResource("PortPanelStyle");
 
                 FunctionPanel.Children.Add(portPanel);
+                break;
+
+            case 8:
+                FunctionPanel.Children.Clear();
+
+                ComputerPage computer = new ComputerPage();
+
+                computer.Style = (Style)FindResource("ComputerStyle");
+
+                FunctionPanel.Children.Add(computer);
                 break;
 
             case 9:
@@ -277,15 +283,7 @@ public partial class SelectionWindow : Window
                 FunctionPanel.Children.Add(toolsPage);
                 break;
 
-            case 10:
-                FunctionPanel.Children.Clear();
 
-                ComputerPage computer = new ComputerPage();
-
-                computer.Style = (Style)FindResource("ComputerStyle");
-
-                FunctionPanel.Children.Add(computer);
-                break;
 
 
         }
@@ -294,7 +292,33 @@ public partial class SelectionWindow : Window
     }
 
 
+    private void MenuList2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        int index = MenuList2.SelectedIndex;
 
+        switch (index)
+        {
+            case 0:
+                MenuList.SelectedIndex = -1;
+                FunctionPanel.Children.Clear();
+                PresetPage presetPage = new PresetPage();
+
+                presetPage.Style = (Style)FindResource("PresetPageStyle");
+
+                FunctionPanel.Children.Add(presetPage);
+
+                break;
+            case 1:
+
+                break;
+
+        }
+        
+
+
+
+
+    }
 }
 
 

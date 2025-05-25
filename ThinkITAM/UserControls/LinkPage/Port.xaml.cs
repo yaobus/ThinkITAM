@@ -126,7 +126,7 @@ namespace ThinkITAM.UserControls.LinkPage
                        
 
                     case 0://链路查看模式
-
+                        DataBridge.DataBridge.LinkViewList.Clear();
                         if (port.OnTheLine != null && port.OnTheLine > 0)
                         {
 
@@ -289,7 +289,8 @@ namespace ThinkITAM.UserControls.LinkPage
                                 {
                                     var devicesAssetId = node.MdfRackClass.RackId;
                                     var uid = node.PortClass.UID;
-                                    var tableName = TableNameClass.GetTableName(devicesAssetId);
+
+                                    var tableName = TableNameClass.GetTableName(node);
 
                                     var sql = $"UPDATE {tableName} SET OnTheLine = NULL,PortTag = NULL WHERE UID='{uid}'";
 

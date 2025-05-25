@@ -383,6 +383,20 @@ namespace ThinkITAM.DatabaseOperation
 
 
         /// <summary>
+        /// 通过建筑ID获取建筑名称
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
+        public static string GetBuildingNameForBuildingId(string buildingId)
+        {
+            string sql = $"SELECT Building FROM  Buildings WHERE BuildingId='{buildingId}'";
+
+
+            return GlobalVariables.DbService.ExecuteScalar(sql).ToString();
+        }
+
+
+        /// <summary>
         /// 统计建筑总楼层/总房间数量/总设备数量
         /// </summary>
         /// <param name="buildingId"></param>
@@ -760,6 +774,7 @@ namespace ThinkITAM.DatabaseOperation
             {
                
                 var assetId = row["DevicesAssetId"].ToString();
+
                 var sequenceNo = Convert.ToInt32(row["SequenceNo"].ToString());
                 
                 //var linkDetailUid = Convert.ToInt32(row["UID"].ToString());
@@ -920,6 +935,70 @@ namespace ThinkITAM.DatabaseOperation
 
                     break;
 
+                case '4':
+
+
+
+                     sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.UID = '{uid}';";
+
+                    var rows4 = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
+                    foreach (var row in rows4)
+                    {
+                       // slot.SlotName = row["SlotId"].ToString();
+                        //slot.SlotTag = row["RoomId"].ToString();
+
+
+                        if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                        {
+                            port.OnTheLine = -1;
+                        }
+                        else
+                        {
+                            port.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                        }
+
+
+
+                        port.UID = uid;
+                        port.RackId = assetId;
+                        port.DeviceId= row["DeviceId"].ToString();
+                        port.PortType = row["PortType"].ToString();
+                        port.PortIndex = row["PortId"].ToString();
+                        port.PortTag = row["PortTag"].ToString();
+                        port.SlotIndex = row["Floor"].ToString();
+                        port.Room = row["Room"].ToString(); ;
+
+
+
+                        if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                        {
+                            port.PortColor = 0;
+                        }
+                        else
+                        {
+                            port.PortColor = Convert.ToInt32(row["PortColor"].ToString());
+                        }
+
+
+                        node.MdfRackClass.RoomName = GetBuildingNameForBuildingId(row["BuildingId"].ToString());
+                        node.MdfRackClass.CabinetName = port.SlotIndex;
+                        node.MdfRackClass.RackName = port.Room;
+
+                    }
+
+
+
+
+
+
+
+
+
+
+                    break;
+
 
                 case '8':
                    
@@ -987,6 +1066,28 @@ namespace ThinkITAM.DatabaseOperation
 
         }
 
+        /// <summary>
+        /// 根据Computer表中的设备ID获取资产ID
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        public static string GetRackIdForDeviceId (string deviceId)
+        {
+            var sql = string.Empty;
+
+            switch (deviceId.Substring(0,1))
+            {
+                case "4":
+
+                    sql = $"Select AssetId from Computer WHERE deviceId='{deviceId}'";
+
+                  return  GlobalVariables.DbService.ExecuteScalar(sql).ToString();
+
+                default:
+
+                    return deviceId;
+            }
+        }
 
 
         /// <summary>

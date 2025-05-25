@@ -58,7 +58,9 @@
     <s:String x:Key="SwPreset">Preset</s:String>
     <s:String x:Key="SwPanelPort">Port</s:String>
     <s:String x:Key="SwToolBox">Toolbox</s:String>
-
+    <s:String x:Key="SwComputer">Deploy</s:String>
+    <s:String x:Key="SwAbout">About</s:String>
+    <s:String x:Key="SwHelp">Help</s:String>
     <!--  Dashboard  -->
     <s:String x:Key="DasNetwork">Network</s:String>
     <s:String x:Key="DasNetworkNote">Network segment and available IP address information</s:String>

@@ -98,24 +98,19 @@ namespace ThinkITAM.FunctionPage
             {
                 ReLoadRack(rack);
 
-                if (BuildingsComboBox.SelectedIndex != -1)
-                {
-                  
-
-                    //if (!string.IsNullOrWhiteSpace(assetId))
-                    //{
-                    //    LoadDevicePortInfos(assetId);
-                    //}
-
-                }
-
-                if (RoomComboBox.SelectedIndex != -1)
-                {
-                    LoadPanelPorts();
-                }
             }
-            
 
+            if (DataBridge.DataBridge.SelectRackInfo.rackId.Substring(0, 1) == "2")
+            {
+                LoadDeviceInfo(DataBridge.DataBridge.SelectRackInfo);
+            }
+
+
+            if (RoomComboBox.SelectedIndex != -1)
+            {
+                LoadPanelPorts();
+                LoadRoomDevices();
+            }
         }
 
 
@@ -1066,6 +1061,7 @@ namespace ThinkITAM.FunctionPage
             DataBridge.DataBridge.LinkManageMode = 1;
             DataBridge.DataBridge.LinkViewList.Clear();
             DataBridge.DataBridge.LinkManageList.Clear();
+            PanelPortExpander.IsExpanded = true;
             //DataBridge.DataBridge.PermanentManageList.Clear();
             //RoutePanel.Children.Clear();
         }
@@ -1639,23 +1635,37 @@ namespace ThinkITAM.FunctionPage
 
                 GlobalVariables.DbService.InsertEntity("Link", info);
 
-                var nodeCount= DataBridge.DataBridge.LinkManageList.Count;
+                var nodeCount = DataBridge.DataBridge.LinkManageList.Count;
 
-                
+
                 foreach (var node in DataBridge.DataBridge.LinkManageList)
                 {
+
+                    var devicesAssetId = string.Empty;
+
+                    if (node.PortClass.DeviceId != null)//是设备节点
+                    {
+                        devicesAssetId=node.PortClass.DeviceId;
+                    }
+                    else
+                    {
+                        devicesAssetId = node.MdfRackClass.RackId;
+                    }
+
                     var nodeInfo = new
                     {
                         LinkId = index,
                         SequenceNo = node.PortClass.NodeIndex,
-                        DevicesAssetId = node.MdfRackClass.RackId,
+                        DevicesAssetId = devicesAssetId,
                         PortUID = node.PortClass.UID,
                     };
+
                     GlobalVariables.DbService.InsertEntity("LinkDetail", nodeInfo);
 
-                   node.PortClass.OnTheLine = index;
+                    node.PortClass.OnTheLine = index;
 
-                   string sync=null;
+                    string sync = null;
+
                     if (TagSyncButton.IsChecked == true)
                     {
                       sync  = $",PortTag = '{NameTextBox.Text}/{nodeCount}-{node.PortClass.NodeIndex}'";
@@ -1663,7 +1673,9 @@ namespace ThinkITAM.FunctionPage
 
 
                     //写端口的OnTheLine字段
-                    var sql = $"UPDATE  {TableNameClass.GetTableName(node.MdfRackClass.RackId)}  SET  OnTheLine  = {index} {sync}  WHERE UID = {node.PortClass.UID}";
+                    var sql = $"UPDATE  {TableNameClass.GetTableName(node)}  SET  OnTheLine  = {index} {sync}  WHERE UID = {node.PortClass.UID}";
+
+                    Console.WriteLine(sql);
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
@@ -1713,6 +1725,7 @@ namespace ThinkITAM.FunctionPage
                 PortLinkClass p = new PortLinkClass();
 
                 PortClass portClass = new PortClass();
+                portClass.UID= Convert.ToInt32(row["UID"]);
                 portClass.RackId = buildingId;
                 portClass.DeviceId = row["DeviceId"].ToString();
                 portClass.PortType = row["PortType"].ToString();

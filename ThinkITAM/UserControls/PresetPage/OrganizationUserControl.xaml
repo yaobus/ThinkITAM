@@ -55,7 +55,7 @@
                         Margin="10,0"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Foreground="AliceBlue">
+                        >
                         一级组织架构
                     </TextBlock>
 

@@ -77,7 +77,7 @@
                     <MultiBinding Converter="{StaticResource BackgroundColorMultiConverter}">
                         <Binding Path="PortClass.RackId" />
                         <Binding Path="PortClass.DeviceId" />
-                        <!-- 第二个参数 -->
+                        <!--  第二个参数  -->
                     </MultiBinding>
                 </Button.Background>
 
