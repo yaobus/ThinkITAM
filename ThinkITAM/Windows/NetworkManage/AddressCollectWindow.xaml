@@ -7,27 +7,25 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="将地址添加到收藏夹"
-    Width="500"
-    Height="580"
+    Width="600"
+    Height="400"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddressCollectWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,5</Thickness>
+    </Window.Resources>
+
     <Grid>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <StackPanel
@@ -51,257 +49,249 @@
 
             </StackPanel>
 
-            <StackPanel
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="要收藏的地址:" />
-                <TextBox
-                    x:Name="Host"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="IpNetwork"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding Host, Mode=TwoWay}" />
-            </StackPanel>
-
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="所使用的协议:" />
-                <TextBox
-                    x:Name="Protocol"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    d:Text="https://"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Protocol"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding Protocol, Mode=TwoWay}"
-                    ToolTip="https://或者http://" />
-
-            </StackPanel>
-
-            <StackPanel
-                Grid.Row="3"
-                Grid.Column="0"
-                Margin="0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="特殊端口指定:" />
-                <TextBox
-                    x:Name="Port"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="MidiPort"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding Port, Mode=TwoWay}"
-                    ToolTip="80,和443端口无需指定" />
-
-            </StackPanel>
-
-            <StackPanel
-                Grid.Row="4"
-                Grid.Column="0"
-                Margin="10"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="选择或创建群组:" />
-                <ComboBox
-                    x:Name="Groups"
-                    Width="220"
-                    Height="28"
-                    Margin="10,0,0,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="FolderStarMultipleOutline"
-                    IsEditable="True"
-                    MaxDropDownHeight="300"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    Text="{Binding Group, Mode=TwoWay}" />
-
-                <Button
-                    x:Name="DeleteButton"
-                    Width="30"
-                    Height="30"
-                    Margin="0,0,10,0"
-                    Padding="0"
-                    Click="DeleteButton_OnClick"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="删除当前选中群组">
-                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="DeleteOutline" />
-                </Button>
-            </StackPanel>
-
-            <StackPanel
-                Grid.Row="5"
-                Grid.Column="0"
-                Margin="0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="标签名称:" />
-                <TextBox
-                    x:Name="Name"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Notebook"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding Name, Mode=TwoWay}" />
-
-            </StackPanel>
-
-            <StackPanel
-                Grid.Row="6"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="色彩标签:" />
-                <ListBox
-                    x:Name="IndexColor"
-                    Width="250"
-                    Height="30"
-                    Margin="10"
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    SelectedIndex="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="IndexColor_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignToolToggleListBox}">
-                    <ListBoxItem
-                        Width="30"
-                        Margin="0,0,0,0"
-                        Padding="0"
-                        Background="Transparent"
-                        ToolTip="选择此项将不显示标签">
-                        <Grid HorizontalAlignment="Center">
-                            <Grid Width="30">
-                                <TextBlock
-                                    Margin="0,0"
-                                    Padding="0"
-                                    HorizontalAlignment="Center"
-                                    Text="Null" />
-                            </Grid>
-                        </Grid>
+                    Orientation="Vertical">
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="要收藏的地址:" />
+                        <TextBox
+                            x:Name="Host"
+                            Width="250"
+                            Height="28"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="IpNetwork"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding Host, Mode=TwoWay}" />
+                    </StackPanel>
+
+
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="所使用的协议:" />
+                        <TextBox
+                            x:Name="Protocol"
+                            Width="250"
+                            Height="28"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            d:Text="https://"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="Protocol"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding Protocol, Mode=TwoWay}"
+                            ToolTip="https://或者http://" />
+
+                    </StackPanel>
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="特殊端口指定:" />
+                        <TextBox
+                            x:Name="Port"
+                            Width="250"
+                            Height="28"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="MidiPort"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding Port, Mode=TwoWay}"
+                            ToolTip="80,和443端口无需指定" />
+
+                    </StackPanel>
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="选择或创建群组:" />
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox
+                                x:Name="Groups"
+                                Width="220"
+                                Height="28"
+                                Padding="3"
+                                VerticalAlignment="Center"
+                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                materialDesign:TextFieldAssist.LeadingIcon="FolderStarMultipleOutline"
+                                IsEditable="True"
+                                MaxDropDownHeight="300"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                Text="{Binding Group, Mode=TwoWay}" />
+
+                            <Button
+                                x:Name="DeleteButton"
+                                Width="30"
+                                Height="30"
+                                Margin="0,0,10,0"
+                                Padding="0"
+                                Click="DeleteButton_OnClick"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="删除当前选中群组">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="DeleteOutline" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
 
 
 
-                    </ListBoxItem>
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#FF0080"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#F15A24"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#FBC02D"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#64DD17"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#00A8FF"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#008080"
-                        Opacity="1" />
-                    <ListBoxItem
-                        Width="30"
-                        Height="30"
-                        Margin="1,0"
-                        Background="#362391"
-                        Opacity="1" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="标签名称:" />
+                        <TextBox
+                            x:Name="Name"
+                            Width="250"
+                            Height="28"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="Notebook"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding Name, Mode=TwoWay}" />
+
+                    </StackPanel>
 
 
-                </ListBox>
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
 
-            </StackPanel>
+                        <Label HorizontalAlignment="Left" Content="色彩标签:" />
+                        <ListBox
+                            x:Name="IndexColor"
+                            Width="250"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            SelectedIndex="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="IndexColor_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignToolToggleListBox}">
+                            <ListBoxItem
+                                Width="30"
+                                Margin="0,0,0,0"
+                                Padding="0"
+                                Background="Transparent"
+                                ToolTip="选择此项将不显示标签">
+                                <Grid HorizontalAlignment="Center">
+                                    <Grid Width="30">
+                                        <TextBlock
+                                            Margin="0,0"
+                                            Padding="0"
+                                            HorizontalAlignment="Center"
+                                            Text="Null" />
+                                    </Grid>
+                                </Grid>
 
-            <StackPanel
-                Grid.Row="7"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="100"
-                    VerticalAlignment="Center"
-                    Text="指定打开浏览器:" />
-                <ComboBox
-                    x:Name="BrowserCombobox"
-                    Width="250"
-                    Height="32"
-                    MinWidth="72"
-                    Margin="5,0"
-                    Padding="0"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="GoogleChrome"
-                    DisplayMemberPath="Browser"
-                    SelectedIndex="{Binding Index, Mode=OneWay}"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择用来打开地址的浏览器，可在预设页面管理浏览器" />
 
-            </StackPanel>
+
+                            </ListBoxItem>
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#FF0080"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#F15A24"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#FBC02D"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#64DD17"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#00A8FF"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#008080"
+                                Opacity="1" />
+                            <ListBoxItem
+                                Width="30"
+                                Height="30"
+                                Margin="1,0"
+                                Background="#362391"
+                                Opacity="1" />
+
+
+                        </ListBox>
+
+                    </StackPanel>
+
+
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label HorizontalAlignment="Left" Content="指定打开浏览器:" />
+                        <ComboBox
+                            x:Name="BrowserCombobox"
+                            Width="250"
+                            Height="32"
+                            MinWidth="72"
+                            Padding="0"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="GoogleChrome"
+                            DisplayMemberPath="Browser"
+                            SelectedIndex="{Binding Index, Mode=OneWay}"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            ToolTip="选择用来打开地址的浏览器，可在预设页面管理浏览器" />
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
+            </Grid>
+
+
+
+
+
 
 
             <Button
                 x:Name="SaveButton"
-                Grid.Row="8"
+                Grid.Row="2"
                 Width="150"
-                Margin="0,0,75,0"
+                Margin="10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Click="SaveButton_OnClick"

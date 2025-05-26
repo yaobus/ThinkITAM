@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
 
@@ -498,14 +498,14 @@
                     </StackPanel>
 
                     <Button
-                        Grid.Column="4"
                         x:Name="SetButton"
+                        Grid.Column="4"
                         Width="32"
                         Height="28"
                         Margin="0,0,-32,0"
                         Padding="0"
-                        Click="SetButton_OnClick"
                         VerticalAlignment="Top"
+                        Click="SetButton_OnClick"
                         Style="{StaticResource MaterialDesignIconButton}"
                         ToolTip="自定义标签">
                         <materialDesign:PackIcon Kind="Settings" />
@@ -578,7 +578,8 @@
                                     <StackPanel>
                                         <materialDesign:PackIcon Kind="Magnify" />
                                     </StackPanel>
-                                </Button></StackPanel>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
 
 
@@ -779,19 +780,18 @@
                         <Grid
                             Width="230"
                             Margin="{StaticResource DefaultMargin}"
-                            VerticalAlignment="Center"
-                            >
+                            VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
 
                             <Button
-                                Grid.Column="0"
                                 x:Name="ClearPortButton"
-                                Height="28"
+                                Grid.Column="0"
                                 Width="100"
+                                Height="28"
                                 Margin="0,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
@@ -809,10 +809,10 @@
 
 
                             <Button
-                                Grid.Column="1"
                                 x:Name="AddPortButton"
-                                Height="28"
+                                Grid.Column="1"
                                 Width="100"
+                                Height="28"
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="AddPortButton_OnClick"
@@ -832,24 +832,22 @@
                         <Grid
                             Width="230"
                             Margin="{StaticResource DefaultMargin}"
-
-                            VerticalAlignment="Center"
-                            >
+                            VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
 
 
 
                             <Button
-                                Grid.Column="0"
                                 x:Name="SavePreset"
-                                Height="28"
+                                Grid.Column="0"
                                 Width="100"
-                                HorizontalAlignment="Left"
+                                Height="28"
                                 Padding="0"
+                                HorizontalAlignment="Left"
                                 Click="SavePreset_OnClick"
                                 ToolTip="保存该型号设备对应的配置信息到数据库">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -865,10 +863,10 @@
 
 
                             <Button
-                                Grid.Column="1"
                                 x:Name="SaveButton"
-                                Height="28"
+                                Grid.Column="1"
                                 Width="100"
+                                Height="28"
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="SaveButton_OnClick"

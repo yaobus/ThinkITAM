@@ -64,62 +64,58 @@
 
 
         <StackPanel
-            Grid.Column="0"
             Grid.Row="1"
-
+            Grid.Column="0"
             HorizontalAlignment="Center">
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段A:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段A:" />
                 <TextBox
                     x:Name="TagA"
                     Width="240"
                     Height="28"
                     Margin="10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段B:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段B:" />
                 <TextBox
                     x:Name="TagB"
                     Width="240"
                     Height="28"
                     Margin="10,0,10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
 
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段C:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段C:" />
                 <TextBox
                     x:Name="TagC"
                     Width="240"
                     Height="28"
                     Margin="10,0,10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
@@ -131,22 +127,24 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center">
 
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段D:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段D:" />
                 <TextBox
                     x:Name="TagD"
                     Width="240"
                     Height="28"
                     Margin="10,0,10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
@@ -154,39 +152,37 @@
 
 
 
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段F:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段F:" />
                 <TextBox
                     x:Name="TagF"
                     Width="240"
                     Height="28"
                     Margin="10,0,10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
-            <StackPanel
-                Margin="10,5"
-                Orientation="Vertical">
+            <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
-                    VerticalAlignment="Center" Content="自定义字段E:" />
+                    VerticalAlignment="Center"
+                    Content="自定义字段E:" />
                 <TextBox
                     x:Name="TagE"
                     Width="240"
                     Height="28"
                     Margin="10,0,10,0"
                     Padding="3"
-                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />

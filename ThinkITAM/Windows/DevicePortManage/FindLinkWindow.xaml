@@ -8,37 +8,42 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="查找链路"
     Width="800"
-    Height="400"
-    MinHeight="400"
+    Height="380"
+    MinHeight="380"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     ResizeMode="CanResize"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
-        <Thickness x:Key="DefaultMargin">0,16</Thickness>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <StackPanel Orientation="Vertical">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical">
 
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="资产类型:" />
                     <ComboBox
                         x:Name="AssetType"
-                        Width="200"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
@@ -49,16 +54,16 @@
 
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="设备类型:" />
                     <ComboBox
                         x:Name="DeviceType"
-                        Width="200"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
@@ -69,16 +74,16 @@
 
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="资产编号:" />
                     <TextBox
                         x:Name="AssetTag"
-                        Width="200"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"
@@ -94,16 +99,16 @@
 
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="规格型号:" />
                     <TextBox
                         x:Name="Model"
-                        Width="200"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"
@@ -118,16 +123,16 @@
 
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="备注信息:" />
                     <TextBox
                         x:Name="Description"
-                        Width="200"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"
@@ -139,26 +144,35 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-                <StackPanel
-                    Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Button
-                        x:Name="BackButton"
-                        Width="100"
-                        Margin="10,0"
-                        HorizontalAlignment="Right"
-                        Content="返回" />
-                    <Button
-                        x:Name="SaveButton"
-                        Width="100"
-                        Margin="10,0"
-                        HorizontalAlignment="Right"
-                        Content="确定" />
 
-                </StackPanel>
 
             </StackPanel>
+
+            <Grid
+                Grid.Row="1"
+                Width="230"
+                Margin="10"
+                HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="BackButton"
+                    Grid.Column="0"
+                    Width="100"
+                    Margin="0,0"
+                    HorizontalAlignment="Left"
+                    Content="返回" />
+                <Button
+                    x:Name="SaveButton"
+                    Grid.Column="1"
+                    Width="100"
+                    Margin="0,0"
+                    HorizontalAlignment="Right"
+                    Content="确定" />
+
+            </Grid>
 
         </Grid>
 

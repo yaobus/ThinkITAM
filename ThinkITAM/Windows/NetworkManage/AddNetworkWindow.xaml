@@ -7,20 +7,26 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加网段"
-    Width="880"
-    Height="640"
+    Width="600"
+    Height="650"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddNetworkWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
+
     <Grid>
 
 
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
 
         </Grid.RowDefinitions>
 
@@ -59,36 +65,25 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
 
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="网段名称:" />
                     <TextBox
                         x:Name="TbName"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"
@@ -99,46 +94,17 @@
                 </StackPanel>
 
                 <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="网段内任意地址:" />
-                    <TextBox
-                        x:Name="IpTextBox"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,30,0"
-                        Padding="3"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                </StackPanel>
-
-
-            </Grid>
-            <Grid Grid.Row="1" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="网段备注:" />
                     <TextBox
                         x:Name="Description"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"
@@ -149,17 +115,176 @@
                 </StackPanel>
 
                 <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        HorizontalAlignment="Right"
+                        x:Name="LabelA"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段A:"
+                        ToolTip="自定义字段A" />
+                    <ComboBox
+                        x:Name="TbParent"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="0"
+                        IsEditable="True"
+                        SelectionChanged="Parent_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        x:Name="LabelB"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段B:"
+                        ToolTip="自定义字段B" />
+                    <ComboBox
+                        x:Name="Child"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="0"
+                        IsEditable="True"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        x:Name="LabelC"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段C:"
+                        ToolTip="自定义字段C" />
+                    <TextBox
+                        x:Name="TagA"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        x:Name="LabelD"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段D:"
+                        ToolTip="自定义字段D" />
+                    <TextBox
+                        x:Name="TagB"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        x:Name="LabelE"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段E:"
+                        ToolTip="自定义字段E" />
+                    <TextBox
+                        x:Name="TagC"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        x:Name="LabelF"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定义字段F:"
+                        ToolTip="自定义字段F" />
+                    <TextBox
+                        x:Name="TagD"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="网段内任意地址:" />
+                    <TextBox
+                        x:Name="IpTextBox"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,30,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="掩码调整:" />
                     <Slider
                         x:Name="MaskSlider"
-                        Width="250"
+                        Width="230"
                         Margin="0,0,30,0"
                         Padding="3"
                         HorizontalAlignment="Right"
@@ -173,51 +298,18 @@
                         Value="24" />
                 </StackPanel>
 
-
-
-
-            </Grid>
-
-            <Grid Grid.Row="2" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelA"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段A:"
-                        ToolTip="自定义字段A" />
-                    <ComboBox
-                        x:Name="TbParent"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="0"
-                        IsEditable="True"
-                        SelectionChanged="Parent_OnSelectionChanged"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                </StackPanel>
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="子网掩码:" />
                     <TextBox
                         x:Name="Netmask"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -228,47 +320,18 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-            </Grid>
-            <Grid Grid.Row="3" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelB"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段B:"
-                        ToolTip="自定义字段B" />
-                    <ComboBox
-                        x:Name="Child"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="0"
-                        IsEditable="True"
-                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                </StackPanel>
-
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="网段地址:" />
                     <TextBox
                         x:Name="Network"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -279,55 +342,18 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-
-
-
-
-
-
-            </Grid>
-            <Grid Grid.Row="4" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelC"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段C:"
-                        ToolTip="自定义字段C" />
-                    <TextBox
-                        x:Name="TagA"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="3"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                </StackPanel>
-
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="第一个可用地址:" />
                     <TextBox
                         x:Name="First"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -338,51 +364,18 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-
-
-            </Grid>
-            <Grid Grid.Row="5" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelD"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段D:"
-                        ToolTip="自定义字段D" />
-                    <TextBox
-                        x:Name="TagB"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="3"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                </StackPanel>
-
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="最后一个可用地址:" />
                     <TextBox
                         x:Name="Last"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -393,55 +386,18 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-
-
-
-
-            </Grid>
-
-
-            <Grid Grid.Row="6" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelE"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段E:"
-                        ToolTip="自定义字段E" />
-                    <TextBox
-                        x:Name="TagC"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="3"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                </StackPanel>
-
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="广播地址:" />
                     <TextBox
                         x:Name="Broadcast"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -452,52 +408,18 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-
-
-
-            </Grid>
-
-            <Grid Grid.Row="7" Margin="30,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
                 <StackPanel
-                    Grid.Column="0"
-                    HorizontalAlignment="Right"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                    Orientation="Vertical">
                     <Label
-                        x:Name="LabelF"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Content="自定义字段F:"
-                        ToolTip="自定义字段F" />
-                    <TextBox
-                        x:Name="TagD"
-                        Width="250"
-                        Height="28"
-                        Margin="0,0,10,0"
-                        Padding="3"
-                        VerticalAlignment="Center"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                </StackPanel>
-
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <Label
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Content="可用地址数量:" />
                     <TextBox
                         x:Name="NumBox"
-                        Width="250"
+                        Width="230"
                         Height="28"
                         Margin="0,0,30,0"
                         Padding="3"
@@ -508,24 +430,23 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
+            </StackPanel>
 
-            </Grid>
-
-            <Grid Grid.Row="8" Margin="30,0">
-
-
-                <Button
-                    x:Name="SaveButton"
-                    Width="150"
-                    Margin="0,0,30,0"
-                    HorizontalAlignment="Right"
-                    BorderThickness="0"
-                    Click="SaveButton_OnClick"
-                    Content="保存" />
-            </Grid>
         </Grid>
 
 
+        <Grid Grid.Row="2">
+
+
+            <Button
+                x:Name="SaveButton"
+                Width="150"
+                Margin="10"
+                HorizontalAlignment="Right"
+                BorderThickness="0"
+                Click="SaveButton_OnClick"
+                Content="保存" />
+        </Grid>
 
 
     </Grid>

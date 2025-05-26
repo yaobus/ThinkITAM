@@ -23,7 +23,7 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -33,7 +33,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="当前颜色:" />
         <Grid
             x:Name="ColorGrid"
@@ -51,7 +50,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="颜色选择:" />
 
 

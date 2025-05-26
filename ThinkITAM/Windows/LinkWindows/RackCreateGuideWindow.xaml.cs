@@ -68,7 +68,7 @@ public partial class RackCreateGuideWindow : Window
     private void LoadRoomInfo()
     {
         RoomCombobox.ItemsSource = roomInfos;
-        RoomCombobox2.ItemsSource = roomInfos;
+        
         roomInfos.Clear();
         string query = "SELECT * FROM DeviceRoom";
 
@@ -250,42 +250,6 @@ public partial class RackCreateGuideWindow : Window
 
 
     private ObservableCollection<CabinetClass> cabinetInfos2 = new ObservableCollection<CabinetClass>();
-    private void RoomCombobox2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        CabinetCombobox2.ItemsSource = cabinetInfos2;
-
-        if (RoomCombobox2.SelectedIndex != -1)
-        {
-            CabinetCombobox2.IsEnabled = true;
-            cabinetInfos2.Clear();
-
-            string roomId = roomInfos[RoomCombobox2.SelectedIndex].DeviceRoomQrId;
-
-            string query = $"SELECT * FROM  DeviceCabinet WHERE DeviceRoomQrId = '{roomId}'";
-
-
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            foreach (var row in rows)
-            {
-                                    CabinetClass cabinet = new CabinetClass();
-                    cabinet.CabinetId = row["CabinetId"].ToString();
-                    cabinet.Name = row["CabinetName"].ToString();
-                    cabinet.Position = row["Position"].ToString();
-                    cabinet.Note = row["Note"].ToString();
-
-                    cabinetInfos2.Add(cabinet);
-            }
-
- 
-        }
-        else
-        {
-            CabinetCombobox2.IsEnabled = false;
-        }
-
-    }
-
 
 
 
@@ -310,7 +274,7 @@ public partial class RackCreateGuideWindow : Window
         else
         {
             string rackName = RackName.Text;
-            string rackNote = RackNote.Text;
+            string rackNote = string.Empty;
             int slotCount = rackSlots.Count;
 
 
@@ -452,24 +416,6 @@ public partial class RackCreateGuideWindow : Window
             message += index.ToString() + ":必须选择设备所在的机房和机柜\r";
         }
 
-        if (CreateEndDevice.IsChecked == true)
-        {
-            if (RackName2.Text.Replace(" ", "").Length < 2)
-            {
-                index++;
-
-                message += index.ToString() + ":对端机架名称不得为空\r";
-            }
-
-
-            if (cabinetId2 == "")
-            {
-                index++;
-
-                message += index.ToString() + ":必须选择对端设备所在的机房和机柜\r";
-            }
-
-        }
 
 
 
@@ -477,16 +423,5 @@ public partial class RackCreateGuideWindow : Window
         return (index, message);
     }
 
-    private void CabinetCombobox2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (CabinetCombobox2.SelectedIndex != -1)
-        {
-            cabinetId2 = cabinetInfos2[CabinetCombobox2.SelectedIndex].CabinetId;
 
-        }
-        else
-        {
-            cabinetId2 = "";
-        }
-    }
 }

@@ -7,15 +7,17 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="IP、网段、掩码计算器"
-    Width="1366"
-    Height="768"
-    MinWidth="1366"
-    MinHeight="768"
+    Width="1000"
+    Height="850"
+    MinWidth="1000"
+    MinHeight="850"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -34,7 +36,7 @@
 
                 <StackPanel
                     Grid.Row="0"
-                    Margin="10,20,10,10"
+                    Margin="10,10,10,10"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
 
@@ -55,12 +57,12 @@
                     <StackPanel Margin="10" Orientation="Horizontal">
 
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="主机地址:" />
                             <TextBox
@@ -77,11 +79,11 @@
                         </StackPanel>
 
                         <StackPanel
+                            Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="掩码调整:" />
@@ -102,13 +104,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="子网掩码:" />
                             <TextBox
@@ -126,12 +127,12 @@
                     </StackPanel>
                     <StackPanel Margin="10" Orientation="Horizontal">
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="网段地址:" />
                             <TextBox
@@ -148,13 +149,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="第一个地址:" />
                             <TextBox
@@ -171,13 +171,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="最后一个地址:" />
                             <TextBox
@@ -197,13 +196,12 @@
                     </StackPanel>
                     <StackPanel Margin="10" Orientation="Horizontal">
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="广播地址:" />
                             <TextBox
@@ -220,13 +218,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="可用地址数量:" />
                             <TextBox
@@ -257,7 +254,7 @@
 
                 <StackPanel
                     Grid.Row="0"
-                    Margin="10,20,10,10"
+                    Margin="10,10,10,10"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
 
@@ -278,11 +275,11 @@
                     <StackPanel Margin="10" Orientation="Horizontal">
 
                         <StackPanel
+                            Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="掩码位数调整:" />
@@ -302,13 +299,12 @@
                                 Value="24" />
                         </StackPanel>
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="子网掩码位数:" />
                             <TextBox
@@ -324,17 +320,39 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                         </StackPanel>
 
+                        <StackPanel
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <Label
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="可用地址数量:" />
+                            <TextBox
+                                x:Name="AvailableAddressBox"
+                                Width="300"
+                                Height="28"
+                                Margin="0,0,0,0"
+                                Padding="3"
+                                VerticalAlignment="Center"
+                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                materialDesign:TextFieldAssist.LeadingIcon="Numbers"
+                                IsEnabled="False"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        </StackPanel>
+
 
                     </StackPanel>
                     <StackPanel Margin="10" Orientation="Horizontal">
 
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="Dec 十进制：" />
                             <TextBox
@@ -350,12 +368,12 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                         </StackPanel>
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="Hex 十六进制：" />
                             <TextBox
@@ -371,19 +389,19 @@
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                         </StackPanel>
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="Bin 二进制：" />
                             <TextBox
                                 x:Name="MaskBinBox2"
-                                Width="250"
+                                Width="300"
                                 Height="28"
-                                Margin="0,0,30,0"
+                                Margin="0,0,0,0"
                                 Padding="3"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="False"
@@ -393,32 +411,7 @@
                         </StackPanel>
 
                     </StackPanel>
-                    <StackPanel Margin="10" Orientation="Horizontal">
-
-                        <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Content="可用地址数量:" />
-                            <TextBox
-                                x:Name="AvailableAddressBox"
-                                Width="250"
-                                Height="28"
-                                Margin="0,0,30,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Numbers"
-                                IsEnabled="False"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                        </StackPanel>
-
-                    </StackPanel>
+                    <StackPanel Margin="10" Orientation="Horizontal" />
                 </StackPanel>
             </Grid>
 
@@ -436,7 +429,7 @@
 
                 <StackPanel
                     Grid.Row="0"
-                    Margin="10,20,10,10"
+                    Margin="10,10,10,10"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
 
@@ -457,12 +450,12 @@
                     <StackPanel Margin="10" Orientation="Horizontal">
 
                         <StackPanel
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="需要地址的数量：" />
                             <TextBox
@@ -479,13 +472,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="子网掩码位数:" />
                             <TextBox
@@ -502,13 +494,12 @@
                         </StackPanel>
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="子网掩码:" />
                             <TextBox
@@ -528,15 +519,14 @@
                     <StackPanel Margin="10" Orientation="Horizontal">
 
                         <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="{StaticResource DefaultMargin}"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="网段可用地址数:" />
+                                Content="可用地址数:" />
                             <TextBox
                                 x:Name="AvailableNumBox"
                                 Width="250"

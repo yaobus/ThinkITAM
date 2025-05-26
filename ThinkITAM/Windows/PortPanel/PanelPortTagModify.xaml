@@ -32,7 +32,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="目标端口:" />
 
         <TextBlock
@@ -47,7 +46,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="设定标签:" />
 
 

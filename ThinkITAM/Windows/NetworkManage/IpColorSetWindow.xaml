@@ -39,7 +39,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="当前颜色:" />
         <Grid
             x:Name="ColorGrid"
@@ -57,7 +56,6 @@
             Margin="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontSize="20"
             Text="颜色选择:" />
 
 

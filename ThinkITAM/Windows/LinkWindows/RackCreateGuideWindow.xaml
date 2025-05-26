@@ -8,8 +8,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="机架式配线架设计器"
-    Width="1100"
-    Height="700"
+    Width="900"
+    Height="650"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="RackCreateGuideWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -18,7 +18,7 @@
     mc:Ignorable="d">
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
     </Window.Resources>
 
     <Grid>
@@ -35,286 +35,197 @@
 
             <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-
                     <RowDefinition Height="*" />
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="85" />
-                    <ColumnDefinition Width="220" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="所在机房:" />
 
-                <ComboBox
-                    x:Name="RoomCombobox"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    DisplayMemberPath="Name"
-                    SelectionChanged="RoomCombobox_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择设备所在机房" />
+                <StackPanel Grid.Row="0">
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="所在机房:" />
+
+                        <ComboBox
+                            x:Name="RoomCombobox"
+                            Width="230"
+                            Height="40"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            DisplayMemberPath="Name"
+                            SelectionChanged="RoomCombobox_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            ToolTip="选择设备所在机房" />
 
 
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="所在机柜:" />
-                <ComboBox
-                    x:Name="CabinetCombobox"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    DisplayMemberPath="Name"
-                    IsEnabled="False"
-                    SelectionChanged="CabinetCombobox_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择设备所在机柜" />
+                    </StackPanel>
 
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="机架名称:" />
-
-                <TextBlock
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="机架标签:"
-                    Visibility="Collapsed" />
-
-                <TextBlock
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="槽位数量:" />
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="所在机柜:" />
+                        <ComboBox
+                            x:Name="CabinetCombobox"
+                            Width="230"
+                            Height="40"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            DisplayMemberPath="Name"
+                            IsEnabled="False"
+                            SelectionChanged="CabinetCombobox_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            ToolTip="选择设备所在机柜" />
 
 
+                    </StackPanel>
 
-                <TextBox
-                    x:Name="RackName"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    ToolTip="设置机架名称" />
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
 
-                <TextBox
-                    x:Name="RackNote"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    ToolTip="设置机架标签"
-                    Visibility="Collapsed" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="机架名称:" />
+                        <TextBox
+                            x:Name="RackName"
+                            Width="230"
+                            Height="40"
+                            Margin="0"
+                            Padding="3"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            ToolTip="设置机架名称" />
+                    </StackPanel>
 
-                <TextBlock
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="槽位类型:" />
-
-                <ComboBox
-                    x:Name="PortTypeCombobox"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    SelectionChanged="PortTypeCombobox_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择端口的类型">
-                    <ComboBoxItem Content="Eth" />
-                    <ComboBoxItem Content="SC" />
-                    <ComboBoxItem Content="FC" />
-                    <ComboBoxItem Content="LC" />
-                    <ComboBoxItem Content="Empty" />
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="槽位类型:" />
 
 
-                </ComboBox>
+                        <ComboBox
+                            x:Name="PortTypeCombobox"
+                            Width="230"
+                            Height="40"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            SelectionChanged="PortTypeCombobox_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            ToolTip="选择端口的类型">
+                            <ComboBoxItem Content="Eth" />
+                            <ComboBoxItem Content="SC" />
+                            <ComboBoxItem Content="FC" />
+                            <ComboBoxItem Content="LC" />
+                            <ComboBoxItem Content="Empty" />
+
+
+                        </ComboBox>
+
+                    </StackPanel>
+
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="槽位数量:" />
 
 
 
-                <Slider
-                    x:Name="SlotNumSlider"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    IsEnabled="False"
-                    Maximum="12"
-                    Minimum="1"
-                    Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
-                    TickFrequency="1"
-                    TickPlacement="Both"
-                    ValueChanged="SlotNumSlider_OnValueChanged"
-                    Value="1" />
+                        <Slider
+                            x:Name="SlotNumSlider"
+                            Width="230"
+                            Height="40"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            IsEnabled="False"
+                            Maximum="12"
+                            Minimum="1"
+                            Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
+                            TickFrequency="1"
+                            TickPlacement="Both"
+                            ValueChanged="SlotNumSlider_OnValueChanged"
+                            Value="1" />
+                    </StackPanel>
+
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="槽位选择:" />
 
 
-                <TextBlock
-                    Grid.Row="5"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="槽位选择:" />
+                        <ComboBox
+                            x:Name="SlotCombobox"
+                            Width="230"
+                            Height="40"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            IsEnabled="False"
+                            SelectionChanged="SlotCombobox_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            ToolTip="选择需要配置的槽位" />
+                    </StackPanel>
 
-                <ComboBox
-                    x:Name="SlotCombobox"
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    IsEnabled="False"
-                    SelectionChanged="SlotCombobox_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择需要配置的槽位" />
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="端口数量:" />
 
 
-                <TextBlock
-                    Grid.Row="6"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="端口数量:" />
+                        <Slider
+                            x:Name="PortNumSlider"
+                            Width="230"
+                            Height="40"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Maximum="24"
+                            Minimum="1"
+                            Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
+                            TickFrequency="1"
+                            TickPlacement="Both"
+                            Value="12" />
 
-                <Slider
-                    x:Name="PortNumSlider"
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Maximum="24"
-                    Minimum="1"
-                    Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
-                    TickFrequency="1"
-                    TickPlacement="Both"
-                    Value="12" />
+                    </StackPanel>
+
+                    <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
 
 
-                <TextBlock
-                    Grid.Row="7"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="槽位标签:" />
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Text="槽位标签:" />
 
 
-                <TextBox
-                    x:Name="SlotName"
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="Slot-"
-                    ToolTip="槽位名称" />
+                        <TextBox
+                            x:Name="SlotName"
+                            Width="230"
+                            Height="40"
+                            Margin="0"
+                            Padding="3"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="Slot-"
+                            ToolTip="槽位名称" />
 
-
-
-
-
-
-
-
-
-
-
-                <StackPanel
-                    Grid.Row="8"
-                    Grid.Column="1"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <CheckBox
-                        x:Name="CreateEndDevice"
-                        Margin="0,0"
-                        Content="创建对端设备"
-                        IsChecked="False"
-                        Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-                        Visibility="Collapsed" />
-
-                    <Button
-                        Width="20"
-                        Height="20"
-                        Margin="10,0"
-                        Padding="0"
-                        Style="{StaticResource MaterialDesignIconButton}">
-                        <Grid />
-
-                    </Button>
-
-
+                    </StackPanel>
                 </StackPanel>
 
 
 
+
                 <Grid
-                    Grid.Row="10"
+                    Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
@@ -329,9 +240,9 @@
                         Margin="10,0,0,10"
                         HorizontalAlignment="Stretch"
                         materialDesign:ButtonAssist.CornerRadius="5"
+                        BorderThickness="0"
                         Click="SaveRack_OnClick"
-                        Content="保存设备"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Content="保存设备" />
 
                     <Button
                         x:Name="AddSlotButton"
@@ -340,9 +251,9 @@
                         Margin="10,0,10,10"
                         HorizontalAlignment="Stretch"
                         materialDesign:ButtonAssist.CornerRadius="5"
+                        BorderThickness="0"
                         Click="AddSlotButton_OnClick"
-                        Content="添加到配置单"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                        Content="添加到配置单" />
 
 
                 </Grid>
@@ -435,123 +346,6 @@
 
         </materialDesign:Card>
 
-        <materialDesign:Card
-            Grid.Row="0"
-            Grid.Column="2"
-            Margin="2.5,5,5,5"
-            HorizontalAlignment="Stretch"
-            d:Visibility="{Binding Path=IsChecked, ElementName=CreateEndDevice, Converter={StaticResource BoolToVisibilityConverter}}"
-            Visibility="Collapsed">
-
-            <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="60" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="85" />
-                    <ColumnDefinition Width="220" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="所在机房:" />
-
-                <ComboBox
-                    x:Name="RoomCombobox2"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    DisplayMemberPath="Name"
-                    SelectionChanged="RoomCombobox2_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择设备所在机房" />
-
-
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="所在机柜:" />
-                <ComboBox
-                    x:Name="CabinetCombobox2"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    DisplayMemberPath="Name"
-                    IsEnabled="False"
-                    SelectionChanged="CabinetCombobox2_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    ToolTip="选择设备所在机柜" />
-
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="机架名称:" />
-
-                <TextBlock
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Text="机架标签:" />
-
-
-                <TextBox
-                    x:Name="RackName2"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    ToolTip="设置机架名称" />
-
-                <TextBox
-                    x:Name="RackNote2"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Width="200"
-                    Height="40"
-                    Margin="0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="InfoBox"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    ToolTip="设置机架标签" />
-
-
-
-            </Grid>
-
-        </materialDesign:Card>
 
     </Grid>
 </Window>
