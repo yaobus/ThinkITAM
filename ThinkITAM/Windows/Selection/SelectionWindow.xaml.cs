@@ -79,6 +79,7 @@ public partial class SelectionWindow : Window
 
         t.Add("LinkDetail");
         t.Add("WakeOnLan");
+        t.Add("Computer");
 
         string message = string.Empty;
 

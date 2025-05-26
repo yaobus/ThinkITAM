@@ -700,6 +700,11 @@ namespace ThinkITAM.Windows.DevicePortManage
                     //初始化设备信息详表
                     InitializationTable(info.AssetId, portInfos);
 
+                    string sql = $"UPDATE Asset SET Deploy = 2  WHERE AssetId = '{info.AssetId}'";
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+
                     //关闭窗口
                     this.DialogResult = true;
                     

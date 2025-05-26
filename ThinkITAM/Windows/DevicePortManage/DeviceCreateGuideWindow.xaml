@@ -7,10 +7,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="设备设计器"
-    Width="1366"
-    Height="768"
-    MinWidth="1366"
-    MinHeight="768"
+    Width="1100"
+    Height="780"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="DeviceCreateGuideWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -19,13 +17,13 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-        <Thickness x:Key="DefaultMargin">0,12</Thickness>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
     </Window.Resources>
 
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="220" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
 
         </Grid.RowDefinitions>
@@ -44,6 +42,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
 
@@ -56,46 +55,49 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="*资产类型:" />
-                            <TextBox
-                                x:Name="AssetType"
-                                Width="165"
-                                Height="28"
-                                Margin="0,0,5,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Ticket"
-                                IsEnabled="False"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding AssetType}" />
-                            <Button
-                                x:Name="FindAsset"
-                                Width="60"
-                                Height="28"
-                                Margin="0,0,10,0"
-                                Padding="0"
-                                Click="FindAsset_OnClick"
-                                ToolTip="查找资产">
-                                <StackPanel>
-                                    <materialDesign:PackIcon Kind="Magnify" />
-                                </StackPanel>
-                            </Button>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="AssetType"
+                                    Width="165"
+                                    Height="28"
+                                    Margin="0,0,5,0"
+                                    Padding="3"
+                                    VerticalAlignment="Center"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="Ticket"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Text="{Binding AssetType}" />
+                                <Button
+                                    x:Name="FindAsset"
+                                    Width="60"
+                                    Height="28"
+                                    Margin="0,0,10,0"
+                                    Padding="0"
+                                    Click="FindAsset_OnClick"
+                                    ToolTip="查找资产">
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Kind="Magnify" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="*设备类型:" />
                             <TextBox
@@ -114,11 +116,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="*资产编号:" />
                             <TextBox
@@ -138,11 +140,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="*规格型号:" />
                             <TextBox
@@ -171,11 +173,11 @@
                         VerticalAlignment="Top">
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="*设备名称:" />
                             <TextBox
@@ -193,11 +195,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="责任人:" />
 
@@ -218,11 +220,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="责任人电话:" />
                             <TextBox
@@ -241,11 +243,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="启用日期:" />
                             <DatePicker
@@ -269,11 +271,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="设备所在机房:" />
                             <ComboBox
@@ -302,11 +304,11 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="设备所在机柜:" />
                             <ComboBox
@@ -336,13 +338,13 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelA"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签A:" />
                             <TextBox
@@ -360,13 +362,13 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelB"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签B:" />
                             <TextBox
@@ -392,13 +394,13 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelC"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签C:" />
                             <TextBox
@@ -412,29 +414,19 @@
                                 materialDesign:TextFieldAssist.LeadingIcon="TagHeart"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-                            <Button
-                                x:Name="SetButton"
-                                Width="32"
-                                Height="28"
-                                Margin="0,0,-32,0"
-                                Padding="0"
-                                Click="SetButton_OnClick"
-                                Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="自定义标签">
-                                <materialDesign:PackIcon Kind="Settings" />
-                            </Button>
+
                         </StackPanel>
 
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelD"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签D:" />
                             <TextBox
@@ -453,13 +445,13 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelE"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签E:" />
                             <TextBox
@@ -476,13 +468,13 @@
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
                                 x:Name="LabelF"
                                 MaxWidth="90"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="自定义标签F:" />
                             <TextBox
@@ -505,7 +497,19 @@
 
                     </StackPanel>
 
-
+                    <Button
+                        Grid.Column="4"
+                        x:Name="SetButton"
+                        Width="32"
+                        Height="28"
+                        Margin="0,0,-32,0"
+                        Padding="0"
+                        Click="SetButton_OnClick"
+                        VerticalAlignment="Top"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="自定义标签">
+                        <materialDesign:PackIcon Kind="Settings" />
+                    </Button>
                 </Grid>
 
 
@@ -527,13 +531,13 @@
 
             <materialDesign:ColorZone
                 Grid.ColumnSpan="2"
-                Padding="16"
+                Padding="10"
                 Background="Transparent">
 
                 <Grid>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="310" />
+                        <ColumnDefinition Width="260" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -547,33 +551,34 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="预设模板:" />
-                            <ComboBox
-                                x:Name="PresetList"
-                                Width="165"
-                                Height="28"
-                                Margin="0,0,5,0"
-                                Padding="0"
-                                IsEnabled="False"
-                                MaxDropDownHeight="300"
-                                SelectionChanged="PresetList_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                            <Button
-                                x:Name="LoadPreset"
-                                Width="60"
-                                Height="28"
-                                Margin="0,0,10,0"
-                                Padding="0"
-                                Click="LoadPreset_OnClick"
-                                ToolTip="查找该型号是否存在预设端口方案">
-                                <StackPanel>
-                                    <materialDesign:PackIcon Kind="Magnify" />
-                                </StackPanel>
-                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox
+                                    x:Name="PresetList"
+                                    Width="165"
+                                    Height="28"
+                                    Margin="0,0,5,0"
+                                    Padding="0"
+                                    IsEnabled="False"
+                                    MaxDropDownHeight="300"
+                                    SelectionChanged="PresetList_OnSelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                <Button
+                                    x:Name="LoadPreset"
+                                    Width="60"
+                                    Height="28"
+                                    Margin="0,0,0,0"
+                                    Padding="0"
+                                    Click="LoadPreset_OnClick"
+                                    ToolTip="查找该型号是否存在预设端口方案">
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Kind="Magnify" />
+                                    </StackPanel>
+                                </Button></StackPanel>
                         </StackPanel>
 
 
@@ -581,9 +586,9 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="端口类型:" />
                             <ComboBox
@@ -608,9 +613,9 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="槽位编号:" />
                             <ComboBox
@@ -645,9 +650,9 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="端口标签:" />
                             <ComboBox
@@ -667,9 +672,9 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="端口编号:" />
                             <ComboBox
@@ -690,64 +695,67 @@
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="编号范围:" />
-                            <TextBox
-                                x:Name="FirstNumber"
-                                Width="60"
-                                Height="28"
-                                Margin="0,0,5,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="FirstPage"
-                                KeyDown="FirstNumber_OnKeyDown"
-                                LostFocus="FirstNumber_OnLostFocus"
-                                PreviewTextInput="FirstNumber_OnPreviewTextInput"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="0" />
-                            <TextBlock
-                                Width="15"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Text="---" />
-                            <TextBox
-                                x:Name="LastNumber"
-                                Width="60"
-                                Height="28"
-                                Margin="5,0,10,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="LastPage"
-                                IsEnabled="False"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                            <TextBlock
-                                Width="10"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Text="Σ" />
-                            <TextBox
-                                x:Name="PortCount"
-                                Width="60"
-                                Height="28"
-                                Margin="5,0,10,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                IsEnabled="False"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="FirstNumber"
+                                    Width="60"
+                                    Height="28"
+                                    Margin="0,0,5,0"
+                                    Padding="3"
+                                    VerticalAlignment="Center"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="FirstPage"
+                                    KeyDown="FirstNumber_OnKeyDown"
+                                    LostFocus="FirstNumber_OnLostFocus"
+                                    PreviewTextInput="FirstNumber_OnPreviewTextInput"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Text="0" />
+                                <TextBlock
+                                    Width="15"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="---" />
+                                <TextBox
+                                    x:Name="LastNumber"
+                                    Width="60"
+                                    Height="28"
+                                    Margin="5,0,10,0"
+                                    Padding="3"
+                                    VerticalAlignment="Center"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="LastPage"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                                <TextBlock
+                                    Width="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Σ" />
+                                <TextBox
+                                    x:Name="PortCount"
+                                    Width="60"
+                                    Height="28"
+                                    Margin="5,0,10,0"
+                                    Padding="3"
+                                    VerticalAlignment="Center"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                            </StackPanel>
                         </StackPanel>
 
                         <StackPanel
                             Margin="{StaticResource DefaultMargin}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            Orientation="Vertical">
                             <Label
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="端口数量:" />
                             <Slider
@@ -768,20 +776,25 @@
 
                         </StackPanel>
 
-                        <StackPanel
+                        <Grid
+                            Width="230"
                             Margin="{StaticResource DefaultMargin}"
-                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
-
+                            >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
 
                             <Button
+                                Grid.Column="0"
                                 x:Name="ClearPortButton"
-                                Width="120"
                                 Height="28"
-                                Margin="0,0,10,0"
+                                Width="100"
+                                Margin="0,0"
                                 Padding="0"
+                                HorizontalAlignment="Left"
                                 Click="ClearPortButton_OnClick"
                                 ToolTip="清空设备预览区的配置">
                                 <StackPanel Orientation="Horizontal">
@@ -796,11 +809,12 @@
 
 
                             <Button
+                                Grid.Column="1"
                                 x:Name="AddPortButton"
-                                Width="120"
                                 Height="28"
-                                Margin="0,0,20,0"
+                                Width="100"
                                 Padding="0"
+                                HorizontalAlignment="Right"
                                 Click="AddPortButton_OnClick"
                                 ToolTip="添加端口到设备预览区">
                                 <StackPanel Orientation="Horizontal">
@@ -813,23 +827,29 @@
 
 
 
-                        </StackPanel>
+                        </Grid>
 
-                        <StackPanel
-                            Margin="0,10"
-                            HorizontalAlignment="Right"
+                        <Grid
+                            Width="230"
+                            Margin="{StaticResource DefaultMargin}"
+
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                            >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
 
 
 
                             <Button
+                                Grid.Column="0"
                                 x:Name="SavePreset"
-                                Width="120"
                                 Height="28"
-                                Margin="0,0,10,0"
+                                Width="100"
+                                HorizontalAlignment="Left"
                                 Padding="0"
-                                HorizontalAlignment="Right"
                                 Click="SavePreset_OnClick"
                                 ToolTip="保存该型号设备对应的配置信息到数据库">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -845,10 +865,10 @@
 
 
                             <Button
+                                Grid.Column="1"
                                 x:Name="SaveButton"
-                                Width="120"
                                 Height="28"
-                                Margin="0,0,20,0"
+                                Width="100"
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="SaveButton_OnClick"
@@ -861,7 +881,7 @@
                             </Button>
 
 
-                        </StackPanel>
+                        </Grid>
 
                     </StackPanel>
 
@@ -869,6 +889,7 @@
 
                     <ScrollViewer
                         Grid.Column="1"
+                        BorderThickness="0.5"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
