@@ -402,19 +402,17 @@
 
                                                 </StackPanel>
 
-                                                <Grid
-                                                    Grid.Row="1"
-                                                    Visibility="{Binding rackId, Converter={StaticResource FirstChar2ToVisibilityConverter}}">
+                                                <Grid Grid.Row="1" Visibility="{Binding rackId, Converter={StaticResource FirstChar2ToVisibilityConverter}}">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
                                                     </Grid.ColumnDefinitions>
                                                     <Grid Grid.Column="0">
                                                         <Grid.OpacityMask>
                                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                                <GradientStop Color="Black" Offset="0"/>
-                                                                <GradientStop Color="Black" Offset="0.8"/>
-                                                                <GradientStop Color="Transparent" Offset="1"/>
+                                                                <GradientStop Offset="0" Color="Black" />
+                                                                <GradientStop Offset="0.8" Color="Black" />
+                                                                <GradientStop Offset="1" Color="Transparent" />
                                                             </LinearGradientBrush>
                                                         </Grid.OpacityMask>
 
@@ -424,7 +422,7 @@
                                                             Foreground="AliceBlue"
                                                             Opacity="0.5"
                                                             Text="{Binding Model}"
-                                                            ToolTip="{Binding Model}"/>
+                                                            ToolTip="{Binding Model}" />
                                                     </Grid>
 
 

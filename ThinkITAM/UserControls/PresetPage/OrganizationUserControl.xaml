@@ -54,8 +54,7 @@
                     <TextBlock
                         Margin="10,0"
                         VerticalAlignment="Center"
-                        FontSize="20"
-                        >
+                        FontSize="20">
                         一级组织架构
                     </TextBlock>
 

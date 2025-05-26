@@ -100,7 +100,10 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Grid Grid.Column="0" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+                    <Grid
+                        Grid.Column="0"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Stretch">
                         <Grid.OpacityMask>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="Black" />
@@ -121,7 +124,10 @@
 
                     </Grid>
 
-                    <Grid Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Stretch">
+                    <Grid
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Stretch">
 
                         <TextBlock
                             HorizontalAlignment="Left"

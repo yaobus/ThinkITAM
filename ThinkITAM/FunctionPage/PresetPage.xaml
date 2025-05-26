@@ -51,8 +51,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -81,8 +80,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -111,8 +109,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -141,8 +138,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -172,8 +168,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -202,8 +197,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -232,8 +226,7 @@
                             <materialDesign:ColorZone
                                 Width="295"
                                 Height="50"
-                                Padding="8"
-                                >
+                                Padding="8">
 
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
