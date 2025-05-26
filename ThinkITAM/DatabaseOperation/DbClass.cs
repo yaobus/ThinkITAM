@@ -1298,7 +1298,11 @@ namespace ThinkITAM.DatabaseOperation
 
 
                                 break;
+                            case "Computer":
 
+                                sql = $"CREATE TABLE \"Computer\" ( \"UID\" INTEGER NOT NULL, \"DeviceId\" TEXT, \"AssetId\" TEXT, \"AssetUser\" TEXT, \"PortId\" INTEGER, \"PortTag\" TEXT, \"PortType\" TEXT, \"PortStatus\" TEXT, \"OnTheLine\" INTEGER, \"PortColor\" INTEGER, \"PortGroup\" TEXT, \"BuildingId\" TEXT, \"Floor\" TEXT, \"Room\" TEXT, \"Del\" INTEGER, PRIMARY KEY (\"UID\") );";
+
+                                break;
 
                         }
 
@@ -1500,6 +1504,7 @@ namespace ThinkITAM.DatabaseOperation
                                 sql = $"CREATE TABLE LinkDetail ( UID INT AUTO_INCREMENT,LinkId INT NOT NULL,SequenceNo INT,DevicesAssetId VARCHAR(16),PortUID VARCHAR(8),PRIMARY KEY (UID));";
                                 
                                 break;
+
                             case "WakeOnLan":
 
                                 sql =
@@ -1507,7 +1512,13 @@ namespace ThinkITAM.DatabaseOperation
 
 
                                 break;
+                            case "Computer":
 
+                                sql =
+                                    $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16), `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+
+                                break;
 
                         }
 

@@ -110,11 +110,11 @@
 
                                 <Grid
                                     Grid.Column="1"
-                                    Height="50"
+                                    Height="80"
                                     Margin="5,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="62*" />
-                                        <RowDefinition Height="38*" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
@@ -125,9 +125,11 @@
 
 
                                     <TextBlock
+                                        Padding="0"
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
                                         Text="{DynamicResource DasNetworkNote}" />
@@ -160,6 +162,7 @@
                                         Text="128" />
 
                                     <TextBlock
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
@@ -186,6 +189,7 @@
                                         Text="8192" />
 
                                     <TextBlock
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
@@ -212,6 +216,7 @@
                                         Text="4096" />
 
                                     <TextBlock
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
@@ -260,11 +265,11 @@
 
                                 <Grid
                                     Grid.Column="1"
-                                    Height="50"
+                                    Height="80"
                                     Margin="5,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="62*" />
-                                        <RowDefinition Height="38*" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
@@ -275,9 +280,11 @@
 
 
                                     <TextBlock
+                                        Padding="0"
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
                                         Text="{DynamicResource DasDeviceNote}" />
@@ -410,11 +417,11 @@
 
                                 <Grid
                                     Grid.Column="1"
-                                    Height="50"
+                                    Height="80"
                                     Margin="5,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="62*" />
-                                        <RowDefinition Height="38*" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
@@ -425,9 +432,11 @@
 
 
                                     <TextBlock
+                                        Padding="0"
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
                                         Text="{DynamicResource DasLinkNote}" />
@@ -560,11 +569,11 @@
 
                                 <Grid
                                     Grid.Column="1"
-                                    Height="50"
+                                    Height="80"
                                     Margin="5,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="62*" />
-                                        <RowDefinition Height="38*" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
@@ -575,9 +584,11 @@
 
 
                                     <TextBlock
+                                        Padding="0"
+                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
-                                        VerticalAlignment="Center"
+                                        VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
                                         Text="{DynamicResource DasAssetNote}" />
