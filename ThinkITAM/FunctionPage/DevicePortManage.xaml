@@ -845,7 +845,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Grid Background="{Binding CustomColor, Converter={StaticResource CustomColorIndexToColor}}" />
+                                    <Grid Background="{Binding PortColor, Converter={StaticResource CustomColorIndexToColor}}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
