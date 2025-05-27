@@ -7,19 +7,22 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加用户信息"
-    Width="500"
-    Height="500"
+    Width="600"
+    Height="400"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddPeopleWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <StackPanel
@@ -40,210 +43,223 @@
                 Text="添加用户信息" />
 
         </StackPanel>
-
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,0,0,10"
-            Orientation="Vertical">
-
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="用户编号:" />
-                <TextBox
-                    x:Name="UserNumberPrefix"
-                    Width="120"
-                    Height="28"
-                    Margin="10,0,0,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="False"
-                    materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
-                    IsEnabled="False"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                <TextBox
-                    x:Name="UserNumber"
-                    Width="100"
-                    Height="28"
-                    Margin="10,0,0,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="False"
-                    materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
-                    MouseDoubleClick="UserNumber_OnMouseDoubleClick"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    ToolTip="双击自动获取最小可用编号" />
-
-
-                <Button
-                    x:Name="EditPrefixButton"
-                    Width="28"
-                    Height="28"
-                    Padding="0"
-                    Click="EditPrefixButton_OnClick"
-                    Style="{StaticResource MaterialDesignFlatLightButton}"
-                    ToolTip="设置编号前缀">
-
-                    <materialDesign:PackIcon Kind="RenameOutline" />
-                </Button>
-
-            </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
             <StackPanel
-                Margin="10"
+                Grid.Column="0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
+                Orientation="Vertical">
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="用户姓名:" />
-                <TextBox
-                    x:Name="User"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="用户编号:" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            x:Name="UserNumberPrefix"
+                            Width="120"
+                            Height="28"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="False"
+                            materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        <TextBox
+                            x:Name="UserNumber"
+                            Width="92"
+                            Height="28"
+                            Margin="5,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="False"
+                            materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
+                            MouseDoubleClick="UserNumber_OnMouseDoubleClick"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            ToolTip="双击自动获取最小可用编号" />
+
+
+                        <Button
+                            x:Name="EditPrefixButton"
+                            Width="28"
+                            Height="28"
+                            Padding="0"
+                            Click="EditPrefixButton_OnClick"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="设置编号前缀">
+
+                            <materialDesign:PackIcon Kind="RenameOutline" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="AccountOutline"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-            </StackPanel>
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="用户姓名:" />
+                    <TextBox
+                        x:Name="User"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="AccountOutline"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="联系电话:" />
+                    <TextBox
+                        x:Name="Phone"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Phone"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="备注信息:" />
+                    <TextBox
+                        x:Name="Note"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                </StackPanel>
 
 
 
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="一级组织:" />
-                <ComboBox
-                    x:Name="Organization"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"
-                    IsEditable="True"
-                    MaxDropDownHeight="300"
-                    SelectionChanged="Organization_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            </StackPanel>
 
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="二级组织:" />
-                <ComboBox
-                    x:Name="Department"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="SourceMerge"
-                    IsEditable="True"
-                    MaxDropDownHeight="300"
-                    SelectionChanged="Department_OnSelectionChanged"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            </StackPanel>
 
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="三级组织:" />
-                <ComboBox
-                    x:Name="Groups"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
-                    IsEditable="True"
-                    MaxDropDownHeight="300"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            </StackPanel>
 
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Content="联系电话:" />
-                <TextBox
-                    x:Name="Phone"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Phone"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
 
             <StackPanel
-                Margin="10"
+                Grid.Column="1"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <Label
-                    HorizontalAlignment="Right"
+                Orientation="Vertical">
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="备注信息:" />
-                <TextBox
-                    x:Name="Note"
-                    Width="250"
-                    Height="28"
-                    Margin="10,0"
-                    Padding="3"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="一级组织:" />
+                    <ComboBox
+                        x:Name="Organization"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="Organization_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="二级组织:" />
+                    <ComboBox
+                        x:Name="Department"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="SourceMerge"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="Department_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="三级组织:" />
+                    <ComboBox
+                        x:Name="Groups"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
+
+
+
             </StackPanel>
+        </Grid>
 
-
-            <Button
-                x:Name="SaveButton"
-                Width="150"
-                Margin="0,20,65,0"
-                HorizontalAlignment="Right"
-                Click="SaveButton_OnClick"
-                Content="保存" />
-        </StackPanel>
+        <Button
+            x:Name="SaveButton"
+            Grid.Row="2"
+            Width="150"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Click="SaveButton_OnClick"
+            Content="保存" />
 
         <materialDesign:DialogHost
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             d:Visibility="Collapsed"
             Identifier="MessageDialogHost">
             <!--  DialogHost的内容  -->
@@ -253,7 +269,7 @@
         <materialDesign:DialogHost
             x:Name="SavePrefixDialogHost"
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             d:Visibility="Collapsed"
             CloseOnClickAway="True"
             DialogClosed="SavePrefixDialogHost_OnDialogClosed"

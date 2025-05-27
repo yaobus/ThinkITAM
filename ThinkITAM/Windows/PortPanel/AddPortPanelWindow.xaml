@@ -7,40 +7,30 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加端口面板"
-    Width="620"
-    Height="460"
+    Width="600"
+    Height="500"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddPortPanelWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
 
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="220" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="220" />
-        </Grid.ColumnDefinitions>
-
 
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
@@ -66,317 +56,335 @@
                 Text="新建面板端口" />
 
         </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
 
+                <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="所在建筑:" />
 
+                    <ComboBox
+                        x:Name="BuildingCombobox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
+                        DisplayMemberPath="Building"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="BuildingCombobox_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-        <Label
-            Grid.Row="1"
-            Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="所在建筑:" />
+                </StackPanel>
 
-        <ComboBox
-            x:Name="BuildingCombobox"
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
-            DisplayMemberPath="Building"
-            MaxDropDownHeight="300"
-            SelectionChanged="BuildingCombobox_OnSelectionChanged"
-            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-
-
-
-        <Label
-            Grid.Row="1"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="所在楼层:" />
-        <ComboBox
-            x:Name="FloorCombobox"
-            Grid.Row="1"
-            Grid.Column="3"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
-            DisplayMemberPath="Floor"
-            IsEditable="True"
-            MaxDropDownHeight="300"
-            SelectionChanged="FloorCombobox_OnSelectionChanged"
-            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-
-        <Label
-            Grid.Row="2"
-            Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="所在房间:" />
-
-        <Label
-            Grid.Row="2"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="房间备注:" />
-
-        <TextBox
-            x:Name="RoomNote"
-            Grid.Row="2"
-            Grid.Column="3"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="InformationSlabBoxOutline"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            ToolTip="同一个房间只能有一个备注，备注发生改变，将会自动覆盖原有备注信息" />
-
-
-        <ComboBox
-            x:Name="PortTypeCombobox"
-            Grid.Row="3"
-            Grid.Column="1"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="Ethernet"
-            MaxDropDownHeight="300"
-            SelectedIndex="0"
-            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-            <ComboBoxItem Content="Eth" />
-            <ComboBoxItem Content="SC" />
-            <ComboBoxItem Content="FC" />
-            <ComboBoxItem Content="LC" />
-        </ComboBox>
-
-        <Label
-            Grid.Row="3"
-            Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="端口类型:" />
-
-
-        <TextBox
-            x:Name="PortIdBox"
-            Grid.Row="4"
-            Grid.Column="1"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-
-        <Label
-            Grid.Row="4"
-            Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="端口编号:" />
-
-        <Label
-            Grid.Row="4"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="端口数量:" />
-
-
-        <Slider
-            x:Name="PortNumberSlider"
-            Grid.Row="4"
-            Grid.Column="3"
-            Margin="10,0"
-            VerticalAlignment="Center"
-            IsEnabled="{Binding ElementName=AutoNumber, Path=IsChecked}"
-            Maximum="36"
-            Minimum="1"
-            Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
-            TickFrequency="1"
-            TickPlacement="BottomRight"
-            ToolTip="端口号将从最后一位数字开始自动递增"
-            Value="5" />
-
-        <ComboBox
-            x:Name="RoomCombobox"
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="FloorPlan"
-            IsEditable="True"
-            MaxDropDownHeight="300"
-            SelectionChanged="RoomCombobox_OnSelectionChanged"
-            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-
-        <Label
-            Grid.Row="3"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="自定分组:" />
-
-        <ComboBox
-            x:Name="GroupCombobox"
-            Grid.Row="3"
-            Grid.Column="3"
-            Width="200"
-            Height="28"
-            Margin="10,0"
-            Padding="3"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-            materialDesign:TextFieldAssist.LeadingIcon="VectorSelection"
-            IsEditable="True"
-            MaxDropDownHeight="300"
-            Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-
-
-        <Label
-            Grid.Row="5"
-            Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="颜色标签:" />
-
-        <ListBox
-            x:Name="PortColor"
-            Grid.Row="5"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Width="200"
-            Height="28"
-            Margin="10"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            SelectedIndex="{Binding CustomColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            SelectionChanged="PortColor_OnSelectionChanged"
-            Style="{StaticResource MaterialDesignToolToggleListBox}">
-            <ListBoxItem
-                Width="24"
-                Margin="0,0,0,0"
-                Padding="0"
-                Background="Transparent"
-                ToolTip="选择此项将不显示标签">
-                <StackPanel HorizontalAlignment="Center">
-
-                    <TextBlock
-                        Margin="8,0"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Text="N" />
+                <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="所在楼层:" />
+                    <ComboBox
+                        x:Name="FloorCombobox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
+                        DisplayMemberPath="Floor"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="FloorCombobox_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
                 </StackPanel>
 
 
+                <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
 
-            </ListBoxItem>
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#FF0080"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#F15A24"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#FBC02D"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#64DD17"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#00A8FF"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#008080"
-                Opacity="1" />
-            <ListBoxItem
-                Width="24"
-                Height="28"
-                Margin="0.5,0"
-                Background="#362391"
-                Opacity="1" />
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="所在房间:" />
 
 
-        </ListBox>
+                    <ComboBox
+                        x:Name="RoomCombobox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="FloorPlan"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectionChanged="RoomCombobox_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-        <Button
-            x:Name="PreviewButton"
-            Grid.Row="5"
-            Grid.Column="3"
-            Width="150"
-            Height="30"
-            Margin="10"
-            HorizontalAlignment="Right"
-            Click="PreviewButton_OnClick"
-            Content="预览编号" />
+                </StackPanel>
+
+
+                <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="房间备注:" />
+
+                    <TextBox
+                        x:Name="RoomNote"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="InformationSlabBoxOutline"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        ToolTip="同一个房间只能有一个备注，备注发生改变，将会自动覆盖原有备注信息" />
+
+                </StackPanel>
+
+                <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="颜色标签:" />
+
+                    <ListBox
+                        x:Name="PortColor"
+                        Width="230"
+                        Height="28"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        BorderThickness="0.5"
+                        SelectedIndex="{Binding CustomColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionChanged="PortColor_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignToolToggleListBox}">
+                        <ListBoxItem
+                            Width="26"
+                            Margin="0,0,0,0"
+                            Padding="0"
+                            Background="Transparent"
+                            ToolTip="选择此项将不显示标签">
+                            <StackPanel HorizontalAlignment="Center">
+
+                                <TextBlock
+                                    Margin="8,0"
+                                    Padding="0"
+                                    HorizontalAlignment="Center"
+                                    Text="N" />
+
+                            </StackPanel>
+
+
+
+                        </ListBoxItem>
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#FF0080"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#F15A24"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#FBC02D"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#64DD17"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#00A8FF"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#008080"
+                            Opacity="1" />
+                        <ListBoxItem
+                            Width="28"
+                            Height="28"
+                            Margin="0.5,0"
+                            Background="#362391"
+                            Opacity="1" />
+
+
+                    </ListBox>
+
+
+
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口类型:" />
+
+
+
+                    <ComboBox
+                        x:Name="PortTypeCombobox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Ethernet"
+                        MaxDropDownHeight="300"
+                        SelectedIndex="0"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="Eth" />
+                        <ComboBoxItem Content="SC" />
+                        <ComboBoxItem Content="FC" />
+                        <ComboBoxItem Content="LC" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="{StaticResource DefaultMargin}" HorizontalAlignment="Center">
+
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="自定分组:" />
+
+                    <ComboBox
+                        x:Name="GroupCombobox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="VectorSelection"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+
+
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口编号:" />
+                    <TextBox
+                        x:Name="PortIdBox"
+                        Width="230"
+                        Height="28"
+                        Padding="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+
+
+                </StackPanel>
+                <StackPanel Margin="{StaticResource DefaultMargin}" HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口数量:" />
+
+
+                    <Slider
+                        x:Name="PortNumberSlider"
+                        Width="230"
+                        VerticalAlignment="Center"
+                        IsEnabled="{Binding ElementName=AutoNumber, Path=IsChecked}"
+                        Maximum="36"
+                        Minimum="1"
+                        Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        ToolTip="端口号将从最后一位数字开始自动递增"
+                        Value="5" />
+
+
+
+                </StackPanel>
+                <StackPanel Margin="{StaticResource DefaultMargin}" HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="" />
+                    <Button
+                        x:Name="PreviewButton"
+                        Width="230"
+                        Height="28"
+                        HorizontalAlignment="Left"
+                        Click="PreviewButton_OnClick"
+                        Content="预览编号" />
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+        </Grid>
+
+
+
+
+
 
 
         <TextBox
             x:Name="PortNumberTextBox"
-            Grid.Row="6"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Margin="10,2"
+            Grid.Row="2"
+            Margin="35,10"
             Padding="0"
             AcceptsReturn="True"
+            BorderThickness="0.5"
             IsReadOnly="True"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto" />
 
+
+
+
+
+
+
+
         <StackPanel
-            Grid.Row="7"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
+            Grid.Row="3"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
 

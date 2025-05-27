@@ -44,7 +44,7 @@
                         Content="一级组织:" />
                     <ComboBox
                         x:Name="OrganizationBox"
-                        Width="200"
+                        Width="250"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
@@ -64,7 +64,7 @@
                         Content="二级组织:" />
                     <ComboBox
                         x:Name="DepartmentBox"
-                        Width="200"
+                        Width="250"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
@@ -84,7 +84,7 @@
                         Content="三级组织:" />
                     <ComboBox
                         x:Name="GroupBox"
-                        Width="200"
+                        Width="250"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="0"
@@ -104,7 +104,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBox
                             x:Name="UserName"
-                            Width="155"
+                            Width="205"
                             Height="28"
                             Margin="0,0,5,0"
                             Padding="3"
@@ -138,7 +138,7 @@
                         Content="用户编号:" />
                     <TextBox
                         x:Name="Number"
-                        Width="200"
+                        Width="250"
                         Height="28"
                         Margin="0,0,10,0"
                         Padding="3"

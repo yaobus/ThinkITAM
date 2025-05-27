@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="标签设置"
-    Width="300"
+    Width="400"
     Height="250"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="TagModifyWindow_OnLoaded"
@@ -21,34 +21,37 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel
             Grid.Row="0"
             Margin="0,20,0,0"
+            HorizontalAlignment="Center"
             Orientation="Vertical">
             <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
-                <TextBlock
+                <Label
                     Margin="0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="目标端口:" />
+                    Content="目标端口:" />
 
                 <TextBlock
                     x:Name="TitleTextBlock"
+                    Width="300"
                     Height="32"
-                    Padding="0,8,0,0"
+                    Padding="6,8,0,0"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     d:Text="ABCD" />
 
             </StackPanel>
             <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
-                <TextBlock
+                <Label
                     Margin="0,0"
                     Padding="3"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="设定标签:" />
+                    Content="设定标签:" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -59,8 +62,9 @@
                     <TextBox
                         x:Name="TagTextBox"
                         Grid.Column="0"
+                        Width="300"
                         Height="32"
-                        Padding="0"
+                        Padding="6,0,0,0"
                         d:Text="ABCD"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     <Button
@@ -72,7 +76,8 @@
                         BorderThickness="1"
                         Click="ClearInput_OnClick"
                         Style="{StaticResource MaterialDesignOutlinedLightButton}"
-                        ToolTip="清空输入框内容">
+                        ToolTip="清空输入框内容"
+                        Visibility="Collapsed">
                         <materialDesign:PackIcon Kind="DeleteOutline" />
                     </Button>
 
@@ -96,7 +101,7 @@
                 x:Name="CancelButton"
                 Grid.Column="0"
                 Width="100"
-                Margin="0"
+                Margin="10"
                 HorizontalAlignment="Stretch"
                 Click="CancelButton_OnClick"
                 Content="取消"
@@ -106,7 +111,7 @@
                 x:Name="SaveButton"
                 Grid.Column="1"
                 Width="100"
-                Margin="0"
+                Margin="10"
                 HorizontalAlignment="Stretch"
                 Click="SaveButton_OnClick"
                 Content="保存"

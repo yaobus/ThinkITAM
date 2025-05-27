@@ -7,24 +7,28 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加资产类型及编号预设"
-    Width="440"
-    Height="360"
+    Width="400"
+    Height="400"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddAssetTagWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
+            Margin="10,0"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
@@ -40,27 +44,23 @@
 
         </StackPanel>
 
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,10"
-            Orientation="Vertical">
+        <StackPanel Grid.Row="1" Orientation="Vertical">
 
 
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="资产类型:" />
                 <ComboBox
                     x:Name="AssetType"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     IsEditable="True"
@@ -70,19 +70,18 @@
             </StackPanel>
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="设备类型:" />
                 <ComboBox
                     x:Name="DeviceType"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -93,19 +92,18 @@
             </StackPanel>
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="编号前缀:" />
                 <TextBox
                     x:Name="AssetTag"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -115,19 +113,18 @@
 
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="备注信息:" />
                 <TextBox
                     x:Name="Note"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -136,13 +133,15 @@
             </StackPanel>
 
 
-            <Button
-                x:Name="SaveButton"
-                Width="150"
-                Margin="0,20,50,0"
-                HorizontalAlignment="Right"
-                Click="SaveButton_OnClick"
-                Content="保存" />
+
         </StackPanel>
+        <Button
+            x:Name="SaveButton"
+            Grid.Row="2"
+            Width="150"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Click="SaveButton_OnClick"
+            Content="保存" />
     </Grid>
 </Window>

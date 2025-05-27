@@ -76,7 +76,17 @@ namespace ThinkITAM.Windows.PortPanel
 
                         portList.Add(id);
 
-                        PortNumberTextBox.Text += $"{id},  ";
+                        if (i == PortNumberSlider.Value -1)
+                        {
+                            PortNumberTextBox.Text += $"{id}  ";
+                        }
+                        else
+                        {
+                            PortNumberTextBox.Text += $"{id},  ";
+                        }
+
+
+                        //  PortNumberTextBox.Text += $"{id},  ";
 
 
                     }
@@ -92,7 +102,17 @@ namespace ThinkITAM.Windows.PortPanel
 
                         portList.Add(id);
 
-                        PortNumberTextBox.Text += $"{id},  ";
+
+                        if (i== PortNumberSlider.Value)
+                        {
+                            PortNumberTextBox.Text += $"{id}  ";
+                        }
+                        else
+                        {
+                            PortNumberTextBox.Text += $"{id},  ";
+                        }
+
+                       
 
                     }
                 }

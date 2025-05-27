@@ -21,15 +21,16 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
 
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
+            Margin="10,0"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 

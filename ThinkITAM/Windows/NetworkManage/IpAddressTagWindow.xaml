@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="IP地址详细信息-自定义字段"
-    Width="630"
+    Width="600"
     Height="350"
     Closing="Window_Closing"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -217,13 +217,12 @@
         <Grid
             Grid.Row="2"
             Grid.Column="1"
-            Margin="10,0">
+            Margin="10">
 
 
             <Button
                 x:Name="SaveButton"
                 Width="150"
-                Margin="0,0,10,20"
                 HorizontalAlignment="Right"
                 Click="SaveButton_Click"
                 Content="保存"

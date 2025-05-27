@@ -7,28 +7,28 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加浏览器"
-    Width="440"
-    Height="320"
+    Width="400"
+    Height="350"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddBrowserWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="29*" />
-            <ColumnDefinition Width="191*" />
-        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
+            Grid.Row="0"
+            Margin="10,0"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
@@ -47,23 +47,21 @@
         <StackPanel
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Margin="0,20,0,20"
             Orientation="Vertical">
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="浏览器名称:" />
                 <TextBox
                     x:Name="BrowserName"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -73,51 +71,51 @@
 
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="浏览器路径:" />
-                <TextBox
-                    x:Name="BrowserPath"
-                    Width="205"
-                    Height="28"
-                    Margin="10,0,0,0"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="FolderFile"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                <Button
-                    x:Name="FindBrowserPathButton"
-                    Width="40"
-                    Height="28"
-                    Margin="5,0,10,0"
-                    Padding="0"
-                    Click="FindBrowserPathButton_OnClick"
-                    Content="浏览"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    ToolTip="指定浏览器路径" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBox
+                        x:Name="BrowserPath"
+                        Width="255"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="FolderFile"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    <Button
+                        x:Name="FindBrowserPathButton"
+                        Width="40"
+                        Height="28"
+                        Margin="5,0,0,0"
+                        Padding="0"
+                        Click="FindBrowserPathButton_OnClick"
+                        Content="浏览"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="指定浏览器路径" />
+                </StackPanel>
             </StackPanel>
 
             <StackPanel
-                Margin="10"
+                Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <Label
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="浏览器备注:" />
                 <TextBox
                     x:Name="Note"
-                    Width="250"
+                    Width="300"
                     Height="28"
-                    Margin="10,0,0,0"
                     Padding="3"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -126,13 +124,15 @@
 
             </StackPanel>
 
-            <Button
-                x:Name="SaveButton"
-                Width="150"
-                Margin="0,20,60,0"
-                HorizontalAlignment="Right"
-                Click="SaveButton_OnClick"
-                Content="保存" />
+
         </StackPanel>
+        <Button
+            x:Name="SaveButton"
+            Grid.Row="2"
+            Width="150"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Click="SaveButton_OnClick"
+            Content="保存" />
     </Grid>
 </Window>
