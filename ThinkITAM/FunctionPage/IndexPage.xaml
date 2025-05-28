@@ -51,7 +51,7 @@
                     MinWidth="200"
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="筛选关键字"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:HintAssist.HintOpacity="0.3"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
@@ -145,7 +145,7 @@
                     Click="AddButton_OnClick"
                     Cursor="Hand"
                     Style="{StaticResource MaterialDesignFlatLightButton}"
-                    ToolTip="新增设备">
+                    ToolTip="{DynamicResource IpAdd}">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"

@@ -64,7 +64,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="组织机构管理" />
+                                        Text="{DynamicResource PrpOrganization}" />
 
 
                                 </StackPanel>
@@ -93,7 +93,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="人员信息管理" />
+                                        Text="{DynamicResource PrpPeople}" />
 
 
                                 </StackPanel>
@@ -122,7 +122,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="地点位置预设" />
+                                        Text="{DynamicResource PrpAddress}" />
 
 
                                 </StackPanel>
@@ -151,7 +151,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="机房机柜管理" />
+                                        Text="{DynamicResource PrpDeviceRoom}" />
 
 
                                 </StackPanel>
@@ -181,7 +181,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="建筑信息管理" />
+                                        Text="{DynamicResource PrpBuilding}" />
 
 
                                 </StackPanel>
@@ -210,7 +210,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="资产分组预设" />
+                                        Text="{DynamicResource PrpAssetGroup}" />
 
 
                                 </StackPanel>
@@ -239,7 +239,7 @@
                                     <TextBlock
                                         Margin="10"
                                         VerticalAlignment="Center"
-                                        Text="快捷访问预设" />
+                                        Text="{DynamicResource PrpBrowser}" />
 
 
                                 </StackPanel>

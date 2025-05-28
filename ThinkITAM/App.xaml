@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesign3.defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Nodify;component/Themes/Light.xaml" />
                 <ResourceDictionary Source="Language/zh-CN.xaml" />
-                <ResourceDictionary Source="Language/en-US.xaml" />
+                <!--<ResourceDictionary Source="Language/en-US.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
 

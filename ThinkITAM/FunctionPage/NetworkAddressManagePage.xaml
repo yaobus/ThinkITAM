@@ -746,73 +746,6 @@
 
         </materialDesign:Card>
 
-        <!--<Grid
-
-        Visibility="Collapsed"
-        Grid.Column="1"
-        Grid.Row="0">
-        <Grid.RowDefinitions>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-
-        <Grid
-        Row="0"
-        >
-
-        <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel
-        Grid.Column="0"
-        Margin="4"
-        Orientation="Horizontal"
-        HorizontalAlignment="Left"
-        >
-
-
-        <RadioButton
-        x:Name="GraphicsButton"
-        Margin="0"
-        IsChecked="True"
-        Click="GraphicsButton_Click"
-        ToolTip="以图形方式显示所选网段地址"
-
-        Style="{StaticResource MaterialDesignTabRadioButtonTop}" >
-
-        <materialDesign:PackIcon Kind="Apps" Width="24" Height="24"/>
-
-        </RadioButton>
-        <RadioButton
-        x:Name="ListButton"
-        Margin="0"
-        IsChecked="False"
-        Click="ListButton_Click"
-        ToolTip="以列表方式显示所选网段地址"
-        Style="{StaticResource MaterialDesignTabRadioButtonTop}"
-
-        >
-
-        <materialDesign:PackIcon  Kind="FormatListText" Width="24" Height="24"/>
-
-        </RadioButton>
-
-
-
-        </StackPanel>
-
-
-
-        </Grid>
-
-
-
-
-        </Grid>-->
-
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -852,6 +785,7 @@
                         Margin="0,0,0,10"
                         d:Visibility="Collapsed"
                         AutoGenerateColumns="False"
+                        Background="Transparent"
                         CanUserAddRows="False"
                         MouseDoubleClick="AddressListView_OnMouseDoubleClick"
                         SelectionMode="Extended"

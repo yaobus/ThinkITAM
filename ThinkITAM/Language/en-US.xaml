@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="clr-namespace:System;assembly=mscorlib">
 
+
     <!--  MainWindow  -->
     <s:String x:Key="AddProject">Add Project</s:String>
     <s:String x:Key="DelProject">Delete Project</s:String>
@@ -10,6 +11,7 @@
     <s:String x:Key="SetPassword">Set Password</s:String>
     <s:String x:Key="SetPasswordAgain">Confirm Password</s:String>
     <s:String x:Key="SavePassword">Save Password</s:String>
+
     <s:String x:Key="InputPassword">Enter Password</s:String>
     <s:String x:Key="Login">Verify Password</s:String>
 
@@ -22,19 +24,19 @@
     <s:String x:Key="CdConfirm">Confirm</s:String>
     <s:String x:Key="CdTitle">Please Set Password</s:String>
     <s:String x:Key="CdPrompt">Password cannot be empty</s:String>
-    <s:String x:Key="CdPrompt2">Passwords do not match</s:String>
+    <s:String x:Key="CdPrompt2">Password entries do not match</s:String>
     <s:String x:Key="CdFailedVerificationTitle">Verification Failed</s:String>
     <s:String x:Key="CdFailedVerificationPrompt">Verification failed, incorrect password</s:String>
 
     <!--  Windows.Project.AddProjectWindow  -->
     <s:String x:Key="ApwTitle">Add Project</s:String>
-    <s:String x:Key="ApwType">Select Project Storage Method</s:String>
+    <s:String x:Key="ApwType">Select Project Storage Type</s:String>
     <s:String x:Key="ApwSqlitePath">Select Project Storage Path</s:String>
     <s:String x:Key="ApwSqliteNew">New</s:String>
     <s:String x:Key="ApwSqliteName">Set Project Name</s:String>
     <s:String x:Key="ApwSave">Save</s:String>
-    <s:String x:Key="ApwOpenFileFilter">Database Files (*.db)|*.db|All Files (*.*)|*.*</s:String>
-    <s:String x:Key="ApwOpenFileTitle">Please select a Sqlite.db file</s:String>
+    <s:String x:Key="ApwOpenFileFilter">SQLite Database File (*.db)|*.db|All Files (*.*)|*.*</s:String>
+    <s:String x:Key="ApwOpenFileTitle">Please select a SQLite.db file</s:String>
     <s:String x:Key="ApwSaveFileMessage">Select Storage Folder</s:String>
     <s:String x:Key="ApwHost">Database Host Address</s:String>
     <s:String x:Key="ApwPort">Port Number</s:String>
@@ -43,42 +45,46 @@
     <s:String x:Key="ApwDatabaseName">Database Name</s:String>
     <s:String x:Key="ApwProjectName">Set Project Name</s:String>
 
-    <!--  Windows.Project.AddProjectWindow Incomplete Information MessageDialogHost  -->
+    <!--  AddProjectWindow Incomplete Info MessageDialogHost  -->
     <s:String x:Key="ApwMdTitle">Incomplete Information</s:String>
     <s:String x:Key="ApwMdPrompt">Please complete all information</s:String>
 
     <!--  SelectionWindow  -->
-    <s:String x:Key="SwMenuSelect">Function</s:String>
-    <s:String x:Key="SwDashboard">Dashboard</s:String>
-    <s:String x:Key="SwNetwork">Network</s:String>
-    <s:String x:Key="SwDevicePort">Device</s:String>
-    <s:String x:Key="SwIndexTag">Index</s:String>
-    <s:String x:Key="SwLink">Link</s:String>
-    <s:String x:Key="SwAsset">Asset</s:String>
-    <s:String x:Key="SwPreset">Preset</s:String>
-    <s:String x:Key="SwPanelPort">Port</s:String>
-    <s:String x:Key="SwToolBox">Toolbox</s:String>
-    <s:String x:Key="SwComputer">Deploy</s:String>
+    <s:String x:Key="SwMenuSelect">Function Selection List</s:String>
+    <s:String x:Key="SwDashboard">Asset Overview</s:String>
+    <s:String x:Key="SwNetwork">Network Segment Management</s:String>
+    <s:String x:Key="SwDevicePort">Device Port Management</s:String>
+    <s:String x:Key="SwIndexTag">Index Tag Management</s:String>
+    <s:String x:Key="SwLink">Link Information Management</s:String>
+    <s:String x:Key="SwAsset">Asset Information Management</s:String>
+    <s:String x:Key="SwPreset">Preset Management</s:String>
+    <s:String x:Key="SwPanelPort">Panel Port Management</s:String>
+    <s:String x:Key="SwToolBox">Maintenance Toolkit</s:String>
+    <s:String x:Key="SwComputer">General Terminal Management</s:String>
     <s:String x:Key="SwAbout">About</s:String>
     <s:String x:Key="SwHelp">Help</s:String>
+
     <!--  Dashboard  -->
-    <s:String x:Key="DasNetwork">Network</s:String>
+    <s:String x:Key="DasNetwork">Network Segment Overview</s:String>
     <s:String x:Key="DasNetworkNote">Network segment and available IP address information</s:String>
-    <s:String x:Key="DasNetworkCount">Total Network Segments</s:String>
-    <s:String x:Key="DasNetworkIpCount">Total IP Addresses</s:String>
-    <s:String x:Key="DasNetworkIpNoUse">Available IP Addresses</s:String>
-    <s:String x:Key="DasDevice">Device</s:String>
-    <s:String x:Key="DasDeviceNote">Device and device port information</s:String>
+    <s:String x:Key="DasNetworkCount">Total Segments</s:String>
+    <s:String x:Key="DasNetworkIpCount">Total IPs</s:String>
+    <s:String x:Key="DasNetworkIpNoUse">Available IPs</s:String>
+
+    <s:String x:Key="DasDevice">Device Overview</s:String>
+    <s:String x:Key="DasDeviceNote">Device and port information</s:String>
     <s:String x:Key="DasDeviceCount">Total Devices</s:String>
     <s:String x:Key="DasDevicePortCount">Total Ports</s:String>
     <s:String x:Key="DasDevicePortNoUse">Available Ports</s:String>
-    <s:String x:Key="DasLink">Link</s:String>
+
+    <s:String x:Key="DasLink">Link Overview</s:String>
     <s:String x:Key="DasLinkNote">Link and device connection information</s:String>
     <s:String x:Key="DasLinkCount">Total Links</s:String>
     <s:String x:Key="DasLinkUsed">Used Links</s:String>
     <s:String x:Key="DasLinkNoUse">Available Links</s:String>
-    <s:String x:Key="DasAsset">Asset</s:String>
-    <s:String x:Key="DasAssetNote">Asset information and asset logs</s:String>
+
+    <s:String x:Key="DasAsset">Asset Overview</s:String>
+    <s:String x:Key="DasAssetNote">Asset information and logs</s:String>
     <s:String x:Key="DasAssetType">Asset Types</s:String>
     <s:String x:Key="DasAssetCount">Total Assets</s:String>
     <s:String x:Key="DasAssetPortUsed">Assets In Use</s:String>
@@ -87,8 +93,8 @@
     <s:String x:Key="NmpAddNetwork">Add Network Segment</s:String>
     <s:String x:Key="NmpSearchKeyWord">Search Keyword</s:String>
     <s:String x:Key="NmpSelectShowMode">Switch Display Mode</s:String>
-    <s:String x:Key="NmpSingle">Single Selection Mode</s:String>
-    <s:String x:Key="NmpMulti">Multiple Selection Mode</s:String>
+    <s:String x:Key="NmpSingle">Single Selection</s:String>
+    <s:String x:Key="NmpMulti">Multiple Selection</s:String>
     <s:String x:Key="NmpBrowser">Access Mode</s:String>
     <s:String x:Key="NmpPing">Ping Mode</s:String>
     <s:String x:Key="NmpPingAddress">Check online status of selected network addresses</s:String>
@@ -96,38 +102,40 @@
     <s:String x:Key="NmpResetSort">Reset Sorting</s:String>
     <s:String x:Key="NmpSetNetworkTag">Set Network Segment Tags</s:String>
     <s:String x:Key="NmpSelectedIp">Currently Selected IP Count</s:String>
-    <s:String x:Key="NmpConfigSelectedIp">Configure Selected IP Addresses</s:String>
-    <s:String x:Key="NmpClearSelectedIp">Clear Selected Addresses</s:String>
+    <s:String x:Key="NmpConfigSelectedIp">Configure Selected IPs</s:String>
+    <s:String x:Key="NmpClearSelectedIp">Clear Selected</s:String>
     <s:String x:Key="NmpSelectProtocol">Select Protocol</s:String>
     <s:String x:Key="NmpSelectPort">Select Port</s:String>
     <s:String x:Key="NmpSelectBrowser">Select Browser</s:String>
     <s:String x:Key="NmpSearchNetwork">Network Segment to Search</s:String>
+
+    <!--  DataGrid Columns  -->
     <s:String x:Key="NmpDgSelect">Select</s:String>
-    <s:String x:Key="NmpDgSelectNote">Select IP Address</s:String>
+    <s:String x:Key="NmpDgSelectNote">Select IP address</s:String>
     <s:String x:Key="NmpDgIp">IP</s:String>
-    <s:String x:Key="NmpDgIpNote">IP Address</s:String>
+    <s:String x:Key="NmpDgIpNote">Select IP address</s:String>
     <s:String x:Key="NmpDgPing">PING</s:String>
-    <s:String x:Key="NmpDgPingNote">PING status and response time</s:String>
+    <s:String x:Key="NmpDgPingNote">Ping status and response time</s:String>
     <s:String x:Key="NmpDgColor">Color Tag</s:String>
-    <s:String x:Key="NmpDgColorNote">Color Label</s:String>
+    <s:String x:Key="NmpDgColorNote">Color label</s:String>
     <s:String x:Key="NmpDgIpUser">User</s:String>
     <s:String x:Key="NmpDgIpUserNote">User of this IP</s:String>
-    <s:String x:Key="NmpDgUserOrganization">User Organization</s:String>
+    <s:String x:Key="NmpDgUserOrganization">Organization</s:String>
     <s:String x:Key="NmpDgUserOrganizationNote">User's organization</s:String>
-    <s:String x:Key="NmpDgUserDepartment">User Department</s:String>
+    <s:String x:Key="NmpDgUserDepartment">Department</s:String>
     <s:String x:Key="NmpDgUserDepartmentNote">User's department</s:String>
     <s:String x:Key="NmpDgUserGroup">User Group</s:String>
     <s:String x:Key="NmpDgUserGroupNote">User's group</s:String>
     <s:String x:Key="NmpDgUserPhone">Contact</s:String>
-    <s:String x:Key="NmpDgUserPhoneNote">User's contact number</s:String>
+    <s:String x:Key="NmpDgUserPhoneNote">User's phone</s:String>
     <s:String x:Key="NmpDgHostName">Hostname</s:String>
     <s:String x:Key="NmpDgHostNameNote">Device hostname using this IP</s:String>
     <s:String x:Key="NmpDgMac">MAC Address</s:String>
     <s:String x:Key="NmpDgMacNote">Device MAC using this IP</s:String>
     <s:String x:Key="NmpDgNowHostName">Current Hostname</s:String>
-    <s:String x:Key="NmpDgNowHostNameNote">Currently detected hostname for this IP</s:String>
+    <s:String x:Key="NmpDgNowHostNameNote">Currently detected hostname</s:String>
     <s:String x:Key="NmpDgNowMac">Current MAC</s:String>
-    <s:String x:Key="NmpDgNowMacNote">Currently detected MAC for this IP</s:String>
+    <s:String x:Key="NmpDgNowMacNote">Currently detected MAC</s:String>
     <s:String x:Key="NmpDgRelevanceAsset">Related Asset</s:String>
     <s:String x:Key="NmpDgRelevanceAssetNote">Asset using this IP</s:String>
     <s:String x:Key="NmpDgTagA">Custom Tag A</s:String>
@@ -137,10 +145,126 @@
     <s:String x:Key="NmpDgTagE">Custom Tag E</s:String>
     <s:String x:Key="NmpDgTagF">Custom Tag F</s:String>
     <s:String x:Key="NmpDgOnline">Online Hosts</s:String>
-    <s:String x:Key="NmpDgNowNetwork">Network</s:String>
+    <s:String x:Key="NmpDgNowNetwork">Current Segment</s:String>
     <s:String x:Key="NmpDgNowMask">Subnet Mask</s:String>
     <s:String x:Key="NmpDgFirstIp">First Available IP</s:String>
     <s:String x:Key="NmpDgLastIp">Last Available IP</s:String>
     <s:String x:Key="NmpDgBroadcast">Broadcast Address</s:String>
-    <s:String x:Key="NmpDgNetworkIpCount">Total Network IPs</s:String>
+    <s:String x:Key="NmpDgNetworkIpCount">Total IPs in Segment</s:String>
+
+    <!--  DevicePortManagePage  -->
+    <s:String x:Key="DpmAddDevice">Add Device</s:String>
+    <s:String x:Key="DpmShowMode">Switch Display Mode</s:String>
+    <s:String x:Key="DpmSingleSelectMode">Single Selection</s:String>
+    <s:String x:Key="DpmMultipleSelectMode">Multiple Selection</s:String>
+    <s:String x:Key="DpmLogMode">Log Mode</s:String>
+    <s:String x:Key="DpmReSort">Reset to Default Sorting</s:String>
+    <s:String x:Key="DpmSetButton">Custom Port Tags</s:String>
+    <s:String x:Key="DpmNumberBlock">Selected IP Count</s:String>
+    <s:String x:Key="DpmMultipleAllocationButton">Configure Selected</s:String>
+    <s:String x:Key="DpmClearSelected">Clear Selected</s:String>
+    <s:String x:Key="DpmAssetNumber">Asset ID</s:String>
+    <s:String x:Key="DpmAssetGroup">Asset Group</s:String>
+    <s:String x:Key="DpmDeviceType">Device Type</s:String>
+    <s:String x:Key="DpmDeviceModel">Device Model</s:String>
+    <s:String x:Key="DpmDeviceName">Device Name</s:String>
+
+    <!--  DataGrid Columns  -->
+    <s:String x:Key="DpmDgSelect">Select</s:String>
+    <s:String x:Key="DpmDgPortType">Port Type</s:String>
+    <s:String x:Key="DpmDgPortTag">Port Tag</s:String>
+    <s:String x:Key="DpmDgPortSlot">Slot</s:String>
+    <s:String x:Key="DpmDgPortSlotTooltip">Port slot position</s:String>
+    <s:String x:Key="DpmDgPortId">Port ID</s:String>
+    <s:String x:Key="DpmDgPortStatus">Port Status</s:String>
+    <s:String x:Key="DpmDgPortMode">Port Mode</s:String>
+    <s:String x:Key="DpmDgPortName">Port Name</s:String>
+    <s:String x:Key="DpmDgPortVlan">VLAN/Raid</s:String>
+    <s:String x:Key="DpmDgPortLinkDevice">Linked Device</s:String>
+    <s:String x:Key="DpmDgPortLinkDeviceTooltip">Device at link endpoint</s:String>
+    <s:String x:Key="DpmDgPortLink">Link</s:String>
+    <s:String x:Key="DpmDgPortLinkToolTip">Link containing this port</s:String>
+    <s:String x:Key="DpmDgPortColor">Color Tag</s:String>
+
+    <!--  IndexPage  -->
+    <s:String x:Key="IpAdd">Add Shortcut</s:String>
+
+    <!--  LinkUserControl  -->
+    <s:String x:Key="LucAddRoom">Add Room/Wiring Closet</s:String>
+    <s:String x:Key="LucRoom">Add Shortcut</s:String>
+    <s:String x:Key="LucAddCabinet">Add Cabinet/Custom Group</s:String>
+    <s:String x:Key="LucCabinet">Cabinet</s:String>
+    <s:String x:Key="LucAddRack">Add Patch Panel</s:String>
+    <s:String x:Key="LucRack">Patch Panel</s:String>
+    <s:String x:Key="LucDeviceList">Device List</s:String>
+    <s:String x:Key="LucSlotNumber">Slots</s:String>
+    <s:String x:Key="LucPortNumber">Ports</s:String>
+    <s:String x:Key="LucLinkView">Link Preview</s:String>
+    <s:String x:Key="LucLinkManage">Link Management</s:String>
+    <s:String x:Key="LucLinkDelete">Link Delete Mode</s:String>
+    <s:String x:Key="LucDeviceRemove">Remove Selected</s:String>
+    <s:String x:Key="LucClearRackPanel">Reset Workspace</s:String>
+    <s:String x:Key="LucClearSelect">Clear Selection</s:String>
+    <s:String x:Key="LucClearNode">Clear Nodes</s:String>
+    <s:String x:Key="LucSaveLinkTooltip">Save Link Configuration</s:String>
+    <s:String x:Key="LucSaveLink">Save Link</s:String>
+    <s:String x:Key="LucLinkPort">Linked Port</s:String>
+    <s:String x:Key="LucSelectBuilding">Select Building</s:String>
+    <s:String x:Key="LucSelectFloor">Select Floor</s:String>
+    <s:String x:Key="LucSelectRoom">Select Room</s:String>
+    <s:String x:Key="LucWallPort">Network Port</s:String>
+    <s:String x:Key="LucDevices">Devices</s:String>
+    <s:String x:Key="LucLinkName">Link Name</s:String>
+    <s:String x:Key="LucLinkTagSync">Tag Sync</s:String>
+    <s:String x:Key="LucLinkTagSyncTooltip">Sync name as tag to all nodes on link</s:String>
+    <s:String x:Key="LucLinkSave">Save</s:String>
+    <s:String x:Key="LucLinkClose">Close</s:String>
+
+    <!--  PortPanel  -->
+    <s:String x:Key="PpAddBuilding">Add Building</s:String>
+    <s:String x:Key="PpBuilding">Building</s:String>
+    <s:String x:Key="PpAddRoomPort">Add Room Port</s:String>
+    <s:String x:Key="PpRoomPort">Port</s:String>
+
+    <!--  PresetPage  -->
+    <s:String x:Key="PrpOrganization">Organization Management</s:String>
+    <s:String x:Key="PrpPeople">Personnel Management</s:String>
+    <s:String x:Key="PrpAddress">Location Presets</s:String>
+    <s:String x:Key="PrpDeviceRoom">Room/Cabinet Management</s:String>
+    <s:String x:Key="PrpBuilding">Building Management</s:String>
+    <s:String x:Key="PrpAssetGroup">Asset Group Presets</s:String>
+    <s:String x:Key="PrpBrowser">Shortcut Presets</s:String>
+
+    <!--  ToolsPage  -->
+    <s:String x:Key="TpTitle">IT Toolkit</s:String>
+    <s:String x:Key="TpIpCalculate">IP Calculator</s:String>
+    <s:String x:Key="TpIpCalculateTooltip">Network segment and available IP calculation</s:String>
+    <s:String x:Key="TpIpAddress">IP Address</s:String>
+    <s:String x:Key="TpIpAddressCalculate">IP Calculation</s:String>
+    <s:String x:Key="TpIpNetmask">Subnet Mask</s:String>
+    <s:String x:Key="TpIpNetmaskCalculate">Subnet Calculation</s:String>
+    <s:String x:Key="TpIpScale">Base Conversion</s:String>
+    <s:String x:Key="TpIpScaleTooltip">IP base conversion</s:String>
+    <s:String x:Key="TpPortScanTool">Port Scanner</s:String>
+    <s:String x:Key="TpPortScanTooltip">Host scanning tool</s:String>
+    <s:String x:Key="TpPortScan">Port Scan</s:String>
+    <s:String x:Key="TpHostScan">Host Port Scan</s:String>
+    <s:String x:Key="TpHostStatus">Host Status</s:String>
+    <s:String x:Key="TpHostName">Hostname</s:String>
+    <s:String x:Key="TpHostNameMac">Hostname/MAC Query</s:String>
+    <s:String x:Key="TpMac">MAC Vendor Lookup</s:String>
+    <s:String x:Key="TpMacTooltip">Query vendor by MAC address</s:String>
+    <s:String x:Key="TpMacTooltip2">Query vendor by OUI</s:String>
+    <s:String x:Key="TpMacTooltip3">Query using IEEE public records</s:String>
+    <s:String x:Key="TpStorage">Storage Calculator</s:String>
+    <s:String x:Key="TpStorageTooltip">Calculate RAID storage capacity</s:String>
+    <s:String x:Key="TpRaidCalculate">RAID Capacity</s:String>
+    <s:String x:Key="TpVideoStorage">Video Storage</s:String>
+    <s:String x:Key="TpVideoStorageTooltip">Video storage calculation</s:String>
+    <s:String x:Key="TpSaveTime">Storage Duration</s:String>
+    <s:String x:Key="TpSaveTimeTooltip">Storage duration calculation</s:String>
+    <s:String x:Key="TpWakeTooltip">Wake specified host via network</s:String>
+    <s:String x:Key="TpWakeOnLan">Wake-on-LAN</s:String>
+    <s:String x:Key="TpWakeOnLanTooltip">Wake LAN hosts remotely</s:String>
+
 </ResourceDictionary>

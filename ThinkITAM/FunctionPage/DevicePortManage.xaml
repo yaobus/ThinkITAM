@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     MinWidth="1200"
     MinHeight="700"
-    d:Background="#383838"
+    d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -182,7 +182,7 @@
                         MinWidth="200"
                         Margin="8,0,0,0"
                         VerticalAlignment="Center"
-                        materialDesign:HintAssist.Hint="搜索设备关键字"
+                        materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"
                         Opacity="0.3" />
@@ -219,7 +219,7 @@
                     Click="AddButton_OnClick"
                     Cursor="Hand"
                     Style="{StaticResource MaterialDesignFlatLightButton}"
-                    ToolTip="新增设备">
+                    ToolTip="{DynamicResource DpmAddDevice}">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
@@ -298,7 +298,7 @@
                         Click="ShowModeButton_OnClick"
                         Content="{materialDesign:PackIcon Kind=Apps}"
                         Style="{StaticResource MaterialDesignActionToggleButton}"
-                        ToolTip="切换图形/列表显示模式" />
+                        ToolTip="{DynamicResource DpmShowMode}" />
 
                     <ProgressBar
                         Width="40"
@@ -331,7 +331,7 @@
                                 Click="SingleSelectMode_OnClick"
                                 IsChecked="True"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="单选模式">
+                                ToolTip="{DynamicResource DpmSingleSelectMode}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -347,7 +347,7 @@
                                 Click="MultipleSelectMode_OnClick"
                                 IsEnabled="{Binding}"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="多选模式">
+                                ToolTip="{DynamicResource DpmMultipleSelectMode}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -364,8 +364,8 @@
                                 Margin="5,0"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="日志模式"
-                                Visibility="Visible">
+                                ToolTip="{DynamicResource DpmLogMode}"
+                                Visibility="Collapsed">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -396,7 +396,7 @@
                                 Margin="5,0"
                                 Click="ReSort_OnClick"
                                 Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="重置为默认排序">
+                                ToolTip="{DynamicResource DpmReSort}">
                                 <materialDesign:PackIcon Kind="Restore" />
                             </Button>
 
@@ -405,7 +405,7 @@
                                 Margin="5,0"
                                 Click="SetButton_OnClick"
                                 Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="自定义端口信息标签">
+                                ToolTip="{DynamicResource DpmSetButton}">
                                 <materialDesign:PackIcon Kind="Settings" />
                             </Button>
 
@@ -435,7 +435,7 @@
                                     d:Text="5"
                                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                                     FontSize="22"
-                                    ToolTip="当前选中的IP数量" />
+                                    ToolTip="{DynamicResource DpmNumberBlock}" />
 
 
                                 <Button
@@ -444,7 +444,7 @@
                                     Click="MultipleAllocationButton_Click"
                                     Foreground="LawnGreen"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="一键配置所选地址">
+                                    ToolTip="{DynamicResource DpmMultipleAllocationButton}">
                                     <materialDesign:PackIcon Kind="Play" />
                                 </Button>
 
@@ -454,7 +454,7 @@
                                     Click="ClearSelected_OnClick"
                                     Foreground="OrangeRed"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="清空所选地址">
+                                    ToolTip="{DynamicResource DpmClearSelected}">
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
 
@@ -497,6 +497,7 @@
                     Margin="0,0,0,0"
                     d:Visibility="Collapsed"
                     AutoGenerateColumns="False"
+                    Background="Transparent"
                     CanUserAddRows="False"
                     MouseDoubleClick="PortListView_OnMouseDoubleClick"
                     SelectionMode="Extended"
@@ -515,8 +516,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="选择"
-                                        ToolTip="选择端口" />
+                                        Text="{DynamicResource DpmDgSelect}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -564,8 +564,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口类型"
-                                        ToolTip="端口的类型" />
+                                        Text="{DynamicResource DpmDgPortType}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -593,8 +592,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口标记"
-                                        ToolTip="端口的标记" />
+                                        Text="{DynamicResource DpmDgPortTag}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -622,8 +620,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="槽位编号"
-                                        ToolTip="端口所在槽位" />
+                                        Text="{DynamicResource DpmDgPortSlot}"
+                                        ToolTip="{DynamicResource DpmDgPortSlotTooltip}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -649,8 +647,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口ID"
-                                        ToolTip="端口ID" />
+                                        Text="{DynamicResource DpmDgPortId}"
+                                        ToolTip="{DynamicResource DpmDgPortId}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -676,8 +674,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口状态"
-                                        ToolTip="端口状态" />
+                                        Text="{DynamicResource DpmDgPortStatus}"
+                                        ToolTip="{DynamicResource DpmDgPortStatus}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -703,8 +701,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口模式"
-                                        ToolTip="当前端口模式" />
+                                        Text="{DynamicResource DpmDgPortMode}"
+                                        ToolTip="{DynamicResource DpmDgPortMode}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -730,8 +728,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="端口名称"
-                                        ToolTip="自定义端口名称" />
+                                        Text="{DynamicResource DpmDgPortName}"
+                                        ToolTip="{DynamicResource DpmDgPortName}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -758,7 +756,7 @@
                                         VerticalAlignment="Center"
                                         FontSize="14"
                                         Text="VlanID/Raid"
-                                        ToolTip="端口所在VLAN或磁盘所在Raid" />
+                                        ToolTip="{DynamicResource DpmDgPortVlan}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -785,8 +783,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="关联设备"
-                                        ToolTip="当前端口下接设备" />
+                                        Text="{DynamicResource DpmDgPortLinkDevice}"
+                                        ToolTip="{DynamicResource DpmDgPortLinkDeviceTooltip}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -812,8 +810,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="关联链路"
-                                        ToolTip="端口所关联的链路" />
+                                        Text="{DynamicResource DpmDgPortLink}"
+                                        ToolTip="{DynamicResource DpmDgPortLinkToolTip}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -839,8 +837,8 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="颜色标签"
-                                        ToolTip="自定义的端口颜色标签" />
+                                        Text="{DynamicResource DpmDgPortColor}"
+                                        ToolTip="{DynamicResource DpmDgPortColor}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -862,7 +860,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签A" />
+                                        Text="{DynamicResource NmpDgTagA}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -889,7 +887,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签B" />
+                                        Text="{DynamicResource NmpDgTagB}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -916,7 +914,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签C" />
+                                        Text="{DynamicResource NmpDgTagC}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -943,7 +941,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签D" />
+                                        Text="{DynamicResource NmpDgTagD}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -970,7 +968,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签E" />
+                                        Text="{DynamicResource NmpDgTagE}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -997,7 +995,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
-                                        Text="自定义标签F" />
+                                        Text="{DynamicResource NmpDgTagF}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
@@ -1039,7 +1037,7 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:HintAssist.Hint="{DynamicResource DpmAssetNumber}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="FormatListNumbered"
                         IsEnabled="False"
@@ -1052,7 +1050,7 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:HintAssist.Hint="{DynamicResource DpmAssetGroup}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Devices"
                         IsEnabled="False"
@@ -1065,7 +1063,7 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:HintAssist.Hint="{DynamicResource DpmDeviceType}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Laptop"
                         IsEnabled="False"
@@ -1079,7 +1077,7 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:HintAssist.Hint="{DynamicResource DpmDeviceModel}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="ServerOutline"
                         IsEnabled="False"
@@ -1093,7 +1091,7 @@
                         Margin="10,0"
                         Padding="0"
                         VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                        materialDesign:HintAssist.Hint="{DynamicResource DpmDeviceName}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Notebook"
                         IsEnabled="False"

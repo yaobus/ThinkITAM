@@ -36,7 +36,7 @@
                     VerticalAlignment="Center"
                     FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                     FontSize="48"
-                    Text="IT 工具箱" />
+                    Text="{DynamicResource TpTitle}" />
 
 
                 <WrapPanel
@@ -79,11 +79,11 @@
 
                                     <Grid
                                         Grid.Column="1"
-                                        Height="50"
+                                        Height="70"
                                         Margin="5,0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="62*" />
-                                            <RowDefinition Height="38*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
@@ -92,7 +92,7 @@
                                             FontSize="24"
                                             Foreground="AliceBlue"
                                             Style="{StaticResource MaterialDesignTextBlock}"
-                                            Text="IP地址计算器" />
+                                            Text="{DynamicResource TpIpCalculate}" />
 
 
                                         <TextBlock
@@ -102,7 +102,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="网段信息及可用IP地址信息计算" />
+                                            Text="{DynamicResource TpIpCalculateTooltip}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
 
@@ -120,8 +121,8 @@
 
                                     <Grid Grid.Column="0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="50*" />
-                                            <RowDefinition Height="40*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
 
@@ -133,7 +134,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="IP地址" />
+                                            Text="{DynamicResource TpIpAddress}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -143,7 +144,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="IP地址计算" />
+                                            Text="{DynamicResource TpIpAddressCalculate}" />
                                     </Grid>
 
                                     <Grid Grid.Column="1">
@@ -161,7 +162,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="子网掩码" />
+                                            Text="{DynamicResource TpIpNetmask}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -171,7 +172,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="子网掩码计算" />
+                                            Text="{DynamicResource TpIpNetmaskCalculate}" />
                                     </Grid>
 
                                     <Grid Grid.Column="2">
@@ -189,7 +190,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="进制转换" />
+                                            Text="{DynamicResource TpIpScale}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -199,7 +200,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="IP进制转换" />
+                                            Text="{DynamicResource TpIpScaleTooltip}" />
                                     </Grid>
                                 </Grid>
 
@@ -250,11 +251,11 @@
 
                                     <Grid
                                         Grid.Column="1"
-                                        Height="50"
+                                        Height="70"
                                         Margin="5,0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="62*" />
-                                            <RowDefinition Height="38*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
@@ -262,7 +263,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="24"
                                             Foreground="AliceBlue"
-                                            Text="端口扫描器" />
+                                            Text="{DynamicResource TpPortScanTool}" />
 
 
                                         <TextBlock
@@ -272,7 +273,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="主机信息扫描辅助工具" />
+                                            Text="{DynamicResource TpPortScanTooltip}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
 
@@ -303,7 +305,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="端口扫描" />
+                                            Text="{DynamicResource TpPortScan}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -313,7 +315,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="主机端口扫描" />
+                                            Text="{DynamicResource TpHostScan}" />
                                     </Grid>
 
                                     <Grid Grid.Column="1">
@@ -341,7 +343,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="主机在线状态" />
+                                            Text="{DynamicResource TpHostStatus}" />
                                     </Grid>
 
                                     <Grid Grid.Column="2">
@@ -359,7 +361,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="主机名" />
+                                            Text="{DynamicResource TpHostName}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -369,7 +371,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="主机名MAC查询" />
+                                            Text="{DynamicResource TpHostNameMac}" />
                                     </Grid>
                                 </Grid>
 
@@ -420,11 +422,11 @@
 
                                     <Grid
                                         Grid.Column="1"
-                                        Height="50"
+                                        Height="70"
                                         Margin="5,0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="62*" />
-                                            <RowDefinition Height="38*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
@@ -432,7 +434,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="24"
                                             Foreground="AliceBlue"
-                                            Text="MAC查询厂商" />
+                                            Text="{DynamicResource TpMac}" />
 
 
                                         <TextBlock
@@ -442,7 +444,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="根据MAC地址查询设备生产厂商" />
+                                            Text="{DynamicResource TpMacTooltip}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
 
@@ -472,7 +475,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="根据厂商识别码OUI查询厂商" />
+                                            Text="{DynamicResource TpMacTooltip2}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -482,7 +485,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="根据IEEE公开的分配信息查询" />
+                                            Text="{DynamicResource TpMacTooltip3}" />
                                     </Grid>
 
 
@@ -536,11 +539,11 @@
 
                                     <Grid
                                         Grid.Column="1"
-                                        Height="50"
+                                        Height="70"
                                         Margin="5,0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="62*" />
-                                            <RowDefinition Height="38*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
@@ -548,7 +551,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="24"
                                             Foreground="AliceBlue"
-                                            Text="存储空间计算" />
+                                            Text="{DynamicResource TpStorage}" />
 
 
                                         <TextBlock
@@ -558,7 +561,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="计算存储空间容量" />
+                                            Text="{DynamicResource TpStorageTooltip}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
 
@@ -599,7 +603,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="RAID容量计算" />
+                                            Text="{DynamicResource TpRaidCalculate}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
                                     <Grid Grid.Column="1">
@@ -611,23 +616,23 @@
 
                                         <TextBlock
                                             Grid.Row="0"
-                                            Margin="0"
+                                            Grid.RowSpan="3"
+                                            Margin="0,2,0,0"
                                             HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
+                                            VerticalAlignment="Top"
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="监控存储" />
+                                            Text="{DynamicResource TpVideoStorage}" />
 
                                         <TextBlock
                                             Grid.Row="1"
-                                            Margin="0"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="存储空间计算" />
+                                            Text="{DynamicResource TpVideoStorageTooltip}" />
                                     </Grid>
 
                                     <Grid Grid.Column="2">
@@ -645,7 +650,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="存储时间" />
+                                            Text="{DynamicResource TpSaveTime}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -655,7 +660,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="存储时间计算" />
+                                            Text="{DynamicResource TpSaveTimeTooltip}" />
                                     </Grid>
 
 
@@ -708,11 +713,11 @@
 
                                     <Grid
                                         Grid.Column="1"
-                                        Height="50"
+                                        Height="70"
                                         Margin="5,0">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="62*" />
-                                            <RowDefinition Height="38*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock
                                             Grid.Row="0"
@@ -730,7 +735,8 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="计算存储空间容量" />
+                                            Text="{DynamicResource TpWakeTooltip}"
+                                            TextWrapping="Wrap" />
                                     </Grid>
 
 
@@ -760,7 +766,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="网络唤醒" />
+                                            Text="{DynamicResource TpWakeOnLan}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -770,7 +776,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="局域网内唤醒计算机" />
+                                            Text="{DynamicResource TpWakeOnLanTooltip}" />
                                     </Grid>
 
                                 </Grid>

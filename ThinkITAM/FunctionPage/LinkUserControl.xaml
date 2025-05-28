@@ -101,7 +101,7 @@
                     MinWidth="200"
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="搜索关键字"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
                     Opacity="0.3" />
@@ -186,7 +186,7 @@
                             Padding="0"
                             Click="AddRoomButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="添加机房或配线间分组">
+                            ToolTip="{DynamicResource LucAddRoom}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="20"
@@ -194,7 +194,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="House" />
-                                <TextBlock VerticalAlignment="Center">设备间</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource LucRoom}" />
                             </StackPanel>
 
                         </Button>
@@ -205,7 +205,7 @@
                             Padding="0"
                             Click="AddCabinetButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="添加机柜或自定义分组">
+                            ToolTip="{DynamicResource LucAddCabinet}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="20"
@@ -213,7 +213,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="ViewCarousel" />
-                                <TextBlock VerticalAlignment="Center">设备柜</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource LucCabinet}" />
                             </StackPanel>
 
                         </Button>
@@ -224,7 +224,7 @@
                             Padding="0"
                             Click="AddRackButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="添加配线设备">
+                            ToolTip="{DynamicResource LucAddRack}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="20"
@@ -232,7 +232,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="VideoInputComponent" />
-                                <TextBlock VerticalAlignment="Center">配线架</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource LucRack}" />
                             </StackPanel>
 
                         </Button>
@@ -290,7 +290,7 @@
             ExpandDirection="Right"
             IsExpanded="True">
             <Expander.Header>
-                <TextBlock RenderTransformOrigin=".5,.5" Text="设备列表">
+                <TextBlock RenderTransformOrigin=".5,.5" Text="{DynamicResource LucDeviceList}">
                     <TextBlock.LayoutTransform>
                         <RotateTransform Angle="90" />
                     </TextBlock.LayoutTransform>
@@ -384,7 +384,7 @@
                                                         Foreground="AliceBlue"
                                                         Opacity="0.5"
                                                         Text="{Binding slotCount}"
-                                                        ToolTip="槽位数量" />
+                                                        ToolTip="{DynamicResource LucSlotNumber}" />
 
                                                     <Label
                                                         Padding="0"
@@ -398,7 +398,7 @@
                                                         Foreground="AliceBlue"
                                                         Opacity="0.5"
                                                         Text="{Binding portCount}"
-                                                        ToolTip="端口数量" />
+                                                        ToolTip="{DynamicResource LucPortNumber}" />
 
                                                 </StackPanel>
 
@@ -489,13 +489,15 @@
                         materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FormatListText}"
                         Content="{materialDesign:PackIcon Kind=Apps}"
                         Style="{StaticResource MaterialDesignActionToggleButton}"
-                        ToolTip="切换图形/列表显示模式" />
+                        ToolTip="切换图形/列表显示模式"
+                        Visibility="Collapsed" />
 
                     <ProgressBar
                         Width="40"
                         Height="1"
                         Opacity="0.3"
                         Orientation="Vertical"
+                        Visibility="Collapsed"
                         Value="100" />
 
                     <Grid>
@@ -521,7 +523,7 @@
                                 Click="TempManage_OnClick"
                                 IsChecked="True"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="链路预览">
+                                ToolTip="{DynamicResource LucLinkView}">
                                 <StackPanel>
                                     <materialDesign:PackIcon
                                         Width="24"
@@ -539,7 +541,7 @@
                                 Click="LinkManage_OnClick"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="临时链路关联管理模式"
+                                ToolTip="{DynamicResource LucLinkManage}"
                                 Visibility="Visible">
                                 <StackPanel>
                                     <materialDesign:PackIcon
@@ -561,7 +563,7 @@
                                 Click="LinkClear_OnClick"
                                 IsChecked="False"
                                 Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="链路清除模式"
+                                ToolTip="{DynamicResource LucLinkDelete}"
                                 Visibility="Visible">
                                 <StackPanel>
                                     <materialDesign:PackIcon
@@ -627,7 +629,7 @@
                                     Margin="0,0"
                                     Click="DeleteSelectedRack_OnClick"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="移除选中设备">
+                                    ToolTip="{DynamicResource LucDeviceRemove}">
                                     <materialDesign:PackIcon Kind="DeleteOutline" />
                                 </Button>
 
@@ -637,7 +639,7 @@
                                     Click="ClearRackPanel_OnClick"
                                     Foreground="OrangeRed"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="重置操作区">
+                                    ToolTip="{DynamicResource LucClearRackPanel}">
                                     <materialDesign:PackIcon Kind="Autorenew" />
                                 </Button>
 
@@ -902,10 +904,10 @@
                                     Margin="5,5"
                                     Click="ClearSelect_OnClick"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
-                                    ToolTip="清空已选端口">
+                                    ToolTip="{DynamicResource LucClearSelect}">
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="5,0" Kind="DeleteSweepOutline" />
-                                        <TextBlock Text="清空端口" />
+                                        <TextBlock Text="{DynamicResource LucClearNode}" />
                                     </StackPanel>
                                 </Button>
 
@@ -914,11 +916,11 @@
                                     Margin="5,5"
                                     Click="SaveLinkButton_OnClick"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"
-                                    ToolTip="保存链路规划">
+                                    ToolTip="{DynamicResource LucSaveLinkTooltip}">
 
                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                         <materialDesign:PackIcon Margin="5,0" Kind="ContentSave" />
-                                        <TextBlock Text="保存链路" />
+                                        <TextBlock Text="{DynamicResource LucSaveLink}" />
                                     </StackPanel>
                                 </Button>
 
@@ -994,7 +996,7 @@
                 <TextBlock
                     HorizontalAlignment="Center"
                     RenderTransformOrigin=".5,.5"
-                    Text="关联端口">
+                    Text="{DynamicResource LucLinkPort}">
                     <TextBlock.LayoutTransform>
                         <RotateTransform Angle="90" />
                     </TextBlock.LayoutTransform>
@@ -1038,7 +1040,7 @@
                                     MinWidth="200"
                                     Margin="8,0,0,0"
                                     VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="搜索关键字"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                     BorderThickness="0"
                                     Opacity="0.3" />
@@ -1059,7 +1061,7 @@
                                 x:Name="BuildingsComboBox"
                                 Margin="5,5,2.5,2.5"
                                 Padding="5,10"
-                                materialDesign:HintAssist.Hint="选择建筑物"
+                                materialDesign:HintAssist.Hint="{DynamicResource LucSelectBuilding}"
                                 BorderThickness="0"
                                 DisplayMemberPath="Building"
                                 MaxDropDownHeight="300"
@@ -1079,7 +1081,7 @@
                                 x:Name="FloorComboBox"
                                 Margin="5,5,2.5,2.5"
                                 Padding="5,10"
-                                materialDesign:HintAssist.Hint="选择楼层"
+                                materialDesign:HintAssist.Hint="{DynamicResource LucSelectFloor}"
                                 BorderThickness="0"
                                 DisplayMemberPath="Floor"
                                 MaxDropDownHeight="300"
@@ -1099,7 +1101,7 @@
                                 x:Name="RoomComboBox"
                                 Margin="5,5,2.5,2.5"
                                 Padding="5,10"
-                                materialDesign:HintAssist.Hint="选择房间"
+                                materialDesign:HintAssist.Hint="{DynamicResource LucSelectRoom}"
                                 BorderThickness="0"
                                 DisplayMemberPath="RoomNumber"
                                 MaxDropDownHeight="300"
@@ -1113,14 +1115,11 @@
                     <materialDesign:Card Grid.Row="1" Margin="0,2.5,0,5">
                         <TabControl
                             Width="300"
-                            materialDesign:ColorZoneAssist.Mode="PrimaryLight"
                             Style="{StaticResource MaterialDesignFilledTabControl}"
                             TabStripPlacement="Bottom">
 
 
-
-
-                            <TabItem Header="墙面端口">
+                            <TabItem Header="{DynamicResource LucWallPort}">
 
 
                                 <ScrollViewer
@@ -1139,7 +1138,7 @@
 
                             </TabItem>
 
-                            <TabItem Header="终端设备">
+                            <TabItem Header="{DynamicResource LucDevices}">
 
 
 
@@ -1189,7 +1188,7 @@
                     <TextBlock
                         MaxWidth="400"
                         FontSize="14"
-                        Text="链路名称" />
+                        Text="{DynamicResource LucLinkName}" />
                     <TextBox
                         x:Name="NameTextBox"
                         Margin="0,14,0,0"
@@ -1200,16 +1199,16 @@
                         x:Name="TagSyncButton"
                         Margin="0,14,0,0"
                         HorizontalAlignment="Left"
-                        Content="标签同步"
+                        Content="{DynamicResource LucLinkTagSync}"
                         IsChecked="False"
                         Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-                        ToolTip="名称作为节点标签同步到链路上的全部节点" />
+                        ToolTip="{DynamicResource LucLinkTagSyncTooltip}" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button
                             x:Name="SaveButton"
                             Margin="0,8,8,0"
                             Click="SaveButton_OnClick"
-                            Content="保存"
+                            Content="{DynamicResource LucLinkSave}"
                             IsDefault="True"
                             Style="{StaticResource MaterialDesignFlatButton}">
                             <Button.CommandParameter>
@@ -1222,7 +1221,7 @@
                             x:Name="CancelButton"
                             Margin="0,8,8,0"
                             Click="CancelButton_OnClick"
-                            Content="关闭"
+                            Content="{DynamicResource LucLinkClose}"
                             IsCancel="False"
                             Style="{StaticResource MaterialDesignFlatButton}">
                             <Button.CommandParameter>

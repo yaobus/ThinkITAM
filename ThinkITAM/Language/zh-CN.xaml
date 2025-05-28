@@ -46,7 +46,7 @@
 
     <s:String x:Key="ApwSave">保存</s:String>
 
-    <s:String x:Key="ApwOpenFileFilter">数据库文件 (*.db)|*.db|所有文件 (*.*)|*.*</s:String>
+    <s:String x:Key="ApwOpenFileFilter">Sqlite数据库文件 (*.db)|*.db|所有文件 (*.*)|*.*</s:String>
     <s:String x:Key="ApwOpenFileTitle">请选择一个Sqlite.db 文件</s:String>
     <s:String x:Key="ApwSaveFileMessage">选择存储文件夹</s:String>
 
@@ -188,5 +188,133 @@
     <s:String x:Key="NmpDgLastIp">最后一个可用IP</s:String>
     <s:String x:Key="NmpDgBroadcast">广播地址</s:String>
     <s:String x:Key="NmpDgNetworkIpCount">网段地址总数</s:String>
+
+
+    <!--  DevicePortManagePage  -->
+    <s:String x:Key="DpmAddDevice">新增设备</s:String>
+    <s:String x:Key="DpmShowMode">切换显示模式</s:String>
+    <s:String x:Key="DpmSingleSelectMode">单选模式</s:String>
+    <s:String x:Key="DpmMultipleSelectMode">多选模式</s:String>
+    <s:String x:Key="DpmLogMode">日志模式</s:String>
+    <s:String x:Key="DpmReSort">重置为默认排序</s:String>
+    <s:String x:Key="DpmSetButton">自定义端口信息标签</s:String>
+    <s:String x:Key="DpmNumberBlock">当前选中的IP数量</s:String>
+    <s:String x:Key="DpmMultipleAllocationButton">一键配置所选地址</s:String>
+    <s:String x:Key="DpmClearSelected">清空所选地址</s:String>
+    <s:String x:Key="DpmAssetNumber">资产编号</s:String>
+    <s:String x:Key="DpmAssetGroup">资产分组</s:String>
+    <s:String x:Key="DpmDeviceType">设备类型</s:String>
+    <s:String x:Key="DpmDeviceModel">设备型号</s:String>
+    <s:String x:Key="DpmDeviceName">设备名称</s:String>
+
+    <s:String x:Key="DpmDgSelect">选择</s:String>
+    <s:String x:Key="DpmDgPortType">端口类型</s:String>
+    <s:String x:Key="DpmDgPortTag">端口标签</s:String>
+    <s:String x:Key="DpmDgPortSlot">端口槽位</s:String>
+    <s:String x:Key="DpmDgPortSlotTooltip">端口所在槽位</s:String>
+    <s:String x:Key="DpmDgPortId">端口ID</s:String>
+    <s:String x:Key="DpmDgPortStatus">端口状态</s:String>
+    <s:String x:Key="DpmDgPortMode">端口模式</s:String>
+    <s:String x:Key="DpmDgPortName">端口名称</s:String>
+    <s:String x:Key="DpmDgPortVlan">端口所在VLAN或磁盘所在Raid</s:String>
+    <s:String x:Key="DpmDgPortLinkDevice">关联设备</s:String>
+    <s:String x:Key="DpmDgPortLinkDeviceTooltip">端口所在链路末端所接设备</s:String>
+    <s:String x:Key="DpmDgPortLink">关联链路</s:String>
+    <s:String x:Key="DpmDgPortLinkToolTip">端口所在的链路</s:String>
+    <s:String x:Key="DpmDgPortColor">颜色标记</s:String>
+
+
+    <!--  IndexPage  -->
+    <s:String x:Key="IpAdd">新增快捷访问链接</s:String>
+
+    <!--  LinkUserControl  -->
+    <s:String x:Key="LucAddRoom">添加机房或配线间分组</s:String>
+    <s:String x:Key="LucRoom">新增快捷访问链接</s:String>
+    <s:String x:Key="LucAddCabinet">添加机柜或自定义分组</s:String>
+    <s:String x:Key="LucCabinet">设备柜</s:String>
+    <s:String x:Key="LucAddRack">添加配线设备</s:String>
+    <s:String x:Key="LucRack">配线架</s:String>
+
+    <s:String x:Key="LucDeviceList">设备列表</s:String>
+
+    <s:String x:Key="LucSlotNumber">槽位数量</s:String>
+    <s:String x:Key="LucPortNumber">端口数量</s:String>
+    <s:String x:Key="LucLinkView">链路预览模式</s:String>
+    <s:String x:Key="LucLinkManage">链路管理模式</s:String>
+    <s:String x:Key="LucLinkDelete">链路删除模式</s:String>
+
+    <s:String x:Key="LucDeviceRemove">移除选中设备</s:String>
+    <s:String x:Key="LucClearRackPanel">重置操作区</s:String>
+    <s:String x:Key="LucClearSelect">清空已选节点</s:String>
+    <s:String x:Key="LucClearNode">清空节点</s:String>
+    <s:String x:Key="LucSaveLinkTooltip">保存链路规划</s:String>
+    <s:String x:Key="LucSaveLink">保存链路</s:String>
+
+
+    <s:String x:Key="LucLinkPort">关联端口</s:String>
+    <s:String x:Key="LucSelectBuilding">选择建筑</s:String>
+    <s:String x:Key="LucSelectFloor">选择楼层</s:String>
+    <s:String x:Key="LucSelectRoom">选择房间</s:String>
+
+    <s:String x:Key="LucWallPort">网络端口</s:String>
+    <s:String x:Key="LucDevices">终端设备</s:String>
+    <s:String x:Key="LucLinkName">链路名称</s:String>
+    <s:String x:Key="LucLinkTagSync">标签同步</s:String>
+    <s:String x:Key="LucLinkTagSyncTooltip">名称作为标签同步给链路上的全部节点</s:String>
+
+    <s:String x:Key="LucLinkSave">保存</s:String>
+    <s:String x:Key="LucLinkClose">关闭</s:String>
+
+
+    <!--  PortPanel  -->
+    <s:String x:Key="PpAddBuilding">添加建筑</s:String>
+    <s:String x:Key="PpBuilding">建筑</s:String>
+    <s:String x:Key="PpAddRoomPort">添加室内端口</s:String>
+    <s:String x:Key="PpRoomPort">端口</s:String>
+
+    <!--  PresetPage  -->
+    <s:String x:Key="PrpOrganization">组织机构管理</s:String>
+    <s:String x:Key="PrpPeople">人员信息管理</s:String>
+    <s:String x:Key="PrpAddress">地理位置预设</s:String>
+    <s:String x:Key="PrpDeviceRoom">机房机柜管理</s:String>
+    <s:String x:Key="PrpBuilding">建筑信息管理</s:String>
+    <s:String x:Key="PrpAssetGroup">资产分组预设</s:String>
+    <s:String x:Key="PrpBrowser">快捷访问预设</s:String>
+
+
+    <!--  ToolsPage  -->
+    <s:String x:Key="TpTitle">IT 工具箱</s:String>
+    <s:String x:Key="TpIpCalculate">IP地址计算器</s:String>
+    <s:String x:Key="TpIpCalculateTooltip">网段信息及可用IP地址信息计算</s:String>
+    <s:String x:Key="TpIpAddress">IP地址</s:String>
+    <s:String x:Key="TpIpAddressCalculate">IP地址计算</s:String>
+    <s:String x:Key="TpIpNetmask">子网掩码</s:String>
+    <s:String x:Key="TpIpNetmaskCalculate">子网掩码计算</s:String>
+    <s:String x:Key="TpIpScale">进制转换</s:String>
+    <s:String x:Key="TpIpScaleTooltip">IP进制转换</s:String>
+
+    <s:String x:Key="TpPortScanTool">端口扫描器</s:String>
+    <s:String x:Key="TpPortScanTooltip">主机信息扫描辅助工具</s:String>
+    <s:String x:Key="TpPortScan">端口扫描</s:String>
+    <s:String x:Key="TpHostScan">主机端口扫描</s:String>
+    <s:String x:Key="TpHostStatus">主机在线状态</s:String>
+    <s:String x:Key="TpHostName">主机名</s:String>
+    <s:String x:Key="TpHostNameMac">主机名MAC查询</s:String>
+    <s:String x:Key="TpMac">MAC查询厂商</s:String>
+    <s:String x:Key="TpMacTooltip">根据MAC地址查询设备生产厂商</s:String>
+    <s:String x:Key="TpMacTooltip2">根据厂商识别码OUI查询厂商</s:String>
+    <s:String x:Key="TpMacTooltip3">根据IEEE公开的分配信息查询</s:String>
+
+    <s:String x:Key="TpStorage">存储空间计算</s:String>
+    <s:String x:Key="TpStorageTooltip">计算RAID后存储空间容量</s:String>
+    <s:String x:Key="TpRaidCalculate">RAID容量计算</s:String>
+    <s:String x:Key="TpVideoStorage">监控存储</s:String>
+    <s:String x:Key="TpVideoStorageTooltip">监控存储空间计算</s:String>
+    <s:String x:Key="TpSaveTime">存储时长</s:String>
+    <s:String x:Key="TpSaveTimeTooltip">存储时长计算</s:String>
+
+    <s:String x:Key="TpWakeTooltip">通过网络唤醒指定主机</s:String>
+    <s:String x:Key="TpWakeOnLan">网络唤醒</s:String>
+    <s:String x:Key="TpWakeOnLanTooltip">网络唤醒局域网主机</s:String>
 
 </ResourceDictionary>

@@ -20,6 +20,7 @@ using ThinkITAM.ViewModels.DataBaseConfig;
 using Path = System.IO.Path;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.UserControls.InformationDisplay;
+using Microsoft.Data.Sqlite;
 
 namespace ThinkITAM.Windows.Project
 {
@@ -165,10 +166,25 @@ namespace ThinkITAM.Windows.Project
 
                 if (!string.IsNullOrWhiteSpace(DbFilePath.Text) && !string.IsNullOrWhiteSpace(DbNickName.Text))
                 {
-                    
-                    dataBaseConfig.NickName= DbNickName.Text;
-                    dataBaseConfig.Path = DbFilePath.Text;
+                    dataBaseConfig.NickName = DbNickName.Text;
+                    if (NewToggleButton.IsChecked == true)
+                    {
+                        
+                        dataBaseConfig.Path =$"{DbFilePath.Text}\\{dataBaseConfig.NickName}.db" ;
 
+                        
+
+                        CreateEmptySqliteDatabase(dataBaseConfig.Path);
+                    }
+                    else
+                    {
+                        
+                        dataBaseConfig.Path = DbFilePath.Text;
+                    }
+
+
+
+                    
                     configs.Add(dataBaseConfig);
                     SaveConfigsToFile();
                     DialogResult = true;
@@ -240,6 +256,20 @@ namespace ThinkITAM.Windows.Project
 
 
         }
+
+        // 创建空 SQLite 数据库的方法
+        private void CreateEmptySqliteDatabase(string filePath)
+        {
+            // 如果文件已存在，可以选择删除或提示用户
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            using var connection = new SqliteConnection($"Data Source={filePath}");
+            connection.Open(); // 打开连接即会创建空数据库文件
+        }
+
 
         private ObservableCollection<DataBaseConfigViewModel> configs = new ObservableCollection<DataBaseConfigViewModel>();
         private void LoadExistingConfigs()

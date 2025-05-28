@@ -53,7 +53,7 @@
                     MinWidth="200"
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="搜索关键字"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
                     Opacity="0.3" />
@@ -278,7 +278,7 @@
                             Padding="0"
                             Click="AddBuildingButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="添加建筑物">
+                            ToolTip="{DynamicResource PpAddBuilding}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="20"
@@ -286,7 +286,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="House" />
-                                <TextBlock VerticalAlignment="Center">建筑</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource PpBuilding}" />
                             </StackPanel>
 
                         </Button>
@@ -297,7 +297,7 @@
                             Padding="0"
                             Click="AddButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="添加室内端口">
+                            ToolTip="{DynamicResource PpAddRoomPort}">
                             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="20"
@@ -305,7 +305,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="ViewCarousel" />
-                                <TextBlock VerticalAlignment="Center">端口</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource PpRoomPort}" />
                             </StackPanel>
 
                         </Button>
