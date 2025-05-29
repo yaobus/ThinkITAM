@@ -317,4 +317,107 @@
     <s:String x:Key="TpWakeOnLan">网络唤醒</s:String>
     <s:String x:Key="TpWakeOnLanTooltip">网络唤醒局域网主机</s:String>
 
+
+    <!--AddAssetWindow-2025年5月29日-->
+    <s:String x:Key="AawAssetType">*资产类型</s:String>
+    <s:String x:Key="AawDeviceType">*设备类型</s:String>
+    <s:String x:Key="AawAssetNumber">*资产编号</s:String>
+    <s:String x:Key="AawAssetModel">*规格型号</s:String>
+    <s:String x:Key="AawAssetModelPreset">型号预设</s:String>
+    <s:String x:Key="AawAssetStorageAddress">存放地点</s:String>
+    <s:String x:Key="AawAssetBuyDate">购置日期</s:String>
+    <s:String x:Key="AawAssetBuyPrice">购置价格</s:String>
+    <s:String x:Key="AawAssetMaker">制造商</s:String>
+    <s:String x:Key="AawAssetSerialNumber">序列号</s:String>
+
+    <s:String x:Key="AawAssetStatus">资产状态</s:String>
+    <s:String x:Key="AawAssetUserOrganization">责任人组织</s:String>
+    <s:String x:Key="AawAssetUserDepartment">部门</s:String>
+    <s:String x:Key="AawAssetUserGroup">群组</s:String>
+    <s:String x:Key="AawAssetAssignedTo">责任人</s:String>
+    <s:String x:Key="AawAssetPhone">责任人电话</s:String>
+    <s:String x:Key="AawAssetUser">使用人</s:String>
+    <s:String x:Key="AawAssetServiceLife">已用年限</s:String>
+    <s:String x:Key="AawAssetScrapDate">报废日期</s:String>
+
+    <s:String x:Key="AawAssetDescription">备注信息</s:String>
+    <s:String x:Key="AawAssetParameter">配置信息</s:String>
+    <s:String x:Key="AawAssetTooltip">该字段会在资产信息卡显示</s:String>
+
+    <s:String x:Key="AawCustomTitle">自定义资产信息字段</s:String>
+
+
+
+    <!--AddComputerWindow-2025年5月29日-->
+    <s:String x:Key="AcwAssetType">资产类型</s:String>
+    <s:String x:Key="AcwDeviceType">设备类型</s:String>
+    <s:String x:Key="AcwAssetNumber">资产编号</s:String>
+    <s:String x:Key="AcwPortType">端口类型</s:String>
+    <s:String x:Key="AcwPortTag">端口标签</s:String>
+    <s:String x:Key="AcwDeviceGroup">设备群组</s:String>
+    <s:String x:Key="AcwDeviceBuilding">部署位置</s:String>
+    <s:String x:Key="AcwDeviceFloor">所在楼层</s:String>
+    <s:String x:Key="AcwDeviceRoom">所在房间</s:String>
+    <s:String x:Key="AcwDeviceUser">设备使用人</s:String>
+
+    <!--DeviceCreateGuideWindow-2025年5月29日-->
+    <s:String x:Key="DcgAssetType">*资产类型</s:String>
+    <s:String x:Key="DcgDeviceType">*设备类型</s:String>
+    <s:String x:Key="DcgAssetNumber">*资产编号</s:String>
+    <s:String x:Key="DcgAssetModel">*规格型号</s:String>
+    <s:String x:Key="DcgDeviceName">*设备名称</s:String>
+    <s:String x:Key="DcgAssignedTo">责任人</s:String>
+    <s:String x:Key="DcgUserPhone">责任人电话</s:String>
+    <s:String x:Key="DcgEnableDate">启用日期</s:String>
+    <s:String x:Key="DcgRoom">设备所在机房</s:String>
+    <s:String x:Key="DcgCabinet">设备所在机柜</s:String>
+    <s:String x:Key="DcgPreset">预设模板</s:String>
+    <s:String x:Key="DcgPortType">端口类型</s:String>
+    <s:String x:Key="DcgSlot">槽位编号</s:String>
+    <s:String x:Key="DcgPortTag">端口标签</s:String>
+    <s:String x:Key="DcgPortNumber">端口编号</s:String>
+    <s:String x:Key="DcgPortNumberRange ">端口范围</s:String>
+    <s:String x:Key="DcgPortCount">端口数量</s:String>
+    <s:String x:Key="DcgClear">清空设计</s:String>
+    <s:String x:Key="DcgClearTooltip">清空设备预览区的配置</s:String>
+    <s:String x:Key="DcgAddPort">添加端口</s:String>
+    <s:String x:Key="DcgAddPortTooltip">添加端口到设备预览区</s:String>
+    <s:String x:Key="DcgSavePreset">保存预设</s:String>
+    <s:String x:Key="DcgSavePresetTooltip">保存该型号设备对应的配置信息到数据库</s:String>
+    <s:String x:Key="DcgSaveButton">应用设计</s:String>
+    <s:String x:Key="DcgSaveButtonTooltip">应用设备配置，将创建预览区对应的设备到数据库中</s:String>
+
+    <s:String x:Key="DcgCustomTagTitle">自定义设备信息字段</s:String>
+    <s:String x:Key="DcgCustomTagReset">恢复默认标签</s:String>
+
+
+    <!--DeviceEditWindow-2025年5月29日-->
+    <s:String x:Key="EdwEditTitle">编辑设备信息</s:String>
+
+    <s:String x:Key="EdwDeviceName">设备名称</s:String>
+
+    <s:String x:Key="FlAssetModel">规格型号</s:String>
+    <s:String x:Key="FlBack">返回</s:String>
+    <s:String x:Key="FlConfirm">确定</s:String>
+    <s:String x:Key="FlIndex">序号</s:String>
+
+
+    <!--PortAllocationWindow-->
+    <s:String x:Key="PawSelectedPort">当前选中端口</s:String>
+    <s:String x:Key="PawNowDevice">当前设备名称</s:String>
+    <s:String x:Key="PawNowDeviceNumber">当前设备编号</s:String>
+    <s:String x:Key="PawNowDeviceModel">当前设备型号</s:String>
+    <s:String x:Key="PawPortNote">端口备注</s:String>
+    <s:String x:Key="PawClear">清空配置</s:String>
+    <s:String x:Key="PawSave">保存配置</s:String>
+
+    <s:String x:Key="PawNowColor">当前颜色</s:String>
+    <s:String x:Key="PawColorSelect">颜色选择</s:String>
+    <s:String x:Key="PawColorCancel">取消</s:String>
+
+    <s:String x:Key="PawCustomTitle">自定义端口字段名称</s:String>
+    <s:String x:Key="PawGlobalTag">全局默认标签</s:String>
+    <s:String x:Key="PawGlobalTagTooltip">低显示优先级</s:String>
+    <s:String x:Key="PawOnlyTag">设备独有标签</s:String>
+    <s:String x:Key="PawOnlyTagTooltip">高显示优先级</s:String>
 </ResourceDictionary>

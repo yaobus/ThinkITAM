@@ -40,7 +40,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="资产类型:" />
+                        Content="{DynamicResource AcwAssetType}" />
                     <ComboBox
                         x:Name="AssetType"
                         Width="230"
@@ -60,7 +60,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="设备类型:" />
+                        Content="{DynamicResource AcwDeviceType}" />
                     <ComboBox
                         x:Name="DeviceType"
                         Width="230"
@@ -80,7 +80,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="资产编号:" />
+                        Content="{DynamicResource AcwAssetNumber}" />
                     <TextBox
                         x:Name="AssetTag"
                         Width="230"
@@ -105,7 +105,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="规格型号:" />
+                        Content="{DynamicResource FlAssetModel}" />
                     <TextBox
                         x:Name="Model"
                         Width="230"
@@ -129,7 +129,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="备注信息:" />
+                        Content="{DynamicResource AawAssetDescription}" />
                     <TextBox
                         x:Name="Description"
                         Width="230"
@@ -163,14 +163,14 @@
                     Width="100"
                     Margin="0,0"
                     HorizontalAlignment="Left"
-                    Content="返回" />
+                    Content="{DynamicResource FlBack}" />
                 <Button
                     x:Name="SaveButton"
                     Grid.Column="1"
                     Width="100"
                     Margin="0,0"
                     HorizontalAlignment="Right"
-                    Content="确定" />
+                    Content="{DynamicResource FlConfirm}" />
 
             </Grid>
 
@@ -196,7 +196,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Numeric1Box" />
-                                <TextBlock Text="序号" />
+                                <TextBlock Text="{DynamicResource FlIndex}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -208,7 +208,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="TagText" />
-                                <TextBlock Text="资产编号" />
+                                <TextBlock Text="{DynamicResource AcwAssetNumber}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -219,7 +219,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CalendarText" />
-                                <TextBlock Text="购置日期" />
+                                <TextBlock Text="{DynamicResource AawAssetBuyDate}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -230,7 +230,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CurrencyUsd" />
-                                <TextBlock Text="购置价格" />
+                                <TextBlock Text="{DynamicResource AawAssetBuyPrice}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -242,7 +242,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Factory" />
-                                <TextBlock Text="制造厂商" />
+                                <TextBlock Text="{DynamicResource AawAssetMaker}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -254,7 +254,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Devices" />
-                                <TextBlock Text="型号" />
+                                <TextBlock Text="{DynamicResource AawAssetModel}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -266,7 +266,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="BarcodeScanner" />
-                                <TextBlock Text="序列号" />
+                                <TextBlock Text="{DynamicResource AawAssetSerialNumber}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -278,7 +278,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Settings" />
-                                <TextBlock Text="配置信息" />
+                                <TextBlock Text="{DynamicResource AawAssetParameter}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -290,7 +290,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="MapMarker" />
-                                <TextBlock Text="存放位置" />
+                                <TextBlock Text="{DynamicResource AawAssetStorageAddress}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -302,7 +302,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountMultiple" />
-                                <TextBlock Text="责任人单位" />
+                                <TextBlock Text="{DynamicResource AawAssetUserOrganization}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -314,7 +314,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountSupervisor" />
-                                <TextBlock Text="责任人部门" />
+                                <TextBlock Text="{DynamicResource AawAssetUserDepartment}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -328,7 +328,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Account" />
-                                <TextBlock Text="责任人" />
+                                <TextBlock Text="{DynamicResource AawAssetAssignedTo}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -340,7 +340,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Phone" />
-                                <TextBlock Text="责任人电话" />
+                                <TextBlock Text="{DynamicResource AawAssetPhone}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -352,7 +352,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountCircle" />
-                                <TextBlock Text="使用人" />
+                                <TextBlock Text="{DynamicResource AawAssetUser}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -364,7 +364,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CheckCircle" />
-                                <TextBlock Text="资产状态" />
+                                <TextBlock Text="{DynamicResource AawAssetStatus}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -376,7 +376,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Calendar" />
-                                <TextBlock Text="已用年限" />
+                                <TextBlock Text="{DynamicResource AawAssetServiceLife}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -388,7 +388,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Delete" />
-                                <TextBlock Text="报废日期" />
+                                <TextBlock Text="{DynamicResource AawAssetScrapDate}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -399,7 +399,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Note" />
-                                <TextBlock Text="备注信息" />
+                                <TextBlock Text="{DynamicResource AawAssetDescription}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -411,7 +411,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagA" Text="自定义标签A" />
+                                <TextBlock x:Name="TagA" Text="{DynamicResource NmpDgTagA}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -424,7 +424,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagB" Text="自定义标签B" />
+                                <TextBlock x:Name="TagB" Text="{DynamicResource NmpDgTagB}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -435,7 +435,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagC" Text="自定义标签C" />
+                                <TextBlock x:Name="TagC" Text="{DynamicResource NmpDgTagC}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -446,7 +446,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagD" Text="自定义标签D" />
+                                <TextBlock x:Name="TagD" Text="{DynamicResource NmpDgTagD}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -457,7 +457,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagE" Text="自定义标签E" />
+                                <TextBlock x:Name="TagE" Text="{DynamicResource NmpDgTagE}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>
@@ -468,7 +468,7 @@
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                <TextBlock x:Name="TagF" Text="自定义标签F" />
+                                <TextBlock x:Name="TagF" Text="{DynamicResource NmpDgTagF}" />
                             </StackPanel>
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.Binding>

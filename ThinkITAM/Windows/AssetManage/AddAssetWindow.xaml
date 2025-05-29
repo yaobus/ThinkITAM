@@ -25,7 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
@@ -70,16 +70,12 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel
-                        Margin="10,0"
-                        Grid.Column="0">
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                    <StackPanel Grid.Column="0" Margin="10,0">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*资产类型:" />
+                                Content="{DynamicResource AawAssetType}" />
                             <ComboBox
                                 x:Name="AssetType"
                                 Width="240"
@@ -94,13 +90,11 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*设备类型:" />
+                                Content="{DynamicResource AawDeviceType}" />
                             <ComboBox
                                 x:Name="DeviceType"
                                 Width="240"
@@ -115,17 +109,13 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
-
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*资产编号:" />
-                            <StackPanel
-                                Orientation="Horizontal">
+                                Content="{DynamicResource AawAssetNumber}" />
+                            <StackPanel Orientation="Horizontal">
                                 <TextBox
                                     x:Name="AssetTag"
                                     Width="150"
@@ -154,21 +144,17 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
                             </StackPanel>
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
-
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*规格型号:" />
-                            <StackPanel
-                                Orientation="Horizontal">
+                                Content="{DynamicResource AawAssetModel}" />
+                            <StackPanel Orientation="Horizontal">
                                 <TextBox
                                     x:Name="Model"
                                     Width="150"
@@ -186,7 +172,7 @@
                                     Height="28"
                                     Margin="5,0,0,0"
                                     Padding="0"
-                                    materialDesign:HintAssist.Hint="预设型号"
+                                    materialDesign:HintAssist.Hint="{DynamicResource AawAssetModelPreset}"
                                     MaxDropDownHeight="300"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                                 <materialDesign:PackIcon
@@ -194,19 +180,17 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
                             </StackPanel>
                         </StackPanel>
 
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
 
                             <Label
                                 HorizontalAlignment="left"
                                 VerticalAlignment="Center"
-                                Content="存放地点:" />
+                                Content="{DynamicResource AawAssetStorageAddress}" />
                             <ComboBox
                                 x:Name="PresetAddress"
                                 Width="240"
@@ -214,7 +198,6 @@
                                 Margin="0,0,10,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
-                                materialDesign:HintAssist.Hint="地点"
                                 DisplayMemberPath="Location"
                                 IsEditable="True"
                                 MaxDropDownHeight="300"
@@ -224,13 +207,11 @@
                         </StackPanel>
 
 
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="购置日期:" />
+                                Content="{DynamicResource AawAssetBuyDate}" />
                             <DatePicker
                                 x:Name="BuyDate"
                                 Width="240"
@@ -246,20 +227,14 @@
 
                         </StackPanel>
 
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
-                                Grid.Row="6"
-                                Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="购置价格:" />
+                                Content="{DynamicResource AawAssetBuyPrice}" />
                             <TextBox
                                 x:Name="Price"
-                                Grid.Row="6"
-                                Grid.Column="1"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,10,0"
@@ -272,20 +247,13 @@
                                 Text="{Binding PurchasePrice, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
-                                Grid.Row="7"
-                                Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="制造商:" />
-                            <StackPanel
-                                Grid.Row="7"
-                                Grid.Column="1"
-                                Orientation="Horizontal">
+                                Content="{DynamicResource AawAssetMaker}" />
+                            <StackPanel Orientation="Horizontal">
                                 <TextBox
                                     x:Name="Maker"
                                     Width="240"
@@ -302,23 +270,17 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
-                                Grid.Row="8"
-                                Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="序列号:" />
+                                Content="{DynamicResource AawAssetSerialNumber}" />
                             <TextBox
                                 x:Name="SerialNumber"
-                                Grid.Row="8"
-                                Grid.Column="1"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,10,0"
@@ -334,12 +296,8 @@
 
                     </StackPanel>
 
-                    <StackPanel
-                        Margin="10,0"
-                        Grid.Column="1">
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                    <StackPanel Grid.Column="1" Margin="10,0">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -363,16 +321,13 @@
                             </ComboBox>
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="责任人组织:" />
+                                Content="{DynamicResource AawAssetUserOrganization}" />
                             <ComboBox
                                 x:Name="UserOrganization"
-
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,30,0"
@@ -385,13 +340,11 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="部门:" />
+                                Content="{DynamicResource AawAssetUserDepartment}" />
                             <ComboBox
                                 x:Name="UserDepartment"
                                 Width="240"
@@ -405,13 +358,11 @@
                                 Text="{Binding UserDepartment, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="群组:" />
+                                Content="{DynamicResource AawAssetUserGroup}" />
                             <ComboBox
                                 x:Name="UserGroup"
                                 Width="240"
@@ -426,13 +377,11 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="责任人:" />
+                                Content="{DynamicResource AawAssetAssignedTo}" />
                             <StackPanel
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -456,21 +405,17 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
                             </StackPanel>
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="责任人电话:" />
-                            <StackPanel
-
-                                Orientation="Horizontal">
+                                Content="{DynamicResource AawAssetPhone}" />
+                            <StackPanel Orientation="Horizontal">
                                 <TextBox
                                     x:Name="Phone"
                                     Width="240"
@@ -489,17 +434,15 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
                             </StackPanel>
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="使用人:" />
+                                Content="{DynamicResource AawAssetUser}" />
                             <TextBox
                                 x:Name="Consumer"
                                 Width="240"
@@ -515,17 +458,13 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="已用年限:" />
+                                Content="{DynamicResource AawAssetServiceLife}" />
                             <TextBox
                                 x:Name="ServiceLife"
-                                Grid.Row="7"
-                                Grid.Column="1"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,30,0"
@@ -539,23 +478,20 @@
 
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelX"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="报废日期:"
-                                ToolTip="自定义字段B" />
+                                Content="{DynamicResource AawAssetScrapDate}" />
                             <DatePicker
                                 x:Name="ScrapDate"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,30,0"
                                 Padding="0"
-                                Language="zh-CN"
                                 HorizontalAlignment="Left"
+                                Language="zh-CN"
                                 MouseDoubleClick="ScrapDate_OnMouseDoubleClick"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                                 Text="{Binding ScrapDate, Mode=TwoWay}" />
@@ -564,18 +500,14 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel
-                        Margin="10,0"
-                        Grid.Column="2">
+                    <StackPanel Grid.Column="2" Margin="10,0">
 
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="备注信息:" />
+                                Content="{DynamicResource AawAssetDescription}" />
                             <TextBox
                                 x:Name="Description"
                                 Width="240"
@@ -593,15 +525,12 @@
                         </StackPanel>
 
 
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelA"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签A:"
-                                ToolTip="自定义标签A" />
+                                Content="{DynamicResource NmpDgTagA}" />
                             <StackPanel
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -626,21 +555,18 @@
                                     Height="24"
                                     VerticalAlignment="Center"
                                     Kind="Info"
-                                    ToolTip="该自定义字段会在资产信息卡显示" />
+                                    ToolTip="{DynamicResource AawAssetTooltip}" />
 
 
                             </StackPanel>
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelB"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签B:"
-                                ToolTip="自定义标签B" />
+                                Content="{DynamicResource NmpDgTagB}" />
                             <TextBox
                                 x:Name="TagB"
                                 Width="240"
@@ -655,15 +581,12 @@
                                 Text="{Binding TagB, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelC"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签C:"
-                                ToolTip="自定义标签C" />
+                                Content="{DynamicResource NmpDgTagC}" />
                             <TextBox
                                 x:Name="TagC"
                                 Grid.Row="2"
@@ -680,15 +603,12 @@
                                 Text="{Binding TagC, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelD"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签D:"
-                                ToolTip="自定义标签D" />
+                                Content="{DynamicResource NmpDgTagD}" />
                             <TextBox
                                 x:Name="TagD"
                                 Grid.Row="3"
@@ -705,15 +625,12 @@
                                 Text="{Binding TagD, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelE"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签E:"
-                                ToolTip="自定义标签E" />
+                                Content="{DynamicResource NmpDgTagE}" />
                             <TextBox
                                 x:Name="TagE"
                                 Grid.Row="4"
@@ -730,15 +647,12 @@
                                 Text="{Binding TagE, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelF"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签F:"
-                                ToolTip="自定义标签F" />
+                                Content="{DynamicResource NmpDgTagF}" />
                             <TextBox
                                 x:Name="TagF"
                                 Width="240"
@@ -753,22 +667,20 @@
                                 Text="{Binding TagF, Mode=TwoWay}" />
 
                         </StackPanel>
-                        <StackPanel
-                            Margin="10,5"
-                            Orientation="Vertical">
+                        <StackPanel Margin="10,5" Orientation="Vertical">
 
 
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Content="配置信息:" />
+                                Content="{DynamicResource AawAssetParameter}" />
                             <TextBox
                                 x:Name="Parameter"
-                                HorizontalAlignment="Left"
                                 Width="240"
                                 Height="90"
                                 MaxHeight="90"
                                 Padding="3"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                 materialDesign:TextFieldAssist.LeadingIcon="BallotOutline"
@@ -792,9 +704,7 @@
         </Grid>
 
 
-        <Grid
-            Grid.Row="2"
-            VerticalAlignment="Bottom">
+        <Grid Grid.Row="2" VerticalAlignment="Bottom">
 
             <Button
                 x:Name="SaveButton"
@@ -802,7 +712,7 @@
                 Margin="10,10"
                 HorizontalAlignment="Right"
                 Click="SaveButton_OnClick"
-                Content="保存" />
+                Content="{DynamicResource LucLinkSave}" />
         </Grid>
 
     </Grid>

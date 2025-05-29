@@ -41,7 +41,7 @@
             <TextBlock
                 Margin="10"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="编辑设备信息" />
+                Text="{DynamicResource EdwEditTitle}" />
 
         </StackPanel>
 
@@ -78,7 +78,7 @@
                     Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="设备名称:" />
+                    Content="{DynamicResource EdwDeviceName}" />
                 <TextBox
                     x:Name="Description"
                     Width="250"
@@ -102,7 +102,7 @@
                     Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="启用日期:" />
+                    Content="{DynamicResource DcgEnableDate}" />
                 <DatePicker
                     x:Name="EnableDate"
                     Width="250"
@@ -123,7 +123,7 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="设备所在机房:" />
+                    Content="{DynamicResource DcgRoom}" />
 
                 <ComboBox
                     x:Name="RoomCombobox"
@@ -158,7 +158,7 @@
                 <Label
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="设备所在机柜:" />
+                    Content="{DynamicResource DcgCabinet}" />
 
                 <ComboBox
                     x:Name="CabinetCombobox"
@@ -194,8 +194,7 @@
                     x:Name="LabelA"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段A:"
-                    ToolTip="自定义字段A" />
+                    Content="{DynamicResource NmpDgTagA}" />
                 <ComboBox
                     x:Name="TagA"
                     Width="250"
@@ -225,8 +224,7 @@
                     x:Name="LabelB"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段B:"
-                    ToolTip="自定义字段B" />
+                    Content="{DynamicResource NmpDgTagB}" />
                 <ComboBox
                     x:Name="TagB"
                     Width="250"
@@ -248,8 +246,7 @@
                     x:Name="LabelC"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段C:"
-                    ToolTip="自定义字段C" />
+                    Content="{DynamicResource NmpDgTagC}" />
                 <TextBox
                     x:Name="TagC"
                     Width="250"
@@ -273,8 +270,7 @@
                     x:Name="LabelD"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段D:"
-                    ToolTip="自定义字段D" />
+                    Content="{DynamicResource NmpDgTagD}" />
                 <TextBox
                     x:Name="TagD"
                     Width="250"
@@ -298,8 +294,7 @@
                     x:Name="LabelE"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段E:"
-                    ToolTip="自定义字段E" />
+                    Content="{DynamicResource NmpDgTagE}" />
                 <TextBox
                     x:Name="TagE"
                     Width="250"
@@ -323,8 +318,7 @@
                     x:Name="LabelF"
                     Margin="0,5"
                     VerticalAlignment="Center"
-                    Content="自定义字段F:"
-                    ToolTip="自定义字段F" />
+                    Content="{DynamicResource NmpDgTagF}" />
                 <TextBox
                     x:Name="TagF"
                     Width="250"
@@ -356,7 +350,7 @@
                 HorizontalAlignment="Right"
                 BorderThickness="0"
                 Click="SaveButton_OnClick"
-                Content="保存" />
+                Content="{DynamicResource ApwSave}" />
 
         </StackPanel>
     </Grid>

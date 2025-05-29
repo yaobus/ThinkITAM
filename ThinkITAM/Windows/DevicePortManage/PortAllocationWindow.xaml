@@ -98,7 +98,7 @@
                 Padding="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="当前设备名称"
+                materialDesign:HintAssist.Hint="{DynamicResource PawNowDevice}"
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="Note"
                 IsEnabled="False"
@@ -116,7 +116,7 @@
                 Padding="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="当前设备编号"
+                materialDesign:HintAssist.Hint="{DynamicResource PawNowDeviceNumber}"
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="Numbers"
                 IsEnabled="False"
@@ -134,7 +134,7 @@
                 Padding="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                materialDesign:HintAssist.Hint="当前设备型号"
+                materialDesign:HintAssist.Hint="{DynamicResource PawNowDeviceModel}"
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                 materialDesign:TextFieldAssist.LeadingIcon="Lastpass"
                 IsEnabled="False"
@@ -150,11 +150,12 @@
                 Grid.ColumnSpan="3"
                 Margin="5,0"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
+                Orientation="Vertical">
                 <TextBlock
                     FontWeight="ExtraBold"
+                    Opacity="0.5"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                    Text="所选端口: " />
+                    Text="{DynamicResource PawSelectedPort}" />
                 <TextBlock
                     x:Name="SelectedPort"
                     d:Text="G 0/0/1"
@@ -183,7 +184,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="端口模式:" />
+                            Content="{DynamicResource DpmDgPortMode}" />
                         <ComboBox
                             x:Name="PortMode"
                             Width="250"
@@ -203,7 +204,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="端口状态:" />
+                            Content="{DynamicResource DpmDgPortStatus}" />
                         <ComboBox
                             x:Name="PortStatus"
                             Width="250"
@@ -245,7 +246,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="端口备注:" />
+                            Content="{DynamicResource PawPortNote}" />
                         <TextBox
                             x:Name="PortName"
                             Width="250"
@@ -266,8 +267,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="颜色标签:"
-                            ToolTip="自定义端口颜色标签" />
+                            Content="{DynamicResource NmpDgColorNote}" />
 
                         <ListBox
                             x:Name="PortColor"
@@ -346,8 +346,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="关联设备:"
-                            ToolTip="改端口连接的设备:" />
+                            Content="{DynamicResource DpmDgPortLinkDevice}" />
                         <StackPanel Orientation="Horizontal">
                             <TextBox
                                 x:Name="DeviceLink"
@@ -385,8 +384,7 @@
                         <Label
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="关联链路:"
-                            ToolTip="改端口连接的设备:" />
+                            Content="{DynamicResource DpmDgPortLink}" />
                         <StackPanel Orientation="Horizontal">
                             <TextBox
                                 x:Name="LineLink"
@@ -431,8 +429,7 @@
                             x:Name="LabelA"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段A:"
-                            ToolTip="自定义字段A" />
+                            Content="{DynamicResource NmpDgTagA}" />
                         <TextBox
                             x:Name="TagA"
                             Width="250"
@@ -453,8 +450,7 @@
                             x:Name="LabelB"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段B:"
-                            ToolTip="自定义字段B" />
+                            Content="{DynamicResource NmpDgTagB}" />
                         <TextBox
                             x:Name="TagB"
                             Width="250"
@@ -475,8 +471,7 @@
                             x:Name="LabelC"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段C:"
-                            ToolTip="自定义字段C" />
+                            Content="{DynamicResource NmpDgTagA}" />
                         <TextBox
                             x:Name="TagC"
                             Width="250"
@@ -497,8 +492,7 @@
                             x:Name="LabelD"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段D:"
-                            ToolTip="自定义字段D" />
+                            Content="{DynamicResource NmpDgTagD}" />
                         <TextBox
                             x:Name="TagD"
                             Width="250"
@@ -519,8 +513,7 @@
                             x:Name="LabelE"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段E:"
-                            ToolTip="自定义字段E" />
+                            Content="{DynamicResource NmpDgTagE}" />
                         <TextBox
                             x:Name="TagE"
                             Width="250"
@@ -541,8 +534,7 @@
                             x:Name="LabelF"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="自定义字段F:"
-                            ToolTip="自定义字段F" />
+                            Content="{DynamicResource NmpDgTagF}" />
                         <TextBox
                             x:Name="TagF"
                             Width="250"
@@ -564,8 +556,7 @@
                             x:Name="LabelF2"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="端口标签:"
-                            ToolTip="端口标签" />
+                            Content="{DynamicResource DpmDgPortTag}" />
                         <TextBox
                             x:Name="TagF2"
                             Width="250"
@@ -596,7 +587,7 @@
                     Width="150"
                     HorizontalAlignment="Right"
                     d:Visibility="Visible"
-                    Content="清空配置"
+                    Content="{DynamicResource PawClear}"
                     Visibility="Collapsed" />
 
                 <Button
@@ -604,7 +595,7 @@
                     Width="150"
                     HorizontalAlignment="Right"
                     Click="SaveButton_OnClick"
-                    Content="保存配置" />
+                    Content="{DynamicResource PawSave}" />
             </StackPanel>
         </Grid>
 

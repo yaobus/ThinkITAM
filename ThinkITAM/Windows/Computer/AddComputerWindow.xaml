@@ -73,7 +73,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="*资产类型:" />
+                        Content="{DynamicResource AcwAssetType}" />
 
                     <StackPanel Orientation="Horizontal">
 
@@ -117,7 +117,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="设备类型:" />
+                        Content="{DynamicResource AcwDeviceType}" />
                     <TextBox
                         x:Name="DeviceType"
                         Width="250"
@@ -143,7 +143,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="资产编号:" />
+                        Content="{DynamicResource AcwAssetNumber}" />
                     <TextBox
                         x:Name="AssetNumber"
                         Width="250"
@@ -169,7 +169,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="端口类型:" />
+                        Content="{DynamicResource AcwPortType}" />
                     <ComboBox
                         x:Name="PortTypeCombobox"
                         Width="250"
@@ -199,7 +199,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="端口标签:" />
+                        Content="{DynamicResource AcwPortTag}" />
                     <TextBox
                         x:Name="PortTag"
                         Width="250"
@@ -226,7 +226,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="设备群组:" />
+                        Content="{DynamicResource AcwDeviceGroup}" />
 
                     <ComboBox
                         x:Name="PortGroupCombobox"
@@ -254,7 +254,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="部署位置:" />
+                        Content="{DynamicResource AcwDeviceBuilding}" />
 
                     <ComboBox
                         x:Name="BuildingCombobox"
@@ -285,7 +285,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="所在楼层:" />
+                        Content="{DynamicResource AcwDeviceFloor}" />
 
                     <ComboBox
                         x:Name="FloorCombobox"
@@ -314,7 +314,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="所在房间:" />
+                        Content="{DynamicResource AcwDeviceRoom}" />
 
 
                     <ComboBox
@@ -342,7 +342,7 @@
                         Margin="0,5"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="设备使用人:" />
+                        Content="{DynamicResource AcwDeviceUser}" />
 
                     <StackPanel Orientation="Horizontal">
 
@@ -393,7 +393,7 @@
                 HorizontalAlignment="Right"
                 BorderThickness="0"
                 Click="SaveButton_OnClick"
-                Content="保存" />
+                Content="{DynamicResource ApwSave}" />
         </Grid>
 
 

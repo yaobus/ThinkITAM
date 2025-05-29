@@ -65,25 +65,25 @@
     <s:String x:Key="SwHelp">Help</s:String>
 
     <!--  Dashboard  -->
-    <s:String x:Key="DasNetwork">Network Segment Overview</s:String>
+    <s:String x:Key="DasNetwork">Network Segment</s:String>
     <s:String x:Key="DasNetworkNote">Network segment and available IP address information</s:String>
     <s:String x:Key="DasNetworkCount">Total Segments</s:String>
     <s:String x:Key="DasNetworkIpCount">Total IPs</s:String>
     <s:String x:Key="DasNetworkIpNoUse">Available IPs</s:String>
 
-    <s:String x:Key="DasDevice">Device Overview</s:String>
+    <s:String x:Key="DasDevice">Device</s:String>
     <s:String x:Key="DasDeviceNote">Device and port information</s:String>
     <s:String x:Key="DasDeviceCount">Total Devices</s:String>
     <s:String x:Key="DasDevicePortCount">Total Ports</s:String>
     <s:String x:Key="DasDevicePortNoUse">Available Ports</s:String>
 
-    <s:String x:Key="DasLink">Link Overview</s:String>
+    <s:String x:Key="DasLink">Link</s:String>
     <s:String x:Key="DasLinkNote">Link and device connection information</s:String>
     <s:String x:Key="DasLinkCount">Total Links</s:String>
     <s:String x:Key="DasLinkUsed">Used Links</s:String>
     <s:String x:Key="DasLinkNoUse">Available Links</s:String>
 
-    <s:String x:Key="DasAsset">Asset Overview</s:String>
+    <s:String x:Key="DasAsset">Asset</s:String>
     <s:String x:Key="DasAssetNote">Asset information and logs</s:String>
     <s:String x:Key="DasAssetType">Asset Types</s:String>
     <s:String x:Key="DasAssetCount">Total Assets</s:String>
@@ -266,5 +266,110 @@
     <s:String x:Key="TpWakeTooltip">Wake specified host via network</s:String>
     <s:String x:Key="TpWakeOnLan">Wake-on-LAN</s:String>
     <s:String x:Key="TpWakeOnLanTooltip">Wake LAN hosts remotely</s:String>
+
+
+
+
+    <!--  AddAssetWindow-2025年5月29日  -->
+    <s:String x:Key="AawAssetType">Asset Type</s:String>
+    <s:String x:Key="AawDeviceType">Device Type</s:String>
+    <s:String x:Key="AawAssetNumber">Asset Number</s:String>
+    <s:String x:Key="AawAssetModel">Model</s:String>
+    <s:String x:Key="AawAssetModelPreset">Model Preset</s:String>
+    <s:String x:Key="AawAssetStorageAddress">Storage Location</s:String>
+    <s:String x:Key="AawAssetBuyDate">Purchase Date</s:String>
+    <s:String x:Key="AawAssetBuyPrice">Purchase Price</s:String>
+    <s:String x:Key="AawAssetMaker">Manufacturer</s:String>
+    <s:String x:Key="AawAssetSerialNumber">Serial Number</s:String>
+
+    <s:String x:Key="AawAssetStatus">Asset Status</s:String>
+    <s:String x:Key="AawAssetUserOrganization">Responsible Organization</s:String>
+    <s:String x:Key="AawAssetUserDepartment">Department</s:String>
+    <s:String x:Key="AawAssetUserGroup">Group</s:String>
+    <s:String x:Key="AawAssetAssignedTo">Responsible Person</s:String>
+    <s:String x:Key="AawAssetPhone">Phone</s:String>
+    <s:String x:Key="AawAssetUser">User</s:String>
+    <s:String x:Key="AawAssetServiceLife">Years in Use</s:String>
+    <s:String x:Key="AawAssetScrapDate">Scrap Date</s:String>
+
+    <s:String x:Key="AawAssetDescription">Notes</s:String>
+    <s:String x:Key="AawAssetParameter">Configuration Info</s:String>
+    <s:String x:Key="AawAssetTooltip">This field will be displayed on the asset card</s:String>
+
+
+    <!--  AddComputerWindow-2025年5月29日  -->
+    <s:String x:Key="AcwAssetType">Asset Type</s:String>
+    <s:String x:Key="AcwDeviceType">Device Type</s:String>
+    <s:String x:Key="AcwAssetNumber">Asset Number</s:String>
+    <s:String x:Key="AcwPortType">Port Type</s:String>
+    <s:String x:Key="AcwPortTag">Port Tag</s:String>
+    <s:String x:Key="AcwDeviceGroup">Device Group</s:String>
+    <s:String x:Key="AcwDeviceBuilding">Deployment Location</s:String>
+    <s:String x:Key="AcwDeviceFloor">Floor</s:String>
+    <s:String x:Key="AcwDeviceRoom">Room</s:String>
+    <s:String x:Key="AcwDeviceUser">Device User</s:String>
+
+
+    <!--  DeviceCreateGuideWindow-2025年5月29日  -->
+    <s:String x:Key="DcgAssetType">Asset Type</s:String>
+    <s:String x:Key="DcgDeviceType">Device Type</s:String>
+    <s:String x:Key="DcgAssetNumber">Asset Number</s:String>
+    <s:String x:Key="DcgAssetModel">Model</s:String>
+    <s:String x:Key="DcgDeviceName">Device Name</s:String>
+    <s:String x:Key="DcgAssignedTo">Responsible Person</s:String>
+    <s:String x:Key="DcgUserPhone">Phone</s:String>
+    <s:String x:Key="DcgEnableDate">Activation Date</s:String>
+    <s:String x:Key="DcgRoom">Equipment Room</s:String>
+    <s:String x:Key="DcgCabinet">Cabinet</s:String>
+
+    <s:String x:Key="DcgPreset">Preset Template</s:String>
+    <s:String x:Key="DcgPortType">Port Type</s:String>
+    <s:String x:Key="DcgSlot">Slot ID</s:String>
+    <s:String x:Key="DcgPortTag">Port Tag</s:String>
+    <s:String x:Key="DcgPortNumber">Port ID</s:String>
+    <s:String x:Key="DcgPortNumberRange">Port Range</s:String>
+    <s:String x:Key="DcgPortCount">Port Count</s:String>
+
+    <s:String x:Key="DcgClear">Clear</s:String>
+    <s:String x:Key="DcgClearTooltip">Clear the configuration in the device preview area</s:String>
+    <s:String x:Key="DcgAddPort">Add Port</s:String>
+    <s:String x:Key="DcgAddPortTooltip">Add a port to the device preview area</s:String>
+    <s:String x:Key="DcgSavePreset">Save Preset</s:String>
+    <s:String x:Key="DcgSavePresetTooltip">Save the configuration information of this device model to the database</s:String>
+    <s:String x:Key="DcgSaveButton">Apply</s:String>
+    <s:String x:Key="DcgSaveButtonTooltip">Apply the device configuration and create the corresponding device in the database based on the preview area</s:String>
+
+    <s:String x:Key="DcgCustomTagTitle">Custom Device Info Fields</s:String>
+    <s:String x:Key="DcgCustomTagReset">Restore Default Tags</s:String>
+
+    <!--  DeviceEditWindow-2025年5月29日  -->
+    <s:String x:Key="EdwEditTitle">Edit Device Info</s:String>
+    <s:String x:Key="EdwDeviceName">Device Name</s:String>
+
+    <s:String x:Key="FlAssetModel">Model</s:String>
+    <s:String x:Key="FlBack">Back</s:String>
+    <s:String x:Key="FlConfirm">Confirm</s:String>
+    <s:String x:Key="FlIndex">Index</s:String>
+
+    <!--PortAllocationWindow-->
+    <s:String x:Key="PawSelectedPort">Selected Port</s:String>
+    <s:String x:Key="PawNowDevice">Current Device Name</s:String>
+    <s:String x:Key="PawNowDeviceNumber">Current Device Number</s:String>
+    <s:String x:Key="PawNowDeviceModel">Current Device Model</s:String>
+    <s:String x:Key="PawPortNote">Port Notes</s:String>
+    <s:String x:Key="PawClear">Clear Configuration</s:String>
+    <s:String x:Key="PawSave">Save Configuration</s:String>
+
+    <s:String x:Key="PawNowColor">Current Color</s:String>
+    <s:String x:Key="PawColorSelect">Select Color</s:String>
+    <s:String x:Key="PawColorCancel">Cancel</s:String>
+
+    <s:String x:Key="PawCustomTitle">Custom Port Field Names</s:String>
+    <s:String x:Key="PawGlobalTag">Global Default Tag</s:String>
+    <s:String x:Key="PawGlobalTagTooltip">Low Display Priority</s:String>
+    <s:String x:Key="PawOnlyTag">Device-Specific Tag</s:String>
+    <s:String x:Key="PawOnlyTagTooltip">High Display Priority</s:String>
+
+
 
 </ResourceDictionary>

@@ -33,6 +33,7 @@
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
+            Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
@@ -47,7 +48,7 @@
                 Margin="10"
                 VerticalAlignment="Center"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="自定义资产信息字段" />
+                Text="{DynamicResource AawCustomTitle}" />
 
         </StackPanel>
 
@@ -69,7 +70,7 @@
                 <Label
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Content="自定义字段A:" />
+                    Content="{DynamicResource NmpDgTagA}" />
                 <TextBox
                     x:Name="TagA"
                     Width="240"
@@ -86,7 +87,7 @@
                 <Label
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Content="自定义字段B:" />
+                    Content="{DynamicResource NmpDgTagB}" />
                 <TextBox
                     x:Name="TagB"
                     Width="240"
@@ -105,7 +106,7 @@
                 <Label
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Content="自定义字段C:" />
+                    Content="{DynamicResource NmpDgTagC}" />
                 <TextBox
                     x:Name="TagC"
                     Width="240"
@@ -134,7 +135,7 @@
                 <Label
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Content="自定义字段D:" />
+                    Content="{DynamicResource NmpDgTagD}" />
                 <TextBox
                     x:Name="TagD"
                     Width="240"
@@ -148,13 +149,29 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
-
+            <StackPanel Margin="10,5" Orientation="Vertical">
+                <Label
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagE}" />
+                <TextBox
+                    x:Name="TagE"
+                    Width="240"
+                    Height="28"
+                    Margin="10,0,10,0"
+                    Padding="3"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
                     Margin="10,0"
                     VerticalAlignment="Center"
-                    Content="自定义字段F:" />
+                    Content="{DynamicResource NmpDgTagF}" />
                 <TextBox
                     x:Name="TagF"
                     Width="240"
@@ -168,23 +185,7 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
-            <StackPanel Margin="10,5" Orientation="Vertical">
-                <Label
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Content="自定义字段E:" />
-                <TextBox
-                    x:Name="TagE"
-                    Width="240"
-                    Height="28"
-                    Margin="10,0,10,0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-            </StackPanel>
+
         </StackPanel>
 
 

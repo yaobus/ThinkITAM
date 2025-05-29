@@ -61,7 +61,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*资产类型:" />
+                                Content="{DynamicResource DcgAssetType}" />
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBox
@@ -99,7 +99,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*设备类型:" />
+                                Content="{DynamicResource DcgDeviceType}" />
                             <TextBox
                                 x:Name="DeviceType"
                                 Width="230"
@@ -122,7 +122,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*资产编号:" />
+                                Content="{DynamicResource DcgAssetNumber}" />
                             <TextBox
                                 x:Name="AssetNumber"
                                 Width="230"
@@ -146,7 +146,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*规格型号:" />
+                                Content="{DynamicResource DcgAssetModel}" />
                             <TextBox
                                 x:Name="Model"
                                 Width="230"
@@ -179,7 +179,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="*设备名称:" />
+                                Content="{DynamicResource DcgDeviceName}" />
                             <TextBox
                                 x:Name="Description"
                                 Width="230"
@@ -201,7 +201,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="责任人:" />
+                                Content="{DynamicResource DcgAssignedTo}" />
 
                             <TextBox
                                 x:Name="User"
@@ -226,7 +226,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="责任人电话:" />
+                                Content="{DynamicResource DcgUserPhone}" />
                             <TextBox
                                 x:Name="UserPhone"
                                 Width="230"
@@ -249,7 +249,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="启用日期:" />
+                                Content="{DynamicResource DcgEnableDate}" />
                             <DatePicker
                                 x:Name="EnableDate"
                                 Width="230"
@@ -277,7 +277,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="设备所在机房:" />
+                                Content="{DynamicResource DcgRoom}" />
                             <ComboBox
                                 x:Name="RoomCombobox"
                                 Width="230"
@@ -287,8 +287,7 @@
                                 HorizontalAlignment="Left"
                                 DisplayMemberPath="Name"
                                 SelectionChanged="RoomCombobox_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                ToolTip="选择设备所在机房" />
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                             <!--<TextBox
                             x:Name="UseDepartment"
                             Width="230"
@@ -310,7 +309,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="设备所在机柜:" />
+                                Content="{DynamicResource DcgCabinet}" />
                             <ComboBox
                                 x:Name="CabinetCombobox"
                                 Width="230"
@@ -321,8 +320,7 @@
                                 DisplayMemberPath="Name"
                                 IsEnabled="False"
                                 SelectionChanged="CabinetCombobox_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                ToolTip="选择设备所在机柜" />
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
                             <!--<TextBox
                             x:Name="Address"
@@ -343,10 +341,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelA"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签A:" />
+                                Content="{DynamicResource NmpDgTagA}" />
                             <TextBox
                                 x:Name="TagA"
                                 Width="230"
@@ -367,10 +364,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelB"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签B:" />
+                                Content="{DynamicResource NmpDgTagB}" />
                             <TextBox
                                 x:Name="TagB"
                                 Width="230"
@@ -399,10 +395,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelC"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签C:" />
+                                Content="{DynamicResource NmpDgTagC}" />
                             <TextBox
                                 x:Name="TagC"
                                 Width="230"
@@ -425,10 +420,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelD"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签D:" />
+                                Content="{DynamicResource NmpDgTagD}" />
                             <TextBox
                                 x:Name="TagD"
                                 Width="230"
@@ -450,10 +444,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelE"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签E:" />
+                                Content="{DynamicResource NmpDgTagE}" />
                             <TextBox
                                 x:Name="TagE"
                                 Width="230"
@@ -473,10 +466,9 @@
                             Orientation="Vertical">
                             <Label
                                 x:Name="LabelF"
-                                MaxWidth="90"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="自定义标签F:" />
+                                Content="{DynamicResource NmpDgTagF}" />
                             <TextBox
                                 x:Name="TagF"
                                 Width="230"
@@ -555,7 +547,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="预设模板:" />
+                                Content="{DynamicResource DcgPreset}" />
                             <StackPanel Orientation="Horizontal">
                                 <ComboBox
                                     x:Name="PresetList"
@@ -591,7 +583,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="端口类型:" />
+                                Content="{DynamicResource DcgPortType}" />
                             <ComboBox
                                 x:Name="PortType"
                                 Width="230"
@@ -618,7 +610,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="槽位编号:" />
+                                Content="{DynamicResource DcgSlot}" />
                             <ComboBox
                                 x:Name="SlotNumber"
                                 Width="230"
@@ -655,7 +647,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="端口标签:" />
+                                Content="{DynamicResource DcgPortTag}" />
                             <ComboBox
                                 x:Name="PortSpeed"
                                 Width="230"
@@ -677,7 +669,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="端口编号:" />
+                                Content="{DynamicResource DcgPortNumber}" />
                             <ComboBox
                                 x:Name="PortPrefix"
                                 Width="230"
@@ -700,7 +692,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="编号范围:" />
+                                Content="{DynamicResource 'DcgPortNumberRange '}" />
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBox
@@ -758,7 +750,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="端口数量:" />
+                                Content="{DynamicResource DcgPortCount}" />
                             <Slider
                                 x:Name="PortSlider"
                                 Width="230"
@@ -796,11 +788,11 @@
                                 Padding="0"
                                 HorizontalAlignment="Left"
                                 Click="ClearPortButton_OnClick"
-                                ToolTip="清空设备预览区的配置">
+                                ToolTip="{DynamicResource DcgClearTooltip}">
                                 <StackPanel Orientation="Horizontal">
 
                                     <materialDesign:PackIcon Kind="DeleteOutline" />
-                                    <TextBlock Text="清空设计" />
+                                    <TextBlock Text="{DynamicResource DcgClear}" />
                                 </StackPanel>
 
 
@@ -816,11 +808,11 @@
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="AddPortButton_OnClick"
-                                ToolTip="添加端口到设备预览区">
+                                ToolTip="{DynamicResource DcgAddPortTooltip}">
                                 <StackPanel Orientation="Horizontal">
 
                                     <materialDesign:PackIcon Kind="ViewGridPlusOutline" />
-                                    <TextBlock Text="添加端口" />
+                                    <TextBlock Text="{DynamicResource DcgAddPort}" />
                                 </StackPanel>
 
                             </Button>
@@ -849,14 +841,14 @@
                                 Padding="0"
                                 HorizontalAlignment="Left"
                                 Click="SavePreset_OnClick"
-                                ToolTip="保存该型号设备对应的配置信息到数据库">
+                                ToolTip="{DynamicResource DcgSavePresetTooltip}">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon
                                         Width="20"
                                         Height="20"
                                         VerticalAlignment="Center"
                                         Kind="ContentSaveCogOutline" />
-                                    <TextBlock VerticalAlignment="Center" Text="保存预设" />
+                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource DcgSavePreset}" />
 
                                 </StackPanel>
                             </Button>
@@ -870,10 +862,10 @@
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Click="SaveButton_OnClick"
-                                ToolTip="应用设备配置，将创建预览区对应的设备到数据库中">
+                                ToolTip="{DynamicResource DcgSaveButtonTooltip}">
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MotionPlayOutline" />
-                                    <TextBlock VerticalAlignment="Center" Text="应用设计" />
+                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource DcgSaveButton}" />
 
                                 </StackPanel>
                             </Button>
