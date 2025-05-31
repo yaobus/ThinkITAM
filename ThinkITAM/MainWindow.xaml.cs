@@ -468,9 +468,10 @@ public partial class MainWindow : Window
 
             window.Hide();
 
+
             if (newWindow.ShowDialog() == true)
             {
-                
+
 
             }
 

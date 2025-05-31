@@ -455,7 +455,7 @@
                                 materialDesign:ButtonProgressAssist.Value="-1"
                                 materialDesign:ElevationAssist.Elevation="Dp5"
                                 Click="ArpTestButton_Click"
-                                Content="{materialDesign:PackIcon MagnifyExpand}"
+                                Content="{materialDesign:PackIcon FileFindOutline}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 ToolTip="{DynamicResource NmpGetHostName}" />
 
@@ -1545,11 +1545,12 @@
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
+
         <materialDesign:Snackbar
             Grid.Row="1"
             Grid.Column="1"
             Margin="0,0,0,10"
-            MessageQueue="{Binding MessageQueue}" />
+           />
     </Grid>
 
 </UserControl>

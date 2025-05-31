@@ -154,17 +154,14 @@
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <Grid Grid.Row="2" Grid.Column="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+
 
 
                 <TextBox
                     x:Name="NowMaskText"
-                    Grid.Column="0"
                     Width="200"
-                    Padding="5,0"
+                    Margin="5,0"
+                    Padding="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="子网掩码"
@@ -173,10 +170,7 @@
                     IsEnabled="False"
                     Opacity="0.5"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <StackPanel
-                    Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal" />
+
 
             </Grid>
             <StackPanel

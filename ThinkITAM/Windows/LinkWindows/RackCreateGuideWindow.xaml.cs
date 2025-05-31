@@ -264,6 +264,21 @@ public partial class RackCreateGuideWindow : Window
     private void SaveRack_OnClick(object sender, RoutedEventArgs e)
     {
 
+        //验证已有设备数量是否达到上限
+        int rackCount = StatisticsClass.StatisticsRackCount();
+
+        if (rackCount >= GlobalLimit.RackCount)
+        {
+
+            var message = $"已有机架设备合计{rackCount}个\r本版本限制机架设备数量为{GlobalLimit.RackCount}个\r无法添加新机架！";
+
+            MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            return;
+        }
+
+
+
         var info = CheckInput();
 
 

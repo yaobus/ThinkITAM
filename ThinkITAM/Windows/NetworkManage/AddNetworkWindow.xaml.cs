@@ -178,7 +178,22 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //判断是不是瞎几把写的IP地址
+            //验证已有地址数量是否达到上限
+            int addressCount = StatisticsClass.StatisticsIpAddressCount();
+
+            if (addressCount >= GlobalLimit.IpAddressCount)
+            {
+
+                var message = $"已有网段共有IP地址合计{addressCount}个\r本版本限制IP地址数量为{GlobalLimit.IpAddressCount}个\r无法添加新网段！";
+
+                MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+
+
+            //判断是不是乱写的IP地址
             if (IsValidIp(IpTextBox.Text) == true)
             {
                 //计算IP
@@ -200,6 +215,18 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 if (name != "")
                 {
+                    var nowCount= Convert.ToInt32( IPAddressCalculations.GetAvailableAddresses(Convert.ToInt32( MaskSlider.Value)));
+
+                    if (addressCount + nowCount > GlobalLimit.IpAddressCount)
+                    {
+                        var message = $"已有网段共有IP地址合计{addressCount}个\r版本限制可录入IP地址数量为{GlobalLimit.IpAddressCount}个\r无法添加新网段！";
+
+                        MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+
+
 
                     string networkId;
 
@@ -243,11 +270,6 @@ namespace ThinkITAM.Windows.NetworkManage
 
                                 };
 
-                                //插入网段信息总表的数据
-                                //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
-
-                                //保存组织架构信息
-                                //SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
 
@@ -257,8 +279,6 @@ namespace ThinkITAM.Windows.NetworkManage
                                 DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, networkId);
 
 
-                                //装载初始化数据
-                                //InitializedNetworkData(tableName);
 
 
                                 this.DialogResult = true;

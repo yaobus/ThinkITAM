@@ -274,6 +274,21 @@ namespace ThinkITAM.Windows.Computer
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
+            //验证已有设备数量是否达到上限
+            int computerCount = StatisticsClass.StatisticsComputerCount();
+
+            if (computerCount >= GlobalLimit.ComputerCount)
+            {
+
+                var message = $"已部署终端设备合计{computerCount}个\r本版本限制可部署终端设备数量为{GlobalLimit.RackCount}个\r无法部署新终端！";
+
+                MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+
+
             string portType = null;
 
             if (PortTypeCombobox.SelectedIndex == 0)

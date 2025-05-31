@@ -1068,7 +1068,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Name = row["Name"].ToString();
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
-                info.Group = row["Group"].ToString();
+                info.Group = row["PortGroup"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
@@ -2117,26 +2117,24 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var dialog = new InputDialog();
+        var result = MessageBox.Show("确定删除该网段吗？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
 
-        //窗口放中间
-        var window = Window.GetWindow(this);
-        if (window != null)
+        if (result == MessageBoxResult.Yes)
         {
-            dialog.Owner = window;
+            string query = $"UPDATE Network SET Del = 1 WHERE NetworkId ='{DataBridge.DataBridge.SelectNetworkInfo.NetworkId}';";
+           
+            // Console.WriteLine(query);
+            GlobalVariables.DbService.ExecuteNonQuery(query);
+
+            IpAddressInfoLists.Clear();
+            // 当子窗口关闭后执行这里的代码
+            LoadNetworkInfo2();
+
+            //加载网段信息备注标签
+            LoadTags();
         }
 
-        if (dialog.ShowDialog() == true)
-        {
-
-
-            MessageQueue.Enqueue("开始删除");
-        }
-        else
-        {
-            MessageQueue.Enqueue("放弃操作");
-        }
 
 
     }

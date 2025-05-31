@@ -207,12 +207,13 @@ public partial class DevicePortManage : UserControl
                      LoadDeviceInfo(info);
 
                      EditButton.IsEnabled = true;
+                     DeleteButton.IsEnabled= true;
 
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
                     EditButton.IsEnabled = false;
-
+                    DeleteButton.IsEnabled = false;
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
                     if (selectedItem != null)
@@ -1125,7 +1126,20 @@ public partial class DevicePortManage : UserControl
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-        
+       
+
+        var result = MessageBox.Show("确定要删除该设备吗？", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            var query = $"UPDATE Devices SET Del = 1 WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+
+            GlobalVariables.DbService.ExecuteNonQuery(query);
+
+
+            LoadAssetTreeViewInfos();
+        }
+
     }
 
 

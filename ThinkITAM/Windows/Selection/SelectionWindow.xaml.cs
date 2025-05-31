@@ -4,6 +4,7 @@ using ThinkITAM.FunctionPage;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 
 
 namespace ThinkITAM.Windows.Selection;
@@ -28,6 +29,8 @@ public partial class SelectionWindow : Window
 
     private async void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
+       
+
         WindowLoadStatus = 1;
         //BottomControl.SelectedIndex = -1;
 
@@ -40,6 +43,10 @@ public partial class SelectionWindow : Window
         FunctionPanel.Children.Add(dashboard);
 
         InitializeDatabase();
+
+
+
+
     }
 
     /// <summary>

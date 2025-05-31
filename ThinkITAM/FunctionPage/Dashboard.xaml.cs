@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.FunctionPage;
 /// <summary>
@@ -39,6 +40,25 @@ public partial class Dashboard : UserControl
 
     private async void Dashboard_OnLoaded(object sender, RoutedEventArgs e)
     {
-       
+        await  LoadStatisticsInfo();
+        //await Task.Run(() => LoadStatisticsInfo());
+        this.DataContext = dashboard;
+
+    }
+
+    private ViewModels.Dashboard.DashboardViewModel dashboard  = new ViewModels.Dashboard.DashboardViewModel();
+    
+    /// <summary>
+    /// 加载统计信息
+    /// </summary>
+    private async Task LoadStatisticsInfo()
+    {
+
+        dashboard.NetworkCount = StatisticsClass.StatisticsNetworkCount();
+        dashboard.IpAddressCount = StatisticsClass.StatisticsIpAddressCount();
+        dashboard.DeviceCount = StatisticsClass.StatisticsDevicesCount();
+        dashboard.ComputerCount = StatisticsClass.StatisticsComputerCount();
+        dashboard.LinkCount = StatisticsClass.StatisticsLinkCount();
+        dashboard.LinkNodeCount = StatisticsClass.StatisticsNodeCount();
     }
 }

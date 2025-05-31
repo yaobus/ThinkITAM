@@ -14,6 +14,7 @@ using ThinkITAM.Functions.FunctionClass;
 using System.Windows.Controls.Primitives;
 using System;
 using ThinkITAM.UserControls.Computer;
+using Microsoft.VisualBasic;
 
 
 namespace ThinkITAM.FunctionPage
@@ -50,7 +51,7 @@ namespace ThinkITAM.FunctionPage
 
 
 
-            //TODO 加载机房及配线间信息
+            
 
             LoadDevicesTreeView();
 
@@ -686,7 +687,7 @@ namespace ThinkITAM.FunctionPage
 
             rackInfos.Clear();
 
-            string query = $"SELECT * FROM Racks WHERE CabinetId='{cabinetId}'";
+            string query = $"SELECT * FROM Racks WHERE CabinetId='{cabinetId}'  AND  (Del !=1 OR Del IS NULL)";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -726,7 +727,7 @@ namespace ThinkITAM.FunctionPage
 
         private void LoadDeviceInfos(int index ,string cabinetId)
         {
-            string query = $"SELECT * FROM Devices WHERE DeviceCabinet='{cabinetId}'";
+            string query = $"SELECT * FROM Devices WHERE DeviceCabinet='{cabinetId}'   AND  (Del !=1 OR Del IS NULL)";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -829,6 +830,7 @@ namespace ThinkITAM.FunctionPage
 
                 DataBridge.DataBridge.SelectRackInfo = info;
 
+                DeleteButton.IsEnabled= true;
 
                 var firstChar = info.rackId[0];
 
@@ -849,6 +851,10 @@ namespace ThinkITAM.FunctionPage
 
 
 
+            }
+            else
+            {
+                DeleteButton.IsEnabled = false;
             }
 
         }
@@ -1044,8 +1050,35 @@ namespace ThinkITAM.FunctionPage
         {
 
             DataBridge.DataBridge.LinkManageMode = 0;
-            DataBridge.DataBridge.LinkViewList.Clear();
-            DataBridge.DataBridge.LinkManageList.Clear();
+
+
+            if (DataBridge.DataBridge.LinkViewList.Count>0)
+            {
+                foreach (var node in DataBridge.DataBridge.LinkViewList)
+                {
+                    node.PortClass.NodeIndex = null;
+                    node.PortClass.IsSelected = false;
+
+                }
+                DataBridge.DataBridge.LinkViewList.Clear();
+
+            }
+
+
+            if (DataBridge.DataBridge.LinkManageList.Count > 0)
+            {
+                foreach (var node in DataBridge.DataBridge.LinkManageList)
+                {
+                    node.PortClass.NodeIndex = null;
+                    node.PortClass.IsSelected = false;
+
+                }
+                DataBridge.DataBridge.LinkManageList.Clear();
+            }
+
+
+
+          
             //RoutePanel.Children.Clear();
         }
 
@@ -1059,8 +1092,35 @@ namespace ThinkITAM.FunctionPage
         private void LinkManage_OnClick(object sender, RoutedEventArgs e)
         {
             DataBridge.DataBridge.LinkManageMode = 1;
-            DataBridge.DataBridge.LinkViewList.Clear();
-            DataBridge.DataBridge.LinkManageList.Clear();
+
+
+            if (DataBridge.DataBridge.LinkViewList.Count > 0)
+            {
+                foreach (var node in DataBridge.DataBridge.LinkViewList)
+                {
+                    node.PortClass.NodeIndex = null;
+                    node.PortClass.IsSelected = false;
+
+                }
+                DataBridge.DataBridge.LinkViewList.Clear();
+
+            }
+
+
+            if (DataBridge.DataBridge.LinkManageList.Count > 0)
+            {
+                foreach (var node in DataBridge.DataBridge.LinkManageList)
+                {
+                    node.PortClass.NodeIndex = null;
+                    node.PortClass.IsSelected = false;
+
+                }
+                DataBridge.DataBridge.LinkManageList.Clear();
+            }
+
+
+
+
             PanelPortExpander.IsExpanded = true;
             //DataBridge.DataBridge.PermanentManageList.Clear();
             //RoutePanel.Children.Clear();
@@ -1622,6 +1682,20 @@ namespace ThinkITAM.FunctionPage
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
+            //验证已有节点数量是否达到上限
+            int nodes = StatisticsClass.StatisticsNodeCount();
+
+            if (nodes >= GlobalLimit.NodeCount)
+            {
+
+                var message = $"已有链路节点总数达到{nodes}个\r本版本限制可部署链路节点数量为{GlobalLimit.NodeCount}个\r无法部署新节点！";
+
+                MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+
             if (!string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
                 int index = DbClass.GetNextAvailableNumber("Link", "Link_ID");
@@ -1781,5 +1855,9 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }

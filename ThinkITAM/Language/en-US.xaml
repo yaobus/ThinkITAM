@@ -80,7 +80,7 @@
     <s:String x:Key="DasLink">Link</s:String>
     <s:String x:Key="DasLinkNote">Link and device connection information</s:String>
     <s:String x:Key="DasLinkCount">Total Links</s:String>
-    <s:String x:Key="DasLinkUsed">Used Links</s:String>
+    <s:String x:Key="DasLinkUsed">Links Nodes</s:String>
     <s:String x:Key="DasLinkNoUse">Available Links</s:String>
 
     <s:String x:Key="DasAsset">Asset</s:String>
@@ -351,7 +351,7 @@
     <s:String x:Key="FlConfirm">Confirm</s:String>
     <s:String x:Key="FlIndex">Index</s:String>
 
-    <!--PortAllocationWindow-->
+    <!--  PortAllocationWindow  -->
     <s:String x:Key="PawSelectedPort">Selected Port</s:String>
     <s:String x:Key="PawNowDevice">Current Device Name</s:String>
     <s:String x:Key="PawNowDeviceNumber">Current Device Number</s:String>

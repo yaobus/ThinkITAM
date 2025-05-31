@@ -249,7 +249,8 @@
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    Visibility="Hidden">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
@@ -267,6 +268,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Click="DeleteButton_OnClick"
                     IsEnabled="False"
                     Style="{StaticResource MaterialDesignFlatLightButton}">
                     <materialDesign:PackIcon

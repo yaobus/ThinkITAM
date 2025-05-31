@@ -97,7 +97,7 @@
     <s:String x:Key="DasLink">链路信息总览</s:String>
     <s:String x:Key="DasLinkNote">链路及设备连接信息</s:String>
     <s:String x:Key="DasLinkCount">链路总数</s:String>
-    <s:String x:Key="DasLinkUsed">已用链路数量</s:String>
+    <s:String x:Key="DasLinkUsed">链路节点数量</s:String>
     <s:String x:Key="DasLinkNoUse">可用链路数</s:String>
 
     <s:String x:Key="DasAsset">资产信息总览</s:String>
@@ -318,7 +318,7 @@
     <s:String x:Key="TpWakeOnLanTooltip">网络唤醒局域网主机</s:String>
 
 
-    <!--AddAssetWindow-2025年5月29日-->
+    <!--  AddAssetWindow-2025年5月29日  -->
     <s:String x:Key="AawAssetType">*资产类型</s:String>
     <s:String x:Key="AawDeviceType">*设备类型</s:String>
     <s:String x:Key="AawAssetNumber">*资产编号</s:String>
@@ -348,7 +348,7 @@
 
 
 
-    <!--AddComputerWindow-2025年5月29日-->
+    <!--  AddComputerWindow-2025年5月29日  -->
     <s:String x:Key="AcwAssetType">资产类型</s:String>
     <s:String x:Key="AcwDeviceType">设备类型</s:String>
     <s:String x:Key="AcwAssetNumber">资产编号</s:String>
@@ -360,7 +360,7 @@
     <s:String x:Key="AcwDeviceRoom">所在房间</s:String>
     <s:String x:Key="AcwDeviceUser">设备使用人</s:String>
 
-    <!--DeviceCreateGuideWindow-2025年5月29日-->
+    <!--  DeviceCreateGuideWindow-2025年5月29日  -->
     <s:String x:Key="DcgAssetType">*资产类型</s:String>
     <s:String x:Key="DcgDeviceType">*设备类型</s:String>
     <s:String x:Key="DcgAssetNumber">*资产编号</s:String>
@@ -391,7 +391,7 @@
     <s:String x:Key="DcgCustomTagReset">恢复默认标签</s:String>
 
 
-    <!--DeviceEditWindow-2025年5月29日-->
+    <!--  DeviceEditWindow-2025年5月29日  -->
     <s:String x:Key="EdwEditTitle">编辑设备信息</s:String>
 
     <s:String x:Key="EdwDeviceName">设备名称</s:String>
@@ -402,7 +402,7 @@
     <s:String x:Key="FlIndex">序号</s:String>
 
 
-    <!--PortAllocationWindow-->
+    <!--  PortAllocationWindow  -->
     <s:String x:Key="PawSelectedPort">当前选中端口</s:String>
     <s:String x:Key="PawNowDevice">当前设备名称</s:String>
     <s:String x:Key="PawNowDeviceNumber">当前设备编号</s:String>
@@ -420,4 +420,7 @@
     <s:String x:Key="PawGlobalTagTooltip">低显示优先级</s:String>
     <s:String x:Key="PawOnlyTag">设备独有标签</s:String>
     <s:String x:Key="PawOnlyTagTooltip">高显示优先级</s:String>
+
+
+
 </ResourceDictionary>

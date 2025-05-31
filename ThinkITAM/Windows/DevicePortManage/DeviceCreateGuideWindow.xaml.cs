@@ -29,6 +29,7 @@ using ThinkITAM.UserControls.DevicePortManage;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 using System.Security.Cryptography;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -622,6 +623,20 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// <param name="e"></param>
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
+            //验证已有设备数量是否达到上限
+            int deviceCount = StatisticsClass.StatisticsDevicesCount();
+
+            if (deviceCount >= GlobalLimit.DevicesCount)
+            {
+
+                var message = $"已部署设备合计{deviceCount}个\r本版本限制可部署设备数量为{GlobalLimit.DevicesCount}个\r无法部署新设备！";
+
+                MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+
 
             if (!string.IsNullOrWhiteSpace(Description.Text) && RoomCombobox.SelectedIndex !=-1 && CabinetCombobox.SelectedIndex!=-1)
             {

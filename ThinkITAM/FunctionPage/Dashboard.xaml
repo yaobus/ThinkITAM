@@ -7,6 +7,7 @@
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dashboard="clr-namespace:ThinkITAM.ViewModels.Dashboard"
     MinWidth="1300"
     MinHeight="800"
     d:Background="AliceBlue"
@@ -17,7 +18,11 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="Dashboard_OnLoaded"
     mc:Ignorable="d">
-    <Grid>
+<!--<UserControl.DataContext>
+    <dashboard:DashboardViewModel />
+</UserControl.DataContext>-->
+
+    <Grid x:Name="InfoGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
@@ -47,6 +52,7 @@
                 Orientation="Vertical">
 
                 <Grid
+
                     Grid.Row="1"
                     Margin="10"
                     HorizontalAlignment="Stretch">
@@ -67,6 +73,7 @@
                     <materialDesign:Chip
                         Grid.Column="1"
                         Height="38"
+                        Visibility="Collapsed"
                         HorizontalAlignment="Right"
                         Content="Administrator"
                         Icon="A"
@@ -159,7 +166,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="128" />
+                                        Text="{Binding NetworkCount}" />
 
                                     <TextBlock
                                         TextWrapping="Wrap"
@@ -186,7 +193,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="8192" />
+                                        Text="{Binding IpAddressCount}"  />
 
                                     <TextBlock
                                         TextWrapping="Wrap"
@@ -213,7 +220,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="4096" />
+                                        Text="8192" />
 
                                     <TextBlock
                                         TextWrapping="Wrap"
@@ -314,7 +321,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="64" />
+                                        Text="{Binding DeviceCount}"  />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -340,7 +347,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="1024" />
+                                        Text="{Binding ComputerCount}"  />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -466,7 +473,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="1024" />
+                                        Text="{Binding LinkCount}"  />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -492,7 +499,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="512" />
+                                        Text="{Binding LinkNodeCount}"  />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -698,7 +705,7 @@
                     Mode="PrimaryLight">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
-                        <lvc:PieChart
+                        <!--<lvc:PieChart
                             Width="300"
                             Height="300"
                             DataTooltip="{x:Null}"
@@ -726,7 +733,7 @@
                                     LabelPoint="{Binding PointLabel}"
                                     Values="3" />
                             </lvc:PieChart.Series>
-                        </lvc:PieChart>
+                        </lvc:PieChart>-->
 
                     </StackPanel>
 
