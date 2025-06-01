@@ -707,12 +707,19 @@ public partial class NetworkAddressManagePage : UserControl
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
                     LoadedNetworkSegment = null;
+
                     IpAddressInfoLists.Clear();
 
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
                     if (selectedItem != null)
                     {
+
+                        var item  = selectedItem.Header as NetworkInfo;
+                        var info = item.DataContext as NetworkInfoViewMode;
+                        DataBridge.DataBridge.SelectNetworkInfo= info;
+                       
+
                         // 判断节点是否展开
                         if (selectedItem.IsExpanded)
                         {
@@ -2117,7 +2124,10 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var result = MessageBox.Show("确定删除该网段吗？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var message = $"确定删除\r网段名称:{SelectNetworkInfo.Name}\r网段地址:{SelectNetworkInfo.Network}\r子网掩码:{SelectNetworkInfo.Netmask}吗";
+
+
+        var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
 
         if (result == MessageBoxResult.Yes)

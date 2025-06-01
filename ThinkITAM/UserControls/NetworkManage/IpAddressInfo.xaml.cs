@@ -252,12 +252,13 @@ public partial class IpAddressInfo : UserControl
 
         // 获取触发事件的MenuItem
         var menuItem = sender as MenuItem;
+
         if (menuItem != null)
         {
             // 根据菜单项的不同进行相应的处理
-            switch (menuItem.Header.ToString())
+            switch (menuItem.Tag)
             {
-                case "端口检测":
+                case "PortScan":
                     // 执行选项1的操作
 
                     PortScanWindow portScanWindow = new PortScanWindow(url);
@@ -274,7 +275,7 @@ public partial class IpAddressInfo : UserControl
 
                     break;
 
-                case "PING测试":
+                case "Ping":
 
                     string arguments = $"-t {url}";
 
@@ -302,7 +303,7 @@ public partial class IpAddressInfo : UserControl
 
 
 
-                case "地址收藏":
+                case "Collect":
 
                     AddressCollectWindow addressCollectWindow = new AddressCollectWindow(url);
                     //窗口放中间
@@ -320,7 +321,7 @@ public partial class IpAddressInfo : UserControl
 
                     // 执行选项2的操作
                     break;
-                case "WOL收藏":
+                case "Wol":
 
                     var portInfo = this.DataContext as IpAddressInfoListViewMode;
 

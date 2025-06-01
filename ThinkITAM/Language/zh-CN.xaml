@@ -27,11 +27,8 @@
     <s:String x:Key="CdClose">关闭</s:String>
     <s:String x:Key="CdConfirm">确认</s:String>
     <s:String x:Key="CdTitle">请设置密码</s:String>
-
     <s:String x:Key="CdPrompt">密码不得为空</s:String>
-
     <s:String x:Key="CdPrompt2">两次密码输入不一致</s:String>
-
     <s:String x:Key="CdFailedVerificationTitle">验证失败</s:String>
     <s:String x:Key="CdFailedVerificationPrompt">验证失败，密码错误</s:String>
 
@@ -189,6 +186,10 @@
     <s:String x:Key="NmpDgBroadcast">广播地址</s:String>
     <s:String x:Key="NmpDgNetworkIpCount">网段地址总数</s:String>
 
+    <s:String x:Key="NmpPortScan">端口扫描</s:String>
+    <s:String x:Key="NmpPingIp">Ping测试</s:String>
+    <s:String x:Key="NmpIpCollect">添加收藏</s:String>
+    <s:String x:Key="NmpWolCollect">添加WOL</s:String>
 
     <!--  DevicePortManagePage  -->
     <s:String x:Key="DpmAddDevice">新增设备</s:String>

@@ -12,6 +12,7 @@
     MinHeight="380"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     ResizeMode="CanResize"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>

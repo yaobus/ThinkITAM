@@ -291,11 +291,16 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static ObservableCollection<string> PortPanelModifyTagList = new ObservableCollection<string>();
 
+        /// <summary>
+        /// 链路节点展示列表
+        /// </summary>
+        public static ObservableCollection<PortLinkClass> PortPanelLinkViewList = new ObservableCollection<PortLinkClass>();
+
         //-------------------------IndexPage----------------------------
         /// <summary>
         /// 发生修改的IndexPage标签列表
         /// </summary>
-       public static ObservableCollection<string> modifyIndexTags= new ObservableCollection<string>();
+        public static ObservableCollection<string> modifyIndexTags= new ObservableCollection<string>();
 
     }
 }

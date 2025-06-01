@@ -106,10 +106,10 @@
                 ToolTip="{Binding AddressToolTip}">
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Click="MenuItem_OnClick" Header="端口检测" />
-                        <MenuItem Click="MenuItem_OnClick" Header="PING测试" />
-                        <MenuItem Click="MenuItem_OnClick" Header="地址收藏" />
-                        <MenuItem Click="MenuItem_OnClick" Header="WOL收藏" />
+                        <MenuItem Click="MenuItem_OnClick" Tag="PortScan" Header="{DynamicResource NmpPortScan}" />
+                        <MenuItem Click="MenuItem_OnClick" Tag="Ping" Header="{DynamicResource NmpPingIp}" />
+                        <MenuItem Click="MenuItem_OnClick" Tag="Collect" Header="{DynamicResource NmpIpCollect}" />
+                        <MenuItem Click="MenuItem_OnClick" Tag="Wol" Header="{DynamicResource NmpWolCollect}" />
                     </ContextMenu>
                 </Button.ContextMenu>
 

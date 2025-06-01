@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="查找未部署资产"
     Width="800"
-    Height="450"
+    Height="500"
     MinHeight="380"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="FindAssetWindow_OnLoaded"

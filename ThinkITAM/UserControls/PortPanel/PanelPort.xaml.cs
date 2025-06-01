@@ -22,6 +22,8 @@ using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
+using Nmap.NET.Container;
+using Nodify;
 
 namespace ThinkITAM.UserControls.PortPanel
 {
@@ -31,7 +33,7 @@ namespace ThinkITAM.UserControls.PortPanel
     public partial class PanelPort : UserControl
     {
         public static readonly DependencyProperty RackInfoProperty =
-            DependencyProperty.Register("PortPanelInfo", typeof(PortPanelClass), typeof(Port), new PropertyMetadata(null));
+            DependencyProperty.Register("PortPanelInfo", typeof(PortPanelClass), typeof(LinkPage.Port), new PropertyMetadata(null));
 
 
 
@@ -74,53 +76,39 @@ namespace ThinkITAM.UserControls.PortPanel
         private void PortButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-            // 获取 rack 层的 DataContext
-            var rackDataContext = (sender as FrameworkElement)?.FindAncestor<Rack>()?.DataContext;
-
-            if (rackDataContext != null)
-            {
-                var info = rackDataContext as MdfRackClass;
-
-                if (info != null)
-                {
-                    DataBridge.DataBridge.SelectRackId.Clear();
-                    DataBridge.DataBridge.SelectRackId.Add(info.RackId);
-                }
-
-            }
-
-            // 获取 Slot 层的 DataContext
-            var slotDataContext = (sender as FrameworkElement)?.FindAncestor<MDF>()?.DataContext;
-            if (slotDataContext != null)
-            {
-                var slotInfo = slotDataContext as SlotClass;
 
                 PortClass port = (PortClass)this.DataContext;
 
-                DataBridge.DataBridge.SelectPortInfo = port;
+                if (port.OnTheLine != null && port.OnTheLine > 0)
+                {
+                   
 
-                DataBridge.DataBridge.SelectSlotInfo = slotInfo;
-
-            }
-
-            switch (DataBridge.DataBridge.LinkManageMode)
-            {
-                case 0:
-                    
-                    MessageBox.Show("TEMP");
-
-                    break;
-
-
-                case 1:
-                    MessageBox.Show("PER");
-                    break;
+                    foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
+                    {
+                        if (port.RackId == node.PortClass.RackId)
+                        {
+                            port.NodeIndex = node.PortClass.NodeIndex;
+                           
+                            port.IsSelected = true;
+                        }
 
 
-                case 2:
-                    MessageBox.Show("LINK");
-                    break;
-            }
+                        DataBridge.DataBridge.PortPanelLinkViewList.Add(node);
+                    }
+
+
+
+                }
+                else
+                {
+                    DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+                }
+
+
+            
+
+
+
 
 
 

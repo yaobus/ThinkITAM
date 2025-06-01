@@ -388,7 +388,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBox
                                 x:Name="LineLink"
-                                Width="195"
+                                Width="250"
                                 Height="28"
                                 Margin="0,0,5,0"
                                 Padding="3"
@@ -397,7 +397,7 @@
                                 materialDesign:TextFieldAssist.LeadingIcon="Note"
                                 IsEnabled="False"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding LineLink, Mode=TwoWay}" />
+                                Text="{Binding OnTheLine, Mode=TwoWay}" />
 
                             <Button
                                 x:Name="FindLine"
@@ -406,7 +406,8 @@
                                 Margin="0,0,10,0"
                                 Padding="0"
                                 Click="FindLine_OnClick"
-                                IsEnabled="True">
+                                IsEnabled="True"
+                                Visibility="Collapsed">
                                 <StackPanel>
                                     <materialDesign:PackIcon Kind="Magnify" />
                                 </StackPanel>

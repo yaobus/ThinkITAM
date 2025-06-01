@@ -491,6 +491,7 @@
                     AutoGenerateColumns="False"
                     Background="Transparent"
                     BorderThickness="0"
+                    GridLinesVisibility="None"
                     IsReadOnly="True"
                     MouseDoubleClick="AssetDataGrid_OnMouseDoubleClick"
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"

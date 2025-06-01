@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
     Title="添加网络唤醒"
-    Width="630"
-    Height="410"
+    Width="600"
+    Height="400"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddWakeOnLan_OnLoaded"
     Style="{StaticResource MaterialDesignWindow}"
@@ -219,6 +219,7 @@
         </StackPanel>
 
         <StackPanel
+            Visibility="Collapsed"
             Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Left"

@@ -42,7 +42,7 @@ public partial class SelectionWindow : Window
 
         FunctionPanel.Children.Add(dashboard);
 
-        InitializeDatabase();
+       await InitializeDatabase();
 
 
 

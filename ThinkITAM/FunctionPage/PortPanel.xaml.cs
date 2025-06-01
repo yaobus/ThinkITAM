@@ -29,15 +29,16 @@ namespace ThinkITAM.FunctionPage
 
         private void PortPanel_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+          
 
             LoadPanelPortTreeList();
 
 
             RoomListView.ItemsSource = roomNumbers;
 
+           // DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
-
+            RouteViewPanel.ItemsSource = DataBridge.DataBridge.PortPanelLinkViewList;
 
             //端口色彩标签发生改变
             DataBridge.DataBridge.PortPanelModifyTagList.CollectionChanged += PortPanelModifyTagList_CollectionChanged;
