@@ -58,5 +58,17 @@ namespace ThinkITAM.Properties {
                 this["ThemeIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowMessage {
+            get {
+                return ((bool)(this["ShowMessage"]));
+            }
+            set {
+                this["ShowMessage"] = value;
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Windows.Selection;
 using Path = System.IO.Path;
 using MaterialDesignColors;
+using ThinkITAM.Windows.Welcome;
 
 
 namespace ThinkITAM;
@@ -42,8 +43,23 @@ public partial class MainWindow : Window
         //Properties.Settings.Default.EncryptString = "";
         //Properties.Settings.Default.Save();
 
-
+        ShowWelcome();
     }
+
+    /// <summary>
+    /// 显示 欢迎信息
+    /// </summary>
+    private void ShowWelcome()
+    {
+        if (Properties.Settings.Default.ShowMessage == true)
+        {
+            var newWindow = new WelcomeWindow();
+            newWindow.Owner = this;
+            newWindow.ShowDialog();
+        }
+    }
+
+        
     /// <summary>
     /// 初始化程序语言和主题
     /// </summary>

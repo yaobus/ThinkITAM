@@ -7,6 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>False</UseWindowsForms>
+    <ApplicationIcon>LOGO.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,15 @@
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Light.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Medium.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
+    <None Remove="Resources\Image\Background.png" />
+    <None Remove="Resources\Image\QR.png" />
+    <None Remove="Resources\Logo\Logo150x150.png" />
+    <None Remove="Resources\Logo\Logo44x44.png" />
+    <None Remove="Resources\UpdateInfo\UpdateInfo.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="LOGO.ico" />
     <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -28,6 +35,9 @@
     </Content>
     <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\UpdateInfo\UpdateInfo.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -71,6 +81,22 @@
   <ItemGroup>
     <Folder Include="Functions\Database\" />
     <Folder Include="UserControls\Menus\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Image\Background.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\QR.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Logo\Logo310x150.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Logo\Logo150x150.png" />
+    <Resource Include="Resources\Logo\Logo44x44.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
