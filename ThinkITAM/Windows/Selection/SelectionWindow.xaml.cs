@@ -42,7 +42,7 @@ public partial class SelectionWindow : Window
 
         FunctionPanel.Children.Add(dashboard);
 
-       await InitializeDatabase();
+        await InitializeDatabase();
 
 
 
@@ -102,7 +102,7 @@ public partial class SelectionWindow : Window
 
         }
 
-        Console.WriteLine(message);
+       
     }
 
     /// <summary>

@@ -249,8 +249,7 @@ public partial class AddressCollectWindow : Window
                         Title = "注意",
                         Prompt = $"地址已存在,请勿重复添加\r\n{url}",
                         ConfirmButtonText = "确认",
-                        TitleColor = Brushes.AliceBlue,
-                        PromptColor = Brushes.AliceBlue
+                        
 
                     };
 
@@ -307,8 +306,7 @@ public partial class AddressCollectWindow : Window
                     Title = "注意",
                     Prompt = $"{info.Item2}",
                     ConfirmButtonText = "确认",
-                    TitleColor = Brushes.AliceBlue,
-                    PromptColor = Brushes.AliceBlue
+                   
 
                 };
 
@@ -341,8 +339,7 @@ public partial class AddressCollectWindow : Window
                         Title = "注意",
                         Prompt = $"地址已存在,请勿重复添加\r\n{url}",
                         ConfirmButtonText = "确认",
-                        TitleColor = Brushes.AliceBlue,
-                        PromptColor = Brushes.AliceBlue
+                       
 
                     };
 
@@ -370,8 +367,7 @@ public partial class AddressCollectWindow : Window
                             Title = "注意",
                             Prompt = $"数据库中存在名为{group}的分组，但是被标记为删除，继续添加将会恢复该分组，是否继续添加？",
                             ConfirmButtonText = "继续",
-                            TitleColor = Brushes.AliceBlue,
-                            PromptColor = Brushes.AliceBlue
+                         
 
                         };
 
@@ -422,8 +418,7 @@ public partial class AddressCollectWindow : Window
                     Title = "注意",
                     Prompt = $"{info.Item2}",
                     ConfirmButtonText = "确认",
-                    TitleColor = Brushes.AliceBlue,
-                    PromptColor = Brushes.AliceBlue
+                   
 
                 };
 

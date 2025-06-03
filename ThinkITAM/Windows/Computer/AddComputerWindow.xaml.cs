@@ -301,7 +301,14 @@ namespace ThinkITAM.Windows.Computer
                 portType = "F";
             }
 
-           
+
+            if (string.IsNullOrWhiteSpace(AssetUser.Text))
+            {
+
+                MessageBox.Show("请输入设备使用人", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
 
 
             //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架，4为通用终端（计算机、IP电话）

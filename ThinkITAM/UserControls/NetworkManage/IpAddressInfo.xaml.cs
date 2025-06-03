@@ -130,10 +130,30 @@ public partial class IpAddressInfo : UserControl
 
                     case 2: //浏览器访问模式
 
-                        string url2 = $"{DataBridge.DataBridge.Protocol}{url}:{DataBridge.DataBridge.SelectPort}";
+                        var port =string.Empty;
 
+                        if (!string.IsNullOrWhiteSpace(DataBridge.DataBridge.SelectPort))
+                        {
+                            port = $":{DataBridge.DataBridge.SelectPort}";
+                        }
+
+
+
+                        string url2 = $"{DataBridge.DataBridge.Protocol}{url}{port}";
+
+                       
 
                         OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
+
+
+
+
+
+
+
+
+
+
 
 
                         break;

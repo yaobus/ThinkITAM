@@ -269,6 +269,8 @@ namespace ThinkITAM.FunctionPage
                
                 string sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.BuildingId = '{DataBridge.DataBridge.SelectBuildingId}'   AND c.Floor = '{DataBridge.DataBridge.SelectFloor}'  AND c.Room = '{DataBridge.DataBridge.SelectRoom}';";
 
+                Console.WriteLine(sql);
+
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
 

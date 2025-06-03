@@ -1821,6 +1821,10 @@ public partial class NetworkAddressManagePage : UserControl
         {
             DataBridge.DataBridge.SelectPort = portList[PortComboBox.SelectedIndex].Port.ToString();
         }
+        else
+        {
+            DataBridge.DataBridge.SelectPort = " 80";
+        }
     }
 
     //协议被改选
@@ -1831,17 +1835,15 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-        switch (index)
+
+        if (index != -1)
         {
-            case 0:
-                DataBridge.DataBridge.Protocol = "http://";
-                break;
-
-            case 1:
-                DataBridge.DataBridge.Protocol = "https://";
-                break;
+            DataBridge.DataBridge.Protocol = protocolInfos[index].ToString();
         }
-
+        else
+        {
+            DataBridge.DataBridge.Protocol = "http://";
+        }
 
 
     }

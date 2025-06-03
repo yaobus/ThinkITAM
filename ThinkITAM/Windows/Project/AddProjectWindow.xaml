@@ -53,9 +53,9 @@
                 Text="{Binding Type, Mode=OneWay}">
 
                 <ComboBoxItem Content="Sqlite" />
-                <ComboBoxItem Content="Mysql" />
+                <!--<ComboBoxItem Content="Mysql" />
                 <ComboBoxItem Content="MariaDB" />
-                <ComboBoxItem Content="SqlServer" />
+                <ComboBoxItem Content="SqlServer" />-->
 
             </ComboBox>
 
