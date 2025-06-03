@@ -589,6 +589,7 @@ public partial class AddAssetWindow : Window
 
                 var assetEntity = new ViewModels.DatabaseEntity.Asset.AssetViewModel()
                 {
+                    Id = DbClass.GetNextAvailableNumber("Asset", "Id"),
                     AssetId = assetId,
                     AssetQrCode = qrCode,
                     AssetType = AssetType.Text,

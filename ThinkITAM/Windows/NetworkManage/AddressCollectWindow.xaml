@@ -312,9 +312,10 @@
             x:Name="CollectDeleteDialogHost"
             Grid.Row="0"
             d:Visibility="Collapsed"
+            Identifier="CollectDeleteDialogHost"
             DialogClosed="DeleteDialogHost_OnDialogClosed"
             DialogContentUniformCornerRadius="5"
-            DialogTheme="Inherit">
+            >
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Margin="10">
 
