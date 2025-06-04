@@ -26,7 +26,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 机架数量限制，128个
         /// </summary>
-        public static readonly int RackCount = 1;
+        public static readonly int RackCount = 128;
 
         /// <summary>
         /// 终端数量限制，1024个

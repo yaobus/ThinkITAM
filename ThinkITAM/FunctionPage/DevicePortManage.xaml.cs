@@ -11,6 +11,7 @@ using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
 using ThinkITAM.ViewModels.AssetManage;
 using Newtonsoft.Json;
+using ThinkITAM.ViewModels.Others;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 
@@ -195,13 +196,15 @@ public partial class DevicePortManage : UserControl
 
                     DataBridge.DataBridge.SelectDeviceTableInfo = info;
 
+                    //加载网段标签
+                    LoadCustomTag();
+
                     await LoadPortInfos(info);
 
 
                     await AnalysisPortInfos();
 
-                    //加载网段标签
-                     LoadCustomTag();
+
 
                     //加载设备信息
                      LoadDeviceInfo(info);
@@ -426,7 +429,7 @@ public partial class DevicePortManage : UserControl
 
         if (settingTags != null)
         {
-            dynamic settings = JsonConvert.DeserializeObject(settingTags);
+            var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
@@ -813,7 +816,7 @@ public partial class DevicePortManage : UserControl
     /// <summary>
     /// 自定义标签
     /// </summary>
-    private dynamic settingTags = null;
+    private string settingTags;
 
 
     /// <summary>
@@ -823,7 +826,7 @@ public partial class DevicePortManage : UserControl
     {
         
 
-        var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
+        var tagWindow = "AddDevice" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
         
         
 
@@ -841,11 +844,8 @@ public partial class DevicePortManage : UserControl
             if (tags != null)
             {
                 settingTags = tags;
-                dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                //标签存到全局变量
-                DataBridge.DataBridge.SelectNetworkTags = settings;
-
+                var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
+                
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
@@ -858,16 +858,12 @@ public partial class DevicePortManage : UserControl
         }
         else //全局标签
         {
-            var tags = DbClass.LoadWindowTag("DevicePortTag");
-
+            var tags = DbClass.LoadWindowTag("AddDevice");
+            
             if (tags != null)
             {
                 settingTags = tags;
-                dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                //标签存到全局变量
-                DataBridge.DataBridge.SelectNetworkTags = settings;
-
+                var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
@@ -879,7 +875,7 @@ public partial class DevicePortManage : UserControl
 
         }
 
-
+       
 
     }
 

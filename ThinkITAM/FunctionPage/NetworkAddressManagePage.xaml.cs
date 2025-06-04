@@ -4,19 +4,20 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Preset;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
-using static ThinkITAM.DataBridge.DataBridge;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
-using ThinkITAM.Windows.ToolWindows;
+using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.Functions.IPAddressHelper;
-using ThinkITAM.DataBridge;
+using ThinkITAM.UserControls.NetworkManage;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Others;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.ToolWindows;
+using static ThinkITAM.DataBridge.DataBridge;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.FunctionPage;
 
@@ -456,7 +457,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadCustomTag()
     {
-        var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+        var tagWindow = "AddNetwork" + DataBridge.DataBridge.NetworkTableName;
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
@@ -487,7 +488,7 @@ public partial class NetworkAddressManagePage : UserControl
         }
         else //全局标签
         {
-            var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
+            var tags = DbClass.LoadWindowTag("AddNetwork");
 
             if (tags != null)
             {
@@ -899,7 +900,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (settingTags != null)
         {
-            dynamic settings = JsonConvert.DeserializeObject(settingTags);
+            var settings = JsonConvert.DeserializeObject <TagViewModel> (settingTags);
 
 
 
@@ -1336,7 +1337,9 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (settingTags != null)
         {
-            dynamic settings = JsonConvert.DeserializeObject(settingTags);
+            var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
+
+           
 
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
@@ -1411,7 +1414,7 @@ public partial class NetworkAddressManagePage : UserControl
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
 
-                tip += $"自定义标签A: {info.TagA}\r";
+                tip += $"自定义标签Aa: {info.TagA}\r";
 
             }
             if (!string.IsNullOrWhiteSpace(info.TagB))

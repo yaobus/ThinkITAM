@@ -54,6 +54,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
+
             
             var settings = new
             {
@@ -68,11 +69,25 @@ namespace ThinkITAM.Windows.NetworkManage
             // 将匿名对象序列化为JSON字符串
             string json = JsonConvert.SerializeObject(settings);
 
-            DbClass.SaveWindowTag("AddNetwork",json);
+
+            if (GlobalTag.IsChecked == true)
+            {
+                DbClass.SaveWindowTag("AddNetwork", json);
+
+            }
+            else
+            {
+                DbClass.SaveWindowTag($"AddNetwork{DataBridge.DataBridge.NetworkTableName}", json);
+            }
+
+           
             
             this.DialogResult = true;
             this.Close();
         }
+
+
+
 
         private void ResetButton_OnClick(object sender, RoutedEventArgs e)
         {

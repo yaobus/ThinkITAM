@@ -621,9 +621,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
             var tags = DbClass.LoadWindowTag("AddNetwork");
 
+            Console.WriteLine("TAGS:"+tags);
+
             if (tags != null)
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
+                
 
                 LabelA.Content = settings.TagA + ":";
                 LabelB.Content = settings.TagB + ":";

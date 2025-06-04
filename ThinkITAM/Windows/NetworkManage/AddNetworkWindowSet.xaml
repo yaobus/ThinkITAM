@@ -50,16 +50,48 @@
 
         </StackPanel>
 
-        <Button
-            x:Name="ResetButton"
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalAlignment="Right"
-            Click="ResetButton_OnClick"
-            Style="{StaticResource MaterialDesignIconButton}"
-            ToolTip="恢复默认标签">
-            <materialDesign:PackIcon Kind="BackupRestore" />
-        </Button>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+
+
+
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Hidden">
+                <RadioButton
+                    x:Name="GlobalTag"
+                    Height="28"
+                    Margin="10,0"
+                    Content="{DynamicResource NmpTagGlobal}"
+                    Style="{StaticResource MaterialDesignRadioButton}"
+                    IsChecked="True"
+                    />
+
+
+                <RadioButton
+                    x:Name="NetworkTag"
+                    Height="28"
+                    Margin="10,0"
+                    Content="{DynamicResource NmpTagNetwork}"
+                    Style="{StaticResource MaterialDesignRadioButton}"
+                    />
+            </StackPanel>
+
+
+            <Button
+                x:Name="ResetButton"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Click="ResetButton_OnClick"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="恢复默认标签">
+                <materialDesign:PackIcon Kind="BackupRestore" />
+            </Button>
+        </Grid>
+
+
 
 
         <StackPanel

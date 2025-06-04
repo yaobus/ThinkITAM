@@ -186,10 +186,17 @@
     <s:String x:Key="NmpDgBroadcast">广播地址</s:String>
     <s:String x:Key="NmpDgNetworkIpCount">网段地址总数</s:String>
 
+
+    <s:String x:Key="NmpTagGlobal">全局标签</s:String>
+    <s:String x:Key="NmpTagNetwork">网段标签</s:String>
+
     <s:String x:Key="NmpPortScan">端口扫描</s:String>
     <s:String x:Key="NmpPingIp">Ping测试</s:String>
     <s:String x:Key="NmpIpCollect">添加收藏</s:String>
     <s:String x:Key="NmpWolCollect">添加WOL</s:String>
+
+
+
 
     <!--  DevicePortManagePage  -->
     <s:String x:Key="DpmAddDevice">新增设备</s:String>
