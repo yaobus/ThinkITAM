@@ -275,28 +275,27 @@ namespace ThinkITAM.Windows.Project
         private void LoadExistingConfigs()
         {
             configs.Clear();
+            // 获取当前用户的文档目录
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+            string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+            string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
 
-            // 检查 数据库配置文件是否存在
-            var dbConfigPath = AppDomain.CurrentDomain.BaseDirectory + @"DatabaseConfig\";
-            var name = "DatabaseConfig.json";
-
+            // 如果目录不存在，则创建
             if (!Directory.Exists(dbConfigPath))
             {
                 Directory.CreateDirectory(dbConfigPath);
             }
 
-            dbConfigPath = Path.Combine(dbConfigPath, name);
 
 
-            
-
-            if (File.Exists(dbConfigPath))
+            if (File.Exists(configFilePath))
             {
-                var encryptJson = File.ReadAllText(dbConfigPath);
+                var encryptJson = File.ReadAllText(configFilePath);
 
                 var json = PasswordProtector.Decrypt(encryptJson);
 
-                Console.WriteLine(json);
+                
 
                 var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
                 var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
@@ -313,26 +312,28 @@ namespace ThinkITAM.Windows.Project
         }
 
 
+        /// <summary>
+        /// 保存配置文件到文件
+        /// </summary>
         private void SaveConfigsToFile()
         {
-            // 检查 数据库配置文件是否存在
-            var dbConfigPath = AppDomain.CurrentDomain.BaseDirectory + @"DatabaseConfig\";
-            var name = "DatabaseConfig.json";
+            // 获取当前用户的文档目录
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+            string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+            string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
 
+            // 如果目录不存在，则创建
             if (!Directory.Exists(dbConfigPath))
             {
                 Directory.CreateDirectory(dbConfigPath);
             }
 
-            dbConfigPath = Path.Combine(dbConfigPath, name);
-
-
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(configs.ToList(), options);
+            var encryptJson = Functions.Protector.PasswordProtector.Encrypt(json);
 
-            var encryptJson=  Functions.Protector.PasswordProtector.Encrypt(json);
-
-            File.WriteAllText(dbConfigPath, encryptJson);
+            File.WriteAllText(configFilePath, encryptJson);
         }
     }
 

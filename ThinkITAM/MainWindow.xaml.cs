@@ -344,21 +344,21 @@ public partial class MainWindow : Window
     /// </summary>
     private void LoadDatabaseConfig()
     {
-        // 检查 数据库配置文件是否存在
-        string dbConfigPath = AppDomain.CurrentDomain.BaseDirectory + @"DatabaseConfig\";
-        string name = "DatabaseConfig.json";
+        // 获取当前用户的文档目录
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+        string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+        string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
 
+        // 如果目录不存在，则创建
         if (!Directory.Exists(dbConfigPath))
         {
             Directory.CreateDirectory(dbConfigPath);
         }
 
-        dbConfigPath = Path.Combine(dbConfigPath, name);
-
-
-        if (!File.Exists(dbConfigPath))
+        if (!File.Exists(configFilePath))
         {
-            // 如果数据库文件不存在，则显示项目创建面板
+            // 如果数据库配置文件不存在，则显示项目创建面板
             SetPasswordZone.Visibility = Visibility.Collapsed;
             LoginZone.Visibility = Visibility.Collapsed;
             ProjectZone.Visibility = Visibility.Visible;
@@ -367,63 +367,49 @@ public partial class MainWindow : Window
         {
             configs.Clear();
 
+            var encryptJson = File.ReadAllText(configFilePath);
 
-            if (File.Exists(dbConfigPath))
+
+            var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
+
+
+            var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+            var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
+
+            if (loaded != null)
             {
-                var encryptJson = File.ReadAllText(dbConfigPath);
-
-                Console.WriteLine(encryptJson);
-
-                var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
-
-                Console.WriteLine(json);
-
-                var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
-                var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
-
-                if (loaded != null)
+                foreach (var item in loaded)
                 {
-                    foreach (var item in loaded)
-                    {
-                        //Console.WriteLine(PasswordProtector.Decrypt(item.Password));
-
-                        configs.Add(item);
-                    }
+                    configs.Add(item);
                 }
             }
-
-            //解密并加载配置文件
-
         }
-
     }
+
 
     /// <summary>
     /// 保存配置文件到文件
     /// </summary>
     private void SaveConfigsToFile()
     {
-        // 检查 数据库配置文件是否存在
-        var dbConfigPath = AppDomain.CurrentDomain.BaseDirectory + @"DatabaseConfig\";
-        var name = "DatabaseConfig.json";
+        // 获取当前用户的文档目录
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+        string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+        string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
 
+        // 如果目录不存在，则创建
         if (!Directory.Exists(dbConfigPath))
         {
             Directory.CreateDirectory(dbConfigPath);
         }
 
-        dbConfigPath = Path.Combine(dbConfigPath, name);
-
-
         var options = new JsonSerializerOptions { WriteIndented = true };
-
         var json = JsonSerializer.Serialize(configs.ToList(), options);
-
         var encryptJson = Functions.Protector.PasswordProtector.Encrypt(json);
 
-        File.WriteAllText(dbConfigPath, encryptJson);
+        File.WriteAllText(configFilePath, encryptJson);
     }
-
 
     private void AddProjectButton_OnClick(object sender, RoutedEventArgs e)
     {
