@@ -196,8 +196,7 @@ public partial class AddPeopleWindow : Window
                 Title = "注意",
                 Prompt = $"{info.Item2}",
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+                
 
             };
 
