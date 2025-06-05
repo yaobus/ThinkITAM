@@ -45,7 +45,7 @@
             <TextBlock
                 Margin="10"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="添加配线间/机房" />
+                Text="添加机房/配线间" />
 
         </StackPanel>
 
