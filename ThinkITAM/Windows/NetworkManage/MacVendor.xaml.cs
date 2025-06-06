@@ -38,8 +38,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Title = "MAC地址输入帮助",
                 Prompt = $"在对话框输入要检测的MAC地址，多个地址请用逗号或空格隔开",
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+                
 
             };
 

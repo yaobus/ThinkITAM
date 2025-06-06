@@ -583,7 +583,7 @@
                                     DisplayMemberPath="Port"
                                     IsEditable="False"
                                     PreviewKeyDown="PortComboBox_OnKeyDown"
-                                    SelectedIndex="0"
+                                    SelectedIndex="-1"
                                     SelectionChanged="PortComboBox_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     ToolTip="选择端口" />

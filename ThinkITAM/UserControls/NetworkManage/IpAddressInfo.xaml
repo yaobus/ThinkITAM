@@ -106,10 +106,22 @@
                 ToolTip="{Binding AddressToolTip}">
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Click="MenuItem_OnClick" Tag="PortScan" Header="{DynamicResource NmpPortScan}" />
-                        <MenuItem Click="MenuItem_OnClick" Tag="Ping" Header="{DynamicResource NmpPingIp}" />
-                        <MenuItem Click="MenuItem_OnClick" Tag="Collect" Header="{DynamicResource NmpIpCollect}" />
-                        <MenuItem Click="MenuItem_OnClick" Tag="Wol" Header="{DynamicResource NmpWolCollect}" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpPortScan}"
+                            Tag="PortScan" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpPingIp}"
+                            Tag="Ping" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpIpCollect}"
+                            Tag="Collect" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpWolCollect}"
+                            Tag="Wol" />
                     </ContextMenu>
                 </Button.ContextMenu>
 

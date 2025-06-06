@@ -54,6 +54,11 @@ public partial class WelcomeWindow : Window
             return null;
         }
     }
+
+    private void CloseButton_OnClick(object sender, RoutedEventArgs e)
+    {
+      this.Close();
+    }
 }
 
 

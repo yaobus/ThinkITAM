@@ -129,8 +129,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     Title = "扫描限制",
                     Prompt = $"单次扫描限制最多{DataBridge.GlobalLimit.ScanHostNumber}个主机",
                     ConfirmButtonText = "确认",
-                    TitleColor = Brushes.AliceBlue,
-                    PromptColor = Brushes.AliceBlue
+                  
                 };
 
                 // 显示对话框
@@ -265,8 +264,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Title = "主机输入帮助",
                 Prompt = $"在对话框输入要检测的IP地址，多个主机地址请用逗号或空格隔开，支持IP段输入(如:192.168.0.1-192.168.0.9)，支持CIDR格式输入(如:192.168.0.0/28)，支持单个主机、网段、和CIDR混合输入。",
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+                
 
             };
 
@@ -290,8 +288,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Title = "端口输入帮助",
                 Prompt = $"在对话框输入要检测的端口，多个端口请用逗号或空格隔开，支持端口范围输入(如:100-200)，支持单个端口、端口范围混合输入。",
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+               
 
             };
 

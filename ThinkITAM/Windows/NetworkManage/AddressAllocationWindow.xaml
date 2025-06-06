@@ -640,7 +640,7 @@
                         x:Name="IsAllocation"
                         Margin="0,25,0,0"
                         Content="是否启用分配"
-                        IsChecked="{Binding Status, Converter={StaticResource AddressStatusToBoolConverter}, Mode=TwoWay}"
+                        IsChecked="{Binding AddressStatus, Converter={StaticResource AddressStatusToBoolConverter}, Mode=TwoWay}"
                         Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
 
                 </StackPanel>

@@ -78,7 +78,6 @@
                         HorizontalAlignment="Right"
                         Click="ButtonBase_OnClick"
                         Content="开始扫描"
-                        Foreground="AliceBlue"
                         Style="{StaticResource MaterialDesignRaisedLightButton}" />
 
                     <Button
@@ -183,7 +182,6 @@
                         HorizontalAlignment="Right"
                         Click="SavePresetButton_OnClick"
                         Content="存为预设"
-                        Foreground="AliceBlue"
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
                         ToolTip="将需要检测的端口保存到预设库，方便下次使用" />
 

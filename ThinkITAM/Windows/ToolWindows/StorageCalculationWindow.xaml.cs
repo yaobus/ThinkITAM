@@ -626,8 +626,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 Title = "注意！数据仅供参考",
                 Prompt = $"计算参数参考自海康威视，实际所需存储空间可能因多种因素而有所变化，包括但不限于视频压缩效率、场景复杂度（影响视频压缩比）、昼夜模式切换等,建议预留至少20%的额外存储空间以应对不可预见的数据增长或系统调整。",
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+                
 
             };
 

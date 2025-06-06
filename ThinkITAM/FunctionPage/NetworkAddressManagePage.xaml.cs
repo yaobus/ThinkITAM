@@ -1076,7 +1076,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Name = row["Name"].ToString();
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
-                info.Group = row["PortGroup"].ToString();
+                info.Group = row["UserGroup"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
@@ -1456,23 +1456,6 @@ public partial class NetworkAddressManagePage : UserControl
     }
 
 
-    /// <summary>
-    /// 订阅窗口关闭事件
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void IpAddressInfo_AddressAllocationWindowClosed(object sender, BoolEventArgs e)
-    {
-        if (e.Result == true)
-        {
-            //TODO
-            //更新显示
-            // LoadAddressInfo(DataBridge.DataBridge.NetworkTableName);
-
-            // MessageBox.Show("信息传递成功！");
-        }
-
-    }
 
 
 
@@ -1837,11 +1820,9 @@ public partial class NetworkAddressManagePage : UserControl
         int index = ProtocolCombobox.SelectedIndex;
 
 
-
-
         if (index != -1)
         {
-            DataBridge.DataBridge.Protocol = protocolInfos[index].ToString();
+            DataBridge.DataBridge.Protocol = protocolInfos[index].Protocol;
         }
         else
         {

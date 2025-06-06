@@ -9,51 +9,39 @@ using GongSolutions.Wpf.DragDrop;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
-   public class OpenUrlClass
+    public class OpenUrlClass
     {
-
-
 
         public static void OpenUrlInSpecificBrowser(string url, string browserPath)
         {
-
-
-
-
             try
             {
-                if (!string.IsNullOrWhiteSpace(browserPath))//有指定浏览器
+                if (!string.IsNullOrWhiteSpace(browserPath))
                 {
-                    Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(url, browserPath);
+                    // 直接调用 Process 打开指定浏览器
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = browserPath,
+                        Arguments = url,
+                        UseShellExecute = false, // 推荐为 false 当指定了具体路径
+                        CreateNoWindow = true
+                    });
                 }
                 else
                 {
-                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    // 使用系统默认浏览器
+                    Process.Start(new ProcessStartInfo(url)
+                    {
+                        UseShellExecute = true
+                    });
                 }
-
-
-
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                Console.WriteLine(exception);
-
+                Console.WriteLine($"Error opening URL: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);
             }
-
-
-            //try
-            //{
-            //    Process.Start(new ProcessStartInfo
-            //    {
-            //        FileName = browserPath,
-            //        Arguments = url,
-            //        UseShellExecute = true
-            //    });
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error opening URL: " + ex.Message);
-            //}
         }
+
     }
 }

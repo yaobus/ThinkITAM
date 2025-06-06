@@ -137,24 +137,14 @@ public partial class IpAddressInfo : UserControl
                             port = $":{DataBridge.DataBridge.SelectPort}";
                         }
 
-
-
                         string url2 = $"{DataBridge.DataBridge.Protocol}{url}{port}";
 
-                       
 
-                        OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
+                        
 
+                       OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
 
-
-
-
-
-
-
-
-
-
+                        
 
                         break;
                     case 3: //PING模式

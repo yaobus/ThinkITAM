@@ -219,12 +219,12 @@
         </StackPanel>
 
         <StackPanel
-            Visibility="Collapsed"
             Grid.Row="4"
             Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Orientation="Horizontal">
+            Orientation="Horizontal"
+            Visibility="Collapsed">
             <Label
                 Width="70"
                 Margin="25,0,0,0"
