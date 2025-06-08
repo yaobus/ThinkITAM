@@ -240,12 +240,18 @@
 
 
                     <StackPanel Margin="10,5" Orientation="Vertical">
-                        <Label Margin="0,5" Content="" />
                         <Button
                             x:Name="LoginButton"
-                            Margin="0,0"
+                            Margin="0,5"
                             Click="LoginButton_OnClick"
                             Content="{DynamicResource Login}"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}" />
+
+                        <Button
+                            x:Name="ForgetPasswordButton"
+                            Margin="0,5"
+                            Click="ForgetPasswordButton_OnClick"
+                            Content="{DynamicResource ForgetPassword}"
                             Style="{StaticResource MaterialDesignRaisedLightButton}" />
                     </StackPanel>
                 </StackPanel>

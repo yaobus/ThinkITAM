@@ -266,6 +266,9 @@ namespace ThinkITAM.FunctionPage
             //Console.WriteLine(info.AssetType);
 
             assetType = info.AssetType;
+
+            Console.WriteLine(assetType);
+
             deviceType = null;
 
             LoadAssetInfos(assetType,deviceType);
@@ -311,7 +314,7 @@ namespace ThinkITAM.FunctionPage
             }
             else
             {
-                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'  AND  Del != 1 OR Del IS NULL";
+                sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'  AND  (Del != 1 OR Del IS NULL)";
             }
 
 

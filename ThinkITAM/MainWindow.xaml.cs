@@ -305,7 +305,7 @@ public partial class MainWindow : Window
     {
         string passwordString = Functions.Protector.PasswordProtector.Encrypt2(InputPasswordBox.Password);
 
-        Console.WriteLine(passwordString);
+       
 
         if (passwordString != Properties.Settings.Default.EncryptString)
         {
@@ -369,20 +369,29 @@ public partial class MainWindow : Window
 
             var encryptJson = File.ReadAllText(configFilePath);
 
-
-            var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
-
-
-            var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
-            var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
-
-            if (loaded != null)
+            try
             {
-                foreach (var item in loaded)
+                var json = Functions.Protector.PasswordProtector.Decrypt(encryptJson);
+
+                var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+                var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);
+
+                if (loaded != null)
                 {
-                    configs.Add(item);
+                    foreach (var item in loaded)
+                    {
+                        configs.Add(item);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+
+                File.Delete(configFilePath);
+                MessageBox.Show("配置信息解密失败，请重新添加项目","错误",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+
+
         }
     }
 
@@ -516,5 +525,34 @@ public partial class MainWindow : Window
 
             SaveConfigsToFile();
 
+    }
+
+    /// <summary>
+    /// 忘记密码,删除配置文件
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ForgetPasswordButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var message = $"此操作将删除项目配置文件\r然后您需要重新添加项目文件\r此操作不会影响您的数据内容\r是否继续？";
+
+        var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            Properties.Settings.Default.EncryptString = null;
+
+            Properties.Settings.Default.Save();
+            //删除配置文件
+
+            // 获取当前用户的文档目录
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+            string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+            string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
+            File.Delete(configFilePath);
+
+            GetEncryptString();
+        }
     }
 }

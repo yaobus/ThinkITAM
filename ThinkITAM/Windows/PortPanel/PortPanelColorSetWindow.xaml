@@ -64,7 +64,7 @@
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                SelectedIndex="{Binding CustomColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding PortColor, Mode=TwoWay}"
                 SelectionChanged="PortColor_OnSelectionChanged"
                 Style="{StaticResource MaterialDesignToolToggleListBox}">
                 <ListBoxItem

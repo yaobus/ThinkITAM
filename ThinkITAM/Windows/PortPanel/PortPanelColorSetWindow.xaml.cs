@@ -37,40 +37,9 @@ namespace ThinkITAM.Windows.PortPanel
         private void PortPanelColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-
+            this.DataContext = port;
         }
 
-
-        private Brush GetBrushByIndex(int index)
-        {
-
-            switch (index)
-            {
-                case 1:
-                    return ColorToBrush("#FF0080");
-                case 2:
-                    return ColorToBrush("#F15A24");
-                case 3:
-                    return ColorToBrush("#FBC02D");
-                case 4:
-                    return ColorToBrush("#64DD17");
-                case 5:
-                    return ColorToBrush("#00A8FF");
-                case 6:
-                    return ColorToBrush("#008080");
-                case 7:
-                    return ColorToBrush("#362391");
-                case 8:
-                    return ColorToBrush("#212121");
-                default:
-                    return Brushes.Transparent;
-            }
-        }
-
-        private SolidColorBrush ColorToBrush(string hexColor)
-        {
-            return (SolidColorBrush)(new BrushConverter().ConvertFrom(hexColor));
-        }
 
         /// <summary>
         /// 选择颜色

@@ -72,11 +72,15 @@ namespace ThinkITAM.Functions.Protector
             return "unknown";
         }
 
-
+        /// <summary>
+        /// 通过设置的加密字符串加密
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="iv"></param>
         private static void GetAesKeyAndIV(out byte[] key, out byte[] iv)
         {
             using var sha256 = SHA256.Create();
-            var hwKey = Encoding.UTF8.GetBytes("ThinkITAM-HaHa");
+            var hwKey = Encoding.UTF8.GetBytes(Properties.Settings.Default.EncryptString);
             var hash = sha256.ComputeHash(hwKey);
 
             key = hash.Take(16).ToArray(); // AES-128 Key

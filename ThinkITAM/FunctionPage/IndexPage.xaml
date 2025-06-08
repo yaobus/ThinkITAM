@@ -149,7 +149,7 @@
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
-                        Kind="ServerPlusOutline" />
+                        Kind="TagPlusOutline" />
 
                 </Button>
 

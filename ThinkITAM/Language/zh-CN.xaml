@@ -15,7 +15,7 @@
 
     <s:String x:Key="InputPassword">输入密码</s:String>
     <s:String x:Key="Login">验证密码</s:String>
-
+    <s:String x:Key="ForgetPassword">忘记密码</s:String>
 
     <!--  Windows.MainWindow连接失败MessageDialogHost  -->
     <s:String x:Key="MainOpenFailedPrompt">数据库打开失败,请检查数据库配置</s:String>
@@ -66,7 +66,7 @@
     <s:String x:Key="SwNetwork">网段资源管理</s:String>
 
     <s:String x:Key="SwDevicePort">设备端口管理</s:String>
-    <s:String x:Key="SwIndexTag">索引标签管理</s:String>
+    <s:String x:Key="SwIndexTag">地址收藏管理</s:String>
     <s:String x:Key="SwLink">链路信息管理</s:String>
     <s:String x:Key="SwAsset">资产信息管理</s:String>
 

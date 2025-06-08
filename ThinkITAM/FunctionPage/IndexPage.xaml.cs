@@ -311,8 +311,7 @@ namespace ThinkITAM.FunctionPage
                 Title = "注意",
                 Prompt = $"此操作将导致该及其分组中所有的标签被隐藏，是否继续删除？",
                 ConfirmButtonText = "继续",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+
 
             };
 
