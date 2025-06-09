@@ -69,7 +69,6 @@
                         HorizontalAlignment="Right"
                         Click="ScanButton_OnClick"
                         Content="开始查询"
-                        Foreground="AliceBlue"
                         Style="{StaticResource MaterialDesignRaisedLightButton}" />
 
                     <Button
@@ -91,7 +90,7 @@
                     x:Name="MacTextBox"
                     Grid.Row="1"
                     Margin="5"
-                    Padding="0"
+                    Padding="3"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     AcceptsReturn="True"
