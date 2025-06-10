@@ -60,6 +60,7 @@
                     Height="28"
                     Padding="3"
                     VerticalAlignment="Center"
+                    Text="{Binding Building}"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="OfficeBuilding"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
@@ -81,8 +82,7 @@
                     Width="300"
                     Height="28"
                     Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    VerticalAlignment="Center"                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AddressMarker"
                     DisplayMemberPath="Location"
                     IsEditable="True"
@@ -129,6 +129,7 @@
                     Height="28"
                     Padding="3"
                     VerticalAlignment="Center"
+                    Text="{Binding Phone}"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Phone"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
@@ -149,6 +150,7 @@
                     Width="300"
                     Height="28"
                     Padding="3"
+                    Text="{Binding Note}"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"

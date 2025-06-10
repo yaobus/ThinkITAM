@@ -57,7 +57,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             deviceRoomInfos.Clear();
 
-            string query = "SELECT * FROM DeviceRoom;";
+            string query = "SELECT * FROM DeviceRoom WHERE (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -83,7 +83,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
 
-
+            deviceCabinetInfos.Clear();
         }
 
         /// <summary>
@@ -107,12 +107,20 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (num != -1)
             {
-                var roomInfo = RoomListView.SelectedItem as DeviceRoomClass;
+                var roomInfo = deviceRoomInfos[num];
 
                 roomId = roomInfo.DeviceRoomQrId;
 
 
+                EditRoomButton.IsEnabled=true;
+                DeleteRoomButton.IsEnabled=true;
+
                 LoadCabinetInfo(roomId);
+            }
+            else
+            {
+                EditRoomButton.IsEnabled = false;
+                DeleteRoomButton.IsEnabled = false;
             }
         }
 
@@ -120,7 +128,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             deviceCabinetInfos.Clear();
 
-            string query = $"SELECT * FROM DeviceCabinet WHERE DeviceRoomQrId='{deviceRoomQrId}';";
+            string query = $"SELECT * FROM DeviceCabinet WHERE DeviceRoomQrId='{deviceRoomQrId}' AND (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -132,6 +140,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 CabinetClass info = new CabinetClass();
                 info.Index = index;
+                info.DeviceRoomQrId = deviceRoomQrId;
                 info.CabinetId = row["CabinetId"].ToString();
                 info.Name = row["CabinetName"].ToString();
                 info.Position = row["Position"].ToString();
@@ -162,11 +171,8 @@ namespace ThinkITAM.UserControls.PresetPage
             if (addDeviceRoomWindow.ShowDialog() == true)
             {
 
-                // 当子窗口关闭后执行这里的代码
-
                 LoadDeviceRoomInfo();
-                //加载设备信息
-                //LoadTags();
+               
             }
 
         }
@@ -191,6 +197,147 @@ namespace ThinkITAM.UserControls.PresetPage
                 if (roomId != null)
                 {
                     LoadCabinetInfo(roomId);
+                }
+
+
+            }
+        }
+
+        private void RoomListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int num = RoomListView.SelectedIndex;
+
+            if (num != -1)
+            {
+                var roomInfo = deviceRoomInfos[num];
+
+
+                var addDeviceRoomWindow = new AddDeviceRoomWindow(roomInfo);
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    addDeviceRoomWindow.Owner = window;
+                }
+
+                if (addDeviceRoomWindow.ShowDialog() == true)
+                {
+
+                    LoadDeviceRoomInfo();
+
+                }
+
+            }
+
+        }
+
+        private void DeleteRoomButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = RoomListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = deviceRoomInfos[index];
+
+
+                var message = $"确定要删除吗？\r房间名称:{info.Name}\r地址:{info.Location}";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE DeviceRoom SET Del = 1 WHERE DeviceRoomQrId ='{info.DeviceRoomQrId}';";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadDeviceRoomInfo();
+
+                }
+
+
+            }
+        }
+
+        private void CabinetListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int num = CabinetListView.SelectedIndex;
+
+            if (num != -1)
+            {
+
+                EditCabinetButton.IsEnabled = true;
+                DeleteCabinetButton.IsEnabled = true;
+
+                
+            }
+            else
+            {
+                EditCabinetButton.IsEnabled = false;
+                DeleteCabinetButton.IsEnabled = false;
+            }
+        }
+
+        private void CabinetListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int num = CabinetListView.SelectedIndex;
+
+            if (num != -1)
+            {
+                var cabinetInfo = deviceCabinetInfos[num];
+
+
+                AddGroupWindow add = new AddGroupWindow(cabinetInfo);
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    add.Owner = window;
+                }
+
+                if (add.ShowDialog() == true)
+                {
+
+                    // 当子窗口关闭后执行这里的代码
+                    if (roomId != null)
+                    {
+                        LoadCabinetInfo(roomId);
+                    }
+                }
+
+
+            }
+        }
+
+        private void DeleteCabinetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = CabinetListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = deviceCabinetInfos[index];
+
+
+                var message = $"确定要删除吗？\r房间名称:{info.Name}\r位置:{info.Position}\r备注:{info.Note}";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE DeviceCabinet SET Del = 1 WHERE DeviceRoomQrId ='{info.DeviceRoomQrId}' AND  CabinetId ='{info.CabinetId}';";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadCabinetInfo(info.DeviceRoomQrId);
                 }
 
 

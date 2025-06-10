@@ -1,5 +1,4 @@
-﻿using ThinkITAM.DatabaseOperation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,9 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Windows.LinkWindows;
 /// <summary>
@@ -23,58 +24,88 @@ namespace ThinkITAM.Windows.LinkWindows;
 /// </summary>
 public partial class AddGroupWindow : Window
 {
-    public AddGroupWindow()
+    public AddGroupWindow(CabinetClass cabinetInfo=null)
     {
         InitializeComponent();
+        if (cabinetInfo != null)
+        {
+            cabinet = cabinetInfo;
+
+            Console.WriteLine(cabinetInfo.DeviceRoomQrId);
+
+            this.DataContext = cabinet;
+
+        }
     }
-
-    private DbClass dbClass;
-
+    private CabinetClass cabinet = new CabinetClass();
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
-        //检查同一个机房是否有同名的机柜
-        //机房ID
-
 
         if (RoomCombobox.Text.Length > 2 && GroupNameTextBox.Text.Length > 2)
         {
-            string deviceRoomQrId = deviceRoomInfo[RoomCombobox.SelectedIndex].DeviceRoomQrId;
-            string groupName = GroupNameTextBox.Text;
-            string note = Note.Text;
-            string position = Position.Text;
-            string sqlTemp = $"SELECT COUNT(*) FROM DeviceCabinet WHERE DeviceRoomQrId ='{deviceRoomQrId}' AND CabinetName='{groupName}'";
+            var deviceRoomQrId = deviceRoomInfo[RoomCombobox.SelectedIndex].DeviceRoomQrId;
+            var groupName = GroupNameTextBox.Text;
+            var position = Position.Text;
+            var note = Note.Text;
 
-            var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-            if (countNum == 0)
+            if (cabinet != null)//UPDATE
             {
-                //创建资产ID
-                string assetId = AssetIdCreate.CreateAssetId(deviceRoomQrId + groupName);
-
-                //创建资产二维码,0为机房，1为机柜，2为设备
-                string cabinetId = "1" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
 
                 var cabinetInfo = new
                 {
-                    CabinetId = cabinetId,
+                    CabinetId = cabinet.CabinetId,
                     DeviceRoomQrId = deviceRoomQrId,
                     CabinetName = groupName,
                     Position = position,
                     Note = note
                 };
 
-                //string sql = $"INSERT INTO DeviceCabinet(CabinetId,DeviceRoomQrId,CabinetName,Position,Note) VALUES('{cabinetId}','{deviceRoomQrId}','{groupName}','{position}','{note}')";
+                var conditions = new { DeviceRoomQrId = deviceRoomQrId, CabinetId = cabinet.CabinetId };
 
-
-                GlobalVariables.DbService.InsertEntity("DeviceCabinet", cabinetInfo);
+                GlobalVariables.DbService.UpdateEntity("DeviceCabinet", cabinetInfo,conditions);
 
                 this.DialogResult = true;
+
+
+
             }
             else
             {
-                MessageBox.Show("机柜/分组名重复，请误重复添加", "有问题需要注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                string sqlTemp = $"SELECT COUNT(*) FROM DeviceCabinet WHERE DeviceRoomQrId ='{deviceRoomQrId}' AND CabinetName='{groupName}'";
+
+                var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                if (countNum == 0)
+                {
+                    //创建资产ID
+                    string assetId = AssetIdCreate.CreateAssetId(deviceRoomQrId + groupName);
+
+                    //创建资产二维码,0为机房，1为机柜，2为设备
+                    string cabinetId = "1" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+
+
+                    var cabinetInfo = new
+                    {
+                        CabinetId = cabinetId,
+                        DeviceRoomQrId = deviceRoomQrId,
+                        CabinetName = groupName,
+                        Position = position,
+                        Note = note
+                    };
+
+                    GlobalVariables.DbService.InsertEntity("DeviceCabinet", cabinetInfo);
+
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    MessageBox.Show("机柜/分组名重复，请误重复添加", "有问题需要注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
+
+
         }
         else
         {
@@ -92,6 +123,19 @@ public partial class AddGroupWindow : Window
 
         LoadDeviceRoomInfo();
         RoomCombobox.ItemsSource = deviceRoomInfo;
+
+        if (cabinet != null)
+        {
+            int index = deviceRoomInfo.IndexOf(deviceRoomInfo.FirstOrDefault(d =>
+                d.DeviceRoomQrId == cabinet.DeviceRoomQrId));
+
+            if (index >= 0)
+            {
+                RoomCombobox.SelectedIndex = index;
+            }
+
+        }
+
     }
 
 
@@ -109,7 +153,7 @@ public partial class AddGroupWindow : Window
     {
         deviceRoomInfo.Clear();
 
-        string query = "SELECT * FROM DeviceRoom;";
+        string query = "SELECT * FROM DeviceRoom (Del != 1 OR Del IS NULL);";
 
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);

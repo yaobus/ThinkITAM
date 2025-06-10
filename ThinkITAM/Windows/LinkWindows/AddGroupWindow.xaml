@@ -96,7 +96,8 @@
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Phone"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Name}" />
             </StackPanel>
 
             <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
@@ -107,7 +108,7 @@
 
 
                 <TextBox
-                    x:Name="Note"
+                    x:Name="Position"
                     Width="300"
                     Height="28"
                     Margin="0"
@@ -116,7 +117,8 @@
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Position}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="1"
@@ -128,7 +130,7 @@
                     Content="备注信息:" />
 
                 <TextBox
-                    x:Name="Position"
+                    x:Name="Note"
                     Width="300"
                     Height="28"
                     Margin="0"
@@ -137,7 +139,8 @@
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Layers"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Note}" />
             </StackPanel>
         </StackPanel>
         <Button

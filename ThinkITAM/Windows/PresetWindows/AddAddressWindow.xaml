@@ -10,7 +10,6 @@
     Width="400"
     Height="300"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-    Loaded="AddAddressWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
@@ -63,7 +62,8 @@
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AddressMarker"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Location}" />
             </StackPanel>
 
 
@@ -84,7 +84,8 @@
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Note}" />
             </StackPanel>
 
 

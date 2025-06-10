@@ -16,6 +16,7 @@ using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.LinkWindows
@@ -25,13 +26,18 @@ namespace ThinkITAM.Windows.LinkWindows
     /// </summary>
     public partial class AddDeviceRoomWindow : Window
     {
-        public AddDeviceRoomWindow()
+        public AddDeviceRoomWindow(DeviceRoomClass deviceRoomInfo = null)
         {
             InitializeComponent();
+            if (deviceRoomInfo!=null)
+            {
+                deviceRoom =  deviceRoomInfo;
+                this.DataContext = deviceRoom;
+            }
         }
 
 
-
+        private DeviceRoomClass deviceRoom = new DeviceRoomClass();
         private void AddDeviceRoomWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
@@ -55,7 +61,7 @@ namespace ThinkITAM.Windows.LinkWindows
         /// </summary>
         private void LoadAddressInfo()
         {
-            string query = "SELECT Location FROM  Address";
+            string query = "SELECT * FROM Address WHERE (Del != 1 OR Del IS NULL)";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -129,36 +135,53 @@ namespace ThinkITAM.Windows.LinkWindows
         {
             if (DeviceRoom.Text.Replace(" ", "").Length > 1)
             {
-                
 
-
-                //MessageBox.Show("TODO/检查机房是否存在");
-
-                //创建资产ID
-                string assetId =AssetIdCreate.CreateAssetId(DeviceRoom.Text);
-
-                //创建资产二维码,0为机房，1为机柜，2为设备
-                string qrCode = "0" +AssetCodeClass.GenerateChecksum(assetId).ToUpper();
-
-                var roomInfo = new
+                if (deviceRoom != null)//UPDATE
                 {
-                    DeviceRoomQrId=qrCode,
-                    RoomName = DeviceRoom.Text, 
-                    Location = AddressCombobox.Text,  
-                    User = PeopleName.Text,
-                    UserPhone = Phone.Text,
-                    Note = Note.Text
-                };
+
+                    var roomInfo = new
+                    {
+                        DeviceRoomQrId = deviceRoom.DeviceRoomQrId,
+                        RoomName = DeviceRoom.Text,
+                        Location = AddressCombobox.Text,
+                        User = PeopleName.Text,
+                        UserPhone = Phone.Text,
+                        Note = Note.Text
+                    };
+
+                    var conditions = new
+                    {
+                        DeviceRoomQrId = deviceRoom.DeviceRoomQrId
+                    };
+
+                    GlobalVariables.DbService.UpdateEntity("DeviceRoom", roomInfo, conditions);
+                    this.DialogResult = true;
 
 
-                //string sql = $"INSERT INTO DeviceRoom (DeviceRoomQrId,RoomName,Location,User,UserPhone,Note) VALUES ('{qrCode}','{DeviceRoom.Text}','{AddressCombobox.Text}','{PeopleName.Text}','{Phone.Text}','{Note.Text}')";
+                }
+                else
+                {
+                    //创建资产ID
+                    string assetId = AssetIdCreate.CreateAssetId(DeviceRoom.Text);
+
+                    //创建资产二维码,0为机房，1为机柜，2为设备
+                    string qrCode = "0" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+
+                    var roomInfo = new
+                    {
+                        DeviceRoomQrId = qrCode,
+                        RoomName = DeviceRoom.Text,
+                        Location = AddressCombobox.Text,
+                        User = PeopleName.Text,
+                        UserPhone = Phone.Text,
+                        Note = Note.Text
+                    };
+
+                    GlobalVariables.DbService.InsertEntity("DeviceRoom", roomInfo);
+                    this.DialogResult = true;
 
 
-                //Console.WriteLine(sql);
-
-             
-                GlobalVariables.DbService.InsertEntity("DeviceRoom",roomInfo);
-                this.DialogResult = true;
+                }
 
 
             }

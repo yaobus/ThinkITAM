@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
 {
@@ -22,12 +23,19 @@ namespace ThinkITAM.Windows.PresetWindows
     /// </summary>
     public partial class AddAddressWindow : Window
     {
-        public AddAddressWindow()
+        public AddAddressWindow(AddressInfoViewModel addressInfo = null)
         {
             InitializeComponent();
+            if (addressInfo != null)
+            {
+                address = addressInfo;
+                inputAddress = addressInfo.Location;
+                this.DataContext = address;
+            }
         }
 
-
+        private string inputAddress = string.Empty;
+        private AddressInfoViewModel address = new AddressInfoViewModel();
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -35,39 +43,56 @@ namespace ThinkITAM.Windows.PresetWindows
 
             if (address.Replace(" ", "").Length > 2)
             {
-                string sqlTemp = $"SELECT COUNT(*) FROM Address WHERE Location ='{address}'";
 
-                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-                if (num <= 0)
+                if (address != null)//UPDATE
                 {
 
                     var locationInfo = new { Location = address, Note = Note.Text };
 
+                    var conditions = new { Location = inputAddress };
 
-
-                    //sqlTemp = $"INSERT INTO \"Address\" (\"Location\", \"Note\") VALUES ('{address}', '{Note.Text}')";
-
-
-                    GlobalVariables.DbService.InsertEntity("Address", locationInfo);
+                    GlobalVariables.DbService.UpdateEntity("Address", locationInfo, conditions);
 
                     this.DialogResult = true;
 
-                    this.Close();
-
 
                 }
-                else
+                else//INSERT
                 {
-                    MessageBox.Show("地址已存在", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    string sqlTemp = $"SELECT COUNT(*) FROM Address WHERE Location ='{address}'";
+
+                    var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                    if (num <= 0)
+                    {
+
+                        var locationInfo = new { Location = address, Note = Note.Text };
+
+
+                        GlobalVariables.DbService.InsertEntity("Address", locationInfo);
+
+                        this.DialogResult = true;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("地址已存在", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
+
+
+
+
+
+
+
+
+
+
+
             }
         }
 
-        private void AddAddressWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
 
-
-        }
     }
 }

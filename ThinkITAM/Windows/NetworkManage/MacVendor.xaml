@@ -92,9 +92,9 @@
                     Grid.Row="1"
                     Margin="5"
                     Padding="5"
-                    d:Text="00:0C:29:00:00:00"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    d:Text="00:0C:29:00:00:00"
                     AcceptsReturn="True"
                     BorderThickness="0.5"
                     HorizontalScrollBarVisibility="Disabled"
@@ -125,11 +125,10 @@
                 Margin="5,5,0,0"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
+                MouseDoubleClick="MacVendorDataGrid_OnMouseDoubleClick"
                 SelectionMode="Extended"
                 SelectionUnit="FullRow"
-                Visibility="Visible"
-                MouseDoubleClick="MacVendorDataGrid_OnMouseDoubleClick"
-                >
+                Visibility="Visible">
 
 
                 <DataGrid.Columns>
@@ -247,12 +246,11 @@
 
 
         <materialDesign:Snackbar
+            x:Name="MessageSnackbar"
             Grid.Row="0"
             Grid.RowSpan="2"
             d:Visibility="Collapsed"
-            x:Name="MessageSnackbar"
-            MessageQueue="{materialDesign:MessageQueue}"
-            />
+            MessageQueue="{materialDesign:MessageQueue}" />
     </Grid>
 
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
@@ -315,7 +316,7 @@ namespace ThinkITAM.DatabaseOperation
                 parameters.Add($"{prop.Name}_condition", prop.GetValue(conditions));
             }
 
-           
+
 
             return connection.Execute(sql, parameters) > 0;
         }

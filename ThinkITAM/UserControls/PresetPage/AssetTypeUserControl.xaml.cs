@@ -93,5 +93,25 @@ namespace ThinkITAM.UserControls.PresetPage
                 LoadAssetTagInfo();
             }
         }
+
+        private void AssetTagListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+
+        private void AssetTagListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void EditAssetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DeleteAssetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }

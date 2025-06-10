@@ -51,11 +51,10 @@
                         materialDesign:ElevationAssist.Elevation="Dp1"
                         Background="#52c7b8"
                         BorderBrush="Transparent"
+                        Click="EditAssetButton_OnClick"
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                       Click="EditAssetButton_OnClick"
-                        />
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
                     <Button
                         x:Name="DeleteAssetButton"
@@ -66,11 +65,10 @@
                         Background="#Cf3539"
                         BorderBrush="Transparent"
                         BorderThickness="0"
+                        Click="DeleteAssetButton_OnClick"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        Click="DeleteAssetButton_OnClick"
-                        />
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
 
                     <ProgressBar
@@ -102,12 +100,11 @@
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    MouseDoubleClick="PeopleListView_OnMouseDoubleClick"
+                    SelectionChanged="PeopleListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible"
-                    SelectionChanged="PeopleListView_OnSelectionChanged"
-                    MouseDoubleClick="PeopleListView_OnMouseDoubleClick"
-                    >
+                    Visibility="Visible">
 
 
                     <DataGrid.Columns>

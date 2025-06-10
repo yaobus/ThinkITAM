@@ -87,7 +87,7 @@
                             ToolTip="新增机房或配线间" />
 
                         <Button
-                            x:Name="EditAssetButton0"
+                            x:Name="EditRoomButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -97,10 +97,10 @@
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            ToolTip="编辑机房或配线间" />
 
                         <Button
-                            x:Name="DeleteAssetButton0"
+                            x:Name="DeleteRoomButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -108,10 +108,11 @@
                             Background="#Cf3539"
                             BorderBrush="Transparent"
                             BorderThickness="0"
+                            Click="DeleteRoomButton_OnClick"
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            ToolTip="删除机房或配线间" />
 
 
 
@@ -128,6 +129,7 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         DataContext="vm:DeviceRoomClass"
+                        MouseDoubleClick="RoomListView_OnMouseDoubleClick"
                         SelectionChanged="RoomListView_OnSelectionChanged"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
@@ -359,7 +361,7 @@
                             ToolTip="新增机柜" />
 
                         <Button
-                            x:Name="EditAssetButton"
+                            x:Name="EditCabinetButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -369,10 +371,10 @@
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            ToolTip="编辑机柜信息" />
 
                         <Button
-                            x:Name="DeleteAssetButton"
+                            x:Name="DeleteCabinetButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -380,10 +382,11 @@
                             Background="#Cf3539"
                             BorderBrush="Transparent"
                             BorderThickness="0"
+                            Click="DeleteCabinetButton_OnClick"
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            ToolTip="删除机柜信息" />
 
 
 
@@ -398,6 +401,8 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         DataContext="vm:CabinetClass"
+                        MouseDoubleClick="CabinetListView_OnMouseDoubleClick"
+                        SelectionChanged="CabinetListView_OnSelectionChanged"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
                         Visibility="Visible">

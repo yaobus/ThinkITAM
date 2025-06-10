@@ -43,20 +43,21 @@
                         ToolTip="新增" />
 
                     <Button
-                        x:Name="EditAssetButton"
+                        x:Name="EditAddressButton"
                         Width="32"
                         Height="32"
                         Margin="5,0"
                         materialDesign:ElevationAssist.Elevation="Dp1"
                         Background="#52c7b8"
                         BorderBrush="Transparent"
+                        Click="EditAddressButton_OnClick"
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                        ToolTip="编辑地址信息" />
 
                     <Button
-                        x:Name="DeleteAssetButton"
+                        x:Name="DeleteAddressButton"
                         Width="32"
                         Height="32"
                         Margin="5,0"
@@ -64,10 +65,11 @@
                         Background="#Cf3539"
                         BorderBrush="Transparent"
                         BorderThickness="0"
+                        Click="DeleteAddressButton_OnClick"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                        ToolTip="删除地址信息" />
 
 
                     <ProgressBar
@@ -99,6 +101,8 @@
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    MouseDoubleClick="AddressListView_OnMouseDoubleClick"
+                    SelectionChanged="AddressListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
                     Visibility="Visible">

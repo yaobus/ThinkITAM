@@ -12,10 +12,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Nodify;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -25,12 +27,19 @@ namespace ThinkITAM.Windows.PresetWindows
     /// </summary>
     public partial class AddBuildingWindow : Window
     {
-        public AddBuildingWindow()
+        public AddBuildingWindow(BuildingInfoClass inputInfo = null)
         {
             InitializeComponent();
+
+            if (inputInfo != null)
+            {
+                buildingInfo = inputInfo;
+                this.DataContext = buildingInfo;
+
+            }
         }
 
-
+        private readonly BuildingInfoClass buildingInfo;
 
         private void AddBuildingWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -42,6 +51,28 @@ namespace ThinkITAM.Windows.PresetWindows
 
             LoadAddressInfo();
             LoadPeopleInfo();
+
+            if (buildingInfo != null)
+            {
+
+                var addressIndex = addressInfos.IndexOf(addressInfos.FirstOrDefault(d =>
+                    d.Location == buildingInfo.Address));
+
+                if (addressIndex>=0)
+                {
+                    AddressCombobox.SelectedIndex = addressIndex;
+                }
+
+                var peopleIndex = peopleInfos.IndexOf(peopleInfos.FirstOrDefault(d =>
+                    d.Name == buildingInfo.User && d.Phone == buildingInfo.Phone));
+
+                if (peopleIndex >= 0)
+                {
+                    PeopleCombobox.SelectedIndex = peopleIndex;
+                }
+
+            }
+
         }
 
         ObservableCollection<AddressInfoViewModel> addressInfos = new ObservableCollection<AddressInfoViewModel>();
@@ -52,7 +83,7 @@ namespace ThinkITAM.Windows.PresetWindows
         {
             addressInfos.Clear();
 
-            string query = "SELECT * FROM Address;";
+            string query = "SELECT * FROM Address WHERE (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -60,7 +91,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;
@@ -118,43 +149,76 @@ namespace ThinkITAM.Windows.PresetWindows
 
             if (building.Replace(" ", "").Length > 0 && address.Replace(" ", "").Length > 0)
             {
-                string sql = $"SELECT COUNT(*) FROM Buildings WHERE Building='{building}' AND Address='{address}'";
+                string people = PeopleCombobox.Text;
+                string phone = Phone.Text;
+                string note = Note.Text;
 
-                var countNum = DbClass.ExecuteScalarTableNum(sql);
-
-                if (countNum == 0)
+                if (buildingInfo != null)
                 {
 
-                    //创建资产ID
-                    string assetId = AssetIdCreate.CreateAssetId(building + address);
-
-                    //创建资产ID,0为机房，1为机柜，2为设备,3为机架，8为建筑，9为人员
-                    string buildingId = "8" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
-                    string people = PeopleCombobox.Text;
-                    string phone = Phone.Text;
-                    string note = Note.Text;
-
-                    var buildingInfo = new
+                    var info = new
                     {
-                        BuildingId=buildingId,
-                        Building=building,
-                        Address=address,
+                        BuildingId = buildingInfo.BuildingId,
+                        Building = building,
+                        Address = address,
                         User = people,
-                        Phone=phone,
-                        Note=note   
+                        Phone = phone,
+                        Note = note
                     };
 
-                   // sql = $"INSERT INTO \"Buildings\" (\"BuildingId\", \"Building\", \"Address\", \"User\", \"Phone\", \"Note\") VALUES ('{buildingId}', '{building}', '{address}', '{people}', '{phone}', '{note}')";
+                    var conditions = new { BuildingId = buildingInfo.BuildingId };
 
 
-                    GlobalVariables.DbService.InsertEntity("Buildings", buildingInfo);
+                    GlobalVariables.DbService.UpdateEntity("Buildings", info,conditions);
 
                     DialogResult = true;
+
+
                 }
                 else
                 {
-                    MessageBox.Show("该建筑已存在");
+                    string sql = $"SELECT COUNT(*) FROM Buildings WHERE Building='{building}' AND Address='{address}'";
+
+                    var countNum = DbClass.ExecuteScalarTableNum(sql);
+
+                    if (countNum == 0)
+                    {
+
+                        //创建资产ID
+                        string assetId = AssetIdCreate.CreateAssetId(building + address);
+
+                        //创建资产ID,0为机房，1为机柜，2为设备,3为机架，8为建筑，9为人员
+                        string buildingId = "8" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
+
+
+                        var info = new
+                        {
+                            BuildingId = buildingId,
+                            Building = building,
+                            Address = address,
+                            User = people,
+                            Phone = phone,
+                            Note = note
+                        };
+
+                       
+                        GlobalVariables.DbService.InsertEntity("Buildings", info);
+
+                        DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("该建筑已存在");
+                    }
                 }
+
+
+
+
+
+
+
+
             }
             else
             {

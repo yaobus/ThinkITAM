@@ -81,11 +81,11 @@
                             Margin="5,0"
                             Padding="3"
                             VerticalAlignment="Center"
-                            Text="{Binding UserNumber}"
                             materialDesign:TextFieldAssist.HasLeadingIcon="False"
                             materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
                             MouseDoubleClick="UserNumber_OnMouseDoubleClick"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding UserNumber}"
                             ToolTip="双击自动获取最小可用编号" />
 
 
@@ -117,11 +117,11 @@
                         Width="250"
                         Height="28"
                         Padding="3"
-                        Text="{Binding Name}"
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="AccountOutline"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Name}" />
                 </StackPanel>
 
                 <StackPanel
@@ -138,11 +138,11 @@
                         Width="250"
                         Height="28"
                         Padding="3"
-                        Text="{Binding Phone}"
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Phone"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Phone}" />
                 </StackPanel>
 
 
@@ -160,11 +160,11 @@
                         Width="250"
                         Height="28"
                         Padding="3"
-                        Text="{Binding Note}"
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Note}" />
                 </StackPanel>
 
 

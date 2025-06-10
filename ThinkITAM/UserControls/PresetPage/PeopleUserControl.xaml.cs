@@ -129,6 +129,8 @@ namespace ThinkITAM.UserControls.PresetPage
 
         }
 
+
+
         private void PeopleListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var index = PeopleListView.SelectedIndex;
@@ -136,9 +138,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 EditAssetButton.IsEnabled = true;
                 DeleteAssetButton.IsEnabled = true;
-                var info = peopleInfos[index];
-
-
+              
 
             }
             else
@@ -151,6 +151,7 @@ namespace ThinkITAM.UserControls.PresetPage
         private void EditAssetButton_OnClick(object sender, RoutedEventArgs e)
         {
             var index = PeopleListView.SelectedIndex;
+
             if (index != -1)
             {
 

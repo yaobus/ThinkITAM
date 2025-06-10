@@ -53,7 +53,9 @@
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                        ToolTip="编辑资产分组"
+                        Click="EditAssetButton_OnClick"
+                        />
 
                     <Button
                         x:Name="DeleteAssetButton"
@@ -67,7 +69,9 @@
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                        ToolTip="删除资产分组" 
+                        Click="DeleteAssetButton_OnClick"
+                        />
 
 
                     <ProgressBar
@@ -102,7 +106,10 @@
                     CanUserAddRows="False"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible">
+                    Visibility="Visible"
+                    SelectionChanged="AssetTagListView_OnSelectionChanged"
+                    MouseDoubleClick="AssetTagListView_OnMouseDoubleClick"
+                    >
 
 
                     <DataGrid.Columns>

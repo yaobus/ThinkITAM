@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
-using System.Collections;
-using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -69,7 +69,7 @@ namespace ThinkITAM.UserControls.PresetPage
         private void LoadBuildingInfos()
         {
             buildingInfos.Clear();
-            string sql = "SELECT * FROM Buildings";
+            string sql = "SELECT * FROM Buildings WHERE (Del != 1 OR Del IS NULL)";
 
 
 
@@ -95,6 +95,108 @@ namespace ThinkITAM.UserControls.PresetPage
 
             }
 
+        }
+
+        private void BuildingListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int num = BuildingListView.SelectedIndex;
+
+            if (num != -1)
+            {
+
+                EditButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+            }
+            else
+            {
+                EditButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+            }
+        }
+
+        private void BuildingListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int num = BuildingListView.SelectedIndex;
+            var info = buildingInfos[num];
+
+            if (num != -1)
+            {
+                
+                AddBuildingWindow add = new AddBuildingWindow(info);
+
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    add.Owner = window;
+                }
+
+                if (add.ShowDialog() == true)
+                {
+
+                    LoadBuildingInfos();
+
+                }
+
+            }
+        }
+
+        private void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            int num = BuildingListView.SelectedIndex;
+            var info = buildingInfos[num];
+
+            if (num != -1)
+            {
+
+                AddBuildingWindow add = new AddBuildingWindow(info);
+
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    add.Owner = window;
+                }
+
+                if (add.ShowDialog() == true)
+                {
+
+                    LoadBuildingInfos();
+
+                }
+
+            }
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = BuildingListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = buildingInfos[index];
+
+                var message = $"确定要删除吗？\r建筑:{info.Building}\r所在地址:{info.Address}";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{info.BuildingId}';";
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadBuildingInfos();
+
+                }
+
+
+            }
         }
     }
 }

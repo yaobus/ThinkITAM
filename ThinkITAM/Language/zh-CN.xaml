@@ -429,7 +429,7 @@
     <s:String x:Key="PawOnlyTag">设备独有标签</s:String>
     <s:String x:Key="PawOnlyTagTooltip">高显示优先级</s:String>
 
-    <!--AssetManage-->
+    <!--  AssetManage  -->
     <s:String x:Key="AmSaveQrCodeTitle">选择导出路径</s:String>
 
 </ResourceDictionary>
