@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -17,6 +18,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using Size = System.Windows.Size;
 using ThinkITAM.DataBridge;
 using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -589,17 +591,43 @@ namespace ThinkITAM.FunctionPage
         /// <param name="e"></param>
         private void QrCodeExport_OnClick(object sender, RoutedEventArgs e)
         {
+            //弹出路径选项对话框
 
-            foreach (var item in assetViewModels)
+            var path = string.Empty;
+            var title = (string)FindResource("AmSaveQrCodeTitle");
+            // ToggleButton 选中，选择文件夹
+            var dialog = new OpenFolderDialog
             {
-                if (item.IsSelected == true)
-                {
-                    string filePath = $"D:/Assets/{item.AssetId}.png";
-                    GenerateAssetTagImage(item,filePath);
-                }
-            }
+                Title = $"{title}"
+            };
 
-            
+            if (dialog.ShowDialog() == true)
+            {
+                path = dialog.FolderName;
+
+                int index = 0;
+                foreach (var item in assetViewModels)
+                {
+                    if (item.IsSelected == true)
+                    {
+                        string filePath = $"{path}/{item.AssetId}.png";
+
+                        GenerateAssetTagImage(item, filePath);
+                    }
+                    index++;
+                }
+
+                var message = $"导出完毕,共{index}个文件\r是否打开文件夹？";
+
+                var result = MessageBox.Show(message, "导出完毕", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    //打开导出路径
+                    Process.Start("explorer.exe", path);
+                }
+
+            }
 
 
         }

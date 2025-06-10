@@ -225,6 +225,7 @@ namespace ThinkITAM.DatabaseOperation
                                     .ToList();
 
             var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
+            
             return connection.Execute(sql, entity) > 0;
         }
 
@@ -313,6 +314,8 @@ namespace ThinkITAM.DatabaseOperation
             {
                 parameters.Add($"{prop.Name}_condition", prop.GetValue(conditions));
             }
+
+           
 
             return connection.Execute(sql, parameters) > 0;
         }

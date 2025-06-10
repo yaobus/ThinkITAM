@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ThinkITAM.ViewModels.Preset;
-internal class PeopleViewModel
+public class PeopleViewModel
 {
     //索引
     public float Index
@@ -25,7 +25,7 @@ internal class PeopleViewModel
         get; set;
     }
 
-    //组织
+    //姓名
     public string Name
     {
         get; set;

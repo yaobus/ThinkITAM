@@ -89,5 +89,27 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             
         }
+
+        private void MacVendorDataGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var info = MacVendorDataGrid.SelectedItem as MacVendorViewModel;
+            
+
+            var duration = 0.5;
+            MessageSnackbar.MessageQueue?.Enqueue(
+                $"已将{info.Vendor}发送到剪贴板",
+                null,
+                null,
+                null,
+                false,
+                true,
+                TimeSpan.FromSeconds(duration));
+
+          //  Dispatcher.Invoke(() => ClipboardOperation.TrySetClipboardData(info.Vendor, 3, 10));
+
+        }
+
     }
 }
+
+

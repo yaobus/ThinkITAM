@@ -372,7 +372,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
 
-                
+                Console.WriteLine(sql);
              
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
                 

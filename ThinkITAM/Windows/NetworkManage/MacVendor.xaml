@@ -43,13 +43,14 @@
 
                     <Grid Grid.Column="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="0"
+                            Padding="10,0,0,0"
                             VerticalAlignment="Center"
                             BorderThickness="0"
                             Content="目标MAC:" />
@@ -90,7 +91,8 @@
                     x:Name="MacTextBox"
                     Grid.Row="1"
                     Margin="5"
-                    Padding="3"
+                    Padding="5"
+                    d:Text="00:0C:29:00:00:00"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     AcceptsReturn="True"
@@ -125,7 +127,9 @@
                 CanUserAddRows="False"
                 SelectionMode="Extended"
                 SelectionUnit="FullRow"
-                Visibility="Visible">
+                Visibility="Visible"
+                MouseDoubleClick="MacVendorDataGrid_OnMouseDoubleClick"
+                >
 
 
                 <DataGrid.Columns>
@@ -235,12 +239,20 @@
 
         <materialDesign:DialogHost
             Grid.Row="0"
-            Grid.RowSpan="3"
+            Grid.RowSpan="2"
             d:Visibility="Collapsed"
             Identifier="MessageDialogHost">
             <!--  DialogHost的内容  -->
         </materialDesign:DialogHost>
 
+
+        <materialDesign:Snackbar
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            d:Visibility="Collapsed"
+            x:Name="MessageSnackbar"
+            MessageQueue="{materialDesign:MessageQueue}"
+            />
     </Grid>
 
 

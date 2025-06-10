@@ -377,6 +377,8 @@
     <s:String x:Key="PawOnlyTag">Device-Specific Tag</s:String>
     <s:String x:Key="PawOnlyTagTooltip">High Display Priority</s:String>
 
+    <!--AssetManage-->
+    <s:String x:Key="AmSaveQrCodeTitle">Select export path</s:String>
 
 
 </ResourceDictionary>

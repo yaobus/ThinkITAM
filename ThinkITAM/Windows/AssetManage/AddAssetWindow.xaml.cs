@@ -566,12 +566,8 @@ public partial class AddAssetWindow : Window
                 var conditions = new {  AssetId = assetInfo.AssetId };
 
 
-                //string sql = $"UPDATE \"Asset\" SET  \"AssetType\" = '{AssetType.Text}',\r\n    \"DeviceType\" = '{DeviceType.Text}',\r\n    \"AssetTag\" = '{AssetTag.Text}',\r\n    \"AssetNumber\" = {Convert.ToInt32(AssetNumber.Text)},\r\n    \"PurchaseDate\" = '{BuyDate.SelectedDate.ToString()}',\r\n    \"PurchasePrice\" = '{Price.Text}',\r\n    \"Manufacturer\" = '{Maker.Text}',\r\n    \"Model\" = '{Model.Text}',\r\n    \"SerialNumber\" = '{SerialNumber.Text}',\r\n    \"Configuration\" = '{Parameter.Text}',\r\n    \"Location\" = '{PresetAddress.Text}',\r\n    \"UserOrganization\" = '{UserOrganization.Text}',\r\n    \"UserDepartment\" = '{UserDepartment.Text}',\r\n    \"User\" = '{AssignedTo.Text}',\r\n    \"UserPhone\" = '{Phone.Text}',\r\n    \"Consumer\" = '{Consumer.Text}',\r\n    \"Status\" = '{AssetStatus.Text}',\r\n    \"UsedYear\" = '{ServiceLife.Text}',\r\n    \"ScrapDate\" = '{ScrapDate.SelectedDate.ToString()}',\r\n    \"Notes\" = '{Description.Text}',\r\n    \"TagA\" = '{TagA.Text}',\r\n    \"TagB\" = '{TagB.Text}',\r\n    \"TagC\" = '{TagC.Text}',\r\n    \"TagD\" = '{TagD.Text}',\r\n    \"TagE\" = '{TagE.Text}',\r\n    \"TagF\" = '{TagF.Text}'\r\nWHERE\r\n    \"AssetId\" = '{assetInfo.AssetId}';";
-
-
                 GlobalVariables.DbService.UpdateEntity("Asset", assetEntity,conditions);
                
-                //GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
 

@@ -54,7 +54,8 @@
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                       Click="EditAssetButton_OnClick"
+                        />
 
                     <Button
                         x:Name="DeleteAssetButton"
@@ -68,7 +69,8 @@
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产信息" />
+                        Click="DeleteAssetButton_OnClick"
+                        />
 
 
                     <ProgressBar
@@ -102,7 +104,10 @@
                     CanUserAddRows="False"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible">
+                    Visibility="Visible"
+                    SelectionChanged="PeopleListView_OnSelectionChanged"
+                    MouseDoubleClick="PeopleListView_OnMouseDoubleClick"
+                    >
 
 
                     <DataGrid.Columns>
@@ -313,7 +318,7 @@
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Description}" />
+                                        Text="{Binding Note}" />
 
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -328,30 +333,30 @@
 
 
                 <!--<ListView
-                    x:Name="PeopleListView"
-                    Grid.Row="1">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Index}"
-                                Header="序号" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Name}"
-                                Header="姓名" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Organization}"
-                                Header="组织" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Department}"
-                                Header="部门" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Phone}"
-                                Header="联系电话" />
-                            <GridViewColumn
-                                DisplayMemberBinding="{Binding Description}"
-                                Header="备注" />
-                        </GridView>
-                    </ListView.View>
+                x:Name="PeopleListView"
+                Grid.Row="1">
+                <ListView.View>
+                <GridView>
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Index}"
+                Header="序号" />
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Name}"
+                Header="姓名" />
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Organization}"
+                Header="组织" />
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Department}"
+                Header="部门" />
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Phone}"
+                Header="联系电话" />
+                <GridViewColumn
+                DisplayMemberBinding="{Binding Description}"
+                Header="备注" />
+                </GridView>
+                </ListView.View>
 
                 </ListView>-->
 

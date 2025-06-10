@@ -21,6 +21,7 @@ using ThinkITAM.DataBridge;
 using System.Collections;
 using ThinkITAM.Functions.FunctionClass;
 using Microsoft.VisualBasic.FileIO;
+using WinRT.Interop;
 
 
 namespace ThinkITAM.Windows.PresetWindows;
@@ -29,13 +30,18 @@ namespace ThinkITAM.Windows.PresetWindows;
 /// </summary>
 public partial class AddPeopleWindow : Window
 {
-    public AddPeopleWindow()
+    public AddPeopleWindow(PeopleViewModel info = null)
     {
         InitializeComponent();
+
+        if (info != null)
+        {
+            peopleInfo = info;
+          
+        }
     }
 
-    private DbClass dbClass;
-
+    private PeopleViewModel peopleInfo = new PeopleViewModel();
     private void AddPeopleWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
 
@@ -51,6 +57,14 @@ public partial class AddPeopleWindow : Window
             UserNumber.Text = GetNextAvailableNumber().ToString();
         });
 
+        if (peopleInfo != null)
+        {
+
+            UserNumber.IsEnabled = false;
+            var number = peopleInfo.UserNumber.Replace(GetUserNumberPrefix(), "");
+            peopleInfo.UserNumber = number;
+            this.DataContext = peopleInfo;
+        }
     }
 
     /// <summary>
@@ -184,12 +198,21 @@ public partial class AddPeopleWindow : Window
 
         if (info.Item1 == 0)
         {
+            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text);
 
-            SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Phone.Text, Note.Text);
+            if (peopleInfo != null)
+            {
+                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Phone.Text, Note.Text);
+            }
+            else
+            {
+                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Phone.Text, Note.Text);
+            }
+
         }
         else
         {
-            //MessageBox.Show(info.Item2, "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
+            
 
             var dialog = new ConfirmationDialog
             {
@@ -233,34 +256,38 @@ public partial class AddPeopleWindow : Window
             message += index.ToString() + ":未选取用户所在组织子级\r";
         }
 
-
-
-        //检查用户编号是否已存在
-
-        string sqlTemp = $"SELECT COUNT(*) FROM UserInfo WHERE Number ='{UserNumber.Text}'";
-
-        //查询记录是否存在
-        var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-
-        if (countNum > 0)
+        if (peopleInfo == null)
         {
-            index++;
-            message += index.ToString() + $":用户编号{UserNumber.Text}已使用\r(双击用户编号框可获取最小可用编号)\r";
+            //检查用户编号是否已存在
+
+            string sqlTemp = $"SELECT COUNT(*) FROM UserInfo WHERE Number ='{UserNumber.Text}'";
+
+            //查询记录是否存在
+            var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+            if (countNum > 0)
+            {
+                index++;
+                message += index.ToString() + $":用户编号{UserNumber.Text}已使用\r(双击用户编号框可获取最小可用编号)\r";
+            }
         }
+
+
 
 
         return (index, message);
     }
 
 
-    private void SaveOrganizationInfo(string organization, string department)
+    private void SaveOrganizationInfo(string organization, string department,string groups)
     {
 
         var organizationInfo = organization.Replace(" ", "");
         var departmentInfo = department.Replace(" ", "");
+        var groupsInfo = groups.Replace(" ", "");
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}'";
 
 
 
@@ -268,9 +295,7 @@ public partial class AddPeopleWindow : Window
 
         if (num <= 0)
         {
-            var info = new { Organization = organizationInfo, Department = departmentInfo };
-
-            //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\") VALUES ('{organizationInfo}', '{departmentInfo}')";
+            var info = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo };
 
 
             GlobalVariables.DbService.InsertEntity("Organization", info);
@@ -305,15 +330,75 @@ public partial class AddPeopleWindow : Window
             Note = note
         };
 
-        //string sql = $"INSERT INTO \"UserInfo\" (\"UserId\",\"Name\",\"Number\", \"Organization\", \"Department\",\"UserGroup\", \"Phone\", \"Note\") VALUES ('{userId}','{name}','{number}', '{organization}', '{department}', '{group}', '{phone}', '{note}')";
-
-
 
         GlobalVariables.DbService.InsertEntity("UserInfo", info);
         this.DialogResult = true;
 
 
     }
+
+    /// <summary>
+    /// 更新用户信息
+    /// </summary>
+    /// <param name="_userNumber"></param>
+    /// <param name="_userName"></param>
+    /// <param name="_organization"></param>
+    /// <param name="_department"></param>
+    /// <param name="_groups"></param>
+    /// <param name="_phone"></param>
+    /// <param name="_note"></param>
+    private void UpdateUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _phone, string _note)
+    {
+
+        var name = _userName.Replace(" ", "");
+        var number = Convert.ToInt32( _userNumber.Replace(GetUserNumberPrefix(), ""));
+        var organization = _organization.Replace(" ", "");
+        var department = _department.Replace(" ", "");
+        var group = _groups.Replace(" ", "");
+        var phone = _phone;
+        var note = _note;
+
+        var info = new
+        {
+            UserId = peopleInfo.UserId,
+            Name = name,
+            Number = number,
+            Organization = organization,
+            Department = department,
+            UserGroup = group,
+            Phone = phone,
+            Note = note
+        };
+
+        var conditions = new { UserId = peopleInfo.UserId };
+
+        GlobalVariables.DbService.UpdateEntity("UserInfo", info, conditions);
+        
+        this.DialogResult = true;
+
+    }
+
+    /// <summary>
+    /// 获取用户编号前缀
+    /// </summary>
+    private string GetUserNumberPrefix()
+    {
+        string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
+
+
+        var prefix = GlobalVariables.DbService.ExecuteScalar(query);
+
+        if (prefix != null)
+        {
+            return prefix.ToString();
+        }
+        else
+        {
+            return "";
+        }
+
+    }
+
 
     private ObservableCollection<string> groupsInfo = new ObservableCollection<string>();
 

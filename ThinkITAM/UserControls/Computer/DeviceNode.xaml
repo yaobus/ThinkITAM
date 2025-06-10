@@ -69,7 +69,6 @@
                                         <Setter Property="ContentTemplate" Value="{StaticResource LC}" />
                                     </DataTrigger>
 
-
                                     <!--  新增的 DataTrigger 根据 Parameter 是否为空来设置按钮颜色  -->
                                     <DataTrigger Binding="{Binding OnTheLine, Converter={StaticResource NullToBooleanConverter}}" Value="False">
                                         <Setter Property="Opacity" Value="0.5" />

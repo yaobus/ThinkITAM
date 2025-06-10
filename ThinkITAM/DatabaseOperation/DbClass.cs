@@ -695,7 +695,7 @@ namespace ThinkITAM.DatabaseOperation
             }
             else//库中已有，更新数据
             {
-                //var query = $"UPDATE \"WindowTag\" SET \"Tags\" = '{tags}' WHERE \"Window\" = '{windowName}'";
+
 
                 var tagInfo = new ViewModels.DatabaseEntity.Window.WindowTagViewModel()
                 {
@@ -707,9 +707,6 @@ namespace ThinkITAM.DatabaseOperation
 
                 GlobalVariables.DbService.UpdateEntity("WindowTag", tagInfo,conditions);
 
-
-
-               // GlobalVariables.DbService.ExecuteNonQuery(query);
 
 
             }
