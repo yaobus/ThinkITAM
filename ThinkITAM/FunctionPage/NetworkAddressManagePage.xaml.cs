@@ -1911,31 +1911,36 @@ public partial class NetworkAddressManagePage : UserControl
     private void AddressListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
 
+        //DependencyObject dep = (DependencyObject)e.OriginalSource;
 
-        DependencyObject dep = (DependencyObject)e.OriginalSource;
+        //// 迭代视觉树以找到 DataGridRow
+        //while ((dep != null) && !(dep is DataGridRow))
+        //{
+        //    dep = VisualTreeHelper.GetParent(dep);
+        //}
 
-        // 迭代视觉树以找到 DataGridRow
-        while ((dep != null) && !(dep is DataGridRow))
-        {
-            dep = VisualTreeHelper.GetParent(dep);
-        }
+        //if (dep == null)
+        //    return;
 
-        if (dep == null)
-            return;
+        //// 获取 DataGridRow
+        //DataGridRow row = dep as DataGridRow;
+        //if (row == null)
+        //    return;
 
-        // 获取 DataGridRow
-        DataGridRow row = dep as DataGridRow;
-        if (row == null)
-            return;
+        //// 获取行数据对象
+        //var rowData = row.Item as IpAddressInfoListViewMode;
+        //if (rowData != null)
+        //{
+        //    // 逻辑代码
+        //    RunOnDoubleClick(rowData);
+        //}
 
-        // 获取行数据对象
-        var rowData = row.Item as IpAddressInfoListViewMode;
+        var rowData = (sender as DataGrid).CurrentItem as IpAddressInfoListViewMode;
         if (rowData != null)
         {
             // 逻辑代码
             RunOnDoubleClick(rowData);
         }
-
 
 
     }
