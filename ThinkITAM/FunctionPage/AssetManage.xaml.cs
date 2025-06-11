@@ -19,6 +19,8 @@ using Size = System.Windows.Size;
 using ThinkITAM.DataBridge;
 using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
+using ThinkITAM.Windows.PresetWindows;
+using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -201,8 +203,6 @@ namespace ThinkITAM.FunctionPage
 
                      assetType = info.AssetType;
 
-
-                    //Console.WriteLine(assetType + " | " + deviceType);
 
                     LoadAssetInfos(assetType, deviceType);
 
@@ -412,6 +412,24 @@ namespace ThinkITAM.FunctionPage
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
+            AddAssetTagWindow addAssetTag = new AddAssetTagWindow();
+
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                addAssetTag.Owner = window;
+            }
+
+            if (addAssetTag.ShowDialog() == true)
+            {
+
+                LoadAssetTreeviewInfos();
+
+            }
+
+
 
         }
 
@@ -764,13 +782,8 @@ namespace ThinkITAM.FunctionPage
             }
 
 
-
             if (addAsset.ShowDialog() == true)
             {
-
-                // 当子窗口关闭后执行这里的代码
-
-
 
                 LoadAssetInfos(assetType, deviceType);
                 //加载网段信息备注标签
@@ -787,6 +800,36 @@ namespace ThinkITAM.FunctionPage
             {
                 // 逻辑代码
                 RunOnDoubleClick(NowSelectedItem);
+            }
+        }
+
+        private void DeleteAssetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = AssetDataGrid.SelectedIndex;
+
+            if (index != -1)
+            {
+                
+                var info = AssetDataGrid.SelectedItem as AssetViewModel;
+
+                var message = $"确定要删除选中资产吗？\r资产类型:{info.AssetType}\r设备类型:{info.DeviceType}\r资产序列号:{info.AssetTag}{info.AssetNumber}\r型号:{info.Model}";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE Asset SET Del = 1 WHERE AssetId ='{info.AssetId}';";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+
+                    LoadAssetInfos(assetType, deviceType);
+                }
+
+
             }
         }
     }

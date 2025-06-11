@@ -239,7 +239,9 @@
                         BorderThickness="0"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                        Click="DeleteAssetButton_OnClick"
+                        />
 
                     <StackPanel Orientation="Horizontal" Visibility="Collapsed">
 

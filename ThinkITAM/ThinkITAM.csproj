@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Document\ThinkITAM使用手册.pdf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Bold.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Light.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Medium.ttf" />
@@ -24,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Document\ThinkITAM使用手册.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ThinkItamlogo.ico" />
     <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

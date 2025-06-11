@@ -78,7 +78,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             var prefix = GlobalVariables.DbService.ExecuteScalar(query);
 
-            if (prefix!=null)
+            if (prefix != null)
             {
                 return prefix.ToString();
             }
@@ -109,7 +109,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 index++;
                 PeopleViewModel info = new PeopleViewModel();
-                info.UserId=row["UserId"].ToString();
+                info.UserId = row["UserId"].ToString();
                 info.Index = index;
                 info.UserNumber = $"{GetUserNumberPrefix()}{row["Number"].ToString()}";
                 info.Name = row["Name"].ToString();
@@ -138,13 +138,13 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 EditAssetButton.IsEnabled = true;
                 DeleteAssetButton.IsEnabled = true;
-              
+
 
             }
             else
             {
-               EditAssetButton.IsEnabled = false;
-               DeleteAssetButton.IsEnabled=false;
+                EditAssetButton.IsEnabled = false;
+                DeleteAssetButton.IsEnabled = false;
             }
         }
 
@@ -221,20 +221,20 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 var info = PeopleListView.SelectedItem as PeopleViewModel;
 
-               var message = $"确定要删除吗？\r人员:{info.Name}\r所在一级组织:{info.Organization}\r所在二级组织:{info.Department}\r所在三级组织:{info.Group}";
+                var message = $"确定要删除吗？\r人员:{info.Name}\r所在一级组织:{info.Organization}\r所在二级组织:{info.Department}\r所在三级组织:{info.Group}";
 
 
-               var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
 
-               if (result == MessageBoxResult.Yes)
-               {
-                   string query = $"UPDATE UserInfo SET Del = 1 WHERE UserId ='{info.UserId}';";
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE UserInfo SET Del = 1 WHERE UserId ='{info.UserId}';";
 
-                  
-                   GlobalVariables.DbService.ExecuteNonQuery(query);
 
-                   LoadPeopleInfos();
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadPeopleInfos();
 
                 }
 

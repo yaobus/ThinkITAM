@@ -5,6 +5,9 @@ using MaterialDesignThemes.Wpf;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO;
 
 
 namespace ThinkITAM.Windows.Selection;
@@ -87,6 +90,7 @@ public partial class SelectionWindow : Window
         t.Add("LinkDetail");
         t.Add("WakeOnLan");
         t.Add("Computer");
+        t.Add("Models");
 
         string message = string.Empty;
 
@@ -303,11 +307,11 @@ public partial class SelectionWindow : Window
     private void MenuList2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         int index = MenuList2.SelectedIndex;
-
+        MenuList.SelectedIndex = -1;
         switch (index)
-        {
+        { 
             case 0:
-                MenuList.SelectedIndex = -1;
+               
                 FunctionPanel.Children.Clear();
                 PresetPage presetPage = new PresetPage();
 
@@ -317,9 +321,47 @@ public partial class SelectionWindow : Window
 
                 break;
             case 1:
+                //加载帮助文档
+
+                // 1. 弹出保存对话框让用户选择路径
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "PDF 文件 (*.pdf)|*.pdf";
+                saveFileDialog.FileName = "ThinkITAM使用手册.pdf";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string destinationPath = saveFileDialog.FileName;
+
+                    // 2. 获取嵌入资源或者本地文件内容
+                    string sourceFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Document\\ThinkITAM使用手册.pdf");
+
+                    try
+                    {
+                        // 3. 复制文件到目标位置
+                        File.Copy(sourceFilePath, destinationPath, overwrite: true);
+
+                        // 4. 打开资源管理器并定位到该文件夹
+                        Process.Start("explorer.exe", $"/select,\"{destinationPath}\"");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"无法导出帮助文档：{ex.Message}");
+                    }
+                }
 
                 break;
+        case 2:
 
+                FunctionPanel.Children.Clear();
+                About about = new About();
+
+                about.Style = (Style)FindResource("AboutStyle");
+
+                FunctionPanel.Children.Add(about);
+
+
+
+                break;
         }
         
 

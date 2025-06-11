@@ -1301,6 +1301,11 @@ namespace ThinkITAM.DatabaseOperation
 
                                 break;
 
+                            case "Models":
+
+                                sql = $"CREATE TABLE \"Models\" ( \"AssetType\" TEXT, \"DeviceType\" TEXT, \"Model\" TEXT);";
+
+                                break;
                         }
 
 
@@ -1376,7 +1381,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Address"://地址预设表
 
-                                sql = $"CREATE TABLE Address (   Location VARCHAR(255),   Note TEXT );";
+                                sql = $"CREATE TABLE Address (Location VARCHAR(255),Note TEXT,`Del` INT);";
 
 
                                 break;
@@ -1513,10 +1518,13 @@ namespace ThinkITAM.DatabaseOperation
 
                                 sql =
                                     $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16), `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-
-
                                 break;
 
+                            case "Models":
+
+                                sql = $"CREATE TABLE `Models` ( `AssetType` VARCHAR(64), `DeviceType` VARCHAR(64), `Model` VARCHAR(64) )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+                                break;
                         }
 
 

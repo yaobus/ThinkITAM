@@ -86,21 +86,9 @@
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="新增" />
 
-                        <Button
-                            x:Name="EditAssetButton0"
-                            Width="32"
-                            Height="32"
-                            Margin="5,0"
-                            materialDesign:ElevationAssist.Elevation="Dp1"
-                            Background="#52c7b8"
-                            BorderBrush="Transparent"
-                            Content="{materialDesign:PackIcon PencilBoxOutline}"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
 
                         <Button
-                            x:Name="DeleteAssetButton0"
+                            x:Name="DeleteProtocolButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -111,7 +99,8 @@
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            Click="DeleteProtocolButton_OnClick"
+                            />
 
 
 
@@ -135,7 +124,9 @@
                         CanUserAddRows="False"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        SelectionChanged="ProtocolListView_OnSelectionChanged"
+                        >
 
 
                         <DataGrid.Columns>
@@ -285,21 +276,9 @@
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="新增" />
 
-                        <Button
-                            x:Name="EditAssetButton"
-                            Width="32"
-                            Height="32"
-                            Margin="5,0"
-                            materialDesign:ElevationAssist.Elevation="Dp1"
-                            Background="#52c7b8"
-                            BorderBrush="Transparent"
-                            Content="{materialDesign:PackIcon PencilBoxOutline}"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
 
                         <Button
-                            x:Name="DeleteAssetButton"
+                            x:Name="DeleteBrowserButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -310,7 +289,7 @@
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                            Click="DeleteBrowserButton_OnClick" />
 
 
 
@@ -331,7 +310,9 @@
                         CanUserAddRows="False"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        SelectionChanged="BrowserListView_OnSelectionChanged"
+                        >
 
 
                         <DataGrid.Columns>
@@ -483,21 +464,9 @@
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="新增" />
 
-                        <Button
-                            x:Name="EditAssetButton1"
-                            Width="32"
-                            Height="32"
-                            Margin="5,0"
-                            materialDesign:ElevationAssist.Elevation="Dp1"
-                            Background="#52c7b8"
-                            BorderBrush="Transparent"
-                            Content="{materialDesign:PackIcon PencilBoxOutline}"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
 
                         <Button
-                            x:Name="DeleteAssetButton1"
+                            x:Name="DeletePortButton"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -508,7 +477,7 @@
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑资产信息" />
+                           Click="DeletePortButton_OnClick"/>
 
 
 
@@ -533,7 +502,9 @@
                         HorizontalScrollBarVisibility="Disabled"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        SelectionChanged="PortListView_OnSelectionChanged"
+                        >
 
 
                         <DataGrid.Columns>

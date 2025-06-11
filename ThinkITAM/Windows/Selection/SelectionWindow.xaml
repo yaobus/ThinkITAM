@@ -81,6 +81,11 @@
             <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
         </Style>
 
+        <Style x:Key="AboutStyle" TargetType="functionPage:About">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+
         <!--
         <Style x:Key="ModelPresetStyle" TargetType="userPages:ModelPreset">
         <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}"/>

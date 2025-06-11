@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -23,13 +24,22 @@ namespace ThinkITAM.Windows.PresetWindows
     /// </summary>
     public partial class AddAssetTagWindow : Window
     {
-        public AddAssetTagWindow()
+        public AddAssetTagWindow(AssetTagClass info = null)
         {
             InitializeComponent();
+            if (info != null)
+            {
+                inputInfo = info;
+                this.DataContext = inputInfo;
+                AssetType.IsEnabled=false;
+                DeviceType.IsEnabled=false;
+                AssetTag.IsEnabled = false;
+
+            }
         }
 
 
-
+        private AssetTagClass inputInfo;
 
         private void AddAssetTagWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -108,7 +118,6 @@ namespace ThinkITAM.Windows.PresetWindows
 
             if (info.Item1 == 0)
             {
-
                 var assetType = AssetType.Text.Replace(" ", "");
                 var deviceType = DeviceType.Text.Replace(" ", "");
                 var assetTag = AssetTag.Text.Replace(" ", "");
@@ -120,51 +129,77 @@ namespace ThinkITAM.Windows.PresetWindows
                 }
 
 
-                //检查资产类型和设备类型是否已有预设
-                string sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetType ='{assetType}' AND DeviceType = '{deviceType}'";
 
-
-                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-                if (num <= 0)
+                if (inputInfo!=null)
                 {
-                    //检查编号是否重复
-                    sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetTag ='{assetTag}'";
 
-                    num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-                    if (num <= 0)//如果都没有
+                    var assettagInfo = new
                     {
+                        AssetType = assetType,
+                        DeviceType = deviceType,
+                        AssetTag = assetTag,
+                        Note = Note.Text
+                    };
 
-                        var assettagInfo = new
+                    var conditions = new
+                    {
+                        AssetTag = assetTag
+                    };
+
+                    GlobalVariables.DbService.UpdateEntity("AssetTag", assettagInfo, conditions);
+
+                    this.DialogResult = true;
+                }
+                else
+                {
+
+
+                    //检查资产类型和设备类型是否已有预设
+                    string sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetType ='{assetType}' AND DeviceType = '{deviceType}'";
+
+
+                    var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                    if (num <= 0)
+                    {
+                        //检查编号是否重复
+                        sqlTemp = $"SELECT COUNT(*) FROM AssetTag WHERE AssetTag ='{assetTag}'";
+
+                        num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                        if (num <= 0)//如果都没有
                         {
-                            AssetType = assetType,
-                            DeviceType = deviceType,
-                            AssetTag = assetTag,
-                            Note = Note.Text
-                        };
 
-                        //string sql = $"INSERT INTO  \"AssetTag\" (\"AssetType\", \"DeviceType\", \"AssetTag\", \"Note\") VALUES ('{assetType}', '{deviceType}', '{assetTag}', '{Note.Text}')";
+                            var assettagInfo = new
+                            {
+                                AssetType = assetType,
+                                DeviceType = deviceType,
+                                AssetTag = assetTag,
+                                Note = Note.Text
+                            };
 
-                      
-                        GlobalVariables.DbService.InsertEntity("AssetTag", assettagInfo);
 
-                        this.DialogResult = true;
-                        this.Close();
+                            GlobalVariables.DbService.InsertEntity("AssetTag", assettagInfo);
+
+                            this.DialogResult = true;
+         
+
+                        }
+                        else
+                        {
+                            MessageBox.Show($"已存在编号预设{assetTag}，请勿重复设置！", "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+
+
 
                     }
                     else
                     {
-                        MessageBox.Show($"已存在编号预设{assetTag}，请勿重复设置！", "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"已存在对资产类型为{assetType}，设备类型为{deviceType}的编号预设，请勿重复设置！", "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-
-
                 }
-                else
-                {
-                    MessageBox.Show($"已存在对资产类型为{assetType}，设备类型为{deviceType}的编号预设，请勿重复设置！", "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+
 
 
 

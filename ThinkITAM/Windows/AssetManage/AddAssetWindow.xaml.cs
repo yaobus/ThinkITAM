@@ -47,6 +47,7 @@ public partial class AddAssetWindow : Window
         LoadAssetType();
         LoadOrganizationInfo();
         LoadAddress();
+        
 
         if (editMode == 1)
         {
@@ -54,7 +55,23 @@ public partial class AddAssetWindow : Window
         }
     }
 
+    private List<string> modelList = new List<string>();
 
+    private void LoadModelList(string assetType,string deviceType)
+    {
+        string query = $"SELECT * FROM Models WHERE AssetType='{assetType}' AND  DeviceType='{deviceType}' ;";
+
+        Console.WriteLine(query);
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+        foreach (var row in rows)
+        {
+            modelList.Add(row["Model"].ToString());
+        }
+
+        ModelsComboBox.ItemsSource = modelList;
+    }
 
     private ObservableCollection<AddressInfoViewModel> addressInfos = new ObservableCollection<AddressInfoViewModel>();
 
@@ -71,7 +88,7 @@ public partial class AddAssetWindow : Window
 
         foreach (var row in rows)
         {
-                        index++;
+            index++;
             AddressInfoViewModel info = new AddressInfoViewModel();
 
             info.Index = index;
@@ -224,6 +241,9 @@ public partial class AddAssetWindow : Window
 
                 AssetNumber.Text = CalculateAssetId(tag).ToString();
             }
+
+            //加载型号列表
+            LoadModelList(assetTypeInfos[AssetType.SelectedIndex].ToString(), deviceTypeInfos[DeviceType.SelectedIndex].ToString());
         }
     }
 
@@ -619,13 +639,14 @@ public partial class AddAssetWindow : Window
                 };
 
 
-                //string sql =
-                //   $"INSERT INTO \"Asset\" (\"AssetId\",\"AssetQrCode\",\"AssetType\", \"DeviceType\", \"AssetTag\", \"AssetNumber\", \"PurchaseDate\", \"PurchasePrice\", \"Manufacturer\", \"Model\", \"SerialNumber\", \"Configuration\", \"Location\", \"UserOrganization\", \"UserDepartment\", \"User\", \"UserPhone\", \"Consumer\", \"Status\", \"UsedYear\", \"ScrapDate\", \"Notes\", \"TagA\", \"TagB\", \"TagC\", \"TagD\", \"TagE\", \"TagF\") VALUES ('{assetId}','{qrCode}','{AssetType.Text}', '{DeviceType.Text}', '{AssetTag.Text}', {Convert.ToInt32(AssetNumber.Text)}, '{BuyDate.SelectedDate.ToString()}', '{Price.Text}', '{Maker.Text}', '{Model.Text}', '{SerialNumber.Text}', '{Parameter.Text}', '{PresetAddress.Text}', '{UserOrganization.Text}', '{UserDepartment.Text}', '{AssignedTo.Text}', '{Phone.Text}', '{Consumer.Text}', '{AssetStatus.Text}', '{ServiceLife.Text}', '{ScrapDate.SelectedDate.ToString()}', '{Description.Text}', '{TagA.Text}', '{TagB.Text}', '{TagC.Text}', '{TagD.Text}', '{TagE.Text}', '{TagF.Text}')";
 
                 GlobalVariables.DbService.InsertEntity("Asset", assetEntity);
 
-                //GlobalVariables.DbService.ExecuteNonQuery(sql);
+
             }
+
+            //保存型号
+            SaveModels(AssetType.Text, DeviceType.Text, Model.Text);
 
 
             this.DialogResult = true;
@@ -638,17 +659,27 @@ public partial class AddAssetWindow : Window
     }
 
     /// <summary>
-    /// 创建资产ID
+    /// 保存型号
     /// </summary>
-    /// <returns></returns>
-    private string CreateAssetId(string assetTagNumber)
+    private void SaveModels(string assetType, string deviceType, string model)
     {
-        string str = DateTime.Now.ToString() + assetTagNumber;
+        var sql = $"SELECT COUNT(*) FROM Models WHERE AssetType='{assetType}' AND DeviceType='{deviceType}', Model = '{model}'";
+        var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
+        if (count == 0)
+        {
+            var newModel = new { AssetType = assetType, DeviceType = deviceType, Model = model };
+            GlobalVariables.DbService.InsertEntity("Models", newModel);
+        }
 
-        return EncryptionDecryption.CalculateMD5(str).ToUpper();
 
     }
 
+
+
+    /// <summary>
+    /// 检查输入是否合规
+    /// </summary>
+    /// <returns></returns>
     private (int, string) CheckInput()
     {
         int index = 0;
@@ -694,5 +725,8 @@ public partial class AddAssetWindow : Window
     }
 
 
-
+    private void ModelsComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+       Model.Text =  modelList[ModelsComboBox.SelectedIndex];
+    }
 }

@@ -15,6 +15,7 @@ using System.Windows.Controls.Primitives;
 using System;
 using ThinkITAM.UserControls.Computer;
 using Microsoft.VisualBasic;
+using ThinkITAM.ViewModels.Preset;
 
 
 namespace ThinkITAM.FunctionPage
@@ -625,6 +626,12 @@ namespace ThinkITAM.FunctionPage
             }
         }
 
+
+
+        /// <summary>
+        /// 当前选中的机柜
+        /// </summary>
+        private string selectedCabinetId = string.Empty;
         /// <summary>
         /// 加载机柜设备列表
         /// </summary>
@@ -644,7 +651,8 @@ namespace ThinkITAM.FunctionPage
                     CabinetClass info = childNode.DataContext as CabinetClass;
 
 
-                    string cabinetId = info.CabinetId;
+                    var cabinetId = info.CabinetId;
+                    selectedCabinetId = cabinetId;
 
                     LoadRacksInfos(cabinetId);
 
@@ -830,7 +838,7 @@ namespace ThinkITAM.FunctionPage
 
                 DataBridge.DataBridge.SelectRackInfo = info;
 
-                DeleteButton.IsEnabled= true;
+               
 
                 var firstChar = info.rackId[0];
 
@@ -841,16 +849,9 @@ namespace ThinkITAM.FunctionPage
                 else
                 {
                     LoadDeviceInfo(info);
-                   
-                    
                     DeviceInfoPlan.DataContext = info;
-                   
                 }
-
-
-
-
-
+                DeleteButton.IsEnabled = true;
             }
             else
             {
@@ -859,20 +860,23 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        /// <summary>
+        /// 加载设备信息
+        /// </summary>
+        /// <param name="rackInfo"></param>
         private void LoadDeviceInfo(RackInfo rackInfo)
         {
             string assetId = rackInfo.rackId;
 
-
-
             LoadDevicePortInfos(assetId);
-
-
 
         }
 
 
-
+        /// <summary>
+        /// 加载机架信息
+        /// </summary>
+        /// <param name="rackInfo"></param>
         private void LoadRackInfo(RackInfo rackInfo)
         {
             string rackId = rackInfo.rackId;
@@ -1857,7 +1861,51 @@ namespace ThinkITAM.FunctionPage
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+            if (DataBridge.DataBridge.SelectRackInfo != null)
+            {
+                var info = DataBridge.DataBridge.SelectRackInfo;
+
+                var id = DataBridge.DataBridge.SelectRackInfo.rackId;
+
+                var firstChar = id[0];
+
+                var tableName = string.Empty;//表名
+                var tableField = string.Empty;//字段名
+                var type = string.Empty;//设备/机架
+                if (firstChar.ToString() == "3")
+                {
+                    tableName = "Racks";
+                    tableField = "RackId";
+                    type = "机架";
+                }
+                else
+                {
+                    tableName = "Devices";
+                    tableField = "AssetId";
+                    type = "设备";
+                }
+
+                var message = $"确定要删除吗？\r{type}:{info.rackName}";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"UPDATE {tableName} SET Del = 1 WHERE {tableField} ='{id}';";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadRacksInfos(selectedCabinetId);//重新加载机柜设备列表
+
+                    ClearRackPanel_OnClick(null, null);//清空画布
+                    DevicePortPanel.Children.Clear();//清空设备端口
+                }
+
+            }
+
         }
     }
 }

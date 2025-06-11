@@ -86,7 +86,12 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             AddAssetTagWindow addAssetTag = new AddAssetTagWindow();
 
-
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                addAssetTag.Owner = window;
+            }
 
             if (addAssetTag.ShowDialog() == true)
             {
@@ -96,22 +101,97 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void AssetTagListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
+            var index = AssetTagListView.SelectedIndex;
+
+            if (index != -1)
+            {
+                EditAssetButton.IsEnabled = true;
+                DeleteAssetButton.IsEnabled = true;
+            }
+            else
+            {
+                EditAssetButton.IsEnabled = false;
+                DeleteAssetButton.IsEnabled = false;
+            }
+
+
+
         }
 
         private void AssetTagListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            var index = AssetTagListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = assetTags[index];
+
+                AddAssetTagWindow addAssetTag = new AddAssetTagWindow(info);
+
+
+
+                if (addAssetTag.ShowDialog() == true)
+                {
+                    LoadAssetTagInfo();
+                }
+
+
+            }
+
         }
 
         private void EditAssetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var index = AssetTagListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = assetTags[index];
+
+                AddAssetTagWindow addAssetTag = new AddAssetTagWindow(info);
+
+
+
+                if (addAssetTag.ShowDialog() == true)
+                {
+                    LoadAssetTagInfo();
+                }
+
+
+            }
         }
 
         private void DeleteAssetButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+            var index = AssetTagListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = assetTags[index];
+
+                var message = $"确定要删除吗？\r资产类型:{info.AssetType}\r设备类型:{info.DeviceType}\r编号前缀:{info.NumberPrefix}\r该操作不可逆！";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"DELETE FROM  AssetTag WHERE AssetTag='{info.NumberPrefix}'";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadAssetTagInfo();
+
+                }
+
+
+            }
         }
     }
 }

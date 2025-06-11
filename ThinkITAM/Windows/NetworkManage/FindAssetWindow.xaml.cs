@@ -78,27 +78,27 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 if (id != null)
                 {
-                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}'  ";
+                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}' AND (Del != 1 OR Del IS NULL) ";
                 }
                 else
                 {
-                    sql = $"SELECT * FROM Asset WHERE Deploy IS NULL OR Deploy=''";
+                    sql = $"SELECT * FROM Asset WHERE Deploy IS NULL OR Deploy='' AND (Del != 1 OR Del IS NULL) ";
                 }
             }
             else
             {
                 if (id != null)
                 {
-                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}'  ";
+                    sql = $"SELECT * FROM Asset WHERE AssetId ='{id}' AND (Del != 1 OR Del IS NULL)  ";
                 }
                 else
                 {
-                    sql = $"SELECT * FROM Asset";
+                    sql = $"SELECT * FROM Asset WHERE (Del != 1 OR Del IS NULL) ";
                 }
             }
 
 
-
+            
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 

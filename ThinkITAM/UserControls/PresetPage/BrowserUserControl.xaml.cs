@@ -18,6 +18,7 @@ using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using System.Reflection;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -199,5 +200,138 @@ namespace ThinkITAM.UserControls.PresetPage
         }
 
 
+
+        private void ProtocolListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var index = ProtocolListView.SelectedIndex;
+
+            if (index != -1)
+            {
+                DeleteProtocolButton.IsEnabled = true;
+            }
+            else
+            {
+                DeleteProtocolButton.IsEnabled = false;
+            }
+        }
+
+
+        private void DeleteProtocolButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = ProtocolListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = protocolInfos[index];
+
+                var message = $"确定要删除吗？\r协议名称:{info.Protocol}\r协议备注:{info.Note}\r该操作不可逆！";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"DELETE FROM  Protocol WHERE Protocol='{info.Protocol}'";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadProtocolInfo();
+
+                }
+
+            }
+
+
+
+        }
+
+        private void PortListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var index = PortListView.SelectedIndex;
+
+            if (index != -1)
+            {
+                DeletePortButton.IsEnabled = true;
+            }
+            else
+            {
+                DeletePortButton.IsEnabled = false;
+            }
+        }
+
+        private void DeletePortButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = PortListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = portInfos[index];
+
+                var message = $"确定要删除吗？\r端口:{info.Port}\r端口备注:{info.Note}\r该操作不可逆！";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"DELETE FROM  PortList WHERE Port='{info.Port}'";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadPortInfo();
+
+                }
+
+            }
+        }
+
+        private void BrowserListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var index = BrowserListView.SelectedIndex;
+
+            if (index != -1)
+            {
+                DeleteBrowserButton.IsEnabled = true;
+            }
+            else
+            {
+                DeleteBrowserButton.IsEnabled = false;
+            }
+        }
+
+        private void DeleteBrowserButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var index = BrowserListView.SelectedIndex;
+
+            if (index != -1)
+            {
+
+                var info = browserInfos[index];
+
+                var message = $"确定要删除吗？\r名称:{info.Browser}\r路径:{info.Path}\r该操作不可逆！";
+
+
+                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    string query = $"DELETE FROM  Browser WHERE Port='{info.Browser}' AND Path='{info.Path}'";
+
+
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    LoadBrowserInfo();
+
+                }
+
+            }
+        }
     }
 }

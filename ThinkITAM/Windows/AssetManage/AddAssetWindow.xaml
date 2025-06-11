@@ -167,13 +167,14 @@
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     Text="{Binding Model, Mode=TwoWay}" />
                                 <ComboBox
-                                    x:Name="PresetModel"
+                                    x:Name="ModelsComboBox"
                                     Width="85"
                                     Height="28"
                                     Margin="5,0,0,0"
                                     Padding="0"
                                     materialDesign:HintAssist.Hint="{DynamicResource AawAssetModelPreset}"
                                     MaxDropDownHeight="300"
+                                    SelectionChanged="ModelsComboBox_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                                 <materialDesign:PackIcon
                                     Width="24"
