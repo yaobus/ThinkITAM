@@ -9,7 +9,7 @@
   <Identity
     Name="51338yaobus.ThinkITAM"
     Publisher="CN=yaobus"
-    Version="1.0.5.0" />
+    Version="1.0.6.0" />
 
   <Properties>
     <DisplayName>ThinkITAM</DisplayName>

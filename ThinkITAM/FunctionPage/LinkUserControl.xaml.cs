@@ -1355,6 +1355,7 @@ namespace ThinkITAM.FunctionPage
 
 
                 string buildingId = buildings[BuildingsComboBox.SelectedIndex].BuildingId;
+
                 DataBridge.DataBridge.SelectedBuildingId = buildingId;
 
 

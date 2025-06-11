@@ -273,7 +273,7 @@ namespace ThinkITAM.DatabaseOperation
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
 
-                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortStatus TEXT, PortTag TEXT,  OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
+                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortStatus TEXT, PortTag TEXT,  OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, Del INTEGER,   PRIMARY KEY (UID) );";
 
                         //GlobalVariables.DbService.ExecuteNonQuery(query);
 
@@ -292,7 +292,7 @@ namespace ThinkITAM.DatabaseOperation
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
 
-                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
+                        string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, Del INTEGER,  PRIMARY KEY (UID) );";
 
                         //GlobalVariables.DbService.ExecuteNonQuery(query);
                         GlobalVariables.DbService.CreateTableFromSql(query);
@@ -308,7 +308,7 @@ namespace ThinkITAM.DatabaseOperation
 
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
-                        string query = $"CREATE TABLE {table} ( UID INTEGER NOT NULL, AssetId TEXT, PortType TEXT, PortSpeed TEXT, PortSlotNumber INTEGER, PortId TEXT, PortStatus INTEGER,PortTag TEXT, Mode TEXT, PortName TEXT, VlanId TEXT, PortColor INTEGER, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, PRIMARY KEY (UID) );";
+                        string query = $"CREATE TABLE {table} ( UID INTEGER NOT NULL, AssetId TEXT, PortType TEXT, PortSpeed TEXT, PortSlotNumber INTEGER, PortId TEXT, PortStatus INTEGER,PortTag TEXT, Mode TEXT, PortName TEXT, VlanId TEXT, PortColor INTEGER, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT,Del INTEGER,   PRIMARY KEY (UID) );";
 
                         //GlobalVariables.DbService.ExecuteNonQuery(query);
 

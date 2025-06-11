@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Resources;
 using System.Text.Json;
@@ -7,16 +8,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.InformationDisplay;
 using ThinkITAM.ViewModels.DataBaseConfig;
 using ThinkITAM.Windows.Project;
-using ThinkITAM.DataBridge;
 using ThinkITAM.Windows.Selection;
-using Path = System.IO.Path;
-using MaterialDesignColors;
 using ThinkITAM.Windows.Welcome;
+using Path = System.IO.Path;
 
 
 namespace ThinkITAM;
@@ -554,5 +556,35 @@ public partial class MainWindow : Window
 
             GetEncryptString();
         }
+    }
+
+    private void HelpButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        // 1. 弹出保存对话框让用户选择路径
+        SaveFileDialog saveFileDialog = new SaveFileDialog();
+        saveFileDialog.Filter = "PDF 文件 (*.pdf)|*.pdf";
+        saveFileDialog.FileName = "ThinkITAM使用手册.pdf";
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            string destinationPath = saveFileDialog.FileName;
+
+            // 2. 获取嵌入资源或者本地文件内容
+            string sourceFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Document\\ThinkITAM使用手册.pdf");
+
+            try
+            {
+                // 3. 复制文件到目标位置
+                File.Copy(sourceFilePath, destinationPath, overwrite: true);
+
+                // 4. 打开资源管理器并定位到该文件夹
+                Process.Start("explorer.exe", $"/select,\"{destinationPath}\"");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"无法导出帮助文档：{ex.Message}");
+            }
+        }
+
     }
 }

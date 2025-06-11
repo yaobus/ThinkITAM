@@ -12,9 +12,9 @@
     Title="ThinkITAM"
     Width="810"
     Height="500"
-    ResizeMode="NoResize"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="MainWindow_OnLoaded"
+    ResizeMode="NoResize"
     Style="{StaticResource ResourceKey=MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -42,8 +42,8 @@
             d:Visibility="Visible"
             materialDesign:ElevationAssist.Elevation="Dp1"
             CornerRadius="5"
-            Opacity="0.8"
             Mode="Standard"
+            Opacity="0.8"
             Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
@@ -153,10 +153,10 @@
             Grid.Column="1"
             Margin="10"
             VerticalAlignment="Bottom"
-            Opacity="0.8"
             materialDesign:ElevationAssist.Elevation="Dp1"
             CornerRadius="5"
             Mode="Standard"
+            Opacity="0.8"
             Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
@@ -211,10 +211,10 @@
             Grid.Column="1"
             Margin="10"
             VerticalAlignment="Stretch"
-            Opacity="0.8"
             materialDesign:ElevationAssist.Elevation="Dp1"
             CornerRadius="5"
             Mode="Standard"
+            Opacity="0.8"
             Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
@@ -260,49 +260,77 @@
             </Grid>
         </materialDesign:ColorZone>
 
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Orientation="Horizontal">
-            <ToggleButton
-                x:Name="ThemeToggleButton"
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <ToggleButton
+                    x:Name="ThemeToggleButton"
+                    Width="25"
+                    Height="25"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=WeatherNight}"
+                    Click="ThemeToggleButton_OnClick"
+                    Content="{materialDesign:PackIcon Kind=WhiteBalanceSunny}"
+                    Foreground="AliceBlue"
+                    Style="{StaticResource MaterialDesignActionToggleButton}" />
+
+
+
+                <ComboBox
+                    x:Name="LanguageComboBox"
+                    Width="120"
+                    Margin="5"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    HorizontalContentAlignment="Center"
+                    materialDesign:HintAssist.Hint="Language"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Language"
+                    BorderThickness="0"
+                    FontSize="12"
+                    MaxDropDownHeight="300"
+                    SelectionChanged="LanguageComboBox_OnSelectionChanged"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBoxItem
+                        Height="30"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="简体中文" />
+                    <ComboBoxItem
+                        Height="30"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="English" />
+                </ComboBox>
+            </StackPanel>
+
+            <Button
+                x:Name="HelpButton"
+                Grid.Row="1"
                 Width="25"
                 Height="25"
                 Margin="5"
-                VerticalAlignment="Top"
-                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=WeatherNight}"
-                Click="ThemeToggleButton_OnClick"
-                Content="{materialDesign:PackIcon Kind=WhiteBalanceSunny}"
-                Foreground="AliceBlue"
-                Style="{StaticResource MaterialDesignActionToggleButton}" />
-            <ComboBox
-                x:Name="LanguageComboBox"
-                Width="120"
-                Margin="5"
-                Padding="5"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                HorizontalContentAlignment="Center"
-                materialDesign:HintAssist.Hint="Language"
-                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                materialDesign:TextFieldAssist.LeadingIcon="Language"
-                BorderThickness="0"
-                FontSize="12"
-                MaxDropDownHeight="300"
-                SelectionChanged="LanguageComboBox_OnSelectionChanged"
-                Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                <ComboBoxItem
-                    Height="30"
-                    Padding="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="简体中文" />
-                <ComboBoxItem
-                    Height="30"
-                    Padding="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="English" />
-            </ComboBox>
-        </StackPanel>
+                Style="{StaticResource MaterialDesignIconButton}"
+                Click="HelpButton_OnClick"
+                >
+                <materialDesign:PackIcon
+                    Width="25"
+                    Height="25"
+                    Kind="HelpCircleOutline" />
+            </Button>
+        </Grid>
+
+
 
         <!--  提示信息  -->
         <materialDesign:DialogHost

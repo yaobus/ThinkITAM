@@ -65,7 +65,7 @@
                     VerticalAlignment="Center"
                     IsEditable="True"
                     MaxDropDownHeight="300"
-                    SelectedItem="{Binding AssetType }"
+                    SelectedItem="{Binding AssetType}"
                     SelectionChanged="AssetType_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
@@ -85,11 +85,11 @@
                     Height="28"
                     Padding="3"
                     VerticalAlignment="Center"
-                    SelectedItem="{Binding DeviceType}"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
                     IsEditable="True"
                     MaxDropDownHeight="300"
+                    SelectedItem="{Binding DeviceType}"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
 
@@ -108,10 +108,10 @@
                     Height="28"
                     Padding="3"
                     VerticalAlignment="Center"
-                    Text="{Binding NumberPrefix}"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="SortNumerically"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding NumberPrefix}" />
             </StackPanel>
 
 
@@ -129,11 +129,11 @@
                     Width="300"
                     Height="28"
                     Padding="3"
-                    Text="{Binding Note}"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Note}" />
             </StackPanel>
 
 

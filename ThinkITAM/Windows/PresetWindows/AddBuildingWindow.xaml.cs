@@ -112,7 +112,7 @@ namespace ThinkITAM.Windows.PresetWindows
         {
             peopleInfos.Clear();
 
-            string query = "SELECT * FROM UserInfo;";
+            string query = "SELECT * FROM UserInfo  WHERE (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -211,12 +211,6 @@ namespace ThinkITAM.Windows.PresetWindows
                         MessageBox.Show("该建筑已存在");
                     }
                 }
-
-
-
-
-
-
 
 
             }
