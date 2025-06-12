@@ -276,6 +276,17 @@
 
                     </StackPanel>
 
+                    <StackPanel
+                        Margin="{StaticResource DefaultMargin}"
+                        HorizontalAlignment="Left"
+                        Orientation="Vertical">
+                        <Label Content=" "/>
+                        <CheckBox
+                            HorizontalAlignment="Left" Content="固定到首页"
+                            IsChecked="{Binding PinToStart,Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignSecondaryCheckBox}"
+                            />
+                    </StackPanel>
 
                 </StackPanel>
 

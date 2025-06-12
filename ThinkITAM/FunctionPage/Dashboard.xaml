@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dashboard="clr-namespace:ThinkITAM.ViewModels.Dashboard"
+    xmlns:indexPage="clr-namespace:ThinkITAM.UserControls.IndexPage"
     MinWidth="1300"
     MinHeight="800"
     d:Background="AliceBlue"
@@ -18,9 +19,9 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="Dashboard_OnLoaded"
     mc:Ignorable="d">
-<!--<UserControl.DataContext>
+    <!--<UserControl.DataContext>
     <dashboard:DashboardViewModel />
-</UserControl.DataContext>-->
+    </UserControl.DataContext>-->
 
     <Grid x:Name="InfoGrid">
         <Grid.RowDefinitions>
@@ -699,43 +700,34 @@
                 </StackPanel>
 
                 <materialDesign:ColorZone
+                    x:Name="BookmarkPanel"
                     Height="300"
                     Margin="10"
                     CornerRadius="5"
                     Mode="PrimaryLight">
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ScrollViewer
+                        x:Name="GraphicalPlan"
+                        d:Visibility="Collapsed"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
 
-                        <!--<lvc:PieChart
-                            Width="300"
-                            Height="300"
-                            DataTooltip="{x:Null}"
-                            Hoverable="False"
-                            LegendLocation="Bottom">
-                            <lvc:PieChart.Series>
-                                <lvc:PieSeries
-                                    Title="Maria"
-                                    DataLabels="True"
-                                    LabelPoint="{Binding PointLabel}"
-                                    Values="8" />
-                                <lvc:PieSeries
-                                    Title="Charles"
-                                    DataLabels="True"
-                                    LabelPoint="{Binding PointLabel}"
-                                    Values="4" />
-                                <lvc:PieSeries
-                                    Title="Frida"
-                                    DataLabels="True"
-                                    LabelPoint="{Binding PointLabel}"
-                                    Values="2" />
-                                <lvc:PieSeries
-                                    Title="Frederic"
-                                    DataLabels="True"
-                                    LabelPoint="{Binding PointLabel}"
-                                    Values="3" />
-                            </lvc:PieChart.Series>
-                        </lvc:PieChart>-->
+                        <ItemsControl x:Name="AddressPanel" Padding="10">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                    </StackPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <indexPage:IndexTag DataContext="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+
+                    </ScrollViewer>
 
                 </materialDesign:ColorZone>
 

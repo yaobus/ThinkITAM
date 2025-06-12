@@ -15,6 +15,7 @@
     <UserControl.Resources>
         <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
         <converters:ToolTipConverter x:Key="ToolTipConverter" />
+        <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter"/>
     </UserControl.Resources>
 
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
@@ -71,19 +72,48 @@
 
 
 
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            d:Text="快速访问标签"
+                            FontWeight="Bold"
+                            Foreground="AliceBlue"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            Text="{Binding Name}" />
+
+                        <Grid
+                            Visibility="{Binding PinToStart, Converter={StaticResource PinToStartIntToVisibilityConverter}}"
+                            Grid.Column="1"
+                            Opacity="0.8"
+                            RenderTransformOrigin="0.5,0.5">
+                            <!--  设置中心点旋转  -->
+                            <Grid.RenderTransform>
+                                <RotateTransform Angle="45" />
+                            </Grid.RenderTransform>
+
+                            <!--  原始内容  -->
+                            <materialDesign:PackIcon
+                                Margin="5"
+                                Foreground="OrangeRed"
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Right"
+                                Kind="PinOutline" />
+                        </Grid>
 
 
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="5,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        d:Text="快速访问标签"
-                        FontWeight="Bold"
-                        Foreground="AliceBlue"
-                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                        Text="{Binding Name}" />
+                    </Grid>
+
+
+
 
 
                     <Grid Grid.Row="1" Grid.Column="1">

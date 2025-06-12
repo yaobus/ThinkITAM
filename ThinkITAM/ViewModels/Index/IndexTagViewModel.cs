@@ -21,6 +21,7 @@ namespace ThinkITAM.ViewModels.Index
         private string _url;
         private string _browser;
         private int _index;
+        private int _pinToStart;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -152,6 +153,22 @@ namespace ThinkITAM.ViewModels.Index
                 if (_index != value)
                 {
                     _index = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 是否Pin到开始页面
+        /// </summary>
+        public int PinToStart
+        {
+            get => _pinToStart;
+            set
+            {
+                if (_pinToStart != value)
+                {
+                    _pinToStart = value;
                     OnPropertyChanged();
                 }
             }
