@@ -291,13 +291,9 @@ namespace ThinkITAM.DatabaseOperation
 
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
-
                         string query = $"CREATE TABLE {table} (UID INTEGER NOT NULL, SlotId TEXT, RoomId TEXT, PortId TEXT, PortType TEXT, PortGroup TEXT, PortColor TEXT, PortTag TEXT, PortStatus TEXT, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT, Del INTEGER,  PRIMARY KEY (UID) );";
 
-                        //GlobalVariables.DbService.ExecuteNonQuery(query);
                         GlobalVariables.DbService.CreateTableFromSql(query);
-
-
 
                     }
 
@@ -309,8 +305,6 @@ namespace ThinkITAM.DatabaseOperation
                     if (!GlobalVariables.DbService.IsTableExists(table))
                     {
                         string query = $"CREATE TABLE {table} ( UID INTEGER NOT NULL, AssetId TEXT, PortType TEXT, PortSpeed TEXT, PortSlotNumber INTEGER, PortId TEXT, PortStatus INTEGER,PortTag TEXT, Mode TEXT, PortName TEXT, VlanId TEXT, PortColor INTEGER, OnTheLine INTEGER, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT,Del INTEGER,   PRIMARY KEY (UID) );";
-
-                        //GlobalVariables.DbService.ExecuteNonQuery(query);
 
                         GlobalVariables.DbService.CreateTableFromSql(query);
                     }
@@ -403,13 +397,11 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static string StatisticsDeviceRoomFloor(string buildingId)
         {
-
             string sql = $"SELECT COUNT(DISTINCT SlotId) FROM  Bu_{buildingId}";
             int floor = ExecuteScalarTableNum(sql);
             int room = ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
             int port = ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE BuildingId='{buildingId}'");
-
-
+            
             return $"{floor}/{room}/{port}";
         }
 
@@ -707,14 +699,7 @@ namespace ThinkITAM.DatabaseOperation
 
                 GlobalVariables.DbService.UpdateEntity("WindowTag", tagInfo,conditions);
 
-
-
             }
-
-
-
-
-
 
         }
 
@@ -1265,7 +1250,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Bookmark"://导航索引
 
-                                sql = $"CREATE TABLE \"Bookmark\" (\"IndexId\" TEXT,    \"TypeGroup\" TEXT,   \"Name\" TEXT,   \"Protocol\" TEXT,   \"Host\" TEXT,   \"Port\" TEXT,   \"Color\" integer,   \"Browser\" TEXT,   \"Del\" integer );";
+                                sql = $"CREATE TABLE \"Bookmark\" (\"IndexId\" TEXT,    \"TypeGroup\" TEXT,   \"Name\" TEXT,   \"Protocol\" TEXT,   \"Host\" TEXT,   \"Port\" TEXT,   \"Color\" integer,   \"Browser\" TEXT, \"PinToStart\" integer,   \"Del\" integer );";
 
 
 
@@ -1486,7 +1471,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Bookmark"://导航索引
 
                                 sql =
-                                    $"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(32) PRIMARY KEY,   `TypeGroup` TEXT,   `Name` TEXT,   `Protocol` TEXT,   `Host` TEXT,   `Port` TEXT,   `Color` INT,   `Browser` TEXT,   `Del` INT ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(32) PRIMARY KEY,   `TypeGroup` TEXT,   `Name` TEXT,   `Protocol` TEXT,   `Host` TEXT,   `Port` TEXT,   `Color` INT,   `Browser` TEXT, `PinToStart` INT, `Del` INT ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;
