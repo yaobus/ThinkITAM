@@ -32,6 +32,7 @@ public partial class DevicePortManage : UserControl
     {
 
         PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
+
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
         
         LoadAssetTreeViewInfos();

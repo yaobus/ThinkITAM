@@ -3,13 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dashboard="clr-namespace:ThinkITAM.ViewModels.Dashboard"
+    xmlns:index="clr-namespace:ThinkITAM.ViewModels.Index"
+    xmlns:indexPage="clr-namespace:ThinkITAM.UserControls.IndexPage"
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:dashboard="clr-namespace:ThinkITAM.ViewModels.Dashboard"
-    xmlns:indexPage="clr-namespace:ThinkITAM.UserControls.IndexPage"
-    xmlns:index="clr-namespace:ThinkITAM.ViewModels.Index"
     MinWidth="1300"
     MinHeight="800"
     d:Background="AliceBlue"
@@ -48,13 +48,12 @@
 
 
             <StackPanel
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 Orientation="Vertical">
 
                 <Grid
-
                     Grid.Row="1"
                     Margin="10"
                     HorizontalAlignment="Stretch">
@@ -75,11 +74,11 @@
                     <materialDesign:Chip
                         Grid.Column="1"
                         Height="38"
-                        Visibility="Collapsed"
                         HorizontalAlignment="Right"
                         Content="Administrator"
                         Icon="A"
-                        Style="{StaticResource MaterialDesignOutlineChip}" />
+                        Style="{StaticResource MaterialDesignOutlineChip}"
+                        Visibility="Collapsed" />
 
                 </Grid>
 
@@ -134,14 +133,14 @@
 
 
                                     <TextBlock
-                                        Padding="0"
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
+                                        Padding="0"
                                         VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasNetworkNote}" />
+                                        Text="{DynamicResource DasNetworkNote}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
 
@@ -171,14 +170,14 @@
                                         Text="{Binding NetworkCount}" />
 
                                     <TextBlock
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasNetworkCount}" />
+                                        Text="{DynamicResource DasNetworkCount}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
                                 <Grid Grid.Column="1">
@@ -195,17 +194,17 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="{Binding IpAddressCount}"  />
+                                        Text="{Binding IpAddressCount}" />
 
                                     <TextBlock
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasNetworkIpCount}" />
+                                        Text="{DynamicResource DasNetworkIpCount}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
                                 <Grid Grid.Column="2">
@@ -225,14 +224,14 @@
                                         Text="8192" />
 
                                     <TextBlock
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasNetworkIpNoUse}" />
+                                        Text="{DynamicResource DasNetworkIpNoUse}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
                             </Grid>
 
@@ -289,14 +288,14 @@
 
 
                                     <TextBlock
-                                        Padding="0"
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
+                                        Padding="0"
                                         VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasDeviceNote}" />
+                                        Text="{DynamicResource DasDeviceNote}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
 
@@ -323,7 +322,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="{Binding DeviceCount}"  />
+                                        Text="{Binding DeviceCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -349,7 +348,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="{Binding ComputerCount}"  />
+                                        Text="{Binding ComputerCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -441,14 +440,14 @@
 
 
                                     <TextBlock
-                                        Padding="0"
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
+                                        Padding="0"
                                         VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasLinkNote}" />
+                                        Text="{DynamicResource DasLinkNote}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
 
@@ -475,7 +474,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="{Binding LinkCount}"  />
+                                        Text="{Binding LinkCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -501,7 +500,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="{Binding LinkNodeCount}"  />
+                                        Text="{Binding LinkNodeCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -593,14 +592,14 @@
 
 
                                     <TextBlock
-                                        Padding="0"
-                                        TextWrapping="Wrap"
                                         Grid.Row="1"
                                         Margin="0"
+                                        Padding="0"
                                         VerticalAlignment="Top"
                                         FontSize="12"
                                         Opacity="0.5"
-                                        Text="{DynamicResource DasAssetNote}" />
+                                        Text="{DynamicResource DasAssetNote}"
+                                        TextWrapping="Wrap" />
                                 </Grid>
 
 
@@ -700,27 +699,32 @@
 
                 </StackPanel>
 
+
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+
                 <materialDesign:ColorZone
-                    Height="300"
                     Margin="10"
-                    CornerRadius="5"
-                    Mode="PrimaryLight">
+                    VerticalAlignment="Stretch"
+                    d:Background="OliveDrab"
+                    CornerRadius="5">
                     <ScrollViewer
                         d:Visibility="Collapsed"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
-                        <ItemsControl x:Name="IndexTagsPanel" Padding="10">
+                        <ItemsControl x:Name="IndexTagsPanel">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" />
+                                    <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                        <indexPage:TagsPanel HorizontalAlignment="Stretch"/>
+                                        <indexPage:TagsPanel Margin="0,10" />
                                     </Grid>
 
 
@@ -734,7 +738,9 @@
 
                 </materialDesign:ColorZone>
 
-            </StackPanel>
+            </Grid>
+
+
 
         </Grid>
 

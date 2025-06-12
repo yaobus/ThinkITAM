@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
         <converters:ToolTipConverter x:Key="ToolTipConverter" />
-        <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter"/>
+        <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter" />
     </UserControl.Resources>
 
     <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
@@ -74,8 +74,8 @@
 
                     <Grid Grid.Row="0" Grid.Column="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
@@ -90,10 +90,10 @@
                             Text="{Binding Name}" />
 
                         <Grid
-                            Visibility="{Binding PinToStart, Converter={StaticResource PinToStartIntToVisibilityConverter}}"
                             Grid.Column="1"
                             Opacity="0.8"
-                            RenderTransformOrigin="0.5,0.5">
+                            RenderTransformOrigin="0.5,0.5"
+                            Visibility="{Binding PinToStart, Converter={StaticResource PinToStartIntToVisibilityConverter}}">
                             <!--  设置中心点旋转  -->
                             <Grid.RenderTransform>
                                 <RotateTransform Angle="45" />
@@ -101,11 +101,11 @@
 
                             <!--  原始内容  -->
                             <materialDesign:PackIcon
-                                Margin="5"
-                                Foreground="AliceBlue"
                                 Width="15"
                                 Height="15"
+                                Margin="5"
                                 HorizontalAlignment="Right"
+                                Foreground="AliceBlue"
                                 Kind="PinOutline" />
                         </Grid>
 

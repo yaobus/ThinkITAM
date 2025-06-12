@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ThinkITAM.ViewModels.Index;
 
 namespace ThinkITAM.UserControls.IndexPage
 {
@@ -24,5 +25,7 @@ namespace ThinkITAM.UserControls.IndexPage
         {
             InitializeComponent();
         }
+
+
     }
 }

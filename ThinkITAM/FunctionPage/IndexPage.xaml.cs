@@ -203,7 +203,7 @@ namespace ThinkITAM.FunctionPage
                     tagInfo.Host = row["Host"].ToString();
                     tagInfo.Port = row["Port"].ToString();
                     tagInfo.Browser = row["Browser"].ToString();
-                    tagInfo.PinToStart =  Convert.ToInt32(row["PinToStart"]);
+                    //tagInfo.PinToStart =  Convert.ToInt32(row["PinToStart"]);
                     string url = $"{tagInfo.Protocol}{tagInfo.Host}";
 
                     if (tagInfo.Port.Length == 0)//未配置端口
@@ -215,6 +215,19 @@ namespace ThinkITAM.FunctionPage
                         tagInfo.Url = $"{url}:{tagInfo.Port}";
                     }
 
+                    int pinToStart;
+
+                    try
+                    {
+                        pinToStart = Convert.ToInt32(row["PinToStart"]);
+                    }
+                    catch (Exception exception)
+                    {
+                        pinToStart = 0;
+                    }
+
+
+                    tagInfo.PinToStart = pinToStart;
 
 
                     int colorIndex = 0;
