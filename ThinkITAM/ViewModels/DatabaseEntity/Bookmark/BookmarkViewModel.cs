@@ -26,6 +26,7 @@ namespace ThinkITAM.ViewModels.DatabaseEntity.Bookmark
         public int Color { get; set; }
 
          public string Browser { get; set; }
-        
+
+         public int PinToStart { get; set; }
     }
 }

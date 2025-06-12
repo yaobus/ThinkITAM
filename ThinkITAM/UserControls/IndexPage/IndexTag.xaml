@@ -102,7 +102,7 @@
                             <!--  原始内容  -->
                             <materialDesign:PackIcon
                                 Margin="5"
-                                Foreground="OrangeRed"
+                                Foreground="AliceBlue"
                                 Width="15"
                                 Height="15"
                                 HorizontalAlignment="Right"

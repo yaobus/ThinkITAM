@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -178,5 +179,44 @@ namespace ThinkITAM.ViewModels.Index
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+    }
+
+
+    public class DashboardIndexTagViewModel : INotifyPropertyChanged
+    {
+        private string _groupName;
+        private ObservableCollection<IndexTagViewModel> _indexTags;
+
+        public string GroupName
+        {
+            get => _groupName;
+            set
+            {
+                if (_groupName != value)
+                {
+                    _groupName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ObservableCollection<IndexTagViewModel> IndexTags
+        {
+            get => _indexTags;
+            set
+            {
+                if (_indexTags != value)
+                {
+                    _indexTags = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:dashboard="clr-namespace:ThinkITAM.ViewModels.Dashboard"
     xmlns:indexPage="clr-namespace:ThinkITAM.UserControls.IndexPage"
+    xmlns:index="clr-namespace:ThinkITAM.ViewModels.Index"
     MinWidth="1300"
     MinHeight="800"
     d:Background="AliceBlue"
@@ -700,18 +701,16 @@
                 </StackPanel>
 
                 <materialDesign:ColorZone
-                    x:Name="BookmarkPanel"
                     Height="300"
                     Margin="10"
                     CornerRadius="5"
                     Mode="PrimaryLight">
                     <ScrollViewer
-                        x:Name="GraphicalPlan"
                         d:Visibility="Collapsed"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
-                        <ItemsControl x:Name="AddressPanel" Padding="10">
+                        <ItemsControl x:Name="IndexTagsPanel" Padding="10">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -720,7 +719,11 @@
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <indexPage:IndexTag DataContext="{Binding}" />
+                                    <Grid>
+                                        <indexPage:TagsPanel HorizontalAlignment="Stretch"/>
+                                    </Grid>
+
+
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

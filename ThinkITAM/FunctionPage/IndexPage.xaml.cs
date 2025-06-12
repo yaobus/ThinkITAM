@@ -1,26 +1,12 @@
 ﻿using ThinkITAM.DatabaseOperation;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.FunctionClass;
-using System.Text.RegularExpressions;
 using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
-using ThinkITAM.UserControls.IndexPage;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -145,11 +131,11 @@ namespace ThinkITAM.FunctionPage
             string query;
             if (searchKeyWord.Replace(" ","").Length == 0)
             {
-                query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE Del != 0 OR Del IS NULL;";
+                query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE Del != 1 OR Del IS NULL;";
             }
             else
             {
-                query = $"SELECT DISTINCT TypeGroup FROM Bookmark WHERE Del != 0 OR Del IS NULL AND Name LIKE '%{searchKeyWord}%';";
+                query = $"SELECT DISTINCT TypeGroup FROM Bookmark WHERE Del != 1 OR Del IS NULL AND Name LIKE '%{searchKeyWord}%';";
 
             }
 
@@ -217,7 +203,7 @@ namespace ThinkITAM.FunctionPage
                     tagInfo.Host = row["Host"].ToString();
                     tagInfo.Port = row["Port"].ToString();
                     tagInfo.Browser = row["Browser"].ToString();
-                    tagInfo.PinToStart=  Convert.ToInt32(row["PinToStart"]);
+                    tagInfo.PinToStart =  Convert.ToInt32(row["PinToStart"]);
                     string url = $"{tagInfo.Protocol}{tagInfo.Host}";
 
                     if (tagInfo.Port.Length == 0)//未配置端口

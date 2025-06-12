@@ -119,7 +119,7 @@ public partial class AddressCollectWindow : Window
     {
         groups.Clear();
 
-        string query = $"SELECT DISTINCT  TypeGroup  FROM Bookmark  WHERE Del != 0 OR Del IS NULL;";
+        string query = $"SELECT DISTINCT  TypeGroup  FROM Bookmark  WHERE Del != 1 OR Del IS NULL;";
 
 
 
@@ -250,7 +250,6 @@ public partial class AddressCollectWindow : Window
                         Prompt = $"地址已存在,请勿重复添加\r\n{url}",
                         ConfirmButtonText = "确认",
                         
-
                     };
 
                     // 显示对话框
@@ -266,6 +265,15 @@ public partial class AddressCollectWindow : Window
                         browser = browserInfos[BrowserCombobox.SelectedIndex].Path;
                     }
 
+                    int status = 0;
+
+                    if (PinToStart.IsChecked == true)
+                    {
+                        status = 1;
+                    }
+
+
+
                     var bookmarkInfo = new ViewModels.DatabaseEntity.Bookmark.BookmarkViewModel
                     {
                         IndexId=  dbIndexId ,
@@ -275,22 +283,14 @@ public partial class AddressCollectWindow : Window
                         Host = Host.Text,
                         Port = Port.Text,
                         Color = IndexColor.SelectedIndex,
-                        Browser = browser
+                        Browser = browser,
+                        PinToStart = status
                     };
 
                     var conditions = new { IndexId = $"{dbIndexId}" };
 
 
                     GlobalVariables.DbService.UpdateEntity("Bookmark", bookmarkInfo, conditions);
-
-
-
-
-                    //string sql = $"UPDATE Bookmark  SET TypeGroup =  '{Groups.Text}',Name = '{Name.Text}', Protocol = '{Protocol.Text}',Host = '{Host.Text}',Port = '{Port.Text}',Color = '{IndexColor.SelectedIndex}' ,Browser = '{browser}' WHERE  IndexId='{dbIndexId}'";
-
-
-                    //GlobalVariables.DbService.ExecuteNonQuery(sql);
-
 
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
 
@@ -390,6 +390,13 @@ public partial class AddressCollectWindow : Window
 
                     string indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
+                    int status = 0;
+
+                    if (PinToStart.IsChecked == true)
+                    {
+                        status = 1;
+                    }
+
                     var bookmarkInfo = new ViewModels.DatabaseEntity.Bookmark.BookmarkViewModel
                     {
                         IndexId = indexId,
@@ -399,7 +406,8 @@ public partial class AddressCollectWindow : Window
                         Host = Host.Text,
                         Port = Port.Text,   
                         Color = IndexColor.SelectedIndex,
-                        Browser = browser
+                        Browser = browser,
+                        PinToStart = status
                     };
 
 

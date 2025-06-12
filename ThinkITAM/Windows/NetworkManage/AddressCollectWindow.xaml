@@ -282,6 +282,7 @@
                         Orientation="Vertical">
                         <Label Content=" "/>
                         <CheckBox
+                            x:Name="PinToStart"
                             HorizontalAlignment="Left" Content="固定到首页"
                             IsChecked="{Binding PinToStart,Mode=TwoWay}"
                             Style="{StaticResource MaterialDesignSecondaryCheckBox}"
