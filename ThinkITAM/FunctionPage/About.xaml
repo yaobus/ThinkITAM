@@ -25,7 +25,7 @@
             HorizontalAlignment="Center"
             FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-            Text="1.0.9"
+            Text="1.0.10"
             />
 
         <TextBlock
