@@ -31,13 +31,12 @@ public partial class AddGroupWindow : Window
         {
             cabinet = cabinetInfo;
 
-            Console.WriteLine(cabinetInfo.DeviceRoomQrId);
-
-            this.DataContext = cabinet;
+           this.DataContext = cabinet;
 
         }
     }
-    private CabinetClass cabinet = new CabinetClass();
+
+    private CabinetClass cabinet = null;
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
 
@@ -153,7 +152,7 @@ public partial class AddGroupWindow : Window
     {
         deviceRoomInfo.Clear();
 
-        string query = "SELECT * FROM DeviceRoom (Del != 1 OR Del IS NULL);";
+        string query = "SELECT * FROM DeviceRoom WHERE (Del != 1 OR Del IS NULL);";
 
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);

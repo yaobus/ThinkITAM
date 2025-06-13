@@ -97,7 +97,9 @@
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑机房或配线间" />
+                            ToolTip="编辑机房或配线间" 
+                            Click="EditRoomButton_OnClick"
+                            />
 
                         <Button
                             x:Name="DeleteRoomButton"
@@ -371,7 +373,9 @@
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑机柜信息" />
+                            ToolTip="编辑机柜信息" 
+                            Click="EditCabinetButton_OnClick"
+                            />
 
                         <Button
                             x:Name="DeleteCabinetButton"

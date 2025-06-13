@@ -37,7 +37,7 @@ namespace ThinkITAM.Windows.LinkWindows
         }
 
 
-        private DeviceRoomClass deviceRoom = new DeviceRoomClass();
+        private DeviceRoomClass deviceRoom = null;
         private void AddDeviceRoomWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 

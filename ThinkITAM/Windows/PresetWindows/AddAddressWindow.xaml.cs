@@ -23,30 +23,31 @@ namespace ThinkITAM.Windows.PresetWindows
     /// </summary>
     public partial class AddAddressWindow : Window
     {
-        public AddAddressWindow(AddressInfoViewModel addressInfo = null)
+        public AddAddressWindow(AddressInfoViewModel info = null)
         {
             InitializeComponent();
-            if (addressInfo != null)
+            if (info != null)
             {
-                address = addressInfo;
+                addressInfo = info;
                 inputAddress = addressInfo.Location;
-                this.DataContext = address;
+                this.DataContext = addressInfo;
             }
         }
 
         private string inputAddress = string.Empty;
-        private AddressInfoViewModel address = new AddressInfoViewModel();
+
+        private AddressInfoViewModel addressInfo = null;
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
             string address = Location.Text;
 
-            if (address.Replace(" ", "").Length > 2)
+            if (!string.IsNullOrWhiteSpace(address))
             {
 
-                if (address != null)//UPDATE
+                if (addressInfo != null)//UPDATE
                 {
-
+                    
                     var locationInfo = new { Location = address, Note = Note.Text };
 
                     var conditions = new { Location = inputAddress };
@@ -65,7 +66,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
                     if (num <= 0)
                     {
-
+                       
                         var locationInfo = new { Location = address, Note = Note.Text };
 
 
@@ -79,16 +80,6 @@ namespace ThinkITAM.Windows.PresetWindows
                         MessageBox.Show("地址已存在", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
-
-
-
-
-
-
-
-
-
-
 
             }
         }

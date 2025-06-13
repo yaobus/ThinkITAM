@@ -343,5 +343,65 @@ namespace ThinkITAM.UserControls.PresetPage
 
             }
         }
+
+        private void EditRoomButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            int num = RoomListView.SelectedIndex;
+
+            if (num != -1)
+            {
+                var roomInfo = deviceRoomInfos[num];
+
+
+                var addDeviceRoomWindow = new AddDeviceRoomWindow(roomInfo);
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    addDeviceRoomWindow.Owner = window;
+                }
+
+                if (addDeviceRoomWindow.ShowDialog() == true)
+                {
+
+                    LoadDeviceRoomInfo();
+
+                }
+
+            }
+        }
+
+        private void EditCabinetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+                       int num = CabinetListView.SelectedIndex;
+
+            if (num != -1)
+            {
+                var cabinetInfo = deviceCabinetInfos[num];
+
+
+                AddGroupWindow add = new AddGroupWindow(cabinetInfo);
+
+                //窗口放中间
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    add.Owner = window;
+                }
+
+                if (add.ShowDialog() == true)
+                {
+
+                    // 当子窗口关闭后执行这里的代码
+                    if (roomId != null)
+                    {
+                        LoadCabinetInfo(roomId);
+                    }
+                }
+
+
+            }
+        }
     }
 }

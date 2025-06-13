@@ -39,7 +39,7 @@ namespace ThinkITAM.Windows.PresetWindows
         }
 
 
-        private AssetTagClass inputInfo;
+        private AssetTagClass inputInfo = null;
 
         private void AddAssetTagWindow_OnLoaded(object sender, RoutedEventArgs e)
         {

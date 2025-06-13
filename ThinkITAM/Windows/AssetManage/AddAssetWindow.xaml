@@ -175,6 +175,7 @@
                                     materialDesign:HintAssist.Hint="{DynamicResource AawAssetModelPreset}"
                                     MaxDropDownHeight="300"
                                     SelectionChanged="ModelsComboBox_OnSelectionChanged"
+                                    MouseDoubleClick="ModelsComboBox_OnMouseDoubleClick"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                                 <materialDesign:PackIcon
                                     Width="24"

@@ -39,7 +39,7 @@ namespace ThinkITAM.Windows.PresetWindows
             }
         }
 
-        private readonly BuildingInfoClass buildingInfo;
+        private readonly BuildingInfoClass buildingInfo=null;
 
         private void AddBuildingWindow_OnLoaded(object sender, RoutedEventArgs e)
         {

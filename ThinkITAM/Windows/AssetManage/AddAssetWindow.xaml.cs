@@ -28,6 +28,7 @@ public partial class AddAssetWindow : Window
     {
         InitializeComponent();
 
+        ModelsComboBox.ItemsSource = modelList;
 
         if (rowData != null)//有信息传入，说明是修改模式
         {
@@ -59,9 +60,11 @@ public partial class AddAssetWindow : Window
 
     private void LoadModelList(string assetType,string deviceType)
     {
+        modelList.Clear();
+
         string query = $"SELECT * FROM Models WHERE AssetType='{assetType}' AND  DeviceType='{deviceType}' ;";
 
-        Console.WriteLine(query);
+       
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -70,7 +73,7 @@ public partial class AddAssetWindow : Window
             modelList.Add(row["Model"].ToString());
         }
 
-        ModelsComboBox.ItemsSource = modelList;
+        
     }
 
     private ObservableCollection<AddressInfoViewModel> addressInfos = new ObservableCollection<AddressInfoViewModel>();
@@ -663,7 +666,7 @@ public partial class AddAssetWindow : Window
     /// </summary>
     private void SaveModels(string assetType, string deviceType, string model)
     {
-        var sql = $"SELECT COUNT(*) FROM Models WHERE AssetType='{assetType}' AND DeviceType='{deviceType}', Model = '{model}'";
+        var sql = $"SELECT COUNT(*) FROM Models WHERE AssetType='{assetType}' AND DeviceType='{deviceType}' AND Model = '{model}'";
         var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
         if (count == 0)
         {
@@ -728,5 +731,28 @@ public partial class AddAssetWindow : Window
     private void ModelsComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
        Model.Text =  modelList[ModelsComboBox.SelectedIndex];
+    }
+
+    private void ModelsComboBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        //加载型号列表
+        LoadModelListAll();
+    }
+
+    private void LoadModelListAll()
+    {
+        modelList.Clear();
+
+        string query = $"SELECT DISTINCT Model FROM Models ;";
+
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+        foreach (var row in rows)
+        {
+            modelList.Add(row["Model"].ToString());
+        }
+
+
     }
 }

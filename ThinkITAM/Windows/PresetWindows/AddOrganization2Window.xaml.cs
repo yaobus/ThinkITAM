@@ -28,7 +28,6 @@ public partial class AddOrganization2Window : Window
         InitializeComponent();
     }
 
-    private DbClass dbClass;
 
     private void AddOrganization2Window_OnLoaded(object sender, RoutedEventArgs e)
     {

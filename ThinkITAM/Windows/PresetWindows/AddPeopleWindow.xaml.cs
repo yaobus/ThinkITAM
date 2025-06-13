@@ -37,11 +37,12 @@ public partial class AddPeopleWindow : Window
         if (info != null)
         {
             peopleInfo = info;
-          
+            this.DataContext = peopleInfo;
         }
+
     }
 
-    private PeopleViewModel peopleInfo = new PeopleViewModel();
+    private PeopleViewModel peopleInfo = null;
     private void AddPeopleWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
 
@@ -52,10 +53,6 @@ public partial class AddPeopleWindow : Window
 
 
 
-        UserNumber.Dispatcher.Invoke(() =>
-        {
-            UserNumber.Text = GetNextAvailableNumber().ToString();
-        });
 
         if (peopleInfo != null)
         {
@@ -63,7 +60,16 @@ public partial class AddPeopleWindow : Window
             UserNumber.IsEnabled = false;
             var number = peopleInfo.UserNumber.Replace(GetUserNumberPrefix(), "");
             peopleInfo.UserNumber = number;
-            this.DataContext = peopleInfo;
+           
+        }
+        else
+        {
+            
+            UserNumber.Dispatcher.Invoke(() =>
+            {
+                UserNumber.Text = GetNextAvailableNumber().ToString();
+            });
+
         }
     }
 
@@ -87,12 +93,6 @@ public partial class AddPeopleWindow : Window
         {
             SavePrefixDialogHost.IsOpen = true;
         }
-
-
-
-
-
-
 
     }
 
@@ -118,8 +118,6 @@ public partial class AddPeopleWindow : Window
         {
             usedNumbers.Add(Convert.ToInt32(row["Number"]));
         }
-
-
 
 
 

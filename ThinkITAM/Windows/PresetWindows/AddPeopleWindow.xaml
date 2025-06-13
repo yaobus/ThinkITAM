@@ -85,7 +85,7 @@
                             materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
                             MouseDoubleClick="UserNumber_OnMouseDoubleClick"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding UserNumber}"
+
                             ToolTip="双击自动获取最小可用编号" />
 
 
@@ -285,6 +285,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Margin="10">
                     <TextBlock
+                        Width="300"
                         MaxWidth="400"
                         FontSize="14"
                         Text="输入编号前缀" />
@@ -307,19 +308,19 @@
                                 </system:Boolean>
                             </Button.CommandParameter>
                         </Button>
-                        <Button
-                            x:Name="CancelButton"
-                            Margin="0,8,8,0"
-                            Click="CancelButton_OnClick"
-                            Content="关闭"
-                            IsCancel="False"
-                            Style="{StaticResource MaterialDesignFlatButton}">
-                            <Button.CommandParameter>
-                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                    False
-                                </system:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
+                        <!--<Button
+                        x:Name="CancelButton"
+                        Margin="0,8,8,0"
+                        Click="CancelButton_OnClick"
+                        Content="关闭"
+                        IsCancel="False"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                        False
+                        </system:Boolean>
+                        </Button.CommandParameter>
+                        </Button>-->
                     </StackPanel>
                 </StackPanel>
             </materialDesign:DialogHost.DialogContent>
