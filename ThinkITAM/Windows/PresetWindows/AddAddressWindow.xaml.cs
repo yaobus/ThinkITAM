@@ -1,6 +1,4 @@
-﻿using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.AssetManage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.UserControls.IndexPage;
+using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -60,11 +61,11 @@ namespace ThinkITAM.Windows.PresetWindows
                 }
                 else//INSERT
                 {
-                    string sqlTemp = $"SELECT COUNT(*) FROM Address WHERE Location ='{address}'";
+                    string sqlTemp = $"SELECT COUNT(*) FROM Address WHERE Location ='{address}';";
 
                     var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-                    if (num <= 0)
+                    if (num == 0)
                     {
                        
                         var locationInfo = new { Location = address, Note = Note.Text };
@@ -77,8 +78,34 @@ namespace ThinkITAM.Windows.PresetWindows
                     }
                     else
                     {
-                        MessageBox.Show("地址已存在", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                        string sql = $"SELECT COUNT(*) FROM Address WHERE Location ='{address}' AND Del = 1 ;";
+                        var num2 = DbClass.ExecuteScalarTableNum(sql);
+
+                        if (num2 == 1)
+                        {
+                            var result = MessageBox.Show($"当前添加的 {address} ，在数据库中已被标记为删除，是否进行恢复？", "请注意", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                string sql2 = $"UPDATE Address SET Del = NULL WHERE  Location = '{address}'";
+
+                                GlobalVariables.DbService.ExecuteNonQuery(sql2);
+
+                                this.DialogResult = true;
+
+                            }
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show($"地址{address}已存在", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+
                     }
+
                 }
 
             }

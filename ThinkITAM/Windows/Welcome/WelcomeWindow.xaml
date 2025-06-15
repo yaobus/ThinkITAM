@@ -70,12 +70,23 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+
+            <CheckBox
+                x:Name="ShowWelcomeBox"
+                Margin="10"
+                Content="不再显示"
+                IsChecked="False"
+                Style="{StaticResource MaterialDesignSecondaryCheckBox}"
+            />
+
             <Button
                 x:Name="CloseButton"
                 Margin="10"
                 Click="CloseButton_OnClick"
                 Content="我已知晓该版本为测试版，并且不会用于生产环境" />
+
+
         </StackPanel>
 
     </Grid>

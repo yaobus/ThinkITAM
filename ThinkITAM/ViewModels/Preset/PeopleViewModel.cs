@@ -18,6 +18,11 @@ public class PeopleViewModel
         get; set;
     }
 
+    //索引
+    public string Number
+    {
+        get; set;
+    }
 
     //索引
     public string UserNumber

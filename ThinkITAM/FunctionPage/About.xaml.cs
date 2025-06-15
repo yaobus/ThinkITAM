@@ -44,5 +44,10 @@ namespace ThinkITAM.FunctionPage
                 OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/IPAM-NOTE", null);
             }
         }
+
+        private void About_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            VersionTextBlock.Text=DataBridge.DataBridge.Version;
+        }
     }
 }

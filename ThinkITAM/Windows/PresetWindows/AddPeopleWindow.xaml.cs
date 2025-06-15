@@ -30,7 +30,7 @@ namespace ThinkITAM.Windows.PresetWindows;
 /// </summary>
 public partial class AddPeopleWindow : Window
 {
-    public AddPeopleWindow(PeopleViewModel info = null)
+    public AddPeopleWindow(PeopleViewModel? info = null)
     {
         InitializeComponent();
 
@@ -40,37 +40,34 @@ public partial class AddPeopleWindow : Window
             this.DataContext = peopleInfo;
         }
 
+
     }
 
-    private PeopleViewModel peopleInfo = null;
+    private readonly PeopleViewModel? peopleInfo;
     private void AddPeopleWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
 
         LoadOrganizationInfo();
+
         LoadUserNumberPrefix();//加载用户编号前缀
 
         Department.ItemsSource = departmentInfo;
 
 
 
-
         if (peopleInfo != null)
         {
-
             UserNumber.IsEnabled = false;
-            var number = peopleInfo.UserNumber.Replace(GetUserNumberPrefix(), "");
-            peopleInfo.UserNumber = number;
-           
+            UserNumber.Text = peopleInfo.Number;
         }
         else
         {
-            
             UserNumber.Dispatcher.Invoke(() =>
             {
                 UserNumber.Text = GetNextAvailableNumber().ToString();
             });
-
         }
+
     }
 
     /// <summary>
@@ -166,7 +163,7 @@ public partial class AddPeopleWindow : Window
 
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Note != '0' OR Note IS NULL);";
 
-            Console.WriteLine(query);
+           
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -349,7 +346,7 @@ public partial class AddPeopleWindow : Window
     {
 
         var name = _userName.Replace(" ", "");
-        var number = Convert.ToInt32( _userNumber.Replace(GetUserNumberPrefix(), ""));
+        var number = Convert.ToInt32(_userNumber);
         var organization = _organization.Replace(" ", "");
         var department = _department.Replace(" ", "");
         var group = _groups.Replace(" ", "");

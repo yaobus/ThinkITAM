@@ -53,12 +53,32 @@ public partial class MainWindow : Window
     /// </summary>
     private void ShowWelcome()
     {
-        if (Properties.Settings.Default.ShowMessage == true)
+        if (Properties.Settings.Default.Version != DataBridge.DataBridge.Version)
         {
+            Properties.Settings.Default.Version = DataBridge.DataBridge.Version;
+            Properties.Settings.Default.ShowWellcome = true;
+            Properties.Settings.Default.Save();
+
             var newWindow = new WelcomeWindow();
             newWindow.Owner = this;
             newWindow.ShowDialog();
+
         }
+        else
+        {
+
+            if (Properties.Settings.Default.ShowWellcome == true)
+            {
+                var newWindow = new WelcomeWindow();
+                newWindow.Owner = this;
+                newWindow.ShowDialog();
+            }
+
+
+        }
+
+
+
     }
 
         

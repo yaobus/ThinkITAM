@@ -104,14 +104,15 @@ namespace ThinkITAM.UserControls.PresetPage
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
-
+            var prefix= GetUserNumberPrefix();
             foreach (var row in rows)
             {
                 index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.UserId = row["UserId"].ToString();
                 info.Index = index;
-                info.UserNumber = $"{GetUserNumberPrefix()}{row["Number"].ToString()}";
+                info.Number = row["Number"].ToString();
+                info.UserNumber = $"{prefix}{row["Number"].ToString()}";
                 info.Name = row["Name"].ToString();
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();

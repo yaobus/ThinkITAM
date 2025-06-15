@@ -57,7 +57,15 @@ public partial class WelcomeWindow : Window
 
     private void CloseButton_OnClick(object sender, RoutedEventArgs e)
     {
-      this.Close();
+        if (ShowWelcomeBox.IsChecked == true)
+        {
+            Properties.Settings.Default.ShowWellcome = false;
+            Properties.Settings.Default.Save();
+        }
+
+
+
+        this.Close();
     }
 }
 

@@ -68,27 +68,25 @@ public partial class AddOrganizationWindow : Window
         {
             var org = new { Organization = organizationInfo };
 
-            //string sql = $"INSERT INTO  \"Organization\" (\"Organization\") VALUES ('{organizationInfo}')";
-
             GlobalVariables.DbService.InsertEntity("Organization", org);
-            //GlobalVariables.DbService.ExecuteNonQuery(sql);
+
             this.DialogResult = true;
             this.Close();
         }
         else
         {
-            //MessageBox.Show("信息已存在，请勿重复添加！", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '') AND Note = '0';";
+            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '');";
 
             var num2 = DbClass.ExecuteScalarTableNum(sql);
 
             if (num2 == 1)
             {
                 var result = MessageBox.Show($"当前添加的{organization}，在数据库中已被标记为删除，是否进行恢复？", "请注意", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+               
                 if (result == MessageBoxResult.Yes)
                 {
-                    string sql2 = $"UPDATE Organization SET Note = '' WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '') AND Note = '0'";
+                    string sql2 = $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
        
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;

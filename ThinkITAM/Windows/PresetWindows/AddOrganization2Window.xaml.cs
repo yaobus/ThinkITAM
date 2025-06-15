@@ -83,7 +83,6 @@ public partial class AddOrganization2Window : Window
 
             string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') AND Del = 1 ;";
 
-            Console.WriteLine(sql);
 
             var num2 = DbClass.ExecuteScalarTableNum(sql);
 
@@ -97,7 +96,7 @@ public partial class AddOrganization2Window : Window
                    
 
                     string sql2 =
-                        $"UPDATE  Organization  SET  Note  = '' WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') ";
+                        $"UPDATE  Organization  SET  Del  = NULL WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') ";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;

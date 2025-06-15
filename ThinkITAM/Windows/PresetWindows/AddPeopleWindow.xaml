@@ -85,7 +85,6 @@
                             materialDesign:TextFieldAssist.LeadingIcon="Numeric9BoxMultipleOutline"
                             MouseDoubleClick="UserNumber_OnMouseDoubleClick"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-
                             ToolTip="双击自动获取最小可用编号" />
 
 

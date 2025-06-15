@@ -147,7 +147,7 @@ namespace ThinkITAM.Windows.PresetWindows
             string building = BuildingName.Text;
             string address = AddressCombobox.Text;
 
-            if (building.Replace(" ", "").Length > 0 && address.Replace(" ", "").Length > 0)
+            if (!string.IsNullOrWhiteSpace(building) && !string.IsNullOrWhiteSpace(address))
             {
                 string people = PeopleCombobox.Text;
                 string phone = Phone.Text;
