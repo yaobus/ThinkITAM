@@ -2,7 +2,9 @@
 using System.Windows;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.Others;
 
 
 namespace ThinkITAM.DatabaseOperation
@@ -122,10 +124,10 @@ namespace ThinkITAM.DatabaseOperation
 
             if (rowCount == 0)//库中没有，插入数据
             {
-                var preset=new {model=model,preset=presetJson};
+                var preset = new { model = model, preset = presetJson };
 
 
-                
+
 
                 GlobalVariables.DbService.InsertEntity("ModelPreset", preset);
 
@@ -239,7 +241,7 @@ namespace ThinkITAM.DatabaseOperation
 
                 foreach (var row in rows)
                 {
-                     modelPresetList.Add(row["Model"].ToString());
+                    modelPresetList.Add(row["Model"].ToString());
                 }
 
                 return modelPresetList;
@@ -401,7 +403,7 @@ namespace ThinkITAM.DatabaseOperation
             int floor = ExecuteScalarTableNum(sql);
             int room = ExecuteScalarTableNum($"SELECT COUNT(DISTINCT RoomId) FROM  Bu_{buildingId}");
             int port = ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE BuildingId='{buildingId}'");
-            
+
             return $"{floor}/{room}/{port}";
         }
 
@@ -480,7 +482,7 @@ namespace ThinkITAM.DatabaseOperation
             var result = GlobalVariables.DbService.ExecuteScalar(sql);
 
 
-            if (result!=null)
+            if (result != null)
             {
                 return result.ToString();
             }
@@ -489,7 +491,7 @@ namespace ThinkITAM.DatabaseOperation
                 return "";
             }
 
-            
+
         }
 
         /// <summary>
@@ -525,11 +527,11 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static MdfRackClass GetRackInfo(string rackId)
         {
-            MdfRackClass info = new MdfRackClass();
+            var info = new MdfRackClass();
             info.RackId = rackId;
             string query = null;
 
-            string deviceType = rackId.Substring(0, 1);
+            var deviceType = rackId.Substring(0, 1);
 
 
             switch (deviceType)
@@ -562,7 +564,7 @@ namespace ThinkITAM.DatabaseOperation
 
                     foreach (var row8 in rows8)
                     {
-                         info.RoomName = row8["Building"].ToString();
+                        info.RoomName = row8["Building"].ToString();
                     }
 
 
@@ -578,12 +580,26 @@ namespace ThinkITAM.DatabaseOperation
 
                     foreach (var row2 in rows2)
                     {
-                         info.RoomName = row2["AssetNumber"].ToString();
-                                info.CabinetName = row2["Model"].ToString();
-                                info.RackName = row2["Description"].ToString();
+                        info.RoomName = row2["AssetNumber"].ToString();
+                        info.CabinetName = row2["Model"].ToString();
+                        info.RackName = row2["Description"].ToString();
                     }
 
+                    break;
 
+                case "4":
+                    query = $"SELECT * FROM Computer WHERE DeviceId='{rackId}'";
+
+                    var rows4 = GlobalVariables.DbService.ExecuteQuery(query);
+
+                    foreach (var row4 in rows4)
+                    {
+                        //info.RoomName = row4["AssetNumber"].ToString();
+                        //info.CabinetName = row4["Model"].ToString();
+                        //info.RackName = row4["Description"].ToString();
+
+                        //TODO
+                    }
 
                     break;
             }
@@ -591,6 +607,91 @@ namespace ThinkITAM.DatabaseOperation
 
 
 
+
+
+            return info;
+        }
+
+
+        public static LinkDeviceInfo GetLinkDeviceInfo(string assetId ,int? uid)
+        {
+            var info = new LinkDeviceInfo();
+
+            string deviceType = assetId.Substring(0, 1);
+
+            switch (deviceType)
+            {
+                case "2": //设备
+                    var query2 = $"SELECT Devices.AssetNumber, Devices.Description, DeviceCabinet.CabinetName, DeviceRoom.RoomName  FROM Devices INNER JOIN DeviceCabinet ON Devices.DeviceCabinet = DeviceCabinet.CabinetId INNER JOIN DeviceRoom ON DeviceCabinet.DeviceRoomQrId = DeviceRoom.DeviceRoomQrId  WHERE Devices.AssetId = '{assetId}';";
+                    var rows2 = GlobalVariables.DbService.ExecuteQuery(query2);
+
+                    foreach (var row in rows2)
+                    {
+                        info.InfoA = "[设备]";
+                        info.InfoB = $"机房名称：{row["RoomName"]}"; 
+                        info.InfoC = $"机柜名称：{row["CabinetName"]}";
+                        info.InfoD = $"设备名称：{row["Description"]}"; 
+                        info.InfoE = $"资产编号：{row["AssetNumber"]}";
+                    }
+
+                    
+                    break;
+
+
+                case "3": //机架
+
+
+                    var  query3 = $"SELECT Racks.RackName, DeviceCabinet.CabinetName, DeviceRoom.RoomName FROM Racks INNER JOIN DeviceCabinet ON Racks.CabinetId = DeviceCabinet.CabinetId INNER JOIN DeviceRoom ON DeviceCabinet.DeviceRoomQrId = DeviceRoom.DeviceRoomQrId WHERE  Racks.RackId = '{assetId}';";
+
+                    var rows3 = GlobalVariables.DbService.ExecuteQuery(query3);
+
+                    foreach (var row in rows3)
+                    {
+                        info.InfoA = "[机架]";
+                        info.InfoB = $"机房名称：{row["RoomName"]}";
+                        info.InfoC = $"机柜名称：{row["CabinetName"]}";
+                        info.InfoD = $"机架名称：{row["RackName"]}"; 
+                    }
+
+
+                    break;
+
+                case "4": //已部署的终端
+
+                    var query4 = $"SELECT Buildings.Building, Computer.Floor, Computer.Room, Asset.AssetTag, Asset.AssetNumber FROM Computer INNER JOIN Buildings ON Computer.BuildingId = Buildings.BuildingId INNER JOIN Asset ON Computer.AssetId = Asset.AssetId WHERE Computer.DeviceId = '{assetId}';";
+
+                    var rows4 = GlobalVariables.DbService.ExecuteQuery(query4);
+
+                    foreach (var row in rows4)
+                    {
+                        info.InfoA = "[终端]";
+                        info.InfoB = $"部署位置：{row["Building"]}";
+                        info.InfoC = $"部署楼层：{row["Floor"]}";
+                        info.InfoD = $"部署房间：{row["Room"]}"; 
+                        info.InfoE = $"资产编号：{row["AssetTag"]}{row["AssetNumber"]}";
+                    }
+
+                   
+                    break;
+
+                case "8": //建筑内端口
+
+                    var query8 = $"SELECT ( SELECT Building FROM Buildings WHERE BuildingId = '{assetId}' ) AS Building, ( SELECT SlotId FROM  Bu_{assetId}  WHERE UID = {uid} ) AS SlotId, ( SELECT RoomId FROM  Bu_{assetId} WHERE UID = {uid} ) AS RoomId, ( SELECT PortId FROM Bu_{assetId} WHERE UID = {uid} ) AS PortId;";
+                    var rows8 = GlobalVariables.DbService.ExecuteQuery(query8);
+
+                    foreach (var row in rows8)
+                    {
+                        info.InfoA = "[面板]";
+                        info.InfoB = $"所在建筑：{row["Building"]}";
+                        info.InfoC = $"所在楼层：{row["SlotId"]}"; 
+                        info.InfoD = $"所在房间：{row["RoomId"]}";
+                        info.InfoE = $"端口编号：{row["PortId"]}"; 
+                    }
+
+
+                   
+                    break;
+            }
 
 
             return info;
@@ -673,7 +774,7 @@ namespace ThinkITAM.DatabaseOperation
 
             if (rowCount == 0)//库中没有，插入数据
             {
-                var tagInfo=new ViewModels.DatabaseEntity.Window.WindowTagViewModel()
+                var tagInfo = new ViewModels.DatabaseEntity.Window.WindowTagViewModel()
                 {
                     Window = windowName,
                     Tags = tags
@@ -682,7 +783,7 @@ namespace ThinkITAM.DatabaseOperation
 
                 GlobalVariables.DbService.InsertEntity("WindowTag", tagInfo);
 
-               
+
 
             }
             else//库中已有，更新数据
@@ -697,7 +798,7 @@ namespace ThinkITAM.DatabaseOperation
 
                 var conditions = new { Window = windowName };
 
-                GlobalVariables.DbService.UpdateEntity("WindowTag", tagInfo,conditions);
+                GlobalVariables.DbService.UpdateEntity("WindowTag", tagInfo, conditions);
 
             }
 
@@ -746,7 +847,7 @@ namespace ThinkITAM.DatabaseOperation
         public static ObservableCollection<PortLinkClass> GetLinkDetail(int linkId)
         {
 
-            var nodes= new ObservableCollection<PortLinkClass>();
+            var nodes = new ObservableCollection<PortLinkClass>();
 
             string query = $"SELECT * FROM LinkDetail WHERE LinkId='{linkId}'";
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -754,16 +855,16 @@ namespace ThinkITAM.DatabaseOperation
 
             foreach (var row in rows)
             {
-               
+
                 var assetId = row["DevicesAssetId"].ToString();
 
                 var sequenceNo = Convert.ToInt32(row["SequenceNo"].ToString());
-                
+
                 //var linkDetailUid = Convert.ToInt32(row["UID"].ToString());
                 var portUID = Convert.ToInt32(row["PortUID"].ToString());
 
 
-                PortLinkClass node = GetLinkNodeInfo(assetId, portUID);
+                var node = GetLinkNodeInfo(assetId, portUID);
 
                 node.PortClass.NodeIndex = sequenceNo;
 
@@ -783,7 +884,7 @@ namespace ThinkITAM.DatabaseOperation
         }
 
 
- 
+
 
 
 
@@ -797,9 +898,9 @@ namespace ThinkITAM.DatabaseOperation
             if (string.IsNullOrEmpty(assetId))
                 return null;
 
-            var node= new PortLinkClass();
+            var node = new PortLinkClass();
             var slot = new SlotClass();
-            var port =new PortClass();
+            var port = new PortClass();
 
             node.MdfRackClass = GetRackInfo(assetId);
             string sql;
@@ -807,7 +908,7 @@ namespace ThinkITAM.DatabaseOperation
             switch (assetId[0])
             {
                 case '3':
-                    
+
                     sql = $"SELECT * FROM Ra_{assetId} WHERE UID='{uid}'";
                     var rows3 = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -898,7 +999,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
 
-                       
+
 
 
                         if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
@@ -921,14 +1022,14 @@ namespace ThinkITAM.DatabaseOperation
 
 
 
-                     sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.UID = '{uid}';";
+                    sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.UID = '{uid}';";
 
                     var rows4 = GlobalVariables.DbService.ExecuteQuery(sql);
 
 
                     foreach (var row in rows4)
                     {
-                       // slot.SlotName = row["SlotId"].ToString();
+                        // slot.SlotName = row["SlotId"].ToString();
                         //slot.SlotTag = row["RoomId"].ToString();
 
 
@@ -945,7 +1046,7 @@ namespace ThinkITAM.DatabaseOperation
 
                         port.UID = uid;
                         port.RackId = assetId;
-                        port.DeviceId= row["DeviceId"].ToString();
+                        port.DeviceId = row["DeviceId"].ToString();
                         port.PortType = row["PortType"].ToString();
                         port.PortIndex = row["PortId"].ToString();
                         port.PortTag = row["PortTag"].ToString();
@@ -983,7 +1084,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
                 case '8':
-                   
+
 
                     sql = $"SELECT * FROM Bu_{assetId} WHERE UID='{uid}'";
 
@@ -1053,17 +1154,17 @@ namespace ThinkITAM.DatabaseOperation
         /// </summary>
         /// <param name="deviceId"></param>
         /// <returns></returns>
-        public static string GetRackIdForDeviceId (string deviceId)
+        public static string GetRackIdForDeviceId(string deviceId)
         {
             var sql = string.Empty;
 
-            switch (deviceId.Substring(0,1))
+            switch (deviceId.Substring(0, 1))
             {
                 case "4":
 
                     sql = $"Select AssetId from Computer WHERE deviceId='{deviceId}'";
 
-                  return  GlobalVariables.DbService.ExecuteScalar(sql).ToString();
+                    return GlobalVariables.DbService.ExecuteScalar(sql).ToString();
 
                 default:
 
@@ -1078,11 +1179,11 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="tableName"></param>
         public static Task<bool> CreateTableIfNotExists(string tableName)
         {
-            
+
 
             switch (GlobalVariables.dbConfig.Type.ToLower())
             {
-                   
+
 
                 case "sqlite":
 
@@ -1489,7 +1590,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "LinkDetail"://链路详表
 
                                 sql = $"CREATE TABLE LinkDetail ( UID INT AUTO_INCREMENT,LinkId INT NOT NULL,SequenceNo INT,DevicesAssetId VARCHAR(16),PortUID VARCHAR(8),PRIMARY KEY (UID));";
-                                
+
                                 break;
 
                             case "WakeOnLan":

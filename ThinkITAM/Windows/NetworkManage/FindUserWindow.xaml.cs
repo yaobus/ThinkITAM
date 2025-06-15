@@ -63,7 +63,7 @@ namespace ThinkITAM.Windows.NetworkManage
                    
                     if (group!=null)
                     {
-                        filter += $" AND \"UserGroup\"='{group}' ";
+                        filter += $" AND UserGroup ='{group}' ";
 
                         if (name != null)
                         {
@@ -85,18 +85,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (filter!= "WHERE ")
             {
-                query= $"SELECT * FROM UserInfo {filter} ;";
+                query= $"SELECT * FROM UserInfo {filter} AND (Del != 1 OR Del IS NULL);";
             }
             else
             {
-                query = "SELECT * FROM UserInfo;";
+                query = "SELECT * FROM UserInfo WHERE (Del != 1 OR Del IS NULL) ;";
             }
-
-
-
-            Console.WriteLine(query);
-
-            
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);

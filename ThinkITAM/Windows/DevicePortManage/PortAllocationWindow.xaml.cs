@@ -2,10 +2,11 @@
 using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.NetworkManage;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.Windows.DevicePortManage
@@ -105,6 +106,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 LoadLabelTag();
 
                 PortMode.ItemsSource = portModes;
+
                 PortStatus.ItemsSource = portStatusList;
 
                 //CustomColor.ItemsSource = colorList;
@@ -189,6 +191,48 @@ namespace ThinkITAM.Windows.DevicePortManage
                 }
 
 
+                //关联链路不为空，显示关联设备
+                int onTheLine = -1;
+                try
+                {
+                    onTheLine = Convert.ToInt32(portInfo.OnTheLine);
+                }
+                catch (Exception exception)
+                {
+                    onTheLine = -1;
+                }
+
+                if (onTheLine > 0)
+                {
+                    // 查找LinkDetail表，取出最后一个节点的assetId
+                    var sql = $"SELECT * FROM LinkDetail WHERE LinkId = {onTheLine} ORDER BY SequenceNo DESC LIMIT 1;";
+                    
+                    var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                    string devicesAssetId = null;
+                    int portUID = -1;
+                    foreach (var row in rows)
+                    {
+                        devicesAssetId = row["DevicesAssetId"].ToString();
+                        portUID = Convert.ToInt32(row["PortUID"].ToString());
+
+                    }
+
+                    if (devicesAssetId != null && portUID != -1)
+                    {
+
+                        var node = DbClass.GetLinkDeviceInfo(devicesAssetId, portUID);
+
+                        var info = $"{node.InfoA}\r{node.InfoB}\r{node.InfoC}\r{node.InfoD}\r{node.InfoE}";
+
+
+                        DeviceLink.Text = info;
+                        DeviceLink.ToolTip = info;
+
+                    }
+
+
+                }
 
             }
 
@@ -396,30 +440,30 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FindAsset_OnClick(object sender, RoutedEventArgs e)
-        {
-            string assetId = null;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void FindAsset_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    string assetId = null;
 
-            if (portInfo.AssetId.Length > 0)
-            {
-                assetId = portInfo.AssetId;
-            }
+        //    if (portInfo.AssetId.Length > 0)
+        //    {
+        //        assetId = portInfo.AssetId;
+        //    }
 
 
-            FindAssetWindow findAsset = new FindAssetWindow(assetId);
-            findAsset.Owner = this;
-            if (findAsset.ShowDialog() == true)
-            {
-                DeviceLink.Text = DataBridge.DataBridge.LinkSelectAssetId;
-                // LoadTags();
+        //    FindAssetWindow findAsset = new FindAssetWindow(assetId);
+        //    findAsset.Owner = this;
+        //    if (findAsset.ShowDialog() == true)
+        //    {
+        //        DeviceLink.Text = DataBridge.DataBridge.LinkSelectAssetId;
+        //        // LoadTags();
 
-            }
-        }
+        //    }
+        //}
 
 
         /// <summary>
