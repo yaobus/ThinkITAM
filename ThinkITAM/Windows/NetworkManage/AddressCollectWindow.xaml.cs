@@ -192,7 +192,6 @@ public partial class AddressCollectWindow : Window
 
             CollectDeleteDialogHost.IsOpen = true;
 
-
         }
     }
 
@@ -244,16 +243,20 @@ public partial class AddressCollectWindow : Window
 
                 if (countNum > 1)
                 {
-                    var dialog = new ConfirmationDialog
-                    {
-                        Title = "注意",
-                        Prompt = $"地址已存在,请勿重复添加\r\n{url}",
-                        ConfirmButtonText = "确认",
+                    //var dialog = new ConfirmationDialog
+                    //{
+                    //    Title = "注意",
+                    //    Prompt = ,
+                    //    ConfirmButtonText = "确认",
                         
-                    };
+                    //};
 
-                    // 显示对话框
-                    await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+                    //// 显示对话框
+                    //await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+
+
+                    MessageBox.Show($"地址已存在,请勿重复添加\r\n{url}", "注意", MessageBoxButton.OK);
+
 
                 }
                 else
@@ -301,17 +304,19 @@ public partial class AddressCollectWindow : Window
             }
             else
             {
-                var dialog = new ConfirmationDialog
-                {
-                    Title = "注意",
-                    Prompt = $"{info.Item2}",
-                    ConfirmButtonText = "确认",
+                //var dialog = new ConfirmationDialog
+                //{
+                //    Title = "注意",
+                //    Prompt = $"{info.Item2}",
+                //    ConfirmButtonText = "确认",
                    
 
-                };
+                //};
 
-                // 显示对话框
-                await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+                //// 显示对话框
+                //await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+
+                MessageBox.Show(info.Item2, "注意", MessageBoxButton.OK);
 
 
             }
@@ -334,17 +339,21 @@ public partial class AddressCollectWindow : Window
 
                 if (countNum > 0)
                 {
-                    var dialog = new ConfirmationDialog
-                    {
-                        Title = "注意",
-                        Prompt = $"地址已存在,请勿重复添加\r\n{url}",
-                        ConfirmButtonText = "确认",
+                    //var dialog = new ConfirmationDialog
+                    //{
+                    //    Title = "注意",
+                    //    Prompt = ,
+                    //    ConfirmButtonText = "确认",
                        
 
-                    };
+                    //};
 
-                    // 显示对话框
-                    await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+                    //// 显示对话框
+                    //await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+
+                    MessageBox.Show($"地址已存在,请勿重复添加\r\n{url}", "注意", MessageBoxButton.OK);
+
+
 
                 }
                 else
@@ -421,17 +430,19 @@ public partial class AddressCollectWindow : Window
             }
             else
             {
-                var dialog = new ConfirmationDialog
-                {
-                    Title = "注意",
-                    Prompt = $"{info.Item2}",
-                    ConfirmButtonText = "确认",
+                //var dialog = new ConfirmationDialog
+                //{
+                //    Title = "注意",
+                //    Prompt = $"{info.Item2}",
+                //    ConfirmButtonText = "确认",
                    
 
-                };
+                //};
 
-                // 显示对话框
-                await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+                //// 显示对话框
+                //await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+
+                MessageBox.Show(info.Item2, "注意", MessageBoxButton.OK);
 
 
             }
