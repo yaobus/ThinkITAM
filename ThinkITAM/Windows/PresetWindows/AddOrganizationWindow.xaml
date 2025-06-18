@@ -63,6 +63,7 @@
                     Width="300"
                     Height="28"
                     Padding="3"
+                    MaxDropDownHeight="300"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"

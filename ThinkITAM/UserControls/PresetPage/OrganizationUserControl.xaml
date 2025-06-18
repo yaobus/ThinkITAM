@@ -69,9 +69,15 @@
 
 
 
-                <StackPanel Orientation="Vertical">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
                     <StackPanel
+                        Grid.Row="0"
                         Margin="0,5"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -114,6 +120,7 @@
                     </StackPanel>
 
                     <ProgressBar
+                        Grid.Row="1"
                         Height="1"
                         Margin="0"
                         Opacity="0.3"
@@ -121,15 +128,19 @@
                         Value="100" />
 
                     <DataGrid
+                        Grid.Row="2"
+                        d:ItemsSource="{d:SampleData ItemCount=50}"
                         x:Name="OneListView"
-                        Margin="0,5,0,10"
+                        Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         SelectionChanged="OneListView_OnSelectionChanged"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        >
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -198,7 +209,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
 
             </materialDesign:Card>
 
@@ -238,8 +249,15 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="2.5,2.5,5,5">
-                <StackPanel>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
                     <StackPanel
+                        Grid.Row="0"
                         Margin="0,5"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -279,20 +297,24 @@
                     </StackPanel>
 
                     <ProgressBar
+                        Grid.Row="1"
                         Height="1"
                         Margin="0"
                         Opacity="0.3"
                         Orientation="Horizontal"
                         Value="100" />
                     <DataGrid
+                        Grid.Row="2"
                         x:Name="ThreeListView"
-                        Margin="0,5,0,10"
+                        Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        >
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -361,7 +383,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </materialDesign:Card>
 
 
@@ -399,9 +421,15 @@
                 Grid.Column="1"
                 Margin="2.5,2.5,2.5,5">
 
-                <StackPanel Orientation="Vertical">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
                     <StackPanel
+                        Grid.Row="0"
                         Margin="0,5"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -444,6 +472,7 @@
                     </StackPanel>
 
                     <ProgressBar
+                        Grid.Row="1"
                         Height="1"
                         Margin="0"
                         Opacity="0.3"
@@ -451,15 +480,19 @@
                         Value="100" />
 
                     <DataGrid
+                        Grid.Row="2"
                         x:Name="TowListView"
-                        Margin="0,5,0,10"
+                        Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         SelectionChanged="TowListView_OnSelectionChanged"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        Visibility="Visible"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+
+                        >
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -528,7 +561,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </materialDesign:Card>
 
 

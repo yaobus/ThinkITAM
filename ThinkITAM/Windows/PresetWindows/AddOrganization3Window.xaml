@@ -64,6 +64,7 @@
                     Height="28"
                     Padding="3"
                     VerticalAlignment="Center"
+                    MaxDropDownHeight="300"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="SourceCommitStartNextLocal"
                     IsEditable="True"
@@ -89,6 +90,7 @@
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="SourceMerge"
                     IsEditable="True"
+                    MaxDropDownHeight="300"
                     SelectionChanged="Department_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
@@ -111,6 +113,7 @@
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
                     IsEditable="True"
+                    MaxDropDownHeight="300"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
 
