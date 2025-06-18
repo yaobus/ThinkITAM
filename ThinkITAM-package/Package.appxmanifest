@@ -8,8 +8,8 @@
 
   <Identity
     Name="51338yaobus.ThinkITAM"
-    Publisher="CN=yaobus"
-    Version="1.0.11.0" />
+    Publisher="CN=588BDA66-9B30-407D-B2AD-04E099D7F339"
+    Version="1.0.12.0" />
 
   <Properties>
     <DisplayName>ThinkITAM</DisplayName>
