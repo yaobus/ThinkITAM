@@ -143,6 +143,7 @@ public partial class SelectionWindow : Window
         DataBridge.DataBridge.OperationType = 0;
         DataBridge.DataBridge.IpAddressInfoLists.Clear();
         DataBridge.DataBridge.LoadedNetworkSegment = null;
+        DataBridge.DataBridge.LinkViewList.Clear();
     }
 
     private void TopControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -176,7 +177,6 @@ public partial class SelectionWindow : Window
     {
         int index = MenuList.SelectedIndex;
         ClearGlobleValue();
-
 
         MenuList2.SelectedIndex=-1;
 

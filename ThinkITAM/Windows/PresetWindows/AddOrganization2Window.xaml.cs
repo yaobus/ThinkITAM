@@ -23,16 +23,25 @@ namespace ThinkITAM.Windows.PresetWindows;
 /// </summary>
 public partial class AddOrganization2Window : Window
 {
-    public AddOrganization2Window()
+    public AddOrganization2Window(int index = -1)
     {
         InitializeComponent();
+        if (index!=-1)
+        {
+            organizationIndex = index;
+        }
     }
 
-
+    private int organizationIndex = -1;
     private void AddOrganization2Window_OnLoaded(object sender, RoutedEventArgs e)
     {
 
         LoadOrganizationInfo();
+
+        if (organizationIndex != -1)
+        {
+            Organization.SelectedIndex=organizationIndex;
+        }
     }
 
 

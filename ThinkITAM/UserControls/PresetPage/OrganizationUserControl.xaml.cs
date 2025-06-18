@@ -230,8 +230,17 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void Add2Button_OnClick(object sender, RoutedEventArgs e)
         {
-            AddOrganization2Window add = new AddOrganization2Window();
+            int index = -1;
 
+            if (OneListView.SelectedIndex != -1)
+            {
+                index = OneListView.SelectedIndex;
+            }
+
+
+            AddOrganization2Window add = new AddOrganization2Window(index);
+
+            
 
             //窗口放中间
             var window = Window.GetWindow(this);
@@ -328,9 +337,23 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void Add3Button_OnClick(object sender, RoutedEventArgs e)
         {
-            AddOrganization3Window add = new AddOrganization3Window();
+            int index = -1;
+
+            if (OneListView.SelectedIndex != -1)
+            {
+                index = OneListView.SelectedIndex;
+            }
+
+            int index2 = -1;
+            if (TowListView.SelectedIndex != -1)
+            {
+                index2 = TowListView.SelectedIndex;
+            }
 
 
+            AddOrganization3Window add = new AddOrganization3Window(index,index2);
+
+            
             //窗口放中间
             var window = Window.GetWindow(this);
             if (window != null)

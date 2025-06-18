@@ -1234,8 +1234,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 var tip = JoInTip(info);
 
-
-
+                
                 if (LoadMode == 0) //逐步加载
                 {
                     await Task.Delay(1);
@@ -1247,9 +1246,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 IpAddressInfoLists.Add(info);
             }
-
-
-
 
 
         }

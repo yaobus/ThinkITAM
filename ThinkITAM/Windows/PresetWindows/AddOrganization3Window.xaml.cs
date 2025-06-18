@@ -23,16 +23,33 @@ namespace ThinkITAM.Windows.PresetWindows;
 /// </summary>
 public partial class AddOrganization3Window : Window
 {
-    public AddOrganization3Window()
+    public AddOrganization3Window(int oneIndex = -1, int towIndex = -1)
     {
         InitializeComponent();
+
+        if (oneIndex != -1)
+        {
+            organizationIndex = oneIndex;
+        }
+
+        if (towIndex != -1)
+        {
+            departmentIndex = towIndex;
+        }
+
     }
 
+
+    private int organizationIndex = -1;
+    private int departmentIndex = -1;   
 
     private void AddOrganization3Window_OnLoaded(object sender, RoutedEventArgs e)
     {
 
         LoadOrganizationInfo();
+        Organization.SelectedIndex=organizationIndex;
+
+
     }
 
 
@@ -145,7 +162,6 @@ public partial class AddOrganization3Window : Window
             
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != 1 OR Del IS NULL);";
 
-            Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -156,6 +172,11 @@ public partial class AddOrganization3Window : Window
 
 
             Department.ItemsSource = departmentInfo;
+
+            if (departmentIndex!=-1)
+            {
+                Department.SelectedIndex = departmentIndex;
+            }
         }
         else
         {
