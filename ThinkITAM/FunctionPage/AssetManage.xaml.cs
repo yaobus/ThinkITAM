@@ -14,7 +14,6 @@ using ThinkITAM.ViewModels.AssetManage;
 using Newtonsoft.Json;
 using QRCoder;
 using ThinkITAM.DatabaseOperation;
-using CheckBox = System.Windows.Controls.CheckBox;
 using Size = System.Windows.Size;
 using ThinkITAM.DataBridge;
 using Microsoft.Data.Sqlite;

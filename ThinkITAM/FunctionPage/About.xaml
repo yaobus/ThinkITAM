@@ -25,7 +25,7 @@
             x:Name="VersionTextBlock"
             Margin="10"
             HorizontalAlignment="Center"
-            d:Text="1.0.10"
+            d:Text="1.0.XX"
             FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
             Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
 

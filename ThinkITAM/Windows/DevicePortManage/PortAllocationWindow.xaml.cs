@@ -6,6 +6,7 @@ using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.Windows.NetworkManage;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
@@ -21,10 +22,6 @@ namespace ThinkITAM.Windows.DevicePortManage
         // 定义一个带布尔值参数的事件
         //public event EventHandler<BoolEventArgs> PortAllocationWindowClosed;
 
-        /// <summary>
-        /// 这个参数表示是否保存了分配信息
-        /// </summary>
-        bool AllocationStatus = false;
 
         private PortTypeClass.PortDetailedInfo portInfo;
 
@@ -210,16 +207,39 @@ namespace ThinkITAM.Windows.DevicePortManage
                     var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
                     string devicesAssetId = null;
+
                     int portUID = -1;
+
                     foreach (var row in rows)
                     {
                         devicesAssetId = row["DevicesAssetId"].ToString();
                         portUID = Convert.ToInt32(row["PortUID"].ToString());
 
                     }
-
+                    
                     if (devicesAssetId != null && portUID != -1)
                     {
+                        //  判断节点是否是自己
+                        if (devicesAssetId == DataBridge.DataBridge.SelectDeviceTableInfo.AssetId)//是自己
+                        {
+                            //查询第一个节点
+                            // 查找LinkDetail表，取出最后一个节点的assetId
+                            var sql2 = $"SELECT * FROM LinkDetail WHERE LinkId = {onTheLine} ORDER BY SequenceNo ASC LIMIT 1;";
+
+                            var rows2 = GlobalVariables.DbService.ExecuteQuery(sql2);
+
+                            foreach (var row2 in rows2)
+                            {
+                                devicesAssetId = row2["DevicesAssetId"].ToString();
+                                portUID = Convert.ToInt32(row2["PortUID"].ToString());
+                            }
+
+
+                        }
+
+
+
+
 
                         var node = DbClass.GetLinkDeviceInfo(devicesAssetId, portUID);
 
@@ -227,7 +247,6 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
                         DeviceLink.Text = info;
-                        DeviceLink.ToolTip = info;
 
                     }
 
@@ -384,7 +403,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
 
-                AllocationStatus = true;
+
                 this.DialogResult = true;
                 this.Close();
             }
@@ -485,7 +504,36 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         }
 
+        private ObservableCollection<PortLinkClass> nodes;
 
+        private void ViewLinkNodes_OnClick(object sender, RoutedEventArgs e)
+        {
+            int linkId = Convert.ToInt32(portInfo.OnTheLine);
+
+            if (linkId > 0)
+            {
+
+                nodes = DbClass.GetLinkDetail(linkId);
+
+                if (nodes.Count>0)
+                {
+                    var newWindow = new ViewLinkWindow(nodes,linkId);
+
+                    var window = Window.GetWindow(this);
+                    if (window != null)
+                    {
+                        newWindow.Owner = window;
+                    }
+
+                    newWindow.ShowDialog();
+                }
+
+            }
+            
+
+
+
+        }
     }
 
 

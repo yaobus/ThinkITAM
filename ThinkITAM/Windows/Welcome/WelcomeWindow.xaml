@@ -38,12 +38,11 @@
 
 
             <Image
-                Visibility="Collapsed"
+                Margin="20"
                 Grid.Column="1"
                 Source="/Resources/Image/QR.png"
                 Stretch="None" />
             <Label
-                Visibility="Collapsed"
                 Grid.Column="1"
                 Margin="20,20"
                 HorizontalAlignment="Center"
@@ -75,10 +74,11 @@
             <CheckBox
                 x:Name="ShowWelcomeBox"
                 Margin="10"
+                FontSize="14"
                 Content="不再显示"
                 IsChecked="False"
                 Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-            />
+                />
 
             <Button
                 x:Name="CloseButton"

@@ -78,6 +78,7 @@ namespace ThinkITAM.FunctionPage
             //DataBridge.DataBridge.FindPorts.CollectionChanged += FindPorts_CollectionChanged;
 
             RoutePanel.ItemsSource = DataBridge.DataBridge.LinkManageList;
+
             RouteViewPanel.ItemsSource = DataBridge.DataBridge.LinkViewList;
 
             DataBridge.DataBridge.LinkViewList.CollectionChanged += LinkViewList_CollectionChanged;

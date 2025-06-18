@@ -399,12 +399,13 @@
                                 Text="{Binding OnTheLine, Mode=TwoWay}" />
 
                             <Button
-                                x:Name="FindLine"
+                                x:Name="ViewLinkNodes"
                                 Width="50"
                                 Height="28"
                                 Margin="0,0,10,0"
                                 Padding="0"
                                 IsEnabled="True"
+                                Click="ViewLinkNodes_OnClick"
                                 >
                                 <StackPanel>
                                     <materialDesign:PackIcon Kind="EyeOutline" />

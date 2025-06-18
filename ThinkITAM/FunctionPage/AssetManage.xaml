@@ -239,7 +239,7 @@
                         BorderThickness="0"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         Click="DeleteAssetButton_OnClick"
                         />
 
@@ -760,7 +760,7 @@
                                 </StackPanel>
                             </DataGridTextColumn.Header>
                             <DataGridTextColumn.Binding>
-                                <Binding Path="Status" />
+                                <Binding Path="AssetStatus" />
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
 
