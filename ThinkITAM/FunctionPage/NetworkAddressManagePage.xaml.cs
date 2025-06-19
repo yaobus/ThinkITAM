@@ -191,19 +191,26 @@ public partial class NetworkAddressManagePage : UserControl
     /// <summary>
     /// 加载网段信息
     /// </summary>
-    private async void LoadNetworkInfo2()
+    private async void LoadNetworkInfo2(string keyWord = null)
     {
         networkInfos.Clear();
         NetworkTreeView.Items.Clear();
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL";
+        string filter = string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(keyWord))
+        {
+             filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%') ";
+        }
+
+        string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter}";
 
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
-            string query = "SELECT * FROM Network  WHERE Del != 1 OR Del IS NULL;";
+            string query = $"SELECT * FROM Network  WHERE Del != 1 OR Del IS NULL {filter};";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -2067,6 +2074,8 @@ public partial class NetworkAddressManagePage : UserControl
     private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
     {
         SearchKeyWord.Text = null;
+
+        LoadNetworkInfo2();
     }
 
 
@@ -2158,5 +2167,33 @@ public partial class NetworkAddressManagePage : UserControl
             //加载网段信息备注标签
             LoadTags();
         }
+    }
+
+    /// <summary>
+    /// 搜索网段
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+        {
+            LoadNetworkInfo2(SearchKeyWord.Text);
+        }
+        else
+        {
+            LoadNetworkInfo2();
+        }
+
+        
+    }
+
+    private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+    {
+       //如果是回车键
+       if (e.Key == Key.Enter)
+       {
+           SearchButton_OnClick(null, null);
+       }
     }
 }

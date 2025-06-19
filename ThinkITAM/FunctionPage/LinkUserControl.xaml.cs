@@ -16,6 +16,8 @@ using System;
 using ThinkITAM.UserControls.Computer;
 using Microsoft.VisualBasic;
 using ThinkITAM.ViewModels.Preset;
+using Nmap.NET.Container;
+using System.Windows.Input;
 
 
 namespace ThinkITAM.FunctionPage
@@ -480,10 +482,9 @@ namespace ThinkITAM.FunctionPage
 
 
 
-        private async void LoadDevicesTreeView()
+        private async void LoadDevicesTreeView2(string keyWord = null)
         {
             string query = "SELECT DISTINCT DeviceRoomQrId FROM DeviceCabinet;";
-
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -515,7 +516,7 @@ namespace ThinkITAM.FunctionPage
 
                     room.DataContext = info;
 
-
+                    //取出机柜信息
                     string sqlTemp = $"SELECT * FROM DeviceCabinet  WHERE DeviceRoomQrId = '{deviceRoomQrId}'";
 
                     var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
@@ -560,6 +561,113 @@ namespace ThinkITAM.FunctionPage
 
 
 
+        private async void LoadDevicesTreeView(string keyWord = null)
+        {
+            LinkTreeView.Items.Clear();
+            rackInfos.Clear();
+
+            string filter = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(keyWord))
+            {
+                filter = $"WHERE  ( RackName LIKE '%{keyWord}%' OR RackGroup LIKE '%{keyWord}%' OR RackNote LIKE '%{keyWord}%')";
+            }
+            //先查询机架所在的机柜信息
+            var sql2 = $"SELECT DISTINCT CabinetId FROM Racks {filter}";
+
+
+
+            var rows0=GlobalVariables.DbService.ExecuteQuery(sql2);
+
+            foreach (var row0 in rows0)
+            {
+               string cabinetId = row0["CabinetId"].ToString();
+
+
+                string query = $"SELECT DISTINCT DeviceRoomQrId FROM DeviceCabinet WHERE CabinetId = '{cabinetId}';";
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+                int index = 0;
+
+                foreach (var row in rows)
+                {
+                    index++;
+                    //取出机房ID
+                    string deviceRoomQrId = row["DeviceRoomQrId"].ToString();
+
+                    //取出机房信息
+                    string sql = $"SELECT * FROM DeviceRoom  WHERE DeviceRoomQrId = '{deviceRoomQrId}'";
+
+                    var rows1 = GlobalVariables.DbService.ExecuteQuery(sql);
+
+                    foreach (var row1 in rows1)
+                    {
+                        var info = new DeviceRoomClass();
+                        info.Index = index;
+                        info.Name = row1["RoomName"].ToString();
+                        info.Location = row1["Location"].ToString();
+                        info.User = row1["User"].ToString();
+                        info.UserPhone = row1["UserPhone"].ToString();
+                        info.Note = row1["Note"].ToString();
+                        info.DeviceRoomQrId = row1["DeviceRoomQrId"].ToString();
+
+                        var room = new UserControls.LinkPage.DeviceRoomInfo();
+
+                        room.DataContext = info;
+
+                        //取出机柜信息
+                        string sqlTemp = $"SELECT * FROM DeviceCabinet  WHERE DeviceRoomQrId = '{deviceRoomQrId}'";
+
+                        var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
+
+                        int index2 = 0;
+
+
+                        var deviceRoomItems = new TreeViewItem();
+
+                        foreach (var row2 in rows2)
+                        {
+                            index2++;
+                            var cabinet = new UserControls.LinkPage.CabinetUserControl();
+
+                            var cabinetInfo = new CabinetClass();
+                            cabinetInfo.Index = index2;
+                            cabinetInfo.Name = row2["CabinetName"].ToString();
+                            cabinetInfo.CabinetId = row2["CabinetId"].ToString();
+                            cabinetInfo.Position = row2["Position"].ToString();
+                            cabinetInfo.Note = row2["Note"].ToString();
+                            cabinetInfo.DeviceRoomQrId = row2["DeviceRoomQrId"].ToString();
+                            cabinet.DataContext = cabinetInfo;
+
+                            deviceRoomItems.Items.Add(cabinet);
+                        }
+
+
+
+                        deviceRoomItems.Header = room;
+                        await Task.Delay(50);
+                        LinkTreeView.Items.Add(deviceRoomItems);
+                    }
+
+
+
+
+
+                }
+
+
+
+
+
+            }
+
+
+
+
+
+
+        }
 
 
 
@@ -696,7 +804,18 @@ namespace ThinkITAM.FunctionPage
 
             rackInfos.Clear();
 
-            string query = $"SELECT * FROM Racks WHERE CabinetId='{cabinetId}'  AND  (Del !=1 OR Del IS NULL)";
+
+            string keyWord = SearchKeyWord.Text;
+
+            string filter = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(keyWord))
+            {
+                filter = $"AND  ( RackName LIKE '%{keyWord}%' OR RackGroup LIKE '%{keyWord}%' OR RackNote LIKE '%{keyWord}%')";
+            }
+
+
+            string query = $"SELECT * FROM Racks WHERE CabinetId='{cabinetId}'  AND  (Del !=1 OR Del IS NULL) {filter}";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -736,7 +855,17 @@ namespace ThinkITAM.FunctionPage
 
         private void LoadDeviceInfos(int index ,string cabinetId)
         {
-            string query = $"SELECT * FROM Devices WHERE DeviceCabinet='{cabinetId}'   AND  (Del !=1 OR Del IS NULL)";
+            string keyWord = SearchKeyWord.Text;
+
+            string filter = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(keyWord))
+            {
+                filter = $"AND ( AssetNumber LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%')";
+            }
+
+
+            string query = $"SELECT * FROM Devices WHERE DeviceCabinet ='{cabinetId}' AND  (Del !=1 OR Del IS NULL) {filter}";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -833,6 +962,8 @@ namespace ThinkITAM.FunctionPage
         /// <param name="e"></param>
         private void CabinetListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
             if (CabinetListView.SelectedItem != null)
             {
                 var info = CabinetListView.SelectedItem as RackInfo;
@@ -1908,6 +2039,39 @@ namespace ThinkITAM.FunctionPage
 
             }
 
+        }
+
+
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+            {
+                LoadDevicesTreeView(SearchKeyWord.Text);
+            }
+            else
+            {
+                LoadDevicesTreeView();
+            }
+
+
+            
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = null;
+            rackInfos.Clear();
+            LoadDevicesTreeView();
+            
+        }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_OnClick(null,null);
+            }
         }
     }
 }

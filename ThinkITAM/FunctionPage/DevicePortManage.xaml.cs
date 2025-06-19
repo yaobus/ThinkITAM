@@ -79,17 +79,25 @@ public partial class DevicePortManage : UserControl
 
     private ObservableCollection<AssetTypeViewModel> assetTypes = new ObservableCollection<AssetTypeViewModel>();
 
-    private async void LoadAssetTreeViewInfos()
+    private async void LoadAssetTreeViewInfos(string keyWord = null)
     {
         assetTypes.Clear();
         AssetTreeView.Items.Clear();
-        string sqlTemp = $"SELECT COUNT(*) FROM Devices  WHERE Del != 1 OR Del IS NULL";
+
+        string filter = string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(keyWord))
+        {
+            filter = $"AND ( AssetNumber LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%')";
+        }
+
+        string sqlTemp = $"SELECT COUNT(*) FROM Devices  WHERE Del != 1 OR Del IS NULL {filter}";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
-            string query = "SELECT DISTINCT AssetType FROM Devices ;";
+            string query = $"SELECT DISTINCT AssetType FROM Devices WHERE Del != 1 OR Del IS NULL {filter};";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -108,7 +116,7 @@ public partial class DevicePortManage : UserControl
 
                 info.AssetType = assetTypeInfo;//资产类型
 
-                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND (Del != 1 OR Del IS NULL)";
+                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND (Del != 1 OR Del IS NULL) {filter}";
 
                 var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
@@ -1113,7 +1121,7 @@ public partial class DevicePortManage : UserControl
     {
         SearchKeyWord.Text = null;
 
-
+        LoadAssetTreeViewInfos();
     }
 
     /// <summary>
@@ -1189,6 +1197,32 @@ public partial class DevicePortManage : UserControl
 
             //加载设备信息
             //LoadTags();
+        }
+    }
+
+
+    /// <summary>
+    /// 搜索设备
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+        {
+            LoadAssetTreeViewInfos(SearchKeyWord.Text);
+        }
+        else
+        {
+            LoadAssetTreeViewInfos();
+        }
+    }
+
+    private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key== Key.Enter)
+        {
+            SearchButton_OnClick(null, null);
         }
     }
 }

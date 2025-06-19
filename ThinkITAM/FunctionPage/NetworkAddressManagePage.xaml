@@ -273,8 +273,15 @@
                         materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"
-                        Opacity="0.3" />
-                    <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
+                        Opacity="0.3" 
+                        KeyDown="SearchKeyWord_OnKeyDown"
+                        />
+                    <Button
+                        x:Name="SearchButton"
+                        Grid.Column="2"
+                        Style="{StaticResource MaterialDesignToolButton}"
+                        Click="SearchButton_OnClick"
+                        >
                         <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                     </Button>
                 </Grid>
