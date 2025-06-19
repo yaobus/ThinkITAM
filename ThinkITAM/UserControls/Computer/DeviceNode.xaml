@@ -55,6 +55,17 @@
                 BorderThickness="0"
                 Foreground="AliceBlue"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
+
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource CpDeleteDeployment}"
+                            Tag="Delete" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+
+
                 <Viewbox>
                     <ContentControl>
 

@@ -44,7 +44,11 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ClearSearchKeyWord" Style="{StaticResource MaterialDesignToolButton}">
+                <Button
+                    x:Name="ClearSearchKeyWord"
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Click="ClearSearchKeyWord_OnClick"
+                    >
                     <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox
@@ -56,8 +60,15 @@
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
-                    Opacity="0.3" />
-                <Button Grid.Column="2" Style="{StaticResource MaterialDesignToolButton}">
+                    Opacity="0.3"
+                    KeyDown="SearchKeyWord_OnKeyDown"
+                    />
+                <Button
+                    x:Name="SearchButton"
+                    Grid.Column="2"
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Click="SearchButton_OnClick"
+                    >
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
@@ -101,8 +112,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
 
                 <Button
@@ -127,6 +137,7 @@
                     x:Name="EditButton"
                     Grid.Column="1"
                     Margin="10"
+                    Visibility="Collapsed"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
@@ -144,7 +155,7 @@
 
                 <Button
                     x:Name="DeleteButton"
-                    Grid.Column="2"
+                    Visibility="Collapsed"
                     Margin="10"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
@@ -168,6 +179,7 @@
             Grid.Row="0"
             Grid.Column="1"
             Height="50"
+
             Margin="2.5,5,5,2.5">
 
             <Grid>
@@ -339,7 +351,7 @@
 
 
                         <Button
-                            x:Name="SearchButton"
+                            x:Name="SearchButton2"
                             Width="50"
                             Height="30"
                             Padding="0"

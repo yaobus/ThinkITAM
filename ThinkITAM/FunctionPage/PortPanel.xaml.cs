@@ -12,6 +12,7 @@ using ThinkITAM.UserControls.PortPanel;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.DataBridge;
+using System.Windows.Input;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -58,12 +59,19 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-        private void LoadPanelPortTreeList()
+        private void LoadPanelPortTreeList(string keyWord = null)
         {
             BuildingTreeView.Items.Clear();
 
+            string filter = string.Empty;
+
+            if (!string.IsNullOrEmpty(keyWord))
+            {
+                filter = $"WHERE ( Building LIKE '%{keyWord}%' OR Address LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' )";
+            }
+
             //第一步：读取所有建筑信息
-            string query = "SELECT *  FROM  Buildings;";
+            string query = $"SELECT *  FROM  Buildings {filter};";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -357,6 +365,32 @@ namespace ThinkITAM.FunctionPage
                 LoadPanelPortTreeList();
 
             }
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+            {
+                LoadPanelPortTreeList(SearchKeyWord.Text);
+            }
+            else
+            {
+                LoadPanelPortTreeList();
+            }
+        }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = null;
+            LoadPanelPortTreeList();
         }
     }
 

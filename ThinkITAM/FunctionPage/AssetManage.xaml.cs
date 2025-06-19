@@ -171,6 +171,121 @@ namespace ThinkITAM.FunctionPage
             }
         }
 
+        private async void LoadAssetTreeviewInfos2(string keyWord=null)
+        {
+            assetTypes.Clear();
+
+            AssetTreeView.Items.Clear();
+
+            string filter = string.Empty;
+            string filter2 = string.Empty;
+            if (!string.IsNullOrWhiteSpace(keyWord))
+            {
+                filter = $" WHERE ( AssetTag LIKE '%{keyWord}%' OR Manufacturer LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%')";
+
+                filter2 = $" AND ( AssetTag LIKE '%{keyWord}%' OR Manufacturer LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%')";
+
+            }
+
+
+            var sql2 = $"SELECT DISTINCT AssetType , DeviceType FROM Asset {filter}";
+
+
+            string sqlTemp = $"SELECT COUNT(*) FROM Asset {filter}";
+
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+            if (num > 0)
+            {
+                //string query = "SELECT DISTINCT AssetType FROM AssetTag ;";
+
+                var rows = await GlobalVariables.DbService.ExecuteQueryAsync(sql2);
+
+
+
+                int index = 0;
+
+
+                foreach (var row in rows)
+                {
+
+                    index++;
+                    var info = new AssetTypeViewModel();
+
+                    info.Index = index;
+
+                    string assetTypeInfo = row["AssetType"].ToString();
+                    string deviceType2= row["DeviceType"].ToString();
+
+                    info.AssetType = assetTypeInfo;//资产类型
+
+                    sqlTemp = $"SELECT * FROM AssetTag WHERE AssetType = '{assetTypeInfo}' AND DeviceType ='{deviceType2}'";
+
+
+                    var rows2 = await GlobalVariables.DbService.ExecuteQueryAsync(sqlTemp);
+
+
+                    int index2 = 0;
+
+
+                    var deviceTypeItems = new TreeViewItem();
+
+
+                    foreach (var row2 in rows2)
+                    {
+
+                        index2++;
+                        var device = new DeviceTypeUserControl();
+                        var deviceInfo = new DeviceTypeViewModel();
+
+                        deviceInfo.Index = index2;
+                        deviceInfo.DeviceType = row2["DeviceType"].ToString();
+                        deviceInfo.AssetType = assetTypeInfo;
+
+                        string sql = $"SELECT COUNT(*) FROM Asset WHERE AssetType = '{assetTypeInfo}' AND DeviceType = '{deviceInfo.DeviceType}' {filter2}";
+                        deviceInfo.AssetCount = DbClass.ExecuteScalarTableNum(sql);
+
+                        device.DataContext = deviceInfo;
+                        deviceTypeItems.Items.Add(device);
+
+
+                    }
+
+
+
+                    info.DeviceTypeCount = "设备类型总数:" + index2;//设备类型总数
+
+                    var assetTypeControl = new AssetTypeUserControl();
+                    assetTypeControl.DataContext = info;
+
+                    deviceTypeItems.Header = assetTypeControl;
+
+
+                    AssetTreeView.Items.Add(deviceTypeItems);
+
+                    await Task.Delay(50);
+
+                    assetTypes.Add(info);
+
+
+
+                }
+
+
+
+
+                //Organization.ItemsSource = organizationInfo;
+
+
+
+
+
+
+
+            }
+        }
+
+
         private string assetType;
         private string deviceType;
         
@@ -760,6 +875,8 @@ namespace ThinkITAM.FunctionPage
         private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
         {
             SearchKeyWord.Text = null;
+
+            LoadAssetTreeviewInfos();
         }
 
 
@@ -830,6 +947,28 @@ namespace ThinkITAM.FunctionPage
 
 
             }
+        }
+
+
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+            {
+                LoadAssetTreeviewInfos2(SearchKeyWord.Text);
+            }
+            else
+            {
+                LoadAssetTreeviewInfos();
+            }
+
+            
+        }
+
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            SearchButton_OnClick(null, null);
         }
     }
 }

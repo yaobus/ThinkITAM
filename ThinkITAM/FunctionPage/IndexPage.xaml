@@ -132,7 +132,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Button
@@ -157,6 +156,7 @@
                     x:Name="EditButton"
                     Grid.Column="1"
                     Margin="10"
+                    Visibility="Collapsed"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
@@ -174,7 +174,7 @@
 
                 <Button
                     x:Name="DeleteButton"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Margin="10"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"

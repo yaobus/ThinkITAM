@@ -438,7 +438,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static int GetDeviceForFloorCount(string buildingId, string floor)
         {
-            return ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE Floor ='{floor}'");
+            return ExecuteScalarTableNum($"SELECT COUNT(*) FROM  Computer WHERE BuildingId='{buildingId}' AND Floor ='{floor}'");
         }
 
         /// <summary>

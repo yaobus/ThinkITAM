@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.Computer;
@@ -19,6 +20,68 @@ namespace ThinkITAM.FunctionPage
         public ComputerPage()
         {
             InitializeComponent();
+            DataBridge.DataBridge.modifyDeployDevices.CollectionChanged += ModifyDeployDevices_CollectionChanged;
+        }
+
+        private void ModifyDeployDevices_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            PortManagePanel.Items.Clear();
+
+            if (RoomListView.SelectedIndex != -1)
+            {
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(lastSql);
+
+
+                int index = 0;
+
+                foreach (var row in rows)
+                {
+                    index++;
+
+                    PortClass portClass = new PortClass();
+                    portClass.UID = Convert.ToInt32(row["UID"]);
+                    portClass.DeviceId = row["DeviceId"].ToString();
+                    portClass.AssetId = row["AssetId"].ToString();
+                    portClass.PortType = row["PortType"].ToString();
+                    portClass.PortIndex = row["PortId"].ToString();
+                    portClass.PortTag = row["PortTag"].ToString();
+                    portClass.Room = row["Room"].ToString();
+                    portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
+                    portClass.UserName = row["Name"].ToString();
+
+                    if (row["PortColor"] == string.Empty)
+                    {
+                        portClass.PortColor = 0;
+                    }
+                    else
+                    {
+                        portClass.PortColor = Convert.ToInt32(row["PortColor"]);
+                    }
+
+
+
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                    {
+                        portClass.OnTheLine = -1;
+                    }
+                    else
+                    {
+                        portClass.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                    }
+
+
+
+                    DeviceNode port = new DeviceNode();
+
+                    port.Margin = new Thickness(10);
+                    port.DataContext = portClass;
+
+                    PortManagePanel.Items.Add(port);
+                }
+
+
+            }
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
@@ -54,12 +117,19 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-        private void LoadTreeList()
+        private void LoadTreeList(string keyWord=null)
         {
             BuildingTreeView.Items.Clear();
 
+            string filter =string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(keyWord))
+            {
+                filter = $"WHERE ( Building LIKE '%{keyWord}%' OR Address LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' )";
+            }
+
             //第一步：读取所有建筑信息
-            string query = "SELECT *  FROM  Buildings;";
+            string query = $"SELECT *  FROM  Buildings {filter};";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -74,6 +144,8 @@ namespace ThinkITAM.FunctionPage
                 info.Index = index;
 
                 string buildingId = row["BuildingId"].ToString();
+
+               
 
                 info.BuildingId = buildingId;
 
@@ -111,8 +183,10 @@ namespace ThinkITAM.FunctionPage
                     floorClass.Index = index2;
                     floorClass.Floor = row1["SlotId"].ToString();
                     floorClass.BuildingId = info.BuildingId;
-                    floorClass.RoomCount = DbClass.GetRoomForFloorCount(buildingId, floorClass.Floor);
-                    floorClass.PortCount = DbClass.GetDeviceForFloorCount(buildingId, floorClass.Floor);
+
+
+                    floorClass.RoomCount = DbClass.GetRoomForFloorCount(floorClass.BuildingId, floorClass.Floor);
+                    floorClass.PortCount = DbClass.GetDeviceForFloorCount(floorClass.BuildingId, floorClass.Floor);
 
                     floor.DataContext = floorClass;
 
@@ -253,6 +327,10 @@ namespace ThinkITAM.FunctionPage
 
 
         }
+        /// <summary>
+        /// 上一次执行的sql
+        /// </summary>
+        private string lastSql = string.Empty;
 
         private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -262,19 +340,13 @@ namespace ThinkITAM.FunctionPage
             {
                 RoomClass room = RoomListView.SelectedItem as RoomClass;
 
-
                 DataBridge.DataBridge.SelectRoom = room.RoomNumber;
 
-
-               
                 string sql = $"SELECT   c.*,   a.AssetTag,  a.AssetNumber,  u.Name FROM   Computer c JOIN   Asset a ON c.AssetId = a.AssetId  JOIN   UserInfo u ON c.AssetUser = u.UserId WHERE   c.BuildingId = '{DataBridge.DataBridge.SelectBuildingId}'   AND c.Floor = '{DataBridge.DataBridge.SelectFloor}'  AND c.Room = '{DataBridge.DataBridge.SelectRoom}';";
 
-                Console.WriteLine(sql);
+                lastSql = sql;
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
-
-
-
 
 
                 int index = 0;
@@ -284,13 +356,14 @@ namespace ThinkITAM.FunctionPage
                     index++;
 
                     PortClass portClass = new PortClass();
-
-                    portClass.DeviceId=  row["DeviceId"].ToString();
+                    portClass.UID = Convert.ToInt32(row["UID"]);
+                    portClass.DeviceId = row["DeviceId"].ToString();
+                    portClass.AssetId = row["AssetId"].ToString();
                     portClass.PortType = row["PortType"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
                     portClass.PortTag = row["PortTag"].ToString();
                     portClass.Room = row["Room"].ToString();
-                    portClass.AssetNumber = $"{row["AssetTag"].ToString()}{row["AssetNumber"].ToString()}"; 
+                    portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
                     portClass.UserName = row["Name"].ToString();
 
                     if (row["PortColor"] == string.Empty)
@@ -326,6 +399,36 @@ namespace ThinkITAM.FunctionPage
 
             }
 
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
+            {
+                LoadTreeList(SearchKeyWord.Text);
+            }
+            else
+            {
+                LoadTreeList();
+            }
+        }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+
+            
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text= null;
+            LoadTreeList();
         }
     }
 }

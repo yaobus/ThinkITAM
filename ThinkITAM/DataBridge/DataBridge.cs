@@ -304,5 +304,12 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static ObservableCollection<string> modifyIndexTags= new ObservableCollection<string>();
 
+
+        //-------------------------Computer----------------------------
+        /// <summary>
+        /// 发生修改的部署设备列表
+        /// </summary>
+        public static ObservableCollection<string> modifyDeployDevices = new ObservableCollection<string>();
+
     }
 }

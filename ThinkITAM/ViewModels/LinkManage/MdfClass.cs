@@ -278,6 +278,7 @@ namespace ThinkITAM.ViewModels.LinkManage
     public class PortClass : INotifyPropertyChanged
     {
         private string _deviceId;
+        private string _assetId;
         private string _assetNumber;
         private string _userName;
         private int _uID;
@@ -311,6 +312,20 @@ namespace ThinkITAM.ViewModels.LinkManage
                 }
             }
         }
+
+        public string AssetId
+        {
+            get => _assetId;
+            set
+            {
+                if (_assetId != value)
+                {
+                    _assetId = value;
+                    OnPropertyChanged(nameof(AssetId));
+                }
+            }
+        }
+
 
         public string AssetNumber
         {

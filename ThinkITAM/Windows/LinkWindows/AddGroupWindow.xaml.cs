@@ -40,7 +40,7 @@ public partial class AddGroupWindow : Window
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
 
-        if (RoomCombobox.Text.Length > 2 && GroupNameTextBox.Text.Length > 2)
+        if (!string.IsNullOrWhiteSpace(RoomCombobox.Text) && !string.IsNullOrWhiteSpace(GroupNameTextBox.Text))
         {
             var deviceRoomQrId = deviceRoomInfo[RoomCombobox.SelectedIndex].DeviceRoomQrId;
             var groupName = GroupNameTextBox.Text;

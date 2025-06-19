@@ -277,7 +277,7 @@
     <!--  PortPanel  -->
     <s:String x:Key="PpAddBuilding">添加建筑</s:String>
     <s:String x:Key="PpBuilding">建筑</s:String>
-    <s:String x:Key="PpAddRoomPort">添加室内端口</s:String>
+    <s:String x:Key="PpAddRoomPort">添加端口</s:String>
     <s:String x:Key="PpRoomPort">端口</s:String>
 
     <!--  PresetPage  -->
@@ -431,5 +431,10 @@
 
     <!--  AssetManage  -->
     <s:String x:Key="AmSaveQrCodeTitle">选择导出路径</s:String>
+
+
+    <!--ComputerPage-->
+    <s:String x:Key="CpAddDevice">部署终端设备</s:String>
+    <s:String x:Key="CpDeleteDeployment">撤销部署</s:String>
 
 </ResourceDictionary>

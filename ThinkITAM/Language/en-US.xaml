@@ -230,7 +230,7 @@
     <!--  PortPanel  -->
     <s:String x:Key="PpAddBuilding">Add Building</s:String>
     <s:String x:Key="PpBuilding">Building</s:String>
-    <s:String x:Key="PpAddRoomPort">Add Room Port</s:String>
+    <s:String x:Key="PpAddRoomPort">Add Port</s:String>
     <s:String x:Key="PpRoomPort">Port</s:String>
 
     <!--  PresetPage  -->
@@ -380,5 +380,8 @@
     <!--AssetManage-->
     <s:String x:Key="AmSaveQrCodeTitle">Select export path</s:String>
 
+
+    <!--ComputerPage-->
+    <s:String x:Key="CpAddDevice">Deployment device</s:String>
 
 </ResourceDictionary>
