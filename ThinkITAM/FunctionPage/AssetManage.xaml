@@ -5,7 +5,6 @@
     xmlns:controls="clr-namespace:ThinkITAM.UserControls.Asset"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
-    xmlns:local3="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="AliceBlue"
@@ -436,7 +435,27 @@
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
+                    <Button
+                        x:Name="DataExport"
+                        Width="50"
+                        Height="30"
+                        Margin="5"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderThickness="0"
+                        Click="DataExport_OnClick"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="资产数据导出">
 
+                        <materialDesign:PackIcon
+                            Width="24"
+                            Height="24"
+                            Kind="DatabaseExportOutline" />
+
+
+
+                    </Button>
                     <Button
                         x:Name="AssetNumber"
                         Margin="5,0"

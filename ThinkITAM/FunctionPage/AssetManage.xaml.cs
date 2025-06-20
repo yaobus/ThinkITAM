@@ -20,6 +20,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
 using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Functions.Export;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -382,8 +383,6 @@ namespace ThinkITAM.FunctionPage
             //Console.WriteLine(info.AssetType);
 
             assetType = info.AssetType;
-
-            Console.WriteLine(assetType);
 
             deviceType = null;
 
@@ -969,6 +968,45 @@ namespace ThinkITAM.FunctionPage
         private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
         {
             SearchButton_OnClick(null, null);
+        }
+
+
+
+        /// <summary>
+        /// 导出资产信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataExport_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            if (assetViewModels == null || assetViewModels.Count == 0)
+            {
+                MessageBox.Show("没有可导出的数据。");
+                return;
+            }
+
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            // 创建保存文件对话框
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = $"AssetInfo{fileName}"  // 默认文件名
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = saveFileDialog.FileName;
+                        
+
+                // 调用导出方法
+                ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath);
+            }
+
         }
     }
 }

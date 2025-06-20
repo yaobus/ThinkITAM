@@ -64,7 +64,14 @@
             Click="PortButton_OnClick"
             Foreground="AliceBlue"
             Style="{StaticResource MaterialDesignFlatLightButton}">
-
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Click="MenuItem_OnClick"
+                        Header="{DynamicResource PpDeletePort}"
+                        Tag="Delete" />
+                </ContextMenu>
+            </Button.ContextMenu>
             <ContentControl>
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">

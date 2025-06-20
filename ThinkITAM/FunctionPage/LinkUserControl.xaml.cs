@@ -13,6 +13,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using System.Windows.Controls.Primitives;
 using System;
+using System.Collections.Specialized;
 using ThinkITAM.UserControls.Computer;
 using Microsoft.VisualBasic;
 using ThinkITAM.ViewModels.Preset;
@@ -30,8 +31,19 @@ namespace ThinkITAM.FunctionPage
         public LinkUserControl()
         {
             InitializeComponent();
+            DataBridge.DataBridge.modifyRooms.CollectionChanged+=ModifyRooms_CollectionChanged;
+            DataBridge.DataBridge.modifyRacks.CollectionChanged+=ModifyRacks_CollectionChanged;
         }
 
+        private void ModifyRacks_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            CabinetListView_OnSelectionChanged(null, null);
+        }
+
+        private void ModifyRooms_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            LoadDevicesTreeView();
+        }
 
 
         /// <summary>
@@ -564,6 +576,7 @@ namespace ThinkITAM.FunctionPage
         private async void LoadDevicesTreeView(string keyWord = null)
         {
             LinkTreeView.Items.Clear();
+
             rackInfos.Clear();
 
             string filter = string.Empty;

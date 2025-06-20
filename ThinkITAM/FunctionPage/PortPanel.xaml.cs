@@ -24,8 +24,63 @@ namespace ThinkITAM.FunctionPage
         public PortPanel()
         {
             InitializeComponent();
+            DataBridge.DataBridge.modifyPorts.CollectionChanged+=ModifyPorts_CollectionChanged;
         }
 
+        /// <summary>
+        /// 删除端口后刷新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ModifyPorts_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+
+            PortManagePanel.Items.Clear();
+
+            if (RoomListView.SelectedIndex != -1)
+            {
+                PortManagePanel.Items.Clear();
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(lastSql);
+
+
+                int index = 0;
+
+                foreach (var row in rows)
+                {
+                    index++;
+
+                    PortClass portClass = new PortClass();
+                    portClass.AssetId = DataBridge.DataBridge.SelectBuildingId;
+                    portClass.UID = Convert.ToInt32(row["UID"]);
+                    portClass.PortType = row["PortType"].ToString();
+                    portClass.PortIndex = row["PortId"].ToString();
+                    portClass.PortTag = row["PortTag"].ToString();
+                    portClass.Room = row["RoomId"].ToString();
+                    portClass.PortColor = Convert.ToInt32(row["PortColor"]);
+
+
+
+                    if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                    {
+                        portClass.OnTheLine = -1;
+                    }
+                    else
+                    {
+                        portClass.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                    }
+
+
+
+                    PanelPort port = new PanelPort();
+
+                    port.Margin = new Thickness(10);
+                    port.DataContext = portClass;
+
+                    PortManagePanel.Items.Add(port);
+                }
+            }
+        }
 
 
         private void PortPanel_OnLoaded(object sender, RoutedEventArgs e)
@@ -282,6 +337,10 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        /// <summary>
+        /// 上一次执行的sql
+        /// </summary>
+        private string lastSql = string.Empty;
 
 
         private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -297,6 +356,8 @@ namespace ThinkITAM.FunctionPage
 
                 string sql =
                     $"SELECT * FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}' AND RoomId='{room.RoomNumber}'";
+                
+                lastSql = sql;
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -311,7 +372,7 @@ namespace ThinkITAM.FunctionPage
                     index++;
 
                     PortClass portClass = new PortClass();
-
+                    portClass.AssetId = DataBridge.DataBridge.SelectBuildingId;
                     portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.PortType = row["PortType"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();

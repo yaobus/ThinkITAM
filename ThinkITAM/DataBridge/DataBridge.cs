@@ -19,7 +19,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.13";
+        public static string Version = "1.0.14";
 
 
         /// <summary>
@@ -181,9 +181,15 @@ namespace ThinkITAM.DataBridge
 
 
         /// <summary>
-        /// 永久链路清除模式，0为不清除
+        /// 添加了机房或机柜
         /// </summary>
-        public static int LinkPerClear = 0;
+        public static ObservableCollection<string> modifyRooms = new ObservableCollection<string>();
+
+
+        /// <summary>
+        /// 添加了机架
+        /// </summary>
+        public static ObservableCollection<string> modifyRacks = new ObservableCollection<string>();
 
         /// <summary>
         /// 临时链路清除模式，0为不清除
@@ -297,6 +303,11 @@ namespace ThinkITAM.DataBridge
         /// 链路节点展示列表
         /// </summary>
         public static ObservableCollection<PortLinkClass> PortPanelLinkViewList = new ObservableCollection<PortLinkClass>();
+
+        /// <summary>
+        /// 删除房间端口
+        /// </summary>
+        public static ObservableCollection<string> modifyPorts = new ObservableCollection<string>();
 
         //-------------------------IndexPage----------------------------
         /// <summary>

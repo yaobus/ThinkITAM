@@ -237,11 +237,11 @@
 
     <!--  LinkUserControl  -->
     <s:String x:Key="LucAddRoom">添加机房或配线间分组</s:String>
-    <s:String x:Key="LucRoom">新增快捷访问链接</s:String>
+    <s:String x:Key="LucRoom">新增机房</s:String>
     <s:String x:Key="LucAddCabinet">添加机柜或自定义分组</s:String>
-    <s:String x:Key="LucCabinet">设备柜</s:String>
+    <s:String x:Key="LucCabinet">新增机柜</s:String>
     <s:String x:Key="LucAddRack">添加配线设备</s:String>
-    <s:String x:Key="LucRack">配线架</s:String>
+    <s:String x:Key="LucRack">新增机架</s:String>
 
     <s:String x:Key="LucDeviceList">设备列表</s:String>
 
@@ -279,6 +279,7 @@
     <s:String x:Key="PpBuilding">建筑</s:String>
     <s:String x:Key="PpAddRoomPort">添加端口</s:String>
     <s:String x:Key="PpRoomPort">端口</s:String>
+    <s:String x:Key="PpDeletePort">删除端口</s:String>
 
     <!--  PresetPage  -->
     <s:String x:Key="PrpOrganization">组织机构管理</s:String>

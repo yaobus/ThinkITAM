@@ -198,7 +198,7 @@
 
     <!--  LinkUserControl  -->
     <s:String x:Key="LucAddRoom">Add Room/Wiring Closet</s:String>
-    <s:String x:Key="LucRoom">Add Shortcut</s:String>
+    <s:String x:Key="LucRoom">Add Room</s:String>
     <s:String x:Key="LucAddCabinet">Add Cabinet/Custom Group</s:String>
     <s:String x:Key="LucCabinet">Cabinet</s:String>
     <s:String x:Key="LucAddRack">Add Patch Panel</s:String>
@@ -232,6 +232,7 @@
     <s:String x:Key="PpBuilding">Building</s:String>
     <s:String x:Key="PpAddRoomPort">Add Port</s:String>
     <s:String x:Key="PpRoomPort">Port</s:String>
+    <s:String x:Key="PpDeletePort">Delete Port</s:String>
 
     <!--  PresetPage  -->
     <s:String x:Key="PrpOrganization">Organization Management</s:String>

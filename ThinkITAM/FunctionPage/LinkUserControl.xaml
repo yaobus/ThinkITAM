@@ -92,7 +92,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ClearSearchKeyWord" 
+                <Button x:Name="ClearSearchKeyWord"
                         Style="{StaticResource MaterialDesignToolButton}"
                         Click="ClearSearchKeyWord_OnClick"
                         >
@@ -107,12 +107,12 @@
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
-                    Opacity="0.3" 
+                    Opacity="0.3"
                     KeyDown="SearchKeyWord_OnKeyDown"
                     />
-                <Button 
+                <Button
                     x:Name="SearchButton"
-                    Grid.Column="2" 
+                    Grid.Column="2"
                     Style="{StaticResource MaterialDesignToolButton}"
                     Click="SearchButton_OnClick"
                     >
@@ -192,7 +192,7 @@
                         <Button
                             x:Name="AddRoomButton"
                             Width="80"
-                            Margin="0,10,0,5"
+                            Margin="5"
                             Padding="0"
                             Click="AddRoomButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
@@ -211,7 +211,7 @@
                         <Button
                             x:Name="AddCabinetButton"
                             Width="80"
-                            Margin="0,5"
+                            Margin="5"
                             Padding="0"
                             Click="AddCabinetButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
@@ -230,7 +230,7 @@
                         <Button
                             x:Name="AddRackButton"
                             Width="80"
-                            Margin="0,5"
+                            Margin="5"
                             Padding="0"
                             Click="AddRackButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"

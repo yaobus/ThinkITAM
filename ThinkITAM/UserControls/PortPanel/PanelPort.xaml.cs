@@ -24,6 +24,7 @@ using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using Nmap.NET.Container;
 using Nodify;
+using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.UserControls.PortPanel
 {
@@ -176,6 +177,55 @@ namespace ThinkITAM.UserControls.PortPanel
         }
 
 
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            PortClass portClass = (PortClass)DataContext;
 
+            // 获取触发事件的MenuItem
+            var menuItem = sender as MenuItem;
+
+            if (menuItem != null)
+            {
+                // 根据菜单项的不同进行相应的处理
+                switch (menuItem.Tag)
+                {
+                    case "Delete":
+                        // 执行选项1的操作
+
+                        var onTheLine = portClass.OnTheLine;
+
+
+                        if (onTheLine > 0)
+                        {
+                            MessageBox.Show("该端口已经在链路中，无法删除\r如需删除，请先从链路中删除该端口", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+
+                            var result = MessageBox.Show("确定要撤销该端口吗\r该操作无法撤销！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                //从终端列表中删除该终端
+
+                                var sql = $"DELETE FROM  Bu_{portClass.AssetId}  WHERE UID = {portClass.UID}";
+                                
+                                GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                                
+
+                                //更新选择的房间内端口信息
+                                DataBridge.DataBridge.modifyPorts.Add("1");
+                            }
+
+                        }
+
+
+
+
+                        break;
+                }
+            }
+        }
     }
 }

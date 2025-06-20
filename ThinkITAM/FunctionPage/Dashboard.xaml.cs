@@ -1,25 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
-using ThinkITAM.UserControls.IndexPage;
 using ThinkITAM.ViewModels.Index;
 
 namespace ThinkITAM.FunctionPage;
@@ -33,16 +16,10 @@ public partial class Dashboard : UserControl
         InitializeComponent();
 
 
-        PointLabel = chartPoint =>
-            string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
         DataContext = this;
     }
 
-    public Func<ChartPoint, string> PointLabel
-    {
-        get; set;
-    }
 
     private async void Dashboard_OnLoaded(object sender, RoutedEventArgs e)
     {

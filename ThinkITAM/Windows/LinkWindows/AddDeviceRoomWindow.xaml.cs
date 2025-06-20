@@ -183,7 +183,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
                 }
 
-
+                DataBridge.DataBridge.modifyRooms.Add("1");
             }
             else
             {
