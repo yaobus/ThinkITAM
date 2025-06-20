@@ -134,6 +134,7 @@
                     HorizontalAlignment="Left"
                     BorderThickness="0.5"
                     DisplayMemberPath="Name"
+                    MaxDropDownHeight="300"
                     SelectionChanged="RoomCombobox_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                     ToolTip="选择设备所在机房" />
@@ -170,6 +171,7 @@
                     BorderThickness="0.5"
                     DisplayMemberPath="Name"
                     IsEnabled="False"
+                    MaxDropDownHeight="300"
                     SelectionChanged="CabinetCombobox_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                     ToolTip="选择设备所在机柜" />
@@ -203,6 +205,7 @@
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
+                    MaxDropDownHeight="300"
                     SelectionChanged="TagA_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
@@ -232,6 +235,7 @@
                     Margin="5,0,10,10"
                     Padding="0"
                     BorderThickness="0.5"
+                    MaxDropDownHeight="300"
                     IsEditable="True"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>

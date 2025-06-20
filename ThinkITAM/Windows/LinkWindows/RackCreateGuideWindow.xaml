@@ -54,6 +54,7 @@
                             Padding="0"
                             HorizontalAlignment="Left"
                             DisplayMemberPath="Name"
+                            MaxDropDownHeight="300"
                             SelectionChanged="RoomCombobox_OnSelectionChanged"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}"
                             ToolTip="选择设备所在机房" />
@@ -74,6 +75,7 @@
                             HorizontalAlignment="Left"
                             DisplayMemberPath="Name"
                             IsEnabled="False"
+                            MaxDropDownHeight="300"
                             SelectionChanged="CabinetCombobox_OnSelectionChanged"
                             Style="{StaticResource MaterialDesignOutlinedComboBox}"
                             ToolTip="选择设备所在机柜" />

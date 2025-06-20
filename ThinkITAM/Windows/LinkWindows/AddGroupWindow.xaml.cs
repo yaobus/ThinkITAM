@@ -104,7 +104,7 @@ public partial class AddGroupWindow : Window
                 }
             }
 
-            DataBridge.DataBridge.modifyRooms.Add("1");
+            
         }
         else
         {

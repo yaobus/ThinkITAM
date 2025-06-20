@@ -180,10 +180,6 @@ namespace ThinkITAM.DataBridge
         public static int LinkManageMode = 0;
 
 
-        /// <summary>
-        /// 添加了机房或机柜
-        /// </summary>
-        public static ObservableCollection<string> modifyRooms = new ObservableCollection<string>();
 
 
         /// <summary>

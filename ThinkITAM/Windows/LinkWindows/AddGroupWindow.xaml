@@ -95,7 +95,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Phone"
+                    materialDesign:TextFieldAssist.LeadingIcon="ViewCarouselOutline"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding Name}" />
             </StackPanel>
