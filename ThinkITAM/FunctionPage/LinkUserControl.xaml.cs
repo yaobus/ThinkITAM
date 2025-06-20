@@ -485,17 +485,17 @@ namespace ThinkITAM.FunctionPage
 
             }
 
-
-
-
-
             LoadRackInfo(rack);
         }
 
 
 
-        private async void LoadDevicesTreeView2(string keyWord = null)
+        private async void LoadDevicesTreeView(string keyWord = null)
         {
+            LinkTreeView.Items.Clear();
+
+            rackInfos.Clear();
+
             string query = "SELECT DISTINCT DeviceRoomQrId FROM DeviceCabinet;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -573,7 +573,7 @@ namespace ThinkITAM.FunctionPage
 
 
 
-        private async void LoadDevicesTreeView(string keyWord = null)
+        private async void LoadDevicesTreeView2(string keyWord = null)
         {
             LinkTreeView.Items.Clear();
 
@@ -2060,7 +2060,7 @@ namespace ThinkITAM.FunctionPage
         {
             if (!string.IsNullOrWhiteSpace(SearchKeyWord.Text))
             {
-                LoadDevicesTreeView(SearchKeyWord.Text);
+                LoadDevicesTreeView2(SearchKeyWord.Text);
             }
             else
             {
