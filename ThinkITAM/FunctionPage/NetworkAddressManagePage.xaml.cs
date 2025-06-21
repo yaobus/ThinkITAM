@@ -5,9 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.Export;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.Functions.IPAddressHelper;
 using ThinkITAM.UserControls.NetworkManage;
@@ -425,6 +427,8 @@ public partial class NetworkAddressManagePage : UserControl
 
             string tableName = info.TableName + $"_Sub{subIndex - 1}";
 
+
+
             int useNum = GetNetWorkUsedAddress(tableName);
 
 
@@ -435,8 +439,8 @@ public partial class NetworkAddressManagePage : UserControl
                 TableName = tableName,
                 Network = info.Network,
                 Netmask = info.Netmask,
-                Percentage = Convert.ToInt32((useNum * 100) / 254)
-
+                Percentage = Convert.ToInt32((useNum * 100) / 254),
+                Note = GetSubNetworkNote(tableName)
             };
 
             var subNetwork = new SubNetworkInfo(); //子节点控件
@@ -455,6 +459,23 @@ public partial class NetworkAddressManagePage : UserControl
 
     }
 
+
+    private string GetSubNetworkNote(string tableName)
+    {
+
+        var sql = $"SELECT Note FROM Notes WHERE NoteId='{tableName}'";
+
+        //如果返回内容不为null
+        if (GlobalVariables.DbService.ExecuteScalar(sql) != null)
+        {
+            return GlobalVariables.DbService.ExecuteScalar(sql).ToString();
+        }
+        else
+        {
+            return string.Empty;
+        }
+
+    }
 
 
     private List<NetworkInfoViewMode> networkInfos = new List<NetworkInfoViewMode>();
@@ -558,10 +579,13 @@ public partial class NetworkAddressManagePage : UserControl
     private int LoadMode = 0;
 
 
+    private SubNetworkInfoViewModel selectedSubNetworkInfoViewModel = null;
+
     private async void NetworkTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
 
-        
+        selectedSubNetworkInfoViewModel = null;
+        DataExport.IsEnabled = false;
 
         if (e != null)
         {
@@ -585,8 +609,8 @@ public partial class NetworkAddressManagePage : UserControl
                 if (selectedNode is NetworkInfo)
                 {
                     //Console.WriteLine("小型网段");
-
-
+                    SelectedNetworkType = 0;
+                    DataExport.IsEnabled = true;
                     // 如果选择的是树节点类型，则处理树节点的逻辑
                     NetworkInfo treeNode = selectedNode as NetworkInfo;
 
@@ -609,11 +633,17 @@ public partial class NetworkAddressManagePage : UserControl
                 }
                 else if (selectedNode is SubNetworkInfo) //如果是子项
                 {
+                    //子节点
+                    SelectedNetworkType = 1;
+                    DataExport.IsEnabled = true;//导出按钮可用
+
 
                     // 如果选择的是子节点类型，则处理子节点的逻辑
                     SubNetworkInfo childNode = selectedNode as SubNetworkInfo;
 
                     SubNetworkInfoViewModel info = childNode.DataContext as SubNetworkInfoViewModel;
+
+                    selectedSubNetworkInfoViewModel = info;
 
                     //拼接IP地址前段
                     string[] address = info.Range.Split('_');
@@ -632,7 +662,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     DataBridge.DataBridge.NetworkTableName = tableName;
 
-
+                    
 
                     //获取子表数量
                     var m = AnalysisTableNameToNetworkInfo(info.Network, info.Netmask);
@@ -707,13 +737,17 @@ public partial class NetworkAddressManagePage : UserControl
 
                     //加载网段备注
                     //LoadNetworkNote(info);
-
+     
                     await LoadAddressInfo(tableName);
 
 
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
+
+                    SelectedNetworkType = 0;
+                    DataExport.IsEnabled = false;//禁用导出按钮
+
                     LoadedNetworkSegment = null;
 
                     IpAddressInfoLists.Clear();
@@ -2144,11 +2178,26 @@ public partial class NetworkAddressManagePage : UserControl
 
 
     }
-
-
+    /// <summary>
+    /// 当前选中的网段信息，0位根节点，1为子节点,用于弹出不同的备注编辑框
+    /// </summary>
+    private int SelectedNetworkType = 0;
     private void EditButton_OnClick(object sender, RoutedEventArgs e)
     {
-        NetworkEditWindow newWindow = new NetworkEditWindow();
+
+        Window newWindow;
+
+        if (SelectedNetworkType == 0)
+        {
+             newWindow = new NetworkEditWindow();
+        }
+        else
+        {
+             newWindow = new SubNetworkNoteEditWindow(selectedSubNetworkInfoViewModel);
+        }
+
+
+
 
         //窗口放中间
         var window = Window.GetWindow(this);
@@ -2195,5 +2244,37 @@ public partial class NetworkAddressManagePage : UserControl
        {
            SearchButton_OnClick(null, null);
        }
+    }
+
+    private void DataExport_OnClick(object sender, RoutedEventArgs e)
+    {
+
+        if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
+        {
+            MessageBox.Show("没有可导出的数据。");
+            return;
+        }
+
+        var fileName = $"{ DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+        // 创建保存文件对话框
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+            FilterIndex = 1,
+            RestoreDirectory = true,
+            FileName = fileName  // 默认文件名
+        };
+       
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            string selectedFilePath = saveFileDialog.FileName;
+
+
+            // 调用导出方法
+            ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath);
+        }
+
+
     }
 }

@@ -173,8 +173,7 @@
                     <Button
                         x:Name="ClearSearchKeyWord"
                         Click="ClearSearchKeyWord_OnClick"
-                        Style="{StaticResource MaterialDesignToolButton}"
-                        >
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                     </Button>
                     <TextBox
@@ -186,15 +185,13 @@
                         materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"
-                        Opacity="0.3" 
                         KeyDown="SearchKeyWord_OnKeyDown"
-                        />
-                    <Button 
+                        Opacity="0.3" />
+                    <Button
                         x:Name="SearchButton"
-                        Grid.Column="2" 
-                        Style="{StaticResource MaterialDesignToolButton}"
+                        Grid.Column="2"
                         Click="SearchButton_OnClick"
-                        >
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                     </Button>
                 </Grid>
@@ -287,6 +284,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel
@@ -475,6 +473,29 @@
 
 
                 </StackPanel>
+
+                <Grid Grid.Column="2">
+
+                    <Button
+                        x:Name="DataExport"
+                        Width="50"
+                        Height="30"
+                        Margin="5"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderThickness="0"
+                        Click="DataExport_OnClick"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="导出当前设备端口信息">
+
+                        <materialDesign:PackIcon
+                            Width="24"
+                            Height="24"
+                            Kind="DatabaseExportOutline" />
+                    </Button>
+                </Grid>
 
 
 

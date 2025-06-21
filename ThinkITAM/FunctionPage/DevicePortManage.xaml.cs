@@ -3,17 +3,19 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using ThinkITAM.Windows.DevicePortManage;
-using ThinkITAM.Windows.NetworkManage;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.Export;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
 using ThinkITAM.ViewModels.AssetManage;
-using Newtonsoft.Json;
 using ThinkITAM.ViewModels.Others;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.NetworkManage;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 
 namespace ThinkITAM.FunctionPage;
@@ -180,6 +182,8 @@ public partial class DevicePortManage : UserControl
 
     private async void AssetTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
+        DataExport.IsEnabled = false;//导出按钮可用
+
         if (e != null)
         {
             //清空已选端口列表
@@ -197,7 +201,7 @@ public partial class DevicePortManage : UserControl
 
                 if (selectedNode is DeviceInfo) //如果是子项
                 {
-
+                    DataExport.IsEnabled = true;//导出按钮可用
                     // 如果选择的是子节点类型，则处理子节点的逻辑
                     DeviceInfo childNode = selectedNode as DeviceInfo;
 
@@ -1224,5 +1228,42 @@ public partial class DevicePortManage : UserControl
         {
             SearchButton_OnClick(null, null);
         }
+    }
+
+    private void DataExport_OnClick(object sender, RoutedEventArgs e)
+    {
+
+        
+        if (DataBridge.DataBridge.PortDetailedInfos == null || DataBridge.DataBridge.PortDetailedInfos.Count == 0)
+        {
+            MessageBox.Show("没有可导出的数据。");
+            return;
+        }
+
+        
+
+        var fileName = $"{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+        // 创建保存文件对话框
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+            FilterIndex = 1,
+            RestoreDirectory = true,
+            FileName = fileName  // 默认文件名
+        };
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            string selectedFilePath = saveFileDialog.FileName;
+
+
+            // 调用导出方法
+            ExcelExporter.ExportToExcel(DataBridge.DataBridge.PortDetailedInfos, selectedFilePath);
+        }
+
+
+
+
     }
 }

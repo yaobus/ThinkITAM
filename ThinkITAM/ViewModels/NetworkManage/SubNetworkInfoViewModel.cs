@@ -41,5 +41,11 @@ namespace ThinkITAM.ViewModels.NetworkManage
         {
             get; set;
         }
+
+        //使用率
+        public string Note
+        {
+            get; set;
+        }
     }
 }

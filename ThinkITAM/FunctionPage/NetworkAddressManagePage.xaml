@@ -273,15 +273,13 @@
                         materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                         BorderThickness="0"
-                        Opacity="0.3" 
                         KeyDown="SearchKeyWord_OnKeyDown"
-                        />
+                        Opacity="0.3" />
                     <Button
                         x:Name="SearchButton"
                         Grid.Column="2"
-                        Style="{StaticResource MaterialDesignToolButton}"
                         Click="SearchButton_OnClick"
-                        >
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                     </Button>
                 </Grid>
@@ -616,7 +614,6 @@
                     </Grid>
 
 
-
                 </StackPanel>
 
                 <StackPanel
@@ -625,126 +622,33 @@
                     VerticalAlignment="Center"
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchNetwork}"
                     Orientation="Horizontal"
-                    Visibility="Collapsed">
-
-                    <ComboBox
-                        x:Name="AddressBox"
-                        Width="120"
-                        Margin="5"
-                        VerticalAlignment="Bottom"
-                        materialDesign:TextFieldAssist.HasClearButton="True"
-                        ItemsSource="{Binding ShortStringList}"
-                        MaxDropDownHeight="300">
-                        <ComboBox.SelectedItem>
-                            <Binding
-                                Mode="TwoWay"
-                                Path="SelectedValidationOutlined"
-                                UpdateSourceTrigger="PropertyChanged" />
-                        </ComboBox.SelectedItem>
-                    </ComboBox>
-
-                    <StackPanel
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="搜索范围"
-                        Orientation="Horizontal" />
-
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="搜索关键词"
-                        Orientation="Horizontal">
-
-                        <TextBox
-                            x:Name="KeyWord"
-                            Width="120"
-                            Margin="5"
-                            VerticalAlignment="Top"
-                            materialDesign:HintAssist.FloatingScale="0"
-                            materialDesign:HintAssist.Hint="搜索关键词"
-                            AcceptsReturn="False"
-                            Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                            TextWrapping="NoWrap" />
-
-                    </StackPanel>
-
-
-                    <!--<ToggleButton
-                    Width="26"
-                    Height="26"
-                    x:Name="Accurate"
-                    Margin="5"
-                    IsChecked="False"
-
-                    materialDesign:ElevationAssist.Elevation="Dp5"
-                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Equal}"
-                    Content="{materialDesign:PackIcon Kind=ApproximatelyEqual}"
-                    Style="{StaticResource MaterialDesignActionToggleButton}"
-                    ToolTip="模糊/精确" />-->
-
-
+                    Visibility="Visible">
 
 
 
                     <Button
-                        x:Name="SearchClear"
+                        x:Name="DataExport"
                         Width="50"
                         Height="30"
                         Margin="5"
                         Padding="0"
+                        HorizontalAlignment="Right"
                         materialDesign:ButtonAssist.CornerRadius="15"
                         BorderThickness="0"
+                        Click="DataExport_OnClick"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignOutlinedButton}"
-                        ToolTip="清空搜索"
-                        Visibility="Visible">
+                        ToolTip="导出当前网段信息">
+
                         <materialDesign:PackIcon
                             Width="24"
                             Height="24"
-                            Kind="ClearCircleOutline" />
+                            Kind="DatabaseExportOutline" />
+
+
+
                     </Button>
 
-
-
-                    <!--<Button
-                    Height="30"
-                    Width="50"
-                    Padding="0"
-                    Margin="5"
-                    x:Name="ExportButton"
-                    HorizontalAlignment="Right"
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                    BorderThickness="0"
-                    ToolTip="页面数据导出(不可作为数据源反向导入)"
-                    IsEnabled="False"
-
-                    materialDesign:ButtonAssist.CornerRadius="15"
-                    >
-
-
-                    <materialDesign:PackIcon Kind="TableArrowRight" Width="24" Height="24"/>
-                    </Button>
-
-
-                    <Button
-                    Height="30"
-                    Width="50"
-                    Padding="0"
-                    Margin="5"
-                    x:Name="ExportNetwork"
-                    HorizontalAlignment="Right"
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                    BorderThickness="0"
-                    ToolTip="导出网段信息报表"
-                    IsEnabled="False"
-
-                    materialDesign:ButtonAssist.CornerRadius="15"
-                    >
-
-
-                    <materialDesign:PackIcon Kind="ApplicationExport" Width="20" Height="20"/>
-                    </Button>-->
 
                 </StackPanel>
 
