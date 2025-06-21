@@ -45,9 +45,8 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="ClearSearchKeyWord"
-                    Style="{StaticResource MaterialDesignToolButton}"
                     Click="ClearSearchKeyWord_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox
@@ -59,15 +58,13 @@
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
-                    Opacity="0.3"
                     KeyDown="SearchKeyWord_OnKeyDown"
-                    />
+                    Opacity="0.3" />
                 <Button
                     x:Name="SearchButton"
                     Grid.Column="2"
-                    Style="{StaticResource MaterialDesignToolButton}"
                     Click="SearchButton_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
@@ -136,12 +133,12 @@
                     x:Name="EditButton"
                     Grid.Column="1"
                     Margin="10"
-                    Visibility="Collapsed"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    Visibility="Collapsed">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
@@ -154,13 +151,13 @@
 
                 <Button
                     x:Name="DeleteButton"
-                    Visibility="Collapsed"
                     Margin="10"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    Visibility="Collapsed">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
@@ -178,7 +175,6 @@
             Grid.Row="0"
             Grid.Column="1"
             Height="50"
-
             Margin="2.5,5,5,2.5">
 
             <Grid>
@@ -248,11 +244,10 @@
                         Background="#Cf3539"
                         BorderBrush="Transparent"
                         BorderThickness="0"
+                        Click="DeleteAssetButton_OnClick"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        Click="DeleteAssetButton_OnClick"
-                        />
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
                     <StackPanel Orientation="Horizontal" Visibility="Collapsed">
 

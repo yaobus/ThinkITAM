@@ -19,7 +19,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.14";
+        public static string Version = "1.0.15";
 
 
         /// <summary>
