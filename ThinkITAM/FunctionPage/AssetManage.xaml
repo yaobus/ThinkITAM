@@ -441,7 +441,7 @@
                         BorderThickness="0"
                         Click="DataImport_OnClick"
                         Style="{StaticResource MaterialDesignOutlinedButton}"
-                        ToolTip="资产数据导出">
+                        ToolTip="资产数据导入">
 
                         <materialDesign:PackIcon
                             Width="24"

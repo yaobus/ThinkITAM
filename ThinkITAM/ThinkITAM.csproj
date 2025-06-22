@@ -21,11 +21,15 @@
     <None Remove="Resources\Image\QR.png" />
     <None Remove="Resources\Logo\Logo150x150.png" />
     <None Remove="Resources\Logo\Logo44x44.png" />
+    <None Remove="Resources\Template\AssetTemplate.xlsx" />
     <None Remove="Resources\UpdateInfo\UpdateInfo.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Document\ThinkITAM使用手册.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Template\AssetTemplate.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ThinkItamlogo.ico" />

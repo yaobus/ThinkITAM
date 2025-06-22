@@ -107,7 +107,7 @@
 
                     <TextBox
                         x:Name="DbFilePath"
-                        Width="260"
+                        Width="250"
                         Height="28"
                         Margin="0"
                         Padding="5"
@@ -118,14 +118,52 @@
                     <Button
                         x:Name="BrowseButton"
                         Width="50"
+                        Height="28"
+                        Margin="5,0"
+                        Padding="0"
                         HorizontalAlignment="Right"
+                        materialDesign:ButtonAssist.CornerRadius="5"
                         Click="BrowseButton_OnClick"
-                        Style="{StaticResource MaterialDesignToolButton}">
+                        Style="{StaticResource MaterialDesignOutlinedLightButton}">
                         <materialDesign:PackIcon Margin="5" Kind="DotsHorizontal" />
                     </Button>
 
                 </StackPanel>
             </StackPanel>
+
+
+            <StackPanel
+                Width="310"
+                Margin="10,5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource AawGetTemplate}" />
+                <Button
+                    x:Name="TemplateGetButton"
+                    Margin="10,0"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Click="TemplateGetButton_OnClick"
+                    Style="{StaticResource MaterialDesignIconButton}">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            VerticalAlignment="Center"
+                            Kind="TableArrowDown" />
+
+                    </StackPanel>
+
+
+                </Button>
+
+
+            </StackPanel>
+
         </StackPanel>
 
 
@@ -136,9 +174,8 @@
                 Width="150"
                 Margin="10,10"
                 HorizontalAlignment="Right"
-                Content="{DynamicResource LucLinkSave}" 
                 Click="ImportButton_OnClick"
-                />
+                Content="{DynamicResource LucLinkSave}" />
         </Grid>
     </Grid>
 </Window>

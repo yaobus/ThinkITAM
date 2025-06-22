@@ -307,6 +307,11 @@
     <s:String x:Key="AawCustomTitle">Custom asset information field</s:String>
     <s:String x:Key="AawImportTitle">Import Asset</s:String>
     <s:String x:Key="AawImportPath">Asset File Path</s:String>
+    <s:String x:Key="AawGetTemplate">Download Template</s:String>
+
+    <s:String x:Key="AawOpenFileFilter">Excel File (*.xlsx)|*.xlsx|All Files (*.*)|*.*</s:String>
+    <s:String x:Key="AawOpenFileTitle">Please select a xlsx file</s:String>
+
 
 
     <!--  AddComputerWindow-2025年5月29日  -->
