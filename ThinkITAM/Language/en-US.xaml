@@ -304,6 +304,10 @@
     <s:String x:Key="AawAssetParameter">Configuration Info</s:String>
     <s:String x:Key="AawAssetTooltip">This field will be displayed on the asset card</s:String>
 
+    <s:String x:Key="AawCustomTitle">Custom asset information field</s:String>
+    <s:String x:Key="AawImportTitle">Import Asset</s:String>
+    <s:String x:Key="AawImportPath">Asset File Path</s:String>
+
 
     <!--  AddComputerWindow-2025年5月29日  -->
     <s:String x:Key="AcwAssetType">Asset Type</s:String>
@@ -378,11 +382,11 @@
     <s:String x:Key="PawOnlyTag">Device-Specific Tag</s:String>
     <s:String x:Key="PawOnlyTagTooltip">High Display Priority</s:String>
 
-    <!--AssetManage-->
+    <!--  AssetManage  -->
     <s:String x:Key="AmSaveQrCodeTitle">Select export path</s:String>
 
 
-    <!--ComputerPage-->
+    <!--  ComputerPage  -->
     <s:String x:Key="CpAddDevice">Deployment device</s:String>
 
 </ResourceDictionary>

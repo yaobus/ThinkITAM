@@ -181,7 +181,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
 
@@ -430,6 +430,27 @@
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
+                    <Button
+                        x:Name="DataImport"
+                        Width="50"
+                        Height="30"
+                        Margin="5"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderThickness="0"
+                        Click="DataImport_OnClick"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="资产数据导出">
+
+                        <materialDesign:PackIcon
+                            Width="24"
+                            Height="24"
+                            Kind="DatabaseImportOutline" />
+
+
+
+                    </Button>
                     <Button
                         x:Name="DataExport"
                         Width="50"

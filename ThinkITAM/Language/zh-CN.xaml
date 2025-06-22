@@ -355,7 +355,12 @@
 
     <s:String x:Key="AawCustomTitle">自定义资产信息字段</s:String>
 
+    <s:String x:Key="AawImportTitle">导入资产</s:String>
+    <s:String x:Key="AawImportPath">导入文件</s:String>
 
+
+    <s:String x:Key="AawOpenFileFilter">需要导入的Excel文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*</s:String>
+    <s:String x:Key="AawOpenFileTitle">请选择需要导入的xlsx文件</s:String>
 
     <!--  AddComputerWindow-2025年5月29日  -->
     <s:String x:Key="AcwAssetType">资产类型</s:String>

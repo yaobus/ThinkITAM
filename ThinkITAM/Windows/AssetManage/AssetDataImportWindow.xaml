@@ -1,0 +1,144 @@
+﻿<Window
+    x:Class="ThinkITAM.Windows.AssetManage.AssetDataImportWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.AssetManage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="资产信息导入工具"
+    Width="400"
+    Height="400"
+    d:Background="#383838"
+    d:Foreground="AliceBlue"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">0,16</Thickness>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <materialDesign:PackIcon
+                Width="28"
+                Height="28"
+                VerticalAlignment="Center"
+                Kind="NewspaperPlus" />
+
+            <TextBlock
+                Margin="10"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="{DynamicResource AawImportTitle}" />
+
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1">
+
+            <StackPanel
+                Margin="10,5"
+                HorizontalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource AawAssetType}" />
+                <ComboBox
+                    x:Name="AssetType"
+                    Width="300"
+                    Height="28"
+                    Margin="0,0,10,0"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    MaxDropDownHeight="300"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    Text="{Binding AssetType, Mode=TwoWay}" />
+
+
+            </StackPanel>
+            <StackPanel
+                Margin="10,5"
+                HorizontalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource AawDeviceType}" />
+                <ComboBox
+                    x:Name="DeviceType"
+                    Width="300"
+                    Height="28"
+                    Margin="0,0,10,0"
+                    Padding="0"
+                    HorizontalAlignment="Center"
+                    MaxDropDownHeight="300"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    Text="{Binding DeviceType, Mode=TwoWay}" />
+
+
+            </StackPanel>
+
+            <StackPanel
+                Margin="10,5"
+                HorizontalAlignment="Center"
+                Orientation="Vertical">
+
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource AawImportPath}" />
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <TextBox
+                        x:Name="DbFilePath"
+                        Width="260"
+                        Height="28"
+                        Margin="0"
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        BorderThickness="1"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Path, Mode=OneWay}" />
+                    <Button
+                        x:Name="BrowseButton"
+                        Width="50"
+                        HorizontalAlignment="Right"
+                        Click="BrowseButton_OnClick"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Margin="5" Kind="DotsHorizontal" />
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+        <Grid Grid.Row="2" VerticalAlignment="Bottom">
+
+            <Button
+                x:Name="ImportButton"
+                Width="150"
+                Margin="10,10"
+                HorizontalAlignment="Right"
+                Content="{DynamicResource LucLinkSave}" 
+                Click="ImportButton_OnClick"
+                />
+        </Grid>
+    </Grid>
+</Window>
