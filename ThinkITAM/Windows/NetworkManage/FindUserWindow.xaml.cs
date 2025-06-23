@@ -298,9 +298,14 @@ namespace ThinkITAM.Windows.NetworkManage
                 var info = peopleInfos[PeopleListView.SelectedIndex];
               
                 DataBridge.DataBridge.SelectPeopleViewModel = info;
+                this.DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("您还没有选择任何人员", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            this.DialogResult = true;
+            
         }
     }
 }

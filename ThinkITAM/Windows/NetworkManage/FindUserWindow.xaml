@@ -154,6 +154,7 @@
 
             </StackPanel>
             <Grid
+
                 Grid.Row="1"
                 Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Left">
@@ -165,14 +166,14 @@
                     x:Name="BackButton"
                     Grid.Column="0"
                     Width="100"
-                    Margin="10,0"
+                    Margin="10,10"
                     HorizontalAlignment="Right"
                     Content="返回" />
                 <Button
                     x:Name="SaveButton"
                     Grid.Column="1"
                     Width="100"
-                    Margin="10,0"
+                    Margin="10,10"
                     HorizontalAlignment="Right"
                     Click="SaveButton_OnClick"
                     Content="确定" />

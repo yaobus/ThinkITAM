@@ -1,22 +1,8 @@
-﻿using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.AssetManage;
-using System;
-using System.Collections.Generic;
+﻿using ThinkITAM.ViewModels.AssetManage;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static MaterialDesignThemes.Wpf.Theme;
 using ThinkITAM.DataBridge;
-using System.Collections;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -27,29 +13,52 @@ namespace ThinkITAM.Windows.NetworkManage
     {
         public string SelectAssetId = null;//传入的资产标签
 
-        public FindAssetWindow(string assetId = null)
+        /// <summary>
+        /// 资产查找
+        /// </summary>
+        /// <param name="assetId"></param>
+        /// <param name="mode"></param>
+        public FindAssetWindow(string assetId = null, int mode = 1)
         {
             InitializeComponent();
 
-            SelectAssetId = assetId;
+            if (assetId != null)
+            {
+                SelectAssetId = assetId;
+            }
+
+
             
-            this.Owner = Application.Current.MainWindow;
+
+            AssetDataGrid.ItemsSource = assetViewModels;
+
+            if (mode != 1)
+            {
+                loadMode = mode;
+            }
+
         }
 
+        private int loadMode = 1;
 
         private string filter = $"AND( Deploy IS NULL OR Deploy='')";
 
         private void FindAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
+            if (loadMode == 0)
+            {
+                FilterButton.IsChecked = false;
+            }
+
 
             //加载全部资产信息
             LoadSelectAssetInfo();
 
             LoadAssetType();
-            AssetDataGrid.ItemsSource = assetViewModels;
 
-            if (SelectAssetId != null)
+
+            if (!string.IsNullOrWhiteSpace(SelectAssetId))
             {
                 loadStatus = 1;
                 LoadSelectAssetInfo(SelectAssetId);
@@ -61,7 +70,7 @@ namespace ThinkITAM.Windows.NetworkManage
         }
 
         //是否加载资产信息
-        private int loadStatus = 0;//0：正常加载，1：不加载
+        private int loadStatus = 0; //0：正常加载，1：不加载
 
         /// <summary>
         /// 通过传入的资产标签加载资产信息
@@ -69,6 +78,8 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="id"></param>
         private void LoadSelectAssetInfo(string id = null)
         {
+            //Console.WriteLine("01、开始加载资产信息...");
+
             assetViewModels.Clear();
 
             string sql;
@@ -76,7 +87,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (FilterButton.IsChecked == true)
             {
-                if (id != null)
+                if (!string.IsNullOrWhiteSpace(id))
                 {
                     sql = $"SELECT * FROM Asset WHERE AssetId ='{id}' AND (Del != 1 OR Del IS NULL) ";
                 }
@@ -87,7 +98,7 @@ namespace ThinkITAM.Windows.NetworkManage
             }
             else
             {
-                if (id != null)
+                if (!string.IsNullOrWhiteSpace(id))
                 {
                     sql = $"SELECT * FROM Asset WHERE AssetId ='{id}' AND (Del != 1 OR Del IS NULL)  ";
                 }
@@ -98,9 +109,9 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
-            
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
 
 
             int i = 0;
@@ -273,11 +284,10 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void DeviceType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
             if (DeviceType.SelectedIndex != -1 && loadStatus == 0)
             {
                 string assetType = assetTypeInfos[AssetType.SelectedIndex];
-
 
                 string deviceType = deviceTypeInfos[DeviceType.SelectedIndex];
 
@@ -301,12 +311,12 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
                 {
 
-                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' {filter}";
+                    sql = $"SELECT DISTINCT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' {filter}";
 
                 }
                 else
                 {
-                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' {filter}";
+                    sql = $"SELECT DISTINCT * FROM Asset WHERE AssetType ='{assetType}' {filter}";
                 }
 
             }
@@ -315,17 +325,17 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
                 {
 
-                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}'";
+                    sql = $"SELECT DISTINCT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}'";
 
                 }
                 else
                 {
-                    sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}'";
+                    sql = $"SELECT DISTINCT * FROM Asset WHERE AssetType ='{assetType}'";
                 }
 
             }
 
-
+            Console.WriteLine($"338:{sql}");
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -359,9 +369,6 @@ namespace ThinkITAM.Windows.NetworkManage
                     item.PurchaseDate = null;
                 }
 
-
-
-               
 
                 item.PurchasePrice = row["PurchasePrice"].ToString();
                 item.Manufacturer = row["Manufacturer"].ToString();
@@ -443,13 +450,14 @@ namespace ThinkITAM.Windows.NetworkManage
             DataBridge.DataBridge.LinkAssetId = assetId;
 
             this.DialogResult = true;
-            this.Close();
+
         }
 
         private void FilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AssetType.SelectedIndex = -1;
-            DeviceType.SelectedIndex = -1;
+            //AssetType.SelectedIndex = -1;
+            //DeviceType.SelectedIndex = -1;
+            //assetViewModels.Clear();
             LoadSelectAssetInfo();
         }
     }

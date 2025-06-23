@@ -45,6 +45,7 @@ namespace ThinkITAM.DatabaseOperation
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {
             Console.WriteLine("ExecuteQuery:\r" + sql);
+
             using var connection = CreateConnection();
             var result = connection.Query(sql, param).ToList();
             return ConvertDynamicToDictionaryList(result);

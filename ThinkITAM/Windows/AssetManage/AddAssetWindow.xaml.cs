@@ -190,9 +190,6 @@ public partial class AddAssetWindow : Window
 
             string query = $"SELECT  DeviceType FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}';";
 
-            //Console.WriteLine(query);
-
-
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
@@ -223,7 +220,6 @@ public partial class AddAssetWindow : Window
 
             string query = $"SELECT  AssetTag FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}' AND DeviceType='{deviceTypeInfos[DeviceType.SelectedIndex].ToString()}';";
 
-            //Console.WriteLine(query);
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);

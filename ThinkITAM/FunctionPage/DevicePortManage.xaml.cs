@@ -27,13 +27,14 @@ public partial class DevicePortManage : UserControl
     public DevicePortManage()
     {
         InitializeComponent();
+        PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
     }
 
   
     private  void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
     {
 
-        PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
+
 
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
         

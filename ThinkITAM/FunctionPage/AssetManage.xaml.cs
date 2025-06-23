@@ -1024,7 +1024,7 @@ namespace ThinkITAM.FunctionPage
             if (newWindow.ShowDialog() == true)
             {
 
-               
+                LoadAssetInfos(assetType, deviceType);
 
             }
         }

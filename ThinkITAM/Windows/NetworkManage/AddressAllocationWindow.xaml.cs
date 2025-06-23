@@ -29,11 +29,16 @@ namespace ThinkITAM.Windows.NetworkManage
         public AddressAllocationWindow(ObservableCollection<IpAddressInfoListViewMode> addressInfos = null)
         {
             InitializeComponent();
-            infos = addressInfos;
+
+            if (addressInfos!=null)
+            {
+                infos = addressInfos;
+            }
+
+          
         }
 
-        private ObservableCollection<IpAddressInfoListViewMode> infos =
-            new ObservableCollection<IpAddressInfoListViewMode>();
+        private ObservableCollection<IpAddressInfoListViewMode> infos;
 
         /// <summary>
         /// 编辑模式，True为一般分配模式，flase为启用禁用模式
@@ -51,231 +56,54 @@ namespace ThinkITAM.Windows.NetworkManage
             LoadTags();
 
 
-
-            // 使用LINQ查询筛选出IsSelected为true的所有项
-            var selectedItems = infos.Where(item => item.IsSelected == true).ToList();
-
-            // 如果需要，可以将这些筛选出来的项放入一个新的ObservableCollection中
-            ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
-
-
-            this.DataContext = selectedItemsCollection[0];
-
-
-
-            if (selectedItemsCollection.Count > 7)//数量太多，仅显示一部分
+            if (infos != null)
             {
-                string str = null;
-                int i = 0;
-                foreach (var item in selectedItemsCollection)
+                // 使用LINQ查询筛选出IsSelected为true的所有项
+                var selectedItems = infos.Where(item => item.IsSelected == true).ToList();
+
+                // 将这些筛选出来的项放入一个新的ObservableCollection中
+                ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
+
+
+                this.DataContext = selectedItemsCollection[0];
+
+
+                if (selectedItemsCollection.Count > 7)//数量太多，仅显示一部分
                 {
-                    i++;
-                    str += $"{item.Address}、";
-                    if (i == 6)
+                    string str = null;
+                    int i = 0;
+                    foreach (var item in selectedItemsCollection)
                     {
-                        break;
+                        i++;
+                        str += $"{item.Address}、";
+                        if (i == 6)
+                        {
+                            break;
+                        }
                     }
+                    str = str.Substring(0, str.Length - 1);//删除最后一个顿号
+                    SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
                 }
-                str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-                SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
-            }
-            else//全部显示
-            {
-                string str = null;
-                foreach (var item in selectedItemsCollection)
+                else//全部显示
                 {
-                    str += $"{item.Address}、";
+                    string str = null;
+                    foreach (var item in selectedItemsCollection)
+                    {
+                        str += $"{item.Address}、";
 
+                    }
+                    str = str.Substring(0, str.Length - 1);//删除最后一个顿号
+                    SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str;
                 }
-                str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-                SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str;
+
             }
 
 
 
-            #region 废案
 
 
 
 
-
-            //if (DataBridge.DataBridge.AddressStatus == 1)//选择了未分配地址，准备分配
-            //{
-
-            //    if (DataBridge.DataBridge.SelectAddress.Count == 1)//单选模式
-            //    {
-
-            //        int address = DataBridge.DataBridge.SelectAddress[0];
-
-            //        SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + address;
-
-            //        //加载当前分配信息
-            //        var info = DataBridge.DataBridge.IpAddressInfoLists.FirstOrDefault(d => d.Address == address);
-
-            //        NowHostName.Text = info.NowHostName;
-            //        NowMacAddress.Text = info.NowMacAddress;
-
-
-
-            //        if (info.NowHostName != null)
-            //        {
-            //            if (info.HostName.Length == 0 && (info.NowHostName.Length > 0 && info.NowHostName != "N/A"))
-            //            {
-            //                HostNameBox.Text = info.NowHostName;
-
-            //            }
-            //        }
-
-            //        if (info.NowMacAddress != null)
-            //        {
-            //            if (info.MacAddress.Length == 0 && (info.NowMacAddress.Length > 0) && info.NowMacAddress != "N/A")
-            //            {
-            //                MacAddressBox.Text = info.NowMacAddress;
-
-            //            }
-            //        }
-
-
-            //    }
-            //    else
-            //    {
-            //        StatusPing.IsEnabled = false;
-            //        CopyHostInfo.IsEnabled = false;
-
-
-
-            //        if (DataBridge.DataBridge.SelectAddress.Count > 7)//数量太多，仅显示一部分
-            //        {
-            //            string str = null;
-            //            int i = 0;
-            //            foreach (var ip in DataBridge.DataBridge.SelectAddress)
-            //            {
-            //                i++;
-            //                str += $"{ip}、";
-            //                if (i == 6)
-            //                {
-            //                    break;
-            //                }
-            //            }
-            //            str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-            //            SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
-            //        }
-            //        else//全部显示
-            //        {
-            //            string str = null;
-            //            foreach (var ip in DataBridge.DataBridge.SelectAddress)
-            //            {
-            //                str += $"{ip}、";
-
-            //            }
-            //            str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-            //            SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str;
-            //        }
-
-
-            //    }
-
-            //}
-            //else//2、修改或删除分配
-            //{
-            //    if (DataBridge.DataBridge.AddressStatus == 3)
-            //    {
-            //        IsAllocation.IsChecked = false;
-            //    }
-
-
-            //    EditMode = false;
-
-            //    ClearButton.Visibility = Visibility.Visible;
-            //    //2.1加载当前分配信息
-
-            //    if (DataBridge.DataBridge.SelectAddress.Count == 1)//单个模式
-            //    {
-            //        SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + DataBridge.DataBridge.SelectAddress[0];
-
-            //        int address = DataBridge.DataBridge.SelectAddress[0];
-
-
-            //        //加载当前分配信息
-            //        var info = DataBridge.DataBridge.IpAddressInfoLists.FirstOrDefault(d => d.Address == address);
-
-            //        if (info != null)
-            //        {
-            //            People.Text = $"{info.Organization}-{info.Department}-{info.User}";
-            //            Organization.Text = info.Organization;
-            //            Department.Text = info.Department;
-            //            Phone.Text = info.Phone;
-            //            HostNameBox.Text = info.HostName;
-            //            MacAddressBox.Text = info.MacAddress;
-            //            LinkAsset.Text = info.LinkDeviceAssetTag+info.LinkDeviceAssetNumber;
-            //            TagA.Text = info.TagA;
-            //            TagB.Text = info.TagB;
-            //            TagC.Text = info.TagC;
-            //            TagD.Text = info.TagD;
-            //            TagE.Text = info.TagE;
-            //            TagF.Text = info.TagF;
-
-            //        }
-
-
-
-            //    }
-            //    else//多个模式
-            //    {
-
-
-            //        if (DataBridge.DataBridge.SelectAddress.Count > 7)//数量太多，仅显示一部分
-            //        {
-            //            string str = null;
-            //            int i = 0;
-            //            foreach (var ip in DataBridge.DataBridge.SelectAddress)
-            //            {
-            //                i++;
-            //                str += $"{ip}、";
-            //                if (i == 6)
-            //                {
-            //                    break;
-            //                }
-            //            }
-            //            str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-            //            SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
-            //        }
-            //        else//全部显示
-            //        {
-            //            string str = null;
-            //            foreach (var ip in DataBridge.DataBridge.SelectAddress)
-            //            {
-            //                str += $"{ip}、";
-
-            //            }
-            //            str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-            //            SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str;
-            //        }
-
-
-            //        //多个模式，只能同时解除是否启用分配，或者一键清空所选地址的分配信息
-
-            //        int address = DataBridge.DataBridge.SelectAddress[0];
-            //        //加载当前分配信息
-            //        var info = DataBridge.DataBridge.IpAddressInfoLists.FirstOrDefault(d => d.Address == address);
-
-            //        if (info.Status == 2)
-            //        {
-            //            IsAllocation.IsChecked = true;
-            //        }
-            //        else
-            //        {
-            //            IsAllocation.IsChecked = false;
-            //        }
-
-            //    }
-
-
-            //}
-
-
-
-            #endregion
 
 
 
@@ -325,8 +153,10 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private void FindAsset_Click(object sender, RoutedEventArgs e)
         {
-            FindAssetWindow findAsset = new FindAssetWindow();
+            FindAssetWindow findAsset = new FindAssetWindow(null,0);
+
             findAsset.Owner = this;
+
             if (findAsset.ShowDialog() == true)
             {
                 LinkAsset.Text = DataBridge.DataBridge.LinkSelectAssetId;
@@ -343,8 +173,6 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private  void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-
-
 
             var oldInfo = this.DataContext as IpAddressInfoListViewMode;
 
@@ -372,6 +200,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             //取出资产ID
             string assetId = null;
+
 
             if (DataBridge.DataBridge.SelectAssetInfo != null)
             {
@@ -409,7 +238,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.Phone = phone;
                 item.HostName = HostNameBox.Text;
                 item.MacAddress = MacAddressBox.Text;
-                item.LinkDevice = assetId;
+                item.LinkDeviceId = assetId;
                 item.TagA = TagA.Text;
                 item.TagB = TagB.Text;
                 item.TagC = TagC.Text;
@@ -418,11 +247,15 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.TagF = TagF.Text;
 
                 SaveInfoToDb(item);
+
+                //让资产表单当前显示资产编号，而不是资产ID
+                item.LinkDevice = DataBridge.DataBridge.LinkSelectAssetId;
+
             }
 
             this.DialogResult = true;
 
-            this.Close();
+
 
         }
 
@@ -430,10 +263,8 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             string tableName = DataBridge.DataBridge.NetworkTableName;
 
-            string sql = $"UPDATE {tableName} SET User = '{info.User}', AddressStatus = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDevice}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
+            string sql = $"UPDATE {tableName} SET User = '{info.User}', AddressStatus = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDeviceId}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
 
-
-            //Console.WriteLine(sql);
             
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 

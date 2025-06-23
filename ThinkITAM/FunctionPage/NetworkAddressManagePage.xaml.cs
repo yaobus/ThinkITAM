@@ -33,6 +33,7 @@ public partial class NetworkAddressManagePage : UserControl
         InitializeComponent();
         DataContext = this;
         MessageQueue = new SnackbarMessageQueue();
+        AddressListView.ItemsSource = IpAddressInfoLists;
     }
 
 
@@ -52,7 +53,7 @@ public partial class NetworkAddressManagePage : UserControl
     private async void NetworkAddressManage_OnLoaded(object sender, RoutedEventArgs e)
     {
 
-        AddressListView.ItemsSource = IpAddressInfoLists;
+       
 
         AddressPanel.ItemsSource = IpAddressInfoLists;
 
@@ -1121,7 +1122,14 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
-                info.LinkDevice = row["LinkDevice"].ToString();
+
+
+                info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+                info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
+                info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
+                info.LinkDeviceId = row["LinkDevice"].ToString();
+
+
                 info.TagA = row["TagA"].ToString();
                 info.TagB = row["TagB"].ToString();
                 info.TagC = row["TagC"].ToString();
@@ -1276,11 +1284,11 @@ public partial class NetworkAddressManagePage : UserControl
                 var tip = JoInTip(info);
 
                 
-                if (LoadMode == 0) //逐步加载
-                {
+                //if (LoadMode == 0) //逐步加载
+                //{
                     await Task.Delay(1);
-
-                }
+                    
+                //}
 
 
                 info.AddressToolTip = tip;
@@ -1734,7 +1742,8 @@ public partial class NetworkAddressManagePage : UserControl
 
         // 使用LINQ查询筛选出IsSelected为true的所有项
         var selectedItems = DataBridge.DataBridge.IpAddressInfoLists.Where(item => item.IsSelected == true).ToList();
-        // 如果需要，可以将这些筛选出来的项放入一个新的ObservableCollection中
+        
+        // 将这些筛选出来的项放入一个新的ObservableCollection中
         ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
 
 
@@ -1973,25 +1982,29 @@ public partial class NetworkAddressManagePage : UserControl
         //}
 
         var rowData = (sender as DataGrid).CurrentItem as IpAddressInfoListViewMode;
+
+        ObservableCollection<IpAddressInfoListViewMode> datas = new ObservableCollection<IpAddressInfoListViewMode>();
+
         if (rowData != null)
         {
+            datas.Add(rowData);
             // 逻辑代码
-            RunOnDoubleClick(rowData);
+            RunOnDoubleClick(datas);
         }
 
 
     }
 
 
-    private void RunOnDoubleClick(IpAddressInfoListViewMode rowData)
+    private void RunOnDoubleClick(ObservableCollection<IpAddressInfoListViewMode> datas)
     {
         ClearSelectedAddress();
 
-        rowData.IsSelected = true;
+        datas[0].IsSelected = true;
 
-        DataBridge.DataBridge.AddressStatus = rowData.AddressStatus;//记录所选地址类型
+        DataBridge.DataBridge.AddressStatus = datas[0].AddressStatus; //记录所选地址类型
 
-        AddressAllocationWindow addressAllocationWindow = new AddressAllocationWindow();
+        AddressAllocationWindow addressAllocationWindow = new AddressAllocationWindow(datas);
 
 
         //窗口放中间
@@ -2122,6 +2135,7 @@ public partial class NetworkAddressManagePage : UserControl
     private void ReSort_OnClick(object sender, RoutedEventArgs e)
     {
         AddressListView.ItemsSource = null;
+
         foreach (var column in AddressListView.Columns)
         {
             if (column.SortDirection != null)

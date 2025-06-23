@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -69,5 +70,35 @@ public static class ExcelImporter
         }
 
         return result;
+    }
+
+
+
+    /// <summary>
+    /// 检查指定文件是否被其他进程占用
+    /// </summary>
+    /// <param name="filePath">文件路径</param>
+    /// <returns>是否被占用</returns>
+    public static bool IsFileLocked(string filePath)
+    {
+        try
+        {
+            using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                stream.Close();
+            }
+        }
+        catch (IOException)
+        {
+            // 文件被占用或无法访问
+            return true;
+        }
+        catch (Exception)
+        {
+            // 其他错误，如权限问题等
+            return true;
+        }
+
+        return false;
     }
 }

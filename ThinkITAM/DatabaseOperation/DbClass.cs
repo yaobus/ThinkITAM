@@ -811,11 +811,11 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="tableName">表名</param>
         /// <param name="field">字段名</param>
         /// <returns></returns>
-        public static int GetNextAvailableNumber(string tableName, string field)
+        public static int GetNextAvailableNumber(string tableName, string field, string filter = null)
         {
             var usedNumbers = new HashSet<int>();
 
-            string sql = $"SELECT {field} FROM {tableName} "; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
+            string sql = $"SELECT {field} FROM {tableName} {filter}"; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
