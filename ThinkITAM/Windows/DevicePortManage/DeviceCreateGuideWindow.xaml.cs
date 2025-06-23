@@ -637,7 +637,6 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
 
 
-
             if (!string.IsNullOrWhiteSpace(Description.Text) && RoomCombobox.SelectedIndex !=-1 && CabinetCombobox.SelectedIndex!=-1)
             {
                 if (portInfos.Count > 0)
@@ -728,7 +727,9 @@ namespace ThinkITAM.Windows.DevicePortManage
                 }
                 else
                 {
-                    MessageBox.Show($"资产{info.AssetNumber}已存在对应设备端口信息表，请勿重复添加", "设备重复", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"资产{info.AssetNumber}已存在设备端口信息表", "设备重复", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+
                 }
 
             }
