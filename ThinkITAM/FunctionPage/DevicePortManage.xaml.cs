@@ -1138,16 +1138,34 @@ public partial class DevicePortManage : UserControl
     {
        
 
-        var result = MessageBox.Show("确定要删除该设备吗？", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        var result = MessageBox.Show("确定要删除该设备吗？\r该操作不可逆！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
         if (result == MessageBoxResult.Yes)
         {
-            var query = $"UPDATE Devices SET Del = 1 WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+            //查询是否有端口已经在链路上
+            var sql = $"SELECT COUNT(OnTheLine)  FROM De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId} WHERE OnTheLine NOT NULL ";
+            int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
-            GlobalVariables.DbService.ExecuteNonQuery(query);
+            if (count > 0)
+            {
+                MessageBox.Show("设备上有端口已经在链路上，无法删除！","无法删除",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            else
+            {
+                var query = $"DELETE FROM  Devices  WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+                GlobalVariables.DbService.ExecuteNonQuery(query);
 
 
-            LoadAssetTreeViewInfos();
+                query = $"DROP TABLE De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId};";
+                GlobalVariables.DbService.ExecuteNonQuery(query);
+
+
+                query = $"UPDATE Asset SET Deploy = NULL WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+                GlobalVariables.DbService.ExecuteNonQuery(query);
+                LoadAssetTreeViewInfos();
+            }
+
+
         }
 
     }

@@ -43,6 +43,11 @@ namespace ThinkITAM.ViewModels.NetworkManage
         private string tagF;
         private string addressToolTip;
 
+
+        /// <summary>
+        /// 地址索引
+        /// </summary>
+        public int Index { get; set; }
         public bool IsSelected
         {
             get

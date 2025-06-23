@@ -1080,10 +1080,17 @@ public partial class NetworkAddressManagePage : UserControl
             //Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
+            int index2 = 0;
             foreach (var row in rows)
             {
                 var info = new IpAddressInfoListViewMode();
+
+                info.Index = index2;
+
+                Console.WriteLine(index2);
+
+                index2++;
+
                 info.Address = Convert.ToInt32(row["Address"].ToString());
                 int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
 
@@ -1226,12 +1233,19 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-
+            int index2 = 0;
 
             foreach (var row in rows)
             {
                             
                 var info = new IpAddressInfoListViewMode();
+
+                info.Index = index2;
+
+                Console.WriteLine(index2);
+
+                index2++;
+
                 info.Address = Convert.ToInt32(row["Address"].ToString());
                 int status = Convert.ToInt32(row["AddressStatus"].ToString());
 

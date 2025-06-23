@@ -670,7 +670,6 @@
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
-
                         <ItemsControl x:Name="AddressPanel" Padding="10">
                             <!--  设置 ItemsPanel 为 WrapPanel  -->
                             <ItemsControl.ItemsPanel>

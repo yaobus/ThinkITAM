@@ -32,7 +32,7 @@ public partial class IpAddressInfo : UserControl
            
             var info = button.DataContext as IpAddressInfoListViewMode;
 
-           
+            int index = info.Index;
 
             int selectAddress = Convert.ToInt32(AddressBlock.Text);
 
@@ -54,7 +54,7 @@ public partial class IpAddressInfo : UserControl
 
                         //当前要修改的IP地址
 
-                        DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected = true;
+                        DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = true;
 
                         DataBridge.DataBridge.SelectAddress.Add(selectAddress);
 
@@ -75,7 +75,7 @@ public partial class IpAddressInfo : UserControl
                         {
                             
                         }
-                        DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected = false;
+                        DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = false;
                         DataBridge.DataBridge.SelectAddress.Add(1);
                         break;
 
@@ -91,7 +91,7 @@ public partial class IpAddressInfo : UserControl
                             DataBridge.DataBridge.AddressStatus = Convert.ToInt32(button.Tag);
                             
 
-                            DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected = true;
+                            DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = true;
 
                             DataBridge.DataBridge.SelectAddress.Add(selectAddress);
 
@@ -103,16 +103,16 @@ public partial class IpAddressInfo : UserControl
                             {
                                 
                                 //地址不存在则添加
-                                if (DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected==false)
+                                if (DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected==false)
                                 {
 
-                                    DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected = true;
+                                    DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = true;
                                     DataBridge.DataBridge.SelectAddress.Add(selectAddress);
                                 }
                                 else//地址已存在，则删除
                                 {
 
-                                    DataBridge.DataBridge.IpAddressInfoLists[selectAddress].IsSelected = false;
+                                    DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = false;
 
                                     DataBridge.DataBridge.SelectAddress.Add(selectAddress);
 
