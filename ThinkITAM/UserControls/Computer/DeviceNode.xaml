@@ -41,6 +41,7 @@
                 <RowDefinition Height="18" />
                 <RowDefinition Height="18" />
                 <RowDefinition Height="18" />
+                <RowDefinition Height="18" />
                 <RowDefinition Height="8" />
                 <RowDefinition Height="18" />
             </Grid.RowDefinitions>
@@ -137,8 +138,23 @@
 
             </Grid>
 
+
+
+            <Grid Grid.Row="4" Margin="0">
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    d:Text="A-1"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Text="{Binding LinkIp}" />
+
+
+            </Grid>
+
             <Grid
-                Grid.Row="4"
+                Grid.Row="5"
                 Margin="0"
                 Background="{Binding PortColor, Converter={StaticResource IntegerToBrushConverter}, Mode=TwoWay}"
                 Opacity="0.8">
@@ -155,7 +171,7 @@
             </Grid>
 
             <Grid
-                Grid.Row="5"
+                Grid.Row="6"
                 Margin="0,1"
                 Opacity="0.8">
 

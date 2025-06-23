@@ -50,8 +50,8 @@
                         Height="28"
                         Margin="0,0,10,10"
                         Padding="0"
-                        SelectedIndex="-1"
                         MaxDropDownHeight="300"
+                        SelectedIndex="-1"
                         SelectionChanged="AssetType_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 </StackPanel>
@@ -69,10 +69,10 @@
                         x:Name="DeviceType"
                         Width="250"
                         Height="28"
-                        SelectedIndex="-1"
                         Margin="0,0,10,10"
                         Padding="0"
                         MaxDropDownHeight="300"
+                        SelectedIndex="-1"
                         SelectionChanged="DeviceType_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 </StackPanel>

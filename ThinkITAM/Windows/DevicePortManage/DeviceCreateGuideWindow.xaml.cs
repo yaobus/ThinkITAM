@@ -552,11 +552,11 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
             int num = Convert.ToInt32(FirstNumber.Text);
 
-            sliderValue = Convert.ToInt32(PortSlider.Value);
+            sliderValue = Convert.ToInt32(PortSlider.Value-1);
 
             LastNumber.Text = (num + sliderValue).ToString();
 
-            PortCount.Text = $"共{(PortSlider.Value + 1).ToString()}个";
+            PortCount.Text = $"共{(PortSlider.Value ).ToString()}个";
         }
 
         private int sliderValue = 0;
@@ -585,7 +585,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
             int num = Convert.ToInt32(FirstNumber.Text);
 
-            if (num > 59)
+            if (num > 52)
             {
                 MessageBox.Show("一般来说一台盒式交换机或板卡端口数量不超过60\r因此起始端口号应该小于60\r设定端口编号应符合现实设备情况", "编号异常", MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -594,8 +594,8 @@ namespace ThinkITAM.Windows.DevicePortManage
             else
             {
                 LastNumber.Text = (num + sliderValue).ToString();
-                int maxNumber = 60 - num;
-                PortSlider.Maximum = maxNumber;
+                //int maxNumber = 52 + num;
+                //PortSlider.Maximum = maxNumber;
 
             }
         }

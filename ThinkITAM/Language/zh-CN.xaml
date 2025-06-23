@@ -357,7 +357,7 @@
     <s:String x:Key="AawCustomTitle">自定义资产信息字段</s:String>
 
     <s:String x:Key="AawImportTitle">导入资产数据</s:String>
-    <s:String x:Key="AawImportPath">导入文件路径</s:String>
+    <s:String x:Key="AawImportPath">*导入文件路径</s:String>
     <s:String x:Key="AawGetTemplate">下载数据模板</s:String>
 
     <s:String x:Key="AawOpenFileFilter">需要导入的Excel文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*</s:String>
@@ -389,7 +389,7 @@
     <s:String x:Key="DcgPreset">预设模板</s:String>
     <s:String x:Key="DcgPortType">端口类型</s:String>
     <s:String x:Key="DcgSlot">槽位编号</s:String>
-    <s:String x:Key="DcgPortTag">端口标签</s:String>
+    <s:String x:Key="DcgPortSpeed">端口速度</s:String>
     <s:String x:Key="DcgPortNumber">端口编号</s:String>
     <s:String x:Key="DcgPortNumberRange ">端口索引范围</s:String>
     <s:String x:Key="DcgPortCount">端口数量</s:String>

@@ -29,7 +29,7 @@
             Margin="10"
             VerticalAlignment="Center"
             Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-            Text="欢迎参与ThinkITAM预览测试  (请勿用于生产环境)" />
+            Text="欢迎参与ThinkITAM预览测试  (测试版请勿用于生产环境)" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -38,8 +38,8 @@
 
 
             <Image
-                Margin="20"
                 Grid.Column="1"
+                Margin="20"
                 Source="/Resources/Image/QR.png"
                 Stretch="None" />
             <Label
@@ -69,16 +69,18 @@
 
         </Grid>
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
 
             <CheckBox
                 x:Name="ShowWelcomeBox"
                 Margin="10"
-                FontSize="14"
                 Content="不再显示"
+                FontSize="14"
                 IsChecked="False"
-                Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-                />
+                Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
 
             <Button
                 x:Name="CloseButton"

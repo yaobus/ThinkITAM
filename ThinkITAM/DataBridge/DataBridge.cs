@@ -21,6 +21,10 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static string Version = "1.0.16";
 
+        /// <summary>
+        /// 更新次数，用于数据库字段升级
+        /// </summary>
+        public static int VersionNumber = 16;
 
         /// <summary>
         /// 当前所选网段名称

@@ -48,7 +48,27 @@ public partial class SelectionWindow : Window
         await InitializeDatabase();
 
 
+        CheckDatabase();
 
+    }
+
+    /// <summary>
+    /// 检查数据库字段是否完整
+    /// </summary>
+    private void CheckDatabase()
+    {
+        //1.0.16版本,Computer表添加LinkIp字段
+
+        if (Properties.Settings.Default.VersionNumber < DataBridge.DataBridge.VersionNumber)
+        {
+            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "LinkIp", "TEXT");
+
+            Properties.Settings.Default.VersionNumber= DataBridge.DataBridge.VersionNumber;
+            Properties.Settings.Default.Save();
+        }
+
+
+       
 
     }
 

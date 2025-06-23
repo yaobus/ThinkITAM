@@ -189,10 +189,64 @@ namespace ThinkITAM.DatabaseOperation
         }
 
 
+
+        #region 字段检测与添加方法
+
+        public bool CheckAndAddColumnIfNotExists(string tableName, string columnName, string columnType)
+        {
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentException("表名不能为空", nameof(tableName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentException("字段名不能为空", nameof(columnName));
+            if (string.IsNullOrEmpty(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
+
+            using var connection = CreateConnection();
+
+            bool exists = ColumnExists(tableName, columnName, connection);
+
+            if (!exists)
+            {
+                AddColumn(tableName, columnName, columnType, connection);
+            }
+
+            return exists;
+        }
+
+
+        private static bool ColumnExists(string tableName, string columnName, IDbConnection connection)
+        {
+            var cmd = (SqliteConnection)connection;
+            using var command = connection.CreateCommand();
+            command.CommandText = $"PRAGMA table_info({tableName});";
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string name = reader.GetString(reader.GetOrdinal("name"));
+                if (name.Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static void AddColumn(string tableName, string columnName, string columnType, IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {columnType};";
+            command.ExecuteNonQuery();
+        }
+
+
+        #endregion
+
+
+
+
         #region 增删查改
 
         // 插入实体
-    public long InsertEntity<T>(string tableName, T entity) where T : class
+        public long InsertEntity<T>(string tableName, T entity) where T : class
         {
             using var connection = CreateConnection();
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);

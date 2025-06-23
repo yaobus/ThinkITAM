@@ -365,6 +365,7 @@ namespace ThinkITAM.FunctionPage
                     portClass.Room = row["Room"].ToString();
                     portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
                     portClass.UserName = row["Name"].ToString();
+                    portClass.LinkIp= row["LinkIp"].ToString();
 
                     if (row["PortColor"] == string.Empty)
                     {

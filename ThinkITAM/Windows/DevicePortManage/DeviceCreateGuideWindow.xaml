@@ -647,7 +647,7 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource DcgPortTag}" />
+                                Content="{DynamicResource DcgPortSpeed}" />
                             <ComboBox
                                 x:Name="PortSpeed"
                                 Width="230"

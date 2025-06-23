@@ -286,7 +286,52 @@ namespace ThinkITAM.DatabaseOperation
             return true;
         }
 
+        #region 字段检测与添加方法
 
+        public bool CheckAndAddColumnIfNotExists(string tableName, string columnName, string columnType)
+        {
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentException("表名不能为空", nameof(tableName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentException("字段名不能为空", nameof(columnName));
+            if (string.IsNullOrEmpty(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
+
+            using var connection = CreateConnection();
+
+            bool exists = ColumnExists(tableName, columnName, connection);
+
+            if (!exists)
+            {
+                AddColumn(tableName, columnName, columnType, connection);
+            }
+
+            return exists;
+        }
+
+        private static bool ColumnExists(string tableName, string columnName, IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $"DESCRIBE {tableName};";
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string name = reader.GetString(reader.GetOrdinal("Field"));
+                if (name.Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static void AddColumn(string tableName, string columnName, string columnType, IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {columnType};";
+            command.ExecuteNonQuery();
+        }
+
+        #endregion
 
         #region 增删查改
 

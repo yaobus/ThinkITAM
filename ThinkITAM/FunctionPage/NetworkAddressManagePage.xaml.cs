@@ -1087,8 +1087,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 info.Index = index2;
 
-                Console.WriteLine(index2);
-
                 index2++;
 
                 info.Address = Convert.ToInt32(row["Address"].ToString());
@@ -1241,9 +1239,6 @@ public partial class NetworkAddressManagePage : UserControl
                 var info = new IpAddressInfoListViewMode();
 
                 info.Index = index2;
-
-                Console.WriteLine(index2);
-
                 index2++;
 
                 info.Address = Convert.ToInt32(row["Address"].ToString());

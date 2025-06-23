@@ -94,13 +94,15 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string sql = $"UPDATE {DataBridge.DataBridge.NetworkTableName}  SET  AddressColor  = '{colorCode}' WHERE Address = {ipInfo.Address}";
 
+            Console.WriteLine(sql);
 
-          
+
+
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 
-            DataBridge.DataBridge.IpAddressInfoLists[ipInfo.Address].AddressColor = PortColor.SelectedIndex;
-            
-            
+            DataBridge.DataBridge.IpAddressInfoLists[ipInfo.Index].AddressColor = PortColor.SelectedIndex;
+
+
 
 
             DialogResult = true;

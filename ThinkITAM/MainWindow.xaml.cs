@@ -56,6 +56,7 @@ public partial class MainWindow : Window
         if (Properties.Settings.Default.Version != DataBridge.DataBridge.Version)
         {
             Properties.Settings.Default.Version = DataBridge.DataBridge.Version;
+
             Properties.Settings.Default.ShowWellcome = true;
             Properties.Settings.Default.Save();
 

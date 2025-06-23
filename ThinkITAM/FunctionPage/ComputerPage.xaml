@@ -44,9 +44,8 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     x:Name="ClearSearchKeyWord"
-                    Style="{StaticResource MaterialDesignToolButton}"
                     Click="ClearSearchKeyWord_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox
@@ -58,15 +57,13 @@
                     materialDesign:HintAssist.Hint="搜索关键字"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
-                    Opacity="0.3"
                     KeyDown="SearchKeyWord_OnKeyDown"
-                    />
+                    Opacity="0.3" />
                 <Button
                     x:Name="SearchButton"
                     Grid.Column="2"
-                    Style="{StaticResource MaterialDesignToolButton}"
                     Click="SearchButton_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
@@ -116,8 +113,8 @@
                     BorderThickness="0"
                     Click="AddButton_OnClick"
                     IsEnabled="True"
-                    ToolTip="{DynamicResource CpAddDevice}"
-                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    ToolTip="{DynamicResource CpAddDevice}">
                     <materialDesign:PackIcon
                         Width="25"
                         Height="25"

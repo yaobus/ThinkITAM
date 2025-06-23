@@ -12,12 +12,11 @@
     d:Background="#383838"
     d:Foreground="AliceBlue"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AssetDataImportWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
-    mc:Ignorable="d"
-    Loaded="AssetDataImportWindow_OnLoaded"
-    >
+    mc:Ignorable="d">
     <Window.Resources>
         <Thickness x:Key="DefaultMargin">0,16</Thickness>
     </Window.Resources>
@@ -68,10 +67,8 @@
                     Padding="0"
                     HorizontalAlignment="Left"
                     MaxDropDownHeight="300"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
                     SelectionChanged="AssetType_OnSelectionChanged"
-
-                    />
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
 
             </StackPanel>
@@ -173,10 +170,9 @@
             <ProgressBar
                 x:Name="ImportProgressBar"
                 Width="310"
-                Margin="10,5"
                 Height="5"
-                Value="0"
-                />
+                Margin="10,5"
+                Value="0" />
         </StackPanel>
 
 

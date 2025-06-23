@@ -112,6 +112,19 @@ namespace ThinkITAM.DatabaseOperation
         bool CreateTableFromSql(string sqliteSql);
         Task<bool> CreateTableFromSqlAsync(string sqliteSql, CancellationToken ct = default);
 
+
+        /// <summary>
+        /// 检查指定表是否存在某个字段，如果不存在则添加该字段
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="columnName">字段名</param>
+        /// <param name="columnType">字段类型（如 TEXT, VARCHAR(255), INT 等）</param>
+        /// <returns>是否成功执行（包括字段已存在的情况）</returns>
+        bool CheckAndAddColumnIfNotExists(string tableName, string columnName, string columnType);
+
+
+
+
         #region 增删查改
 
         /// <summary>

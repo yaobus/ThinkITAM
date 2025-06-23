@@ -211,7 +211,7 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-                
+
 
                 using (var connection = new SqlConnection(_connectionString))
                 {
@@ -236,7 +236,7 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-               
+
 
                 await using (var connection = new SqlConnection(_connectionString))
                 {
@@ -264,7 +264,7 @@ namespace ThinkITAM.DatabaseOperation
 
             try
             {
-               
+
 
                 using (var connection = CreateConnection())
                 {
@@ -291,7 +291,7 @@ namespace ThinkITAM.DatabaseOperation
 
             try
             {
-               
+
 
                 await using (var connection = CreateConnection())
                 {
@@ -311,7 +311,46 @@ namespace ThinkITAM.DatabaseOperation
             }
         }
 
+        #region 字段检测与添加方法
 
+        public bool CheckAndAddColumnIfNotExists(string tableName, string columnName, string columnType)
+        {
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentException("表名不能为空", nameof(tableName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentException("字段名不能为空", nameof(columnName));
+            if (string.IsNullOrEmpty(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
+
+            using var connection = CreateConnection();
+
+            bool exists = ColumnExists(tableName, columnName, connection);
+
+            if (!exists)
+            {
+                AddColumn(tableName, columnName, columnType, connection);
+            }
+
+            return exists;
+        }
+
+        private static bool ColumnExists(string tableName, string columnName, IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $@"
+        SELECT COLUMN_NAME 
+        FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_NAME = '{tableName}' AND COLUMN_NAME = '{columnName}'";
+
+            using var reader = command.ExecuteReader();
+            return reader.Read(); // 如果有记录，说明字段存在
+        }
+
+        private static void AddColumn(string tableName, string columnName, string columnType, IDbConnection connection)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = $"ALTER TABLE {tableName} ADD {columnName} {columnType};";
+            command.ExecuteNonQuery();
+        }
+
+        #endregion
 
         #region 增删查改
 

@@ -295,7 +295,7 @@ namespace ThinkITAM.ViewModels.LinkManage
         private string _portStatus;
         private int _onTheLine;
         private int? _nodeIndex;
-
+        private string _linkIp;
 
         /// <summary>
         /// 设备ID,仅用于终端部署表使用，Computer表
@@ -555,6 +555,22 @@ namespace ThinkITAM.ViewModels.LinkManage
                 {
                     _onTheLine = value;
                     OnPropertyChanged(nameof(OnTheLine));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 该端口关联的IP地址
+        /// </summary>
+        public string LinkIp
+        {
+            get => _linkIp;
+            set
+            {
+                if (_linkIp != value)
+                {
+                    _linkIp = value;
+                    OnPropertyChanged(nameof(LinkIp));
                 }
             }
         }

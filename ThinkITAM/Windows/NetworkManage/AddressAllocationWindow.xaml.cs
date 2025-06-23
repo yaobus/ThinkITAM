@@ -3,15 +3,16 @@ using System.Net;
 using System.Runtime;
 using System.Windows;
 using System.Windows.Controls;
+using DocumentFormat.OpenXml.EMMA;
+using MaterialDesignThemes.Wpf;
+using Nmap.NET.Container;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.NetworkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Preset;
-using MaterialDesignThemes.Wpf;
-using Nmap.NET.Container;
-using ThinkITAM.DataBridge;
-using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -52,6 +53,9 @@ namespace ThinkITAM.Windows.NetworkManage
             DataBridge.DataBridge.SelectPeopleViewModel = null;//用户关联ID
             DataBridge.DataBridge.SelectAssetInfo = null;//资产关联ID
 
+
+
+
             //加载标签
             LoadTags();
 
@@ -64,6 +68,15 @@ namespace ThinkITAM.Windows.NetworkManage
                 // 将这些筛选出来的项放入一个新的ObservableCollection中
                 ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
 
+                //选择多个IP的时候无法关联资产
+                if (selectedItemsCollection.Count > 1)
+                {
+                    FindAsset.IsEnabled = false;
+                }
+                else
+                {
+                    FindAsset.IsEnabled = true;
+                }
 
                 this.DataContext = selectedItemsCollection[0];
 
@@ -97,14 +110,6 @@ namespace ThinkITAM.Windows.NetworkManage
                 }
 
             }
-
-
-
-
-
-
-
-
 
 
 
@@ -159,7 +164,36 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (findAsset.ShowDialog() == true)
             {
-                LinkAsset.Text = DataBridge.DataBridge.LinkSelectAssetId;
+                //查询选择的资产是否已关联IP地址
+
+                //如果关联的资产ID在Computer表中，则写入IP信息到Computer表中LinkIp字段
+                var query = $"SELECT LinkIp FROM Computer WHERE AssetId = '{DataBridge.DataBridge.LinkAssetId}'";
+
+                if (GlobalVariables.DbService.ExecuteScalar(query) != null)
+                {
+                    var ip = GlobalVariables.DbService.ExecuteScalar(query).ToString();
+                    var result = MessageBox.Show($"该终端设备已关联IP地址{ip}\r继续保存将覆盖已关联的地址\r是否继续？", "已关联地址", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        LinkAsset.Text = DataBridge.DataBridge.LinkSelectAssetId;
+                    }
+                    else
+                    {
+                        DataBridge.DataBridge.SelectAssetInfo = null;
+                        DataBridge.DataBridge.LinkAssetId = null;
+                        DataBridge.DataBridge.LinkSelectAssetId = null;
+                    }
+
+                }
+                else
+                {
+                    LinkAsset.Text = DataBridge.DataBridge.LinkSelectAssetId;
+                }
+
+
+
+
+
                 // LoadTags();
 
             }
@@ -253,6 +287,8 @@ namespace ThinkITAM.Windows.NetworkManage
 
             }
 
+
+
             this.DialogResult = true;
 
 
@@ -267,6 +303,19 @@ namespace ThinkITAM.Windows.NetworkManage
 
             
             GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+
+            //如果关联的资产ID在Computer表中，则写入IP信息到Computer表中LinkIp字段
+            var query = $" SELECT COUNT (*) FROM Computer WHERE AssetId = '{info.LinkDeviceId}'";
+
+            var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+            if (count > 0)
+            {
+                query = $"UPDATE Computer SET LinkIp = '{DataBridge.DataBridge.SelectNetwork}{info.Address}' WHERE AssetId = '{info.LinkDeviceId}'";
+
+                GlobalVariables.DbService.ExecuteNonQuery(query);
+            }
 
         }
 

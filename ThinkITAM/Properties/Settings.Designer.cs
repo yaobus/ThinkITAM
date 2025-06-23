@@ -82,5 +82,17 @@ namespace ThinkITAM.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int VersionNumber {
+            get {
+                return ((int)(this["VersionNumber"]));
+            }
+            set {
+                this["VersionNumber"] = value;
+            }
+        }
     }
 }

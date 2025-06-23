@@ -423,6 +423,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AssetDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            DataBridge.DataBridge.SelectAssetInfo =null;
             // 检查选中项是否非空，以避免空引用异常
             if (AssetDataGrid.SelectedItem != null)
             {
@@ -455,9 +456,15 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void FilterButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //AssetType.SelectedIndex = -1;
-            //DeviceType.SelectedIndex = -1;
-            //assetViewModels.Clear();
+
+            AssetTag.Text = null;
+            Model.Text = null;
+            Description.Text = null;
+
+            DataBridge.DataBridge.SelectAssetInfo = null;
+            AssetType.SelectedIndex = -1;
+            DeviceType.SelectedIndex = -1;
+            assetViewModels.Clear();
             LoadSelectAssetInfo();
         }
     }

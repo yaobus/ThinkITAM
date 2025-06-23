@@ -342,7 +342,7 @@
     <s:String x:Key="DcgPreset">Preset Template</s:String>
     <s:String x:Key="DcgPortType">Port Type</s:String>
     <s:String x:Key="DcgSlot">Slot ID</s:String>
-    <s:String x:Key="DcgPortTag">Port Tag</s:String>
+    <s:String x:Key="DcgPortSpeed">Port Speed</s:String>
     <s:String x:Key="DcgPortNumber">Port ID</s:String>
     <s:String x:Key="DcgPortNumberRange">Port Range</s:String>
     <s:String x:Key="DcgPortCount">Port Count</s:String>
