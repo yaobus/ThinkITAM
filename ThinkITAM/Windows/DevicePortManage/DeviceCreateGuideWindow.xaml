@@ -760,7 +760,7 @@
                                 VerticalAlignment="Bottom"
                                 materialDesign:SliderAssist.HideActiveTrack="True"
                                 Maximum="52"
-                                Minimum="0"
+                                Minimum="1"
                                 Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
                                 TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
                                 TickPlacement="BottomRight"

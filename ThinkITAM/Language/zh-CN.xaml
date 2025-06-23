@@ -217,6 +217,7 @@
 
     <s:String x:Key="DpmDgSelect">选择</s:String>
     <s:String x:Key="DpmDgPortType">端口类型</s:String>
+    <s:String x:Key="DpmDgPortSpeed">端口速度</s:String>
     <s:String x:Key="DpmDgPortTag">端口标签</s:String>
     <s:String x:Key="DpmDgPortSlot">端口槽位</s:String>
     <s:String x:Key="DpmDgPortSlotTooltip">端口所在槽位</s:String>
@@ -390,7 +391,7 @@
     <s:String x:Key="DcgSlot">槽位编号</s:String>
     <s:String x:Key="DcgPortTag">端口标签</s:String>
     <s:String x:Key="DcgPortNumber">端口编号</s:String>
-    <s:String x:Key="DcgPortNumberRange ">端口范围</s:String>
+    <s:String x:Key="DcgPortNumberRange ">端口索引范围</s:String>
     <s:String x:Key="DcgPortCount">端口数量</s:String>
     <s:String x:Key="DcgClear">清空设计</s:String>
     <s:String x:Key="DcgClearTooltip">清空设备预览区的配置</s:String>

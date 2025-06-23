@@ -621,6 +621,35 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         FontSize="14"
+                                        Text="{DynamicResource DpmDgPortSpeed}" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Foreground="#009B77"
+                                            Text="{Binding PortSpeed}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortTag">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
                                         Text="{DynamicResource DpmDgPortTag}" />
                                 </StackPanel>
                             </DataGridTemplateColumn.Header>
