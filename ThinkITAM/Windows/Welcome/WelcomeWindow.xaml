@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:ThinkITAM.Windows.Welcome"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
     Title="Welcome"
     Width="810"
     Height="500"
@@ -39,7 +40,7 @@
 
             <Image
                 Grid.Column="1"
-                Margin="20"
+                Margin="10"
                 Source="/Resources/Image/QR.png"
                 Stretch="None" />
             <Label
@@ -47,24 +48,23 @@
                 Margin="20,20"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Content="ThinkITAM反馈交流群" />
+                Content="ThinkITAM反馈交流群"
+                FontSize="14" />
 
 
             <Grid Grid.Column="0" Margin="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <!--  Label  -->
-                    <RowDefinition Height="*" />
-                    <!--  ScrollViewer 占据剩余空间  -->
-                </Grid.RowDefinitions>
 
 
-                <ScrollViewer
-                    Grid.Row="1"
-                    HorizontalScrollBarVisibility="Disabled"
-                    VerticalScrollBarVisibility="Auto">
-                    <TextBlock x:Name="UpdateInfo" TextWrapping="Wrap" />
-                </ScrollViewer>
+                <wpf:MarkdownViewer
+                    x:Name="UpdateInfo"
+                    FontSize="20"
+                    VirtualizingStackPanel.IsVirtualizing="True"
+                    VirtualizingStackPanel.VirtualizationMode="Recycling" >
+
+
+                </wpf:MarkdownViewer>
+
+
             </Grid>
 
         </Grid>
@@ -86,7 +86,8 @@
                 x:Name="CloseButton"
                 Margin="10"
                 Click="CloseButton_OnClick"
-                Content="我已知晓该版本为测试版，并且不会用于生产环境" />
+                Content="我已知晓该版本为测试版，并且不会用于生产环境"
+                FontSize="14" />
 
 
         </StackPanel>

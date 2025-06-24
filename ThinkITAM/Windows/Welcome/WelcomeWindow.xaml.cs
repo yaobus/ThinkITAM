@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows;
+using System.Windows.Media;
+using Markdig;
+
 
 namespace ThinkITAM.Windows.Welcome;
 /// <summary>
@@ -15,15 +19,21 @@ public partial class WelcomeWindow : Window
 
     private void WelcomeWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
+
+
+
         //从软件所在目录读取UpdateInfo.txt文件
         string updateInfo = ReadUpdateInfo();
 
         if (!string.IsNullOrEmpty(updateInfo))
         {
-            UpdateInfo.Text= updateInfo;
-           
+
+
+            UpdateInfo.Markdown= updateInfo;
+
+            
         }
-       
+
     }
 
     private string ReadUpdateInfo()
@@ -40,7 +50,7 @@ public partial class WelcomeWindow : Window
             if (File.Exists(filePath))
             {
                 // 读取文件内容到字符串
-                return File.ReadAllText(filePath);
+                return File.ReadAllText(filePath, Encoding.UTF8);
             }
             else
             {
@@ -67,6 +77,8 @@ public partial class WelcomeWindow : Window
 
         this.Close();
     }
+
+
 }
 
 
