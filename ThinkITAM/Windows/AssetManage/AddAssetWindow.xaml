@@ -327,19 +327,50 @@
                             <Label
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
+                                Content="{DynamicResource AawAssetAssignedTo}" />
+
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBox
+                                    x:Name="People"
+                                    Width="195"
+                                    Height="28"
+                                    Margin="0,0,5,0"
+                                    Padding="0"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Text="{Binding User}" />
+                                <Button
+                                    x:Name="FindUser"
+                                    Width="40"
+                                    Height="28"
+                                    Margin="0,0,10,0"
+                                    Padding="0"
+                                    Click="FindUser_OnClick"
+                                    >
+                                    <StackPanel>
+                                        <materialDesign:PackIcon Kind="Magnify" />
+                                    </StackPanel>
+
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <StackPanel Margin="10,5" Orientation="Vertical">
+                            <Label
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
                                 Content="{DynamicResource AawAssetUserOrganization}" />
-                            <ComboBox
-                                x:Name="UserOrganization"
+                            <TextBox
+                                x:Name="Organization"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,30,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
-                                MaxDropDownHeight="300"
-                                SelectionChanged="UserOrganization_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding UserOrganization, Mode=TwoWay}" />
-
 
                         </StackPanel>
                         <StackPanel Margin="10,5" Orientation="Vertical">
@@ -347,17 +378,16 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="{DynamicResource AawAssetUserDepartment}" />
-                            <ComboBox
-                                x:Name="UserDepartment"
+                            <TextBox
+                                x:Name="Department"
                                 Width="240"
                                 Height="28"
                                 Margin="0,0,30,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
-                                MaxDropDownHeight="300"
-                                SelectionChanged="UserDepartment_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding UserDepartment, Mode=TwoWay}" />
+
 
                         </StackPanel>
                         <StackPanel Margin="10,5" Orientation="Vertical">
@@ -365,31 +395,12 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Content="{DynamicResource AawAssetUserGroup}" />
-                            <ComboBox
-                                x:Name="UserGroup"
-                                Width="240"
-                                Height="28"
-                                Margin="0,0,30,0"
-                                Padding="0"
-                                HorizontalAlignment="Left"
-                                MaxDropDownHeight="300"
-                                SelectionChanged="UserGroup_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                Text="{Binding UserGroup, Mode=TwoWay}" />
-
-
-                        </StackPanel>
-                        <StackPanel Margin="10,5" Orientation="Vertical">
-                            <Label
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource AawAssetAssignedTo}" />
                             <StackPanel
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
-                                <ComboBox
-                                    x:Name="AssignedTo"
+                                <TextBox
+                                    x:Name="Group"
                                     Width="240"
                                     Height="28"
                                     Margin="0,0,0,0"
@@ -397,11 +408,8 @@
                                     VerticalAlignment="Center"
                                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                     materialDesign:TextFieldAssist.LeadingIcon="User"
-                                    DisplayMemberPath="Name"
-                                    MaxDropDownHeight="300"
-                                    SelectionChanged="AssignedTo_OnSelectionChanged"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                    Text="{Binding User, Mode=TwoWay}" />
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Text="{Binding UserGroup, Mode=TwoWay}" />
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
@@ -456,7 +464,9 @@
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                 materialDesign:TextFieldAssist.LeadingIcon="People"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding Consumer, Mode=TwoWay}" />
+                                Text="{Binding Consumer, Mode=TwoWay}"
+                                MouseDoubleClick="Consumer_OnMouseDoubleClick"
+                                />
 
 
                         </StackPanel>

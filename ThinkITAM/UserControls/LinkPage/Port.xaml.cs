@@ -300,10 +300,10 @@ namespace ThinkITAM.UserControls.LinkPage
 
                                 //清空链路详表信息
 
-                                var sql2 = $"DELETE FROM LinkDetail WHERE LinkId={linkId}";
+                                var sql2 = $"DELETE FROM LinkDetail WHERE LinkId = {linkId}";
                                 GlobalVariables.DbService.ExecuteNonQuery(sql2);
 
-                                var sql3 = $"DELETE FROM Link WHERE Link_ID={linkId}";
+                                var sql3 = $"DELETE FROM Link WHERE Link_ID = {linkId}";
                                 GlobalVariables.DbService.ExecuteNonQuery(sql3);
 
                                 DataBridge.DataBridge.ChangedLink.Add(linkId);

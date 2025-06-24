@@ -861,7 +861,8 @@ namespace ThinkITAM.FunctionPage
             if (addAssetWindow.ShowDialog() == true)
             {
                 //加载资产数据
-                Console.WriteLine("加载资产数据");
+              
+                LoadAssetInfos(assetType, deviceType);
             }
         }
 

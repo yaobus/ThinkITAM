@@ -310,7 +310,7 @@ public partial class RackCreateGuideWindow : Window
             //保存设备
             SaveRackToDatabase(rackCreateInfo, rackSlots);
 
-
+            DataBridge.DataBridge.SelectRackInfo = null;
             DataBridge.DataBridge.modifyRacks.Add("1");
         }
 

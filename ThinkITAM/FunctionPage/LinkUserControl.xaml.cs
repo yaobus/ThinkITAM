@@ -913,7 +913,7 @@ namespace ThinkITAM.FunctionPage
             {
 
                 // 当子窗口关闭后执行这里的代码
-
+                LoadRacksInfos(selectedCabinetId);//重新加载机柜设备列表
             }
 
         }
@@ -1969,37 +1969,67 @@ namespace ThinkITAM.FunctionPage
                 var tableName = string.Empty;//表名
                 var tableField = string.Empty;//字段名
                 var type = string.Empty;//设备/机架
+                var sql = string.Empty;
+                var sql2 = string.Empty;
+                var sql3 = string.Empty;//从资产中解除部署设备
                 if (firstChar.ToString() == "3")
                 {
                     tableName = "Racks";
                     tableField = "RackId";
                     type = "机架";
+                    sql = $"SELECT COUNT(OnTheLine) FROM Ra_{id}";
+                    sql2 = $"DROP TABLE Ra_{id};";
+
                 }
                 else
                 {
                     tableName = "Devices";
                     tableField = "AssetId";
                     type = "设备";
+                    sql = $"SELECT COUNT(OnTheLine) FROM De_{id} ";
+                    sql2 = $"DROP TABLE De_{id};";
+                    sql3 = $"UPDATE Asset SET Deploy = NULL WHERE AssetId='{id}'";
                 }
 
-                var message = $"确定要删除吗？\r{type}:{info.rackName}";
 
 
-                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
-
-                if (result == MessageBoxResult.Yes)
+                if (count>0)
                 {
-                    string query = $"UPDATE {tableName} SET Del = 1 WHERE {tableField} ='{id}';";
+                    MessageBox.Show($"该设备上已有{count}个端口在链路中，无法删除\r如需删除，请先移除在链路上的端口", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
-                    GlobalVariables.DbService.ExecuteNonQuery(query);
-
-                    LoadRacksInfos(selectedCabinetId);//重新加载机柜设备列表
-
-                    ClearRackPanel_OnClick(null, null);//清空画布
-                    DevicePortPanel.Children.Clear();//清空设备端口
                 }
+                else
+                {
+                    var message = $"确定要删除吗？\r{type}:{info.rackName}";
+
+
+                    var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        string query = $"DELETE FROM {tableName} WHERE {tableField} = '{id}'";
+
+                        
+                        GlobalVariables.DbService.ExecuteNonQuery(query);
+                        GlobalVariables.DbService.ExecuteNonQuery(sql2);
+
+                        if (!string.IsNullOrWhiteSpace(sql3))
+                        {
+                            GlobalVariables.DbService.ExecuteNonQuery(sql3);
+                        }
+
+
+                        LoadRacksInfos(selectedCabinetId);//重新加载机柜设备列表
+
+                        ClearRackPanel_OnClick(null, null);//清空画布
+                        DevicePortPanel.Children.Clear();//清空设备端口
+                    }
+                }
+
+
 
             }
 

@@ -11,6 +11,8 @@ using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.EncryptionDecryption;
 using ThinkITAM.Functions.FunctionClass;
+using DocumentFormat.OpenXml.Bibliography;
+using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.Windows.AssetManage;
 /// <summary>
@@ -29,7 +31,7 @@ public partial class AddAssetWindow : Window
         InitializeComponent();
 
         ModelsComboBox.ItemsSource = modelList;
-
+       
         if (rowData != null)//有信息传入，说明是修改模式
         {
             editMode = 1;   //修改模式
@@ -46,7 +48,6 @@ public partial class AddAssetWindow : Window
     {
         LoadTags();
         LoadAssetType();
-        LoadOrganizationInfo();
         LoadAddress();
         
 
@@ -112,28 +113,6 @@ public partial class AddAssetWindow : Window
 
     private ObservableCollection<string> organizationInfo = new ObservableCollection<string>();
 
-    /// <summary>
-    /// 加载组织信息
-    /// </summary>
-    private void LoadOrganizationInfo()
-    {
-        organizationInfo.Clear();
-
-        string query = "SELECT DISTINCT Organization FROM Organization;";
-
-
-        var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-        foreach (var row in rows)  
-        {
-            organizationInfo.Add(row["Organization"].ToString());
-        }
-
-
-        UserOrganization.ItemsSource = organizationInfo;
-
-
-    }
 
 
 
@@ -379,36 +358,6 @@ public partial class AddAssetWindow : Window
 
 
     /// <summary>
-    /// 单位被选择
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void UserOrganization_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (UserOrganization.SelectedIndex != -1)
-        {
-            departmentInfo.Clear();
-            
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}';";
-
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            foreach (var row in rows)
-            {
-                departmentInfo.Add(row["Department"].ToString());
-            }
-
-
-            UserDepartment.ItemsSource = departmentInfo;
-        }
-        else
-        {
-            departmentInfo.Clear();
-        }
-
-    }
-
-    /// <summary>
     /// 责任人列表
     /// </summary>
     private ObservableCollection<PeopleViewModel> peopleInfo = new ObservableCollection<PeopleViewModel>();
@@ -417,82 +366,8 @@ public partial class AddAssetWindow : Window
 
     private ObservableCollection<string> userGroups = new ObservableCollection<string>();
 
-    /// <summary>
-    /// 部门被选择
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void UserDepartment_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
 
 
-        if (UserDepartment.SelectedIndex != -1)
-        {
-            userGroups.Clear();
-
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}' AND Department ='{departmentInfo[UserDepartment.SelectedIndex].ToString()}';";
-            
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            foreach (var row in rows)
-            {
-                userGroups.Add(row["Groups"].ToString());
-            }
-
-
-            UserGroup.ItemsSource = userGroups;
-        }
-        else
-        {
-            userGroups.Clear();
-        }
-
-    }
-
-
-    private void UserGroup_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-
-        if (UserGroup.SelectedIndex != -1)
-        {
-            peopleInfo.Clear();
-
-            string query = $"SELECT * FROM UserInfo WHERE Organization='{organizationInfo[UserOrganization.SelectedIndex].ToString()}' AND Department='{departmentInfo[UserDepartment.SelectedIndex].ToString()}' AND UserGroup ='{userGroups[UserGroup.SelectedIndex]}';";
-
-            //Console.WriteLine(query);
-
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            foreach (var row in rows)
-            {
-                var info = new PeopleViewModel();
-
-                info.Name = row["Name"].ToString();
-                info.Phone = row["Phone"].ToString();
-                peopleInfo.Add(info);
-            }
-
-
-
-
-            AssignedTo.ItemsSource = peopleInfo;
-        }
-    }
-
-    /// <summary>
-    /// 责任人被选择
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void AssignedTo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (AssignedTo.SelectedIndex != -1)
-        {
-            Phone.Text = peopleInfo[AssignedTo.SelectedIndex].Phone;
-            Consumer.Text = peopleInfo[AssignedTo.SelectedIndex].Name;
-        }
-    }
 
 
 
@@ -562,10 +437,10 @@ public partial class AddAssetWindow : Window
                     SerialNumber = SerialNumber.Text,
                     Configuration = Parameter.Text,
                     Location = PresetAddress.Text,
-                    UserOrganization = UserOrganization.Text,
-                    UserDepartment = UserDepartment.Text,
-                    UserGroup = UserGroup.Text,
-                    User = AssignedTo.Text,
+                    UserOrganization = Organization.Text,
+                    UserDepartment = Department.Text,
+                    UserGroup = Group.Text,
+                    User = People.Text,
                     UserPhone = Phone.Text,
                     Consumer = Consumer.Text,
                     AssetStatus = AssetStatus.Text,
@@ -618,10 +493,10 @@ public partial class AddAssetWindow : Window
                     SerialNumber = SerialNumber.Text,
                     Configuration = Parameter.Text,
                     Location = PresetAddress.Text,
-                    UserOrganization = UserOrganization.Text,
-                    UserDepartment = UserDepartment.Text,
-                    UserGroup = UserGroup.Text,
-                    User = AssignedTo.Text,
+                    UserOrganization = Organization.Text,
+                    UserDepartment = Department.Text,
+                    UserGroup = Group.Text,
+                    User = People.Text,
                     UserPhone = Phone.Text,
                     Consumer = Consumer.Text,
                     AssetStatus = AssetStatus.Text,
@@ -750,5 +625,28 @@ public partial class AddAssetWindow : Window
         }
 
 
+    }
+
+    private void FindUser_OnClick(object sender, RoutedEventArgs e)
+    {
+
+
+        FindUserWindow findAsset = new FindUserWindow();
+        findAsset.Owner = this;
+        if (findAsset.ShowDialog() == true)
+        {
+            People.Text = DataBridge.DataBridge.SelectPeopleViewModel.Name;
+            Organization.Text = DataBridge.DataBridge.SelectPeopleViewModel.Organization;
+            Department.Text = DataBridge.DataBridge.SelectPeopleViewModel.Department;
+            Group.Text = DataBridge.DataBridge.SelectPeopleViewModel.Group;
+            Phone.Text = DataBridge.DataBridge.SelectPeopleViewModel.Phone;
+
+
+        }
+    }
+
+    private void Consumer_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        Consumer.Text = People.Text;
     }
 }

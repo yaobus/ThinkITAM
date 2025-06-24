@@ -33,7 +33,7 @@
                     Margin="0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="目标端口:" />
+                    Content="修改对象:" />
 
                 <TextBlock
                     x:Name="TitleTextBlock"

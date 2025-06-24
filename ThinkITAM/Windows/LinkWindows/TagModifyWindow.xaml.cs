@@ -64,7 +64,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
                     SlotClass slotInfo = (SlotClass)tagInfo;
 
-                    TitleTextBlock.Text = "当前修改槽位标签";
+                    TitleTextBlock.Text = "槽位标签";
 
                     TagTextBox.Text = slotInfo.SlotName;
 
@@ -75,7 +75,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
                     MdfRackClass rackInfo = (MdfRackClass)tagInfo;
 
-                    TitleTextBlock.Text = "当前修改机架标签";
+                    TitleTextBlock.Text = "机架标签";
                     TagTextBox.Text = rackInfo.RackName;
                     break;
 

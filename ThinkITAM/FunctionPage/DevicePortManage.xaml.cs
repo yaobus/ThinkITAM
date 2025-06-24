@@ -1148,7 +1148,7 @@ public partial class DevicePortManage : UserControl
 
             if (count > 0)
             {
-                MessageBox.Show("设备上有端口已经在链路上，无法删除！","无法删除",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show($"设备上有{count}个端口已经在链路上，无法删除！","无法删除",MessageBoxButton.OK,MessageBoxImage.Information);
             }
             else
             {
