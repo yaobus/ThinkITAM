@@ -347,8 +347,7 @@
                                     Height="28"
                                     Margin="0,0,10,0"
                                     Padding="0"
-                                    Click="FindUser_OnClick"
-                                    >
+                                    Click="FindUser_OnClick">
                                     <StackPanel>
                                         <materialDesign:PackIcon Kind="Magnify" />
                                     </StackPanel>
@@ -369,6 +368,7 @@
                                 Margin="0,0,30,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
+                                IsEnabled="False"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding UserOrganization, Mode=TwoWay}" />
 
@@ -385,6 +385,7 @@
                                 Margin="0,0,30,0"
                                 Padding="0"
                                 HorizontalAlignment="Left"
+                                IsEnabled="False"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding UserDepartment, Mode=TwoWay}" />
 
@@ -408,6 +409,7 @@
                                     VerticalAlignment="Center"
                                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                     materialDesign:TextFieldAssist.LeadingIcon="User"
+                                    IsEnabled="False"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     Text="{Binding UserGroup, Mode=TwoWay}" />
                                 <materialDesign:PackIcon
@@ -436,6 +438,7 @@
                                     VerticalAlignment="Center"
                                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                     materialDesign:TextFieldAssist.LeadingIcon="Phone"
+                                    IsEnabled="False"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     Text="{Binding UserPhone, Mode=TwoWay}" />
 
@@ -463,10 +466,9 @@
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                 materialDesign:TextFieldAssist.LeadingIcon="People"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding Consumer, Mode=TwoWay}"
                                 MouseDoubleClick="Consumer_OnMouseDoubleClick"
-                                />
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                Text="{Binding Consumer, Mode=TwoWay}" />
 
 
                         </StackPanel>
