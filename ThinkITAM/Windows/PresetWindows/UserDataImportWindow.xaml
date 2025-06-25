@@ -12,7 +12,6 @@
     d:Background="#383838"
     d:Foreground="AliceBlue"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
-
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
