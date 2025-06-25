@@ -44,7 +44,7 @@
             <TextBlock
                 Margin="10"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="{DynamicResource AawImportTitle}" />
+                Text="{DynamicResource UdwImportTitle}" />
 
         </StackPanel>
 

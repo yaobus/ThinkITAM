@@ -444,4 +444,13 @@
     <s:String x:Key="CpAddDevice">部署终端设备</s:String>
     <s:String x:Key="CpDeleteDeployment">撤销部署</s:String>
 
+
+
+    <!--UserDataImportWindow-->
+
+    <s:String x:Key="UdwImportTitle">导入用户信息</s:String>
+
+
+
+
 </ResourceDictionary>
