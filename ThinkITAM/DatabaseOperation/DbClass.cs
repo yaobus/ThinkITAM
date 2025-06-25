@@ -1217,7 +1217,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Organization"://组织架构
 
-                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT,  \"Note\" TEXT ,   \"Del\" integer);";
+                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT, \"\"Groups\" TEXT,\" TEXT, \"Note\" TEXT ,   \"Del\" integer);";
 
 
 
