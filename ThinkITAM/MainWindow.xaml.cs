@@ -36,16 +36,18 @@ public partial class MainWindow : Window
 
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        
-       
+
+
         InitializationStatus();
+        ShowWelcome();
+
         GetEncryptString();
         ProjectListView.ItemsSource = configs;
 
         //Properties.Settings.Default.EncryptString = "";
         //Properties.Settings.Default.Save();
 
-        ShowWelcome();
+        //ShowWelcome();
     }
 
     /// <summary>

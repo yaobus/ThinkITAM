@@ -82,7 +82,7 @@
                                 Padding="3"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Hdd"
+                                materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
                                 IsEnabled="True"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding ElementName=DiskNumberSlider, Path=Value}" />
@@ -106,7 +106,7 @@
                                 Padding="3"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Hdd"
+                                materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
                         </StackPanel>
@@ -204,7 +204,7 @@
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
-                                    Kind="TimeOfDay" />
+                                    Kind="ExpansionCard" />
                                 <TextBlock
                                     Margin="5,0"
                                     VerticalAlignment="Center"
@@ -233,7 +233,7 @@
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
-                                    Kind="Cctv" />
+                                    Kind="IpNetworkOutline" />
                                 <TextBlock
                                     Margin="5,0"
                                     VerticalAlignment="Center"
@@ -262,7 +262,7 @@
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
-                                    Kind="Cctv" />
+                                    Kind="LastPass" />
                                 <TextBlock
                                     Margin="5,0"
                                     VerticalAlignment="Center"
@@ -285,13 +285,13 @@
                     <DataGridTemplateColumn
                         Width="120"
                         CanUserSort="False"
-                        SortMemberPath="CameraNumber">
+                        >
                         <DataGridTemplateColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
-                                    Kind="Cctv" />
+                                    Kind="SerialPort" />
                                 <TextBlock
                                     Margin="5,0"
                                     VerticalAlignment="Center"
@@ -349,7 +349,7 @@
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
-                                    Kind="Cctv" />
+                                    Kind="Note" />
                                 <TextBlock
                                     Margin="5,0"
                                     VerticalAlignment="Center"

@@ -987,16 +987,12 @@ namespace ThinkITAM.DatabaseOperation
                         string slotNumber = row["PortSlotNumber"].ToString();
 
 
-
-
                         string portId = row["PortId"].ToString();
-
-
                         port.PortType = row["PortType"].ToString();
                         port.PortIndex = $"{slotNumber}{portId}";
                         port.PortTag = row["PortTag"].ToString();
                         port.SlotIndex = slotNumber;
-
+                        port.PortSpeed = row["PortSpeed"].ToString();
 
 
 

@@ -133,6 +133,16 @@
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        d:Text="G "
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Foreground="#ddfee4"
+                        Opacity="1"
+                        Text="{Binding PortClass.PortSpeed}" />
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         d:Text="1"
                         FontSize="12"
                         FontWeight="Bold"

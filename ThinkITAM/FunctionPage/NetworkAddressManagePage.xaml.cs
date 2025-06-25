@@ -305,6 +305,8 @@ public partial class NetworkAddressManagePage : UserControl
 
         var addressCount = IPAddressCalculations.AddressCount(maskLength) - 2;
 
+        //Console.WriteLine($"addressCount{addressCount}");
+
         int value = 0;
 
         if (maskLength < 24)//如果是大型网段
@@ -331,6 +333,9 @@ public partial class NetworkAddressManagePage : UserControl
         {
             int useNum = GetNetWorkUsedAddress(tableName);
 
+           // Console.WriteLine($"useNum{useNum}");
+
+
             value = Convert.ToInt32((useNum * 100) / addressCount);
         }
 
@@ -350,7 +355,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns></returns>
     private int GetNetWorkUsedAddress(string tableName)
     {
-        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus != '1'";//查询已分配的地址数量
+        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus NOT IN (0, 1, 4);";//查询已分配的地址数量
 
 
         return DbClass.ExecuteScalarTableNum(sql);

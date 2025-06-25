@@ -18,6 +18,8 @@ using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.Windows.AssetManage;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -239,6 +241,26 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 }
 
+
+            }
+        }
+
+        private void DataImport_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new UserDataImportWindow();
+
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            if (newWindow.ShowDialog() == true)
+            {
+
+              
 
             }
         }

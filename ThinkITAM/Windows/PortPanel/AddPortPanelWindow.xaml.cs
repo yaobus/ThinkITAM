@@ -66,13 +66,13 @@ namespace ThinkITAM.Windows.PortPanel
 
                     //int num = Convert.ToInt32(lastChar);
 
-                    Console.WriteLine(intValue);
+                    //Console.WriteLine(intValue);
 
                     for (int i = 0; i < PortNumberSlider.Value; i++)
                     {
                         string id = withoutLastChar + (intValue + i);
 
-                        Console.WriteLine(id);
+                        //Console.WriteLine(id);
 
                         portList.Add(id);
 

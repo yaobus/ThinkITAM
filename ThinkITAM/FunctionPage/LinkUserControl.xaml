@@ -319,8 +319,6 @@
                         </Grid.RowDefinitions>
 
 
-
-
                         <ListView
                             x:Name="CabinetListView"
                             Grid.Row="0"
