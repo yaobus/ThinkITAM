@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.Win32;
 using Nodify;
 using ThinkITAM.DatabaseOperation;
@@ -21,6 +22,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.Functions.Import;
 using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.Preset;
 using Path = System.IO.Path;
 
 namespace ThinkITAM.Windows.PresetWindows;
@@ -33,8 +35,6 @@ public partial class UserDataImportWindow : Window
     public UserDataImportWindow()
     {
         InitializeComponent();
-        AssetType.ItemsSource = assetTypeInfos;
-        DeviceType.ItemsSource = deviceTypeInfos;
     }
 
     private void AssetDataImportWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -107,7 +107,7 @@ public partial class UserDataImportWindow : Window
 
             // 2. 获取嵌入资源或者本地文件内容
             string sourceFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                "Resources\\Template\\AssetTemplate.xlsx");
+                "Resources\\Template\\UserInfoTemplate.xlsx");
 
             try
             {
@@ -131,32 +131,6 @@ public partial class UserDataImportWindow : Window
     private ObservableCollection<string> deviceTypeInfos = new ObservableCollection<string>();
 
 
-    private void AssetType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (AssetType.SelectedIndex != -1)
-        {
-            deviceTypeInfos.Clear();
-
-
-            string query =
-                $"SELECT  DeviceType FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}';";
-
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-            foreach (var row in rows)
-            {
-                deviceTypeInfos.Add(row["DeviceType"].ToString());
-            }
-
-
-            DeviceType.ItemsSource = deviceTypeInfos;
-        }
-        else
-        {
-            deviceTypeInfos.Clear();
-        }
-    }
-
     /// <summary>
     /// 点击导入按钮
     /// </summary>
@@ -164,89 +138,68 @@ public partial class UserDataImportWindow : Window
     /// <param name="e"></param>
     private async void ImportButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (AssetType.SelectedIndex != -1 && DeviceType.SelectedIndex != -1)
+
+        if (!string.IsNullOrWhiteSpace(ExcelFilePath.Text))
         {
-            if (!string.IsNullOrWhiteSpace(ExcelFilePath.Text))
+
+
+            if (ExcelImporter.IsFileLocked(ExcelFilePath.Text))
             {
-                var assetType = assetTypeInfos[AssetType.SelectedIndex].ToString();
-                var deviceType = deviceTypeInfos[DeviceType.SelectedIndex].ToString();
+                MessageBox.Show("该文件正被其他程序使用，请关闭后再尝试导入。", "文件被占用", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
-                //获取资产编号前缀
-                string assetTag = GetAssetTag();
+            var importDatas = ExcelImporter.ImportFromExcel<PeopleImportViewModel>(ExcelFilePath.Text);
+
+            //设置进度条最大值
+            Dispatcher.Invoke(() =>
+            {
+                ImportProgressBar.Maximum = importDatas.Count;
+                ImportProgressBar.Value = 0;
+            });
+
+            int index = 0;
+            int successCount = 0;
+            foreach (var data in importDatas)
+            {
+
+                index++;
+
+                var number = DbClass.GetNextAvailableNumber("UserInfo", "Number");
+
+                string userId =
+                    $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
+
+                data.UserId = userId;
+                data.Number = number;
+
+                //保存组织机构信息
 
 
-                if (ExcelImporter.IsFileLocked(ExcelFilePath.Text))
+                if (SaveOrganizationInfo(data.Organization, data.Department, data.UserGroup, data.UserUnit) == true)
                 {
-                    MessageBox.Show("该文件正被其他程序使用，请关闭后再尝试导入。","文件被占用",MessageBoxButton.OK,MessageBoxImage.Information);
-                    return;
+                    GlobalVariables.DbService.InsertEntity("UserInfo", data);
+
+                    successCount++;
+
                 }
+                await UpdateProgressBarAsync(index);
 
-                var importDatas = ExcelImporter.ImportFromExcel<ImportAssetDataViewModel>(ExcelFilePath.Text);
-
-                //设置进度条最大值
-                Dispatcher.Invoke(() =>
-                {
-                    ImportProgressBar.Maximum = importDatas.Count;
-                    ImportProgressBar.Value = 0;
-                });
-
-                var filter = $" WHERE AssetType='{assetType}' AND DeviceType='{deviceType}'";
-                int index = 0;
-
-                foreach (var data in importDatas)
-                {   
-                    index++;
-
-                    var assetNumber = DbClass.GetNextAvailableNumber("Asset", "AssetNumber",filter);
-
-                    //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架，4为通用终端（计算机、IP电话）
-                    string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
-
-                    //创建资产二维码,0为机房，1为机柜，2为设备
-                    string qrCode = "ITAM:" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
-
-                   
-
-                    data.AssetId = assetId;
-                    data.AssetQrCode = qrCode;
-                    data.AssetType = assetType;
-                    data.DeviceType = deviceType;
-                    data.AssetTag = assetTag;
-                    data.AssetNumber = assetNumber.ToString();
-
-                    string date;
-                    try
-                    {
-                      date =  DateConverClass.ConvertExcelDateToDateTime(Convert.ToDouble(data.PurchaseDate)).ToString();
-                    }
-                    catch (Exception exception)
-                    {
-                        date = string.Empty;
-                    }
-
-                    data.PurchaseDate = date;
-
-                    GlobalVariables.DbService.InsertEntity("Asset", data);
-
-                    await UpdateProgressBarAsync(index);
-
-                    
-                }
-
-
-                DialogResult = true;
 
             }
-            else
-            {
-                MessageBox.Show("请选择需要导入的数据", "信息不完整", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+
+            MessageBox.Show($"尝试人员信息{index}条，\r成功导入{successCount}条\r失败{index - successCount}条\r失败原因：组织机构信息不满足顺序依赖验证", "导入完毕", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            DialogResult = true;
 
         }
         else
         {
-            MessageBox.Show("请选择资产类型和设备类型", "信息不完整", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("请选择需要导入的数据", "信息不完整", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+
+
     }
 
     /// <summary>
@@ -269,26 +222,106 @@ public partial class UserDataImportWindow : Window
 
 
     /// <summary>
-    /// 获取资产编号前缀
+    /// 保存组织信息,如果保存成功或者已存在，则返回true，否则返回false
     /// </summary>
+    /// <param name="organization"></param>
+    /// <param name="department"></param>
+    /// <param name="groups"></param>
+    /// <param name="unit"></param>
     /// <returns></returns>
-    private string GetAssetTag()
+    private bool SaveOrganizationInfo(string organization, string department = null, string groups = null,string unit = null)
     {
-        string query =
-            $"SELECT  AssetTag FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}' AND DeviceType='{deviceTypeInfos[DeviceType.SelectedIndex].ToString()}';";
 
 
-        var tag = GlobalVariables.DbService.ExecuteScalar(query).ToString();
 
-        if (tag != null)
+
+
+
+        if (ValidateInput(organization, department, groups, unit) == true)
         {
-            return tag;
+
+            var organizationInfo = organization.Replace(" ", "");
+            var departmentInfo = department.Replace(" ", "");
+            var groupsInfo = groups.Replace(" ", "");
+            var unitsInfo = unit.Replace(" ", "");
+
+
+
+            string sqlTemp =
+                $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
+
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+            if (num <= 0)
+            {
+                var info = new
+                {
+                    Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo,
+                    UserUnit = unitsInfo
+                };
+
+
+                GlobalVariables.DbService.InsertEntity("Organization", info);
+
+            }
+
+            return true;
+
         }
         else
         {
-            return string.Empty;
+
+            return false;
         }
 
-       
+
+    }
+
+
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// 输入检测
+    /// </summary>
+    /// <param name="organization"></param>
+    /// <param name="department"></param>
+    /// <param name="groups"></param>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public bool ValidateInput(string organization, string department, string groups, string unit)
+    {
+        // 去除空格并赋值
+        var organizationInfo = organization?.Replace(" ", "");
+        var departmentInfo = department?.Replace(" ", "");
+        var groupsInfo = groups?.Replace(" ", "");
+        var unitsInfo = unit?.Replace(" ", "");
+
+        // 检查顺序是否正确：如果后面的字段有值，则前面的字段必须有值
+
+        // 如果 unitsInfo 有值，则 groupsInfo 必须有值
+        if (!string.IsNullOrEmpty(unitsInfo) && string.IsNullOrEmpty(groupsInfo))
+            return false;
+
+        // 如果 groupsInfo 有值，则 departmentInfo 必须有值
+        if (!string.IsNullOrEmpty(groupsInfo) && string.IsNullOrEmpty(departmentInfo))
+            return false;
+
+        // 如果 departmentInfo 有值，则 organizationInfo 必须有值
+        if (!string.IsNullOrEmpty(departmentInfo) && string.IsNullOrEmpty(organizationInfo))
+            return false;
+
+        // 如果 organizationInfo 没有值，但其他字段有值，则不符合规则
+        if (string.IsNullOrEmpty(organizationInfo) &&
+            (!string.IsNullOrEmpty(departmentInfo) || !string.IsNullOrEmpty(groupsInfo) || !string.IsNullOrEmpty(unitsInfo)))
+            return false;
+
+        // 所有条件都满足，返回 true
+        return true;
     }
 }

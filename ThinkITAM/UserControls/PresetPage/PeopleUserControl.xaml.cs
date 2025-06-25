@@ -262,7 +262,7 @@ namespace ThinkITAM.UserControls.PresetPage
             if (newWindow.ShowDialog() == true)
             {
 
-              
+                LoadPeopleInfos();
 
             }
         }

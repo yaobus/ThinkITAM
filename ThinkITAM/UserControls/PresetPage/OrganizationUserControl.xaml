@@ -70,11 +70,11 @@
 
 
 
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <StackPanel
@@ -129,19 +129,18 @@
                         Value="100" />
 
                     <DataGrid
-                        Grid.Row="2"
-                        d:ItemsSource="{d:SampleData ItemCount=50}"
                         x:Name="OneListView"
+                        Grid.Row="2"
                         Margin="0,5,0,0"
+                        d:ItemsSource="{d:SampleData ItemCount=50}"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         SelectionChanged="OneListView_OnSelectionChanged"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        >
+                        Visibility="Visible">
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -250,11 +249,11 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Margin="2.5,2.5,5,5">
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <StackPanel
@@ -305,18 +304,17 @@
                         Orientation="Horizontal"
                         Value="100" />
                     <DataGrid
-                        Grid.Row="2"
                         x:Name="ThreeListView"
+                        Grid.Row="2"
                         Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectionChanged="ThreeListView_OnSelectionChanged"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        SelectionChanged="ThreeListView_OnSelectionChanged"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        >
+                        Visibility="Visible">
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -423,11 +421,11 @@
                 Grid.Column="1"
                 Margin="2.5,2.5,2.5,5">
 
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <StackPanel
@@ -482,19 +480,17 @@
                         Value="100" />
 
                     <DataGrid
-                        Grid.Row="2"
                         x:Name="TowListView"
+                        Grid.Row="2"
                         Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         SelectionChanged="TowListView_OnSelectionChanged"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-
-                        >
+                        Visibility="Visible">
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>
@@ -601,11 +597,11 @@
                 Grid.Row="1"
                 Grid.Column="3"
                 Margin="2.5,2.5,5,5">
-                <Grid >
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <StackPanel
@@ -656,17 +652,16 @@
                         Orientation="Horizontal"
                         Value="100" />
                     <DataGrid
-                        Grid.Row="2"
                         x:Name="FourListView"
+                        Grid.Row="2"
                         Margin="0,5,0,0"
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         SelectionMode="Single"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        >
+                        Visibility="Visible">
                         <DataGrid.DataContext>
                             <preset:OrganizationOneViewModel />
                         </DataGrid.DataContext>

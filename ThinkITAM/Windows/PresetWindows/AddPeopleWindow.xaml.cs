@@ -304,7 +304,7 @@ public partial class AddPeopleWindow : Window
     private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups,string _unit ,string _phone, string _note)
     {
 
-        string userId = $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+        string userId = $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
 
         var name = _userName.Replace(" ", "");
         string number = _userNumber.Replace(" ", "");

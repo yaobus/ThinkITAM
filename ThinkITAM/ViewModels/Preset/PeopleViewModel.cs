@@ -72,3 +72,61 @@ public class PeopleViewModel
     }
 
 }
+
+
+public class PeopleImportViewModel
+{
+    public string UserId
+    {
+        get;
+        set;
+    }
+
+    public int Number
+    {
+        get;
+        set;
+    }
+
+    public string Name
+    {
+        get;
+        set;
+    }
+
+
+    public string Organization
+    {
+        get;
+        set;
+    }
+
+    public string Department
+    {
+        get;
+        set;
+    }
+
+    public string UserGroup
+    {
+        get;
+        set;
+    }
+    public string UserUnit
+    {
+        get;
+        set;
+    }
+
+    public string Phone
+    {
+        get;
+        set;
+    }
+
+    public string Note
+    {
+        get;
+        set;
+    }
+}
