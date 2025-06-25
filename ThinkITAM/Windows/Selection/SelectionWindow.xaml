@@ -418,6 +418,15 @@
 
 
 
+        <ProgressBar
+            x:Name="LoadingIndicator"
+            Grid.Column="1"
+            Width="200"
+            Height="200"
+            IsIndeterminate="True"
+            Style="{StaticResource MaterialDesignCircularProgressBar}"
+            Visibility="Collapsed"
+            Value="35" />
 
     </Grid>
 </Window>

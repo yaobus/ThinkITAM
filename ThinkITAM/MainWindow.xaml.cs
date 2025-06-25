@@ -469,7 +469,7 @@ public partial class MainWindow : Window
 
     private void ProjectListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (ProjectListView.SelectedIndex!=-1)
+        if (ProjectListView.SelectedIndex != -1)
         {
             var dbConfig = configs[ProjectListView.SelectedIndex];
 

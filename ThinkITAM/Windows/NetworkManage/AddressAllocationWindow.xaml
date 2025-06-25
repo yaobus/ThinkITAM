@@ -310,6 +310,29 @@
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
+                        Content="所在单元:" />
+                    <TextBox
+                        x:Name="Unit"
+                        Width="250"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="Note"
+                        IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Unit}" />
+
+                </StackPanel>
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
                         Content="联系电话:"
                         ToolTip="联系电话:" />
 
@@ -370,44 +393,6 @@
                         materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding MacAddress}" />
-                </StackPanel>
-                <StackPanel
-                    Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Orientation="Vertical">
-                    <Label
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Content="关联资产:"
-                        ToolTip="使用该IP地址的资产设备" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox
-                            x:Name="LinkAsset"
-                            Width="195"
-                            Height="28"
-                            Margin="0,0,5,0"
-                            Padding="3"
-                            VerticalAlignment="Center"
-                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                            materialDesign:TextFieldAssist.LeadingIcon="ServerNetwork"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding LinkDevice}" />
-
-                        <Button
-                            x:Name="FindAsset"
-                            Width="50"
-                            Height="28"
-                            Margin="0,0,10,0"
-                            Padding="0"
-                            Click="FindAsset_Click">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="Magnify" />
-                            </StackPanel>
-
-                        </Button>
-                    </StackPanel>
                 </StackPanel>
 
 
@@ -630,6 +615,47 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding TagF}" />
                 </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="关联资产:"
+                        ToolTip="使用该IP地址的资产设备" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            x:Name="LinkAsset"
+                            Width="195"
+                            Height="28"
+                            Margin="0,0,5,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="ServerNetwork"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="{Binding LinkDevice}" />
+
+                        <Button
+                            x:Name="FindAsset"
+                            Width="50"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Padding="0"
+                            Click="FindAsset_Click">
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="Magnify" />
+                            </StackPanel>
+
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+
                 <StackPanel
                     Margin="{StaticResource DefaultMargin}"
                     HorizontalAlignment="Left"

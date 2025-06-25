@@ -944,6 +944,34 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Unit">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="BallotOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{DynamicResource NmpDgUserUnit}"
+                                            ToolTip="{DynamicResource NmpDgUserUnitNote}" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Unit}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
                             <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Phone">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel Orientation="Horizontal">

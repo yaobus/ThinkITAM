@@ -27,6 +27,12 @@ namespace ThinkITAM.DataBridge
         public static int VersionNumber = 17;
 
         /// <summary>
+        /// 当前打开的数据库类型
+        /// </summary>
+        public static string NowOpenedDataBaseType ="sqlite";
+
+
+        /// <summary>
         /// 当前所选网段名称
         /// </summary>
         public static string NetworkTableName = null;

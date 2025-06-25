@@ -483,6 +483,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Organization.Text = DataBridge.DataBridge.SelectPeopleViewModel.Organization;
                 Department.Text = DataBridge.DataBridge.SelectPeopleViewModel.Department;
                 Group.Text = DataBridge.DataBridge.SelectPeopleViewModel.Group;
+                Unit.Text = DataBridge.DataBridge.SelectPeopleViewModel.Unit;
                 Phone.Text = DataBridge.DataBridge.SelectPeopleViewModel.Phone;
 
 

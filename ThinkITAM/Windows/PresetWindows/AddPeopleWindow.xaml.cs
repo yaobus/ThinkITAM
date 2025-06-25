@@ -193,15 +193,15 @@ public partial class AddPeopleWindow : Window
 
         if (info.Item1 == 0)
         {
-            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text);
+            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text, Units.Text);
 
             if (peopleInfo != null)
             {
-                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Phone.Text, Note.Text);
+                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text,Units.Text ,Phone.Text, Note.Text);
             }
             else
             {
-                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Phone.Text, Note.Text);
+                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text,Phone.Text, Note.Text);
             }
 
         }
@@ -275,14 +275,15 @@ public partial class AddPeopleWindow : Window
     }
 
 
-    private void SaveOrganizationInfo(string organization, string department,string groups)
+    private void SaveOrganizationInfo(string organization, string department,string groups,string units)
     {
 
         var organizationInfo = organization.Replace(" ", "");
         var departmentInfo = department.Replace(" ", "");
         var groupsInfo = groups.Replace(" ", "");
+        var unitsInfo = units.Replace(" ", "");
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
 
 
 
@@ -290,7 +291,7 @@ public partial class AddPeopleWindow : Window
 
         if (num <= 0)
         {
-            var info = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo };
+            var info = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo, UserUnit = unitsInfo };
 
 
             GlobalVariables.DbService.InsertEntity("Organization", info);
@@ -300,7 +301,7 @@ public partial class AddPeopleWindow : Window
 
     }
 
-    private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _phone, string _note)
+    private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups,string _unit ,string _phone, string _note)
     {
 
         string userId = $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
@@ -310,6 +311,7 @@ public partial class AddPeopleWindow : Window
         var organization = _organization.Replace(" ", "");
         var department = _department.Replace(" ", "");
         var group = _groups.Replace(" ", "");
+        var unit = _unit.Replace(" ", "");
         var phone = _phone;
         var note = _note;
 
@@ -321,6 +323,7 @@ public partial class AddPeopleWindow : Window
             Organization = organization,
             Department = department,
             UserGroup = group,
+            UserUnit = unit,
             Phone = phone,
             Note = note
         };
@@ -342,7 +345,7 @@ public partial class AddPeopleWindow : Window
     /// <param name="_groups"></param>
     /// <param name="_phone"></param>
     /// <param name="_note"></param>
-    private void UpdateUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _phone, string _note)
+    private void UpdateUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups,string _unit, string _phone, string _note)
     {
 
         var name = _userName.Replace(" ", "");
@@ -350,6 +353,7 @@ public partial class AddPeopleWindow : Window
         var organization = _organization.Replace(" ", "");
         var department = _department.Replace(" ", "");
         var group = _groups.Replace(" ", "");
+        var unit = _unit.Replace(" ", "");
         var phone = _phone;
         var note = _note;
 
@@ -361,6 +365,7 @@ public partial class AddPeopleWindow : Window
             Organization = organization,
             Department = department,
             UserGroup = group,
+            UserUnit= unit,
             Phone = phone,
             Note = note
         };
@@ -411,7 +416,7 @@ public partial class AddPeopleWindow : Window
 
             foreach (var row in rows)
             {
-                groupsInfo.Add(row["UserGroup"].ToString());
+                groupsInfo.Add(row["Groups"].ToString());
             }
 
 
@@ -525,7 +530,7 @@ public partial class AddPeopleWindow : Window
         {
             unitInfos.Clear();
 
-            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND UserGroup = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
 
           
 

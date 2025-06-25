@@ -24,6 +24,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
         private string organization;
         private string department;
         private string group;
+        private string unit;
         private string phone;
         private string hostName;
         private string macAddress;
@@ -224,6 +225,19 @@ namespace ThinkITAM.ViewModels.NetworkManage
                 {
                     group = value;
                     OnPropertyChanged(nameof(Group));
+                }
+            }
+        }
+
+        public string Unit
+        {
+            get => unit;
+            set
+            {
+                if (unit != value)
+                {
+                    unit = value;
+                    OnPropertyChanged(nameof(Unit));
                 }
             }
         }

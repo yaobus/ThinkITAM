@@ -245,8 +245,8 @@
                         materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
                         IsEditable="True"
                         MaxDropDownHeight="300"
-                        SelectionChanged="Groups_OnSelectionChanged"
                         SelectedItem="{Binding Group, Mode=TwoWay}"
+                        SelectionChanged="Groups_OnSelectionChanged"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 </StackPanel>
 

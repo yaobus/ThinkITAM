@@ -16,13 +16,16 @@ namespace ThinkITAM.DatabaseOperation
             switch (config.Type?.ToLower())
             {
                 case "sqlite":
+                   DataBridge.DataBridge.NowOpenedDataBaseType="sqlite";
                     return new SqliteDatabaseService(BuildSqliteConnectionString(config));
 
                 case "mysql":
                 case "mariadb":
+                    DataBridge.DataBridge.NowOpenedDataBaseType = "mysql";
                     return new MySqlDatabaseService(BuildMySqlConnectionString(config));
 
                 case "sqlserver":
+                    DataBridge.DataBridge.NowOpenedDataBaseType = "sqlserver";
                     return new SqlServerDatabaseService(BuildSqlServerConnectionString(config));
 
                 default:

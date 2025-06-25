@@ -440,6 +440,7 @@ public partial class AddAssetWindow : Window
                     UserOrganization = Organization.Text,
                     UserDepartment = Department.Text,
                     UserGroup = Group.Text,
+                    UserUnit  = Unit.Text,
                     User = People.Text,
                     UserPhone = Phone.Text,
                     Consumer = Consumer.Text,
@@ -496,6 +497,7 @@ public partial class AddAssetWindow : Window
                     UserOrganization = Organization.Text,
                     UserDepartment = Department.Text,
                     UserGroup = Group.Text,
+                    UserUnit = Unit.Text,
                     User = People.Text,
                     UserPhone = Phone.Text,
                     Consumer = Consumer.Text,
@@ -640,7 +642,7 @@ public partial class AddAssetWindow : Window
             Department.Text = DataBridge.DataBridge.SelectPeopleViewModel.Department;
             Group.Text = DataBridge.DataBridge.SelectPeopleViewModel.Group;
             Phone.Text = DataBridge.DataBridge.SelectPeopleViewModel.Phone;
-
+            Unit.Text = DataBridge.DataBridge.SelectPeopleViewModel.Unit;
 
         }
     }

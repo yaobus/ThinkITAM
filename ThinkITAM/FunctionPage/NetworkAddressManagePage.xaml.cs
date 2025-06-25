@@ -1080,9 +1080,9 @@ public partial class NetworkAddressManagePage : UserControl
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
 
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
-            //Console.WriteLine(query);
+            Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index2 = 0;
@@ -1129,6 +1129,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
+                info.Unit= row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
@@ -1230,7 +1231,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
+            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1281,6 +1282,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
+                info.Unit= row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();

@@ -32,8 +32,14 @@ public partial class SelectionWindow : Window
 
     private async void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-       
+        LoadingIndicator.Visibility = Visibility.Visible;
+        await Task.Run(async () =>
+        {
+            await InitializeDatabase();
+            CheckDatabase();
+        });
 
+        LoadingIndicator.Visibility = Visibility.Collapsed;
         WindowLoadStatus = 1;
         //BottomControl.SelectedIndex = -1;
 
@@ -41,14 +47,11 @@ public partial class SelectionWindow : Window
         //加载初始页面
         Dashboard dashboard = new Dashboard();
 
+
         dashboard.Style = (Style)FindResource("DashboardStyle");
 
         FunctionPanel.Children.Add(dashboard);
 
-        await InitializeDatabase();
-
-
-        CheckDatabase();
 
     }
 
@@ -61,16 +64,31 @@ public partial class SelectionWindow : Window
 
         if (Properties.Settings.Default.VersionNumber <= DataBridge.DataBridge.VersionNumber)
         {
-            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "LinkIp", "TEXT");
-            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
-            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
 
-            Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
-            Properties.Settings.Default.Save();
+            switch (DataBridge.DataBridge.NowOpenedDataBaseType)
+            {
+                case "sqlite":
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "LinkIp", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Asset", "UserUnit", "TEXT");
+                    Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
+                    Properties.Settings.Default.Save();
+
+                    break;
+
+                case "mysql":
+                case "mariadb":
+
+
+                    break;
+            }
+
+
         }
 
 
-       
+
 
     }
 
@@ -166,6 +184,7 @@ public partial class SelectionWindow : Window
         DataBridge.DataBridge.IpAddressInfoLists.Clear();
         DataBridge.DataBridge.LoadedNetworkSegment = null;
         DataBridge.DataBridge.LinkViewList.Clear();
+        DataBridge.DataBridge.PortPanelLinkViewList.Clear();
     }
 
     private void TopControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

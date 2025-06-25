@@ -412,15 +412,37 @@
                                     IsEnabled="False"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                     Text="{Binding UserGroup, Mode=TwoWay}" />
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    VerticalAlignment="Center"
-                                    Kind="Info"
-                                    ToolTip="{DynamicResource AawAssetTooltip}" />
+
                             </StackPanel>
 
                         </StackPanel>
+
+                        <StackPanel Margin="10,5" Orientation="Vertical">
+                            <Label
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Content="{DynamicResource AawAssetUserUnit}" />
+                            <StackPanel
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="Unit"
+                                    Width="240"
+                                    Height="28"
+                                    Margin="0,0,0,0"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="User"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Text="{Binding Unit, Mode=TwoWay}" />
+
+                            </StackPanel>
+
+                        </StackPanel>
+
                         <StackPanel Margin="10,5" Orientation="Vertical">
 
                             <Label
@@ -492,6 +514,11 @@
 
 
                         </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Margin="10,0">
+
                         <StackPanel Margin="10,5" Orientation="Vertical">
                             <Label
                                 x:Name="LabelX"
@@ -512,9 +539,6 @@
 
 
                         </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2" Margin="10,0">
 
                         <StackPanel Margin="10,5" Orientation="Vertical">
 
@@ -691,12 +715,12 @@
                             <TextBox
                                 x:Name="Parameter"
                                 Width="240"
-                                Height="90"
+                                Height="28"
                                 MaxHeight="90"
                                 Padding="3"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                materialDesign:TextFieldAssist.HasLeadingIcon="False"
                                 materialDesign:TextFieldAssist.LeadingIcon="BallotOutline"
                                 AcceptsReturn="True"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"

@@ -46,7 +46,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <summary>
         /// 加载人员信息
         /// </summary>
-        private void LoadPeopleInfos(string organization = null, string department = null, string group = null,string name = null)
+        private void LoadPeopleInfos(string organization = null, string department = null, string group = null, string unit = null, string name = null)
         {
             peopleInfos.Clear();
 
@@ -65,10 +65,19 @@ namespace ThinkITAM.Windows.NetworkManage
                     {
                         filter += $" AND UserGroup ='{group}' ";
 
-                        if (name != null)
+
+                        if (unit != null)
                         {
-                            filter += $" AND Name LIKE '%{name}%' ";
+                            filter += $" AND UserUnit ='{unit}' ";
+
+
+                            if (name != null)
+                            {
+                                filter += $" AND Name LIKE '%{name}%' ";
+                            }
+
                         }
+
                     }
 
                 }
@@ -109,6 +118,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
+                info.Unit = row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.Note = row["Note"].ToString();
 
@@ -251,11 +261,39 @@ namespace ThinkITAM.Windows.NetworkManage
 
         }
 
+        private ObservableCollection<string> unitInfos = new ObservableCollection<string>();
+
+
         private void GroupBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string org = OrganizationBox.SelectedIndex != -1 ? organizationInfo[OrganizationBox.SelectedIndex].ToString() : null;
             string dep = DepartmentBox.SelectedIndex != -1 ? departmentInfo[DepartmentBox.SelectedIndex].ToString() : null;
             string group = GroupBox.SelectedIndex != -1 ? groupsInfo[GroupBox.SelectedIndex].ToString() : null;
+
+
+
+            if (GroupBox.SelectedIndex != -1)
+            {
+                unitInfos.Clear();
+
+                string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex]}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND Groups = '{groupsInfo[GroupBox.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
+
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+                foreach (var row in rows)
+                {
+                    unitInfos.Add(row["UserUnit"].ToString());
+                }
+
+
+
+                UnitBox.ItemsSource = unitInfos;
+            }
+            else
+            {
+                unitInfos.Clear();
+            }
 
 
 
@@ -266,13 +304,13 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             peopleInfos.Clear();
 
-            string org = OrganizationBox.SelectedIndex != -1 ? organizationInfo[OrganizationBox.SelectedIndex].ToString() : null;
-            string dep = DepartmentBox.SelectedIndex != -1 ? departmentInfo[DepartmentBox.SelectedIndex].ToString() : null;
-            string group = GroupBox.SelectedIndex != -1 ? groupsInfo[GroupBox.SelectedIndex].ToString() : null;
+            var org = OrganizationBox.SelectedIndex != -1 ? organizationInfo[OrganizationBox.SelectedIndex].ToString() : null;
+            var dep = DepartmentBox.SelectedIndex != -1 ? departmentInfo[DepartmentBox.SelectedIndex].ToString() : null;
+            var group = GroupBox.SelectedIndex != -1 ? groupsInfo[GroupBox.SelectedIndex].ToString() : null;
+            var unit = UnitBox.SelectedIndex != -1 ? unitInfos[UnitBox.SelectedIndex].ToString() : null;
 
 
-
-            LoadPeopleInfos(org, dep, group,UserName.Text);
+            LoadPeopleInfos(org, dep, group, unit, UserName.Text);
         }
 
         private void PeopleListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -306,6 +344,20 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
             
+        }
+
+        private void UnitBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            peopleInfos.Clear();
+
+            var org = OrganizationBox.SelectedIndex != -1 ? organizationInfo[OrganizationBox.SelectedIndex].ToString() : null;
+            var dep = DepartmentBox.SelectedIndex != -1 ? departmentInfo[DepartmentBox.SelectedIndex].ToString() : null;
+            var group = GroupBox.SelectedIndex != -1 ? groupsInfo[GroupBox.SelectedIndex].ToString() : null;
+            var unit = UnitBox.SelectedIndex != -1 ? unitInfos[UnitBox.SelectedIndex].ToString() : null;
+
+
+            LoadPeopleInfos(org, dep, group, unit, UserName.Text);
+
         }
     }
 }

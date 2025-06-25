@@ -15,21 +15,28 @@ public partial class Dashboard : UserControl
     {
         InitializeComponent();
 
+        this.DataContext = dashboard;
+        IndexTagsPanel.ItemsSource = dashboardIndexTags;
 
-
-        DataContext = this;
+        //DataContext = this;
     }
 
 
     private async void Dashboard_OnLoaded(object sender, RoutedEventArgs e)
     {
-        await LoadStatisticsInfo();
 
-        this.DataContext = dashboard;
-        IndexTagsPanel.ItemsSource = dashboardIndexTags;
+
+        await Task.Run(async () =>
+        {
+            await LoadStatisticsInfo();
+          
+        });
+
+
+
         await LoadIndexTags();
 
-       
+
 
     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ThinkITAM.Windows.PresetWindows;
+using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.Export;
 using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.Windows.AssetManage;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -264,6 +265,36 @@ namespace ThinkITAM.UserControls.PresetPage
               
 
             }
+        }
+
+        private void DataExport_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (peopleInfos == null || peopleInfos.Count == 0)
+            {
+                MessageBox.Show("没有可导出的数据。");
+                return;
+            }
+
+            var fileName = $"UserInfo";
+
+            // 创建保存文件对话框
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = fileName  // 默认文件名
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = saveFileDialog.FileName;
+
+
+                // 调用导出方法
+                ExcelExporter.ExportToExcel(peopleInfos, selectedFilePath);
+            }
+
         }
     }
 }

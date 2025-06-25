@@ -76,7 +76,7 @@ namespace ThinkITAM.UserControls.PortPanel
         /// <param name="e"></param>
         private void PortButton_OnClick(object sender, RoutedEventArgs e)
         {
-
+            DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
                 PortClass port = (PortClass)this.DataContext;
 

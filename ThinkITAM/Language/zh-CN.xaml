@@ -151,6 +151,10 @@
     <s:String x:Key="NmpDgUserGroup">用户群组</s:String>
     <s:String x:Key="NmpDgUserGroupNote">使用人所在群组</s:String>
 
+
+    <s:String x:Key="NmpDgUserUnit">用户单元</s:String>
+    <s:String x:Key="NmpDgUserUnitNote">使用人所在单元</s:String>
+
     <s:String x:Key="NmpDgUserPhone">联系方式</s:String>
     <s:String x:Key="NmpDgUserPhoneNote">使用人联系电话</s:String>
 
@@ -344,6 +348,7 @@
     <s:String x:Key="AawAssetUserOrganization">责任人组织</s:String>
     <s:String x:Key="AawAssetUserDepartment">部门</s:String>
     <s:String x:Key="AawAssetUserGroup">群组</s:String>
+    <s:String x:Key="AawAssetUserUnit">单元</s:String>
     <s:String x:Key="AawAssetAssignedTo">责任人</s:String>
     <s:String x:Key="AawAssetPhone">责任人电话</s:String>
     <s:String x:Key="AawAssetUser">使用人</s:String>
@@ -446,7 +451,7 @@
 
 
 
-    <!--UserDataImportWindow-->
+    <!--  UserDataImportWindow  -->
 
     <s:String x:Key="UdwImportTitle">导入用户信息</s:String>
 

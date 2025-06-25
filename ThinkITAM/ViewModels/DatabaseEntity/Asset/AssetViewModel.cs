@@ -80,6 +80,12 @@ public class AssetViewModel
         get; set;
     }
 
+    public string UserUnit
+    {
+        get; set;
+    }
+
+
     public string User
     {
         get;set;

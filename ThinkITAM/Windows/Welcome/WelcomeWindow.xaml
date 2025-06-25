@@ -59,10 +59,7 @@
                     x:Name="UpdateInfo"
                     FontSize="20"
                     VirtualizingStackPanel.IsVirtualizing="True"
-                    VirtualizingStackPanel.VirtualizationMode="Recycling" >
-
-
-                </wpf:MarkdownViewer>
+                    VirtualizingStackPanel.VirtualizationMode="Recycling" />
 
 
             </Grid>

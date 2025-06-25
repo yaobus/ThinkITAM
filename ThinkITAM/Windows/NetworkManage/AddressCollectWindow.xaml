@@ -280,13 +280,13 @@
                         Margin="{StaticResource DefaultMargin}"
                         HorizontalAlignment="Left"
                         Orientation="Vertical">
-                        <Label Content=" "/>
+                        <Label Content=" " />
                         <CheckBox
                             x:Name="PinToStart"
-                            HorizontalAlignment="Left" Content="固定到首页"
-                            IsChecked="{Binding PinToStart,Mode=TwoWay}"
-                            Style="{StaticResource MaterialDesignSecondaryCheckBox}"
-                            />
+                            HorizontalAlignment="Left"
+                            Content="固定到首页"
+                            IsChecked="{Binding PinToStart, Mode=TwoWay}"
+                            Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
                     </StackPanel>
 
                 </StackPanel>
@@ -324,10 +324,9 @@
             x:Name="CollectDeleteDialogHost"
             Grid.Row="0"
             d:Visibility="Collapsed"
-            Identifier="CollectDeleteDialogHost"
             DialogClosed="DeleteDialogHost_OnDialogClosed"
             DialogContentUniformCornerRadius="5"
-            >
+            Identifier="CollectDeleteDialogHost">
             <materialDesign:DialogHost.DialogContent>
                 <StackPanel Margin="10">
 
