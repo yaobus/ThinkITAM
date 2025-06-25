@@ -37,7 +37,7 @@ public partial class AddPeopleWindow : Window
         if (info != null)
         {
             peopleInfo = info;
-            this.DataContext = peopleInfo;
+           this.DataContext = peopleInfo;
         }
 
 
@@ -161,7 +161,7 @@ public partial class AddPeopleWindow : Window
         {
             departmentInfo.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Note != '0' OR Note IS NULL);";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Del != '0' OR Del IS NULL);";
 
            
 
@@ -403,15 +403,15 @@ public partial class AddPeopleWindow : Window
         {
             groupsInfo.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Note != '0' OR Note IS NULL);";
+            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Del != '0' OR Del IS NULL);";
 
-            Console.WriteLine(query);
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
             {
-                groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["UserGroup"].ToString());
             }
 
 
@@ -514,5 +514,35 @@ public partial class AddPeopleWindow : Window
         {
             UserNumber.Text = GetNextAvailableNumber().ToString();
         });
+    }
+
+    private ObservableCollection<string> unitInfos = new ObservableCollection<string>();
+
+
+    private void Groups_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (Groups.SelectedIndex != -1)
+        {
+            unitInfos.Clear();
+
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND UserGroup = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
+
+          
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            foreach (var row in rows)
+            {
+                unitInfos.Add(row["UserUnit"].ToString());
+            }
+
+            
+
+            Units.ItemsSource = unitInfos;
+        }
+        else
+        {
+            unitInfos.Clear();
+        }
     }
 }

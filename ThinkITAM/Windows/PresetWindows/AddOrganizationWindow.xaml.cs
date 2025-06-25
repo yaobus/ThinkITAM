@@ -108,7 +108,7 @@ public partial class AddOrganizationWindow : Window
 
     private ObservableCollection<string> organizationInfo= new ObservableCollection<string>();
 
-    private string sqlsub = "WHERE (Note != '0' OR Note IS NULL)";
+    private string sqlsub = "WHERE (Del != '0' OR Del IS NULL)";
 
     /// <summary>
     /// 加载组织信息

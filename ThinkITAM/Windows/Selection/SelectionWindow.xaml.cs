@@ -59,11 +59,13 @@ public partial class SelectionWindow : Window
     {
         //1.0.16版本,Computer表添加LinkIp字段
 
-        if (Properties.Settings.Default.VersionNumber < DataBridge.DataBridge.VersionNumber)
+        if (Properties.Settings.Default.VersionNumber <= DataBridge.DataBridge.VersionNumber)
         {
             GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "LinkIp", "TEXT");
+            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
+            GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
 
-            Properties.Settings.Default.VersionNumber= DataBridge.DataBridge.VersionNumber;
+            Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
             Properties.Settings.Default.Save();
         }
 

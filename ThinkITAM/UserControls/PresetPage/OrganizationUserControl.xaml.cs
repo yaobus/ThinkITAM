@@ -33,7 +33,6 @@ namespace ThinkITAM.UserControls.PresetPage
             InitializeComponent();
         }
 
-       private DbClass dbClass;
 
         /// <summary>
         /// 新增按钮点击事件
@@ -42,7 +41,7 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <param name="e"></param>
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+
             AddOrganizationWindow addOrganizationWindow = new AddOrganizationWindow();
 
 
@@ -50,7 +49,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
 
                 LoadOrganization();
-               
+
             }
         }
 
@@ -65,7 +64,7 @@ namespace ThinkITAM.UserControls.PresetPage
             organizationInfos.Clear();
 
             string query = $"SELECT DISTINCT Organization FROM Organization WHERE  ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) {sqlsub}";
-            
+
             Console.WriteLine(query);
 
 
@@ -75,7 +74,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 OrganizationOneViewModel info = new OrganizationOneViewModel();
 
                 info.Index = index;
@@ -99,9 +98,10 @@ namespace ThinkITAM.UserControls.PresetPage
         private void OrganizationUserControl_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            OneListView.ItemsSource=organizationInfos;
+            OneListView.ItemsSource = organizationInfos;
             TowListView.ItemsSource = departmentInfos;
             ThreeListView.ItemsSource = groupsInfos;
+            FourListView.ItemsSource = unitInfos;
             LoadOrganization();
         }
 
@@ -113,9 +113,9 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             if (OneListView.SelectedIndex != -1)
             {
-                TowListView.SelectedIndex=-1;
+                TowListView.SelectedIndex = -1;
                 departmentInfos.Clear();
-                
+
                 ThreeListView.SelectedIndex = -1;
                 groupsInfos.Clear();
 
@@ -132,7 +132,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 foreach (var row in rows)
                 {
-                                        index++;
+                    index++;
                     DepartmentViewModel info = new DepartmentViewModel();
 
                     info.Index = index;
@@ -141,9 +141,9 @@ namespace ThinkITAM.UserControls.PresetPage
                     departmentInfos.Add(info);
                 }
 
-  
 
-                
+
+
 
             }
         }
@@ -155,8 +155,9 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             if (OneListView.SelectedIndex != -1)
             {
-                ThreeListView.SelectedIndex=-1;
+                ThreeListView.SelectedIndex = -1;
                 groupsInfos.Clear();
+                unitInfos.Clear();
 
                 string name = organizationInfos[OneListView.SelectedIndex].Organization;
 
@@ -167,7 +168,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                     string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (Groups IS NOT NULL OR Groups != '')  {sqlsub}";
 
-                   
+
 
                     var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -175,7 +176,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                     foreach (var row in rows)
                     {
-                                              index++;
+                        index++;
                         GroupViewModel info = new GroupViewModel();
 
                         info.Index = index;
@@ -184,7 +185,7 @@ namespace ThinkITAM.UserControls.PresetPage
                         groupsInfos.Add(info);
                     }
 
-  
+
 
                 }
 
@@ -192,7 +193,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             }
         }
-        
+
         /// <summary>
         /// 添加一级组织
         /// </summary>
@@ -240,7 +241,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             AddOrganization2Window add = new AddOrganization2Window(index);
 
-            
+
 
             //窗口放中间
             var window = Window.GetWindow(this);
@@ -256,14 +257,14 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 // 当子窗口关闭后执行这里的代码
 
-                if (OneListView.SelectedIndex!=-1)
+                if (OneListView.SelectedIndex != -1)
                 {
                     LoadDepartment(organizationInfos[OneListView.SelectedIndex].Organization);
 
                 }
 
 
-                
+
 
             }
 
@@ -287,7 +288,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 DepartmentViewModel info = new DepartmentViewModel();
 
                 info.Index = index;
@@ -307,7 +308,7 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <summary>
         /// 加载群组
         /// </summary>
-        private void LoadGroups(string organization,string department)
+        private void LoadGroups(string organization, string department)
         {
             groupsInfos.Clear();
 
@@ -320,7 +321,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 GroupViewModel info = new GroupViewModel();
 
                 info.Index = index;
@@ -334,7 +335,32 @@ namespace ThinkITAM.UserControls.PresetPage
 
         }
 
+        private void LoadUserUnits(string organization, string department, string group)
+        {
+            unitInfos.Clear();
 
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organization}' AND Department='{department}' AND Groups='{group}' AND (UserUnit IS NOT NULL OR UserUnit != '')  {sqlsub}";
+
+
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            int index = 0;
+
+            foreach (var row in rows)
+            {
+                index++;
+                var info = new UnitViewModel();
+
+                info.Index = index;
+                info.Unit = row["UserUnit"].ToString();
+
+                unitInfos.Add(info);
+            }
+
+
+        }
         private void Add3Button_OnClick(object sender, RoutedEventArgs e)
         {
             int index = -1;
@@ -351,9 +377,9 @@ namespace ThinkITAM.UserControls.PresetPage
             }
 
 
-            AddOrganization3Window add = new AddOrganization3Window(index,index2);
+            AddOrganization3Window add = new AddOrganization3Window(index, index2);
 
-            
+
             //窗口放中间
             var window = Window.GetWindow(this);
             if (window != null)
@@ -368,9 +394,9 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 // 当子窗口关闭后执行这里的代码
                 //TowListView_OnSelectionChanged(null, null);
-                
 
-                if (TowListView.SelectedIndex!=-1)
+
+                if (TowListView.SelectedIndex != -1)
                 {
                     LoadGroups(organizationInfos[OneListView.SelectedIndex].Organization, departmentInfos[TowListView.SelectedIndex].Department);
                 }
@@ -385,20 +411,26 @@ namespace ThinkITAM.UserControls.PresetPage
         private void Delete1Button_OnClick(object sender, RoutedEventArgs e)
         {
 
+            if (OneListView.SelectedIndex == -1)
+            {
+                return;
+            }
+
+
             string organization = organizationInfos[OneListView.SelectedIndex].Organization;
 
             var result = MessageBox.Show($"确定要删除 {organization} 吗？", "注意！", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
-               
+
 
                 string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
 
                 Console.WriteLine(sql);
-             
+
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
-                
+
                 //重新加载数据
                 LoadOrganization();
             }
@@ -407,6 +439,12 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void DeleteTowButton_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (TowListView.SelectedIndex == -1)
+            {
+                return;
+            }
+
             string organization = organizationInfos[OneListView.SelectedIndex].Organization;
             string department = departmentInfos[TowListView.SelectedIndex].Department;
 
@@ -415,8 +453,8 @@ namespace ThinkITAM.UserControls.PresetPage
             if (result == MessageBoxResult.Yes)
             {
                 string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND (Groups IS NULL OR Groups = '')";
-                
-               
+
+
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 //重新加载数据
@@ -427,6 +465,11 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void DeleteThreeButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (ThreeListView.SelectedIndex == -1)
+            {
+                return;
+            }
+
             string organization = organizationInfos[OneListView.SelectedIndex].Organization;
             string department = departmentInfos[TowListView.SelectedIndex].Department;
             string groups = groupsInfos[ThreeListView.SelectedIndex].Group;
@@ -436,11 +479,122 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}'";
 
-                
+
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 //重新加载数据
                 LoadGroups(organization, department);
+            }
+        }
+
+
+        private ObservableCollection<UnitViewModel> unitInfos = new ObservableCollection<UnitViewModel>();
+
+
+
+        /// <summary>
+        /// 选择三级层级，加载四级层级
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreeListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThreeListView.SelectedIndex != -1)
+            {
+                FourListView.SelectedIndex = -1;
+
+               
+
+                var organization = organizationInfos[OneListView.SelectedIndex].Organization;
+                var department = departmentInfos[TowListView.SelectedIndex].Department;
+                var group = groupsInfos[ThreeListView.SelectedIndex].Group;
+
+
+                LoadUserUnits(organization, department, group);
+                
+
+
+            }
+        }
+
+        private void Add4Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            int index = -1;
+
+            if (OneListView.SelectedIndex != -1)
+            {
+                index = OneListView.SelectedIndex;
+            }
+
+            int index2 = -1;
+            if (TowListView.SelectedIndex != -1)
+            {
+                index2 = TowListView.SelectedIndex;
+            }
+
+            int index3 = -1;
+            if (ThreeListView.SelectedIndex != -1)
+            {
+                index3 = ThreeListView.SelectedIndex;
+            }
+
+            AddOrganization4Window add = new AddOrganization4Window(index, index2,index3);
+
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                add.Owner = window;
+            }
+
+
+
+            if (add.ShowDialog() == true)
+            {
+
+                // 当子窗口关闭后执行这里的代码
+                //TowListView_OnSelectionChanged(null, null);
+
+
+                if (ThreeListView.SelectedIndex != -1)
+                {
+                   
+                    //加载第四层级
+                    LoadUserUnits(organizationInfos[OneListView.SelectedIndex].Organization, departmentInfos[TowListView.SelectedIndex].Department, groupsInfos[ThreeListView.SelectedIndex].Group);
+                }
+
+
+
+                //加载设备信息
+                //LoadTags();
+            }
+
+        }
+
+        private void DeleteFourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (FourListView.SelectedIndex == -1)
+            {
+                return;
+            }
+
+
+            string organization = organizationInfos[OneListView.SelectedIndex].Organization;
+            string department = departmentInfos[TowListView.SelectedIndex].Department;
+            string groups = groupsInfos[ThreeListView.SelectedIndex].Group;
+            string unit = unitInfos[FourListView.SelectedIndex].Unit; 
+            var result = MessageBox.Show($"确定要删除 {unit} 吗？", "注意！", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}' AND UserUnit = '{unit}'";
+
+
+                GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                //重新加载数据
+                LoadUserUnits(organization, department, groups);
             }
         }
     }

@@ -180,7 +180,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 departmentInfo.Clear();
 
-                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Note != '0' OR Note IS NULL);";
+                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != '0' OR Del IS NULL);";
 
                 Console.WriteLine(query);
 
@@ -220,7 +220,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 groupsInfo.Clear();
 
-                string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Note != '0' OR Note IS NULL);";
+                string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Del != '0' OR Del IS NULL);";
 
                 Console.WriteLine(query);
 

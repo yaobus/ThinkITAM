@@ -53,6 +53,11 @@ public class PeopleViewModel
         get; set;
     }
 
+    public string Unit
+    {
+        get; set;
+    }
+
     //组织
     public string Phone
     {

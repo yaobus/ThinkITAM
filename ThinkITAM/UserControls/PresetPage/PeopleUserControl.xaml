@@ -273,7 +273,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Department">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Group">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -298,6 +298,33 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Group">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="GraphOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="四级组织" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Unit}" />
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
 
                         <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Phone">
                             <DataGridTemplateColumn.Header>

@@ -82,3 +82,24 @@ internal class GroupViewModel
     }
 
 }
+
+
+/// <summary>
+/// 4级组织机构
+/// </summary>
+internal class UnitViewModel
+{
+    //索引
+    public int Index
+    {
+        get; set;
+    }
+
+
+    //组织
+    public string Unit
+    {
+        get; set;
+    }
+
+}

@@ -1217,7 +1217,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Organization"://组织架构
 
-                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT, \"\"Groups\" TEXT,\" TEXT, \"Note\" TEXT ,   \"Del\" integer);";
+                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT,   \"UserUnit\" TEXT,  \"Note\" TEXT ,   \"Del\" integer);";
 
 
 
@@ -1225,7 +1225,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "UserInfo"://人员信息
 
-                                sql = $"CREATE TABLE \"UserInfo\" ( \"UserId\" TEXT,   \"Number\" integer,   \"Name\" TEXT,   \"Organization\" TEXT,   \"Department\" TEXT,   \"UserGroup\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT,   \"Del\" integer,   PRIMARY KEY (\"Number\") );";
+                                sql = $"CREATE TABLE \"UserInfo\" ( \"UserId\" TEXT,   \"Number\" integer,   \"Name\" TEXT,   \"Organization\" TEXT,   \"Department\" TEXT,   \"UserGroup\" TEXT,   \"UserUnit\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT,   \"Del\" integer,   PRIMARY KEY (\"Number\") );";
 
 
 
@@ -1440,7 +1440,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Organization"://组织架构
 
                                 sql =
-                                    $"CREATE TABLE Organization (   Organization VARCHAR(32),   Department VARCHAR(32),   Groups VARCHAR(32),   Note VARCHAR(255) , Del INT);";
+                                    $"CREATE TABLE Organization (   Organization VARCHAR(32),   Department VARCHAR(32),   Groups VARCHAR(32),  UserUnit VARCHAR(32),   Note VARCHAR(255) , Del INT);";
 
 
                                 break;
@@ -1448,7 +1448,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "UserInfo"://人员信息
 
                                 sql =
-                                    $"CREATE TABLE UserInfo (   UserId VARCHAR(32),   Number INT AUTO_INCREMENT PRIMARY KEY,   Name TEXT,   Organization TEXT,   Department TEXT,   UserGroup TEXT,   Phone TEXT,   Note TEXT,   Del INT );";
+                                    $"CREATE TABLE UserInfo (   UserId VARCHAR(32),   Number INT AUTO_INCREMENT PRIMARY KEY,   Name VARCHAR(32),    Organization VARCHAR(32),   Department VARCHAR(32),   UserGroup VARCHAR(32),  UserUnit VARCHAR(32),  Phone VARCHAR(32),   Note VARCHAR(255),   Del INT );";
 
 
                                 break;

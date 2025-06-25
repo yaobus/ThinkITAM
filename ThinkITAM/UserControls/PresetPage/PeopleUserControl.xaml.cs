@@ -119,6 +119,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
+                info.Unit = row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.Note = row["Note"].ToString();
 
@@ -193,7 +194,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 var info = PeopleListView.SelectedItem as PeopleViewModel;
 
-                AddPeopleWindow addPeople = new AddPeopleWindow(info);
+                var addPeople = new AddPeopleWindow(info);
 
 
                 //窗口放中间

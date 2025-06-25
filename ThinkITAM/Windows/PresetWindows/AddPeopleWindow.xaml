@@ -245,10 +245,33 @@
                         materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
                         IsEditable="True"
                         MaxDropDownHeight="300"
+                        SelectionChanged="Groups_OnSelectionChanged"
                         SelectedItem="{Binding Group, Mode=TwoWay}"
                         Style="{StaticResource MaterialDesignOutlinedComboBox}" />
                 </StackPanel>
 
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="四级组织:" />
+                    <ComboBox
+                        x:Name="Units"
+                        Width="250"
+                        Height="28"
+                        Padding="3"
+                        VerticalAlignment="Center"
+                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                        materialDesign:TextFieldAssist.LeadingIcon="GraphOutline"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectedItem="{Binding Unit, Mode=TwoWay}"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                </StackPanel>
 
 
             </StackPanel>

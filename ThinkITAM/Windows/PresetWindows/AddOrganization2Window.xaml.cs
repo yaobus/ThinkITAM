@@ -40,7 +40,7 @@ public partial class AddOrganization2Window : Window
 
         if (organizationIndex != -1)
         {
-            Organization.SelectedIndex=organizationIndex;
+            Organization.SelectedIndex = organizationIndex;
         }
     }
 
