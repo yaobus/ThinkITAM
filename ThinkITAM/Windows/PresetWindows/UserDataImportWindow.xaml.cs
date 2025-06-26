@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.Win32;
 using Nodify;
@@ -99,7 +100,7 @@ public partial class UserDataImportWindow : Window
         // 1. 弹出保存对话框让用户选择路径
         SaveFileDialog saveFileDialog = new SaveFileDialog();
         saveFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx";
-        saveFileDialog.FileName = "AssetTemplate.xlsx";
+        saveFileDialog.FileName = "UserInfoTemplate.xlsx";
 
         if (saveFileDialog.ShowDialog() == true)
         {
@@ -141,13 +142,12 @@ public partial class UserDataImportWindow : Window
 
         if (!string.IsNullOrWhiteSpace(ExcelFilePath.Text))
         {
-
-
             if (ExcelImporter.IsFileLocked(ExcelFilePath.Text))
             {
                 MessageBox.Show("该文件正被其他程序使用，请关闭后再尝试导入。", "文件被占用", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
 
             var importDatas = ExcelImporter.ImportFromExcel<PeopleImportViewModel>(ExcelFilePath.Text);
 
@@ -229,22 +229,117 @@ public partial class UserDataImportWindow : Window
     /// <param name="groups"></param>
     /// <param name="unit"></param>
     /// <returns></returns>
-    private bool SaveOrganizationInfo(string organization, string department = null, string groups = null,string unit = null)
+    private bool SaveOrganizationInfo(string organization, string department = null, string groups = null, string unit = null)
     {
-
-
-
-
 
 
         if (ValidateInput(organization, department, groups, unit) == true)
         {
 
-            var organizationInfo = organization.Replace(" ", "");
-            var departmentInfo = department.Replace(" ", "");
-            var groupsInfo = groups.Replace(" ", "");
-            var unitsInfo = unit.Replace(" ", "");
+            var organizationInfo = organization;
+            var departmentInfo = department;
+            var groupsInfo = groups;
+            var unitsInfo = unit;
 
+            //判断一级组织是否单独存在，不存在则创建
+            var query = $"SELECT COUNT( Organization) FROM Organization WHERE Organization='{organizationInfo}' AND (Department IS NULL OR Department ='')";
+
+            var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+            if (count == 0)//不存在
+            {
+                var info = new
+                {
+                    Organization = organizationInfo
+                };
+
+                GlobalVariables.DbService.InsertEntity("Organization", info);
+            }
+            else
+            {
+                //存在，但是已删除
+                query = $"SELECT COUNT( Organization) FROM Organization WHERE Organization='{organizationInfo}' AND (Department IS NULL OR Department ='') AND Del = 1";
+
+                count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                if (count == 1)
+                {
+                    query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND (Department IS NULL OR Department ='') ";
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                }
+            }
+
+
+            //判断二级组织是否单独存在，不存在则创建
+            if (!string.IsNullOrWhiteSpace(departmentInfo))
+            {
+                query = $"SELECT COUNT(Department) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='')";
+
+                count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                if (count == 0)//不存在
+                {
+                    var info = new
+                    {
+                        Organization = organizationInfo,
+                        Department = departmentInfo
+                    };
+
+                    GlobalVariables.DbService.InsertEntity("Organization", info);
+                }
+                else
+                {
+                    //存在，但是已删除
+                    query = $"SELECT COUNT( Department) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='') AND Del = 1";
+
+                    count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                    if (count == 1)
+                    {
+                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='') ";
+                        GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    }
+                }
+
+            }
+
+
+            //判断三级组织是否单独存在，不存在则创建
+            if (!string.IsNullOrWhiteSpace(groupsInfo))
+            {
+                query = $"SELECT COUNT(Groups) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}'  AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='')";
+
+                count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                if (count == 0)//不存在
+                {
+                    var info = new
+                    {
+                        Organization = organizationInfo,
+                        Department = departmentInfo,
+                        Groups = groupsInfo
+                    };
+
+                    GlobalVariables.DbService.InsertEntity("Organization", info);
+                }
+                else
+                {
+                    //存在，但是已删除
+                    query = $"SELECT COUNT( Groups) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') AND Del = 1";
+
+                    count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                    if (count == 1)
+                    {
+                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') ";
+                        GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                    }
+                }
+
+            }
 
 
             string sqlTemp =
@@ -252,16 +347,33 @@ public partial class UserDataImportWindow : Window
 
             var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-            if (num <= 0)
+            if (num == 0)
             {
                 var info = new
                 {
-                    Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo,
+                    Organization = organizationInfo,
+                    Department = departmentInfo,
+                    Groups = groupsInfo,
                     UserUnit = unitsInfo
                 };
 
 
                 GlobalVariables.DbService.InsertEntity("Organization", info);
+
+            }
+            else
+            {
+                //存在，但是已删除
+                query = $"SELECT COUNT(UserUnit) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND UserUnit ='{unitsInfo}' AND Del = 1";
+
+                count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                if (count == 1)
+                {
+                    query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND UserUnit ='{unitsInfo}' ";
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+
+                }
 
             }
 

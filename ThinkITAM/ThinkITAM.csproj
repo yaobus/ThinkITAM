@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -22,6 +22,7 @@
     <None Remove="Resources\Logo\Logo150x150.png" />
     <None Remove="Resources\Logo\Logo44x44.png" />
     <None Remove="Resources\Template\AssetTemplate.xlsx" />
+    <None Remove="Resources\Template\UserInfoTemplate.xlsx" />
     <None Remove="Resources\UpdateInfo\UpdateInfo.txt" />
   </ItemGroup>
 
@@ -30,6 +31,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Template\AssetTemplate.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Template\UserInfoTemplate.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ThinkItamlogo.ico" />
