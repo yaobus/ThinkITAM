@@ -15,28 +15,18 @@ public partial class Dashboard : UserControl
     {
         InitializeComponent();
 
-        this.DataContext = dashboard;
+        
         IndexTagsPanel.ItemsSource = dashboardIndexTags;
 
-        //DataContext = this;
+        DataContext = this;
     }
 
 
     private async void Dashboard_OnLoaded(object sender, RoutedEventArgs e)
     {
-
-
-        await Task.Run(async () =>
-        {
-            await LoadStatisticsInfo();
-          
-        });
-
-
+        await LoadStatisticsInfo();
 
         await LoadIndexTags();
-
-
 
     }
 
@@ -54,6 +44,8 @@ public partial class Dashboard : UserControl
         dashboard.ComputerCount = StatisticsClass.StatisticsComputerCount();
         dashboard.LinkCount = StatisticsClass.StatisticsLinkCount();
         dashboard.LinkNodeCount = StatisticsClass.StatisticsNodeCount();
+
+        this.DataContext = dashboard;
     }
 
 
