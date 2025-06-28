@@ -91,12 +91,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void ResetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            TagA.Text = "单位";    // 自定义标签1
-            TagB.Text = "部门";    // 自定义标签1
-            TagC.Text = "默认网关";    // 自定义标签1
-            TagD.Text = "DNS";    // 自定义标签1
-            TagE.Text = "NTP";    // 自定义标签1
-            TagF.Text = "KMS";    // 自定义标签1
+            TagA.Text = "TagA";    // 自定义标签1
+            TagB.Text = "TagB";    // 自定义标签1
+            TagC.Text = "TagC";// 自定义标签1
+            TagD.Text = "TagD";    // 自定义标签1
+            TagE.Text = "TagE";    // 自定义标签1
+            TagF.Text = "TagF";    // 自定义标签1
         }
 
         private void AddNetworkWindowSet_OnClosing(object? sender, CancelEventArgs e)

@@ -24,18 +24,23 @@ namespace ThinkITAM.Windows.LinkWindows;
 /// </summary>
 public partial class AddGroupWindow : Window
 {
-    public AddGroupWindow(CabinetClass cabinetInfo=null)
+    public AddGroupWindow(CabinetClass cabinetInfo = null, int roomIndex = -1)
     {
         InitializeComponent();
         if (cabinetInfo != null)
         {
             cabinet = cabinetInfo;
 
-           this.DataContext = cabinet;
+            this.DataContext = cabinet;
 
         }
-    }
 
+        if (roomIndex != -1)
+        {
+            _roomIndex = roomIndex;
+        }
+    }
+    private int _roomIndex = -1;
     private CabinetClass cabinet = null;
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
@@ -134,6 +139,13 @@ public partial class AddGroupWindow : Window
             }
 
         }
+
+        if (_roomIndex != -1 )
+        {
+            RoomCombobox.SelectedIndex = _roomIndex;
+        }
+
+
 
     }
 

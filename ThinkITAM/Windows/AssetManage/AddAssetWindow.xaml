@@ -84,9 +84,9 @@
                                 Padding="0"
                                 HorizontalAlignment="Left"
                                 MaxDropDownHeight="300"
+                                SelectedItem="{Binding AssetType, Mode=TwoWay}"
                                 SelectionChanged="AssetType_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                Text="{Binding AssetType, Mode=TwoWay}" />
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
 
                         </StackPanel>
@@ -103,9 +103,9 @@
                                 Padding="0"
                                 HorizontalAlignment="Left"
                                 MaxDropDownHeight="300"
+                                SelectedItem="{Binding DeviceType, Mode=TwoWay}"
                                 SelectionChanged="DeviceType_OnSelectionChanged"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                Text="{Binding DeviceType, Mode=TwoWay}" />
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
 
                         </StackPanel>

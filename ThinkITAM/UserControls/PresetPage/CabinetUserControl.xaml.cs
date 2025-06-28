@@ -179,7 +179,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AddGroupWindow add = new AddGroupWindow();
+            AddGroupWindow add = new AddGroupWindow(null, RoomListView.SelectedIndex);
 
             //窗口放中间
             var window = Window.GetWindow(this);
@@ -374,7 +374,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void EditCabinetButton_OnClick(object sender, RoutedEventArgs e)
         {
-                       int num = CabinetListView.SelectedIndex;
+            int num = CabinetListView.SelectedIndex;
 
             if (num != -1)
             {

@@ -29,6 +29,11 @@
     <s:String x:Key="CdFailedVerificationTitle">Verification Failed</s:String>
     <s:String x:Key="CdFailedVerificationPrompt">Verification failed, incorrect password</s:String>
 
+    <s:String x:Key="CdForgetPasswordTitle">Warning</s:String>
+    <s:String x:Key="CdForgetPasswordPrompt">This action will delete the configuration file. You will need to re-add the project afterward. Your data content will remain unaffected. Do you wish to continue?</s:String>
+
+
+
     <!--  Windows.Project.AddProjectWindow  -->
     <s:String x:Key="ApwTitle">Add Project</s:String>
     <s:String x:Key="ApwType">Select Project Storage Type</s:String>

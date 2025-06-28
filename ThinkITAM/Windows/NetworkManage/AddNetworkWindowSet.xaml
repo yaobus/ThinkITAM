@@ -59,15 +59,18 @@
 
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Hidden">
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Visibility="Hidden">
                 <RadioButton
                     x:Name="GlobalTag"
                     Height="28"
                     Margin="10,0"
                     Content="{DynamicResource NmpTagGlobal}"
-                    Style="{StaticResource MaterialDesignRadioButton}"
                     IsChecked="True"
-                    />
+                    Style="{StaticResource MaterialDesignRadioButton}" />
 
 
                 <RadioButton
@@ -75,8 +78,7 @@
                     Height="28"
                     Margin="10,0"
                     Content="{DynamicResource NmpTagNetwork}"
-                    Style="{StaticResource MaterialDesignRadioButton}"
-                    />
+                    Style="{StaticResource MaterialDesignRadioButton}" />
             </StackPanel>
 
 

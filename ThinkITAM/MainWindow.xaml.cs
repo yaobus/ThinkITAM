@@ -557,13 +557,31 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ForgetPasswordButton_OnClick(object sender, RoutedEventArgs e)
+    private async void ForgetPasswordButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var message = $"此操作将删除项目配置文件\r然后您需要重新添加项目文件\r此操作不会影响您的数据内容\r是否继续？";
+       
+        string title = (string)FindResource("CdForgetPasswordTitle");
+        string prompt =(string)FindResource("CdForgetPasswordPrompt");
+        string confirm = (string)FindResource("CdConfirm");
 
-        var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        var dialog = new ConfirmationDialog
+        {
+            Title = $"{title}",
+            Prompt = $"{prompt}",
+            ConfirmButtonText = $"{confirm}"
 
-        if (result == MessageBoxResult.Yes)
+        };
+
+        // 显示对话框
+
+
+        bool? result = await DialogHost.Show(dialog, "MainWindowMessageDialogHost") as bool?;
+
+
+
+
+
+        if (result == true)
         {
             Properties.Settings.Default.EncryptString = null;
 
@@ -575,6 +593,8 @@ public partial class MainWindow : Window
             string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
             string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
             string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
+
+
             File.Delete(configFilePath);
 
             GetEncryptString();

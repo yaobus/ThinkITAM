@@ -5,8 +5,6 @@
     xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:functionClass="clr-namespace:ThinkITAM.Functions.FunctionClass"
-    xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
-    xmlns:local3="clr-namespace:ThinkITAM.FunctionClass"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:networkManage="clr-namespace:ThinkITAM.ViewModels.NetworkManage"
@@ -131,87 +129,7 @@
                 </Grid>
             </materialDesign:Card>
 
-            <Expander
-                Grid.Row="1"
-                Margin="10,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Bottom"
-                Visibility="Collapsed">
 
-                <Expander.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock
-                            Margin="-25,0,0,-15"
-                            FontSize="14"
-                            Opacity="0.5"
-                            Text="网段备注信息" />
-                    </DataTemplate>
-                </Expander.HeaderTemplate>
-
-                <StackPanel
-                    Height="275"
-                    Margin="0,5"
-                    Orientation="Vertical"
-                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                    <TextBox
-                        x:Name="NetworkNote"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="网段备注"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkParent"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding Organization}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkChild"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding Department}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkTagA"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding TagA}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkTagB"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding TagB}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkTagC"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding TagC}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox
-                        x:Name="NetworkTagD"
-                        Margin="0,5"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{Binding TagD}"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-
-                </StackPanel>
-            </Expander>
         </Grid>
 
 
@@ -1396,91 +1314,222 @@
 
                 </StackPanel>
 
-                <StackPanel
+
+                <materialDesign:Card
                     Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-
-                    <TextBox
-                        x:Name="Network"
-                        Width="130"
-                        Margin="5,0,5,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0">
+                    <TabControl
                         Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        materialDesign:ColorZoneAssist.Foreground="DeepSkyBlue"
+                        materialDesign:ColorZoneAssist.Mode="Custom"
+                        BorderThickness="0"
+                        Style="{StaticResource MaterialDesignFilledTabControl}"
+                        TabStripPlacement="Right">
+                        <TabItem Height="24" Padding="0">
+                            <TabItem.Header>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="20"
+                                        Height="20"
+                                        Kind="IpNetworkOutline"
+                                        Opacity="0.5" />
+                                    <!--<TextBlock VerticalAlignment="Center" Text="网段信息" />-->
+                                </StackPanel>
+                            </TabItem.Header>
 
-                    <TextBox
-                        x:Name="MaskText"
-                        Width="135"
-                        Margin="5,0,5,0"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowMask}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Lastpass"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
 
+                                <TextBox
+                                    x:Name="Network"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowNetwork}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                    <TextBox
-                        x:Name="First"
-                        Width="130"
-                        Margin="5,0,5,0"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgFirstIp}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="PageFirst"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-
-
-
-                    <TextBox
-                        x:Name="Last"
-                        Width="130"
-                        Margin="5,0,5,0"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgLastIp}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="PageLast"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-
-                    <TextBox
-                        x:Name="Broadcast"
-                        Width="130"
-                        Margin="5,0,5,0"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgBroadcast}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="broadcast"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox
+                                    x:Name="MaskText"
+                                    Width="135"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgNowMask}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="Lastpass"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
-                    <TextBox
-                        x:Name="NumBox"
-                        Width="130"
-                        Margin="5,0,5,0"
-                        Padding="0"
-                        VerticalAlignment="Bottom"
-                        materialDesign:HintAssist.Hint="{DynamicResource NmpDgNetworkIpCount}"
-                        materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="Counter"
-                        IsEnabled="False"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox
+                                    x:Name="First"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgFirstIp}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="PageFirst"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
 
-                </StackPanel>
+                                <TextBox
+                                    x:Name="Last"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgLastIp}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="PageLast"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                <TextBox
+                                    x:Name="Broadcast"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgBroadcast}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="broadcast"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                                <TextBox
+                                    x:Name="NumBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="{DynamicResource NmpDgNetworkIpCount}"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="Counter"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+                            </StackPanel>
+
+                        </TabItem>
+                        <TabItem Height="24" Padding="0">
+                            <TabItem.Header>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="20"
+                                        Height="20"
+                                        Kind="TagMultipleOutline"
+                                        Opacity="0.5" />
+                                    <!--<TextBlock VerticalAlignment="Center" Text="标注信息" />-->
+                                </StackPanel>
+                            </TabItem.Header>
+
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                                <TextBox
+                                    x:Name="TagATextBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagA"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                <TextBox
+                                    x:Name="TagBTextBox"
+                                    Width="135"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagB"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                                <TextBox
+                                    x:Name="TagCTextBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagC"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+                                <TextBox
+                                    x:Name="TagDTextBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagD"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                <TextBox
+                                    x:Name="TagETextBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagE"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+                                <TextBox
+                                    x:Name="TagFTextBox"
+                                    Width="130"
+                                    Margin="5,0,5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Bottom"
+                                    materialDesign:HintAssist.Hint="TagF"
+                                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                    materialDesign:TextFieldAssist.LeadingIcon="TagHeartOutline"
+                                    IsEnabled="False"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+
+
+                            </StackPanel>
+
+
+                        </TabItem>
+                    </TabControl>
+                </materialDesign:Card>
+
+
+
             </Grid>
         </materialDesign:Card>
 

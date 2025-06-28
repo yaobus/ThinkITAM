@@ -18,6 +18,7 @@ using ThinkITAM.ViewModels.Others;
 using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.Windows.ToolWindows;
+using Windows.Media.Core;
 using static ThinkITAM.DataBridge.DataBridge;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
@@ -265,9 +266,8 @@ public partial class NetworkAddressManagePage : UserControl
                     //查询地址使用率
                     info.Percentage = GetUseValue(tableName, info.Netmask);
 
-
-
                     var myCustomControl = new NetworkInfo();
+
                     myCustomControl.TableName = tableName;
                     myCustomControl.DataContext = info;
 
@@ -517,6 +517,8 @@ public partial class NetworkAddressManagePage : UserControl
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
 
+
+
             }
 
         }
@@ -629,9 +631,8 @@ public partial class NetworkAddressManagePage : UserControl
                     string addresSegment = $"{address[0]}.{address[1]}.{address[2]}.";
                     DataBridge.DataBridge.SelectNetwork = addresSegment;
 
-                    //Console.WriteLine("NetworkAddressManage546: " + addresSegment);
 
-                    //Console.WriteLine("Select: "+treeNode.TableName);
+
 
                     await LoadSelectNetworkInfo(treeNode);
 
@@ -760,13 +761,20 @@ public partial class NetworkAddressManagePage : UserControl
 
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
+
+                   
+
                     if (selectedItem != null)
                     {
 
                         var item  = selectedItem.Header as NetworkInfo;
                         var info = item.DataContext as NetworkInfoViewMode;
-                        DataBridge.DataBridge.SelectNetworkInfo= info;
-                       
+                        DataBridge.DataBridge.SelectNetworkInfo = info;
+
+                        AnalysisTableNameToNetworkInfo(info.Network, info.Netmask);
+
+                        //加载网段备注
+                        LoadNetworkNote(info);
 
                         // 判断节点是否展开
                         if (selectedItem.IsExpanded)
@@ -863,8 +871,6 @@ public partial class NetworkAddressManagePage : UserControl
 
         AnalysisTableNameToNetworkInfo(nodeInfo.Network, nodeInfo.Netmask);
 
-
-
         //将表名存到全局变量，便于其他地方调用
         DataBridge.DataBridge.NetworkTableName = treeNode.TableName;
 
@@ -909,31 +915,24 @@ public partial class NetworkAddressManagePage : UserControl
 
         var networkInfo = SubnetCalculator.CalculateSubnets(network, mask);
 
-        //foreach (var VARIABLE in networkInfo.Item2)
-        //{
-        //    //Console.WriteLine("NetworkAddressManage797:"+VARIABLE);
-        //}
-
 
         return networkInfo;
     }
 
 
     /// <summary>
-    /// 加载网段备注信息
+    /// 加载网段自定义字段信息
     /// </summary>
     private void LoadNetworkNote(NetworkInfoViewMode networkInfo)
     {
+        
+        TagATextBox.Text = networkInfo.TagA;
+        TagBTextBox.Text = networkInfo.TagB;
+        TagCTextBox.Text = networkInfo.TagC;
+        TagDTextBox.Text = networkInfo.TagD;
+        TagETextBox.Text = networkInfo.TagE;
+        TagFTextBox.Text = networkInfo.TagF;
 
-
-        //加载备注
-        NetworkNote.Text = networkInfo.Description;
-        NetworkParent.Text = networkInfo.Parent;
-        NetworkChild.Text = networkInfo.Child;
-        NetworkTagA.Text = networkInfo.TagA;
-        NetworkTagB.Text = networkInfo.TagB;
-        NetworkTagC.Text = networkInfo.TagC;
-        NetworkTagD.Text = networkInfo.TagD;
     }
 
     /// <summary>
@@ -951,64 +950,58 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            if (settings.TagA != null)
+            if (!string.IsNullOrWhiteSpace(settings.TagA))
             {
-                HintAssist.SetHint(NetworkParent, settings.TagA);
+                HintAssist.SetHint(TagATextBox, settings.TagA);
             }
             else
             {
-                HintAssist.SetHint(NetworkParent, "自定义父级标签A");
+                HintAssist.SetHint(TagATextBox, "TagA");
             }
 
-
-            if (settings.TagB != null)
+            if (!string.IsNullOrWhiteSpace(settings.TagB))
             {
-                HintAssist.SetHint(NetworkChild, settings.TagB);
-            }
-            else
-            {
-                HintAssist.SetHint(NetworkChild, "自定义子级标签B");
-
-            }
-
-
-            if (settings.TagC != null)
-            {
-                HintAssist.SetHint(NetworkTagA, settings.TagC);
+                HintAssist.SetHint(TagBTextBox, settings.TagB);
             }
             else
             {
-                HintAssist.SetHint(NetworkTagA, "自定义标签C");
+                HintAssist.SetHint(TagBTextBox, "TagB");
             }
 
-
-            if (settings.TagD != null)
+            if (!string.IsNullOrWhiteSpace(settings.TagC))
             {
-                HintAssist.SetHint(NetworkTagB, settings.TagD);
-            }
-            else
-            {
-                HintAssist.SetHint(NetworkTagB, "自定义标签D");
-            }
-
-
-            if (settings.TagE != null)
-            {
-                HintAssist.SetHint(NetworkTagC, settings.TagE);
+                HintAssist.SetHint(TagCTextBox, settings.TagC);
             }
             else
             {
-                HintAssist.SetHint(NetworkTagC, "自定义标签E");
+                HintAssist.SetHint(TagCTextBox, "TagC");
             }
 
-
-            if (settings.TagF != null)
+            if (!string.IsNullOrWhiteSpace(settings.TagD))
             {
-                HintAssist.SetHint(NetworkTagD, settings.TagF);
+                HintAssist.SetHint(TagDTextBox, settings.TagD);
             }
             else
             {
-                HintAssist.SetHint(NetworkTagD, "自定义标签F");
+                HintAssist.SetHint(TagDTextBox, "TagD");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagE))
+            {
+                HintAssist.SetHint(TagETextBox, settings.TagE);
+            }
+            else
+            {
+                HintAssist.SetHint(TagETextBox, "TagE");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagF))
+            {
+                HintAssist.SetHint(TagFTextBox, settings.TagF);
+            }
+            else
+            {
+                HintAssist.SetHint(TagFTextBox, "TagF");
             }
 
         }
@@ -1082,7 +1075,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
-            Console.WriteLine(query);
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
             int index2 = 0;
@@ -1156,12 +1149,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 if (itemToUpdate != null)
                 {
-                    //Console.WriteLine("UPDATE:" + index);
-
-                    //IpAddressInfoLists.RemoveAt(index);
-
-                    //IpAddressInfoLists.Insert(index, info);
-
 
                     itemToUpdate.AddressStatus = info.AddressStatus;
                     itemToUpdate.AddressColor = info.AddressColor;

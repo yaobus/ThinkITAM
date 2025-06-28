@@ -35,6 +35,7 @@
             Grid.Row="1"
             MaxWidth="400"
             Margin="10"
+            HorizontalAlignment="Center"
             FontFamily="{StaticResource HarmonyOsFontFamily}"
             FontSize="14"
             Foreground="{Binding PromptColor}"
@@ -44,14 +45,15 @@
 
         <!--  按钮组  -->
         <Grid Grid.Row="2">
-            <StackPanel
-                Margin="0,0"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
+<Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*"/>
+    <ColumnDefinition Width="*"/>
+</Grid.ColumnDefinitions>
                 <!--  确认按钮  -->
                 <Button
+                    Grid.Column="0"
                     Margin="10"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Center"
                     Command="{Binding ConfirmCommand}"
                     Content="{Binding ConfirmButtonText}"
                     Foreground="{Binding ConfirmButtonColor}"
@@ -63,8 +65,9 @@
 
                 <!--  取消按钮  -->
                 <Button
+                    Grid.Column="1"
                     Margin="10"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Center"
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                     Content="{DynamicResource CdClose}"
                     IsCancel="True"
@@ -73,7 +76,7 @@
                         <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
                     </Button.CommandParameter>
                 </Button>
-            </StackPanel>
+
         </Grid>
     </Grid>
 </UserControl>

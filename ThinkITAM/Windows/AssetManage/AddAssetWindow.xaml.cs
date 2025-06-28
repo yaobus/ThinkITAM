@@ -20,13 +20,13 @@ namespace ThinkITAM.Windows.AssetManage;
 /// </summary>
 public partial class AddAssetWindow : Window
 {
-    private AssetViewModel assetInfo;
+    private AssetViewModel assetInfo = new AssetViewModel();
 
     private int editMode = 0;//当前的编辑模式，默认为新增模式
 
 
 
-    public AddAssetWindow(AssetViewModel? rowData)
+    public AddAssetWindow(AssetViewModel? rowData, string assetType = null, string deviceType = null)
     {
         InitializeComponent();
 
@@ -39,10 +39,26 @@ public partial class AddAssetWindow : Window
             assetInfo = rowData;
 
         }
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(assetType))
+            {
+                assetInfo.AssetType = assetType;
+            }
+
+            if (!string.IsNullOrWhiteSpace(deviceType))
+            {
+                assetInfo.DeviceType = deviceType;
+            }
+
+        }
+
 
 
     }
 
+    public string _assetType = string.Empty;
+    public string _deviceType = string.Empty;
 
     private void AddAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -55,6 +71,9 @@ public partial class AddAssetWindow : Window
         {
             this.DataContext = assetInfo;
         }
+
+        
+
     }
 
     private List<string> modelList = new List<string>();
@@ -138,11 +157,11 @@ public partial class AddAssetWindow : Window
             assetTypeInfos.Add(row["AssetType"].ToString());
         }
 
-
-
-
-
         AssetType.ItemsSource = assetTypeInfos;
+
+
+
+
 
     }
 
@@ -222,6 +241,9 @@ public partial class AddAssetWindow : Window
 
             //加载型号列表
             LoadModelList(assetTypeInfos[AssetType.SelectedIndex].ToString(), deviceTypeInfos[DeviceType.SelectedIndex].ToString());
+
+
+
         }
     }
 

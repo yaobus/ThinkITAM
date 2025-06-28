@@ -51,25 +51,24 @@ namespace ThinkITAM.Windows.NetworkManage
                     info.Description = row["Description"].ToString();
                     info.Network = row["Network"].ToString();
                     info.Netmask = row["Netmask"].ToString();
-                    info.Parent = row["Parent"].ToString();
-                    info.Child = row["Child"].ToString();
                     info.TagA = row["TagA"].ToString();
                     info.TagB = row["TagB"].ToString();
                     info.TagC = row["TagC"].ToString();
                     info.TagD = row["TagD"].ToString();
                     info.TagE = row["TagE"].ToString();
                     info.TagF = row["TagF"].ToString();
+
                     //info.Percentage = CalculateUseValue(tableName);
 
-                    if (info.Parent != null)
-                    {
-                        TbParent.SelectedIndex = parentList.IndexOf(info.Parent);
-                    }
+                    //if (info.TagA != null)
+                    //{
+                    //    TagA.SelectedItem = info.TagA;
+                    //}
 
-                    if (info.Child != null)
-                    {
-                        Child.SelectedIndex = childList.IndexOf(info.Child);
-                    }
+                    //if (info.TagB != null)
+                    //{
+                    //    TagB.SelectedItem = info.TagB;
+                    //}
 
                 }
 
@@ -92,15 +91,14 @@ namespace ThinkITAM.Windows.NetworkManage
             var id = DataBridge.DataBridge.SelectNetworkInfo.NetworkId;
             var name = TbName.Text;
             var description = Description.Text;
-            var parent = TbParent.Text;
-            var child = Child.Text;
             var tagA = TagA.Text;
             var tagB = TagB.Text;
             var tagC = TagC.Text;
             var tagD = TagD.Text;
+            var tagE = TagE.Text;
+            var tagF = TagF.Text;
 
-
-            var sql = $"UPDATE  Network  SET  Name  = '{name}', Description='{description}',Parent='{parent}',Child='{child}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}' WHERE NetworkId = '{id}'";
+            var sql = $"UPDATE  Network  SET  Name  = '{name}', Description='{description}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}',TagE='{tagE}',TagF='{tagF}' WHERE NetworkId = '{id}'";
 
 
             GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -145,18 +143,18 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             parentList.Clear();
 
-            string query = "SELECT DISTINCT Parent FROM Network;";
+            string query = "SELECT DISTINCT TagA FROM Network WHERE TagA IS NOT NULL AND TagA != '';";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
             {
-                parentList.Add(row["Parent"].ToString());
+                parentList.Add(row["TagA"].ToString());
             }
 
 
-            TbParent.ItemsSource = parentList;
+            TagA.ItemsSource = parentList;
 
 
         }
@@ -166,20 +164,20 @@ namespace ThinkITAM.Windows.NetworkManage
         private void TbParent_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             childList.Clear();
-            Child.ItemsSource = null;
-            if (TbParent.SelectedIndex != -1)
+            TagB.ItemsSource = null;
+            if (TagA.SelectedIndex != -1)
             {
-                string sql = $"SELECT DISTINCT Child FROM Network WHERE Parent='{parentList[TbParent.SelectedIndex]}'";
+                string sql = $"SELECT DISTINCT TagB FROM Network WHERE TagA='{parentList[TagA.SelectedIndex]}' AND TagB IS NOT NULL AND TagB !='' ";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
                 foreach (var row in rows)
                 {
-                    childList.Add(row["Child"].ToString());
+                    childList.Add(row["TagB"].ToString());
                 }
 
 
-                Child.ItemsSource = childList;
+                TagB.ItemsSource = childList;
 
             }
         }

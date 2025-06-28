@@ -888,7 +888,9 @@ namespace ThinkITAM.FunctionPage
         /// <param name="e"></param>
         private void AddAssetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AddAssetWindow addAsset = new AddAssetWindow(null);
+            AddAssetWindow addAsset = new AddAssetWindow(null,assetType,deviceType);
+
+            
 
 
             //窗口放中间

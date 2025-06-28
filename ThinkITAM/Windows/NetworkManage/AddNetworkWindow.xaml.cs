@@ -47,18 +47,18 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             parentList.Clear();
 
-            string query = "SELECT DISTINCT Parent FROM Network;";
+            string query = "SELECT DISTINCT TagA FROM Network WHERE TagA IS NOT NULL AND TagA != '';";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
             {
-                 parentList.Add(row["Parent"].ToString());
+                 parentList.Add(row["TagA"].ToString());
             }
 
 
-            TbParent.ItemsSource = parentList;
+            TagA.ItemsSource = parentList;
 
 
         }
@@ -73,20 +73,20 @@ namespace ThinkITAM.Windows.NetworkManage
         private void Parent_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             childList.Clear();
-            Child.ItemsSource = null;
-            if (TbParent.SelectedIndex != -1)
+            TagB.ItemsSource = null;
+            if (TagA.SelectedIndex != -1)
             {
-                string sql = $"SELECT DISTINCT Child FROM Network WHERE Parent='{parentList[TbParent.SelectedIndex]}'";
+                string sql = $"SELECT DISTINCT TagB FROM Network WHERE TagA='{parentList[TagA.SelectedIndex]}' AND TagB IS NOT NULL AND TagB !='' ";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
                 foreach (var row in rows)
                 {
-                    childList.Add(row["Child"].ToString());
+                    childList.Add(row["TagB"].ToString());
                 }
 
 
-                Child.ItemsSource = childList;
+                TagB.ItemsSource = childList;
 
             }
 
@@ -202,14 +202,15 @@ namespace ThinkITAM.Windows.NetworkManage
                 //网段信息
                 string name = TbName.Text;
                 string description = Description.Text;
-                string parent = TbParent.Text;
-                string child = Child.Text;
+
                 string network = Network.Text;
                 string netmask = Netmask.Text;
                 string tagA = TagA.Text;
                 string tagB = TagB.Text;
                 string tagC = TagC.Text;
                 string tagD = TagD.Text;
+                string tagE = TagE.Text;
+                string tagF = TagF.Text;
 
 
 
@@ -260,13 +261,12 @@ namespace ThinkITAM.Windows.NetworkManage
                                     Description = description,
                                     Network = network,
                                     Netmask = netmask,
-                                    Parent = parent,
-                                    Child = child,
                                     TagA = tagA,
                                     TagB = tagB,
                                     TagC = tagC,
-                                    TagD = tagD
-                                    
+                                    TagD = tagD,
+                                    TagE = tagE,
+                                    TagF = tagF,
 
                                 };
 
@@ -282,7 +282,6 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                                 this.DialogResult = true;
-                                this.Close();
 
 
 
@@ -310,27 +309,18 @@ namespace ThinkITAM.Windows.NetworkManage
                                 Description = description,
                                 Network = network,
                                 Netmask = netmask,
-                                Parent = parent,
-                                Child = child,
                                 TagA = tagA,
                                 TagB = tagB,
                                 TagC = tagC,
-                                TagD = tagD
-
+                                TagD = tagD,
+                                TagE = tagE,
+                                TagF = tagF,
 
                             };
 
 
-                            //Console.WriteLine(networkId);
-
-                            //插入网段信息总表的数据
-                            //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{NetworkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
                             GlobalVariables.DbService.InsertEntity("Network", networkInfo);
-
-
-                            SaveHierarchyInfo(parent, child);
-
 
 
                             //插入网段信息总表的数据
@@ -338,10 +328,8 @@ namespace ThinkITAM.Windows.NetworkManage
                             //创建分表
                             DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,networkId);
 
-
-
                             this.DialogResult = true;
-                            this.Close();
+
 
 
 
@@ -379,21 +367,15 @@ namespace ThinkITAM.Windows.NetworkManage
                                     Description = description,
                                     Network = network,
                                     Netmask = netmask,
-                                    Parent = parent,
-                                    Child = child,
                                     TagA = tagA,
                                     TagB = tagB,
                                     TagC = tagC,
-                                    TagD = tagD
+                                    TagD = tagD,
+                                    TagE = tagE,
+                                    TagF = tagF
 
 
                                 };
-
-                                //插入网段信息总表的数据
-                                // string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{networkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent}', '{child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
-
-                                //保存组织架构信息
-                                SaveHierarchyInfo(parent, child);
 
                                 //写入ip总表信息
                                 
@@ -438,12 +420,12 @@ namespace ThinkITAM.Windows.NetworkManage
                                 Description = description,
                                 Network = network,
                                 Netmask = netmask,
-                                Parent = parent,
-                                Child = child,
                                 TagA = tagA,
                                 TagB = tagB,
                                 TagC = tagC,
-                                TagD = tagD
+                                TagD = tagD,
+                                TagE = tagE,
+                                TagF = tagF
 
 
                             };
@@ -453,7 +435,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
                           
                             GlobalVariables.DbService.InsertEntity("Network", networkInfo);
-                            SaveHierarchyInfo(parent, child);
+                           
 
 
 
@@ -468,7 +450,6 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                             this.DialogResult = true;
-                            this.Close();
 
 
 

@@ -326,7 +326,7 @@
                         Width="230"
                         VerticalAlignment="Center"
                         IsEnabled="{Binding ElementName=AutoNumber, Path=IsChecked}"
-                        Maximum="100"
+                        Maximum="300"
                         Minimum="1"
                         Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteHorizontalSlider}"
                         TickFrequency="1"

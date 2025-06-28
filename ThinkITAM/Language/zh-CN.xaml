@@ -32,6 +32,9 @@
     <s:String x:Key="CdFailedVerificationTitle">验证失败</s:String>
     <s:String x:Key="CdFailedVerificationPrompt">验证失败，密码错误</s:String>
 
+    <s:String x:Key="CdForgetPasswordTitle">警告</s:String>
+    <s:String x:Key="CdForgetPasswordPrompt">此操作将删除配置文件,然后您需要重新添加项目,此操作不影响您的数据内容,是否继续？</s:String>
+
 
 
     <!--  Windows.Project.AddProjectWindow  -->

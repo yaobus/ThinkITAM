@@ -134,12 +134,13 @@
                     Content="自定义字段A:"
                     ToolTip="自定义字段A" />
                 <ComboBox
-                    x:Name="TbParent"
+                    x:Name="TagA"
                     Width="250"
                     Height="28"
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
+                    SelectedItem="{Binding TagA}"
                     SelectionChanged="TbParent_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
@@ -155,13 +156,13 @@
                     Content="自定义字段B:"
                     ToolTip="自定义字段B" />
                 <ComboBox
-                    x:Name="Child"
+                    x:Name="TagB"
                     Width="250"
                     Height="28"
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    SelectedItem="{Binding TagB}" />
             </StackPanel>
 
         </StackPanel>
@@ -183,52 +184,6 @@
                     Content="自定义字段C:"
                     ToolTip="自定义字段C" />
                 <TextBox
-                    x:Name="TagA"
-                    Width="250"
-                    Height="28"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                    BorderThickness="0.5"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagA}" />
-            </StackPanel>
-
-            <StackPanel
-                Margin="{StaticResource DefaultMargin}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Orientation="Vertical">
-                <Label
-                    x:Name="LabelD"
-                    VerticalAlignment="Center"
-                    Content="自定义字段D:"
-                    ToolTip="自定义字段D" />
-                <TextBox
-                    x:Name="TagB"
-                    Width="250"
-                    Height="28"
-                    Padding="3"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                    BorderThickness="0.5"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding TagB}" />
-            </StackPanel>
-
-            <StackPanel
-                Margin="{StaticResource DefaultMargin}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Orientation="Vertical">
-                <Label
-                    x:Name="LabelE"
-                    VerticalAlignment="Center"
-                    Content="自定义字段E:"
-                    ToolTip="自定义字段E" />
-                <TextBox
                     x:Name="TagC"
                     Width="250"
                     Height="28"
@@ -247,10 +202,10 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
-                    x:Name="LabelF"
+                    x:Name="LabelD"
                     VerticalAlignment="Center"
-                    Content="自定义字段F:"
-                    ToolTip="自定义字段F" />
+                    Content="自定义字段D:"
+                    ToolTip="自定义字段D" />
                 <TextBox
                     x:Name="TagD"
                     Width="250"
@@ -262,6 +217,52 @@
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding TagD}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelE"
+                    VerticalAlignment="Center"
+                    Content="自定义字段E:"
+                    ToolTip="自定义字段E" />
+                <TextBox
+                    x:Name="TagE"
+                    Width="250"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagE}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelF"
+                    VerticalAlignment="Center"
+                    Content="自定义字段F:"
+                    ToolTip="自定义字段F" />
+                <TextBox
+                    x:Name="TagF"
+                    Width="250"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagF}" />
             </StackPanel>
 
 

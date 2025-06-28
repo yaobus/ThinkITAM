@@ -126,7 +126,7 @@
                         Content="自定义字段A:"
                         ToolTip="自定义字段A" />
                     <ComboBox
-                        x:Name="TbParent"
+                        x:Name="TagA"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"
@@ -148,7 +148,7 @@
                         Content="自定义字段B:"
                         ToolTip="自定义字段B" />
                     <ComboBox
-                        x:Name="Child"
+                        x:Name="TagB"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"
@@ -169,7 +169,7 @@
                         Content="自定义字段C:"
                         ToolTip="自定义字段C" />
                     <TextBox
-                        x:Name="TagA"
+                        x:Name="TagC"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"
@@ -192,7 +192,7 @@
                         Content="自定义字段D:"
                         ToolTip="自定义字段D" />
                     <TextBox
-                        x:Name="TagB"
+                        x:Name="TagD"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"
@@ -215,7 +215,7 @@
                         Content="自定义字段E:"
                         ToolTip="自定义字段E" />
                     <TextBox
-                        x:Name="TagC"
+                        x:Name="TagE"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"
@@ -238,7 +238,7 @@
                         Content="自定义字段F:"
                         ToolTip="自定义字段F" />
                     <TextBox
-                        x:Name="TagD"
+                        x:Name="TagF"
                         Width="230"
                         Height="28"
                         Margin="0,0,10,0"

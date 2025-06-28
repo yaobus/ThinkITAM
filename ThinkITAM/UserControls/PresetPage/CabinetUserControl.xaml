@@ -94,12 +94,11 @@
                             materialDesign:ElevationAssist.Elevation="Dp1"
                             Background="#52c7b8"
                             BorderBrush="Transparent"
+                            Click="EditRoomButton_OnClick"
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑机房或配线间" 
-                            Click="EditRoomButton_OnClick"
-                            />
+                            ToolTip="编辑机房或配线间" />
 
                         <Button
                             x:Name="DeleteRoomButton"
@@ -370,12 +369,11 @@
                             materialDesign:ElevationAssist.Elevation="Dp1"
                             Background="#52c7b8"
                             BorderBrush="Transparent"
+                            Click="EditCabinetButton_OnClick"
                             Content="{materialDesign:PackIcon PencilBoxOutline}"
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="编辑机柜信息" 
-                            Click="EditCabinetButton_OnClick"
-                            />
+                            ToolTip="编辑机柜信息" />
 
                         <Button
                             x:Name="DeleteCabinetButton"
