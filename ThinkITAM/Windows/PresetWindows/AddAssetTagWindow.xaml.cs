@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -31,8 +19,8 @@ namespace ThinkITAM.Windows.PresetWindows
             {
                 inputInfo = info;
                 this.DataContext = inputInfo;
-                AssetType.IsEnabled=false;
-                DeviceType.IsEnabled=false;
+                AssetType.IsEnabled = false;
+                DeviceType.IsEnabled = false;
                 AssetTag.IsEnabled = false;
 
             }
@@ -130,7 +118,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
 
 
-                if (inputInfo!=null)
+                if (inputInfo != null)
                 {
 
                     var assettagInfo = new
@@ -182,7 +170,7 @@ namespace ThinkITAM.Windows.PresetWindows
                             GlobalVariables.DbService.InsertEntity("AssetTag", assettagInfo);
 
                             this.DialogResult = true;
-         
+
 
                         }
                         else

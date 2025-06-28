@@ -1,12 +1,12 @@
-﻿using ThinkITAM.DatabaseOperation;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.UserControls.General;
+using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -25,7 +25,7 @@ namespace ThinkITAM.FunctionPage
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
             GroupsListView.ItemsSource = groups;
             IndexPanel.ItemsSource = tags;
 
@@ -129,7 +129,7 @@ namespace ThinkITAM.FunctionPage
             groups.Clear();
             tags.Clear();
             string query;
-            if (searchKeyWord.Replace(" ","").Length == 0)
+            if (searchKeyWord.Replace(" ", "").Length == 0)
             {
                 query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE Del != 1 OR Del IS NULL;";
             }
@@ -191,7 +191,7 @@ namespace ThinkITAM.FunctionPage
 
                 lastQuery = sql;
 
-                var rows =  GlobalVariables.DbService.ExecuteQuery(sql);
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
                 foreach (var row in rows)
                 {
@@ -267,7 +267,7 @@ namespace ThinkITAM.FunctionPage
 
         private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
         {
-            SearchKeyWord.Text="";
+            SearchKeyWord.Text = "";
             LoadIndexGroups();
         }
 
@@ -279,7 +279,7 @@ namespace ThinkITAM.FunctionPage
             }
 
 
-            
+
         }
 
         private void AddButton_OnClick(object sender, RoutedEventArgs e)
@@ -293,12 +293,12 @@ namespace ThinkITAM.FunctionPage
                 addressCollectWindow.Owner = window;
             }
 
-            
+
 
             if (addressCollectWindow.ShowDialog() == true)
             {
 
-               ReloadIndex(lastQuery);
+                ReloadIndex(lastQuery);
 
             }
 

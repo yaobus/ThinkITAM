@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace ThinkITAM.Functions.Converters
 {
     public class ColorConverterClass
     {
 
-            //public static Brush ConvertColorCodeToBrush(string colorCode)
-            //{
-            //    var brushConverter = new BrushConverter();
-            //    return (Brush)brushConverter.ConvertFromString(colorCode);
-            //}
-        
+        //public static Brush ConvertColorCodeToBrush(string colorCode)
+        //{
+        //    var brushConverter = new BrushConverter();
+        //    return (Brush)brushConverter.ConvertFromString(colorCode);
+        //}
+
 
         /// <summary>
         /// 颜色代码转成颜色

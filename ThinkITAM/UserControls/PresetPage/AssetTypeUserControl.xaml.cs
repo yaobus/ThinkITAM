@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.PresetWindows;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {

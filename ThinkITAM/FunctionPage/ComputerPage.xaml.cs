@@ -5,7 +5,6 @@ using System.Windows.Input;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.Computer;
-using ThinkITAM.UserControls.PortPanel;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.Windows.Computer;
@@ -117,11 +116,11 @@ namespace ThinkITAM.FunctionPage
 
         }
 
-        private void LoadTreeList(string keyWord=null)
+        private void LoadTreeList(string keyWord = null)
         {
             BuildingTreeView.Items.Clear();
 
-            string filter =string.Empty;
+            string filter = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(keyWord))
             {
@@ -145,7 +144,7 @@ namespace ThinkITAM.FunctionPage
 
                 string buildingId = row["BuildingId"].ToString();
 
-               
+
 
                 info.BuildingId = buildingId;
 
@@ -365,7 +364,7 @@ namespace ThinkITAM.FunctionPage
                     portClass.Room = row["Room"].ToString();
                     portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
                     portClass.UserName = row["Name"].ToString();
-                    portClass.LinkIp= row["LinkIp"].ToString();
+                    portClass.LinkIp = row["LinkIp"].ToString();
 
                     if (row["PortColor"] == string.Empty)
                     {
@@ -418,17 +417,17 @@ namespace ThinkITAM.FunctionPage
 
         private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key==Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 SearchButton_OnClick(null, null);
             }
 
-            
+
         }
 
         private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
         {
-            SearchKeyWord.Text= null;
+            SearchKeyWord.Text = null;
             LoadTreeList();
         }
     }

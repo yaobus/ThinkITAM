@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.Others;
-using Nodify;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -49,7 +35,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
             if (info.Item1 == 0)
             {
-                string mac =Functions.FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(MacTextBox.Text);
+                string mac = Functions.FunctionClass.MacAddressValidator.ValidateAndFormatMacAddress(MacTextBox.Text);
 
                 string sqlTemp = $"SELECT COUNT(*) FROM WakeOnLan WHERE Mac='{mac}'";
 
@@ -221,7 +207,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
 
             }
-          
+
 
             return (index, message);
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using ThinkITAM.DatabaseOperation;
@@ -7,8 +6,6 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.Windows.LinkWindows;
-using ThinkITAM.Windows.NetworkManage;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -41,9 +38,9 @@ namespace ThinkITAM.Windows.DevicePortManage
                 this.portInfo = portInfos[0];
                 this.DataContext = portInfo;
                 SelectedPort.Text = portInfo.FullPortId;
-               
+
                 portInfo.PropertyChanged += PortInfo_PropertyChanged;
-               
+
             }
             else
             {
@@ -203,7 +200,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 {
                     // 查找LinkDetail表，取出最后一个节点的assetId
                     var sql = $"SELECT * FROM LinkDetail WHERE LinkId = {onTheLine} ORDER BY SequenceNo DESC LIMIT 1;";
-                    
+
                     var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
                     string devicesAssetId = null;
@@ -216,7 +213,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                         portUID = Convert.ToInt32(row["PortUID"].ToString());
 
                     }
-                    
+
                     if (devicesAssetId != null && portUID != -1)
                     {
                         //  判断节点是否是自己
@@ -265,7 +262,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// </summary>
         private void LoadLabelTag()
         {
-            if (portInfo.PortType=="D")
+            if (portInfo.PortType == "D")
             {
                 IdLabel.Content = "Raid:";
             }
@@ -291,24 +288,24 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// <param name="e"></param>
         private void PortColor_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
             int index = PortColor.SelectedIndex;
-            
+
             int x = 0;
 
-           
+
 
             if (index != -1)
             {
                 foreach (var selectedItem in PortColor.Items)
                 {
-                  var  item = selectedItem as ListBoxItem;
+                    var item = selectedItem as ListBoxItem;
 
-                    if (item != null && index==x)
+                    if (item != null && index == x)
                     {
-                       item.Opacity = 1;
-                       item.BorderBrush = SystemColors.ActiveBorderBrush;
-                       item.BorderThickness = new Thickness(2);
+                        item.Opacity = 1;
+                        item.BorderBrush = SystemColors.ActiveBorderBrush;
+                        item.BorderThickness = new Thickness(2);
                     }
                     else
                     {
@@ -331,7 +328,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         /// </summary>
         private void LoadPortMode()
         {
-            if (portInfo!=null)
+            if (portInfo != null)
             {
                 if (portInfo.PortType == "D")
                 {
@@ -367,16 +364,16 @@ namespace ThinkITAM.Windows.DevicePortManage
             portStatusList.Clear();
 
 
-                portStatusList.Add("未分配");
-                portStatusList.Add("已分配，未启用");
-                portStatusList.Add("已分配，已启用");
-                portStatusList.Add("故障");
-           
+            portStatusList.Add("未分配");
+            portStatusList.Add("已分配，未启用");
+            portStatusList.Add("已分配，已启用");
+            portStatusList.Add("故障");
+
 
 
 
         }
-        
+
         /// <summary>
         /// 保存修改
         /// </summary>
@@ -395,7 +392,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     info.PortSlotNumber = portDetailedInfo.PortSlotNumber;
                     info.PortId = portDetailedInfo.PortId;
                     info.PortType = portDetailedInfo.PortType;
-                    info.UID=  portDetailedInfo.UID;
+                    info.UID = portDetailedInfo.UID;
 
                     //保存修改
                     await SavePortInfo(info);
@@ -410,7 +407,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             else
             {
                 Console.WriteLine("没发生修改");
-              
+
             }
 
 
@@ -454,7 +451,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
 
             // 触发事件，传递布尔值参数
-           //PortAllocationWindowClosed?.Invoke(this, new BoolEventArgs(AllocationStatus));
+            //PortAllocationWindowClosed?.Invoke(this, new BoolEventArgs(AllocationStatus));
         }
 
 
@@ -515,9 +512,9 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                 nodes = DbClass.GetLinkDetail(linkId);
 
-                if (nodes.Count>0)
+                if (nodes.Count > 0)
                 {
-                    var newWindow = new ViewLinkWindow(nodes,linkId);
+                    var newWindow = new ViewLinkWindow(nodes, linkId);
 
                     var window = Window.GetWindow(this);
                     if (window != null)
@@ -529,7 +526,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 }
 
             }
-            
+
 
 
 

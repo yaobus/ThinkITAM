@@ -1,6 +1,4 @@
-﻿using System;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.DataBaseConfig;
+﻿using ThinkITAM.ViewModels.DataBaseConfig;
 
 namespace ThinkITAM.DatabaseOperation
 {
@@ -16,7 +14,7 @@ namespace ThinkITAM.DatabaseOperation
             switch (config.Type?.ToLower())
             {
                 case "sqlite":
-                   DataBridge.DataBridge.NowOpenedDataBaseType="sqlite";
+                    DataBridge.DataBridge.NowOpenedDataBaseType = "sqlite";
                     return new SqliteDatabaseService(BuildSqliteConnectionString(config));
 
                 case "mysql":

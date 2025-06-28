@@ -1,30 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.LinkWindows;
-using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.Functions.FunctionClass;
-using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
-using Nmap.NET.Container;
-using Nodify;
-using ThinkITAM.DataBridge;
+using ThinkITAM.Windows.PortPanel;
 
 namespace ThinkITAM.UserControls.PortPanel
 {
@@ -78,35 +58,35 @@ namespace ThinkITAM.UserControls.PortPanel
         {
             DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
-                PortClass port = (PortClass)this.DataContext;
+            PortClass port = (PortClass)this.DataContext;
 
-                if (port.OnTheLine != null && port.OnTheLine > 0)
+            if (port.OnTheLine != null && port.OnTheLine > 0)
+            {
+
+
+                foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
                 {
-                   
-
-                    foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
+                    if (port.RackId == node.PortClass.RackId)
                     {
-                        if (port.RackId == node.PortClass.RackId)
-                        {
-                            port.NodeIndex = node.PortClass.NodeIndex;
-                           
-                            port.IsSelected = true;
-                        }
+                        port.NodeIndex = node.PortClass.NodeIndex;
 
-
-                        DataBridge.DataBridge.PortPanelLinkViewList.Add(node);
+                        port.IsSelected = true;
                     }
 
 
-
-                }
-                else
-                {
-                    DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+                    DataBridge.DataBridge.PortPanelLinkViewList.Add(node);
                 }
 
 
-            
+
+            }
+            else
+            {
+                DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+            }
+
+
+
 
 
 
@@ -209,10 +189,10 @@ namespace ThinkITAM.UserControls.PortPanel
                                 //从终端列表中删除该终端
 
                                 var sql = $"DELETE FROM  Bu_{portClass.AssetId}  WHERE UID = {portClass.UID}";
-                                
+
                                 GlobalVariables.DbService.ExecuteNonQuery(sql);
 
-                                
+
 
                                 //更新选择的房间内端口信息
                                 DataBridge.DataBridge.modifyPorts.Add("1");

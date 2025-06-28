@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 
@@ -33,7 +21,7 @@ namespace ThinkITAM.Windows.PresetWindows
             string protocol = ProtocolName.Text;
             string note = this.Note.Text;
 
-            if (protocol.Replace(" ", "").Length >= 2 )
+            if (protocol.Replace(" ", "").Length >= 2)
             {
                 string sqlTemp = $"SELECT COUNT(*) FROM Protocol WHERE Protocol ='{protocol}'";
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -42,7 +30,7 @@ namespace ThinkITAM.Windows.PresetWindows
                 {
                     var info = new { Protocol = protocol, Note = note };
 
-                   // sqlTemp = $"INSERT INTO \"Protocol\" (\"Protocol\", \"Note\") VALUES ('{protocol}', '{note}')";
+                    // sqlTemp = $"INSERT INTO \"Protocol\" (\"Protocol\", \"Note\") VALUES ('{protocol}', '{note}')";
 
                     GlobalVariables.DbService.InsertEntity("Protocol", info);
 
@@ -61,7 +49,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
         private void AddProtocolWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-           
+
         }
     }
 }

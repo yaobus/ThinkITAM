@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Media;
 
 
@@ -48,7 +43,10 @@ namespace ThinkITAM.ViewModels.NetworkManage
         /// <summary>
         /// 地址索引
         /// </summary>
-        public int Index { get; set; }
+        public int Index
+        {
+            get; set;
+        }
         public bool IsSelected
         {
             get
@@ -110,7 +108,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
         /// <summary>
         /// 端口颜色标签
         /// </summary>
-        public int AddressColor 
+        public int AddressColor
         {
             get => addressColor;
             set
@@ -120,7 +118,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
                     addressColor = value;
                     OnPropertyChanged(nameof(AddressColor));
                 }
-                
+
             }
         }
 

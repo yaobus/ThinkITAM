@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
+﻿using System.Windows;
 using Microsoft.Win32;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -41,12 +29,12 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 if (num <= 0)
                 {
-                    var browserInfo = new {Browser= name, Path = path, Note = Note.Text };
+                    var browserInfo = new { Browser = name, Path = path, Note = Note.Text };
 
 
                     //sqlTemp = $"INSERT INTO \"Browser\" (\"Browser\", \"Path\", \"Note\") VALUES ('{name}', '{path}', '{Note.Text}')";
 
-                   
+
                     GlobalVariables.DbService.InsertEntity("Browser", browserInfo);
 
                     this.DialogResult = true;

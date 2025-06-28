@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.NetworkInformation;
+﻿using System.Collections.ObjectModel;
 using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using ThinkITAM.ViewModels.Others;
 using System.Windows.Threading;
-using System.Net.Mail;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.FunctionClass;
 
@@ -23,7 +14,7 @@ public class HostScannerHelper
     private int _completedChecks;
     private Action<int, int> _progressUpdateCallback;
     private Dispatcher _dispatcher;
-    private VendorInfoFetcher _vendorInfoFetcher= new VendorInfoFetcher();
+    private VendorInfoFetcher _vendorInfoFetcher = new VendorInfoFetcher();
 
     public HostScannerHelper(ObservableCollection<HostCheckResult> hostResults, Action<int, int> progressUpdateCallback, Dispatcher dispatcher)
     {
@@ -34,7 +25,7 @@ public class HostScannerHelper
 
     public async Task CheckPortsAsync(List<string> hosts, List<int> ports, bool scanMacAndHostName, bool scanPorts, int timeoutMilliseconds = 1000)
     {
-        
+
         int index = 0;
         _totalChecks = (scanMacAndHostName ? hosts.Count : 0) + (scanPorts ? hosts.Count * ports.Count : 0);
         _completedChecks = 0;
@@ -60,7 +51,7 @@ public class HostScannerHelper
                     if (completedHostNameTask == hostNameTask)
                     {
                         result.HostName = await hostNameTask;
-                       // Console.WriteLine(result.HostName);
+                        // Console.WriteLine(result.HostName);
                     }
                     else
                     {
@@ -75,7 +66,7 @@ public class HostScannerHelper
 
                         result.Vendor = vendorInfo;
 
-                        
+
                     }
                     else
                     {

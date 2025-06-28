@@ -1,12 +1,7 @@
 ﻿
-using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 
 
 namespace ThinkITAM.ViewModels.DevicePortManage;
@@ -322,7 +317,7 @@ public class PortTypeClass
         public string? DeviceLinkId
         {
             get => deviceLinkId;
-            set 
+            set
             {
                 if (deviceLinkId != value)
                 {

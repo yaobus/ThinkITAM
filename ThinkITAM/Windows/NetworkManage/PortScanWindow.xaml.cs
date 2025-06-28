@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.UserControls.General;
-using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.ViewModels.Others;
 using MaterialDesignThemes.Wpf;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.Converters;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.UserControls.General;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -49,7 +36,7 @@ namespace ThinkITAM.Windows.NetworkManage
             if (ipList == null)
             {
                 PortScannerHelper.ShowMessageDialog("地址输入有误", $"无效的IP地址或格式");
-                return; 
+                return;
             }
 
             // 端口列表
@@ -129,7 +116,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     Title = "扫描限制",
                     Prompt = $"单次扫描限制最多{DataBridge.GlobalLimit.ScanHostNumber}个主机",
                     ConfirmButtonText = "确认",
-                  
+
                 };
 
                 // 显示对话框
@@ -264,7 +251,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Title = "主机输入帮助",
                 Prompt = $"在对话框输入要检测的IP地址，多个主机地址请用逗号或空格隔开，支持IP段输入(如:192.168.0.1-192.168.0.9)，支持CIDR格式输入(如:192.168.0.0/28)，支持单个主机、网段、和CIDR混合输入。",
                 ConfirmButtonText = "确认",
-                
+
 
             };
 
@@ -288,7 +275,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 Title = "端口输入帮助",
                 Prompt = $"在对话框输入要检测的端口，多个端口请用逗号或空格隔开，支持端口范围输入(如:100-200)，支持单个端口、端口范围混合输入。",
                 ConfirmButtonText = "确认",
-               
+
 
             };
 
@@ -352,7 +339,7 @@ namespace ThinkITAM.Windows.NetworkManage
         }
 
 
-        private  void SavePresetButton_OnClick(object sender, RoutedEventArgs e)
+        private void SavePresetButton_OnClick(object sender, RoutedEventArgs e)
         {
             SavePresetDialogHost.IsOpen = true;
 
@@ -409,7 +396,7 @@ namespace ThinkITAM.Windows.NetworkManage
                         var info = new { Name = name, Ports = PortTextBox.Text };
 
                         //string sql = $"INSERT INTO ScanPorts (Name,Ports) VALUES ('{name}','{PortTextBox.Text}')";
-                        
+
                         GlobalVariables.DbService.InsertEntity("ScanPorts", info);
                         CancelButton_OnClick(null, null);
                     }

@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.UserControls.IndexPage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.NetworkManage
@@ -60,8 +46,8 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (department != null)
                 {
                     filter += $" AND Department='{department}' ";
-                   
-                    if (group!=null)
+
+                    if (group != null)
                     {
                         filter += $" AND UserGroup ='{group}' ";
 
@@ -92,9 +78,9 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string query;
 
-            if (filter!= "WHERE ")
+            if (filter != "WHERE ")
             {
-                query= $"SELECT * FROM UserInfo {filter} AND (Del != 1 OR Del IS NULL);";
+                query = $"SELECT * FROM UserInfo {filter} AND (Del != 1 OR Del IS NULL);";
             }
             else
             {
@@ -109,7 +95,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
                 info.UserId = row["UserId"].ToString();
@@ -142,16 +128,16 @@ namespace ThinkITAM.Windows.NetworkManage
 
             var prefix = GlobalVariables.DbService.ExecuteScalar(query);
 
-            if (prefix!=null)
+            if (prefix != null)
             {
-                 return prefix.ToString();
+                return prefix.ToString();
             }
             else
             {
-                   return "";
+                return "";
             }
 
-           
+
         }
 
 
@@ -171,7 +157,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var row in rows)
             {
-                 organizationInfo.Add(row["Organization"].ToString());
+                organizationInfo.Add(row["Organization"].ToString());
             }
 
 
@@ -214,7 +200,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
             string org = OrganizationBox.SelectedIndex != -1 ? organizationInfo[OrganizationBox.SelectedIndex].ToString() : null;
-            
+
 
 
             LoadPeopleInfos(org);
@@ -315,18 +301,18 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void PeopleListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PeopleListView.SelectedIndex!=-1)
+            if (PeopleListView.SelectedIndex != -1)
             {
                 var info = peopleInfos[PeopleListView.SelectedIndex];
                 Number.Text = info.UserNumber;
                 UserName.Text = info.Name;
-                DataBridge.DataBridge.SelectPeopleViewModel= info;
+                DataBridge.DataBridge.SelectPeopleViewModel = info;
             }
 
-           
 
 
-            
+
+
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -334,7 +320,7 @@ namespace ThinkITAM.Windows.NetworkManage
             if (PeopleListView.SelectedIndex != -1)
             {
                 var info = peopleInfos[PeopleListView.SelectedIndex];
-              
+
                 DataBridge.DataBridge.SelectPeopleViewModel = info;
                 this.DialogResult = true;
             }
@@ -343,7 +329,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 MessageBox.Show("您还没有选择任何人员", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            
+
         }
 
         private void UnitBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

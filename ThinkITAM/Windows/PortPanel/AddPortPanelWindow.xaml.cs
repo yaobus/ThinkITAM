@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.PortPanel;
 
 namespace ThinkITAM.Windows.PortPanel
@@ -76,7 +63,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                         portList.Add(id);
 
-                        if (i == PortNumberSlider.Value -1)
+                        if (i == PortNumberSlider.Value - 1)
                         {
                             PortNumberTextBox.Text += $"{id}  ";
                         }
@@ -103,7 +90,7 @@ namespace ThinkITAM.Windows.PortPanel
                         portList.Add(id);
 
 
-                        if (i== PortNumberSlider.Value)
+                        if (i == PortNumberSlider.Value)
                         {
                             PortNumberTextBox.Text += $"{id}  ";
                         }
@@ -112,7 +99,7 @@ namespace ThinkITAM.Windows.PortPanel
                             PortNumberTextBox.Text += $"{id},  ";
                         }
 
-                       
+
 
                     }
                 }
@@ -140,7 +127,7 @@ namespace ThinkITAM.Windows.PortPanel
             //第三步，加载房间号
 
             //第四步，加载端口自定义分组
-            
+
             //LoadGroups();
         }
 
@@ -162,7 +149,7 @@ namespace ThinkITAM.Windows.PortPanel
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 BuildingInfoClass info = new BuildingInfoClass();
 
                 info.Index = index;
@@ -223,7 +210,7 @@ namespace ThinkITAM.Windows.PortPanel
 
             foreach (var row in rows)
             {
-                  index++;
+                index++;
                 FloorInfoClass floor = new FloorInfoClass();
 
                 floor.Floor = row["SlotId"].ToString();
@@ -320,7 +307,7 @@ namespace ThinkITAM.Windows.PortPanel
 
             foreach (var row in rows)
             {
-                 string group = row["PortGroup"].ToString();
+                string group = row["PortGroup"].ToString();
                 groups.Add(group);
             }
 
@@ -349,7 +336,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string room = RoomCombobox.Text;
 
-                string portType= PortTypeCombobox.Text;
+                string portType = PortTypeCombobox.Text;
 
                 string portGroup = GroupCombobox.Text;
 
@@ -361,10 +348,10 @@ namespace ThinkITAM.Windows.PortPanel
                 foreach (var port in portList)
                 {
                     //先看端口是否存在
-                    string sqlTemp =$"SELECT COUNT(*) FROM Bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
+                    string sqlTemp = $"SELECT COUNT(*) FROM Bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
                     var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-                    string message ="以下端口已存在,该端口将不会被添加:\r";
+                    string message = "以下端口已存在,该端口将不会被添加:\r";
                     int count = 0;
                     if (countNum == 0)//端口不存在
                     {
@@ -439,7 +426,7 @@ namespace ThinkITAM.Windows.PortPanel
             }
 
 
-            if (floor==null || floor.Replace(" ", "").Length < 1)
+            if (floor == null || floor.Replace(" ", "").Length < 1)
             {
                 index++;
 
@@ -461,7 +448,7 @@ namespace ThinkITAM.Windows.PortPanel
                 message += index.ToString() + ":未选择端口类型\r";
             }
 
-            if (portId==null || portId.Replace(" ", "").Length < 1)
+            if (portId == null || portId.Replace(" ", "").Length < 1)
             {
                 index++;
 
@@ -480,8 +467,8 @@ namespace ThinkITAM.Windows.PortPanel
         private void RoomCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //TODO 加载TAG
-            
-            
+
+
             //RoomNote.Text = "";
 
             //if (RoomCombobox.SelectedIndex != -1 )
@@ -588,7 +575,7 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string roomNote = RoomNote.Text;
 
-                
+
 
                 //如果填写了备注则保存
                 if (!string.IsNullOrWhiteSpace(roomNote))
@@ -618,9 +605,9 @@ namespace ThinkITAM.Windows.PortPanel
                     }
 
 
-                    
-                   
-                    
+
+
+
                 }
 
 
@@ -645,7 +632,7 @@ namespace ThinkITAM.Windows.PortPanel
                             PortType = portType,
                             PortId = port,
                             PortGroup = portGroup,
-                            PortColor = portColor   
+                            PortColor = portColor
                         };
 
                         //string sql = $"INSERT INTO \"Bu_{buildingId}\" (\"UID\", \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\",  \"PortColor\") VALUES ( '{uid}', '{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
@@ -694,7 +681,7 @@ namespace ThinkITAM.Windows.PortPanel
 
             foreach (var row in rows)
             {
-                 usedNumbers.Add(Convert.ToInt32(row["UID"]));
+                usedNumbers.Add(Convert.ToInt32(row["UID"]));
             }
 
 

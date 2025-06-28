@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
@@ -43,10 +31,10 @@ namespace ThinkITAM.Windows.Computer
                     var info = DataBridge.DataBridge.SelectAssetInfo;
 
                     AssetType.DataContext = info;
-                   
+
                     AssetNumber.DataContext = info;
 
-                    DeviceType.DataContext=info;
+                    DeviceType.DataContext = info;
 
 
                 }
@@ -169,7 +157,7 @@ namespace ThinkITAM.Windows.Computer
         {
             floorInfos.Clear();
             roomIds.Clear();
-            
+
             if (BuildingCombobox.SelectedIndex != -1)
             {
 
@@ -317,7 +305,7 @@ namespace ThinkITAM.Windows.Computer
 
             var query = $"SELECT COUNT(*) FROM Computer WHERE AssetId='{DataBridge.DataBridge.SelectAssetInfo.AssetId}'";
 
-            var count  =Convert.ToInt32( GlobalVariables.DbService.ExecuteScalar(query));
+            var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
             if (count > 0)
             {
@@ -328,8 +316,8 @@ namespace ThinkITAM.Windows.Computer
                 if (BuildingCombobox.SelectedIndex != -1 && FloorCombobox.SelectedIndex != -1 && RoomCombobox.SelectedIndex != -1)
                 {
                     var info = new
-                    {   
-                        UID= DbClass.GetNextAvailableNumber("Computer", "UID"),
+                    {
+                        UID = DbClass.GetNextAvailableNumber("Computer", "UID"),
                         DeviceId = deviceId,
                         AssetId = DataBridge.DataBridge.SelectAssetInfo.AssetId,
                         AssetUser = DataBridge.DataBridge.SelectPeopleViewModel.UserId,

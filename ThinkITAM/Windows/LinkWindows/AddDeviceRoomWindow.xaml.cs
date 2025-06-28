@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.Preset;
@@ -29,9 +16,9 @@ namespace ThinkITAM.Windows.LinkWindows
         public AddDeviceRoomWindow(DeviceRoomClass deviceRoomInfo = null)
         {
             InitializeComponent();
-            if (deviceRoomInfo!=null)
+            if (deviceRoomInfo != null)
             {
-                deviceRoom =  deviceRoomInfo;
+                deviceRoom = deviceRoomInfo;
                 this.DataContext = deviceRoom;
             }
         }
@@ -49,10 +36,10 @@ namespace ThinkITAM.Windows.LinkWindows
             //加载人员信息
             LoadPeopleInfos();
             PeopleCombobox.ItemsSource = peopleList;
-            
+
         }
 
-        
+
         private ObservableCollection<string> addressList = new ObservableCollection<string>();
 
 
@@ -68,7 +55,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
             foreach (var row in rows)
             {
-                 addressList.Add(row["Location"].ToString());
+                addressList.Add(row["Location"].ToString());
             }
 
 
@@ -122,7 +109,7 @@ namespace ThinkITAM.Windows.LinkWindows
 
 
             PeopleName.Text = peopleInfos[index].Name;
-            Phone.Text= peopleInfos[index].Phone;
+            Phone.Text = peopleInfos[index].Phone;
         }
 
 
@@ -183,11 +170,11 @@ namespace ThinkITAM.Windows.LinkWindows
 
                 }
 
-                
+
             }
             else
             {
-              MessageBox.Show("请输入设备房间名称", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("请输入设备房间名称", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

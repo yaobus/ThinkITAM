@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.UserControls.General;
-using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Others;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.UserControls.General;
+using ThinkITAM.ViewModels.Others;
 
 
 namespace ThinkITAM.Windows.ToolWindows
@@ -39,7 +29,7 @@ namespace ThinkITAM.Windows.ToolWindows
             storageCalculatorList.CollectionChanged += StorageCalculatorList_CollectionChanged;
             BitRateComboBox.ItemsSource = bitRatelist;
 
-            CameraDataGrid2.ItemsSource=storageBitRateViewModels;
+            CameraDataGrid2.ItemsSource = storageBitRateViewModels;
             storageBitRateViewModels.CollectionChanged += StorageBitRateViewModels_CollectionChanged;
         }
 
@@ -51,7 +41,7 @@ namespace ThinkITAM.Windows.ToolWindows
             "GB","TB"
         };
 
-        private List<string> bitRatelist= new List<string>()
+        private List<string> bitRatelist = new List<string>()
         {
             "512Kbps", "1Mbps","2Mbps","3Mbps", "4Mbps","5Mbps", "6Mbps","7Mbps","8Mbps","9Mbps", "10Mbps","11Mbps","12Mbps","13Mbps", "14Mbps","15Mbps","16Mbps"
         };
@@ -71,7 +61,7 @@ namespace ThinkITAM.Windows.ToolWindows
         {
             if (this.IsLoaded)
             {
-               
+
 
                 if (RaidComboBox.SelectedIndex != 4)
                 {
@@ -336,14 +326,14 @@ namespace ThinkITAM.Windows.ToolWindows
                 case "RAID5":
                     if (diskCount < 3)
                     {
-                       // Snackbar.MessageQueue?.Enqueue("RAID5至少需要3块磁盘");
+                        // Snackbar.MessageQueue?.Enqueue("RAID5至少需要3块磁盘");
                     }
 
                     return (diskCount - 1) * diskCapacity;
                 case "RAID6":
                     if (diskCount < 4)
                     {
-                       // Snackbar.MessageQueue?.Enqueue("RAID6至少需要4块磁盘");
+                        // Snackbar.MessageQueue?.Enqueue("RAID6至少需要4块磁盘");
                     }
                     return (diskCount - 2) * diskCapacity;
                 case "RAID10":
@@ -407,7 +397,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void StorageCalculationWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-           // RaidCalculation();
+            // RaidCalculation();
         }
 
         //------------------------------------------------------------------------------------------------------------------
@@ -465,8 +455,8 @@ namespace ThinkITAM.Windows.ToolWindows
             }
             storage.SaveDay = saveDay;
 
-            storage.StorageSpace =Convert.ToInt32( StorageCalculator.CalculateStorageRequirement(storage.CodingType, storage.Resolution, cameraNumber, saveDay)).ToString();
-            
+            storage.StorageSpace = Convert.ToInt32(StorageCalculator.CalculateStorageRequirement(storage.CodingType, storage.Resolution, cameraNumber, saveDay)).ToString();
+
             storageCalculatorList.Add(storage);
         }
 
@@ -519,16 +509,16 @@ namespace ThinkITAM.Windows.ToolWindows
             });
 
 
-                DiskSpaceCountTB.Dispatcher.Invoke(() =>
-            {
-                DiskSpaceCountTB.Text = (sum / 1024).ToString("F2") + $" TB";
-            });
+            DiskSpaceCountTB.Dispatcher.Invoke(() =>
+        {
+            DiskSpaceCountTB.Text = (sum / 1024).ToString("F2") + $" TB";
+        });
 
         }
 
 
 
-        ObservableCollection<StorageBitRateViewModel> storageBitRateViewModels= new ObservableCollection<StorageBitRateViewModel>();
+        ObservableCollection<StorageBitRateViewModel> storageBitRateViewModels = new ObservableCollection<StorageBitRateViewModel>();
 
         private void AddButton2_OnClick(object sender, RoutedEventArgs e)
         {
@@ -575,7 +565,7 @@ namespace ThinkITAM.Windows.ToolWindows
             storage.SaveDay = saveDay;
 
 
-            storage.StorageSpace = Convert.ToInt32(StorageCalculator.CalculateStorageRequirementByBitrate(bitRate, cameraNumber,  saveDay)).ToString();
+            storage.StorageSpace = Convert.ToInt32(StorageCalculator.CalculateStorageRequirementByBitrate(bitRate, cameraNumber, saveDay)).ToString();
 
             storageBitRateViewModels.Add(storage);
 
@@ -626,7 +616,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 Title = "注意！数据仅供参考",
                 Prompt = $"计算参数参考自海康威视，实际所需存储空间可能因多种因素而有所变化，包括但不限于视频压缩效率、场景复杂度（影响视频压缩比）、昼夜模式切换等,建议预留至少20%的额外存储空间以应对不可预见的数据增长或系统调整。",
                 ConfirmButtonText = "确认",
-                
+
 
             };
 

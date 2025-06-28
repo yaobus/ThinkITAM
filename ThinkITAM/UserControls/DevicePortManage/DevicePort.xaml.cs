@@ -1,11 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.Windows.DevicePortManage;
 using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.ViewModels.DevicePortManage;
-using ThinkITAM.ViewModels.NetworkManage;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.DevicePortManage;
@@ -66,7 +63,7 @@ public partial class DevicePort : UserControl
                             foreach (var item in DataBridge.DataBridge.PortDetailedInfos.ToList()) // ToList()创建了一个快照，避免在遍历时修改集合引发的问题
                             {
                                 item.IsSelected = false;
-                                
+
                             }
 
 
@@ -77,7 +74,7 @@ public partial class DevicePort : UserControl
                             foreach (var item in DataBridge.DataBridge.PortDetailedInfos.ToList()) // ToList()创建了一个快照，避免在遍历时修改集合引发的问题
                             {
                                 item.IsSelected = false;
-                               
+
                             }
                         }
 

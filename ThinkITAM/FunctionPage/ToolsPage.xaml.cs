@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.Windows.ToolWindows;
@@ -30,15 +18,15 @@ namespace ThinkITAM.FunctionPage
 
         private void PortScanToolButton_OnClick(object sender, RoutedEventArgs e)
         {
-           PortScanWindow portScanWindow = new PortScanWindow(null);
+            PortScanWindow portScanWindow = new PortScanWindow(null);
 
-           var window = Window.GetWindow(this);
-           if (window != null)
-           {
-               portScanWindow.Owner = window;
-           }
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                portScanWindow.Owner = window;
+            }
 
-           portScanWindow.ShowDialog();
+            portScanWindow.ShowDialog();
 
         }
 
@@ -108,7 +96,13 @@ namespace ThinkITAM.FunctionPage
 
     public class test()
     {
-        public string A { get; set; }
-        public Int32 B { get; set; }
+        public string A
+        {
+            get; set;
+        }
+        public Int32 B
+        {
+            get; set;
+        }
     }
 }

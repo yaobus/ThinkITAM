@@ -1,16 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.Windows.PresetWindows;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.UserControls.NetworkManage;
-using ThinkITAM.UserControls.PresetPage;
-using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using ThinkITAM.UserControls.PresetPage;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -24,7 +19,7 @@ namespace ThinkITAM.FunctionPage
             InitializeComponent();
         }
 
-       private DbClass dbClass;
+        private DbClass dbClass;
 
         private void PresetPage_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -58,7 +53,7 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 BrowserInfoViewModel info = new BrowserInfoViewModel();
 
                 info.Index = index;
@@ -90,11 +85,11 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 AddressInfoViewModel info = new AddressInfoViewModel();
 
                 info.Index = index;
-               info.Location = row["Location"].ToString();
+                info.Location = row["Location"].ToString();
                 info.Note = row["Note"].ToString();
 
                 addressInfos.Add(info);
@@ -117,7 +112,7 @@ namespace ThinkITAM.FunctionPage
         {
             AddOrganizationWindow addOrganizationWindow = new AddOrganizationWindow();
 
-            
+
             if (addOrganizationWindow.ShowDialog() == true)
             {
 
@@ -142,7 +137,7 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 OrganizationViewModel info = new OrganizationViewModel();
 
                 info.Index = index;
@@ -194,7 +189,7 @@ namespace ThinkITAM.FunctionPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
                 info.Name = row["Name"].ToString();
@@ -218,12 +213,12 @@ namespace ThinkITAM.FunctionPage
         {
             AddAssetTagWindow addAssetTag = new AddAssetTagWindow();
 
-            if (addAssetTag.ShowDialog()==true)
+            if (addAssetTag.ShowDialog() == true)
             {
                 LoadAssetTagInfo();
             }
 
-            
+
         }
 
         /// <summary>
@@ -249,10 +244,10 @@ namespace ThinkITAM.FunctionPage
             int index = 0;
 
             foreach (var row in rows)
-            { 
+            {
                 index++;
                 var info = new AssetTagClass();
-                info.Index=index;
+                info.Index = index;
                 info.AssetType = row["AssetType"].ToString();
                 info.DeviceType = row["DeviceType"].ToString();
                 info.NumberPrefix = row["AssetTag"].ToString();
@@ -271,7 +266,7 @@ namespace ThinkITAM.FunctionPage
 
         private void AddAddressButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AddAddressWindow add= new AddAddressWindow();
+            AddAddressWindow add = new AddAddressWindow();
 
 
             if (add.ShowDialog() == true)
@@ -330,13 +325,13 @@ namespace ThinkITAM.FunctionPage
                         PeopleUserControl peopleUserControl = new PeopleUserControl();
 
                         // 设置用户控件的尺寸与 StackPanel 一致
-                        peopleUserControl .HorizontalAlignment = HorizontalAlignment.Stretch;
-                        peopleUserControl .VerticalAlignment = VerticalAlignment.Stretch;
-                        peopleUserControl .Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        peopleUserControl .Height = PresetSubPanel.ActualHeight; // 绑定高度
-                        
-                        PresetSubPanel.Children.Add(peopleUserControl );
-                        
+                        peopleUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        peopleUserControl.VerticalAlignment = VerticalAlignment.Stretch;
+                        peopleUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
+                        peopleUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        PresetSubPanel.Children.Add(peopleUserControl);
+
                         break;
 
                     case 2:

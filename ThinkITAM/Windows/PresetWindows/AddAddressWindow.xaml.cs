@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.UserControls.IndexPage;
-using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.PresetWindows
@@ -48,7 +34,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
                 if (addressInfo != null)//UPDATE
                 {
-                    
+
                     var locationInfo = new { Location = address, Note = Note.Text };
 
                     var conditions = new { Location = inputAddress };
@@ -67,7 +53,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
                     if (num == 0)
                     {
-                       
+
                         var locationInfo = new { Location = address, Note = Note.Text };
 
 

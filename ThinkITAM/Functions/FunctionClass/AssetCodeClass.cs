@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -40,7 +35,7 @@ namespace ThinkITAM.Functions.FunctionClass
 
         public static bool CheckAssetCode(string input)
         {
-           string sourceStr=  input.Substring(0, input.Length - 1);
+            string sourceStr = input.Substring(0, input.Length - 1);
 
             if (GenerateChecksum(sourceStr) == input)
             {
@@ -51,7 +46,7 @@ namespace ThinkITAM.Functions.FunctionClass
             }
             else
             {
-                    MessageBox.Show("校验失败");
+                MessageBox.Show("校验失败");
                 return false;
             }
 

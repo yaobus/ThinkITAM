@@ -1,26 +1,15 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.IO;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 using ThinkITAM.Functions.Protector;
+using ThinkITAM.UserControls.InformationDisplay;
 using ThinkITAM.ViewModels.DataBaseConfig;
 using Path = System.IO.Path;
-using MaterialDesignThemes.Wpf;
-using ThinkITAM.UserControls.InformationDisplay;
-using Microsoft.Data.Sqlite;
 
 namespace ThinkITAM.Windows.Project
 {
@@ -33,13 +22,13 @@ namespace ThinkITAM.Windows.Project
         {
             InitializeComponent();
             inputConfig = config;
-            if (config!=null)
+            if (config != null)
             {
                 DataContext = config;
-               
+
             }
 
-            
+
             LoadExistingConfigs();
         }
 
@@ -109,7 +98,7 @@ namespace ThinkITAM.Windows.Project
             {
                 if (index == 0)
                 {
-                    SqliteProjectPlane.Visibility= Visibility.Visible;
+                    SqliteProjectPlane.Visibility = Visibility.Visible;
                     OtherDatabasePlane.Visibility = Visibility.Collapsed;
                     this.Height = 350;
                 }
@@ -169,22 +158,22 @@ namespace ThinkITAM.Windows.Project
                     dataBaseConfig.NickName = DbNickName.Text;
                     if (NewToggleButton.IsChecked == true)
                     {
-                        
-                        dataBaseConfig.Path =$"{DbFilePath.Text}\\{dataBaseConfig.NickName}.db" ;
 
-                        
+                        dataBaseConfig.Path = $"{DbFilePath.Text}\\{dataBaseConfig.NickName}.db";
+
+
 
                         CreateEmptySqliteDatabase(dataBaseConfig.Path);
                     }
                     else
                     {
-                        
+
                         dataBaseConfig.Path = DbFilePath.Text;
                     }
 
 
 
-                    
+
                     configs.Add(dataBaseConfig);
                     SaveConfigsToFile();
                     DialogResult = true;
@@ -214,7 +203,7 @@ namespace ThinkITAM.Windows.Project
             }
             else//其他数据库
             {
-                if (!string.IsNullOrWhiteSpace(DbHost.Text)&&!string.IsNullOrWhiteSpace(DbPort.Text)&&!string.IsNullOrWhiteSpace(DbUserName.Text)&&!string.IsNullOrWhiteSpace(DbPassword.Text)&&!string.IsNullOrWhiteSpace(DbDatabaseName.Text)&&!string.IsNullOrWhiteSpace(DbProjectName.Text))
+                if (!string.IsNullOrWhiteSpace(DbHost.Text) && !string.IsNullOrWhiteSpace(DbPort.Text) && !string.IsNullOrWhiteSpace(DbUserName.Text) && !string.IsNullOrWhiteSpace(DbPassword.Text) && !string.IsNullOrWhiteSpace(DbDatabaseName.Text) && !string.IsNullOrWhiteSpace(DbProjectName.Text))
                 {
 
                     dataBaseConfig.NickName = DbProjectName.Text;
@@ -295,7 +284,7 @@ namespace ThinkITAM.Windows.Project
 
                 var json = PasswordProtector.Decrypt(encryptJson);
 
-                
+
 
                 var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
                 var loaded = JsonSerializer.Deserialize<List<DataBaseConfigViewModel>>(json, options);

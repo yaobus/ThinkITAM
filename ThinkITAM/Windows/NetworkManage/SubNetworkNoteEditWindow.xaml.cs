@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DocumentFormat.OpenXml.ExtendedProperties;
+﻿using System.Windows;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.NetworkManage;
 
@@ -25,13 +12,13 @@ public partial class SubNetworkNoteEditWindow : Window
     {
         InitializeComponent();
         this.DataContext = subNetworkInfo;
-        info= subNetworkInfo;
+        info = subNetworkInfo;
     }
 
-    private SubNetworkInfoViewModel info=null;
+    private SubNetworkInfoViewModel info = null;
     private void SubNetworkNoteEditWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-        
+
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
@@ -43,13 +30,13 @@ public partial class SubNetworkNoteEditWindow : Window
     {
         var sql = $"SELECT COUNT(*) FROM Notes WHERE NoteId='{info.TableName}'";
 
-        var count =Convert.ToInt32( GlobalVariables.DbService.ExecuteScalar(sql));
+        var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
         if (count == 0)//INSERT
         {
             var data = new { NoteId = info.TableName, Note = NoteTextBox.Text };
 
-            GlobalVariables.DbService.InsertEntity("Notes",data);
+            GlobalVariables.DbService.InsertEntity("Notes", data);
 
 
         }
@@ -58,7 +45,7 @@ public partial class SubNetworkNoteEditWindow : Window
             var data = new { NoteId = info.TableName, Note = NoteTextBox.Text };
             var conditions = new { NoteId = info.TableName };
 
-            GlobalVariables.DbService.UpdateEntity("Notes", data,conditions);
+            GlobalVariables.DbService.UpdateEntity("Notes", data, conditions);
         }
         DialogResult = true;
 

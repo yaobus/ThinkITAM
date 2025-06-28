@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace ThinkITAM.Functions.IPAddressHelper
 {
@@ -209,7 +204,7 @@ namespace ThinkITAM.Functions.IPAddressHelper
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <returns></returns>
-       public static bool IsValidIp(string ipAddress)
+        public static bool IsValidIp(string ipAddress)
         {
             IPAddress address;
             return IPAddress.TryParse(ipAddress, out address);

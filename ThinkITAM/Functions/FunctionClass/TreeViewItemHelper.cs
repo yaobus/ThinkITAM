@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
-   public static class TreeViewItemHelper
+    public static class TreeViewItemHelper
     {
 
         public static object GetParentDataContext(DependencyObject child)

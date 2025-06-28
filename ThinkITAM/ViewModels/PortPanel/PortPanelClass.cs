@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using ThinkITAM.ViewModels.LinkManage;
+﻿using System.Windows.Media;
 
 namespace ThinkITAM.ViewModels.PortPanel
 {
     public class PortPanelClass
     {
 
-        public BuildingInfoClass Building { get; set; }
+        public BuildingInfoClass Building
+        {
+            get; set;
+        }
 
-        public string Floor { get; set; }
+        public string Floor
+        {
+            get; set;
+        }
 
-        public string RoomNumber { get; set; }
+        public string RoomNumber
+        {
+            get; set;
+        }
 
-        public string PortType { get; set; }
+        public string PortType
+        {
+            get; set;
+        }
 
-        public string PortId{get; set; }
+        public string PortId
+        {
+            get; set;
+        }
 
-        public string Group { get; set; }
+        public string Group
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 端口颜色
@@ -32,45 +44,87 @@ namespace ThinkITAM.ViewModels.PortPanel
             set;
         } = Brushes.Transparent;
 
-        public string PortTag { get; set; }
+        public string PortTag
+        {
+            get; set;
+        }
 
-        public string PortStatus { get; set; }
+        public string PortStatus
+        {
+            get; set;
+        }
 
-     
+
 
     }
 
     public class BuildingInfoClass
     {
-        public int Index { get; set; }
+        public int Index
+        {
+            get; set;
+        }
 
-        public string BuildingId { get; set; }
+        public string BuildingId
+        {
+            get; set;
+        }
 
-        public string Building { get; set; }
+        public string Building
+        {
+            get; set;
+        }
 
-        public string? Address { get; set; }
+        public string? Address
+        {
+            get; set;
+        }
 
-        public string User { get; set; }
+        public string User
+        {
+            get; set;
+        }
 
-        public string Phone { get; set; }
+        public string Phone
+        {
+            get; set;
+        }
 
-        public string Note { get; set; }
+        public string Note
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 楼层/房间/端口数量
         /// </summary>
-        public string Count{get; set;}
+        public string Count
+        {
+            get; set;
+        }
     }
 
-    public  class  FloorInfoClass
+    public class FloorInfoClass
     {
-        public int Index{get; set; }
+        public int Index
+        {
+            get; set;
+        }
 
-        public string BuildingId { get; set; }
+        public string BuildingId
+        {
+            get; set;
+        }
 
-        public string Floor { get; set; }
+        public string Floor
+        {
+            get; set;
+        }
 
-        public int RoomCount { get; set; }
+        public int RoomCount
+        {
+            get; set;
+        }
         public int PortCount
         {
             get; set;

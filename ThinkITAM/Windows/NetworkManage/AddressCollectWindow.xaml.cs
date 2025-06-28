@@ -1,19 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.General;
 using ThinkITAM.ViewModels.Index;
 using ThinkITAM.ViewModels.Preset;
-using MaterialDesignThemes.Wpf;
-using static MaterialDesignThemes.Wpf.Theme;
 using ListBoxItem = System.Windows.Controls.ListBoxItem;
-using ThinkITAM.DataBridge;
-using ThinkITAM.Functions.FunctionClass;
-using ThinkITAM.FunctionPage;
-using System;
 
 namespace ThinkITAM.Windows.NetworkManage;
 /// <summary>
@@ -248,7 +243,7 @@ public partial class AddressCollectWindow : Window
                     //    Title = "注意",
                     //    Prompt = ,
                     //    ConfirmButtonText = "确认",
-                        
+
                     //};
 
                     //// 显示对话框
@@ -279,7 +274,7 @@ public partial class AddressCollectWindow : Window
 
                     var bookmarkInfo = new ViewModels.DatabaseEntity.Bookmark.BookmarkViewModel
                     {
-                        IndexId=  dbIndexId ,
+                        IndexId = dbIndexId,
                         TypeGroup = Groups.Text,
                         Name = Name.Text,
                         Protocol = Protocol.Text,
@@ -309,7 +304,7 @@ public partial class AddressCollectWindow : Window
                 //    Title = "注意",
                 //    Prompt = $"{info.Item2}",
                 //    ConfirmButtonText = "确认",
-                   
+
 
                 //};
 
@@ -344,7 +339,7 @@ public partial class AddressCollectWindow : Window
                     //    Title = "注意",
                     //    Prompt = ,
                     //    ConfirmButtonText = "确认",
-                       
+
 
                     //};
 
@@ -376,7 +371,7 @@ public partial class AddressCollectWindow : Window
                             Title = "注意",
                             Prompt = $"数据库中存在名为{group}的分组，但是被标记为删除，继续添加将会恢复该分组，是否继续添加？",
                             ConfirmButtonText = "继续",
-                         
+
 
                         };
 
@@ -413,7 +408,7 @@ public partial class AddressCollectWindow : Window
                         Name = Name.Text,
                         Protocol = Protocol.Text,
                         Host = Host.Text,
-                        Port = Port.Text,   
+                        Port = Port.Text,
                         Color = IndexColor.SelectedIndex,
                         Browser = browser,
                         PinToStart = status
@@ -435,7 +430,7 @@ public partial class AddressCollectWindow : Window
                 //    Title = "注意",
                 //    Prompt = $"{info.Item2}",
                 //    ConfirmButtonText = "确认",
-                   
+
 
                 //};
 

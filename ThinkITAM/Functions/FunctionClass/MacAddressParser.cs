@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -13,7 +8,7 @@ namespace ThinkITAM.Functions.FunctionClass
         public static List<string> ParseMacAddresses(string input)
         {
 
-            string newInput= input.Replace("：", ":");
+            string newInput = input.Replace("：", ":");
 
             // 正则表达式匹配不同的MAC地址格式
             string pattern = @"(?:[0-9A-Fa-f]{2}([-:]))(?:[0-9A-Fa-f]{2}\1){4}[0-9A-Fa-f]{2}|(?:[0-9A-Fa-f]{2}){6}";

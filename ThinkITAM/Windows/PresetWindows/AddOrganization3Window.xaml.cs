@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using static MaterialDesignThemes.Wpf.Theme;
-using TextBox = System.Windows.Controls.TextBox;
 
 namespace ThinkITAM.Windows.PresetWindows;
 /// <summary>
@@ -41,13 +28,13 @@ public partial class AddOrganization3Window : Window
 
 
     private int organizationIndex = -1;
-    private int departmentIndex = -1;   
+    private int departmentIndex = -1;
 
     private void AddOrganization3Window_OnLoaded(object sender, RoutedEventArgs e)
     {
 
         LoadOrganizationInfo();
-        Organization.SelectedIndex=organizationIndex;
+        Organization.SelectedIndex = organizationIndex;
 
 
     }
@@ -57,7 +44,7 @@ public partial class AddOrganization3Window : Window
     {
         if (Organization.Text.Length > 0 && Department.Text.Length > 0 && Groups.Text.Length > 0)
         {
-            SaveOrganizationInfo(Organization.Text, Department.Text ,Groups.Text);
+            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text);
 
         }
         else
@@ -70,7 +57,7 @@ public partial class AddOrganization3Window : Window
 
 
 
-    private void SaveOrganizationInfo(string organization,string department,string groups )
+    private void SaveOrganizationInfo(string organization, string department, string groups)
     {
         var organizationInfo = organization.Replace(" ", "");
         var departmentInfo = department.Replace(" ", "");
@@ -108,7 +95,7 @@ public partial class AddOrganization3Window : Window
                 {
                     string sql2 =
                         $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND  Department = '{department}' AND   Groups = '{groupsInfo}' ";
- 
+
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;
                     this.Close();
@@ -127,7 +114,7 @@ public partial class AddOrganization3Window : Window
     }
 
 
-    private ObservableCollection<string> organizationInfo= new ObservableCollection<string>();
+    private ObservableCollection<string> organizationInfo = new ObservableCollection<string>();
 
     /// <summary>
     /// 加载组织信息
@@ -142,7 +129,7 @@ public partial class AddOrganization3Window : Window
 
         foreach (var row in rows)
         {
-             organizationInfo.Add(row["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
 
 
@@ -159,7 +146,7 @@ public partial class AddOrganization3Window : Window
         if (Organization.SelectedIndex != -1)
         {
             departmentInfo.Clear();
-            
+
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != 1 OR Del IS NULL);";
 
 
@@ -167,13 +154,13 @@ public partial class AddOrganization3Window : Window
 
             foreach (var row in rows)
             {
-                 departmentInfo.Add(row["Department"].ToString());
+                departmentInfo.Add(row["Department"].ToString());
             }
 
 
             Department.ItemsSource = departmentInfo;
 
-            if (departmentIndex!=-1)
+            if (departmentIndex != -1)
             {
                 Department.SelectedIndex = departmentIndex;
             }
@@ -206,7 +193,7 @@ public partial class AddOrganization3Window : Window
 
             foreach (var row in rows)
             {
-                 groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["Groups"].ToString());
             }
 
 

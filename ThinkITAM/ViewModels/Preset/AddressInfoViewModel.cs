@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.Preset
+﻿namespace ThinkITAM.ViewModels.Preset
 {
-   public class AddressInfoViewModel
+    public class AddressInfoViewModel
     {
 
 

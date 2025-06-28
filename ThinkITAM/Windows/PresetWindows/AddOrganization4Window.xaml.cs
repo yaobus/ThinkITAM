@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using static MaterialDesignThemes.Wpf.Theme;
-using TextBox = System.Windows.Controls.TextBox;
 
 namespace ThinkITAM.Windows.PresetWindows;
 /// <summary>
@@ -23,7 +10,7 @@ namespace ThinkITAM.Windows.PresetWindows;
 /// </summary>
 public partial class AddOrganization4Window : Window
 {
-    public AddOrganization4Window(int oneIndex = -1, int towIndex = -1,int threeIndex = -1)
+    public AddOrganization4Window(int oneIndex = -1, int towIndex = -1, int threeIndex = -1)
     {
         InitializeComponent();
 
@@ -39,13 +26,13 @@ public partial class AddOrganization4Window : Window
 
         if (threeIndex != -1)
         {
-            groupsIndex= threeIndex;
+            groupsIndex = threeIndex;
         }
     }
 
 
     private int organizationIndex = -1;
-    private int departmentIndex = -1;   
+    private int departmentIndex = -1;
     private int groupsIndex = -1;
     private void AddOrganization4Window_OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -59,9 +46,9 @@ public partial class AddOrganization4Window : Window
 
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (Organization.Text.Length > 0 && Department.Text.Length > 0 && Groups.Text.Length > 0 && UserUnit.Text.Length>0)
+        if (Organization.Text.Length > 0 && Department.Text.Length > 0 && Groups.Text.Length > 0 && UserUnit.Text.Length > 0)
         {
-            SaveOrganizationInfo(Organization.Text, Department.Text ,Groups.Text, UserUnit.Text);
+            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text, UserUnit.Text);
 
         }
         else
@@ -74,7 +61,7 @@ public partial class AddOrganization4Window : Window
 
 
 
-    private void SaveOrganizationInfo(string organization,string department,string groups,string unit )
+    private void SaveOrganizationInfo(string organization, string department, string groups, string unit)
     {
         var organizationInfo = organization.Replace(" ", "");
         var departmentInfo = department.Replace(" ", "");
@@ -89,7 +76,7 @@ public partial class AddOrganization4Window : Window
         if (num <= 0)
         {
 
-            var org = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo ,UserUnit = unitInfo };
+            var org = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo, UserUnit = unitInfo };
 
             //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\", \"Groups\") VALUES ('{organizationInfo}', '{departmentInfo}', '{groupsInfo}')";
 
@@ -113,11 +100,11 @@ public partial class AddOrganization4Window : Window
                 {
                     string sql2 =
                         $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND  Department = '{department}' AND   Groups = '{groupsInfo}' AND   UserUnit = '{unitInfo}'";
- 
+
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
 
                     this.DialogResult = true;
- 
+
                 }
 
             }
@@ -133,7 +120,7 @@ public partial class AddOrganization4Window : Window
     }
 
 
-    private ObservableCollection<string> organizationInfo= new ObservableCollection<string>();
+    private ObservableCollection<string> organizationInfo = new ObservableCollection<string>();
 
     /// <summary>
     /// 加载组织信息
@@ -148,7 +135,7 @@ public partial class AddOrganization4Window : Window
 
         foreach (var row in rows)
         {
-             organizationInfo.Add(row["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
 
 
@@ -165,7 +152,7 @@ public partial class AddOrganization4Window : Window
         if (Organization.SelectedIndex != -1)
         {
             departmentInfo.Clear();
-            
+
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != 1 OR Del IS NULL);";
 
 
@@ -173,13 +160,13 @@ public partial class AddOrganization4Window : Window
 
             foreach (var row in rows)
             {
-                 departmentInfo.Add(row["Department"].ToString());
+                departmentInfo.Add(row["Department"].ToString());
             }
 
 
             Department.ItemsSource = departmentInfo;
 
-            if (departmentIndex!=-1)
+            if (departmentIndex != -1)
             {
                 Department.SelectedIndex = departmentIndex;
             }
@@ -212,7 +199,7 @@ public partial class AddOrganization4Window : Window
 
             foreach (var row in rows)
             {
-                 groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["Groups"].ToString());
             }
 
 

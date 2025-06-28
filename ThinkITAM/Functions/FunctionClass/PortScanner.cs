@@ -1,12 +1,6 @@
-﻿using ThinkITAM.ViewModels.Others;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.Functions.FunctionClass
 {

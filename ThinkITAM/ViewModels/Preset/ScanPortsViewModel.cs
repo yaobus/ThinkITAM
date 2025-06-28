@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.Preset
+﻿namespace ThinkITAM.ViewModels.Preset
 {
     public class ScanPortsViewModel
     {
@@ -20,6 +14,9 @@ namespace ThinkITAM.ViewModels.Preset
         /// <summary>
         /// 端口组
         /// </summary>
-        public string Ports { get; set; }
+        public string Ports
+        {
+            get; set;
+        }
     }
 }

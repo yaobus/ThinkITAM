@@ -1,35 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.DevicePortManage;
 using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
-using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
-using System.Reflection.Emit;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.UserControls.DevicePortManage;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
-using System.Security.Cryptography;
-using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.UserControls.DevicePortManage;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.NetworkManage;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -98,7 +80,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             //{
             if (SlotNumber.Text != "" && SlotNumber.Text != null)
             {
-                slotNumber =Convert.ToInt32( SlotNumber.Text);
+                slotNumber = Convert.ToInt32(SlotNumber.Text);
             }
 
 
@@ -146,7 +128,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                 var port = new UserControls.DevicePortManage.DevicePort();
 
-                if (portType=="D")
+                if (portType == "D")
                 {
                     info.FullPortId = $"{slotNumber}{i}";
                 }
@@ -155,8 +137,8 @@ namespace ThinkITAM.Windows.DevicePortManage
                     info.FullPortId = $"{slotNumber}{portPrefix}{i}";
                 }
 
-                
-                port.DataContext= info;
+
+                port.DataContext = info;
                 PreviewPlan.Children.Add(port);
 
                 //添加到配置表
@@ -201,7 +183,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void LoadRoomInfo()
         {
             RoomCombobox.ItemsSource = roomInfos;
-            
+
             roomInfos.Clear();
             string query = "SELECT * FROM DeviceRoom WHERE Del != 1 OR Del IS NULL";
 
@@ -485,7 +467,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     portInfo.PortSpeed = info.PortSpeed;
 
                     portInfo.FullPortId = $"{info.SlotNumber}{info.PortPrefix}{i}";
-                    
+
                     portInfo.Status = 0;
 
                     port.DataContext = portInfo;
@@ -517,7 +499,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 modelPresetList.Clear();
             }
 
-            
+
             DataBridge.DataBridge.SelectAssetInfo = null;
             FindAssetWindow findAsset = new FindAssetWindow();
 
@@ -552,11 +534,11 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
             int num = Convert.ToInt32(FirstNumber.Text);
 
-            sliderValue = Convert.ToInt32(PortSlider.Value-1);
+            sliderValue = Convert.ToInt32(PortSlider.Value - 1);
 
             LastNumber.Text = (num + sliderValue).ToString();
 
-            PortCount.Text = $"共{(PortSlider.Value ).ToString()}个";
+            PortCount.Text = $"共{(PortSlider.Value).ToString()}个";
         }
 
         private int sliderValue = 0;
@@ -637,7 +619,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
 
 
-            if (!string.IsNullOrWhiteSpace(Description.Text) && RoomCombobox.SelectedIndex !=-1 && CabinetCombobox.SelectedIndex!=-1)
+            if (!string.IsNullOrWhiteSpace(Description.Text) && RoomCombobox.SelectedIndex != -1 && CabinetCombobox.SelectedIndex != -1)
             {
                 if (portInfos.Count > 0)
                 {
@@ -679,7 +661,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     {
                         AssetId = info.AssetId,
                         AssetNumber = info.AssetNumber,
-                        AssetType    = info.AssetType,
+                        AssetType = info.AssetType,
                         DeviceType = info.DeviceType,
                         Model = info.Model,
                         Description = Description.Text,
@@ -703,7 +685,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                     GlobalVariables.DbService.InsertEntity("Devices", deviceInfo);
 
-                   
+
                     //创建设备信息详表
                     DbClass.CreateDynamicsTableIfNotExists(info.AssetId, 2);
 
@@ -721,7 +703,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
                     //关闭窗口
                     this.DialogResult = true;
-                    
+
 
 
                 }

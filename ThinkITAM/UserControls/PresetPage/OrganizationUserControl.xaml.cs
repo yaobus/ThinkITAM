@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.DevicePortManage;
-using ThinkITAM.Windows.PresetWindows;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -503,7 +487,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
                 FourListView.SelectedIndex = -1;
 
-               
+
 
                 var organization = organizationInfos[OneListView.SelectedIndex].Organization;
                 var department = departmentInfos[TowListView.SelectedIndex].Department;
@@ -511,7 +495,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
                 LoadUserUnits(organization, department, group);
-                
+
 
 
             }
@@ -538,7 +522,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 index3 = ThreeListView.SelectedIndex;
             }
 
-            AddOrganization4Window add = new AddOrganization4Window(index, index2,index3);
+            AddOrganization4Window add = new AddOrganization4Window(index, index2, index3);
 
 
             //窗口放中间
@@ -559,7 +543,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 if (ThreeListView.SelectedIndex != -1)
                 {
-                   
+
                     //加载第四层级
                     LoadUserUnits(organizationInfos[OneListView.SelectedIndex].Organization, departmentInfos[TowListView.SelectedIndex].Department, groupsInfos[ThreeListView.SelectedIndex].Group);
                 }
@@ -583,7 +567,7 @@ namespace ThinkITAM.UserControls.PresetPage
             string organization = organizationInfos[OneListView.SelectedIndex].Organization;
             string department = departmentInfos[TowListView.SelectedIndex].Department;
             string groups = groupsInfos[ThreeListView.SelectedIndex].Group;
-            string unit = unitInfos[FourListView.SelectedIndex].Unit; 
+            string unit = unitInfos[FourListView.SelectedIndex].Unit;
             var result = MessageBox.Show($"确定要删除 {unit} 吗？", "注意！", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)

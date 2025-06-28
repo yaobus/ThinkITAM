@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.Functions.FunctionClass;
 
 namespace ThinkITAM.FunctionPage
@@ -32,7 +21,7 @@ namespace ThinkITAM.FunctionPage
             //如果按下的是鼠标左键，则在浏览器中打开SIPAM官网
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/SIPAM",null);
+                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/SIPAM", null);
             }
         }
 
@@ -47,7 +36,7 @@ namespace ThinkITAM.FunctionPage
 
         private void About_OnLoaded(object sender, RoutedEventArgs e)
         {
-            VersionTextBlock.Text=DataBridge.DataBridge.Version;
+            VersionTextBlock.Text = DataBridge.DataBridge.Version;
         }
     }
 }

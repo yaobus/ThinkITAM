@@ -1,17 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using ThinkITAM.Windows.DevicePortManage;
-using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.DevicePortManage;
-using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.NetworkManage;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
-using Nmap.NET.Container;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.DevicePortManage;
+using ThinkITAM.Windows.NetworkManage;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.LinkPage;
 /// <summary>
@@ -34,9 +30,9 @@ public partial class LinkDevicePort : UserControl
 
         // portInfo.PortClass
 
-       
+
         // 获取 Port的 DataContext
-       
+
         var portLinkClass = this.DataContext as PortLinkClass;
 
         string assetId = portLinkClass.PortClass.RackId;
@@ -51,8 +47,8 @@ public partial class LinkDevicePort : UserControl
         portInfo.PortClass.PortType = portLinkClass.PortClass.PortType;
 
 
-        
-        
+
+
 
         portInfo.SlotClass = DbClass.GetDeviceSlotInfo(assetId, portLinkClass.PortClass.UID);
 

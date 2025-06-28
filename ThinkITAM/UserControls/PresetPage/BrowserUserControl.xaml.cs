@@ -1,24 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.PresetWindows;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.DataBridge;
-using System.Reflection;
+using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -65,7 +50,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 BrowserInfoViewModel info = new BrowserInfoViewModel();
 
                 info.Index = index;
@@ -98,7 +83,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 PresetPortClass info = new PresetPortClass();
 
                 info.Index = index;
@@ -120,7 +105,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
             ProtocolListView.ItemsSource = protocolInfos;
-               PortListView.ItemsSource = portInfos;
+            PortListView.ItemsSource = portInfos;
             BrowserListView.ItemsSource = browserInfos;
 
 
@@ -129,7 +114,7 @@ namespace ThinkITAM.UserControls.PresetPage
             LoadPortInfo();
             LoadBrowserInfo();
 
-          
+
         }
 
         private void AddPortButton_OnClick(object sender, RoutedEventArgs e)
@@ -145,7 +130,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (add.ShowDialog() == true)
             {
-               LoadPortInfo();
+                LoadPortInfo();
             }
         }
 
@@ -167,7 +152,7 @@ namespace ThinkITAM.UserControls.PresetPage
             }
         }
 
-        
+
 
         private ObservableCollection<ViewModels.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
 
@@ -183,7 +168,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 ProtocolClass info = new ProtocolClass();
 
                 info.Index = index;

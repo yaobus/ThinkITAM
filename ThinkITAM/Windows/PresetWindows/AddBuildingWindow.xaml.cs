@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Nodify;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.ViewModels.Preset;
@@ -39,7 +26,7 @@ namespace ThinkITAM.Windows.PresetWindows
             }
         }
 
-        private readonly BuildingInfoClass buildingInfo=null;
+        private readonly BuildingInfoClass buildingInfo = null;
 
         private void AddBuildingWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -58,7 +45,7 @@ namespace ThinkITAM.Windows.PresetWindows
                 var addressIndex = addressInfos.IndexOf(addressInfos.FirstOrDefault(d =>
                     d.Location == buildingInfo.Address));
 
-                if (addressIndex>=0)
+                if (addressIndex >= 0)
                 {
                     AddressCombobox.SelectedIndex = addressIndex;
                 }
@@ -121,7 +108,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
             foreach (var row in rows)
             {
-                               index++;
+                index++;
                 PeopleViewModel info = new PeopleViewModel();
                 info.Index = index;
                 info.Name = row["Name"].ToString();
@@ -130,7 +117,7 @@ namespace ThinkITAM.Windows.PresetWindows
                 info.Phone = row["Phone"].ToString();
                 info.Note = row["Note"].ToString();
 
-                peopleInfos.Add(info); 
+                peopleInfos.Add(info);
             }
 
 
@@ -169,7 +156,7 @@ namespace ThinkITAM.Windows.PresetWindows
                     var conditions = new { BuildingId = buildingInfo.BuildingId };
 
 
-                    GlobalVariables.DbService.UpdateEntity("Buildings", info,conditions);
+                    GlobalVariables.DbService.UpdateEntity("Buildings", info, conditions);
 
                     DialogResult = true;
 
@@ -201,7 +188,7 @@ namespace ThinkITAM.Windows.PresetWindows
                             Note = note
                         };
 
-                       
+
                         GlobalVariables.DbService.InsertEntity("Buildings", info);
 
                         DialogResult = true;

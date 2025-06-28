@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 
@@ -30,12 +18,12 @@ namespace ThinkITAM.Windows.PresetWindows
 
         private void AddPortWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+
 
             if (IsNumeric(Port.Text))
             {
@@ -54,7 +42,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
                         //sqlTemp = $"INSERT INTO \"PortList\" (\"Port\", \"Note\") VALUES ({port}, '{note}')";
 
-                       
+
                         GlobalVariables.DbService.InsertEntity("PortList", info);
 
                         this.DialogResult = true;
@@ -71,7 +59,7 @@ namespace ThinkITAM.Windows.PresetWindows
             }
             else
             {
-             MessageBox.Show("端口号只能为整数", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("端口号只能为整数", "请注意", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
 

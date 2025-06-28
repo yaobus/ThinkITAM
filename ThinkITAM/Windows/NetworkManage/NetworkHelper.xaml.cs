@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.UserControls.General;
 using MaterialDesignThemes.Wpf;
-using Newtonsoft.Json.Linq;
 using ThinkITAM.Functions.Converters;
 using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.UserControls.General;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -117,7 +104,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     Broadcast.Text = broadcastAddress.ToString();
 
 
-                    var addressCount = IPAddressCalculations.AddressCount(maskLength)-2;
+                    var addressCount = IPAddressCalculations.AddressCount(maskLength) - 2;
                     NumBox.Text = addressCount.ToString();
                 }
             }
@@ -167,7 +154,7 @@ namespace ThinkITAM.Windows.NetworkManage
             catch (Exception exception)
             {
                 NeedNumBox.Text = "0";
-               number = 0;
+                number = 0;
             }
 
             int num = IPAddressCalculations.GetMinimumSubnetMaskBits(number);

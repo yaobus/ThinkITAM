@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.DatabaseEntity.Link;
+﻿namespace ThinkITAM.ViewModels.DatabaseEntity.Link;
 public class RackViewModel
 {
     public string RackId
     {
-        get;set;
+        get; set;
     }
 
     public string CabinetId
@@ -20,18 +14,18 @@ public class RackViewModel
 
     public string RackName
     {
-        get;set;
+        get; set;
     }
 
 
     public string RackGroup
     {
-        get;set;
+        get; set;
     }
 
     public string RackNote
     {
-        get;set;
+        get; set;
     }
 
     public string SlotInfos

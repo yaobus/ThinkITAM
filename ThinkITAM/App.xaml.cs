@@ -1,8 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
-using MaterialDesignThemes.Wpf;
-using System.Windows.Media;
+﻿using System.Windows;
 using System.Windows.Threading;
 
 namespace ThinkITAM;

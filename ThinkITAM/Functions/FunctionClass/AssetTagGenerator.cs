@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
+﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ThinkITAM.UserControls.Asset;
 
 namespace ThinkITAM.Functions.FunctionClass
@@ -22,7 +17,7 @@ namespace ThinkITAM.Functions.FunctionClass
             assetTag.DataContext = assetInfo;
 
 
-          //  assetTag.BarcodeImage.Source = GenerateBarcode(assetInfo.AssetQrCode);
+            //  assetTag.BarcodeImage.Source = GenerateBarcode(assetInfo.AssetQrCode);
 
             return assetTag;
         }

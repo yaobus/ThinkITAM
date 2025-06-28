@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.DevicePortManage
+﻿namespace ThinkITAM.ViewModels.DevicePortManage
 {
     class DeviceInfoClass
     {
@@ -49,17 +43,26 @@ namespace ThinkITAM.ViewModels.DevicePortManage
         /// <summary>
         /// 槽位标签，例如E,G,XG,F
         /// </summary>
-        public string SlotTag { get; set; }
+        public string SlotTag
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 槽位编号比如0/0/X,或者1/0/X
         /// </summary>
-        public string SlotNumber { get; set; }
+        public string SlotNumber
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 端口号的第一个号是0，还是1
         /// </summary>
-        public int FirstNumber { get; set; }
+        public int FirstNumber
+        {
+            get; set;
+        }
 
 
 

@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.DevicePortManage;
 /// <summary>
@@ -77,7 +64,7 @@ public partial class DeviceEditWindow : Window
 
                 // 使用LINQ查询找到第一个匹配的元素，并获取其索引。
                 var index = roomInfos.IndexOf(roomInfos.FirstOrDefault(item => item.DeviceRoomQrId == info.DeviceRoom));
-                
+
                 RoomCombobox.SelectedIndex = index;
             }
 

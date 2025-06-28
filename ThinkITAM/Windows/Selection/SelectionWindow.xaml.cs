@@ -1,13 +1,12 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.FunctionPage;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.Functions.FunctionClass;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.IO;
+using ThinkITAM.FunctionPage;
 
 
 namespace ThinkITAM.Windows.Selection;
@@ -146,7 +145,7 @@ public partial class SelectionWindow : Window
 
         }
 
-       
+
     }
 
     /// <summary>
@@ -219,7 +218,7 @@ public partial class SelectionWindow : Window
         int index = MenuList.SelectedIndex;
         ClearGlobleValue();
 
-        MenuList2.SelectedIndex=-1;
+        MenuList2.SelectedIndex = -1;
 
         switch (index)
         {
@@ -350,9 +349,9 @@ public partial class SelectionWindow : Window
         int index = MenuList2.SelectedIndex;
         MenuList.SelectedIndex = -1;
         switch (index)
-        { 
+        {
             case 0:
-               
+
                 FunctionPanel.Children.Clear();
                 PresetPage presetPage = new PresetPage();
 
@@ -391,7 +390,7 @@ public partial class SelectionWindow : Window
                 }
 
                 break;
-        case 2:
+            case 2:
 
                 FunctionPanel.Children.Clear();
                 About about = new About();
@@ -404,7 +403,7 @@ public partial class SelectionWindow : Window
 
                 break;
         }
-        
+
 
 
 

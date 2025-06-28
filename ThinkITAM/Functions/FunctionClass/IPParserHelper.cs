@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ThinkITAM.Functions.FunctionClass;
 public class IPParserHelper
@@ -16,7 +10,7 @@ public class IPParserHelper
         var ipList = new HashSet<string>(); // 使用HashSet避免重复IP
 
         var newInput = input.Replace("，", ",");
-        
+
         // 标准化输入：将逗号和空格替换为统一的分隔符
         string normalizedInput = Regex.Replace(newInput, @"\s*,\s*|\s+", ",");
 
@@ -55,10 +49,10 @@ public class IPParserHelper
             }
             else
             {
-                
+
 
                 return null;
-              
+
             }
         }
 

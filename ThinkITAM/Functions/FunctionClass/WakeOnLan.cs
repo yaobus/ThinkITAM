@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -125,7 +120,7 @@ namespace ThinkITAM.Functions.FunctionClass
                 }
 
                 targetIp = GetBroadcastAddress(ipAddress, mask);
-               
+
             }
             Console.WriteLine(targetIp);
             // 使用UDP异步发送

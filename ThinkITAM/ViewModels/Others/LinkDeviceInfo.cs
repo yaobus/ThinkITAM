@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.Others;
+﻿namespace ThinkITAM.ViewModels.Others;
 public class LinkDeviceInfo
 {
-    public string InfoA { get; set; }
+    public string InfoA
+    {
+        get; set;
+    }
 
 
     public string InfoB

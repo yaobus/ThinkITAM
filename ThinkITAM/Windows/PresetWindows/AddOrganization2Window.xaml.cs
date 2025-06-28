@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using static MaterialDesignThemes.Wpf.Theme;
-using TextBox = System.Windows.Controls.TextBox;
 
 namespace ThinkITAM.Windows.PresetWindows;
 /// <summary>
@@ -26,7 +13,7 @@ public partial class AddOrganization2Window : Window
     public AddOrganization2Window(int index = -1)
     {
         InitializeComponent();
-        if (index!=-1)
+        if (index != -1)
         {
             organizationIndex = index;
         }
@@ -62,7 +49,7 @@ public partial class AddOrganization2Window : Window
 
 
 
-    private void SaveOrganizationInfo(string organization,string department)
+    private void SaveOrganizationInfo(string organization, string department)
     {
         var organizationInfo = organization.Replace(" ", "");
         var departmentInfo = department.Replace(" ", "");
@@ -71,7 +58,7 @@ public partial class AddOrganization2Window : Window
         string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '');";
 
 
-        
+
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -102,7 +89,7 @@ public partial class AddOrganization2Window : Window
                 if (result == MessageBoxResult.Yes)
                 {
 
-                   
+
 
                     string sql2 =
                         $"UPDATE  Organization  SET  Del  = NULL WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') ";
@@ -125,7 +112,7 @@ public partial class AddOrganization2Window : Window
     }
 
 
-    private ObservableCollection<string> organizationInfo= new ObservableCollection<string>();
+    private ObservableCollection<string> organizationInfo = new ObservableCollection<string>();
 
     /// <summary>
     /// 加载组织信息
@@ -170,7 +157,7 @@ public partial class AddOrganization2Window : Window
 
             foreach (var row in rows)
             {
-                  departmentInfo.Add(row["Department"].ToString());
+                departmentInfo.Add(row["Department"].ToString());
             }
 
 

@@ -1,8 +1,8 @@
-﻿using ThinkITAM.ViewModels.AssetManage;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -28,7 +28,7 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
-            
+
 
             AssetDataGrid.ItemsSource = assetViewModels;
 
@@ -219,7 +219,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var row in rows)
             {
-                 assetTypeInfos.Add(row["AssetType"].ToString());
+                assetTypeInfos.Add(row["AssetType"].ToString());
             }
 
 
@@ -238,7 +238,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AssetType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
             if (AssetType.SelectedIndex != -1)
             {
                 deviceTypeInfos.Clear();
@@ -268,7 +268,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 if (!string.IsNullOrWhiteSpace(assetType))
                 {
-                    LoadAssetInfos(assetType,null);
+                    LoadAssetInfos(assetType, null);
                 }
 
 
@@ -306,7 +306,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string sql;
 
-            if (FilterButton.IsChecked==true)
+            if (FilterButton.IsChecked == true)
             {
                 if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
                 {
@@ -339,7 +339,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
-           
+
 
             int i = 0;
 
@@ -423,7 +423,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AssetDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataBridge.DataBridge.SelectAssetInfo =null;
+            DataBridge.DataBridge.SelectAssetInfo = null;
             // 检查选中项是否非空，以避免空引用异常
             if (AssetDataGrid.SelectedItem != null)
             {
@@ -433,7 +433,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 DataBridge.DataBridge.SelectAssetInfo = selectedRowData;
 
                 AssetTag.Text = selectedRowData.AssetNumber;
-                Model.Text=selectedRowData.Model;
+                Model.Text = selectedRowData.Model;
                 Description.Text = selectedRowData.Notes;
                 assetId = selectedRowData.AssetId;
             }
@@ -441,7 +441,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
-           this.Close();
+            this.Close();
         }
 
 

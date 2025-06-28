@@ -2,7 +2,6 @@
 using System.Windows;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
-using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.Others;
 
@@ -613,7 +612,7 @@ namespace ThinkITAM.DatabaseOperation
         }
 
 
-        public static LinkDeviceInfo GetLinkDeviceInfo(string assetId ,int? uid)
+        public static LinkDeviceInfo GetLinkDeviceInfo(string assetId, int? uid)
         {
             var info = new LinkDeviceInfo();
 
@@ -628,20 +627,20 @@ namespace ThinkITAM.DatabaseOperation
                     foreach (var row in rows2)
                     {
                         info.InfoA = "[设备]";
-                        info.InfoB = $"机房名称：{row["RoomName"]}"; 
+                        info.InfoB = $"机房名称：{row["RoomName"]}";
                         info.InfoC = $"机柜名称：{row["CabinetName"]}";
-                        info.InfoD = $"设备名称：{row["Description"]}"; 
+                        info.InfoD = $"设备名称：{row["Description"]}";
                         info.InfoE = $"资产编号：{row["AssetNumber"]}";
                     }
 
-                    
+
                     break;
 
 
                 case "3": //机架
 
 
-                    var  query3 = $"SELECT Racks.RackName, DeviceCabinet.CabinetName, DeviceRoom.RoomName FROM Racks INNER JOIN DeviceCabinet ON Racks.CabinetId = DeviceCabinet.CabinetId INNER JOIN DeviceRoom ON DeviceCabinet.DeviceRoomQrId = DeviceRoom.DeviceRoomQrId WHERE  Racks.RackId = '{assetId}';";
+                    var query3 = $"SELECT Racks.RackName, DeviceCabinet.CabinetName, DeviceRoom.RoomName FROM Racks INNER JOIN DeviceCabinet ON Racks.CabinetId = DeviceCabinet.CabinetId INNER JOIN DeviceRoom ON DeviceCabinet.DeviceRoomQrId = DeviceRoom.DeviceRoomQrId WHERE  Racks.RackId = '{assetId}';";
 
                     var rows3 = GlobalVariables.DbService.ExecuteQuery(query3);
 
@@ -650,7 +649,7 @@ namespace ThinkITAM.DatabaseOperation
                         info.InfoA = "[机架]";
                         info.InfoB = $"机房名称：{row["RoomName"]}";
                         info.InfoC = $"机柜名称：{row["CabinetName"]}";
-                        info.InfoD = $"机架名称：{row["RackName"]}"; 
+                        info.InfoD = $"机架名称：{row["RackName"]}";
                     }
 
 
@@ -667,11 +666,11 @@ namespace ThinkITAM.DatabaseOperation
                         info.InfoA = "[终端]";
                         info.InfoB = $"部署位置：{row["Building"]}";
                         info.InfoC = $"部署楼层：{row["Floor"]}";
-                        info.InfoD = $"部署房间：{row["Room"]}"; 
+                        info.InfoD = $"部署房间：{row["Room"]}";
                         info.InfoE = $"资产编号：{row["AssetTag"]}{row["AssetNumber"]}";
                     }
 
-                   
+
                     break;
 
                 case "8": //建筑内端口
@@ -683,13 +682,13 @@ namespace ThinkITAM.DatabaseOperation
                     {
                         info.InfoA = "[面板]";
                         info.InfoB = $"所在建筑：{row["Building"]}";
-                        info.InfoC = $"所在楼层：{row["SlotId"]}"; 
+                        info.InfoC = $"所在楼层：{row["SlotId"]}";
                         info.InfoD = $"所在房间：{row["RoomId"]}";
-                        info.InfoE = $"端口编号：{row["PortId"]}"; 
+                        info.InfoE = $"端口编号：{row["PortId"]}";
                     }
 
 
-                   
+
                     break;
             }
 

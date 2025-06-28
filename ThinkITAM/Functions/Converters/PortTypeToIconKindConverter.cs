@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MaterialDesignThemes.Wpf;
+﻿using System.Globalization;
 using System.Windows.Data;
+using MaterialDesignThemes.Wpf;
 
 namespace ThinkITAM.Functions.Converters
 {

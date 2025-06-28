@@ -1,14 +1,13 @@
-﻿using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.ViewModels.NetworkManage;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.FunctionPage;
 using ThinkITAM.Functions.FunctionClass;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
-using ThinkITAM.Windows.ToolWindows;
+using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.ToolWindows;
+using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.NetworkManage;
 
@@ -29,14 +28,14 @@ public partial class IpAddressInfo : UserControl
 
         if (sender is Button button)
         {
-           
+
             var info = button.DataContext as IpAddressInfoListViewMode;
 
             int index = info.Index;
 
             int selectAddress = Convert.ToInt32(AddressBlock.Text);
 
-            
+
             if (selectAddress != null)
             {
                 string url = DataBridge.DataBridge.SelectNetwork + selectAddress;
@@ -45,7 +44,7 @@ public partial class IpAddressInfo : UserControl
                 {
                     case 0: //单个分配模式
 
-                       
+
 
                         int addressStatus = Convert.ToInt32(button.Tag);
 
@@ -73,7 +72,7 @@ public partial class IpAddressInfo : UserControl
 
                         if (addressAllocationWindow.ShowDialog() == true)
                         {
-                            
+
                         }
                         DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = false;
                         DataBridge.DataBridge.SelectAddress.Add(1);
@@ -83,13 +82,13 @@ public partial class IpAddressInfo : UserControl
 
                         //1、判断选择的第一个地址是已分配还是未分配
                         //1.1 判断是否是第一个地址
-                        
-                        
+
+
                         if (GetSelectedAddressCount() == 0) //当前选择的是第一个地址
                         {
                             //记录当前选择的地址是已分配还是未分配
                             DataBridge.DataBridge.AddressStatus = Convert.ToInt32(button.Tag);
-                            
+
 
                             DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = true;
 
@@ -101,9 +100,9 @@ public partial class IpAddressInfo : UserControl
                             //判断当前选择的地址是已分配还是未分配
                             if (Convert.ToInt32(button.Tag) == DataBridge.DataBridge.AddressStatus)//同种类型的地址则添加到列表中，否则不添加
                             {
-                                
+
                                 //地址不存在则添加
-                                if (DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected==false)
+                                if (DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected == false)
                                 {
 
                                     DataBridge.DataBridge.IpAddressInfoLists[index].IsSelected = true;
@@ -118,11 +117,11 @@ public partial class IpAddressInfo : UserControl
 
                                 }
 
-                                
+
 
                             }
 
-                            
+
                         }
 
                         ButtonCommand?.Execute(null);
@@ -130,7 +129,7 @@ public partial class IpAddressInfo : UserControl
 
                     case 2: //浏览器访问模式
 
-                        var port =string.Empty;
+                        var port = string.Empty;
 
                         if (!string.IsNullOrWhiteSpace(DataBridge.DataBridge.SelectPort))
                         {
@@ -140,11 +139,11 @@ public partial class IpAddressInfo : UserControl
                         string url2 = $"{DataBridge.DataBridge.Protocol}{url}{port}";
 
 
-                        
 
-                       OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
 
-                        
+                        OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
+
+
 
                         break;
                     case 3: //PING模式
@@ -204,7 +203,7 @@ public partial class IpAddressInfo : UserControl
             AddressAllocationWindowClosed?.Invoke(this, e);
         }
 
-       
+
 
     }
 
@@ -225,7 +224,7 @@ public partial class IpAddressInfo : UserControl
     /// <param name="e"></param>
     private void ColorTagSet_OnClick(object sender, RoutedEventArgs e)
     {
-       var info= (IpAddressInfoListViewMode)this.DataContext;
+        var info = (IpAddressInfoListViewMode)this.DataContext;
 
         IpColorSetWindow add = new IpColorSetWindow(info);
 
@@ -238,7 +237,7 @@ public partial class IpAddressInfo : UserControl
 
         if (add.ShowDialog() == true)
         {
-           
+
             DataBridge.DataBridge.ModifyIpColorList.Add(AddressBlock.Text);
             // 当子窗口关闭后执行这里的代码
 
@@ -258,7 +257,7 @@ public partial class IpAddressInfo : UserControl
         int selectAddress = Convert.ToInt32(AddressBlock.Text);
         string url = DataBridge.DataBridge.SelectNetwork + selectAddress;
 
-       
+
 
         // 获取触发事件的MenuItem
         var menuItem = sender as MenuItem;

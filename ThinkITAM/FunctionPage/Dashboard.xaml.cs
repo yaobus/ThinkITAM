@@ -15,7 +15,7 @@ public partial class Dashboard : UserControl
     {
         InitializeComponent();
 
-        
+
         IndexTagsPanel.ItemsSource = dashboardIndexTags;
 
         DataContext = this;
@@ -122,7 +122,7 @@ public partial class Dashboard : UserControl
                 tags.Add(tagInfo);
 
 
-                
+
 
 
             }

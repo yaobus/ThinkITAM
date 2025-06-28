@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.LinkWindows;
 using Point = System.Windows.Point;
 
 namespace ThinkITAM.UserControls.LinkPage
@@ -64,7 +63,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
         private void Rack_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+
 
             this.DataContext = RackInfo;
 
@@ -90,8 +89,8 @@ namespace ThinkITAM.UserControls.LinkPage
                     for (int i = 0; i < slot.Ports.Count; i++)
                     {
                         PortClass portInfo = slot.Ports[i];
-                       
-                        
+
+
 
                         UserControl userControl = CreatPortControl(portInfo);
 
@@ -137,7 +136,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
             }
 
-            TagModifyWindow add = new TagModifyWindow("rack",rack);
+            TagModifyWindow add = new TagModifyWindow("rack", rack);
 
             //窗口放中间
             var window = Window.GetWindow(this);
@@ -155,7 +154,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
                 DataBridge.DataBridge.ModifyTagList.Add("RackTag");
 
-               
+
 
 
             }
@@ -171,7 +170,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
                 if (rack != null)
                 {
-                    if (DataBridge.DataBridge.SelectRackId.Count > 0 )
+                    if (DataBridge.DataBridge.SelectRackId.Count > 0)
                     {
                         if (DataBridge.DataBridge.SelectRackId[0] != rack.RackId)
                         {
@@ -179,12 +178,12 @@ namespace ThinkITAM.UserControls.LinkPage
                             DataBridge.DataBridge.SelectRackId.Clear();
                             DataBridge.DataBridge.SelectRackId.Add(rack.RackId);
                         }
-     
+
                     }
                     else
                     {
                         DataBridge.DataBridge.SelectRackId.Add(rack.RackId);
-                       
+
                     }
 
 

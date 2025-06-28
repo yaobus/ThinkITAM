@@ -1,15 +1,11 @@
-﻿using Dapper;
-using Microsoft.Data.Sqlite;
-using MySqlConnector;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
+using Dapper;
 using Dapper.Contrib.Extensions;
+using Microsoft.Data.Sqlite;
+using MySqlConnector;
 
 namespace ThinkITAM.DatabaseOperation
 {
@@ -209,7 +205,7 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-               
+
 
                 using (var connection = new MySqlConnection(_connectionString))
                 {
@@ -234,7 +230,7 @@ namespace ThinkITAM.DatabaseOperation
             try
             {
                 var sqliteSql = SqliteTableCreator.GenerateCreateTableScript<T>();
-               
+
 
                 await using (var connection = new MySqlConnection(_connectionString))
                 {
@@ -257,7 +253,7 @@ namespace ThinkITAM.DatabaseOperation
 
         public bool CreateTableFromSql(string sqliteSql)
         {
-            
+
             if (!string.IsNullOrWhiteSpace(sqliteSql))
             {
                 using var connection = new MySqlConnection(_connectionString);
@@ -273,7 +269,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
 
-           
+
         }
 
         public async Task<bool> CreateTableFromSqlAsync(string sql, CancellationToken ct = default)

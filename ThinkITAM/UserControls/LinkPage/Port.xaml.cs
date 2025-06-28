@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.LinkWindows;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
@@ -69,9 +69,9 @@ namespace ThinkITAM.UserControls.LinkPage
             {
                 var rackInfo = rackDataContext as MdfRackClass;
 
-               int count = DataBridge.DataBridge.LinkManageList.Count;
+                int count = DataBridge.DataBridge.LinkManageList.Count;
 
-                
+
                 if (rackInfo != null)
                 {
                     DataBridge.DataBridge.SelectRackId.Clear();
@@ -100,7 +100,7 @@ namespace ThinkITAM.UserControls.LinkPage
                 {
                     var slotInfo = slotDataContext as SlotClass;
 
-                   
+
 
                     DataBridge.DataBridge.SelectPortInfo = port;
 
@@ -119,11 +119,11 @@ namespace ThinkITAM.UserControls.LinkPage
 
                 }
 
-               
+
 
                 switch (DataBridge.DataBridge.LinkManageMode)
                 {
-                       
+
 
                     case 0://链路查看模式
                         DataBridge.DataBridge.LinkViewList.Clear();
@@ -166,14 +166,14 @@ namespace ThinkITAM.UserControls.LinkPage
                             {
                                 //如果是同一个配线架同一个端口，则移除该端口
                                 var items = DataBridge.DataBridge.LinkManageList.Where(item => item.PortClass == port).ToList();
-                                
+
                                 if (items.Count > 0)
                                 {
                                     port.IsSelected = false;
                                     port.NodeIndex = 0;
                                     Console.WriteLine(port.UID);
                                     DataBridge.DataBridge.LinkManageList.Remove(items[0]);
-                                   
+
                                 }
                                 else
                                 {
@@ -181,14 +181,14 @@ namespace ThinkITAM.UserControls.LinkPage
                                 }
 
 
-                               
+
 
                             }
                             else//不是同一个
                             {
                                 //判断两个端口是否是同一大类
                                 string nowType = port.PortType;
-                                string oldType = string.Empty; 
+                                string oldType = string.Empty;
 
                                 foreach (var node in DataBridge.DataBridge.LinkManageList)
                                 {
@@ -274,14 +274,14 @@ namespace ThinkITAM.UserControls.LinkPage
 
                     case 3://链路清除模式
 
-                       //第一步，获取链路ID
-                       var linkId = portInfo.PortClass.OnTheLine;
+                        //第一步，获取链路ID
+                        var linkId = portInfo.PortClass.OnTheLine;
 
                         if (linkId > 0)
                         {
-                            var result= MessageBox.Show("是否确认删除该链路\r该操作不可逆!", "注意", MessageBoxButton.YesNo);
+                            var result = MessageBox.Show("是否确认删除该链路\r该操作不可逆!", "注意", MessageBoxButton.YesNo);
 
-                            if (result==MessageBoxResult.Yes)
+                            if (result == MessageBoxResult.Yes)
                             {
 
                                 //清空链路在节点上的信息
@@ -295,7 +295,7 @@ namespace ThinkITAM.UserControls.LinkPage
                                     var sql = $"UPDATE {tableName} SET OnTheLine = NULL,PortTag = NULL WHERE UID='{uid}'";
 
                                     GlobalVariables.DbService.ExecuteNonQuery(sql);
-                                    
+
                                 }
 
                                 //清空链路详表信息
@@ -343,7 +343,7 @@ namespace ThinkITAM.UserControls.LinkPage
         /// <param name="stringA">当前类型</param>
         /// <param name="stringB">已有类型</param>
         /// <returns></returns>
-      private  bool CheckStrings(string stringA, string stringB)
+        private bool CheckStrings(string stringA, string stringB)
         {
             if (string.IsNullOrWhiteSpace(stringA) || string.IsNullOrWhiteSpace(stringB))
             {

@@ -156,12 +156,12 @@
                     x:Name="EditButton"
                     Grid.Column="1"
                     Margin="10"
-                    Visibility="Collapsed"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
                     IsEnabled="False"
-                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    Visibility="Collapsed">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"

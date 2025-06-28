@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Microsoft.Win32;
-using Nodify;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
@@ -177,7 +165,7 @@ public partial class AssetDataImportWindow : Window
 
                 if (ExcelImporter.IsFileLocked(ExcelFilePath.Text))
                 {
-                    MessageBox.Show("该文件正被其他程序使用，请关闭后再尝试导入。","文件被占用",MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("该文件正被其他程序使用，请关闭后再尝试导入。", "文件被占用", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
 
@@ -194,10 +182,10 @@ public partial class AssetDataImportWindow : Window
                 int index = 0;
 
                 foreach (var data in importDatas)
-                {   
+                {
                     index++;
 
-                    var assetNumber = DbClass.GetNextAvailableNumber("Asset", "AssetNumber",filter);
+                    var assetNumber = DbClass.GetNextAvailableNumber("Asset", "AssetNumber", filter);
 
                     //创建资产ID字符串，0为机房，1为机柜，2为设备,3为机架，4为通用终端（计算机、IP电话）
                     string assetId = $"2{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
@@ -205,7 +193,7 @@ public partial class AssetDataImportWindow : Window
                     //创建资产二维码,0为机房，1为机柜，2为设备
                     string qrCode = "ITAM:" + AssetCodeClass.GenerateChecksum(assetId).ToUpper();
 
-                   
+
 
                     data.AssetId = assetId;
                     data.AssetQrCode = qrCode;
@@ -217,7 +205,7 @@ public partial class AssetDataImportWindow : Window
                     string date;
                     try
                     {
-                      date =  DateConverClass.ConvertExcelDateToDateTime(Convert.ToDouble(data.PurchaseDate)).ToString();
+                        date = DateConverClass.ConvertExcelDateToDateTime(Convert.ToDouble(data.PurchaseDate)).ToString();
                     }
                     catch (Exception exception)
                     {
@@ -230,7 +218,7 @@ public partial class AssetDataImportWindow : Window
 
                     await UpdateProgressBarAsync(index);
 
-                    
+
                 }
 
 
@@ -289,6 +277,6 @@ public partial class AssetDataImportWindow : Window
             return string.Empty;
         }
 
-       
+
     }
 }

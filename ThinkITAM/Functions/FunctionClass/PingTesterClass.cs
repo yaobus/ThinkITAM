@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.ObjectModel;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using ThinkITAM.Functions.Converters;
 using ThinkITAM.ViewModels.NetworkManage;
@@ -51,7 +44,7 @@ namespace ThinkITAM.Functions.FunctionClass
                                 // 使用Dispatcher.Invoke更新UI线程
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                   info.PingStatusColor = ColorConverterClass.ColorToBrush("#323232");
+                                    info.PingStatusColor = ColorConverterClass.ColorToBrush("#323232");
                                 });
                             }
                         }
@@ -66,7 +59,7 @@ namespace ThinkITAM.Functions.FunctionClass
             await Task.WhenAll(tasks);
         }
 
-   
+
 
 
         /// <summary>

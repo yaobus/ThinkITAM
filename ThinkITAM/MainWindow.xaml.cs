@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Resources;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
@@ -84,24 +81,24 @@ public partial class MainWindow : Window
 
     }
 
-        
+
     /// <summary>
     /// 初始化程序语言和主题
     /// </summary>
     private void InitializationStatus()
     {
-       
+
 
         //设置主题
         if (Properties.Settings.Default.ThemeIndex == 0)
         {
             SetThemeLight();
-            
+
             ThemeToggleButton.IsChecked = false;
         }
         else
         {
-           SetThemeDark();
+            SetThemeDark();
             ThemeToggleButton.IsChecked = true;
         }
 
@@ -152,12 +149,12 @@ public partial class MainWindow : Window
         if (ThemeToggleButton.IsChecked == true)
         {
             SetThemeDark();
-           
+
         }
         else
         {
             SetThemeLight();
-            
+
         }
 
         //Nodify应用面板主题
@@ -216,7 +213,7 @@ public partial class MainWindow : Window
     private void GetEncryptString()
     {
 
-        
+
         if (string.IsNullOrWhiteSpace(Properties.Settings.Default.EncryptString))
         {
 
@@ -330,7 +327,7 @@ public partial class MainWindow : Window
     {
         string passwordString = Functions.Protector.PasswordProtector.Encrypt2(InputPasswordBox.Password);
 
-       
+
 
         if (passwordString != Properties.Settings.Default.EncryptString)
         {
@@ -413,7 +410,7 @@ public partial class MainWindow : Window
             {
 
                 File.Delete(configFilePath);
-                MessageBox.Show("配置信息解密失败，请重新添加项目","错误",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("配置信息解密失败，请重新添加项目", "错误", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 
@@ -479,7 +476,7 @@ public partial class MainWindow : Window
             GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
         }
 
-        
+
 
 
 
@@ -491,7 +488,7 @@ public partial class MainWindow : Window
     {
         if (GlobalVariables.DbService.TestConnection() == true)//连接成功
         {
-            SelectionWindow newWindow=new SelectionWindow();
+            SelectionWindow newWindow = new SelectionWindow();
 
             var window = Window.GetWindow(this);
 
@@ -533,9 +530,9 @@ public partial class MainWindow : Window
 
     private void InputPasswordBox_OnKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key==Key.Enter)
+        if (e.Key == Key.Enter)
         {
-            LoginButton_OnClick(null,null);
+            LoginButton_OnClick(null, null);
         }
     }
 
@@ -548,7 +545,7 @@ public partial class MainWindow : Window
     {
         configs.RemoveAt(ProjectListView.SelectedIndex);
 
-            SaveConfigsToFile();
+        SaveConfigsToFile();
 
     }
 
@@ -559,9 +556,9 @@ public partial class MainWindow : Window
     /// <param name="e"></param>
     private async void ForgetPasswordButton_OnClick(object sender, RoutedEventArgs e)
     {
-       
+
         string title = (string)FindResource("CdForgetPasswordTitle");
-        string prompt =(string)FindResource("CdForgetPasswordPrompt");
+        string prompt = (string)FindResource("CdForgetPasswordPrompt");
         string confirm = (string)FindResource("CdConfirm");
 
         var dialog = new ConfirmationDialog

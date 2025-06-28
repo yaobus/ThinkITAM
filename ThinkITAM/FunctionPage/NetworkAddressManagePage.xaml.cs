@@ -17,10 +17,7 @@ using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
 using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.Windows.ToolWindows;
-using Windows.Media.Core;
 using static ThinkITAM.DataBridge.DataBridge;
-using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.FunctionPage;
 
@@ -54,7 +51,7 @@ public partial class NetworkAddressManagePage : UserControl
     private async void NetworkAddressManage_OnLoaded(object sender, RoutedEventArgs e)
     {
 
-       
+
 
         AddressPanel.ItemsSource = IpAddressInfoLists;
 
@@ -204,7 +201,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (!string.IsNullOrWhiteSpace(keyWord))
         {
-             filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%') ";
+            filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%') ";
         }
 
         string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter}";
@@ -231,7 +228,7 @@ public partial class NetworkAddressManagePage : UserControl
                 string tableName = "Net_" + row["NetworkId"].ToString();
 
                 info.TableName = tableName;
-                info.NetworkId=row["NetworkId"].ToString();
+                info.NetworkId = row["NetworkId"].ToString();
                 info.Name = row["Name"].ToString();
                 info.Description = row["Description"].ToString();
                 info.Network = row["Network"].ToString();
@@ -333,7 +330,7 @@ public partial class NetworkAddressManagePage : UserControl
         {
             int useNum = GetNetWorkUsedAddress(tableName);
 
-           // Console.WriteLine($"useNum{useNum}");
+            // Console.WriteLine($"useNum{useNum}");
 
 
             value = Convert.ToInt32((useNum * 100) / addressCount);
@@ -382,14 +379,14 @@ public partial class NetworkAddressManagePage : UserControl
 
         foreach (var row in rows)
         {
-                      index++;
+            index++;
             BrowserInfoViewModel info = new BrowserInfoViewModel();
 
             info.Index = index;
             info.Browser = row["Browser"].ToString();
             info.Path = row["Path"].ToString();
 
-            browserInfos.Add(info);  
+            browserInfos.Add(info);
         }
 
 
@@ -669,7 +666,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     DataBridge.DataBridge.NetworkTableName = tableName;
 
-                    
+
 
                     //获取子表数量
                     var m = AnalysisTableNameToNetworkInfo(info.Network, info.Netmask);
@@ -744,7 +741,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     //加载网段备注
                     //LoadNetworkNote(info);
-     
+
                     await LoadAddressInfo(tableName);
 
 
@@ -762,12 +759,12 @@ public partial class NetworkAddressManagePage : UserControl
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
 
-                   
+
 
                     if (selectedItem != null)
                     {
 
-                        var item  = selectedItem.Header as NetworkInfo;
+                        var item = selectedItem.Header as NetworkInfo;
                         var info = item.DataContext as NetworkInfoViewMode;
                         DataBridge.DataBridge.SelectNetworkInfo = info;
 
@@ -804,7 +801,7 @@ public partial class NetworkAddressManagePage : UserControl
             DeleteButton.IsEnabled = false;
         }
 
-       
+
     }
 
     private Task SendMessage(string message)
@@ -925,7 +922,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadNetworkNote(NetworkInfoViewMode networkInfo)
     {
-        
+
         TagATextBox.Text = networkInfo.TagA;
         TagBTextBox.Text = networkInfo.TagB;
         TagCTextBox.Text = networkInfo.TagC;
@@ -946,7 +943,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (settingTags != null)
         {
-            var settings = JsonConvert.DeserializeObject <TagViewModel> (settingTags);
+            var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
 
 
@@ -1122,7 +1119,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
-                info.Unit= row["UserUnit"].ToString();
+                info.Unit = row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
@@ -1177,7 +1174,7 @@ public partial class NetworkAddressManagePage : UserControl
                 }
 
 
- 
+
             }
 
 
@@ -1228,7 +1225,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             foreach (var row in rows)
             {
-                            
+
                 var info = new IpAddressInfoListViewMode();
 
                 info.Index = index2;
@@ -1269,7 +1266,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Organization = row["Organization"].ToString();
                 info.Department = row["Department"].ToString();
                 info.Group = row["UserGroup"].ToString();
-                info.Unit= row["UserUnit"].ToString();
+                info.Unit = row["UserUnit"].ToString();
                 info.Phone = row["Phone"].ToString();
                 info.HostName = row["HostName"].ToString();
                 info.MacAddress = row["MacAddress"].ToString();
@@ -1286,11 +1283,11 @@ public partial class NetworkAddressManagePage : UserControl
 
                 var tip = JoInTip(info);
 
-                
+
                 //if (LoadMode == 0) //逐步加载
                 //{
-                    await Task.Delay(1);
-                    
+                await Task.Delay(1);
+
                 //}
 
 
@@ -1387,7 +1384,7 @@ public partial class NetworkAddressManagePage : UserControl
         {
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
-           
+
 
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
@@ -1745,7 +1742,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         // 使用LINQ查询筛选出IsSelected为true的所有项
         var selectedItems = DataBridge.DataBridge.IpAddressInfoLists.Where(item => item.IsSelected == true).ToList();
-        
+
         // 将这些筛选出来的项放入一个新的ObservableCollection中
         ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
 
@@ -1816,7 +1813,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                         GlobalVariables.DbService.InsertEntity("PortList", portInfo);
 
-                        
+
                         DataBridge.DataBridge.SelectPort = port.ToString();
                         LoadPort();
                     }
@@ -2180,7 +2177,7 @@ public partial class NetworkAddressManagePage : UserControl
         if (result == MessageBoxResult.Yes)
         {
             string query = $"UPDATE Network SET Del = 1 WHERE NetworkId ='{DataBridge.DataBridge.SelectNetworkInfo.NetworkId}';";
-           
+
             // Console.WriteLine(query);
             GlobalVariables.DbService.ExecuteNonQuery(query);
 
@@ -2206,11 +2203,11 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (SelectedNetworkType == 0)
         {
-             newWindow = new NetworkEditWindow();
+            newWindow = new NetworkEditWindow();
         }
         else
         {
-             newWindow = new SubNetworkNoteEditWindow(selectedSubNetworkInfoViewModel);
+            newWindow = new SubNetworkNoteEditWindow(selectedSubNetworkInfoViewModel);
         }
 
 
@@ -2251,16 +2248,16 @@ public partial class NetworkAddressManagePage : UserControl
             LoadNetworkInfo2();
         }
 
-        
+
     }
 
     private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
     {
-       //如果是回车键
-       if (e.Key == Key.Enter)
-       {
-           SearchButton_OnClick(null, null);
-       }
+        //如果是回车键
+        if (e.Key == Key.Enter)
+        {
+            SearchButton_OnClick(null, null);
+        }
     }
 
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
@@ -2272,7 +2269,7 @@ public partial class NetworkAddressManagePage : UserControl
             return;
         }
 
-        var fileName = $"{ DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+        var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
 
         // 创建保存文件对话框
         SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -2282,7 +2279,7 @@ public partial class NetworkAddressManagePage : UserControl
             RestoreDirectory = true,
             FileName = fileName  // 默认文件名
         };
-       
+
         if (saveFileDialog.ShowDialog() == true)
         {
             string selectedFilePath = saveFileDialog.FileName;

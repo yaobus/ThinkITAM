@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using ClosedXML.Excel;
-using LicenseContext = System.ComponentModel.LicenseContext;
 
 namespace ThinkITAM.Functions.Export
 {
@@ -115,7 +107,7 @@ namespace ThinkITAM.Functions.Export
 
                 // 保存文件
                 workbook.SaveAs(filePath);
-                MessageBox.Show($"数据已成功导出至：{filePath}","导出完毕",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show($"数据已成功导出至：{filePath}", "导出完毕", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

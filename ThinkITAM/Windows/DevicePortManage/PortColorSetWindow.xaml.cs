@@ -1,23 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.DevicePortManage;
-using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.NetworkManage;
-using Microsoft.Win32;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.DevicePortManage;
 using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 
 namespace ThinkITAM.Windows.DevicePortManage
@@ -32,7 +17,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             InitializeComponent();
             portInfo = info;
             this.DataContext = portInfo;
-            
+
         }
 
         private PortDetailedInfo portInfo;
@@ -40,7 +25,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
         private int? index;
-        private bool saved=false;
+        private bool saved = false;
         private void IpColorSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             index = portInfo.PortColor;
@@ -76,14 +61,14 @@ namespace ThinkITAM.Windows.DevicePortManage
                         item.BorderThickness = new Thickness(2);
 
                         ColorGrid.Background = item.Background;
-                        
+
                     }
                     else
                     {
                         item.Opacity = 0.1;
                         item.BorderBrush = null;
                         item.BorderThickness = new Thickness(0);
-                        
+
                     }
 
                     x++;

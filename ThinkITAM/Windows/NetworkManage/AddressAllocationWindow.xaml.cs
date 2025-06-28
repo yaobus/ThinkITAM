@@ -1,18 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using System.Net;
-using System.Runtime;
 using System.Windows;
 using System.Windows.Controls;
-using DocumentFormat.OpenXml.EMMA;
 using MaterialDesignThemes.Wpf;
-using Nmap.NET.Container;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
-using ThinkITAM.UserControls.NetworkManage;
 using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Preset;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -31,12 +23,12 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             InitializeComponent();
 
-            if (addressInfos!=null)
+            if (addressInfos != null)
             {
                 infos = addressInfos;
             }
 
-          
+
         }
 
         private ObservableCollection<IpAddressInfoListViewMode> infos;
@@ -158,7 +150,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private void FindAsset_Click(object sender, RoutedEventArgs e)
         {
-            FindAssetWindow findAsset = new FindAssetWindow(null,0);
+            FindAssetWindow findAsset = new FindAssetWindow(null, 0);
 
             findAsset.Owner = this;
 
@@ -205,7 +197,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private  void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
             var oldInfo = this.DataContext as IpAddressInfoListViewMode;
@@ -221,7 +213,7 @@ namespace ThinkITAM.Windows.NetworkManage
             if (DataBridge.DataBridge.SelectPeopleViewModel != null)
             {
                 userId = DataBridge.DataBridge.SelectPeopleViewModel.UserId;
-                name= DataBridge.DataBridge.SelectPeopleViewModel.Name;
+                name = DataBridge.DataBridge.SelectPeopleViewModel.Name;
                 organization = DataBridge.DataBridge.SelectPeopleViewModel.Organization;
                 department = DataBridge.DataBridge.SelectPeopleViewModel.Department;
                 group = DataBridge.DataBridge.SelectPeopleViewModel.Group;
@@ -229,7 +221,7 @@ namespace ThinkITAM.Windows.NetworkManage
             }
             else
             {
-                userId= oldInfo.User;
+                userId = oldInfo.User;
             }
 
             //取出资产ID
@@ -301,7 +293,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string sql = $"UPDATE {tableName} SET User = '{info.User}', AddressStatus = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDeviceId}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
 
-            
+
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
@@ -401,7 +393,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     int address = item.Address;
 
                     string sql = $"UPDATE {tableName} SET AddressStatus = 1, User = '', AddressColor='0', HostName = '', MacAddress = '', LinkDevice = '', TagA = '', TagB = '', TagC = '', TagD = '', TagE = '', TagF = '' WHERE Address = {address}";
-                  
+
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                     DataBridge.DataBridge.IpAddressInfoLists[address].AddressStatus = 1;
@@ -422,7 +414,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     DataBridge.DataBridge.IpAddressInfoLists[address].IsSelected = false;
 
                 }
-                
+
                 this.DialogResult = true;
                 this.Close();
             }

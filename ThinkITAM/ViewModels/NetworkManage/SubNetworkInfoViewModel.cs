@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.NetworkManage
+﻿namespace ThinkITAM.ViewModels.NetworkManage
 {
-   public class SubNetworkInfoViewModel
+    public class SubNetworkInfoViewModel
     {
 
         //索引

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ThinkITAM.Functions.EncryptionDecryption
 {
-  public  class EncryptionDecryption
+    public class EncryptionDecryption
     {
 
-       
+
         /// <summary>
         /// 计算密码的MD5值，加盐,只取前8位
         /// </summary>
@@ -21,7 +17,7 @@ namespace ThinkITAM.Functions.EncryptionDecryption
         public static string CalculateMD5(string input)
         {
             // 将输入字符串转换为字节数组
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input+"p@s5w0d");
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input + "p@s5w0d");
 
             // 创建一个 MD5 实例
             using (MD5 md5 = MD5.Create())
@@ -36,9 +32,9 @@ namespace ThinkITAM.Functions.EncryptionDecryption
                     sb.Append(hashBytes[i].ToString("x2"));
                 }
 
-                string str =sb.ToString();
+                string str = sb.ToString();
                 // 返回 MD5 哈希值的字符串表示形式
-                return str.Substring(0,8);
+                return str.Substring(0, 8);
             }
         }
 

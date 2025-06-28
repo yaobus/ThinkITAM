@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
@@ -20,7 +19,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         public bool LoadStatus = false;
 
-       
+
         public AddNetworkWindow()
         {
             InitializeComponent();
@@ -54,7 +53,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             foreach (var row in rows)
             {
-                 parentList.Add(row["TagA"].ToString());
+                parentList.Add(row["TagA"].ToString());
             }
 
 
@@ -216,7 +215,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 if (name != "")
                 {
-                    var nowCount= Convert.ToInt32( IPAddressCalculations.GetAvailableAddresses(Convert.ToInt32( MaskSlider.Value)));
+                    var nowCount = Convert.ToInt32(IPAddressCalculations.GetAvailableAddresses(Convert.ToInt32(MaskSlider.Value)));
 
                     if (addressCount + nowCount > GlobalLimit.IpAddressCount)
                     {
@@ -256,7 +255,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
                                 var networkInfo = new
                                 {
-                                    NetworkId= networkId,
+                                    NetworkId = networkId,
                                     Name = name,
                                     Description = description,
                                     Network = network,
@@ -326,7 +325,7 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
 
                             //创建分表
-                            DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value,networkId);
+                            DbClass.CreateNetworkTableSub(network, (int)MaskSlider.Value, networkId);
 
                             this.DialogResult = true;
 
@@ -378,7 +377,7 @@ namespace ThinkITAM.Windows.NetworkManage
                                 };
 
                                 //写入ip总表信息
-                                
+
                                 GlobalVariables.DbService.InsertEntity("Network", networkInfo);
 
                                 //创建表
@@ -433,9 +432,9 @@ namespace ThinkITAM.Windows.NetworkManage
                             //插入网段信息总表的数据
                             //string sql = $"INSERT INTO \"Network\" (\"NetworkId\", \"Name\", \"Description\", \"Network\", \"Netmask\", \"Parent\", \"Child\", \"TagA\", \"TagB\", \"TagC\", \"TagD\") VALUES ('{networkId}', '{name}', '{description}', '{network}', '{netmask}', '{parent} ', ' {child}', '{tagA}', '{tagB}', '{tagC}', '{tagD}')";
 
-                          
+
                             GlobalVariables.DbService.InsertEntity("Network", networkInfo);
-                           
+
 
 
 
@@ -537,8 +536,8 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 var info = new
                 {
-                    Address=ip,
-                    AddressStatus=addressStatus    
+                    Address = ip,
+                    AddressStatus = addressStatus
                 };
 
                 //Console.WriteLine(sql);
@@ -567,10 +566,10 @@ namespace ThinkITAM.Windows.NetworkManage
                 if (num == 0)//不存在，则添加
                 {
 
-                    var info = new { Parent=parent, Child=child };
+                    var info = new { Parent = parent, Child = child };
 
                     //string sql = $"INSERT INTO \"Hierarchy\" (\"Parent\", \"Child\") VALUES ('{parent}', '{child}')";
-                  
+
                     GlobalVariables.DbService.InsertEntity("Hierarchy", info);
                 }
             }
@@ -602,12 +601,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
             var tags = DbClass.LoadWindowTag("AddNetwork");
 
-            Console.WriteLine("TAGS:"+tags);
+            Console.WriteLine("TAGS:" + tags);
 
             if (tags != null)
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
-                
+
 
                 LabelA.Content = settings.TagA + ":";
                 LabelB.Content = settings.TagB + ":";
@@ -627,7 +626,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private void SetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
             AddNetworkWindowSet set = new AddNetworkWindowSet();
 
             //窗口放中间
@@ -640,7 +639,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (set.ShowDialog() == true)
             {
-                
+
                 LoadTags();
 
             }

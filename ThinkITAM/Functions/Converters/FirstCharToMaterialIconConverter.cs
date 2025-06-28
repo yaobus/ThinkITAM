@@ -1,6 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
+using MaterialDesignThemes.Wpf;
 
 namespace ThinkITAM.Functions.Converters
 {
@@ -18,7 +18,7 @@ namespace ThinkITAM.Functions.Converters
 
                         return PackIconKind.VideoInputComponent;
                     case '2':
-                       
+
                         return PackIconKind.ServerOutline;
                 }
             }

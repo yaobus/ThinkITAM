@@ -30,21 +30,21 @@ public partial class DevicePortManage : UserControl
         PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
     }
 
-  
-    private  void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
+
+    private void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
     {
 
 
 
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
-        
+
         LoadAssetTreeViewInfos();
     }
 
     private void PortSelectCount_CollectionChanged(object? sender,
         System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
-        
+
         // 使用Dispatcher来更新UI
         NumberBlock.Dispatcher.Invoke(() =>
         {
@@ -191,7 +191,7 @@ public partial class DevicePortManage : UserControl
             ClearSelectedPort();
 
             PortManagePanel.Children.Clear();
-           
+
 
 
             if (this.IsLoaded == true)
@@ -221,10 +221,10 @@ public partial class DevicePortManage : UserControl
 
 
                     //加载设备信息
-                     LoadDeviceInfo(info);
+                    LoadDeviceInfo(info);
 
-                     EditButton.IsEnabled = true;
-                     DeleteButton.IsEnabled= true;
+                    EditButton.IsEnabled = true;
+                    DeleteButton.IsEnabled = true;
 
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
@@ -312,7 +312,7 @@ public partial class DevicePortManage : UserControl
                 var info = new PortDetailedInfo();
                 info.UID = Convert.ToInt32(row["UID"]);
                 info.PortType = row["PortType"].ToString();
-                info.PortSpeed= row["PortSpeed"].ToString();
+                info.PortSpeed = row["PortSpeed"].ToString();
                 info.PortTag = row["PortTag"].ToString();
                 info.PortSlotNumber = Convert.ToInt32(row["PortSlotNumber"]);
                 info.PortId = row["PortId"].ToString();
@@ -373,7 +373,7 @@ public partial class DevicePortManage : UserControl
     /// </summary>
     /// <param name="info"></param>
     /// <returns></returns>
-    private  string JoinTip(PortDetailedInfo info)
+    private string JoinTip(PortDetailedInfo info)
     {
         string tip = null;
 
@@ -563,7 +563,7 @@ public partial class DevicePortManage : UserControl
     /// <summary>
     /// 解析端口配置
     /// </summary>
-    private async Task  AnalysisPortInfos()
+    private async Task AnalysisPortInfos()
     {
         //图形化解析
 
@@ -601,7 +601,7 @@ public partial class DevicePortManage : UserControl
             {
                 PortManagePanel.Children.Add(separator);
             });
-           
+
         }
 
 
@@ -641,7 +641,7 @@ public partial class DevicePortManage : UserControl
         }
 
     }
-    
+
 
 
     /// <summary>
@@ -687,7 +687,7 @@ public partial class DevicePortManage : UserControl
     {
         if (MultipleSelectMode.IsChecked == true)
         {
-            MultipleAllocationPanel.Visibility= Visibility.Visible;
+            MultipleAllocationPanel.Visibility = Visibility.Visible;
 
             DataBridge.DataBridge.PortOperationType = 1;//模式为多选模式
             //DataBridge.DataBridge.SelectPortMode = 0;
@@ -695,7 +695,7 @@ public partial class DevicePortManage : UserControl
 
 
 
-       
+
     }
 
 
@@ -820,7 +820,7 @@ public partial class DevicePortManage : UserControl
 
         if (set.ShowDialog() == true)
         {
-            
+
             LoadCustomTag();
 
         }
@@ -838,11 +838,11 @@ public partial class DevicePortManage : UserControl
     /// </summary>
     private void LoadCustomTag()
     {
-        
+
 
         var tagWindow = "AddDevice" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
-        
-        
+
+
 
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
@@ -859,7 +859,7 @@ public partial class DevicePortManage : UserControl
             {
                 settingTags = tags;
                 var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
-                
+
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
@@ -873,7 +873,7 @@ public partial class DevicePortManage : UserControl
         else //全局标签
         {
             var tags = DbClass.LoadWindowTag("AddDevice");
-            
+
             if (tags != null)
             {
                 settingTags = tags;
@@ -889,7 +889,7 @@ public partial class DevicePortManage : UserControl
 
         }
 
-       
+
 
     }
 
@@ -931,7 +931,7 @@ public partial class DevicePortManage : UserControl
                 // 在这里运行你的逻辑代码
                 string portType = rowData.PortType;
 
-                int portMode = (int) rowData.Status;
+                int portMode = (int)rowData.Status;
 
                 //1、判断选择的第一个地址是已分配还是未分配
                 //1.1 判断是否是第一个地址
@@ -1136,7 +1136,7 @@ public partial class DevicePortManage : UserControl
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-       
+
 
         var result = MessageBox.Show("确定要删除该设备吗？\r该操作不可逆！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -1148,7 +1148,7 @@ public partial class DevicePortManage : UserControl
 
             if (count > 0)
             {
-                MessageBox.Show($"设备上有{count}个端口已经在链路上，无法删除！","无法删除",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show($"设备上有{count}个端口已经在链路上，无法删除！", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -1243,7 +1243,7 @@ public partial class DevicePortManage : UserControl
 
     private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key== Key.Enter)
+        if (e.Key == Key.Enter)
         {
             SearchButton_OnClick(null, null);
         }
@@ -1252,14 +1252,14 @@ public partial class DevicePortManage : UserControl
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
     {
 
-        
+
         if (DataBridge.DataBridge.PortDetailedInfos == null || DataBridge.DataBridge.PortDetailedInfos.Count == 0)
         {
             MessageBox.Show("没有可导出的数据。");
             return;
         }
 
-        
+
 
         var fileName = $"{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
 

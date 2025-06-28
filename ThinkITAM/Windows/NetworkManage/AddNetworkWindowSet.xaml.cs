@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using Newtonsoft.Json;
+using ThinkITAM.DatabaseOperation;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -29,7 +16,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             InitializeComponent();
         }
-       
+
 
         private void AddNetworkWindowSet_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -55,7 +42,7 @@ namespace ThinkITAM.Windows.NetworkManage
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-            
+
             var settings = new
             {
                 TagA = TagA.Text,    // 自定义标签1
@@ -80,8 +67,8 @@ namespace ThinkITAM.Windows.NetworkManage
                 DbClass.SaveWindowTag($"AddNetwork{DataBridge.DataBridge.NetworkTableName}", json);
             }
 
-           
-            
+
+
             this.DialogResult = true;
             this.Close();
         }
@@ -101,7 +88,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void AddNetworkWindowSet_OnClosing(object? sender, CancelEventArgs e)
         {
-           //dbClass.connection.Close();
+            //dbClass.connection.Close();
         }
     }
 }

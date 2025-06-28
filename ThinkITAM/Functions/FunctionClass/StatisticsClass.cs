@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using ThinkITAM.DataBridge;
+﻿using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
-using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Functions.FunctionClass
 {

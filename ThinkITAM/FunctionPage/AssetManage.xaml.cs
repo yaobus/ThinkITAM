@@ -8,19 +8,17 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ThinkITAM.Windows.AssetManage;
-using ThinkITAM.UserControls.Asset;
-using ThinkITAM.ViewModels.AssetManage;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using QRCoder;
 using ThinkITAM.DatabaseOperation;
-using Size = System.Windows.Size;
 using ThinkITAM.DataBridge;
-using Microsoft.Data.Sqlite;
-using Microsoft.Win32;
-using ThinkITAM.Windows.PresetWindows;
-using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.Functions.Export;
+using ThinkITAM.UserControls.Asset;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.Windows.AssetManage;
+using ThinkITAM.Windows.PresetWindows;
+using Size = System.Windows.Size;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -35,7 +33,7 @@ namespace ThinkITAM.FunctionPage
         }
 
 
-       
+
 
         private void AssetManage_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -52,7 +50,7 @@ namespace ThinkITAM.FunctionPage
         /// </summary>
         private void LoadTags()
         {
-            var tags =DbClass.LoadWindowTag("AddAsset");
+            var tags = DbClass.LoadWindowTag("AddAsset");
 
             if (tags != null)
             {
@@ -109,7 +107,7 @@ namespace ThinkITAM.FunctionPage
                     sqlTemp = $"SELECT * FROM AssetTag  WHERE AssetType = '{assetTypeInfo}'";
 
 
-                    var rows2=await GlobalVariables.DbService.ExecuteQueryAsync(sqlTemp);
+                    var rows2 = await GlobalVariables.DbService.ExecuteQueryAsync(sqlTemp);
 
 
                     int index2 = 0;
@@ -159,7 +157,7 @@ namespace ThinkITAM.FunctionPage
                 }
 
 
- 
+
 
                 //Organization.ItemsSource = organizationInfo;
 
@@ -172,7 +170,7 @@ namespace ThinkITAM.FunctionPage
             }
         }
 
-        private async void LoadAssetTreeviewInfos2(string keyWord=null)
+        private async void LoadAssetTreeviewInfos2(string keyWord = null)
         {
             assetTypes.Clear();
 
@@ -216,7 +214,7 @@ namespace ThinkITAM.FunctionPage
                     info.Index = index;
 
                     string assetTypeInfo = row["AssetType"].ToString();
-                    string deviceType2= row["DeviceType"].ToString();
+                    string deviceType2 = row["DeviceType"].ToString();
 
                     info.AssetType = assetTypeInfo;//资产类型
 
@@ -289,7 +287,7 @@ namespace ThinkITAM.FunctionPage
 
         private string assetType;
         private string deviceType;
-        
+
 
         private async void AssetTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -297,8 +295,8 @@ namespace ThinkITAM.FunctionPage
             {
                 //重置全选复选框状态
                 NumberBlock.Text = "0";
-                HeaderCheckBox.IsChecked=false;
-                
+                HeaderCheckBox.IsChecked = false;
+
 
 
                 AssetTreeView.IsEnabled = false;
@@ -314,9 +312,9 @@ namespace ThinkITAM.FunctionPage
 
                     DeviceTypeViewModel info = childNode.DataContext as DeviceTypeViewModel;
 
-                     deviceType = info.DeviceType;
+                    deviceType = info.DeviceType;
 
-                     assetType = info.AssetType;
+                    assetType = info.AssetType;
 
 
                     LoadAssetInfos(assetType, deviceType);
@@ -369,7 +367,7 @@ namespace ThinkITAM.FunctionPage
         /// <param name="treeNode"></param>
         private async Task LoadSelectAssetInfo(AssetTypeUserControl treeNode)
         {
-            
+
 
             //将表名存到全局变量，便于其他地方调用
             //DataBridge.DataBridge.NetworkTableName = treeNode.TableName;
@@ -386,7 +384,7 @@ namespace ThinkITAM.FunctionPage
 
             deviceType = null;
 
-            LoadAssetInfos(assetType,deviceType);
+            LoadAssetInfos(assetType, deviceType);
 
             AssetDataGrid.ItemsSource = assetViewModels;
             //加载网段标签
@@ -419,10 +417,10 @@ namespace ThinkITAM.FunctionPage
         private void LoadAssetInfos(string assetType, string? deviceType)
         {
             assetViewModels.Clear();
-           
+
             string sql;
 
-            if (deviceType!=null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
+            if (deviceType != null && deviceType.Replace(" ", "").Length > 0) //设备类型不为空
             {
                 sql = $"SELECT * FROM Asset WHERE AssetType ='{assetType}' AND DeviceType='{deviceType}' AND  (Del != 1 OR Del IS NULL)";
 
@@ -434,7 +432,7 @@ namespace ThinkITAM.FunctionPage
 
 
 
-            var rows =  GlobalVariables.DbService.ExecuteQuery(sql);
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
             int i = 0;
 
@@ -476,7 +474,7 @@ namespace ThinkITAM.FunctionPage
                 item.UserOrganization = row["UserOrganization"].ToString();
                 item.UserDepartment = row["UserDepartment"].ToString();
                 item.UserGroup = row["UserGroup"].ToString();
-                item.Unit= row["UserUnit"].ToString();
+                item.Unit = row["UserUnit"].ToString();
                 item.User = row["User"].ToString();
                 item.UserPhone = row["UserPhone"].ToString();
                 item.Consumer = row["Consumer"].ToString();
@@ -585,7 +583,7 @@ namespace ThinkITAM.FunctionPage
             }
             else
             {
-                NowSelectedItem =null;
+                NowSelectedItem = null;
                 EditAssetButton.IsEnabled = false;
                 DeleteAssetButton.IsEnabled = false;
             }
@@ -604,14 +602,14 @@ namespace ThinkITAM.FunctionPage
 
             // 创建 QR code 数据
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
-           
-            
+
+
             // 生成 QR code 图像
             QRCode qrCode = new QRCode(qrCodeData);
 
 
 
-            Bitmap qrCodeImage = qrCode.GetGraphic(20,"#2f9f9f","#FFFFFF" );
+            Bitmap qrCodeImage = qrCode.GetGraphic(20, "#2f9f9f", "#FFFFFF");
 
             return qrCodeImage;
         }
@@ -625,7 +623,7 @@ namespace ThinkITAM.FunctionPage
         private void HeaderCheckBox_OnClick(object sender, RoutedEventArgs e)
         {
             CheckBox HeaderCheckBox = sender as CheckBox;
-            
+
             if (HeaderCheckBox != null)
             {
                 if (HeaderCheckBox.IsChecked == true)
@@ -674,7 +672,7 @@ namespace ThinkITAM.FunctionPage
 
             if (checkedCount > 0)
             {
-                
+
                 NumberBlock.Text = checkedCount.ToString();
 
                 QrCodeExport.IsEnabled = true;
@@ -686,7 +684,7 @@ namespace ThinkITAM.FunctionPage
             }
 
 
-            
+
 
         }
 
@@ -769,7 +767,7 @@ namespace ThinkITAM.FunctionPage
         /// </summary>
         /// <param name="data"></param>
         /// <param name="filePath"></param>
-        public  void GenerateAssetTagImage(AssetViewModel data, string filePath)
+        public void GenerateAssetTagImage(AssetViewModel data, string filePath)
         {
             // 创建控件实例
             var assetTagControl = new AssetTagTemplateUserControl();
@@ -832,7 +830,7 @@ namespace ThinkITAM.FunctionPage
 
             // 获取行数据对象
             var rowData = row.Item as AssetViewModel;
-            
+
             if (rowData != null)
             {
                 // 逻辑代码
@@ -845,7 +843,7 @@ namespace ThinkITAM.FunctionPage
 
         private void RunOnDoubleClick(AssetViewModel rowData)
         {
-           
+
 
             AddAssetWindow addAssetWindow = new AddAssetWindow(rowData);
 
@@ -862,7 +860,7 @@ namespace ThinkITAM.FunctionPage
             if (addAssetWindow.ShowDialog() == true)
             {
                 //加载资产数据
-              
+
                 LoadAssetInfos(assetType, deviceType);
             }
         }
@@ -888,9 +886,9 @@ namespace ThinkITAM.FunctionPage
         /// <param name="e"></param>
         private void AddAssetButton_OnClick(object sender, RoutedEventArgs e)
         {
-            AddAssetWindow addAsset = new AddAssetWindow(null,assetType,deviceType);
+            AddAssetWindow addAsset = new AddAssetWindow(null, assetType, deviceType);
 
-            
+
 
 
             //窗口放中间
@@ -928,7 +926,7 @@ namespace ThinkITAM.FunctionPage
 
             if (index != -1)
             {
-                
+
                 var info = AssetDataGrid.SelectedItem as AssetViewModel;
 
                 var message = $"确定要删除选中资产吗？\r资产类型:{info.AssetType}\r设备类型:{info.DeviceType}\r资产序列号:{info.AssetTag}{info.AssetNumber}\r型号:{info.Model}";
@@ -965,7 +963,7 @@ namespace ThinkITAM.FunctionPage
                 LoadAssetTreeviewInfos();
             }
 
-            
+
         }
 
 
@@ -1005,7 +1003,7 @@ namespace ThinkITAM.FunctionPage
             if (saveFileDialog.ShowDialog() == true)
             {
                 string selectedFilePath = saveFileDialog.FileName;
-                        
+
 
                 // 调用导出方法
                 ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath);

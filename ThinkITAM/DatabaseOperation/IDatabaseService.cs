@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Nodify;
-
-namespace ThinkITAM.DatabaseOperation
+﻿namespace ThinkITAM.DatabaseOperation
 {
     /// <summary>
     /// 统一数据库访问接口，屏蔽底层差异，提升易用性与安全性

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Data;
 using System.Reflection;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Channels;
-using System.Threading.Tasks;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.Sqlite;
@@ -281,7 +274,7 @@ namespace ThinkITAM.DatabaseOperation
                                     .ToList();
 
             var sql = $"UPDATE {tableName} SET {string.Join(", ", updates)} WHERE {keyProperty.Name} = @{keyProperty.Name}";
-            
+
             return connection.Execute(sql, entity) > 0;
         }
 

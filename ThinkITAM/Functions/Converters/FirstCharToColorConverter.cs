@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -20,7 +15,7 @@ namespace ThinkITAM.Functions.Converters
                 switch (firstChar)
                 {
                     case '3'://RACK
-                        
+
                         return ColorConverterClass.ColorToBrush("#139487");
                     case '2'://DEVICE
                         return ColorConverterClass.ColorToBrush("#4F9153");
@@ -28,7 +23,7 @@ namespace ThinkITAM.Functions.Converters
             }
 
 
-           
+
             // 可选：返回默认颜色，如灰色
             // return Brushes.Gray;
 

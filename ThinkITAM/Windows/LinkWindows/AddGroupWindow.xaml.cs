@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.LinkManage;
 
@@ -67,7 +54,7 @@ public partial class AddGroupWindow : Window
 
                 var conditions = new { DeviceRoomQrId = deviceRoomQrId, CabinetId = cabinet.CabinetId };
 
-                GlobalVariables.DbService.UpdateEntity("DeviceCabinet", cabinetInfo,conditions);
+                GlobalVariables.DbService.UpdateEntity("DeviceCabinet", cabinetInfo, conditions);
 
                 this.DialogResult = true;
 
@@ -109,7 +96,7 @@ public partial class AddGroupWindow : Window
                 }
             }
 
-            
+
         }
         else
         {
@@ -140,7 +127,7 @@ public partial class AddGroupWindow : Window
 
         }
 
-        if (_roomIndex != -1 )
+        if (_roomIndex != -1)
         {
             RoomCombobox.SelectedIndex = _roomIndex;
         }

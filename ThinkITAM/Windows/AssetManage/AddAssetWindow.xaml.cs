@@ -1,17 +1,14 @@
-﻿using ThinkITAM.DatabaseOperation;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ThinkITAM.ViewModels.Preset;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.Functions.EncryptionDecryption;
 using ThinkITAM.Functions.FunctionClass;
-using DocumentFormat.OpenXml.Bibliography;
+using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.Preset;
 using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.Windows.AssetManage;
@@ -31,7 +28,7 @@ public partial class AddAssetWindow : Window
         InitializeComponent();
 
         ModelsComboBox.ItemsSource = modelList;
-       
+
         if (rowData != null)//有信息传入，说明是修改模式
         {
             editMode = 1;   //修改模式
@@ -65,26 +62,26 @@ public partial class AddAssetWindow : Window
         LoadTags();
         LoadAssetType();
         LoadAddress();
-        
+
 
         if (editMode == 1)
         {
             this.DataContext = assetInfo;
         }
 
-        
+
 
     }
 
     private List<string> modelList = new List<string>();
 
-    private void LoadModelList(string assetType,string deviceType)
+    private void LoadModelList(string assetType, string deviceType)
     {
         modelList.Clear();
 
         string query = $"SELECT * FROM Models WHERE AssetType='{assetType}' AND  DeviceType='{deviceType}' ;";
 
-       
+
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -93,7 +90,7 @@ public partial class AddAssetWindow : Window
             modelList.Add(row["Model"].ToString());
         }
 
-        
+
     }
 
     private ObservableCollection<AddressInfoViewModel> addressInfos = new ObservableCollection<AddressInfoViewModel>();
@@ -227,7 +224,7 @@ public partial class AddAssetWindow : Window
 
             foreach (var row in rows)
             {
-                 tag = row["AssetTag"].ToString();
+                tag = row["AssetTag"].ToString();
             }
 
 
@@ -266,7 +263,7 @@ public partial class AddAssetWindow : Window
 
         foreach (var row in rows)
         {
-             idList.Add(Convert.ToInt32(row["AssetNumber"]));
+            idList.Add(Convert.ToInt32(row["AssetNumber"]));
         }
 
 
@@ -462,7 +459,7 @@ public partial class AddAssetWindow : Window
                     UserOrganization = Organization.Text,
                     UserDepartment = Department.Text,
                     UserGroup = Group.Text,
-                    UserUnit  = Unit.Text,
+                    UserUnit = Unit.Text,
                     User = People.Text,
                     UserPhone = Phone.Text,
                     Consumer = Consumer.Text,
@@ -480,11 +477,11 @@ public partial class AddAssetWindow : Window
                 };
 
 
-                var conditions = new {  AssetId = assetInfo.AssetId };
+                var conditions = new { AssetId = assetInfo.AssetId };
 
 
-                GlobalVariables.DbService.UpdateEntity("Asset", assetEntity,conditions);
-               
+                GlobalVariables.DbService.UpdateEntity("Asset", assetEntity, conditions);
+
 
 
 
@@ -625,7 +622,7 @@ public partial class AddAssetWindow : Window
 
     private void ModelsComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-       Model.Text =  modelList[ModelsComboBox.SelectedIndex];
+        Model.Text = modelList[ModelsComboBox.SelectedIndex];
     }
 
     private void ModelsComboBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)

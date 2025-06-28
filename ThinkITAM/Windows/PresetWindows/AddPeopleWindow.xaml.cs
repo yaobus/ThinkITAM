@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.General;
 using ThinkITAM.ViewModels.Preset;
-using MaterialDesignThemes.Wpf;
-using ThinkITAM.DataBridge;
-using System.Collections;
-using ThinkITAM.Functions.FunctionClass;
-using Microsoft.VisualBasic.FileIO;
-using WinRT.Interop;
 
 
 namespace ThinkITAM.Windows.PresetWindows;
@@ -37,7 +23,7 @@ public partial class AddPeopleWindow : Window
         if (info != null)
         {
             peopleInfo = info;
-           this.DataContext = peopleInfo;
+            this.DataContext = peopleInfo;
         }
 
 
@@ -163,7 +149,7 @@ public partial class AddPeopleWindow : Window
 
             string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Del != '0' OR Del IS NULL);";
 
-           
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -197,24 +183,24 @@ public partial class AddPeopleWindow : Window
 
             if (peopleInfo != null)
             {
-                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text,Units.Text ,Phone.Text, Note.Text);
+                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text, Phone.Text, Note.Text);
             }
             else
             {
-                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text,Phone.Text, Note.Text);
+                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text, Phone.Text, Note.Text);
             }
 
         }
         else
         {
-            
+
 
             var dialog = new ConfirmationDialog
             {
                 Title = "注意",
                 Prompt = $"{info.Item2}",
                 ConfirmButtonText = "确认",
-                
+
 
             };
 
@@ -275,7 +261,7 @@ public partial class AddPeopleWindow : Window
     }
 
 
-    private void SaveOrganizationInfo(string organization, string department,string groups,string units)
+    private void SaveOrganizationInfo(string organization, string department, string groups, string units)
     {
 
         var organizationInfo = organization.Replace(" ", "");
@@ -301,7 +287,7 @@ public partial class AddPeopleWindow : Window
 
     }
 
-    private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups,string _unit ,string _phone, string _note)
+    private void SaveUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _unit, string _phone, string _note)
     {
 
         string userId = $"9{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
@@ -345,7 +331,7 @@ public partial class AddPeopleWindow : Window
     /// <param name="_groups"></param>
     /// <param name="_phone"></param>
     /// <param name="_note"></param>
-    private void UpdateUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups,string _unit, string _phone, string _note)
+    private void UpdateUserInfo(string _userNumber, string _userName, string _organization, string _department, string _groups, string _unit, string _phone, string _note)
     {
 
         var name = _userName.Replace(" ", "");
@@ -365,7 +351,7 @@ public partial class AddPeopleWindow : Window
             Organization = organization,
             Department = department,
             UserGroup = group,
-            UserUnit= unit,
+            UserUnit = unit,
             Phone = phone,
             Note = note
         };
@@ -373,7 +359,7 @@ public partial class AddPeopleWindow : Window
         var conditions = new { UserId = peopleInfo.UserId };
 
         GlobalVariables.DbService.UpdateEntity("UserInfo", info, conditions);
-        
+
         this.DialogResult = true;
 
     }
@@ -532,7 +518,7 @@ public partial class AddPeopleWindow : Window
 
             string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
 
-          
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -541,7 +527,7 @@ public partial class AddPeopleWindow : Window
                 unitInfos.Add(row["UserUnit"].ToString());
             }
 
-            
+
 
             Units.ItemsSource = unitInfos;
         }

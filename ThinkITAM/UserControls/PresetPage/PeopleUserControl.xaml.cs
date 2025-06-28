@@ -1,25 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.Export;
-using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Preset;
-using ThinkITAM.Windows.AssetManage;
 using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
@@ -107,7 +93,7 @@ namespace ThinkITAM.UserControls.PresetPage
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             int index = 0;
-            var prefix= GetUserNumberPrefix();
+            var prefix = GetUserNumberPrefix();
             foreach (var row in rows)
             {
                 index++;

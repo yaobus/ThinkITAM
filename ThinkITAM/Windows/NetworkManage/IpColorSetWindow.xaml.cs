@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.NetworkManage
@@ -27,7 +14,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             InitializeComponent();
             ipInfo = info;
-            this.DataContext= info;
+            this.DataContext = info;
         }
 
         private IpAddressInfoListViewMode ipInfo;

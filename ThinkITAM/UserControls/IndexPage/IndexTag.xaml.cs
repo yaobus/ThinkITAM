@@ -1,21 +1,8 @@
-﻿using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.DatabaseOperation;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.UserControls.IndexPage
 {
@@ -37,7 +24,7 @@ namespace ThinkITAM.UserControls.IndexPage
             string url = $"{tagInfo.Protocol}{tagInfo.Host}";
             string browser = tagInfo.Browser;
 
-            
+
 
             if (tagInfo.Port == null)//未配置端口
             {
@@ -48,13 +35,13 @@ namespace ThinkITAM.UserControls.IndexPage
                 tagInfo.Url = $"{url}:{tagInfo.Port}";
             }
 
-           
+
 
             try
             {
                 if (browser != null && browser.Length > 0)//有指定浏览器
                 {
-                   Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
+                    Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
                 }
                 else
                 {
@@ -62,17 +49,17 @@ namespace ThinkITAM.UserControls.IndexPage
                 }
 
 
-               
+
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                
+
             }
 
 
-            
-            
+
+
 
         }
 
@@ -85,7 +72,7 @@ namespace ThinkITAM.UserControls.IndexPage
         /// <param name="e"></param>
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModels.Index.IndexTagViewModel tagInfo=null;
+            ViewModels.Index.IndexTagViewModel tagInfo = null;
             var menuItem = sender as MenuItem;
             if (menuItem != null)
             {
@@ -128,7 +115,7 @@ namespace ThinkITAM.UserControls.IndexPage
 
                         string sql = $"DELETE FROM \"Bookmark\" WHERE ( \"TypeGroup\"='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
 
-                        
+
 
 
                         GlobalVariables.DbService.ExecuteNonQuery(sql);

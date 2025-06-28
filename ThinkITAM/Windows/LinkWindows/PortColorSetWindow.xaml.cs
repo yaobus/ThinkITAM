@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
 
@@ -27,7 +14,7 @@ namespace ThinkITAM.Windows.LinkWindows
         {
             InitializeComponent();
             port = portInfo;
-            this.DataContext= port;
+            this.DataContext = port;
         }
 
         private PortClass port;
@@ -92,7 +79,7 @@ namespace ThinkITAM.Windows.LinkWindows
             string sql = $"UPDATE  Ra_{DataBridge.DataBridge.SelectRackId[0]}  SET  PortColor  = '{colorIndex}' WHERE UID = '{port.UID}'";
 
 
-            
+
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 
             DialogResult = true;

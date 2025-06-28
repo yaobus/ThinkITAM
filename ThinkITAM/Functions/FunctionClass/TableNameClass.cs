@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ThinkITAM.ViewModels.LinkManage;
+﻿using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -21,7 +16,7 @@ namespace ThinkITAM.Functions.FunctionClass
 
             if (port.PortClass.DeviceId != null)
             {
-                AssetId=  port.PortClass.DeviceId;
+                AssetId = port.PortClass.DeviceId;
             }
             else
             {

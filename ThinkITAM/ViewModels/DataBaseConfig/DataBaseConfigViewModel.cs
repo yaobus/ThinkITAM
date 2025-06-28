@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ThinkITAM.ViewModels.DataBaseConfig
 {
@@ -26,7 +21,8 @@ namespace ThinkITAM.ViewModels.DataBaseConfig
         }
 
         private string nickName;
-        public string NickName   {
+        public string NickName
+        {
             get => nickName;
             set
             {
@@ -71,8 +67,9 @@ namespace ThinkITAM.ViewModels.DataBaseConfig
         }
 
 
-        private int  port;
-        public int Port  {
+        private int port;
+        public int Port
+        {
             get => port;
             set
             {
@@ -85,7 +82,8 @@ namespace ThinkITAM.ViewModels.DataBaseConfig
         }
 
         private string userName;
-        public string UserName   {
+        public string UserName
+        {
             get => userName;
             set
             {
@@ -98,7 +96,8 @@ namespace ThinkITAM.ViewModels.DataBaseConfig
         }
 
         private string password;
-        public string Password   {    
+        public string Password
+        {
             get => password;
             set
             {
@@ -111,7 +110,8 @@ namespace ThinkITAM.ViewModels.DataBaseConfig
         }
 
         private string databaseName;
-        public string DatabaseName   {    
+        public string DatabaseName
+        {
             get => databaseName;
             set
             {

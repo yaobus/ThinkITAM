@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace ThinkITAM.ViewModels.LinkManage;
 public class PortInfoClass
 {
-    public SolidColorBrush Color { get; set; }
+    public SolidColorBrush Color
+    {
+        get; set;
+    }
 
-    public string PortTag { get; set; }
-    
+    public string PortTag
+    {
+        get; set;
+    }
+
     public string PortStatus
     {
-        get;set;
+        get; set;
     }
     /// <summary>
     /// 永久链路机架ID
     /// </summary>
     public string PermanentRackId
     {
-        get;set;
+        get; set;
     }
     /// <summary>
     /// 永久链路机架槽位

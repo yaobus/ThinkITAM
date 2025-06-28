@@ -1,22 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.PortPanel;
-using Microsoft.Xaml.Behaviors.Layout;
-using Newtonsoft.Json;
+﻿using System.Windows;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Windows.PortPanel
 {
@@ -51,10 +35,10 @@ namespace ThinkITAM.Windows.PortPanel
 
                 string sql;
 
-                 sql = $"UPDATE  Bu_{DataBridge.DataBridge.SelectBuildingId}  SET  PortTag  = '{tag}' WHERE  UID = '{port.UID}' ";
+                sql = $"UPDATE  Bu_{DataBridge.DataBridge.SelectBuildingId}  SET  PortTag  = '{tag}' WHERE  UID = '{port.UID}' ";
 
-                
-               
+
+
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                 DialogResult = true;

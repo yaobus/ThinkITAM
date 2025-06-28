@@ -1,21 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using static MaterialDesignThemes.Wpf.Theme;
-using TextBox = System.Windows.Controls.TextBox;
 
 namespace ThinkITAM.Windows.PresetWindows;
 /// <summary>
@@ -57,11 +44,11 @@ public partial class AddOrganizationWindow : Window
     private void SaveOrganizationInfo(string organization)
     {
         var organizationInfo = organization.Replace(" ", "");
-       
-        
+
+
         string sqlTemp = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '');";
 
-        
+
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num <= 0)
@@ -83,11 +70,11 @@ public partial class AddOrganizationWindow : Window
             if (num2 == 1)
             {
                 var result = MessageBox.Show($"当前添加的{organization}，在数据库中已被标记为删除，是否进行恢复？", "请注意", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-               
+
                 if (result == MessageBoxResult.Yes)
                 {
                     string sql2 = $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
-       
+
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;
                     this.Close();
@@ -106,7 +93,7 @@ public partial class AddOrganizationWindow : Window
     }
 
 
-    private ObservableCollection<string> organizationInfo= new ObservableCollection<string>();
+    private ObservableCollection<string> organizationInfo = new ObservableCollection<string>();
 
     private string sqlsub = "WHERE (Del != '0' OR Del IS NULL)";
 
@@ -125,7 +112,7 @@ public partial class AddOrganizationWindow : Window
 
         foreach (var row in rows)
         {
-             organizationInfo.Add(row["Organization"].ToString());
+            organizationInfo.Add(row["Organization"].ToString());
         }
 
 

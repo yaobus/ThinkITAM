@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
@@ -71,8 +59,8 @@ namespace ThinkITAM.UserControls.LinkPage
 
 
                 case 0://链路查看模式
-                       
-                       DataBridge.DataBridge.LinkViewList.Clear();
+
+                    DataBridge.DataBridge.LinkViewList.Clear();
 
                     if (info.OnTheLine != null && info.OnTheLine > 0)
                     {
@@ -153,7 +141,7 @@ namespace ThinkITAM.UserControls.LinkPage
                                 }
 
 
-                                if (p.PortClass.DeviceId != null )//新增节点是设备节点
+                                if (p.PortClass.DeviceId != null)//新增节点是设备节点
                                 {
                                     if (deviceNodeCount == 0)
                                     {
@@ -168,7 +156,7 @@ namespace ThinkITAM.UserControls.LinkPage
                                 }
                                 else//墙面节点
                                 {
-                                    if (panelNodeCount==0)
+                                    if (panelNodeCount == 0)
                                     {
                                         DataBridge.DataBridge.LinkManageList.Add(portInfo);
                                         portInfo.PortClass.IsSelected = true;

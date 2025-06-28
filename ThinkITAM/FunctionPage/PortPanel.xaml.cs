@@ -1,18 +1,14 @@
 ﻿using System.Collections.ObjectModel;
-
 using System.Windows;
 using System.Windows.Controls;
-
-using ThinkITAM.Windows.PortPanel;
-using ThinkITAM.Windows.PresetWindows;
+using System.Windows.Input;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.UserControls.LinkPage;
+using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.PortPanel;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
-using ThinkITAM.DataBridge;
-using System.Windows.Input;
+using ThinkITAM.Windows.PortPanel;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -24,7 +20,7 @@ namespace ThinkITAM.FunctionPage
         public PortPanel()
         {
             InitializeComponent();
-            DataBridge.DataBridge.modifyPorts.CollectionChanged+=ModifyPorts_CollectionChanged;
+            DataBridge.DataBridge.modifyPorts.CollectionChanged += ModifyPorts_CollectionChanged;
         }
 
         /// <summary>
@@ -85,14 +81,14 @@ namespace ThinkITAM.FunctionPage
 
         private void PortPanel_OnLoaded(object sender, RoutedEventArgs e)
         {
-          
+
 
             LoadPanelPortTreeList();
 
 
             RoomListView.ItemsSource = roomNumbers;
 
-           // DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+            // DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
             RouteViewPanel.ItemsSource = DataBridge.DataBridge.PortPanelLinkViewList;
 
@@ -356,7 +352,7 @@ namespace ThinkITAM.FunctionPage
 
                 string sql =
                     $"SELECT * FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE SlotId ='{DataBridge.DataBridge.SelectFloor}' AND RoomId='{room.RoomNumber}'";
-                
+
                 lastSql = sql;
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -442,7 +438,7 @@ namespace ThinkITAM.FunctionPage
 
         private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key==Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 SearchButton_OnClick(null, null);
             }

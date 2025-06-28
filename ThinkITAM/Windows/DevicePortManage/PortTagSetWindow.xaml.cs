@@ -1,19 +1,7 @@
-﻿using ThinkITAM.DatabaseOperation;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Newtonsoft.Json;
+using ThinkITAM.DatabaseOperation;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -31,7 +19,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         private void PortTagSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            
+
             var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
 
             string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
@@ -96,17 +84,17 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         private void PortTagSetWindow_OnClosing(object? sender, CancelEventArgs e)
         {
-            
+
         }
 
         private void GlobalRadioButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void LocalRadioButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void ResetButton_OnClick(object sender, RoutedEventArgs e)
@@ -117,13 +105,13 @@ namespace ThinkITAM.Windows.DevicePortManage
             if (LocalRadioButton.IsChecked == true)
             {
 
-               
+
                 message = "你正在重置该设备独有自定义标签，是否继续？";
 
             }
             else
             {
-               
+
                 message = "你正在重置全局设备默认自定义标签，是否继续？";
             }
 
@@ -153,10 +141,10 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
             else//本地
             {
-               
-                
+
+
                 tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
-                
+
             }
 
 

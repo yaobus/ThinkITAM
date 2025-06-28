@@ -45,37 +45,37 @@
 
         <!--  按钮组  -->
         <Grid Grid.Row="2">
-<Grid.ColumnDefinitions>
-    <ColumnDefinition Width="*"/>
-    <ColumnDefinition Width="*"/>
-</Grid.ColumnDefinitions>
-                <!--  确认按钮  -->
-                <Button
-                    Grid.Column="0"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Command="{Binding ConfirmCommand}"
-                    Content="{Binding ConfirmButtonText}"
-                    Foreground="{Binding ConfirmButtonColor}"
-                    Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}">
-                    <Button.CommandParameter>
-                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">True</system:Boolean>
-                    </Button.CommandParameter>
-                </Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!--  确认按钮  -->
+            <Button
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Command="{Binding ConfirmCommand}"
+                Content="{Binding ConfirmButtonText}"
+                Foreground="{Binding ConfirmButtonColor}"
+                Style="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
 
-                <!--  取消按钮  -->
-                <Button
-                    Grid.Column="1"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                    Content="{DynamicResource CdClose}"
-                    IsCancel="True"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}">
-                    <Button.CommandParameter>
-                        <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
-                    </Button.CommandParameter>
-                </Button>
+            <!--  取消按钮  -->
+            <Button
+                Grid.Column="1"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                Content="{DynamicResource CdClose}"
+                IsCancel="True"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                <Button.CommandParameter>
+                    <system:Boolean xmlns:system="clr-namespace:System;assembly=System.Runtime">False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
 
         </Grid>
     </Grid>

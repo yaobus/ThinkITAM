@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ThinkITAM.ViewModels.LinkManage;
 
@@ -13,7 +8,10 @@ namespace ThinkITAM.ViewModels.LinkManage;
 public class RackInfo
 {
 
-    public int  Index { get; set; }
+    public int Index
+    {
+        get; set;
+    }
 
     public string rackId
     {
@@ -21,7 +19,10 @@ public class RackInfo
         set;
     }
 
-    public string rackGroup { get; set; }
+    public string rackGroup
+    {
+        get; set;
+    }
 
 
 
@@ -39,7 +40,10 @@ public class RackInfo
     /// <summary>
     /// 槽位信息合集
     /// </summary>
-    public ObservableCollection<SlotClass>  slotInfos { get; set; }
+    public ObservableCollection<SlotClass> slotInfos
+    {
+        get; set;
+    }
 
 
     public int slotCount

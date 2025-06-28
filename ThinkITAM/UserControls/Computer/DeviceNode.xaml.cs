@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
 
@@ -46,9 +34,9 @@ namespace ThinkITAM.UserControls.Computer
                         var onTheLine = portClass.OnTheLine;
 
 
-                        if (onTheLine>0)
+                        if (onTheLine > 0)
                         {
-                            MessageBox.Show("该设备已经在链路中，无法撤销部署\r如需撤销部署，请先从链路中删除该设备","无法删除",MessageBoxButton.OK,MessageBoxImage.Information);
+                            MessageBox.Show("该设备已经在链路中，无法撤销部署\r如需撤销部署，请先从链路中删除该设备", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         else
                         {

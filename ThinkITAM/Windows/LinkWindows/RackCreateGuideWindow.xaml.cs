@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.LinkManage;
 using Newtonsoft.Json;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.LinkManage;
 
 namespace ThinkITAM.Windows.LinkWindows;
 /// <summary>
@@ -68,7 +55,7 @@ public partial class RackCreateGuideWindow : Window
     private void LoadRoomInfo()
     {
         RoomCombobox.ItemsSource = roomInfos;
-        
+
         roomInfos.Clear();
         string query = "SELECT * FROM DeviceRoom";
 
@@ -328,7 +315,7 @@ public partial class RackCreateGuideWindow : Window
 
         string rackStr1;
 
-        
+
         //创建资产ID字符串
         rackStr1 = $"3{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(rackCreateInfos.rackName + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 

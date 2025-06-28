@@ -1,68 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.LinkManage
+﻿namespace ThinkITAM.ViewModels.LinkManage
 {
-using System.ComponentModel;
+    using System.ComponentModel;
 
-public class PortLinkClass : INotifyPropertyChanged
-{
-    private PortLinkLocationInfo _portLinkLocationInfo;
-    private MdfRackClass _mdfRackClass;
-    private SlotClass _slotClass;
-    private PortClass _portClass;
-
-
-    /// <summary>
-    /// 位置信息
-    /// </summary>
-    public PortLinkLocationInfo PortLinkLocationInfo
+    public class PortLinkClass : INotifyPropertyChanged
     {
-        get => _portLinkLocationInfo;
-        set
+        private PortLinkLocationInfo _portLinkLocationInfo;
+        private MdfRackClass _mdfRackClass;
+        private SlotClass _slotClass;
+        private PortClass _portClass;
+
+
+        /// <summary>
+        /// 位置信息
+        /// </summary>
+        public PortLinkLocationInfo PortLinkLocationInfo
         {
-            if (_portLinkLocationInfo != value)
+            get => _portLinkLocationInfo;
+            set
             {
-                _portLinkLocationInfo = value;
-                OnPropertyChanged(nameof(PortLinkLocationInfo));
+                if (_portLinkLocationInfo != value)
+                {
+                    _portLinkLocationInfo = value;
+                    OnPropertyChanged(nameof(PortLinkLocationInfo));
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// 机架信息
-    /// </summary>
-    public MdfRackClass MdfRackClass
-    {
-        get => _mdfRackClass;
-        set
+        /// <summary>
+        /// 机架信息
+        /// </summary>
+        public MdfRackClass MdfRackClass
         {
-            if (_mdfRackClass != value)
+            get => _mdfRackClass;
+            set
             {
-                _mdfRackClass = value;
-                OnPropertyChanged(nameof(MdfRackClass));
+                if (_mdfRackClass != value)
+                {
+                    _mdfRackClass = value;
+                    OnPropertyChanged(nameof(MdfRackClass));
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// 槽位信息
-    /// </summary>
-    public SlotClass SlotClass
-    {
-        get => _slotClass;
-        set
+        /// <summary>
+        /// 槽位信息
+        /// </summary>
+        public SlotClass SlotClass
         {
-            if (_slotClass != value)
+            get => _slotClass;
+            set
             {
-                _slotClass = value;
-                OnPropertyChanged(nameof(SlotClass));
+                if (_slotClass != value)
+                {
+                    _slotClass = value;
+                    OnPropertyChanged(nameof(SlotClass));
+                }
             }
         }
-    }
 
         /// <summary>
         /// 端口信息
@@ -85,20 +79,29 @@ public class PortLinkClass : INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
-}
 
 
 
     public class PortLinkLocationInfo
     {
-        public static string Location { get; set; }
+        public static string Location
+        {
+            get; set;
+        }
 
-        public static string DeviceRoom { get; set; }
-        
-        public static string Cabinet { get; set; }
+        public static string DeviceRoom
+        {
+            get; set;
+        }
+
+        public static string Cabinet
+        {
+            get; set;
+        }
     }
 }

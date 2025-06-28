@@ -1,13 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.DatabaseOperation;
-using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.PortPanel;
-using Nmap.NET.Container;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.PortPanel;
+using ThinkITAM.Windows.PortPanel;
 
 namespace ThinkITAM.UserControls.LinkPage
 {
@@ -45,7 +43,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
         private void Port_OnLoaded(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
 
@@ -63,11 +61,11 @@ namespace ThinkITAM.UserControls.LinkPage
 
             MdfRackClass mdfRack = new MdfRackClass();
             mdfRack = DbClass.GetRackInfo(DataBridge.DataBridge.SelectedBuildingId);
-            
-            
+
+
 
             portInfo.MdfRackClass = mdfRack;
-            
+
 
             // 获取 Port的 DataContext
             var portDataContext = this.DataContext;
@@ -77,10 +75,10 @@ namespace ThinkITAM.UserControls.LinkPage
             var info = p.PortClass;
 
             //Console.WriteLine("RackId:"+portInfo.MdfRackClass.RackId);
-            
+
             portInfo.PortClass = info;
 
-            portInfo.SlotClass = DbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId,info.UID);
+            portInfo.SlotClass = DbClass.GetBuildingRoomInfo(DataBridge.DataBridge.SelectedBuildingId, info.UID);
 
             portInfo.MdfRackClass.CabinetName = portInfo.SlotClass.SlotName;
             portInfo.MdfRackClass.RackName = portInfo.SlotClass.SlotTag;
@@ -214,7 +212,7 @@ namespace ThinkITAM.UserControls.LinkPage
 
                             string oldType = string.Empty; ;
 
-                            foreach (var node  in DataBridge.DataBridge.LinkManageList)
+                            foreach (var node in DataBridge.DataBridge.LinkManageList)
                             {
 
                                 if (node.MdfRackClass.RackId.Substring(0, 1) != "2")//不是设备类型
@@ -225,10 +223,10 @@ namespace ThinkITAM.UserControls.LinkPage
                             }
 
 
-                            if (CheckStrings(nowType,oldType) == false)
+                            if (CheckStrings(nowType, oldType) == false)
                             {
                                 MessageBox.Show("链路介质类型应该保持一致");
-                                
+
                             }
                             else
                             {

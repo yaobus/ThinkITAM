@@ -1,24 +1,17 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Newtonsoft.Json;
-using ThinkITAM.Windows.LinkWindows;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
-using ThinkITAM.DataBridge;
-using ThinkITAM.Functions.FunctionClass;
-using System.Windows.Controls.Primitives;
-using System;
-using System.Collections.Specialized;
-using ThinkITAM.UserControls.Computer;
-using Microsoft.VisualBasic;
-using ThinkITAM.ViewModels.Preset;
-using Nmap.NET.Container;
-using System.Windows.Input;
-using DocumentFormat.OpenXml.EMMA;
+using ThinkITAM.Windows.LinkWindows;
 
 
 namespace ThinkITAM.FunctionPage
@@ -1995,7 +1988,7 @@ namespace ThinkITAM.FunctionPage
 
                 var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
-                if (count>0)
+                if (count > 0)
                 {
                     MessageBox.Show($"该设备上已有{count}个端口在链路中，无法删除\r如需删除，请先移除在链路上的端口", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -2012,7 +2005,7 @@ namespace ThinkITAM.FunctionPage
                     {
                         string query = $"DELETE FROM {tableName} WHERE {tableField} = '{id}'";
 
-                        
+
                         GlobalVariables.DbService.ExecuteNonQuery(query);
                         GlobalVariables.DbService.ExecuteNonQuery(sql2);
 

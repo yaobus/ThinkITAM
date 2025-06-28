@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -12,9 +11,6 @@ using AForge.Video.DirectShow;
 using Microsoft.Win32;
 using SkiaSharp;
 using ThinkITAM.Functions.FunctionClass;
-using ZXing;
-using ZXing.Common;
-using ZXing.QrCode;
 using ZXing.SkiaSharp;
 using static MaterialDesignThemes.Wpf.Theme;
 
@@ -43,7 +39,7 @@ namespace ThinkITAM.Windows.Scan
 
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            ComboBox.ItemsSource= cameraList;
+            ComboBox.ItemsSource = cameraList;
 
             if (videoDevices.Count == 0)
             {
@@ -98,14 +94,14 @@ namespace ThinkITAM.Windows.Scan
             base.OnClosed(e);
 
 
-            if (_timer!=null)
+            if (_timer != null)
             {
                 _timer.Stop();
             }
 
 
 
-            
+
         }
 
         /// <summary>
@@ -160,13 +156,13 @@ namespace ThinkITAM.Windows.Scan
                             var result = barcodeReader.Decode(skBitmap); // 这一行
                             if (result != null && isScanning == false)
                             {
-                                
-                               
+
+
                                 MessageBox.Show("扫描结果：" + result.Text);
                                 isScanning = true;
                                 _timer.Start();
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -260,7 +256,7 @@ namespace ThinkITAM.Windows.Scan
                         catch (Exception ex)
                         {
                             MessageBox.Show("扫描失败：" + ex.Message);
-                           
+
                         }
 
 

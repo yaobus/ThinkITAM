@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Media;
-using Markdig;
 
 
 namespace ThinkITAM.Windows.Welcome;
@@ -29,9 +26,9 @@ public partial class WelcomeWindow : Window
         {
 
 
-            UpdateInfo.Markdown= updateInfo;
+            UpdateInfo.Markdown = updateInfo;
 
-            
+
         }
 
     }

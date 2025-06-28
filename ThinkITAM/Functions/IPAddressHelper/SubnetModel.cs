@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using ThinkITAM.FunctionPage;
-using ThinkITAM.Functions.IPAddressHelper;
 
 
 namespace ThinkITAM.Functions.IPAddressHelper
@@ -36,11 +29,11 @@ namespace ThinkITAM.Functions.IPAddressHelper
         public static (string, ObservableCollection<string>) CalculateSubnets(string ipAddress, int subnetMask)
         {
 
-                string baseSubnet = CalculateBaseSubnet(ipAddress, subnetMask);
+            string baseSubnet = CalculateBaseSubnet(ipAddress, subnetMask);
 
-                ObservableCollection<string> subnetsRanges = CalculateSubnetsRanges(ipAddress, subnetMask);
+            ObservableCollection<string> subnetsRanges = CalculateSubnetsRanges(ipAddress, subnetMask);
 
-                return (baseSubnet, subnetsRanges);
+            return (baseSubnet, subnetsRanges);
 
 
 
@@ -73,7 +66,7 @@ namespace ThinkITAM.Functions.IPAddressHelper
                 // 检查每个部分是否在0到255之间
                 if (octet < 0 || octet > 255)
                 {
-                   return -1;
+                    return -1;
                 }
 
                 // 计算每个八位字节中1的个数并累加到长度中
@@ -114,7 +107,7 @@ namespace ThinkITAM.Functions.IPAddressHelper
 
             string baseIpAddress = ipParts[0] + "." + ipParts[1];
 
-            int subnetCount = (int)IPAddressCalculations.AddressCount(subnetMask)/256;
+            int subnetCount = (int)IPAddressCalculations.AddressCount(subnetMask) / 256;
 
             int subnetIncrement = 256;
 
@@ -126,7 +119,7 @@ namespace ThinkITAM.Functions.IPAddressHelper
                 int startOffset = startAddress % 256;
                 int endOffset = endAddress % 256;
 
-               
+
                 IPAddress ip;
 
                 if (IPAddress.TryParse(ipAddress, out ip))
@@ -139,13 +132,13 @@ namespace ThinkITAM.Functions.IPAddressHelper
 
                     int part3 = Convert.ToInt32(baseSplit[2]);
 
-                    string subnetRange = $"{baseIpAddress}.{part3+i}.{startOffset}-{baseIpAddress}.{part3 + i}.{endOffset}";
+                    string subnetRange = $"{baseIpAddress}.{part3 + i}.{startOffset}-{baseIpAddress}.{part3 + i}.{endOffset}";
 
                     subnetsRanges.Add(subnetRange);
                 }
 
 
-                
+
 
 
 

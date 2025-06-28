@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Functions.FunctionClass;
@@ -18,7 +11,7 @@ public class DeviceInfoUpdater
     public static async Task UpdateDeviceInfoListAsync(ObservableCollection<IpAddressInfoListViewMode> devices)
     {
         var tasks = devices
-           // .Where(device => device.PingTime != "-1")
+            // .Where(device => device.PingTime != "-1")
             .Select(device => UpdateDeviceInfoAsync(device))
             .ToArray();
 

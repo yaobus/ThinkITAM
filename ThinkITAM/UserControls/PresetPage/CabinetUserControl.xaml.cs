@@ -1,25 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.LinkWindows;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.UserControls.LinkPage;
-using ThinkITAM.ViewModels.AssetManage;
-using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.LinkWindows;
 
 namespace ThinkITAM.UserControls.PresetPage
 {
@@ -38,7 +23,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
 
             RoomListView.ItemsSource = deviceRoomInfos;
-            CabinetListView.ItemsSource= deviceCabinetInfos;
+            CabinetListView.ItemsSource = deviceCabinetInfos;
 
             LoadDeviceRoomInfo();
         }
@@ -65,7 +50,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             foreach (var row in rows)
             {
-                                index++;
+                index++;
                 ViewModels.LinkManage.DeviceRoomClass info = new ViewModels.LinkManage.DeviceRoomClass();
                 info.Index = index;
                 info.DeviceRoomQrId = row["DeviceRoomQrId"].ToString();
@@ -112,8 +97,8 @@ namespace ThinkITAM.UserControls.PresetPage
                 roomId = roomInfo.DeviceRoomQrId;
 
 
-                EditRoomButton.IsEnabled=true;
-                DeleteRoomButton.IsEnabled=true;
+                EditRoomButton.IsEnabled = true;
+                DeleteRoomButton.IsEnabled = true;
 
                 LoadCabinetInfo(roomId);
             }
@@ -172,7 +157,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
 
                 LoadDeviceRoomInfo();
-               
+
             }
 
         }
@@ -273,7 +258,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 EditCabinetButton.IsEnabled = true;
                 DeleteCabinetButton.IsEnabled = true;
 
-                
+
             }
             else
             {

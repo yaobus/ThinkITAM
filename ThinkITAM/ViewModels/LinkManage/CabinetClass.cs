@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThinkITAM.ViewModels.LinkManage;
+﻿namespace ThinkITAM.ViewModels.LinkManage;
 public class CabinetClass
 {
 
-    public int Index    { get; set; }
+    public int Index
+    {
+        get; set;
+    }
 
     public string CabinetId
     {

@@ -1,28 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.Windows.NetworkManage;
-using ThinkITAM.DatabaseOperation;
-using ThinkITAM.FunctionClass;
-using ThinkITAM.ViewModels.NetworkManage;
-using ThinkITAM.ViewModels.Others;
-using Nodify;
-using static MaterialDesignThemes.Wpf.Theme;
 using ThinkITAM.DataBridge;
-using System.Collections;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -39,7 +22,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void WakeOnLanWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+
 
             HostsDataGrid.ItemsSource = hosts;
 
@@ -56,7 +39,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 wake.Owner = window;
             }
 
-          
+
             if (wake.ShowDialog() == true)
             {
                 //加载数据
@@ -69,80 +52,80 @@ namespace ThinkITAM.Windows.ToolWindows
         private ObservableCollection<WakeOnLanHostViewModel> hosts = new ObservableCollection<WakeOnLanHostViewModel>();
         private void LoadWakeOnLanHosts()
         {
-            hosts.Clear();  
+            hosts.Clear();
             string sql = $"SELECT *  FROM WakeOnLan";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
             int index = 0;
             foreach (var row in rows)
             {
-                                    index++;
-                    var host = new WakeOnLanHostViewModel();
-                   
-                    host.Index = index;
-                    host.UID = Convert.ToInt32(row["UID"]);
-                   
-                    if (row["Name"] != DBNull.Value)
+                index++;
+                var host = new WakeOnLanHostViewModel();
+
+                host.Index = index;
+                host.UID = Convert.ToInt32(row["UID"]);
+
+                if (row["Name"] != DBNull.Value)
+                {
+                    host.Name = row["Name"].ToString();
+                }
+
+                if (row["HostGroup"] != DBNull.Value)
+                {
+                    host.HostGroup = row["HostGroup"].ToString();
+                }
+
+                if (row["IpAddress"] != DBNull.Value)
+                {
+                    host.IpAddress = row["IpAddress"].ToString();
+                }
+
+                if (row["NetMask"] != DBNull.Value)
+                {
+                    host.Netmask = row["NetMask"].ToString();
+                }
+
+
+                if (row["Port"] != DBNull.Value)
+                {
+                    try
                     {
-                        host.Name = row["Name"].ToString();
+                        host.Port = Convert.ToInt32(row["Port"]);
+                    }
+                    catch (Exception e)
+                    {
+                        host.Port = 9;
                     }
 
-                    if (row["HostGroup"] != DBNull.Value)
+                }
+
+                if (row["PinToStart"] != DBNull.Value)
+                {
+                    string value = row["PinToStart"].ToString();
+
+                    if (value == "True")
                     {
-                        host.HostGroup= row["HostGroup"].ToString();
-                    }
-
-                    if (row["IpAddress"] != DBNull.Value)
-                    {
-                        host.IpAddress = row["IpAddress"].ToString();
-                    }
-
-                    if (row["NetMask"] != DBNull.Value)
-                    {
-                        host.Netmask = row["NetMask"].ToString();
-                    }
-
-
-                    if (row["Port"] != DBNull.Value)
-                    {
-                        try
-                        {
-                            host.Port = Convert.ToInt32(row["Port"]);
-                        }
-                        catch (Exception e)
-                        {
-                            host.Port = 9;
-                        }
-                       
-                    }
-
-                    if (row["PinToStart"]!= DBNull.Value)
-                    {
-                        string value = row["PinToStart"].ToString();
-
-                        if (value=="True")
-                        {
-                            host.PinToStart = true;
-                        }
-                        else
-                        {
-                            host.PinToStart = false;
-                        }
+                        host.PinToStart = true;
                     }
                     else
                     {
                         host.PinToStart = false;
                     }
+                }
+                else
+                {
+                    host.PinToStart = false;
+                }
 
 
 
 
-                   
-
-                    host.Mac = row["Mac"].ToString();
 
 
-                    hosts.Add(host);
+                host.Mac = row["Mac"].ToString();
+
+
+                hosts.Add(host);
             }
 
 
@@ -157,24 +140,24 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private async void WakeOnLanButton0_OnClick(object sender, RoutedEventArgs e)
         {
-           var info = HostsDataGrid.SelectedItem as WakeOnLanHostViewModel;
+            var info = HostsDataGrid.SelectedItem as WakeOnLanHostViewModel;
 
-           try
-           {
-               await WakeOnLan.SendMagicPacketAsync(
-                   macAddress: info.Mac,
-                   ipAddress: info.IpAddress,
-                   port: info.Port,
-                   sendToSpecificIp: false,
-                   subnetMask: string.IsNullOrWhiteSpace(info.Netmask) ? null : info.Netmask);
+            try
+            {
+                await WakeOnLan.SendMagicPacketAsync(
+                    macAddress: info.Mac,
+                    ipAddress: info.IpAddress,
+                    port: info.Port,
+                    sendToSpecificIp: false,
+                    subnetMask: string.IsNullOrWhiteSpace(info.Netmask) ? null : info.Netmask);
 
-               Console.WriteLine($"已发送WOL包到 {info.Mac}所在IP地址{info.IpAddress}");
+                Console.WriteLine($"已发送WOL包到 {info.Mac}所在IP地址{info.IpAddress}");
 
-           }
-           catch (Exception ex)
-           {
-               Console.WriteLine($"发送失败: {ex.Message}");
-           }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"发送失败: {ex.Message}");
+            }
 
         }
 

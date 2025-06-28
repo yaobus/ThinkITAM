@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
-using ThinkITAM.UserControls.LinkPage;
 using ThinkITAM.ViewModels.LinkManage;
-using ThinkITAM.ViewModels.PortPanel;
 
 namespace ThinkITAM.Windows.PortPanel
 {
@@ -82,12 +68,12 @@ namespace ThinkITAM.Windows.PortPanel
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+
             string sql = $"UPDATE  Bu_{DataBridge.DataBridge.SelectBuildingId}  SET  PortColor  = '{PortColor.SelectedIndex}' WHERE  UID='{port.UID}'";
 
-           
 
-          
+
+
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 
             DialogResult = true;

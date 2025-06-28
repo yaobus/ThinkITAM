@@ -1,13 +1,7 @@
-﻿using ThinkITAM.UserControls.General;
-using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Text.RegularExpressions;
 using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
+using ThinkITAM.UserControls.General;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -49,9 +43,9 @@ namespace ThinkITAM.Functions.FunctionClass
                         else
                         {
 
-                           //ShowMessageDialog("端口输入有误",$"无效范围或超出界限: {trimmedElement}。请确保范围在{MinPort}到{MaxPort}之间。");
+                            //ShowMessageDialog("端口输入有误",$"无效范围或超出界限: {trimmedElement}。请确保范围在{MinPort}到{MaxPort}之间。");
 
-                           return null;
+                            return null;
 
                         }
                     }
@@ -60,7 +54,7 @@ namespace ThinkITAM.Functions.FunctionClass
                         return null;
                         //ShowMessageDialog("端口输入有误", $"无效的范围格式: {trimmedElement}");
 
-                       
+
                     }
                 }
                 else if (int.TryParse(trimmedElement, out int singlePort) && IsPortInRange(singlePort))
@@ -72,14 +66,14 @@ namespace ThinkITAM.Functions.FunctionClass
                 {
                     return null;
                     //ShowMessageDialog("端口输入有误", $"无法解析或端口超出范围: {trimmedElement}");
-                   
+
                 }
             }
 
             return ports.OrderBy(p => p).ToList(); // 返回排序后的列表
         }
 
-        public  static void ShowMessageDialog(string title, string message)
+        public static void ShowMessageDialog(string title, string message)
         {
             var dialog = new ConfirmationDialog
             {

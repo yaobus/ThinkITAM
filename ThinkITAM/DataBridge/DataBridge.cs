@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
@@ -29,7 +24,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 当前打开的数据库类型
         /// </summary>
-        public static string NowOpenedDataBaseType ="sqlite";
+        public static string NowOpenedDataBaseType = "sqlite";
 
 
         /// <summary>
@@ -107,7 +102,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 批量选择的第一个地址类型，1为未分配的地址，2为已分配的地址,3为已关联的地址
         /// </summary>
-        public static int AddressStatus ;
+        public static int AddressStatus;
 
         /// <summary>
         /// 当前选择的端口
@@ -122,7 +117,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 当前选择的人员信息
         /// </summary>
-        public static PeopleViewModel SelectPeopleViewModel= new PeopleViewModel();
+        public static PeopleViewModel SelectPeopleViewModel = new PeopleViewModel();
 
         //---------------------资产模块--------------------
 
@@ -277,12 +272,18 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 当前选中的建筑ID/RackId
         /// </summary>
-        public static string SelectedBuildingId { get; set; }
+        public static string SelectedBuildingId
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 当前选中的楼层ID/SlotId
         /// </summary>
-        public static string SelectedSlotId { get; set; }
+        public static string SelectedSlotId
+        {
+            get; set;
+        }
 
         //-------------------------PortPanel----------------------------
         /// <summary>
@@ -319,7 +320,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 发生修改的IndexPage标签列表
         /// </summary>
-        public static ObservableCollection<string> modifyIndexTags= new ObservableCollection<string>();
+        public static ObservableCollection<string> modifyIndexTags = new ObservableCollection<string>();
 
 
         //-------------------------Computer----------------------------

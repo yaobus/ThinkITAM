@@ -1,18 +1,8 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace ThinkITAM.UserControls.InformationDisplay
 {
@@ -85,7 +75,10 @@ namespace ThinkITAM.UserControls.InformationDisplay
             ConfirmCommand = new RelayCommand<bool>(OnConfirmed);
         }
 
-        public ICommand ConfirmCommand { get; private set; }
+        public ICommand ConfirmCommand
+        {
+            get; private set;
+        }
 
         private void OnConfirmed(bool result)
         {
@@ -124,8 +117,14 @@ namespace ThinkITAM.UserControls.InformationDisplay
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
         }
     }
 }
