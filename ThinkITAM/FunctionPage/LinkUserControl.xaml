@@ -92,10 +92,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ClearSearchKeyWord"
-                        Style="{StaticResource MaterialDesignToolButton}"
-                        Click="ClearSearchKeyWord_OnClick"
-                        >
+                <Button
+                    x:Name="ClearSearchKeyWord"
+                    Click="ClearSearchKeyWord_OnClick"
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox
@@ -107,15 +107,13 @@
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
-                    Opacity="0.3"
                     KeyDown="SearchKeyWord_OnKeyDown"
-                    />
+                    Opacity="0.3" />
                 <Button
                     x:Name="SearchButton"
                     Grid.Column="2"
-                    Style="{StaticResource MaterialDesignToolButton}"
                     Click="SearchButton_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
@@ -878,7 +876,7 @@
                         d:Height="150"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -945,7 +943,7 @@
                         Margin="0"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -962,7 +960,6 @@
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-
                                         <StackPanel Orientation="Horizontal" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>

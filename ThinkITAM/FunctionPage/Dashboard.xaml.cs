@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using DocumentFormat.OpenXml.Spreadsheet;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.Index;
@@ -57,15 +58,15 @@ public partial class Dashboard : UserControl
     /// </summary>
     private async Task LoadIndexTags(string searchKeyWord = "")
     {
+        var sql0 = $"SELECT * FROM BookmarkGroupOrder WHERE Del != 1 OR Del IS NULL ORDER BY DisplayOrder ASC";
 
-        var query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE PinToStart = 1 AND (Del != 1 OR Del IS NULL);";
+        var rows0 = GlobalVariables.DbService.ExecuteQuery(sql0);
 
-        var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
-        foreach (var row in rows)
+        foreach (var row0 in rows0)
         {
             var info = new DashboardIndexTagViewModel();
-            info.GroupName = row["TypeGroup"].ToString();
+
+            info.GroupName = row0["TypeGroup"].ToString();
 
             var sql = $"SELECT * FROM Bookmark WHERE TypeGroup = '{info.GroupName}' AND PinToStart = 1 AND (Del != 1 OR Del IS NULL);";
 
@@ -128,10 +129,24 @@ public partial class Dashboard : UserControl
             }
 
             info.IndexTags = tags;
-            dashboardIndexTags.Add(info);
+
+            if (info.IndexTags.Count > 0)
+            {
+                dashboardIndexTags.Add(info);
+            }
+
+
             await Task.Delay(10);
 
+
+
+
         }
+
+
+
+
+
 
 
     }

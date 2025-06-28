@@ -73,10 +73,7 @@ public partial class AddressCollectWindow : Window
     private void AddressCollectWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         Groups.ItemsSource = groups;
-        //打开数据库连接
-
-
-        //LoadBrowserInfo();
+        
 
         BrowserCombobox.ItemsSource = browserInfos;
         if (address != null)
@@ -114,7 +111,7 @@ public partial class AddressCollectWindow : Window
     {
         groups.Clear();
 
-        string query = $"SELECT DISTINCT  TypeGroup  FROM Bookmark  WHERE Del != 1 OR Del IS NULL;";
+        string query = $"SELECT DISTINCT  TypeGroup  FROM BookmarkGroupOrder  WHERE (Del != 1 OR Del IS NULL);";
 
 
 
@@ -204,7 +201,7 @@ public partial class AddressCollectWindow : Window
     {
         int index = Groups.SelectedIndex;
         string group = groups[index];
-        string sql = $"UPDATE  Bookmark  SET Del='0' WHERE TypeGroup = '{group}'";
+        string sql = $"UPDATE  BookmarkGroupOrder  SET Del=1 WHERE TypeGroup = '{group}'";
 
         GlobalVariables.DbService.ExecuteNonQuery(sql);
         Reject_OnClick(null, null);
@@ -290,6 +287,8 @@ public partial class AddressCollectWindow : Window
 
                     GlobalVariables.DbService.UpdateEntity("Bookmark", bookmarkInfo, conditions);
 
+                    GroupCheck(Groups.Text);//分组检查，如果不存在则添加
+
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
 
                     this.Close();
@@ -361,7 +360,7 @@ public partial class AddressCollectWindow : Window
 
                     string group = Groups.Text;
 
-                    string sql2 = $"SELECT COUNT(*) FROM Bookmark WHERE TypeGroup = '{group}' AND Del='0'";
+                    string sql2 = $"SELECT COUNT(TypeGroup) FROM BookmarkGroupOrder WHERE TypeGroup = '{group}' AND  Del == 1 ";
 
                     if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {
@@ -376,11 +375,11 @@ public partial class AddressCollectWindow : Window
                         };
 
                         // 显示对话框
-                        bool result = (bool)await DialogHost.Show(dialog, "MessageDialogHost");
+                        bool result = (bool)await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
                         if (result)
                         {
-                            sql2 = $"UPDATE Bookmark SET Del = NULL WHERE TypeGroup = '{group}'";
+                            sql2 = $"UPDATE BookmarkGroupOrder SET Del = NULL WHERE TypeGroup = '{group}'";
 
                             GlobalVariables.DbService.ExecuteNonQuery(sql2);
                         }
@@ -416,7 +415,7 @@ public partial class AddressCollectWindow : Window
 
 
                     GlobalVariables.DbService.InsertEntity("Bookmark", bookmarkInfo);
-
+                    GroupCheck(Groups.Text);//分组检查，如果不存在则添加
                     DataBridge.DataBridge.modifyIndexTags.Add(url);
                     this.Close();
                 }
@@ -445,6 +444,24 @@ public partial class AddressCollectWindow : Window
 
         }
 
+
+
+
+    }
+
+
+    private void GroupCheck(string groupName)
+    {
+        var sql = $"SELECT COUNT(TypeGroup) FROM BookmarkGroupOrder WHERE TypeGroup = '{groupName}' AND ( Del != 1 OR Del IS NULL)";
+
+        var count =Convert.ToInt32( GlobalVariables.DbService.ExecuteScalar(sql));
+
+        if (count == 0)//不存在，则添加
+        {
+            var index = DbClass.GetNextAvailableNumber("BookmarkGroupOrder", "DisplayOrder");
+            var info = new { TypeGroup = groupName, DisplayOrder = index };
+            GlobalVariables.DbService.InsertEntity("BookmarkGroupOrder", info);
+        }
 
 
 

@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     MinWidth="1300"
     MinHeight="800"
     d:Background="AliceBlue"
@@ -714,7 +715,9 @@
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
 
-                        <ItemsControl x:Name="IndexTagsPanel">
+                        <ItemsControl x:Name="IndexTagsPanel"                                 
+                                      dd:DragDrop.IsDragSource="True"
+                                      dd:DragDrop.IsDropTarget="True">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" />

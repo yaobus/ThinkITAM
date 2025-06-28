@@ -141,7 +141,7 @@ namespace ThinkITAM.FunctionPage
 
 
         /// <summary>
-        ///     链路预览数据发生改变
+        ///  链路预览数据发生改变
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -2021,8 +2021,6 @@ namespace ThinkITAM.FunctionPage
                         DevicePortPanel.Children.Clear();//清空设备端口
                     }
                 }
-
-
 
             }
 

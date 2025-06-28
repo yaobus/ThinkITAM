@@ -6,6 +6,7 @@ using MaterialDesignThemes.Wpf;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.General;
+using ThinkITAM.Windows.Bookmark;
 using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.FunctionPage
@@ -124,20 +125,25 @@ namespace ThinkITAM.FunctionPage
         /// <summary>
         /// 加载组织信息
         /// </summary>
-        private async void LoadIndexGroups(string searchKeyWord = "")
+        private async void LoadIndexGroups(string searchKeyWord = null)
         {
             groups.Clear();
             tags.Clear();
             string query;
-            if (searchKeyWord.Replace(" ", "").Length == 0)
+
+            if (string.IsNullOrWhiteSpace(searchKeyWord))
             {
-                query = $"SELECT DISTINCT TypeGroup FROM  Bookmark WHERE Del != 1 OR Del IS NULL;";
+                query = $"SELECT TypeGroup FROM  BookmarkGroupOrder WHERE Del != 1 OR Del IS NULL ORDER BY DisplayOrder ASC;";
             }
             else
             {
                 query = $"SELECT DISTINCT TypeGroup FROM Bookmark WHERE Del != 1 OR Del IS NULL AND Name LIKE '%{searchKeyWord}%';";
 
+
             }
+
+
+            
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -328,6 +334,26 @@ namespace ThinkITAM.FunctionPage
 
             LoadIndexGroups();
 
+        }
+
+        private void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+           var newWindow = new GroupOrderWindow();
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+
+
+            if (newWindow.ShowDialog() == true)
+            {
+
+                ReloadIndex(lastQuery);
+
+            }
         }
     }
 }
