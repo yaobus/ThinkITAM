@@ -1894,7 +1894,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 int sum = GetSelectedAddressCount();
 
-                Console.WriteLine(sum);
 
                 //1、判断选择的第一个地址是已分配还是未分配
                 //1.1 判断是否是第一个地址

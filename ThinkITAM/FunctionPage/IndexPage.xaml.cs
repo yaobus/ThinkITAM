@@ -328,7 +328,7 @@ namespace ThinkITAM.FunctionPage
             {
                 int index = GroupsListView.SelectedIndex;
                 string group = groups[index].Group;
-                string sql = $"UPDATE  Bookmark SET Del='0' WHERE TypeGroup = '{group}'";
+                string sql = $"UPDATE  BookmarkGroupOrder SET Del=1 WHERE TypeGroup = '{group}'";
                 await GlobalVariables.DbService.ExecuteQueryAsync(sql);
             }
 
@@ -351,9 +351,30 @@ namespace ThinkITAM.FunctionPage
             if (newWindow.ShowDialog() == true)
             {
 
-                ReloadIndex(lastQuery);
+                LoadIndexGroups();
 
             }
+        }
+
+        private void AddGroupButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new AddGroupWindow();
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+
+
+            if (newWindow.ShowDialog() == true)
+            {
+
+                LoadIndexGroups();
+
+            }
+
         }
     }
 }

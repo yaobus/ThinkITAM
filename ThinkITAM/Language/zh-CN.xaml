@@ -242,6 +242,9 @@
 
     <!--  IndexPage  -->
     <s:String x:Key="IpAdd">新增快捷访问链接</s:String>
+    <s:String x:Key="IpAddGroup">新增分组</s:String>
+    <s:String x:Key="IpAddButtonTitle">新增链接</s:String>
+
 
     <!--  LinkUserControl  -->
     <s:String x:Key="LucAddRoom">添加机房或配线间分组</s:String>

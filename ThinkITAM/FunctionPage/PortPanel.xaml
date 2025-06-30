@@ -9,14 +9,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:portPanel="clr-namespace:ThinkITAM.UserControls.PortPanel"
     xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
-    MinWidth="1200"
-    MinHeight="700"
+    xmlns:functionClass="clr-namespace:ThinkITAM.Functions.FunctionClass"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    MinWidth="1366"
+    MinHeight="768"
     d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="PortPanel_OnLoaded"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <functionClass:CustomColorIndexToColor x:Key="CustomColorIndexToColor" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid>
 
 
@@ -335,7 +343,7 @@
             Grid.Column="2"
             Height="50"
             Margin="2.5,5,5,2.5"
-            Visibility="Collapsed">
+            >
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -356,6 +364,7 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         materialDesign:ElevationAssist.Elevation="Dp1"
+                        Click="ShowModeButton_OnClick"
                         materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=FormatListText}"
                         Content="{materialDesign:PackIcon Kind=Apps}"
                         Style="{StaticResource MaterialDesignActionToggleButton}"
@@ -377,95 +386,6 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel
-                            x:Name="OperationPanel"
-                            Grid.Column="0"
-                            Margin="4"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal">
-
-                            <RadioButton
-                                x:Name="TempManage"
-                                Margin="0"
-                                BorderThickness="0"
-                                IsChecked="True"
-                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="临时链路管理">
-                                <StackPanel>
-                                    <materialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        HorizontalAlignment="Center"
-                                        Kind="EthernetCable" />
-
-                                </StackPanel>
-                            </RadioButton>
-                            <RadioButton
-                                x:Name="PermanentManage"
-                                Margin="5,0"
-                                IsChecked="False"
-                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="永久链路关联管理">
-                                <StackPanel>
-                                    <materialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        HorizontalAlignment="Center"
-                                        Kind="LinkVariant" />
-
-                                </StackPanel>
-                            </RadioButton>
-
-
-                            <RadioButton
-                                x:Name="LinkManage"
-                                Margin="5,0"
-                                IsChecked="False"
-                                Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}"
-                                ToolTip="链路查看模式"
-                                Visibility="Visible">
-                                <StackPanel>
-                                    <materialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        HorizontalAlignment="Center"
-                                        Kind="VectorPolyline" />
-
-                                </StackPanel>
-                            </RadioButton>
-                            <ProgressBar
-                                Width="40"
-                                Height="1"
-                                Opacity="0.3"
-                                Orientation="Vertical"
-                                Value="100" />
-                        </StackPanel>
-
-
-
-                        <StackPanel
-                            Grid.Column="2"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal">
-
-                            <Button
-                                x:Name="ReSort"
-                                Margin="5,0"
-                                Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="重置为默认排序">
-                                <materialDesign:PackIcon Kind="Restore" />
-                            </Button>
-
-                            <Button
-                                x:Name="SetButton"
-                                Margin="5,0"
-                                Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="自定义端口信息标签">
-                                <materialDesign:PackIcon Kind="Settings" />
-                            </Button>
-
-                        </StackPanel>
-
 
                         <StackPanel
                             Grid.Column="3"
@@ -477,7 +397,9 @@
                             <StackPanel
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                                Orientation="Horizontal"
+                                Visibility="{Binding IsChecked,ElementName=ShowModeButton,Converter={StaticResource BoolToVisibilityConverter}}"
+                                >
 
 
 
@@ -489,27 +411,29 @@
                                     d:Text="5"
                                     FontSize="22"
                                     FontWeight="Black"
-                                    Foreground="AliceBlue"
-                                    ToolTip="当前选中的IP数量" />
-
+                                    ToolTip="当前选中的端口数量" />
 
                                 <Button
-                                    x:Name="MultipleAllocationButton"
+                                    x:Name="MultipleButton"
+                                    Margin="0"
+                                    Click="MultipleButton_OnClick"
+                                    Foreground="LawnGreen"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    >
+                                    <materialDesign:PackIcon Kind="Play" />
+                                </Button>
+
+                                <Button
+                                    x:Name="DeleteButton"
                                     Margin="0"
                                     Foreground="Red"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="一键分配所选地址">
+                                    ToolTip="删除所选端口"
+                                    Click="DeleteButton_OnClick"
+                                    >
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
 
-                                <Button
-                                    x:Name="ClearRackPanel"
-                                    Margin="0"
-                                    Foreground="OrangeRed"
-                                    Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="清空画布">
-                                    <materialDesign:PackIcon Kind="Autorenew" />
-                                </Button>
 
                             </StackPanel>
 
@@ -529,8 +453,8 @@
 
 
         <materialDesign:Card
-            Grid.Row="0"
-            Grid.RowSpan="3"
+            Grid.Row="1"
+            Grid.RowSpan="2"
             Grid.Column="2"
             Margin="2.5,2.5,5,2.5">
 
@@ -540,9 +464,12 @@
                     <RowDefinition Height="180" />
                 </Grid.RowDefinitions>
                 <ScrollViewer
+                    x:Name="PortScrollViewer"
                     Grid.Row="0"
                     HorizontalScrollBarVisibility="Disabled"
-                    VerticalScrollBarVisibility="Auto">
+                    VerticalScrollBarVisibility="Auto"
+                    Visibility="Visible"
+                    >
 
 
                     <ItemsControl x:Name="PortManagePanel" Padding="10">
@@ -567,6 +494,478 @@
 
 
                 </ScrollViewer>
+
+
+                <DataGrid
+                    Grid.Row="0"
+                    x:Name="PanelPortListView"
+                    Grid.Column="0"
+                    Margin="0,0,0,10"
+                    d:Visibility="Visible"
+                    AutoGenerateColumns="False"
+                    Background="Transparent"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"
+                    CanUserAddRows="False"
+                    SelectionMode="Extended"
+                    SelectionUnit="FullRow"
+                    Visibility="Collapsed"
+                    SelectionChanged="PanelPortListView_OnSelectionChanged"
+                    >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn CanUserSort="False">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="OrderBoolAscendingVariant" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="{DynamicResource NmpDgSelect}"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ToggleButton
+                                            x:Name="SelectToggleButton"
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            BorderThickness="0"
+                                            Checked="SelectToggleButton_OnChecked"
+                                            IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                                            Unchecked="SelectToggleButton_OnUnchecked"
+                                            >
+                                            <materialDesign:PackIcon Kind="CheckboxBlankOutline" />
+
+                                            <ToggleButton.Style>
+                                                <Style BasedOn="{StaticResource MaterialDesignActionLightToggleButton}" TargetType="ToggleButton">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Background" Value="LightSeaGreen" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="False">
+                                                            <Setter Property="Background" Value="Transparent" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ToggleButton.Style>
+
+                                        </ToggleButton>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="索引"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Index}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortId">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口ID"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PortId}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortType">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口类型"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PortType}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortGroup">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口群组"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PortGroup}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortColor">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口颜色"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid d:Background="Green" Background="{Binding PortColor, Converter={StaticResource CustomColorIndexToColor}}" >
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortTag">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口标签"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PortTag}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortStatus">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="端口状态"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PortStatus}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="OnTheLine">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="所在链路"
+                                        />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding OnTheLine}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagA">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelA"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagA"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagA}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagB">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelB"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagB"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagB}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagC">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelC"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagC"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagC}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagD">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelD"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagA"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagD}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagE">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelE"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagB"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagE}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagF">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="IpOutline" />
+                                    <Label
+                                        x:Name="LabelF"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Content="TagC"
+                                        />
+
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid >
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagF}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
 
                 <materialDesign:TransitioningContent
                     x:Name="ViewPanel"

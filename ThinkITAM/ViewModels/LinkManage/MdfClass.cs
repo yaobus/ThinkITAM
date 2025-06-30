@@ -271,6 +271,7 @@ namespace ThinkITAM.ViewModels.LinkManage
     /// </summary>
     public class PortClass : INotifyPropertyChanged
     {
+        private int _index;
         private string _deviceId;
         private string _assetId;
         private string _assetNumber;
@@ -284,12 +285,35 @@ namespace ThinkITAM.ViewModels.LinkManage
         private string _portSpeed;
         private string _portTag;
         private string _portType;
+        private string _portGroup;
         private int _portColor;
         private Brush _portTagBrush;
         private string _portStatus;
         private int _onTheLine;
         private int? _nodeIndex;
         private string _linkIp;
+        private string _tagA;
+        private string _tagB;
+        private string _tagC;
+        private string _tagD;
+        private string _tagE;
+        private string _tagF;
+
+        /// <summary>
+        /// 索引
+        /// </summary>
+        public int Index
+        {
+            get => _index;
+            set
+            {
+                if (_index != value)
+                {
+                    _index = value;
+                    OnPropertyChanged(nameof(Index));
+                }
+            }
+        }
 
         /// <summary>
         /// 设备ID,仅用于终端部署表使用，Computer表
@@ -489,6 +513,23 @@ namespace ThinkITAM.ViewModels.LinkManage
             }
         }
 
+
+        /// <summary>
+        /// 端口群组
+        /// </summary>
+        public string PortGroup
+        {
+            get => _portGroup;
+            set
+            {
+                if (_portGroup != value)
+                {
+                    _portGroup = value;
+                    OnPropertyChanged(nameof(PortGroup));
+                }
+            }
+        }
+
         /// <summary>
         /// 端口颜色
         /// </summary>
@@ -581,6 +622,85 @@ namespace ThinkITAM.ViewModels.LinkManage
                 {
                     _nodeIndex = value;
                     OnPropertyChanged(nameof(NodeIndex));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 节点索引
+        /// </summary>
+        public string? TagA
+        {
+            get => _tagA;
+            set
+            {
+                if (_tagA != value)
+                {
+                    _tagA = value;
+                    OnPropertyChanged(nameof(TagA));
+                }
+            }
+        }
+
+        public string? TagB {
+            get => _tagB;
+            set
+            {
+                if (_tagB != value)
+                {
+                    _tagB = value;
+                    OnPropertyChanged(nameof(TagB));
+                }
+            }
+        }
+
+        public string? TagC {
+            get => _tagC;
+            set
+            {
+                if (_tagC != value)
+                {
+                    _tagC = value;
+                    OnPropertyChanged(nameof(TagC));
+                }
+            }
+        }
+
+        public string? TagD
+        {
+            get => _tagD;
+            set
+            {
+                if (_tagD != value)
+                {
+                    _tagD = value;
+                    OnPropertyChanged(nameof(TagD));
+                }
+            }
+        }
+
+        public string? TagE
+        {
+            get => _tagE;
+            set
+            {
+                if (_tagE != value)
+                {
+                    _tagE = value;
+                    OnPropertyChanged(nameof(TagE));
+                }
+            }
+        }
+
+        public string? TagF
+        {
+            get => _tagF;
+            set
+            {
+                if (_tagF != value)
+                {
+                    _tagF = value;
+                    OnPropertyChanged(nameof(TagF));
                 }
             }
         }
