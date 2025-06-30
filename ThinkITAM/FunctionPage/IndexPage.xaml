@@ -134,23 +134,84 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button
-                    x:Name="AddButton"
-                    Grid.Column="0"
-                    Margin="10"
-                    materialDesign:ButtonAssist.CornerRadius="5"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    Click="AddButton_OnClick"
-                    Cursor="Hand"
-                    Style="{StaticResource MaterialDesignFlatLightButton}"
-                    ToolTip="{DynamicResource IpAdd}">
-                    <materialDesign:PackIcon
-                        Width="20"
-                        Height="20"
-                        Kind="TagPlusOutline" />
 
-                </Button>
+                <materialDesign:PopupBox
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Padding="0"
+                    BorderThickness="0">
+
+                    <materialDesign:PopupBox.ToggleContent>
+
+                        <materialDesign:ColorZone
+                            Width="80"
+                            Height="32"
+                            Background="Transparent"
+                            ClipToBounds="False"
+                            CornerRadius="5">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="PlusBoxOutline" />
+
+
+                        </materialDesign:ColorZone>
+
+                    </materialDesign:PopupBox.ToggleContent>
+
+                    <StackPanel>
+
+                        <Button
+                            x:Name="AddButton"
+                            Margin="10"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="AddButton_OnClick"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="{DynamicResource IpAdd}">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="TagPlusOutline" />
+                                <TextBlock Text="{DynamicResource IpAddButtonTitle}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+
+
+                        <Button
+                            x:Name="AddGroupButton"
+                            Width="80"
+                            Margin="5"
+                            Padding="0"
+                            Click="AddGroupButton_OnClick"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="{DynamicResource IpAddGroup}">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Kind="Group" />
+                                <TextBlock Text="{DynamicResource IpAddGroup}" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                        </Button>
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+
+
+
+
 
                 <Button
                     x:Name="EditButton"

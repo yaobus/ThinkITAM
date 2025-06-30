@@ -1387,6 +1387,10 @@ namespace ThinkITAM.DatabaseOperation
                                 sql = $"CREATE TABLE \"Models\" ( \"AssetType\" TEXT, \"DeviceType\" TEXT, \"Model\" TEXT);";
 
                                 break;
+
+                            case "BookmarkGroupOrder":
+                                sql =$"CREATE TABLE  BookmarkGroupOrder  ( TypeGroup  text, DisplayOrder integer, Del  integer );";
+                                break;
                         }
 
 
@@ -1606,6 +1610,12 @@ namespace ThinkITAM.DatabaseOperation
                                 sql = $"CREATE TABLE `Models` ( `AssetType` VARCHAR(64), `DeviceType` VARCHAR(64), `Model` VARCHAR(64) )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
+
+
+                            case "BookmarkGroupOrder":
+                                sql = $"CREATE TABLE  `BookmarkGroupOrder`  ( `TypeGroup`  VARCHAR(64), `DisplayOrder` INT, `Del`  INT );";
+                                break;
+
                         }
 
 

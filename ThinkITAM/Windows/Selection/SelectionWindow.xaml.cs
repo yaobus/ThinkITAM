@@ -130,6 +130,7 @@ public partial class SelectionWindow : Window
         t.Add("WakeOnLan");
         t.Add("Computer");
         t.Add("Models");
+        t.Add("BookmarkGroupOrder");
 
         string message = string.Empty;
 

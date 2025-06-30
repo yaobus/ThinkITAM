@@ -199,7 +199,9 @@
     <s:String x:Key="DpmDgPortColor">Color Tag</s:String>
 
     <!--  IndexPage  -->
-    <s:String x:Key="IpAdd">Add Shortcut</s:String>
+    <s:String x:Key="IpAdd">Add Bookmark</s:String>
+    <s:String x:Key="IpAddGroup">Add Group</s:String>
+    <s:String x:Key="IpAddButtonTitle">Add Bookmark</s:String>
 
     <!--  LinkUserControl  -->
     <s:String x:Key="LucAddRoom">Add Room/Wiring Closet</s:String>
