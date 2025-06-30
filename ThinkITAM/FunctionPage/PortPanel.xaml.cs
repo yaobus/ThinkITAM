@@ -20,6 +20,7 @@ namespace ThinkITAM.FunctionPage
         public PortPanel()
         {
             InitializeComponent();
+            PanelPortListView.ItemsSource = portNumbers;
             DataBridge.DataBridge.modifyPorts.CollectionChanged += ModifyPorts_CollectionChanged;
         }
 
@@ -338,9 +339,10 @@ namespace ThinkITAM.FunctionPage
         /// </summary>
         private string lastSql = string.Empty;
 
-
-        private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private ObservableCollection<PortClass> portNumbers = new ObservableCollection<PortClass>();
+        private async void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            portNumbers.Clear();
             PortManagePanel.Items.Clear();
 
             if (RoomListView.SelectedIndex != -1)
@@ -368,19 +370,26 @@ namespace ThinkITAM.FunctionPage
                     index++;
 
                     PortClass portClass = new PortClass();
+                    portClass.Index = index;
                     portClass.AssetId = DataBridge.DataBridge.SelectBuildingId;
                     portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.PortType = row["PortType"].ToString();
+                    portClass.PortGroup= row["PortGroup"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
                     portClass.PortTag = row["PortTag"].ToString();
                     portClass.Room = row["RoomId"].ToString();
                     portClass.PortColor = Convert.ToInt32(row["PortColor"]);
-
+                    portClass.TagA = row["TagA"].ToString();
+                    portClass.TagB = row["TagB"].ToString();
+                    portClass.TagC = row["TagC"].ToString();
+                    portClass.TagD = row["TagD"].ToString();
+                    portClass.TagE = row["TagE"].ToString();
+                    portClass.TagF = row["TagF"].ToString();
 
 
                     if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
                     {
-                        portClass.OnTheLine = -1;
+                        portClass.OnTheLine = -1 ;
                     }
                     else
                     {
@@ -393,8 +402,14 @@ namespace ThinkITAM.FunctionPage
 
                     port.Margin = new Thickness(10);
                     port.DataContext = portClass;
+                    
+                    portNumbers.Add(portClass);
+
+
 
                     PortManagePanel.Items.Add(port);
+
+                    await Task.Delay(1);
                 }
 
 
@@ -448,6 +463,53 @@ namespace ThinkITAM.FunctionPage
         {
             SearchKeyWord.Text = null;
             LoadPanelPortTreeList();
+        }
+
+
+        private void ShowModeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ShowModeButton.IsChecked == true)
+            {
+                PortScrollViewer.Visibility = Visibility.Collapsed;
+                PanelPortListView.Visibility = Visibility.Visible;
+
+                //LoadMode = 1;
+                //OperationPanel.IsEnabled = false;
+
+                //if (IpAddressInfoLists.Count > 0)
+                //{
+                //    GraphicalPlan.Visibility = Visibility.Collapsed;
+                //    AddressListView.Visibility = Visibility.Visible;
+                //}
+
+            }
+            else
+            {
+                PortScrollViewer.Visibility = Visibility.Visible;
+                PanelPortListView.Visibility = Visibility.Collapsed;
+
+                //LoadMode = 0;
+                //OperationPanel.IsEnabled = true;
+                //GraphicalPlan.Visibility = Visibility.Visible;
+                //AddressListView.Visibility = Visibility.Collapsed;
+
+            }
+        }
+
+
+        private void SelectToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelectToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 
