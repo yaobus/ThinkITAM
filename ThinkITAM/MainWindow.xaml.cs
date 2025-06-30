@@ -33,7 +33,7 @@ public partial class MainWindow : Window
 
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-
+        VersionLabel.Content="Ver "+DataBridge.DataBridge.Version;
 
         InitializationStatus();
         ShowWelcome();
@@ -41,10 +41,6 @@ public partial class MainWindow : Window
         GetEncryptString();
         ProjectListView.ItemsSource = configs;
 
-        //Properties.Settings.Default.EncryptString = "";
-        //Properties.Settings.Default.Save();
-
-        //ShowWelcome();
     }
 
     /// <summary>

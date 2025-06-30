@@ -81,28 +81,8 @@ namespace ThinkITAM.FunctionPage
             wakeOnLanWindow.ShowDialog();
         }
 
-        private void TestButton_OnClick(object sender, RoutedEventArgs e)
-        {
 
-            var test = new test()
-            {
-                A = "1",
-                B = 1
-            };
-
-            GlobalVariables.DbService.InsertEntity("test", test);
-        }
     }
 
-    public class test()
-    {
-        public string A
-        {
-            get; set;
-        }
-        public Int32 B
-        {
-            get; set;
-        }
-    }
+
 }

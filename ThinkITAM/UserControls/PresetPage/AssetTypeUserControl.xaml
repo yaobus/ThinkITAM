@@ -50,12 +50,11 @@
                         materialDesign:ElevationAssist.Elevation="Dp1"
                         Background="#52c7b8"
                         BorderBrush="Transparent"
+                        Click="EditAssetButton_OnClick"
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑资产分组"
-                        Click="EditAssetButton_OnClick"
-                        />
+                        ToolTip="编辑资产分组" />
 
                     <Button
                         x:Name="DeleteAssetButton"
@@ -66,12 +65,11 @@
                         Background="#Cf3539"
                         BorderBrush="Transparent"
                         BorderThickness="0"
+                        Click="DeleteAssetButton_OnClick"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="删除资产分组" 
-                        Click="DeleteAssetButton_OnClick"
-                        />
+                        ToolTip="删除资产分组" />
 
 
                     <ProgressBar
@@ -104,12 +102,11 @@
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    MouseDoubleClick="AssetTagListView_OnMouseDoubleClick"
+                    SelectionChanged="AssetTagListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible"
-                    SelectionChanged="AssetTagListView_OnSelectionChanged"
-                    MouseDoubleClick="AssetTagListView_OnMouseDoubleClick"
-                    >
+                    Visibility="Visible">
 
 
                     <DataGrid.Columns>

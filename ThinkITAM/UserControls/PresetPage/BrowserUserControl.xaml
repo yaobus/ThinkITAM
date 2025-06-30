@@ -96,11 +96,10 @@
                             Background="#Cf3539"
                             BorderBrush="Transparent"
                             BorderThickness="0"
+                            Click="DeleteProtocolButton_OnClick"
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            Click="DeleteProtocolButton_OnClick"
-                            />
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
 
 
@@ -122,11 +121,10 @@
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        SelectionChanged="ProtocolListView_OnSelectionChanged"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        SelectionChanged="ProtocolListView_OnSelectionChanged"
-                        >
+                        Visibility="Visible">
 
 
                         <DataGrid.Columns>
@@ -286,10 +284,10 @@
                             Background="#Cf3539"
                             BorderBrush="Transparent"
                             BorderThickness="0"
+                            Click="DeleteBrowserButton_OnClick"
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            Click="DeleteBrowserButton_OnClick" />
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
 
 
@@ -308,11 +306,10 @@
                         d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
+                        SelectionChanged="BrowserListView_OnSelectionChanged"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        SelectionChanged="BrowserListView_OnSelectionChanged"
-                        >
+                        Visibility="Visible">
 
 
                         <DataGrid.Columns>
@@ -474,10 +471,10 @@
                             Background="#Cf3539"
                             BorderBrush="Transparent"
                             BorderThickness="0"
+                            Click="DeletePortButton_OnClick"
                             Content="{materialDesign:PackIcon DeleteOutline}"
                             IsEnabled="False"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                           Click="DeletePortButton_OnClick"/>
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
 
 
@@ -500,11 +497,10 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         HorizontalScrollBarVisibility="Disabled"
+                        SelectionChanged="PortListView_OnSelectionChanged"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Visible"
-                        SelectionChanged="PortListView_OnSelectionChanged"
-                        >
+                        Visibility="Visible">
 
 
                         <DataGrid.Columns>

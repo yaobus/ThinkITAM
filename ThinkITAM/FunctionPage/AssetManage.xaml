@@ -77,7 +77,6 @@
 
         <materialDesign:Card
             Grid.Row="1"
-            Grid.RowSpan="1"
             Grid.Column="0"
             Margin="5,2.5,2.5,2.5">
 

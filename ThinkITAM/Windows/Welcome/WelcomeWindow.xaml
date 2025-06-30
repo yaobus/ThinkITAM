@@ -24,13 +24,20 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <TextBlock
-            Grid.Row="0"
-            Margin="10"
-            VerticalAlignment="Center"
-            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-            Text="欢迎参与ThinkITAM预览测试  (测试版请勿用于生产环境)" />
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <TextBlock
+                Margin="10,20,10,10"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="欢迎参与ThinkITAM预览测试  (测试版请勿用于生产环境)" />
+            <TextBlock
+                Margin="10,5"
+                VerticalAlignment="Center"
+                Foreground="OrangeRed"
+                Opacity="0.5"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="本软件为免费软件，如果您花钱购买了本软件，请联系卖家退款!" />
+        </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

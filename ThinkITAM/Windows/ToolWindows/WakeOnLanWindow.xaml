@@ -282,10 +282,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn
-                        Width="120"
-                        CanUserSort="False"
-                        >
+                    <DataGridTemplateColumn Width="120" CanUserSort="False">
                         <DataGridTemplateColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon
