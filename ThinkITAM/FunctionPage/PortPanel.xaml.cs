@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -227,7 +228,7 @@ namespace ThinkITAM.FunctionPage
         private void BuildingTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             roomNumbers.Clear();
-
+            DataBridge.DataBridge.PortPanelLinkViewList.Clear();
             if (e != null)
             {
                 AddButton.IsEnabled = true;
@@ -344,6 +345,7 @@ namespace ThinkITAM.FunctionPage
         {
             portNumbers.Clear();
             PortManagePanel.Items.Clear();
+            DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
             if (RoomListView.SelectedIndex != -1)
             {
@@ -499,17 +501,100 @@ namespace ThinkITAM.FunctionPage
 
         private void SelectToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-
+            StatisticsSelectedPort();
         }
 
         private void SelectToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
         {
+            StatisticsSelectedPort();
+        }
 
+
+        private void StatisticsSelectedPort()
+        {
+            var items = portNumbers.Where(item => item.IsSelected == true);
+            NumberBlock.Text = items.Count().ToString();
         }
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var result =MessageBox.Show("确定要删除吗？\r该操作不可恢复！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                int successCount = 0;
+                int failCount = 0;
+                foreach (var port in portNumbers)
+                {
+                    if (port.IsSelected == true)
+                    {
+                        if (port.OnTheLine <= 0)
+                        {
+                            
+                            var sql = $"DELETE FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE UID = {port.UID}";
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+                            successCount++;
+
+                        }
+                        else
+                        {
+                            failCount++;
+                        }
+                    }
+
+                }
+
+                string message = string.Empty;
+                if (failCount>0)
+                {
+                    message = $"\r失败{failCount}个。\r失败原因:端口已在链路上！";
+                }
+
+                MessageBox.Show($"删除成功{successCount}个{message}", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                RoomListView_OnSelectionChanged(null,null);
+            }
+        }
+
+        private void PanelPortListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PanelPortListView.SelectedIndex != -1)
+            {
+                DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+
+                var port = portNumbers[PanelPortListView.SelectedIndex];
+
+                if (port.OnTheLine != null && port.OnTheLine > 0)
+                {
+
+
+                    foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
+                    {
+                        if (port.RackId == node.PortClass.RackId)
+                        {
+                            port.NodeIndex = node.PortClass.NodeIndex;
+
+                            port.IsSelected = true;
+                        }
+
+
+                        DataBridge.DataBridge.PortPanelLinkViewList.Add(node);
+                    }
+
+
+
+                }
+                else
+                {
+                    DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+                }
+
+
+            }
+        }
+
+        private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 

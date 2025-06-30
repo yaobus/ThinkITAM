@@ -656,20 +656,7 @@
                 </StackPanel>
 
 
-                <StackPanel
-                    Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Orientation="Horizontal">
 
-                    <CheckBox
-                        x:Name="IsAllocation"
-                        Margin="0,25,0,0"
-                        Content="是否启用分配"
-                        IsChecked="{Binding AddressStatus, Converter={StaticResource AddressStatusToBoolConverter}, Mode=TwoWay}"
-                        Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
-
-                </StackPanel>
 
 
 
@@ -686,8 +673,29 @@
             Grid.Row="2"
             Grid.Column="0"
             Margin="0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <StackPanel
+                Grid.Column="0"
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+                <CheckBox
+                    x:Name="IsAllocation"
+                    Margin="25,0,0,0"
+                    Content="是否启用分配"
+                    IsChecked="{Binding AddressStatus, Converter={StaticResource AddressStatusToBoolConverter}, Mode=TwoWay}"
+                    Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
+
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
                 Margin="10"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">

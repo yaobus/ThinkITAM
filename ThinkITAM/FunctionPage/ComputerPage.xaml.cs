@@ -430,5 +430,50 @@ namespace ThinkITAM.FunctionPage
             SearchKeyWord.Text = null;
             LoadTreeList();
         }
+
+        private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void ComputerListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+
+        private void SelectToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void ShowModeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ShowModeButton.IsChecked == true)
+            {
+                ComputerScrollViewer.Visibility = Visibility.Collapsed;
+                ComputerListView.Visibility = Visibility.Visible;
+
+                //LoadMode = 1;
+                //OperationPanel.IsEnabled = false;
+
+                //if (IpAddressInfoLists.Count > 0)
+                //{
+                //    GraphicalPlan.Visibility = Visibility.Collapsed;
+                //    AddressListView.Visibility = Visibility.Visible;
+                //}
+
+            }
+            else
+            {
+                ComputerScrollViewer.Visibility = Visibility.Visible;
+                ComputerListView.Visibility = Visibility.Collapsed;
+
+                //LoadMode = 0;
+                //OperationPanel.IsEnabled = true;
+                //GraphicalPlan.Visibility = Visibility.Visible;
+                //AddressListView.Visibility = Visibility.Collapsed;
+
+            }
+        }
     }
 }

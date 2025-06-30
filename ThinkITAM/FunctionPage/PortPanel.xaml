@@ -9,14 +9,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:portPanel="clr-namespace:ThinkITAM.UserControls.PortPanel"
     xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
-    MinWidth="1200"
-    MinHeight="700"
+    xmlns:functionClass="clr-namespace:ThinkITAM.Functions.FunctionClass"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    MinWidth="1366"
+    MinHeight="768"
     d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="PortPanel_OnLoaded"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <functionClass:CustomColorIndexToColor x:Key="CustomColorIndexToColor" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid>
 
 
@@ -389,7 +397,9 @@
                             <StackPanel
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
-                                Orientation="Horizontal">
+                                Orientation="Horizontal"
+                                Visibility="{Binding IsChecked,ElementName=ShowModeButton,Converter={StaticResource BoolToVisibilityConverter}}"
+                                >
 
 
 
@@ -401,9 +411,17 @@
                                     d:Text="5"
                                     FontSize="22"
                                     FontWeight="Black"
-                                    Foreground="AliceBlue"
-                                    ToolTip="当前选中的IP数量" />
+                                    ToolTip="当前选中的端口数量" />
 
+                                <Button
+                                    x:Name="MultipleButton"
+                                    Margin="0"
+                                    Click="MultipleButton_OnClick"
+                                    Foreground="LawnGreen"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    >
+                                    <materialDesign:PackIcon Kind="Play" />
+                                </Button>
 
                                 <Button
                                     x:Name="DeleteButton"
@@ -491,7 +509,9 @@
                     CanUserAddRows="False"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Collapsed">
+                    Visibility="Collapsed"
+                    SelectionChanged="PanelPortListView_OnSelectionChanged"
+                    >
                     <DataGrid.Columns>
                         <DataGridTemplateColumn CanUserSort="False">
                             <DataGridTemplateColumn.Header>
@@ -672,12 +692,7 @@
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Grid >
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontWeight="ExtraBold"
-                                            Text="{Binding PortColor}" />
+                                    <Grid d:Background="Green" Background="{Binding PortColor, Converter={StaticResource CustomColorIndexToColor}}" >
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
