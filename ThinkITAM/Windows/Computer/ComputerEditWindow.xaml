@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="编辑终端信息"
     Width="600"
-    Height="400"
+    Height="550"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="ComputerEditWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -87,12 +87,35 @@
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="网段名称:" />
+                    Content="资产编号:" />
                 <TextBox
                     x:Name="TbName"
                     Width="250"
                     Height="28"
                     Padding="3"
+                    IsEnabled="False"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Name}" />
+            </StackPanel>
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="所在链路:" />
+                <TextBox
+                    x:Name="TbName3"
+                    Width="250"
+                    Height="28"
+                    Padding="3"
+                    IsEnabled="False"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
@@ -109,7 +132,7 @@
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="网段备注:" />
+                    Content="终端标签:" />
                 <TextBox
                     x:Name="Description"
                     Width="250"
@@ -129,6 +152,139 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="终端群组:" />
+                <TextBox
+                    x:Name="TbName2"
+                    Width="250"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Name}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="终端状态:" />
+                <TextBox
+                    x:Name="Description2"
+                    Width="250"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding Description}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="设定标签颜色:"
+                    ToolTip="自定义端口颜色标签" />
+
+                <ListBox
+                    x:Name="PortColor"
+                    Width="250"
+                    Height="30"
+                    SelectedIndex="{Binding AddressColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+                    Style="{StaticResource MaterialDesignToolToggleListBox}">
+                    <ListBoxItem
+                        Width="26"
+                        Margin="0,0,1,0"
+                        Padding="0"
+                        Background="Transparent"
+                        Opacity="0.1"
+                        ToolTip="选择此项将不显示标签">
+                        <Grid HorizontalAlignment="Center">
+
+                            <TextBlock
+                                Margin="2,0"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                Text="Null" />
+
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#FF0080"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#F15A24"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#FBC02D"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#64DD17"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#00A8FF"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#008080"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0"
+                        Background="#362391"
+                        Opacity="0.1" />
+                    <ListBoxItem
+                        Width="26"
+                        Margin="1,0,0,0"
+                        Background="#212121"
+                        Opacity="0.1" />
+
+                </ListBox>
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Orientation="Vertical">
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
                     x:Name="LabelA"
                     VerticalAlignment="Center"
                     Content="自定义字段A:"
@@ -141,7 +297,7 @@
                     BorderThickness="0.5"
                     IsEditable="True"
                     SelectedItem="{Binding TagA}"
-                    SelectionChanged="TbParent_OnSelectionChanged"
+
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
 
@@ -165,13 +321,6 @@
                     SelectedItem="{Binding TagB}" />
             </StackPanel>
 
-        </StackPanel>
-
-        <StackPanel
-            Grid.Row="1"
-            Grid.Column="1"
-            HorizontalAlignment="Center"
-            Orientation="Vertical">
 
             <StackPanel
                 Margin="{StaticResource DefaultMargin}"

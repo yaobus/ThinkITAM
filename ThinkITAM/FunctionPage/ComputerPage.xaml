@@ -371,6 +371,7 @@
                                     x:Name="MultipleButton"
                                     Margin="0"
                                     Click="MultipleButton_OnClick"
+                                    IsEnabled="False"
                                     Foreground="LawnGreen"
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     >
@@ -382,6 +383,7 @@
                                     x:Name="MultipleDeleteButton"
                                     Margin="0"
                                     Foreground="Red"
+                                    IsEnabled="False"
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     ToolTip="一键删除所选终端"
                                     Click="MultipleDeleteButton_OnClick"

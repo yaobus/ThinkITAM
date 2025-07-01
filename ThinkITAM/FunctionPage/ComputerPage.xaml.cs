@@ -8,6 +8,7 @@ using ThinkITAM.UserControls.Computer;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.Windows.Computer;
+using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -443,7 +444,25 @@ namespace ThinkITAM.FunctionPage
 
         private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+
+            if (portNumbers.Count > 0)
+            {
+                var newWindow = new ComputerEditWindow();
+
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    newWindow.Owner = window;
+                }
+
+                newWindow.ShowDialog();
+
+            }
+
+
+
+
+
         }
 
         private void ComputerListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -455,7 +474,19 @@ namespace ThinkITAM.FunctionPage
         {
 
             var items = portNumbers.Where(item => item.IsSelected == true);
-            NumberBlock.Text = items.Count().ToString();
+           
+
+            if (items.Count() > 0)
+            {
+                NumberBlock.Text = items.Count().ToString();
+                MultipleButton.IsEnabled=true;
+                MultipleDeleteButton.IsEnabled=true;
+            }
+            else
+            {
+                MultipleButton.IsEnabled = false;
+                MultipleDeleteButton.IsEnabled = false;
+            }
 
 
         }
