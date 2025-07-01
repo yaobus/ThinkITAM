@@ -590,7 +590,7 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortId">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortIndex">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -612,7 +612,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontWeight="ExtraBold"
-                                            Text="{Binding PortId}" />
+                                            Text="{Binding PortIndex}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

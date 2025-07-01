@@ -383,7 +383,7 @@
                                     Margin="0"
                                     Foreground="Red"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="一键分配所选地址">
+                                    ToolTip="一键删除所选终端">
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
 
@@ -528,7 +528,7 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortId">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortIndex">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -550,7 +550,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontWeight="ExtraBold"
-                                            Text="{Binding PortId}" />
+                                            Text="{Binding PortIndex}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

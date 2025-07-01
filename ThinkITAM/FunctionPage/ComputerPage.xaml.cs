@@ -19,6 +19,7 @@ namespace ThinkITAM.FunctionPage
         public ComputerPage()
         {
             InitializeComponent();
+            ComputerListView.ItemsSource = portNumbers;
             DataBridge.DataBridge.modifyDeployDevices.CollectionChanged += ModifyDeployDevices_CollectionChanged;
         }
 
@@ -39,6 +40,7 @@ namespace ThinkITAM.FunctionPage
                     index++;
 
                     PortClass portClass = new PortClass();
+                    portClass.Index = index;
                     portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.DeviceId = row["DeviceId"].ToString();
                     portClass.AssetId = row["AssetId"].ToString();
@@ -330,10 +332,12 @@ namespace ThinkITAM.FunctionPage
         /// 上一次执行的sql
         /// </summary>
         private string lastSql = string.Empty;
+        private ObservableCollection<PortClass>portNumbers = new ObservableCollection<PortClass>();
 
         private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PortManagePanel.Items.Clear();
+            portNumbers.Clear();
 
             if (RoomListView.SelectedIndex != -1)
             {
@@ -365,6 +369,12 @@ namespace ThinkITAM.FunctionPage
                     portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
                     portClass.UserName = row["Name"].ToString();
                     portClass.LinkIp = row["LinkIp"].ToString();
+                    portClass.TagA = row["TagA"].ToString();
+                    portClass.TagB = row["TagB"].ToString();
+                    portClass.TagC = row["TagC"].ToString();
+                    portClass.TagD = row["TagD"].ToString();
+                    portClass.TagE = row["TagE"].ToString();
+                    portClass.TagF = row["TagF"].ToString();
 
                     if (row["PortColor"] == string.Empty)
                     {
@@ -392,7 +402,7 @@ namespace ThinkITAM.FunctionPage
 
                     port.Margin = new Thickness(10);
                     port.DataContext = portClass;
-
+                    portNumbers.Add(portClass);
                     PortManagePanel.Items.Add(port);
                 }
 
@@ -443,7 +453,11 @@ namespace ThinkITAM.FunctionPage
 
         private void SelectToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-          
+
+            var items = portNumbers.Where(item => item.IsSelected == true);
+            NumberBlock.Text = items.Count().ToString();
+
+
         }
 
         private void ShowModeButton_OnClick(object sender, RoutedEventArgs e)

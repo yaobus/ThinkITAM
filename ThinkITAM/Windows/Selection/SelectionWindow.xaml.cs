@@ -71,6 +71,14 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Asset", "UserUnit", "TEXT");
+
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagA", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagB", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagC", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagD", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagE", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagF", "TEXT");
+
                     Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
                     Properties.Settings.Default.Save();
 

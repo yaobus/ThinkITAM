@@ -1378,7 +1378,7 @@ namespace ThinkITAM.DatabaseOperation
                                 break;
                             case "Computer":
 
-                                sql = $"CREATE TABLE \"Computer\" ( \"UID\" INTEGER NOT NULL, \"DeviceId\" TEXT, \"AssetId\" TEXT, \"AssetUser\" TEXT, \"PortId\" INTEGER, \"PortTag\" TEXT, \"PortType\" TEXT, \"PortStatus\" TEXT, \"OnTheLine\" INTEGER, \"PortColor\" INTEGER, \"PortGroup\" TEXT, \"BuildingId\" TEXT, \"Floor\" TEXT, \"Room\" TEXT, \"LinkIp\" TEXT, \"Del\" INTEGER, PRIMARY KEY (\"UID\") );";
+                                sql = $"CREATE TABLE \"Computer\" ( \"UID\" INTEGER NOT NULL, \"DeviceId\" TEXT, \"AssetId\" TEXT, \"AssetUser\" TEXT, \"PortId\" INTEGER, \"PortTag\" TEXT, \"PortType\" TEXT, \"PortStatus\" TEXT, \"OnTheLine\" INTEGER, \"PortColor\" INTEGER, \"PortGroup\" TEXT, \"BuildingId\" TEXT, \"Floor\" TEXT, \"Room\" TEXT, \"LinkIp\" TEXT, \"TagA\" TEXT, \"TagB\" TEXT, \"TagC\" TEXT, \"TagD\" TEXT, \"TagE\" TEXT, \"TagF\" TEXT, \"Del\" INTEGER, PRIMARY KEY (\"UID\") );";
 
                                 break;
 
@@ -1602,7 +1602,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Computer":
 
                                 sql =
-                                    $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16),`LinkIp` VARCHAR(255), `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16),`LinkIp` VARCHAR(255), TagA  VARCHAR(255),  TagB  VARCHAR(255),  TagC  VARCHAR(255),  TagD  VARCHAR(255),  TagE  VARCHAR(255),  TagF  VARCHAR(255),  `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
                                 break;
 
                             case "Models":
