@@ -379,11 +379,13 @@
 
 
                                 <Button
-                                    x:Name="MultipleAllocationButton"
+                                    x:Name="MultipleDeleteButton"
                                     Margin="0"
                                     Foreground="Red"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="一键删除所选终端">
+                                    ToolTip="一键删除所选终端"
+                                    Click="MultipleDeleteButton_OnClick"
+                                    >
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
 

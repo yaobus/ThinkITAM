@@ -489,5 +489,48 @@ namespace ThinkITAM.FunctionPage
 
             }
         }
+
+        private void MultipleDeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("确定要删除吗？\r该操作不可恢复！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                int successCount = 0;
+                int failCount = 0;
+                foreach (var port in portNumbers)
+                {
+                    if (port.IsSelected == true)
+                    {
+                        if (port.OnTheLine <= 0)
+                        {
+
+                            var sql = $"DELETE FROM Computer WHERE UID = {port.UID}";
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                            sql = $"UPDATE Asset SET Deploy = NULL WHERE AssetId = '{port.AssetId}'";
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                            successCount++;
+
+                        }
+                        else
+                        {
+                            failCount++;
+                        }
+                    }
+
+                }
+
+                string message = string.Empty;
+                if (failCount > 0)
+                {
+                    message = $"\r失败{failCount}个。\r失败原因:端口已在链路上！";
+                }
+
+                MessageBox.Show($"删除成功{successCount}个{message}", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                RoomListView_OnSelectionChanged(null, null);
+            }
+        }
     }
 }
