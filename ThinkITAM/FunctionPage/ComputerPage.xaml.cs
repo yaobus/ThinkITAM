@@ -563,5 +563,27 @@ namespace ThinkITAM.FunctionPage
                 RoomListView_OnSelectionChanged(null, null);
             }
         }
+
+        private void ComputerListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (ComputerListView.SelectedIndex != -1)
+            {
+                var info = portNumbers[ComputerListView.SelectedIndex];
+
+                if (info != null)
+                {
+                    var newWindow = new ComputerEditWindow(info);
+
+                    var window = Window.GetWindow(this);
+                    if (window != null)
+                    {
+                        newWindow.Owner = window;
+                    }
+
+                    newWindow.ShowDialog();
+
+                }
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.Computer
@@ -12,13 +13,21 @@ namespace ThinkITAM.Windows.Computer
     /// </summary>
     public partial class ComputerEditWindow : Window
     {
-        public ComputerEditWindow()
+        public ComputerEditWindow(PortClass portInfo=null)
         {
             InitializeComponent();
+
+            if (portInfo != null)
+            {
+                inputInfo = portInfo;
+                this.DataContext = inputInfo;
+            }
+
+
         }
 
 
-
+        private PortClass inputInfo;
         private void ComputerEditWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 

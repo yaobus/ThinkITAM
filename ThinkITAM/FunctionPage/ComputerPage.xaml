@@ -453,6 +453,7 @@
                     SelectionUnit="FullRow"
                     Visibility="Collapsed"
                     SelectionChanged="ComputerListView_OnSelectionChanged"
+                   MouseDoubleClick="ComputerListView_OnMouseDoubleClick"
                     >
                     <DataGrid.Columns>
                         <DataGridTemplateColumn CanUserSort="False">

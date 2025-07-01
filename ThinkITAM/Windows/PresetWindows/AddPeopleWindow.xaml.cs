@@ -121,8 +121,8 @@ public partial class AddPeopleWindow : Window
     {
         organizationInfo.Clear();
 
-        string query = "SELECT DISTINCT Organization FROM Organization;";
-
+        string query = "SELECT DISTINCT Organization FROM Organization WHERE  Department IS NULL AND (Del != 1 OR Del IS NULL);";
+       
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -147,7 +147,7 @@ public partial class AddPeopleWindow : Window
         {
             departmentInfo.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Del != '0' OR Del IS NULL);";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND Groups IS NULL AND (Del != 1 OR Del IS NULL);";
 
 
 
@@ -394,7 +394,7 @@ public partial class AddPeopleWindow : Window
         {
             groupsInfo.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Del != '0' OR Del IS NULL);";
+            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND UserUnit IS NULL AND (Del != 1 OR Del IS NULL);";
 
 
 
@@ -516,7 +516,7 @@ public partial class AddPeopleWindow : Window
         {
             unitInfos.Clear();
 
-            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != 1 OR Del IS NULL);";
 
 
 
