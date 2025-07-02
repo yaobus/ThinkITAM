@@ -140,6 +140,7 @@
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
+                    MaxDropDownHeight="300"
                     SelectedItem="{Binding TagA}"
                     SelectionChanged="TbParent_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -162,7 +163,10 @@
                     Padding="0"
                     BorderThickness="0.5"
                     IsEditable="True"
-                    SelectedItem="{Binding TagB}" />
+                    MaxDropDownHeight="300"
+                    SelectedItem="{Binding TagB}"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    />
             </StackPanel>
 
         </StackPanel>

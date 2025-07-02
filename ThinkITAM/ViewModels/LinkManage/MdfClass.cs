@@ -275,10 +275,13 @@ namespace ThinkITAM.ViewModels.LinkManage
         private string _deviceId;
         private string _assetId;
         private string _assetNumber;
+        private string _assetUser;
         private string _userName;
         private int _uID;
         private bool _isSelected;
         private string _rackId;
+
+        private string _buildingId;
         private string _slotIndex;
         private string _room;
         private string _portIndex;
@@ -358,6 +361,18 @@ namespace ThinkITAM.ViewModels.LinkManage
             }
         }
 
+        public string AssetUser
+        {
+            get => _assetUser;
+            set
+            {
+                if (_assetUser != value)
+                {
+                    _assetUser = value;
+                    OnPropertyChanged(nameof(AssetUser));
+                }
+            }
+        }
         public string UserName
         {
             get => _userName;
@@ -413,6 +428,22 @@ namespace ThinkITAM.ViewModels.LinkManage
                 {
                     _rackId = value;
                     OnPropertyChanged(nameof(RackId));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 终端所在建筑
+        /// </summary>
+        public string BuildingId
+        {
+            get => _buildingId;
+            set
+            {
+                if (_buildingId != value)
+                {
+                    _buildingId = value;
+                    OnPropertyChanged(nameof(BuildingId));
                 }
             }
         }

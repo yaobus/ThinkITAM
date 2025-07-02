@@ -360,15 +360,15 @@
                                 Text="{Binding DeviceLink, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <!--<Button
-                                x:Name="FindAsset"
-                                Width="50"
-                                Height="28"
-                                Margin="0,0,10,0"
-                                Padding="0"
-                                >
-                                <StackPanel>
-                                    <materialDesign:PackIcon Kind="Magnify" />
-                                </StackPanel>
+                            x:Name="FindAsset"
+                            Width="50"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            Padding="0"
+                            >
+                            <StackPanel>
+                            <materialDesign:PackIcon Kind="Magnify" />
+                            </StackPanel>
 
                             </Button>-->
                         </StackPanel>
@@ -393,7 +393,7 @@
                                 Padding="3"
                                 VerticalAlignment="Center"
                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="Note"
+                                materialDesign:TextFieldAssist.LeadingIcon="Link"
                                 IsEnabled="False"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                 Text="{Binding OnTheLine, Mode=TwoWay}" />

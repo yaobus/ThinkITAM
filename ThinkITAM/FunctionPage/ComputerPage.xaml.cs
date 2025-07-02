@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -114,10 +115,35 @@ namespace ThinkITAM.FunctionPage
         private void ComputerPage_OnLoaded(object sender, RoutedEventArgs e)
         {
             LoadTreeList();
-
+            LoadTags();
             RoomListView.ItemsSource = roomNumbers;
 
         }
+
+
+        /// <summary>
+        /// 加载自定义标签
+        /// </summary>
+        private void LoadTags()
+        {
+
+            var tags = DbClass.LoadWindowTag("Computer");
+
+            if (tags != null)
+            {
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                LabelA.Content = settings.TagA + ":";
+                LabelB.Content = settings.TagB + ":";
+                LabelC.Content = settings.TagC + ":";
+                LabelD.Content = settings.TagD + ":";
+                LabelE.Content = settings.TagE + ":";
+                LabelF.Content = settings.TagF + ":";
+            }
+
+        }
+
+
 
         private void LoadTreeList(string keyWord = null)
         {
@@ -337,6 +363,7 @@ namespace ThinkITAM.FunctionPage
 
         private void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            NumberBlock.Text = string.Empty;
             PortManagePanel.Items.Clear();
             portNumbers.Clear();
 
@@ -360,12 +387,18 @@ namespace ThinkITAM.FunctionPage
                     index++;
 
                     PortClass portClass = new PortClass();
+                    portClass.Index = index;
                     portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.DeviceId = row["DeviceId"].ToString();
                     portClass.AssetId = row["AssetId"].ToString();
+                    portClass.AssetUser= row["AssetUser"].ToString();
                     portClass.PortType = row["PortType"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
                     portClass.PortTag = row["PortTag"].ToString();
+                    portClass.PortStatus= row["PortStatus"].ToString();
+                    portClass.PortGroup= row["PortGroup"].ToString();
+                    portClass.BuildingId= row["BuildingId"].ToString();
+                    portClass.SlotIndex=row["Floor"].ToString();
                     portClass.Room = row["Room"].ToString();
                     portClass.AssetNumber = $"{row["AssetTag"]}{row["AssetNumber"]}";
                     portClass.UserName = row["Name"].ToString();
@@ -444,10 +477,14 @@ namespace ThinkITAM.FunctionPage
 
         private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
         {
+            var items = portNumbers.Where(item => item.IsSelected == true);
+
+            var newItems = new ObservableCollection<PortClass>(items);
+
 
             if (portNumbers.Count > 0)
             {
-                var newWindow = new ComputerEditWindow();
+                var newWindow = new ComputerEditWindow(newItems);
 
                 var window = Window.GetWindow(this);
                 if (window != null)
@@ -484,6 +521,7 @@ namespace ThinkITAM.FunctionPage
             }
             else
             {
+                NumberBlock.Text ="0";
                 MultipleButton.IsEnabled = false;
                 MultipleDeleteButton.IsEnabled = false;
             }
@@ -564,15 +602,21 @@ namespace ThinkITAM.FunctionPage
             }
         }
 
+
+        private ObservableCollection<PortClass>infos=new ObservableCollection<PortClass>();
         private void ComputerListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ComputerListView.SelectedIndex != -1)
             {
+                infos.Clear();
+
                 var info = portNumbers[ComputerListView.SelectedIndex];
 
                 if (info != null)
                 {
-                    var newWindow = new ComputerEditWindow(info);
+                    infos.Add(info);
+
+                    var newWindow = new ComputerEditWindow(infos);
 
                     var window = Window.GetWindow(this);
                     if (window != null)
