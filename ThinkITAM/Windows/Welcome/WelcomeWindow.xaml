@@ -36,7 +36,7 @@
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource HarmonyOsFontFamily}"
                 FontSize="14"
-                Foreground="OrangeRed"
+                Foreground="Red"
                 Opacity="0.8"
                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                 Text="本软件为免费软件，如果您花钱购买了本软件，请联系卖家退款!" />
