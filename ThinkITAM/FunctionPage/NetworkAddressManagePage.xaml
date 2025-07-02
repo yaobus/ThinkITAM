@@ -361,10 +361,12 @@
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
                                 materialDesign:ButtonProgressAssist.Value="-1"
-                                materialDesign:ElevationAssist.Elevation="Dp5"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 Click="StatusTestButton_OnClick"
                                 Content="{materialDesign:PackIcon Radar}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource NmpPingAddress}" />
 
                             <Button
@@ -376,10 +378,12 @@
                                 materialDesign:ButtonProgressAssist.IsIndeterminate="False"
                                 materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
                                 materialDesign:ButtonProgressAssist.Value="-1"
-                                materialDesign:ElevationAssist.Elevation="Dp5"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 Click="ArpTestButton_Click"
                                 Content="{materialDesign:PackIcon FileFindOutline}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource NmpGetHostName}" />
 
                         </StackPanel>
@@ -406,9 +410,14 @@
 
                                 <Button
                                     x:Name="ReSort"
+                                    Width="32"
+                                    Height="32"
                                     Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="ReSort_OnClick"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpResetSort}"
                                     Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <materialDesign:PackIcon Kind="Restore" />
@@ -416,9 +425,14 @@
 
                                 <Button
                                     x:Name="SetButton"
+                                    Width="32"
+                                    Height="32"
                                     Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="SetButton_Click"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpSetNetworkTag}">
                                     <materialDesign:PackIcon Kind="Settings" />
                                 </Button>
@@ -455,20 +469,30 @@
 
                                 <Button
                                     x:Name="MultipleAllocationButton"
-                                    Margin="0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="MultipleAllocationButton_OnClick"
                                     Foreground="LawnGreen"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpConfigSelectedIp}">
                                     <materialDesign:PackIcon Kind="Play" />
                                 </Button>
 
                                 <Button
                                     x:Name="ClearSelected"
-                                    Margin="0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="ClearSelected_OnClick"
                                     Foreground="OrangeRed"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpClearSelectedIp}">
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
@@ -546,22 +570,19 @@
 
                     <Button
                         x:Name="DataExport"
-                        Width="50"
-                        Height="30"
-                        Margin="5"
-                        Padding="0"
+                        Width="32"
+                        Height="32"
+                        Margin="5,0"
                         HorizontalAlignment="Right"
-                        materialDesign:ButtonAssist.CornerRadius="15"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="DataExport_OnClick"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="导出当前网段信息">
 
-                        <materialDesign:PackIcon
-                            Width="24"
-                            Height="24"
-                            Kind="DatabaseExportOutline" />
+                        <materialDesign:PackIcon Kind="DatabaseExportOutline" />
 
 
 

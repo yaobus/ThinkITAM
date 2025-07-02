@@ -20,63 +20,84 @@ namespace ThinkITAM.Windows.NetworkManage
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+            string tagWindow;
 
-            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
-
-            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-
+          
             if (DataBridge.DataBridge.NetworkTableName != null)
             {
+                tagWindow= "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
                 LocalRadioButton.IsEnabled = true;
             }
             else
             {
+                tagWindow = "IpAddressInfoTag";
                 LocalRadioButton.IsEnabled = false;
             }
 
 
-            if (num > 0)//存在本地自定义标签
+            if (tagWindow != "IpAddressInfoTag") //存在自定义标签
             {
-                var tags = DbClass.LoadWindowTag(tagWindow);
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-                if (tags != null)
+
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+                if (num > 0)//存在本地自定义标签
                 {
-                    LocalRadioButton.IsChecked = true;
+                    var tags = DbClass.LoadWindowTag(tagWindow);
 
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
+                    if (tags != null)
+                    {
+                        LocalRadioButton.IsChecked = true;
 
-                    TagA.Text = settings.TagA;
-                    TagB.Text = settings.TagB;
-                    TagC.Text = settings.TagC;
-                    TagD.Text = settings.TagD;
-                    TagE.Text = settings.TagE;
-                    TagF.Text = settings.TagF;
+                        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                        TagA.Text = settings.TagA;
+                        TagB.Text = settings.TagB;
+                        TagC.Text = settings.TagC;
+                        TagD.Text = settings.TagD;
+                        TagE.Text = settings.TagE;
+                        TagF.Text = settings.TagF;
+
+                    }
 
                 }
 
             }
-            else//全局标签
+            else//全局标签或者默认标签
             {
-                var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
-                if (tags != null)
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='IpAddressInfoTag'";
+
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                if (num > 0)
                 {
+                    var tags = DbClass.LoadWindowTag(tagWindow);
 
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
+                    if (tags != null)
+                    {
+                        LocalRadioButton.IsChecked = true;
 
-                    TagA.Text = settings.TagA;
-                    TagB.Text = settings.TagB;
-                    TagC.Text = settings.TagC;
-                    TagD.Text = settings.TagD;
-                    TagE.Text = settings.TagE;
-                    TagF.Text = settings.TagF;
+                        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                        TagA.Text = settings.TagA;
+                        TagB.Text = settings.TagB;
+                        TagC.Text = settings.TagC;
+                        TagD.Text = settings.TagD;
+                        TagE.Text = settings.TagE;
+                        TagF.Text = settings.TagF;
+
+                    }
 
                 }
 
+
+
             }
 
+            
 
 
 
@@ -151,7 +172,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"DELETE FROM \"WindowTag\" WHERE Window='{tagWindow}'";
+                string sql = $"DELETE FROM  WindowTag  WHERE Window = '{tagWindow}'";
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }

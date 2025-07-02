@@ -488,7 +488,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadCustomTag()
     {
-        var tagWindow = "AddNetwork" + DataBridge.DataBridge.NetworkTableName;
+        var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
@@ -521,7 +521,7 @@ public partial class NetworkAddressManagePage : UserControl
         }
         else //全局标签
         {
-            var tags = DbClass.LoadWindowTag("AddNetwork");
+            var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
             if (tags != null)
             {
@@ -537,6 +537,15 @@ public partial class NetworkAddressManagePage : UserControl
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
 
+            }
+            else
+            {
+                TagA.Text = "自定义标签A";
+                TagB.Text = "自定义标签B";
+                TagC.Text = "自定义标签C";
+                TagD.Text = "自定义标签D";
+                TagE.Text = "自定义标签E";
+                TagF.Text = "自定义标签F";
             }
 
         }

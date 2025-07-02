@@ -839,8 +839,8 @@ public partial class DevicePortManage : UserControl
     private void LoadCustomTag()
     {
 
-
-        var tagWindow = "AddDevice" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
+        //加载端口自定义标签
+        var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
 
 
 
@@ -872,7 +872,7 @@ public partial class DevicePortManage : UserControl
         }
         else //全局标签
         {
-            var tags = DbClass.LoadWindowTag("AddDevice");
+            var tags = DbClass.LoadWindowTag("DevicePortTag");
 
             if (tags != null)
             {
@@ -885,6 +885,15 @@ public partial class DevicePortManage : UserControl
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
 
+            }
+            else
+            {
+                TagA.Text = "自定义标签A";
+                TagB.Text = "自定义标签B";
+                TagC.Text = "自定义标签C";
+                TagD.Text = "自定义标签D";
+                TagE.Text = "自定义标签E";
+                TagF.Text = "自定义标签F";
             }
 
         }

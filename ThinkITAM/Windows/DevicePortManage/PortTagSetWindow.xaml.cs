@@ -18,67 +18,77 @@ namespace ThinkITAM.Windows.DevicePortManage
 
         private void PortTagSetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            string tagWindow;
 
-
-            var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
-
-            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
-
-            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-
-            if (DataBridge.DataBridge.SelectDeviceTableInfo.AssetId != null)
+            if (DataBridge.DataBridge.SelectDeviceTableInfo != null)
             {
+                tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
                 LocalRadioButton.IsEnabled = true;
             }
             else
             {
+                tagWindow = "DevicePortTag";
                 LocalRadioButton.IsEnabled = false;
             }
 
 
-            if (num > 0)//存在本地自定义标签
+
+            if (tagWindow != "DevicePortTag")//存在自定义标签
             {
-                var tags = DbClass.LoadWindowTag(tagWindow);
 
-                if (tags != null)
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                if (num > 0 )//存在本地自定义标签
                 {
-                    LocalRadioButton.IsChecked = true;
+                    var tags = DbClass.LoadWindowTag(tagWindow);
 
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
+                    if (tags != null)
+                    {
+                        LocalRadioButton.IsChecked = true;
 
-                    TagA.Text = settings.TagA;
-                    TagB.Text = settings.TagB;
-                    TagC.Text = settings.TagC;
-                    TagD.Text = settings.TagD;
-                    TagE.Text = settings.TagE;
-                    TagF.Text = settings.TagF;
+                        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                        TagA.Text = settings.TagA;
+                        TagB.Text = settings.TagB;
+                        TagC.Text = settings.TagC;
+                        TagD.Text = settings.TagD;
+                        TagE.Text = settings.TagE;
+                        TagF.Text = settings.TagF;
+
+                    }
 
                 }
 
             }
-            else//全局标签
+            else//默认标签
             {
-                var tags = DbClass.LoadWindowTag("DevicePortTag");
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='DevicePortTag'";
 
-                if (tags != null)
+                var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                if (num > 0)
                 {
+                    var tags = DbClass.LoadWindowTag(tagWindow);
 
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
+                    if (tags != null)
+                    {
+                        LocalRadioButton.IsChecked = true;
 
-                    TagA.Text = settings.TagA;
-                    TagB.Text = settings.TagB;
-                    TagC.Text = settings.TagC;
-                    TagD.Text = settings.TagD;
-                    TagE.Text = settings.TagE;
-                    TagF.Text = settings.TagF;
+                        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                        TagA.Text = settings.TagA;
+                        TagB.Text = settings.TagB;
+                        TagC.Text = settings.TagC;
+                        TagD.Text = settings.TagD;
+                        TagE.Text = settings.TagE;
+                        TagF.Text = settings.TagF;
+
+                    }
 
                 }
-
             }
-
-
-
 
         }
 

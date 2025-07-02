@@ -399,18 +399,28 @@
 
                             <Button
                                 x:Name="ReSort"
+                                Width="32"
+                                Height="32"
                                 Margin="5,0"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 Click="ReSort_OnClick"
-                                Style="{StaticResource MaterialDesignIconButton}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource DpmReSort}">
                                 <materialDesign:PackIcon Kind="Restore" />
                             </Button>
 
                             <Button
                                 x:Name="SetButton"
+                                Width="32"
+                                Height="32"
                                 Margin="5,0"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 Click="SetButton_OnClick"
-                                Style="{StaticResource MaterialDesignIconButton}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource DpmSetButton}">
                                 <materialDesign:PackIcon Kind="Settings" />
                             </Button>
@@ -424,13 +434,18 @@
                             Orientation="Horizontal">
 
 
-
                             <StackPanel
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal"
                                 Visibility="{Binding Path=IsChecked, ElementName=MultipleSelectMode, Converter={StaticResource BoolToVisibilityConverter}}">
 
+                                <ProgressBar
+                                    Width="40"
+                                    Height="1"
+                                    Opacity="0.3"
+                                    Orientation="Vertical"
+                                    Value="100" />
 
 
                                 <TextBlock
@@ -446,20 +461,30 @@
 
                                 <Button
                                     x:Name="MultipleAllocationButton"
-                                    Margin="0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="MultipleAllocationButton_Click"
                                     Foreground="LawnGreen"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource DpmMultipleAllocationButton}">
                                     <materialDesign:PackIcon Kind="Play" />
                                 </Button>
 
                                 <Button
                                     x:Name="ClearSelected"
-                                    Margin="0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="ClearSelected_OnClick"
                                     Foreground="OrangeRed"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource DpmClearSelected}">
                                     <materialDesign:PackIcon Kind="Delete" />
                                 </Button>
@@ -524,7 +549,7 @@
                 <DataGrid
                     x:Name="PortListView"
                     Margin="0,0,0,0"
-                    d:Visibility="Collapsed"
+                    d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     Background="Transparent"
                     CanUserAddRows="False"

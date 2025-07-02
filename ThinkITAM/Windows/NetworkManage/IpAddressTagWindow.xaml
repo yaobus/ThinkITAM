@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="IP地址详细信息-自定义字段"
     Width="600"
-    Height="350"
+    Height="380"
     Closing="Window_Closing"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="Window_Loaded"

@@ -3,11 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:indexPage="clr-namespace:ThinkITAM.UserControls.IndexPage"
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:dd="urn:gong-wpf-dragdrop"
     MinWidth="1200"
     MinHeight="700"
     d:Background="AliceBlue"
@@ -93,11 +93,9 @@
             Grid.Column="1"
             Margin="2.5,2.5,2.5,5">
 
-            <ScrollViewer
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
-                <ItemsControl x:Name="IndexPanel" Padding="10" >
+                <ItemsControl x:Name="IndexPanel" Padding="10">
                     <!--  设置 ItemsPanel 为 WrapPanel  -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -179,7 +177,7 @@
                                     Width="20"
                                     Height="20"
                                     Kind="TagPlusOutline" />
-                                <TextBlock Text="{DynamicResource IpAddButtonTitle}" VerticalAlignment="Center"/>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddButtonTitle}" />
                             </StackPanel>
                         </Button>
 
@@ -200,7 +198,7 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Kind="Group" />
-                                <TextBlock Text="{DynamicResource IpAddGroup}" VerticalAlignment="Center"/>
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddGroup}" />
                             </StackPanel>
 
                         </Button>
@@ -220,9 +218,8 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
-                    Style="{StaticResource MaterialDesignFlatLightButton}"
                     Click="EditButton_OnClick"
-                    >
+                    Style="{StaticResource MaterialDesignFlatLightButton}">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"

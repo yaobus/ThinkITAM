@@ -1031,5 +1031,28 @@ namespace ThinkITAM.FunctionPage
 
             }
         }
+
+        private void SetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddAssetWindowSet set = new AddAssetWindowSet();
+
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                set.Owner = window;
+            }
+
+
+
+
+            if (set.ShowDialog() == true)
+            {
+
+                LoadTags();
+
+            }
+        }
     }
 }

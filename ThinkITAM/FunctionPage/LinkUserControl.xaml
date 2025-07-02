@@ -634,19 +634,29 @@
 
                                 <Button
                                     x:Name="DeleteSelectedRack"
-                                    Margin="0,0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="DeleteSelectedRack_OnClick"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource LucDeviceRemove}">
                                     <materialDesign:PackIcon Kind="DeleteOutline" />
                                 </Button>
 
                                 <Button
                                     x:Name="ClearRackPanel"
-                                    Margin="0,0"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
                                     Click="ClearRackPanel_OnClick"
                                     Foreground="OrangeRed"
-                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource LucClearRackPanel}">
                                     <materialDesign:PackIcon Kind="Autorenew" />
                                 </Button>
@@ -876,7 +886,7 @@
                         d:Height="150"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=LinkManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -943,7 +953,7 @@
                         Margin="0"
                         d:Visibility="Visible"
                         OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                        Duration=0:0:0.2}"
+                                                                        Duration=0:0:0.2}"
                         Visibility="{Binding Path=IsChecked, ElementName=TempManage, Converter={StaticResource BoolToVisibilityConverter}}">
 
 

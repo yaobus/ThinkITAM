@@ -248,7 +248,7 @@
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" />
 
-                    <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
 
                         <ProgressBar
                             Width="40"
@@ -257,168 +257,20 @@
                             Orientation="Vertical"
                             Value="100" />
 
-                        <ComboBox
-                            x:Name="AddressBox"
-                            Width="120"
+
+                        <Button
+                            x:Name="SetButton"
+                            Width="32"
                             Height="32"
-                            Margin="5"
-                            Padding="0"
-                            VerticalAlignment="Bottom"
-                            materialDesign:TextFieldAssist.HasClearButton="True"
-                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                            materialDesign:TextFieldAssist.LeadingIcon="ShapeOutline"
-                            ItemsSource="{Binding ShortStringList}"
-                            MaxDropDownHeight="300"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                            <ComboBox.SelectedItem>
-                                <Binding
-                                    Mode="TwoWay"
-                                    Path="SelectedValidationOutlined"
-                                    UpdateSourceTrigger="PropertyChanged" />
-                            </ComboBox.SelectedItem>
-                        </ComboBox>
-
-                        <StackPanel
-                            Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            materialDesign:HintAssist.Hint="设备类型"
-                            Orientation="Horizontal">
-
-                            <ComboBox
-                                x:Name="DomainComboBox"
-                                Width="120"
-                                Height="32"
-                                Margin="5"
-                                Padding="0"
-                                VerticalAlignment="Bottom"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="FilterOutline"
-                                Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                                <ComboBox.SelectedItem>
-                                    <Binding
-                                        Mode="TwoWay"
-                                        Path="SelectedValidationOutlined"
-                                        UpdateSourceTrigger="PropertyChanged" />
-                                </ComboBox.SelectedItem>
-
-
-                            </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            materialDesign:HintAssist.Hint="搜索关键词"
-                            Orientation="Horizontal">
-
-                            <TextBox
-                                x:Name="KeyWord"
-                                Width="120"
-                                Height="32"
-                                Margin="5"
-                                Padding="0"
-                                VerticalAlignment="Top"
-                                materialDesign:HintAssist.FloatingScale="0"
-                                materialDesign:HintAssist.Hint="搜索关键词"
-                                AcceptsReturn="False"
-                                Style="{DynamicResource MaterialDesignOutlinedTextBox}"
-                                TextWrapping="NoWrap" />
-
-                        </StackPanel>
-
-
-                        <ToggleButton
-                            x:Name="Accurate"
-                            Width="26"
-                            Height="26"
-                            Margin="5"
-                            materialDesign:ElevationAssist.Elevation="Dp5"
-                            materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Equal}"
-                            Content="{materialDesign:PackIcon Kind=ApproximatelyEqual}"
-                            IsChecked="False"
-                            Style="{StaticResource MaterialDesignActionToggleButton}"
-                            ToolTip="模糊/精确" />
-
-
-
-                        <Button
-                            x:Name="SearchButton2"
-                            Width="50"
-                            Height="30"
-                            Padding="0"
-                            materialDesign:ButtonAssist.CornerRadius="15"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
                             BorderThickness="0"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="给我搜">
-                            <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
-                                Kind="Search" />
+                            Click="SetButton_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="自定义标签">
+                            <materialDesign:PackIcon Kind="Settings" />
                         </Button>
-
-                        <Button
-                            x:Name="SearchClear"
-                            Width="50"
-                            Height="30"
-                            Margin="5"
-                            Padding="0"
-                            materialDesign:ButtonAssist.CornerRadius="15"
-                            BorderThickness="0"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="清空搜索"
-                            Visibility="Visible">
-                            <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
-                                Kind="ClearCircleOutline" />
-                        </Button>
-
-
-
-                        <Button
-                            x:Name="ExportButton"
-                            Width="50"
-                            Height="30"
-                            Margin="5"
-                            Padding="0"
-                            HorizontalAlignment="Right"
-                            materialDesign:ButtonAssist.CornerRadius="15"
-                            BorderThickness="0"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="页面数据导出(不可作为数据源反向导入)">
-
-
-                            <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
-                                Kind="TableArrowRight" />
-                        </Button>
-
-
-                        <Button
-                            x:Name="ExportNetwork"
-                            Width="50"
-                            Height="30"
-                            Margin="5"
-                            Padding="0"
-                            HorizontalAlignment="Right"
-                            materialDesign:ButtonAssist.CornerRadius="15"
-                            BorderThickness="0"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="导出网段信息报表">
-
-
-                            <materialDesign:PackIcon
-                                Width="20"
-                                Height="20"
-                                Kind="ApplicationExport" />
-                        </Button>
-
 
 
 
@@ -431,42 +283,34 @@
                     Orientation="Horizontal">
                     <Button
                         x:Name="DataImport"
-                        Width="50"
-                        Height="30"
-                        Margin="5"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        materialDesign:ButtonAssist.CornerRadius="15"
+                        Width="32"
+                        Height="32"
+                        Margin="5,0"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="DataImport_OnClick"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="资产数据导入">
 
-                        <materialDesign:PackIcon
-                            Width="24"
-                            Height="24"
-                            Kind="DatabaseImportOutline" />
+                        <materialDesign:PackIcon Kind="DatabaseImportOutline" />
 
 
 
                     </Button>
                     <Button
                         x:Name="DataExport"
-                        Width="50"
-                        Height="30"
-                        Margin="5"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        materialDesign:ButtonAssist.CornerRadius="15"
+                        Width="32"
+                        Height="32"
+                        Margin="5,0"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="DataExport_OnClick"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="资产数据导出">
 
-                        <materialDesign:PackIcon
-                            Width="24"
-                            Height="24"
-                            Kind="DatabaseExportOutline" />
+                        <materialDesign:PackIcon Kind="DatabaseExportOutline" />
 
 
 
@@ -486,16 +330,15 @@
                     </Button>
                     <Button
                         x:Name="QrCodeExport"
-                        Width="50"
-                        Height="30"
-                        Margin="5"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        materialDesign:ButtonAssist.CornerRadius="15"
+                        Width="32"
+                        Height="32"
+                        Margin="5,0"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="QrCodeExport_OnClick"
                         IsEnabled="False"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="资产标签导出">
 
                         <materialDesign:PackIcon
@@ -601,342 +444,767 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Numeric1Box" />
-                                    <TextBlock Text="序号" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Numeric1Box" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="序号" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Index" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Index}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="AssetType">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Laptop" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="资产类型" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding AssetType}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                            </DataGridTextColumn.Binding>
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="DeviceType">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Monitor" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="设备类型" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding DeviceType}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        </DataGridTextColumn>
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="AssetNumber">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="TagText" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="资产编号" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding AssetNumber}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Laptop" />
-                                    <TextBlock Text="资产类型" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PurchaseDate">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="CalendarText" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="购置日期" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="AssetType" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Monitor" />
-                                    <TextBlock Text="设备类型" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="DeviceType" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PurchaseDate}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="TagText" />
-                                    <TextBlock Text="资产编号" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PurchasePrice">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="CurrencyUsd" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="购置价格" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="AssetNumber" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="CalendarText" />
-                                    <TextBlock Text="购置日期" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="PurchaseDate" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="CurrencyUsd" />
-                                    <TextBlock Text="购置价格" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="PurchasePrice" StringFormat="C" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding PurchasePrice, StringFormat='C'}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Manufacturer">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Factory" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="制造厂商" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Manufacturer}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Model">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Devices" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="型号" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Model}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Factory" />
-                                    <TextBlock Text="制造厂商" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="SerialNumber">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="BarcodeScanner" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="序列号" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Manufacturer" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding SerialNumber}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Devices" />
-                                    <TextBlock Text="型号" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Configuration">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Settings" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="配置信息" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Model" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Configuration}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="BarcodeScanner" />
-                                    <TextBlock Text="序列号" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Location">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="MapMarker" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="存放位置" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="SerialNumber" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Location}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Settings" />
-                                    <TextBlock Text="配置信息" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserOrganization">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="SitemapOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人单位" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Configuration" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding UserOrganization}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="MapMarker" />
-                                    <TextBlock Text="存放位置" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserDepartment">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="BallotOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人部门" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Location" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding UserDepartment}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="SitemapOutline" />
-                                    <TextBlock Text="责任人单位" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserGroup">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="BallotOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人群组" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="UserOrganization" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding UserGroup}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="BallotOutline" />
-                                    <TextBlock Text="责任人部门" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Unit">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="BallotOutline" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人单元" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="UserDepartment" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Unit}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="BallotOutline" />
-                                    <TextBlock Text="责任人群组" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="User">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Account" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="UserGroup" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding User}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="BallotOutline" />
-                                    <TextBlock Text="责任人单元" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserPhone">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Phone" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="责任人电话" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Unit" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding UserPhone}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Consumer">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="AccountCircle" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="使用人" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Consumer}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Account" />
-                                    <TextBlock Text="责任人" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="AssetStatus">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="CheckCircle" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="资产状态" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="User" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding AssetStatus}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Phone" />
-                                    <TextBlock Text="责任人电话" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UsedYear">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Calendar" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="已用年限" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="UserPhone" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding UsedYear}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountCircle" />
-                                    <TextBlock Text="使用人" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="ScrapDate">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Delete" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="报废日期" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Consumer" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding ScrapDate}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="CheckCircle" />
-                                    <TextBlock Text="资产状态" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Notes">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Note" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="备注信息" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="AssetStatus" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding Notes}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Calendar" />
-                                    <TextBlock Text="已用年限" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagA">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagA"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签A" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="UsedYear" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagA}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Delete" />
-                                    <TextBlock Text="报废日期" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagB">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagB"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签B" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="ScrapDate" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Note" />
-                                    <TextBlock Text="备注信息" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="Notes" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagB}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagA" Text="自定义标签A" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagC">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagC"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签C" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagA" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagC}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagD">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagD"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签D" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagD}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagB" Text="自定义标签B" />
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagE">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagE"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签E" />
                                 </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagB" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagC" Text="自定义标签C" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagC" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagD" Text="自定义标签D" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagD" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagE" Text="自定义标签E" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagE" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn>
-                            <DataGridTextColumn.Header>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
-                                    <TextBlock x:Name="TagF" Text="自定义标签F" />
-                                </StackPanel>
-                            </DataGridTextColumn.Header>
-                            <DataGridTextColumn.Binding>
-                                <Binding Path="TagF" />
-                            </DataGridTextColumn.Binding>
-                        </DataGridTextColumn>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagE}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagF">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Tag" />
+                                    <TextBlock
+                                        x:Name="TagF"
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="自定义标签F" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontWeight="ExtraBold"
+                                            Text="{Binding TagF}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
 
