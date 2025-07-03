@@ -158,7 +158,7 @@ namespace ThinkITAM.Windows.PresetWindows
 
                     GlobalVariables.DbService.UpdateEntity("Buildings", info, conditions);
 
-                    DialogResult = true;
+                   this.DialogResult = true;
 
 
                 }

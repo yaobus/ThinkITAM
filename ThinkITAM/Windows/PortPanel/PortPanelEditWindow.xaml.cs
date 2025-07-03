@@ -23,7 +23,7 @@ namespace ThinkITAM.Windows.PortPanel
 
             if (portInfos != null)
             {
-                InfoTextBox.Text = $"共选中{portInfos.Count}个终端"; ;
+                InfoTextBox.Text = $"共选中{portInfos.Count}个端口"; ;
 
                 inputInfos = portInfos;
                 this.DataContext = inputInfos[0];
@@ -65,7 +65,7 @@ namespace ThinkITAM.Windows.PortPanel
         {
             tagAs.Clear();
 
-            var sql = $"SELECT DISTINCT(TagA) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE TagA IS NOT NULL AND TagA != '' AND (Del != 1 OR Del IS NULL)";
+            var sql = $"SELECT DISTINCT(TagA) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE TagA IS NOT NULL AND TagA != '' ";
             Console.WriteLine(sql);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
@@ -141,7 +141,7 @@ namespace ThinkITAM.Windows.PortPanel
         {
             tagBs.Clear();
 
-            var sql = $"SELECT DISTINCT(TagB) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE TagA = '{TagA.SelectedItem}' AND TagB IS NOT NULL AND TagB != '' AND (Del != 1 OR Del IS NULL)";
+            var sql = $"SELECT DISTINCT(TagB) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE TagA = '{TagA.SelectedItem}' AND TagB IS NOT NULL AND TagB != '' ";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 

@@ -381,6 +381,7 @@ namespace ThinkITAM.FunctionPage
                     portClass.UID = Convert.ToInt32(row["UID"]);
                     portClass.PortType = row["PortType"].ToString();
                     portClass.PortGroup= row["PortGroup"].ToString();
+                    portClass.PortStatus= row["PortStatus"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
                     portClass.PortTag = row["PortTag"].ToString();
                     portClass.Room = row["RoomId"].ToString();
@@ -598,7 +599,30 @@ namespace ThinkITAM.FunctionPage
 
         private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
         {
-           
+
+
+            var items = portNumbers.Where(item => item.IsSelected == true);
+
+            var newItems = new ObservableCollection<PortClass>(items);
+
+
+            if (portNumbers.Count > 0)
+            {
+                var newWindow = new PortPanelEditWindow(newItems);
+
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    newWindow.Owner = window;
+                }
+
+                newWindow.ShowDialog();
+
+            }
+
+
+
+
         }
 
         private void SetButton_OnClick(object sender, RoutedEventArgs e)
