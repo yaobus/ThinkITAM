@@ -449,12 +449,13 @@
                                     BorderThickness="0"
                                     Click="MultipleButton_OnClick"
                                     Foreground="LawnGreen"
+                                    IsEnabled="False"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
                                     <materialDesign:PackIcon Kind="Play" />
                                 </Button>
 
                                 <Button
-                                    x:Name="DeleteButton"
+                                    x:Name="MultipleDeleteButton"
                                     Width="32"
                                     Height="32"
                                     Margin="5,0"
@@ -463,6 +464,7 @@
                                     BorderThickness="0"
                                     Click="DeleteButton_OnClick"
                                     Foreground="Red"
+                                    IsEnabled="False"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="删除所选端口">
                                     <materialDesign:PackIcon Kind="Delete" />

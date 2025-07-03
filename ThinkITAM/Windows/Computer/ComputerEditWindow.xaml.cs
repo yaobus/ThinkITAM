@@ -23,7 +23,7 @@ namespace ThinkITAM.Windows.Computer
 
             if (portInfos != null)
             {
-                InfoTextBox.Text = $"共选中{portInfos.Count}个终端"; ;
+                InfoTextBox.Text = $"共选中{portInfos[0].AssetNumber}等{portInfos.Count}个终端"; ;
 
                 inputInfos = portInfos;
                 this.DataContext = inputInfos[0];
@@ -53,10 +53,30 @@ namespace ThinkITAM.Windows.Computer
                 info.AssetId = item.AssetId;
                 info.AssetUser = item.AssetUser;
                 info.PortId = item.PortIndex;
-                info.PortTag = PortTag.Text;
+
+                if (ExcludeTag.IsChecked == true)
+                {
+                    info.PortTag = item.PortTag;
+                }
+                else
+                {
+                    info.PortTag = PortTag.Text;
+                }
+
+
+                if (ExcludeGroup.IsChecked ==true)
+                {
+                    info.PortGroup= item.PortGroup;
+                }
+                else
+                {
+                   info.PortGroup = PortGroup.Text;
+                }
+
+
                 info.PortType = item.PortType;
                 info.PortStatus = PortStatus.Text;
-                info.PortGroup = PortGroup.Text;
+                
                 info.OnTheLine = item.OnTheLine;
                 info.PortColor = PortColor.SelectedIndex;
                 info.BuildingId = item.BuildingId;

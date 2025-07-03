@@ -623,4 +623,15 @@ public partial class MainWindow : Window
         }
 
     }
+
+    private void VersionLabel_OnMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
+        {
+
+            var newWindow = new WelcomeWindow(1);
+            newWindow.Owner = this;
+            newWindow.ShowDialog();
+        }
+    }
 }

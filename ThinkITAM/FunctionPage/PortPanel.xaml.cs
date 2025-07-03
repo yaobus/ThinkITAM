@@ -231,6 +231,7 @@ namespace ThinkITAM.FunctionPage
 
         private void BuildingTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            NumberBlock.Text = "0";
             roomNumbers.Clear();
             DataBridge.DataBridge.PortPanelLinkViewList.Clear();
             if (e != null)
@@ -348,6 +349,8 @@ namespace ThinkITAM.FunctionPage
         private async void RoomListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             portNumbers.Clear();
+            NumberBlock.Text = "0";
+
             PortManagePanel.Items.Clear();
             DataBridge.DataBridge.PortPanelLinkViewList.Clear();
 
@@ -384,7 +387,10 @@ namespace ThinkITAM.FunctionPage
                     portClass.PortStatus= row["PortStatus"].ToString();
                     portClass.PortIndex = row["PortId"].ToString();
                     portClass.PortTag = row["PortTag"].ToString();
+                    portClass.SlotIndex=row["SlotId"].ToString();
+                    portClass.PortIndex=row["PortId"].ToString();
                     portClass.Room = row["RoomId"].ToString();
+                    portClass.PortTag=row["PortTag"].ToString();
                     portClass.PortColor = Convert.ToInt32(row["PortColor"]);
                     portClass.TagA = row["TagA"].ToString();
                     portClass.TagB = row["TagB"].ToString();
@@ -518,7 +524,23 @@ namespace ThinkITAM.FunctionPage
         private void StatisticsSelectedPort()
         {
             var items = portNumbers.Where(item => item.IsSelected == true);
-            NumberBlock.Text = items.Count().ToString();
+        
+
+            if (items.Count() > 0)
+            {
+                NumberBlock.Text = items.Count().ToString();
+                MultipleButton.IsEnabled = true;
+                MultipleDeleteButton.IsEnabled = true;
+            }
+            else
+            {
+                NumberBlock.Text = "0";
+                MultipleButton.IsEnabled = false;
+                MultipleDeleteButton.IsEnabled = false;
+            }
+
+
+
         }
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
@@ -606,7 +628,7 @@ namespace ThinkITAM.FunctionPage
             var newItems = new ObservableCollection<PortClass>(items);
 
 
-            if (portNumbers.Count > 0)
+            if (newItems.Count > 0)
             {
                 var newWindow = new PortPanelEditWindow(newItems);
 

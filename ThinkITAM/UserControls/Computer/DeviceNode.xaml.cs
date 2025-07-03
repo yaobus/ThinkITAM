@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
+using DocumentFormat.OpenXml.EMMA;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.Windows.Computer;
 
 namespace ThinkITAM.UserControls.Computer
 {
@@ -66,6 +69,30 @@ namespace ThinkITAM.UserControls.Computer
                         break;
                 }
             }
+        }
+
+        private void PortButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            var infos = new ObservableCollection<PortClass>();
+                var info = this.DataContext as PortClass;
+
+                if (info != null)
+                {
+                    infos.Add(info);
+
+                    var newWindow = new ComputerEditWindow(infos);
+
+                    var window = Window.GetWindow(this);
+                    if (window != null)
+                    {
+                        newWindow.Owner = window;
+                    }
+
+                    newWindow.ShowDialog();
+
+                }
+            
         }
     }
 }

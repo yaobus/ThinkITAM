@@ -332,7 +332,10 @@
                 <Label
                     x:Name="VersionLabel"
                     VerticalAlignment="Center"
-                    d:Content="Ver 1.0.12" />
+                    d:Content="Ver 1.0.12"
+                    Cursor="Hand"
+                    MouseDown="VersionLabel_OnMouseDown"
+                    ToolTip="{DynamicResource MwWhatNewTooltip}" />
             </StackPanel>
         </Grid>
 

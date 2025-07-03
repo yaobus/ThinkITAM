@@ -7,6 +7,7 @@
     <!--  MainWindow  -->
     <s:String x:Key="AddProject">Add Project</s:String>
     <s:String x:Key="DelProject">Delete Project</s:String>
+    <s:String x:Key="MwWhatNewTooltip">View update log</s:String>
 
     <s:String x:Key="SetPassword">Set Password</s:String>
     <s:String x:Key="SetPasswordAgain">Confirm Password</s:String>

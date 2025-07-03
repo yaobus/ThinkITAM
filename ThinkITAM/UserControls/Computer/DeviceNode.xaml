@@ -55,6 +55,7 @@
                 BorderBrush="AliceBlue"
                 BorderThickness="0"
                 Foreground="AliceBlue"
+                Click="PortButton_OnClick"
                 Style="{StaticResource MaterialDesignFlatLightButton}">
 
                 <Button.ContextMenu>

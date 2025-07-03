@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
+using DocumentFormat.OpenXml.EMMA;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.LinkManage;
@@ -62,8 +64,6 @@ namespace ThinkITAM.UserControls.PortPanel
 
             if (port.OnTheLine != null && port.OnTheLine > 0)
             {
-
-
                 foreach (var node in DbClass.GetLinkDetail(port.OnTheLine))
                 {
                     if (port.RackId == node.PortClass.RackId)
@@ -85,11 +85,24 @@ namespace ThinkITAM.UserControls.PortPanel
                 DataBridge.DataBridge.PortPanelLinkViewList.Clear();
             }
 
+            var infos = new ObservableCollection<PortClass>();
 
+            var info = this.DataContext as PortClass;
 
+            if (info != null)
+            {
+                infos.Add(info);
 
+                var newWindow = new PortPanelEditWindow(infos);
 
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    newWindow.Owner = window;
+                }
 
+                newWindow.ShowDialog();
+            }
 
 
 

@@ -7,6 +7,9 @@
     <s:String x:Key="AddProject">添加项目</s:String>
     <s:String x:Key="DelProject">删除项目</s:String>
 
+    <s:String x:Key="MwWhatNewTooltip">点击查看更新日志</s:String>
+
+
 
     <s:String x:Key="SetPassword">设置密码</s:String>
     <s:String x:Key="SetPasswordAgain">确认密码</s:String>

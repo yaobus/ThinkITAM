@@ -128,10 +128,32 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Orientation="Vertical">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="端口标签:" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口标签:" />
+
+                    <CheckBox
+                        x:Name="ExcludeTag"
+                        Grid.Column="1"
+                        Content="排除"
+                        IsChecked="True"
+                        Style="{StaticResource MaterialDesignDarkCheckBox}"
+                        ToolTip="勾选后将不会修改此字段" />
+                </Grid>
+
+
+
+
                 <TextBox
                     x:Name="PortTag"
                     Width="250"
@@ -150,10 +172,30 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Orientation="Vertical">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="端口群组:" />
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="端口群组:" />
+
+                    <CheckBox
+                        x:Name="ExcludeGroup"
+                        Grid.Column="1"
+                        Content="排除"
+                        IsChecked="True"
+                        Style="{StaticResource MaterialDesignDarkCheckBox}"
+                        ToolTip="勾选后将不会修改此字段" />
+                </Grid>
+
+
                 <TextBox
                     x:Name="PortGroup"
                     Width="250"

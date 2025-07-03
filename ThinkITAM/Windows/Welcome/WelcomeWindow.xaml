@@ -46,20 +46,22 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+            <Grid x:Name="QrGrid" Grid.Column="1">
+                <Image
+                    Margin="10"
+                    Source="/Resources/Image/QR.png"
+                    Stretch="None" />
+                <Label
+                    Margin="20,20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Content="ThinkITAM反馈交流群"
+                    FontSize="14" />
 
 
-            <Image
-                Grid.Column="1"
-                Margin="10"
-                Source="/Resources/Image/QR.png"
-                Stretch="None" />
-            <Label
-                Grid.Column="1"
-                Margin="20,20"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Content="ThinkITAM反馈交流群"
-                FontSize="14" />
+            </Grid>
+
+
 
 
             <Grid Grid.Column="0" Margin="10">

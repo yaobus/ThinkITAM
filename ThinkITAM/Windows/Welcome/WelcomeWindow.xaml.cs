@@ -9,9 +9,21 @@ namespace ThinkITAM.Windows.Welcome;
 /// </summary>
 public partial class WelcomeWindow : Window
 {
-    public WelcomeWindow()
+    /// <summary>
+    /// 0为正常加载，1为手动加载
+    /// </summary>
+    /// <param name="mode"></param>
+    public WelcomeWindow(int mode = 0)
     {
         InitializeComponent();
+
+        if (mode == 1)
+        {
+            ShowWelcomeBox.Visibility = Visibility.Collapsed;
+            CloseButton.Content = "知道了，退下吧";
+            QrGrid.Visibility = Visibility.Collapsed;
+        }
+
     }
 
     private void WelcomeWindow_OnLoaded(object sender, RoutedEventArgs e)

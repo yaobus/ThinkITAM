@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.DatabaseEntity.Computer;
+using ThinkITAM.ViewModels.DatabaseEntity.PortPanel;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.ViewModels.NetworkManage;
 
@@ -15,7 +16,7 @@ namespace ThinkITAM.Windows.PortPanel
     /// </summary>
     public partial class PortPanelEditWindow : Window
     {
-        public PortPanelEditWindow (ObservableCollection<PortClass>  portInfos=null)
+        public PortPanelEditWindow (ObservableCollection<PortClass>  portInfos = null)
         {
             InitializeComponent();
             TagA.ItemsSource = tagAs;
@@ -23,9 +24,10 @@ namespace ThinkITAM.Windows.PortPanel
 
             if (portInfos != null)
             {
-                InfoTextBox.Text = $"共选中{portInfos.Count}个端口"; ;
+                InfoTextBox.Text = $"共选中{portInfos[0].PortIndex}等{portInfos.Count}个端口"; ;
 
                 inputInfos = portInfos;
+
                 this.DataContext = inputInfos[0];
             }
 
@@ -46,9 +48,48 @@ namespace ThinkITAM.Windows.PortPanel
         {
             foreach (var item in inputInfos)
             {
+                var info = new PortPanelEntityViewModel();
+                info.UID = item.UID;
+                info.SlotId = item.SlotIndex;
+                info.RoomId = item.Room;
+                info.PortId = item.PortIndex;
+                info.PortType = item.PortType;
+                
 
 
-               // GlobalVariables.DbService.UpdateEntity("Computer", info, conditions);
+                if (ExcludeTag.IsChecked == true)
+                {
+                    info.PortTag = item.PortTag;
+                }
+                else
+                {
+                    info.PortTag = PortTag.Text;
+                }
+
+
+                if (ExcludeGroup.IsChecked == true)
+                {
+                    info.PortGroup = item.PortGroup;
+                }
+                else
+                {
+                    info.PortGroup = PortGroup.Text;
+                }
+
+                info.PortColor = PortColor.SelectedIndex.ToString();
+                
+                info.PortStatus = PortStatus.Text;
+                info.OnTheLine = item.OnTheLine;
+                info.TagA = TagA.Text;
+                info.TagB = TagB.Text;
+                info.TagC = TagC.Text;
+                info.TagD = TagD.Text;
+                info.TagE = TagE.Text;
+                info.TagF = TagF.Text;
+
+                var conditions = new { UID = item.UID };
+
+                GlobalVariables.DbService.UpdateEntity($"Bu_{DataBridge.DataBridge.SelectBuildingId}", info, conditions);
 
             }
 
@@ -66,6 +107,7 @@ namespace ThinkITAM.Windows.PortPanel
             tagAs.Clear();
 
             var sql = $"SELECT DISTINCT(TagA) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE TagA IS NOT NULL AND TagA != '' ";
+            
             Console.WriteLine(sql);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
