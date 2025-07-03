@@ -7,8 +7,10 @@ using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.Computer;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.Others;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.Windows.Computer;
+using ThinkITAM.Windows.DevicePortManage;
 using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.FunctionPage
@@ -127,18 +129,18 @@ namespace ThinkITAM.FunctionPage
         private void LoadTags()
         {
 
-            var tags = DbClass.LoadWindowTag("Computer");
+            var tags = DbClass.LoadWindowTag("ComputerTag");
 
             if (tags != null)
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
 
-                LabelA.Content = settings.TagA + ":";
-                LabelB.Content = settings.TagB + ":";
-                LabelC.Content = settings.TagC + ":";
-                LabelD.Content = settings.TagD + ":";
-                LabelE.Content = settings.TagE + ":";
-                LabelF.Content = settings.TagF + ":";
+                TagA.Content = settings.TagA;
+                TagB.Content = settings.TagB;
+                TagC.Content = settings.TagC;
+                TagD.Content = settings.TagD;
+                TagE.Content = settings.TagE;
+                TagF.Content = settings.TagF;
             }
 
         }
@@ -629,5 +631,70 @@ namespace ThinkITAM.FunctionPage
                 }
             }
         }
+
+        /// <summary>
+        /// 打开自定义字段设置窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+           var set = new ComputerTagSetWindow();
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                set.Owner = window;
+            }
+
+
+            if (set.ShowDialog() == true)
+            {
+
+                LoadCustomTag();
+
+            }
+
+
+        }
+
+        /// <summary>
+        /// 加载端口信息自定义标签
+        /// </summary>
+        private void LoadCustomTag()
+        {
+            
+            //加载端口自定义标签
+            var tagWindow = "ComputerTag" ;
+
+            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+            if (num > 0) //存在本地自定义标签
+            {
+                var tags = DbClass.LoadWindowTag(tagWindow);
+
+                if (tags != null)
+                {
+                    dynamic settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
+
+                    TagA.Content = settings.TagA;
+                    TagB.Content = settings.TagB;
+                    TagC.Content = settings.TagC;
+                    TagD.Content = settings.TagD;
+                    TagE.Content = settings.TagE;
+                    TagF.Content = settings.TagF;
+
+                }
+
+            }
+           
+
+        }
+
     }
 }

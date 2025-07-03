@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +8,9 @@ using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.UserControls.PortPanel;
 using ThinkITAM.ViewModels.LinkManage;
+using ThinkITAM.ViewModels.Others;
 using ThinkITAM.ViewModels.PortPanel;
+using ThinkITAM.Windows.Computer;
 using ThinkITAM.Windows.PortPanel;
 using ThinkITAM.Windows.PresetWindows;
 
@@ -87,6 +90,7 @@ namespace ThinkITAM.FunctionPage
 
             LoadPanelPortTreeList();
 
+            LoadCustomTag();//加载自定义标签
 
             RoomListView.ItemsSource = roomNumbers;
 
@@ -595,6 +599,92 @@ namespace ThinkITAM.FunctionPage
         private void MultipleButton_OnClick(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        private void SetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            var set = new PortPanelTagSetWindow();
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                set.Owner = window;
+            }
+
+
+            if (set.ShowDialog() == true)
+            {
+
+                LoadCustomTag();
+
+            }
+
+
+        }
+
+
+        /// <summary>
+        /// 加载自定义标签
+        /// </summary>
+        private void LoadCustomTag()
+        {
+
+            //加载端口自定义标签
+            var tagWindow = "PortPanelTag";
+
+            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+            if (num > 0) //存在本地自定义标签
+            {
+                var tags = DbClass.LoadWindowTag(tagWindow);
+
+                if (tags != null)
+                {
+                    dynamic settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
+
+                    LabelA.Content = settings.TagA;
+                    LabelB.Content = settings.TagB;
+                    LabelC.Content = settings.TagC;
+                    LabelD.Content = settings.TagD;
+                    LabelE.Content = settings.TagE;
+                    LabelF.Content = settings.TagF;
+
+                }
+
+            }
+
+
+        }
+
+
+        private ObservableCollection<PortClass> infos = new ObservableCollection<PortClass>();
+
+        private void PanelPortListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            infos.Clear();
+            var info = portNumbers[PanelPortListView.SelectedIndex];
+            if (info != null)
+            {
+                infos.Add(info);
+
+                var newWindow = new PortPanelEditWindow(infos);
+
+                var window = Window.GetWindow(this);
+                if (window != null)
+                {
+                    newWindow.Owner = window;
+                }
+
+                newWindow.ShowDialog();
+            }
+
+
+
         }
     }
 

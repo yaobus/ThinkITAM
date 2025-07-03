@@ -329,7 +329,9 @@
                         Orientation="Vertical"
                         Value="100" />
 
-                    <Grid>
+                    <Grid
+                        Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
+                        >
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -338,9 +340,31 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
+                        <Button
+                            Grid.Column="0"
+                            x:Name="SetButton"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="SetButton_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="{DynamicResource DpmSetButton}">
+                            <materialDesign:PackIcon Kind="Settings" />
+                        </Button>
+
+                        <ProgressBar
+                            Grid.Column="1"
+                            Width="40"
+                            Height="1"
+                            Opacity="0.3"
+                            Orientation="Vertical"
+                            Value="100" />
 
                         <StackPanel
-                            Grid.Column="3"
+                            Grid.Column="2"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
 
@@ -350,7 +374,9 @@
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal"
-                                Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
+
+                                >
 
 
 
@@ -813,7 +839,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelA"
+                                        x:Name="TagA"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagA"
@@ -842,7 +868,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelB"
+                                        x:Name="TagB"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagB"
@@ -871,7 +897,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelC"
+                                        x:Name="TagC"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagC"
@@ -900,7 +926,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelD"
+                                        x:Name="TagD"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagA"
@@ -929,7 +955,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelE"
+                                        x:Name="TagE"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagB"
@@ -958,7 +984,7 @@
                                         Height="24"
                                         Kind="IpOutline" />
                                     <Label
-                                        x:Name="LabelF"
+                                        x:Name="TagF"
                                         Margin="5,0"
                                         VerticalAlignment="Center"
                                         Content="TagC"
