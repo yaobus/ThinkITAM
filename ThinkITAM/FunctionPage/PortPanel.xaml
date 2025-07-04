@@ -392,13 +392,11 @@
                             Grid.Column="3"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"
-                            Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
-
-                            >
+                            Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
                             <Button
-                                Grid.Column="0"
                                 x:Name="SetButton"
+                                Grid.Column="0"
                                 Width="32"
                                 Height="32"
                                 Margin="5,0"
@@ -421,21 +419,19 @@
                             <StackPanel
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
-                                Orientation="Horizontal"
-
-                                >
+                                Orientation="Horizontal">
 
 
 
                                 <TextBlock
                                     x:Name="NumberBlock"
+                                    Width="32"
                                     Margin="15,0,5,0"
                                     Padding="0"
-                                    VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     d:Text="99"
                                     FontSize="22"
-                                    Width="32"
                                     FontWeight="Black"
                                     ToolTip="当前选中的端口数量" />
 
@@ -541,8 +537,8 @@
                     Background="Transparent"
                     CanUserAddRows="False"
                     HorizontalScrollBarVisibility="Auto"
-                    SelectionChanged="PanelPortListView_OnSelectionChanged"
                     MouseDoubleClick="PanelPortListView_OnMouseDoubleClick"
+                    SelectionChanged="PanelPortListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
                     VerticalScrollBarVisibility="Auto"
@@ -991,7 +987,7 @@
                     Margin="0"
                     d:Visibility="Visible"
                     OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom,
-                    Duration=0:0:0.2}">
+                                                                    Duration=0:0:0.2}">
 
 
                     <Grid>

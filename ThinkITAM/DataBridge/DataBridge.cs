@@ -14,12 +14,12 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.19";
+        public static string Version = "1.0.20";
 
         /// <summary>
         /// 更新次数，用于数据库字段升级
         /// </summary>
-        public static int VersionNumber = 19;
+        public static int VersionNumber = 20;
 
         /// <summary>
         /// 当前打开的数据库类型

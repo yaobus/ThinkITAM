@@ -33,6 +33,8 @@ public partial class MainWindow : Window
 
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
+        //标题栏显示版本号
+        //this.Title += $" Ver {DataBridge.DataBridge.Version}";
         VersionLabel.Content="Ver "+DataBridge.DataBridge.Version;
 
         InitializationStatus();
