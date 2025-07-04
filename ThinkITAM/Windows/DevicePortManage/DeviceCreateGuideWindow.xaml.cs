@@ -501,7 +501,10 @@ namespace ThinkITAM.Windows.DevicePortManage
 
 
             DataBridge.DataBridge.SelectAssetInfo = null;
+
             FindAssetWindow findAsset = new FindAssetWindow();
+
+            findAsset.Owner = this;
 
             if (findAsset.ShowDialog() == true)
             {

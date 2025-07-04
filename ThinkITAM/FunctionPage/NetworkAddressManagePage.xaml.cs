@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.EMMA;
 using MaterialDesignThemes.Wpf;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
@@ -137,10 +139,11 @@ public partial class NetworkAddressManagePage : UserControl
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
-
+        protocolInfos.Add(new ProtocolClass());
         foreach (var row in rows)
         {
             index++;
+
             ProtocolClass info = new ProtocolClass();
 
             info.Index = index;
@@ -175,12 +178,14 @@ public partial class NetworkAddressManagePage : UserControl
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
+            portList.Add(new PortViewModel());
+
             foreach (var row in rows)
             {
 
                 var port = new PortViewModel();
 
-                port.Port = Convert.ToInt32(row["Port"]);
+                port.Port = row["Port"].ToString();
 
                 portList.Add(port);
             }
@@ -376,7 +381,7 @@ public partial class NetworkAddressManagePage : UserControl
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         int index = 0;
-
+        browserInfos.Add(new BrowserInfoViewModel());
         foreach (var row in rows)
         {
             index++;
@@ -1684,7 +1689,7 @@ public partial class NetworkAddressManagePage : UserControl
 
     private void BrowserCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (BrowserCombobox.SelectedIndex != -1)
+        if (!string.IsNullOrEmpty(browserInfos[BrowserCombobox.SelectedIndex].Path))
         {
             DataBridge.DataBridge.SelectBrowser = browserInfos[BrowserCombobox.SelectedIndex].Path;
         }
@@ -1858,7 +1863,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private void PortComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (PortComboBox.SelectedIndex != -1)
+        if (!string.IsNullOrEmpty(portList[PortComboBox.SelectedIndex].Port))
         {
             DataBridge.DataBridge.SelectPort = portList[PortComboBox.SelectedIndex].Port.ToString();
         }
@@ -1875,7 +1880,7 @@ public partial class NetworkAddressManagePage : UserControl
         int index = ProtocolCombobox.SelectedIndex;
 
 
-        if (index != -1)
+        if (!string.IsNullOrEmpty(protocolInfos[index].Protocol))
         {
             DataBridge.DataBridge.Protocol = protocolInfos[index].Protocol;
         }

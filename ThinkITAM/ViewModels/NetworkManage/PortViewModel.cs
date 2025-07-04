@@ -2,7 +2,7 @@
 {
     public class PortViewModel
     {
-        public int Port
+        public string Port
         {
             get; set;
         }

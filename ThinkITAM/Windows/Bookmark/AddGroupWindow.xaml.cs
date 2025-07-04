@@ -28,7 +28,7 @@ namespace ThinkITAM.Windows.Bookmark
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-
+            this.DialogResult = false;
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)

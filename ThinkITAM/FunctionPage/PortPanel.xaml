@@ -600,7 +600,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Numeric1Box" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -628,7 +628,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Identifier" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -656,7 +656,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="SerialPort" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -683,7 +683,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Group" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -710,7 +710,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Palette" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -731,7 +731,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagOutline" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -758,7 +758,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="InformationVariant" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -785,7 +785,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="LinkVariant" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -812,7 +812,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelA"
                                         Margin="5,0"
@@ -841,7 +841,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelB"
                                         Margin="5,0"
@@ -870,7 +870,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelC"
                                         Margin="5,0"
@@ -899,7 +899,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelD"
                                         Margin="5,0"
@@ -928,7 +928,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelE"
                                         Margin="5,0"
@@ -957,7 +957,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="LabelF"
                                         Margin="5,0"

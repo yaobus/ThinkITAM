@@ -512,7 +512,7 @@
                                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                     materialDesign:TextFieldAssist.LeadingIcon="LanguageTypescript"
                                     DisplayMemberPath="Protocol"
-                                    SelectedIndex="0"
+                                    SelectedIndex="-1"
                                     SelectionChanged="ProtocolCombobox_OnSelectionChanged"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     ToolTip="{DynamicResource NmpSelectProtocol}" />
@@ -601,7 +601,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Grid.Column="0" Margin="2.5,2.5,5,2">
+            <materialDesign:Card Grid.Column="0" Margin="2.5,2.5,5,2.5">
                 <Grid>
                     <ScrollViewer
                         x:Name="GraphicalPlan"

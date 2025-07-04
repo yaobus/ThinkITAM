@@ -94,7 +94,7 @@
                         <DataTemplate>
                             <Grid>
                                 <TextBlock
-                                    HorizontalAlignment="Center"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Text="{Binding TypeGroup}" />
                             </Grid>

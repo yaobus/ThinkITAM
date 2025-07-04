@@ -329,9 +329,7 @@
                         Orientation="Vertical"
                         Value="100" />
 
-                    <Grid
-                        Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
-                        >
+                    <Grid Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -341,8 +339,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Button
-                            Grid.Column="0"
                             x:Name="SetButton"
+                            Grid.Column="0"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -374,9 +372,7 @@
                                 x:Name="MultipleAllocationPanel"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal"
-                                Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
-
-                                >
+                                Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
 
@@ -541,7 +537,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Numeric1Box" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -568,7 +564,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagText" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -595,7 +591,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="AccountCircle" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -623,7 +619,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Identifier" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -651,7 +647,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="SerialPort" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -678,7 +674,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Group" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -705,7 +701,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="Palette" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -726,7 +722,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagOutline" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -753,7 +749,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="InformationVariant" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -780,7 +776,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="LinkVariant" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -808,7 +804,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="IpNetworkOutline" />
                                     <TextBlock
                                         Margin="5,0"
                                         VerticalAlignment="Center"
@@ -837,7 +833,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagA"
                                         Margin="5,0"
@@ -866,7 +862,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagB"
                                         Margin="5,0"
@@ -895,7 +891,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagC"
                                         Margin="5,0"
@@ -924,7 +920,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagD"
                                         Margin="5,0"
@@ -953,7 +949,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagE"
                                         Margin="5,0"
@@ -982,7 +978,7 @@
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
-                                        Kind="IpOutline" />
+                                        Kind="TagHeartOutline" />
                                     <Label
                                         x:Name="TagF"
                                         Margin="5,0"
