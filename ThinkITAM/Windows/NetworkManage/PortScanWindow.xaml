@@ -284,10 +284,9 @@
                         Height="30"
                         Padding="0"
                         BorderThickness="0"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="导出扫描结果"
                         Click="Export_OnClick"
-                        >
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="导出扫描结果">
                         <materialDesign:PackIcon Kind="TrayArrowDown" />
                     </Button>
 

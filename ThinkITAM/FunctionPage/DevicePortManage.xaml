@@ -1120,10 +1120,7 @@
                     <TabItem Height="24" Padding="0">
                         <TabItem.Header>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                <materialDesign:PackIcon
-
-                                    Kind="Devices"
-                                    Opacity="0.5" />
+                                <materialDesign:PackIcon Kind="Devices" Opacity="0.5" />
                                 <!--<TextBlock VerticalAlignment="Center" Text="网段信息" />-->
                             </StackPanel>
                         </TabItem.Header>
@@ -1224,10 +1221,7 @@
                     <TabItem Height="24" Padding="0">
                         <TabItem.Header>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                <materialDesign:PackIcon
-
-                                    Kind="TagMultipleOutline"
-                                    Opacity="0.5" />
+                                <materialDesign:PackIcon Kind="TagMultipleOutline" Opacity="0.5" />
                                 <!--<TextBlock VerticalAlignment="Center" Text="标注信息" />-->
                             </StackPanel>
                         </TabItem.Header>
