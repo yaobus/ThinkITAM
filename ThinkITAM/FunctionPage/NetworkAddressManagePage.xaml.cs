@@ -1705,9 +1705,11 @@ public partial class NetworkAddressManagePage : UserControl
     private async void StatusTestButton_OnClick(object sender, RoutedEventArgs e)
     {
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, true);
+
         await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
 
         int onlineHost = IpAddressInfoLists.Count(item => item.PingTime != "-1");
+        
         OnlineHost.Text = onlineHost.ToString();
 
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, false);

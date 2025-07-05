@@ -430,19 +430,17 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private async void StatusPing_OnClick(object sender, RoutedEventArgs e)
         {
-            ButtonProgressAssist.SetIsIndeterminate(StatusPing, true);
 
+            ButtonProgressAssist.SetIsIndeterminate(StatusPing, true);
 
             string hostName = await DeviceInfoUpdater.GetHostNameFromIpAsync(SelectedAddress.Text);
             string macAddress = await DeviceInfoUpdater.GetMacAddress(SelectedAddress.Text);
 
-
-            //string hostName = await FunctionClass.DeviceInfoUpdater.GetHostNameFromIpAsync(SelectedAddress.Text);
-            //string macAddress = await FunctionClass.DeviceInfoUpdater.GetMacAddress(SelectedAddress.Text);
-
             NowHostName.Text = hostName;
             NowMacAddress.Text = macAddress;
             ButtonProgressAssist.SetIsIndeterminate(StatusPing, false);
+
+           
         }
 
 
