@@ -22,10 +22,11 @@ namespace ThinkITAM.Windows.NetworkManage
 
             string tagWindow;
 
-          
-            if (DataBridge.DataBridge.NetworkTableName != null)
+
+            if (!string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))
             {
-                tagWindow= "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+                tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+
                 LocalRadioButton.IsEnabled = true;
             }
             else
@@ -35,22 +36,22 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
+
             if (tagWindow != "IpAddressInfoTag") //存在自定义标签
             {
                 string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
-
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
 
                 if (num > 0)//存在本地自定义标签
                 {
+                    LocalRadioButton.IsChecked = true;
+
                     var tags = DbClass.LoadWindowTag(tagWindow);
 
                     if (tags != null)
                     {
-                        LocalRadioButton.IsChecked = true;
-
+                       
                         dynamic settings = JsonConvert.DeserializeObject(tags);
 
                         TagA.Text = settings.TagA;
@@ -62,6 +63,33 @@ namespace ThinkITAM.Windows.NetworkManage
 
                     }
 
+                }
+                else
+                {
+                    sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='IpAddressInfoTag'";
+
+                    num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+                    if (num > 0)
+                    {
+                        GlobalRadioButton.IsChecked = true;
+
+                        var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
+
+                        if (tags != null)
+                        {
+                           dynamic settings = JsonConvert.DeserializeObject(tags);
+
+                            TagA.Text = settings.TagA;
+                            TagB.Text = settings.TagB;
+                            TagC.Text = settings.TagC;
+                            TagD.Text = settings.TagD;
+                            TagE.Text = settings.TagE;
+                            TagF.Text = settings.TagF;
+
+                        }
+
+                    }
                 }
 
             }
@@ -74,12 +102,13 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 if (num > 0)
                 {
-                    var tags = DbClass.LoadWindowTag(tagWindow);
+                    GlobalRadioButton.IsChecked = true;
+
+                    var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
                     if (tags != null)
                     {
-                        LocalRadioButton.IsChecked = true;
-
+                      
                         dynamic settings = JsonConvert.DeserializeObject(tags);
 
                         TagA.Text = settings.TagA;
@@ -97,7 +126,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             }
 
-            
+
 
 
 

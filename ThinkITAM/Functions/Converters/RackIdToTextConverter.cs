@@ -7,7 +7,7 @@ public class RackIdToTextConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         string rackId = value as string;
-        if (!string.IsNullOrEmpty(rackId) && rackId.Length > 0 && rackId[0] == '8')
+        if (!string.IsNullOrWhiteSpace(rackId) && rackId.Length > 0 && rackId[0] == '8')
         {
             return "建筑:";
         }
@@ -28,7 +28,7 @@ public class RackIdToSlotOrFloorConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         string rackId = value as string;
-        if (!string.IsNullOrEmpty(rackId) && rackId.Length > 0 && rackId[0] == '8')
+        if (!string.IsNullOrWhiteSpace(rackId) && rackId.Length > 0 && rackId[0] == '8')
         {
             return "楼层:";
         }

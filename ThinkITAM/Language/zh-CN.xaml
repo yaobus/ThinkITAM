@@ -224,6 +224,8 @@
     <s:String x:Key="DpmDeviceType">设备类型</s:String>
     <s:String x:Key="DpmDeviceModel">设备型号</s:String>
     <s:String x:Key="DpmDeviceName">设备名称</s:String>
+    <s:String x:Key="DpmDeviceUser">责任人</s:String>
+
 
     <s:String x:Key="DpmDgSelect">选择</s:String>
     <s:String x:Key="DpmDgPortType">端口类型</s:String>
@@ -405,7 +407,7 @@
     <s:String x:Key="DcgSlot">槽位编号</s:String>
     <s:String x:Key="DcgPortSpeed">端口速度</s:String>
     <s:String x:Key="DcgPortNumber">端口编号</s:String>
-    <s:String x:Key="DcgPortNumberRange ">端口索引范围</s:String>
+    <s:String x:Key="DcgPortNumberRange">端口索引范围</s:String>
     <s:String x:Key="DcgPortCount">端口数量</s:String>
     <s:String x:Key="DcgClear">清空设计</s:String>
     <s:String x:Key="DcgClearTooltip">清空设备预览区的配置</s:String>
@@ -461,7 +463,6 @@
 
 
     <!--  UserDataImportWindow  -->
-
     <s:String x:Key="UdwImportTitle">导入用户信息</s:String>
 
 

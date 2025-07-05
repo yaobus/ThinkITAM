@@ -60,6 +60,7 @@
             HorizontalAlignment="Center">
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelA"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagA}" />
@@ -77,6 +78,7 @@
             </StackPanel>
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelB"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagB}" />
@@ -96,6 +98,7 @@
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelC"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagC}" />
@@ -125,6 +128,7 @@
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelD"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagD}" />
@@ -143,6 +147,7 @@
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelE"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagE}" />
@@ -161,6 +166,7 @@
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
+                    x:Name="LabelF"
                     Margin="10,0"
                     VerticalAlignment="Center"
                     Content="{DynamicResource NmpDgTagF}" />

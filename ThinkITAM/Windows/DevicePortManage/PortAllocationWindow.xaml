@@ -274,7 +274,7 @@
                             Width="250"
                             Height="30"
                             Margin="0,0,10,0"
-                            SelectedIndex="{Binding AddressColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedIndex="{Binding PortColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectionChanged="PortColor_OnSelectionChanged"
                             Style="{StaticResource MaterialDesignToolToggleListBox}">
                             <ListBoxItem
@@ -375,7 +375,6 @@
 
                     </StackPanel>
                     <StackPanel
-
                         Margin="{StaticResource DefaultMargin}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -404,9 +403,8 @@
                                 Height="28"
                                 Margin="0,0,10,0"
                                 Padding="0"
-                                IsEnabled="True"
                                 Click="ViewLinkNodes_OnClick"
-                                >
+                                IsEnabled="True">
                                 <StackPanel>
                                     <materialDesign:PackIcon Kind="EyeOutline" />
                                 </StackPanel>
@@ -471,7 +469,7 @@
                             x:Name="LabelC"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource NmpDgTagA}" />
+                            Content="{DynamicResource NmpDgTagC}" />
                         <TextBox
                             x:Name="TagC"
                             Width="250"

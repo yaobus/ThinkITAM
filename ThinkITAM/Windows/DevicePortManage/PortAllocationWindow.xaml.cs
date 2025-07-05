@@ -392,6 +392,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     info.PortSlotNumber = portDetailedInfo.PortSlotNumber;
                     info.PortId = portDetailedInfo.PortId;
                     info.PortType = portDetailedInfo.PortType;
+                   
                     info.UID = portDetailedInfo.UID;
 
                     //保存修改

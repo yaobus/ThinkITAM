@@ -115,11 +115,12 @@ namespace ThinkITAM.Windows.DevicePortManage
             conf.PortCount = portCount;
             portInfos.Add(conf);
 
+            Console.WriteLine(conf);
 
             #endregion
 
 
-            for (int i = firstNumber; i < portCount + firstNumber + 1; i++)
+            for (int i = firstNumber; i < portCount + firstNumber; i++)
             {
                 var info = new PortTypeClass.PortDetailedInfo();
                 info.PortType = portType;
@@ -455,7 +456,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                 string portType = info.PortType;
 
 
-                for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
+                for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber ; i++)
                 {
                     var port = new DevicePort();
 
@@ -753,7 +754,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     portSlotNumber = Convert.ToInt32(info.SlotNumber);
                 }
 
-                for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber + 1; i++)
+                for (int i = Convert.ToInt32(info.FirstNumber); i < info.PortCount + info.FirstNumber; i++)
                 {
                     string portId = $"{info.PortPrefix}{i}";
 

@@ -34,7 +34,7 @@ public partial class WelcomeWindow : Window
         //从软件所在目录读取UpdateInfo.txt文件
         string updateInfo = ReadUpdateInfo();
 
-        if (!string.IsNullOrEmpty(updateInfo))
+        if (!string.IsNullOrWhiteSpace(updateInfo))
         {
 
 

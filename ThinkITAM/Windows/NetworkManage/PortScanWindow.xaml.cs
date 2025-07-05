@@ -2,10 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.FunctionClass;
 using ThinkITAM.Functions.Converters;
+using ThinkITAM.Functions.Export;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.General;
 using ThinkITAM.ViewModels.Others;
@@ -534,6 +536,41 @@ namespace ThinkITAM.Windows.NetworkManage
         private void RdpPortRadioButton_OnClick(object sender, RoutedEventArgs e)
         {
             PortTextBox.Text = $"3389";
+        }
+
+        /// <summary>
+        /// 导出扫描结果
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_hostResults == null || _hostResults.Count == 0)
+            {
+                MessageBox.Show("没有可导出的数据。");
+                return;
+            }
+
+            var fileName = $"Scan-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+            // 创建保存文件对话框
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = fileName  // 默认文件名
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = saveFileDialog.FileName;
+
+
+                // 调用导出方法
+                ExcelExporter.ExportToExcel(_hostResults, selectedFilePath);
+            }
+
         }
     }
 

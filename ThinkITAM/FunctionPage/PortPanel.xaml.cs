@@ -122,7 +122,7 @@ namespace ThinkITAM.FunctionPage
 
             string filter = string.Empty;
 
-            if (!string.IsNullOrEmpty(keyWord))
+            if (!string.IsNullOrWhiteSpace(keyWord))
             {
                 filter = $"WHERE ( Building LIKE '%{keyWord}%' OR Address LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' )";
             }

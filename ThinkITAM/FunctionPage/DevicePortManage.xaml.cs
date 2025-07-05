@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
@@ -34,7 +35,7 @@ public partial class DevicePortManage : UserControl
     private void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
     {
 
-
+        LoadTags();
 
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
 
@@ -265,6 +266,8 @@ public partial class DevicePortManage : UserControl
     {
         string query = $"SELECT * FROM Devices WHERE AssetId='{tableInfo.AssetId}'  AND Del != 1 OR Del IS NULL;";
 
+        Console.WriteLine(query);
+
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
         var info = new DeviceTypeViewModel();
@@ -277,7 +280,13 @@ public partial class DevicePortManage : UserControl
             info.DeviceType = row["DeviceType"].ToString();
             info.Model = row["Model"].ToString();
             info.Description = row["Description"].ToString();
-
+            info.User = row["User"].ToString();
+            info.TagA = row["TagA"].ToString();
+            info.TagB = row["TagB"].ToString();
+            info.TagC = row["TagC"].ToString();
+            info.TagD = row["TagD"].ToString();
+            info.TagE = row["TagE"].ToString();
+            info.TagF = row["TagF"].ToString();
         }
 
         DeviceDetailInfo.DataContext = info;
@@ -858,6 +867,7 @@ public partial class DevicePortManage : UserControl
             if (tags != null)
             {
                 settingTags = tags;
+
                 var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
 
                 TagA.Text = settings.TagA;
@@ -1152,7 +1162,9 @@ public partial class DevicePortManage : UserControl
         if (result == MessageBoxResult.Yes)
         {
             //查询是否有端口已经在链路上
-            var sql = $"SELECT COUNT(OnTheLine)  FROM De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId} WHERE OnTheLine NOT NULL ";
+            var sql = $"SELECT COUNT(OnTheLine)  FROM De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId} WHERE OnTheLine IS NOT NULL ";
+
+            
             int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
             if (count > 0)
@@ -1170,6 +1182,8 @@ public partial class DevicePortManage : UserControl
 
 
                 query = $"UPDATE Asset SET Deploy = NULL WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+
+
                 GlobalVariables.DbService.ExecuteNonQuery(query);
                 LoadAssetTreeViewInfos();
             }
@@ -1294,4 +1308,81 @@ public partial class DevicePortManage : UserControl
 
 
     }
+
+
+
+    /// <summary>
+    /// 加载网段信息备注标签
+    /// </summary>
+    private void LoadTags()
+    {
+
+        settingTags = DbClass.LoadWindowTag("AddDevice");
+
+
+        if (settingTags != null)
+        {
+            var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
+
+
+
+            if (!string.IsNullOrWhiteSpace(settings.TagA))
+            {
+                HintAssist.SetHint(TagATextBox, settings.TagA);
+            }
+            else
+            {
+                HintAssist.SetHint(TagATextBox, "TagA");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagB))
+            {
+                HintAssist.SetHint(TagBTextBox, settings.TagB);
+            }
+            else
+            {
+                HintAssist.SetHint(TagBTextBox, "TagB");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagC))
+            {
+                HintAssist.SetHint(TagCTextBox, settings.TagC);
+            }
+            else
+            {
+                HintAssist.SetHint(TagCTextBox, "TagC");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagD))
+            {
+                HintAssist.SetHint(TagDTextBox, settings.TagD);
+            }
+            else
+            {
+                HintAssist.SetHint(TagDTextBox, "TagD");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagE))
+            {
+                HintAssist.SetHint(TagETextBox, settings.TagE);
+            }
+            else
+            {
+                HintAssist.SetHint(TagETextBox, "TagE");
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.TagF))
+            {
+                HintAssist.SetHint(TagFTextBox, settings.TagF);
+            }
+            else
+            {
+                HintAssist.SetHint(TagFTextBox, "TagF");
+            }
+
+        }
+
+    }
+
+
 }

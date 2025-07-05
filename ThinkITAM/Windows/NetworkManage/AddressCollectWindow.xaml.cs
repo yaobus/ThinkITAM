@@ -73,7 +73,7 @@ public partial class AddressCollectWindow : Window
     private void AddressCollectWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         Groups.ItemsSource = groups;
-        
+
 
         BrowserCombobox.ItemsSource = browserInfos;
         if (address != null)
@@ -229,24 +229,14 @@ public partial class AddressCollectWindow : Window
 
                 string sqlTemp = $"SELECT COUNT(*) FROM Bookmark WHERE ( TypeGroup='{updateTag.Group}' AND Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
+                Console.WriteLine("232:"+sqlTemp);
+
                 //查询记录是否存在
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
 
                 if (countNum > 1)
                 {
-                    //var dialog = new ConfirmationDialog
-                    //{
-                    //    Title = "注意",
-                    //    Prompt = ,
-                    //    ConfirmButtonText = "确认",
-
-                    //};
-
-                    //// 显示对话框
-                    //await DialogHost.Show(dialog, "CollectDeleteDialogHost");
-
-
                     MessageBox.Show($"地址已存在,请勿重复添加\r\n{url}", "注意", MessageBoxButton.OK);
 
 
@@ -327,6 +317,7 @@ public partial class AddressCollectWindow : Window
 
                 string sqlTemp = $"SELECT COUNT(*) FROM Bookmark WHERE (Protocol='{Protocol.Text}' AND Host='{Host.Text}' AND Port='{Port.Text}')";
 
+                Console.WriteLine("320:" + sqlTemp);
                 //查询记录是否存在
                 var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -360,8 +351,9 @@ public partial class AddressCollectWindow : Window
 
                     string group = Groups.Text;
 
-                    string sql2 = $"SELECT COUNT(TypeGroup) FROM BookmarkGroupOrder WHERE TypeGroup = '{group}' AND  Del == 1 ";
+                    string sql2 = $"SELECT COUNT(TypeGroup) FROM BookmarkGroupOrder WHERE TypeGroup = '{group}' AND  Del = 1 ";
 
+                    Console.WriteLine("356:" + sql2);
                     if (DbClass.ExecuteScalarTableNum(sql2) > 0)
                     {
 
@@ -391,7 +383,7 @@ public partial class AddressCollectWindow : Window
 
                     }
 
-                    string indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
+                    string indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
 
                     int status = 0;
 
@@ -454,7 +446,8 @@ public partial class AddressCollectWindow : Window
     {
         var sql = $"SELECT COUNT(TypeGroup) FROM BookmarkGroupOrder WHERE TypeGroup = '{groupName}' AND ( Del != 1 OR Del IS NULL)";
 
-        var count =Convert.ToInt32( GlobalVariables.DbService.ExecuteScalar(sql));
+        Console.WriteLine("449:" + sql);
+        var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
         if (count == 0)//不存在，则添加
         {

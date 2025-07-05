@@ -133,6 +133,11 @@
     <s:String x:Key="NmpDgUserDepartmentNote">User's department</s:String>
     <s:String x:Key="NmpDgUserGroup">User Group</s:String>
     <s:String x:Key="NmpDgUserGroupNote">User's group</s:String>
+
+
+    <s:String x:Key="NmpDgUserUnit">User Unit</s:String>
+    <s:String x:Key="NmpDgUserUnitNote">User Unit</s:String>
+
     <s:String x:Key="NmpDgUserPhone">Contact</s:String>
     <s:String x:Key="NmpDgUserPhoneNote">User's phone</s:String>
     <s:String x:Key="NmpDgHostName">Hostname</s:String>
@@ -159,6 +164,9 @@
     <s:String x:Key="NmpDgBroadcast">Broadcast Address</s:String>
     <s:String x:Key="NmpDgNetworkIpCount">Total IPs in Segment</s:String>
 
+    <s:String x:Key="NmpTagGlobal">Global Tag</s:String>
+    <s:String x:Key="NmpTagNetwork">Network Tag</s:String>
+
     <s:String x:Key="NmpPortScan">Port scan</s:String>
     <s:String x:Key="NmpPingIp">Ping</s:String>
     <s:String x:Key="NmpIpCollect">Add Collect</s:String>
@@ -181,10 +189,12 @@
     <s:String x:Key="DpmDeviceType">Device Type</s:String>
     <s:String x:Key="DpmDeviceModel">Device Model</s:String>
     <s:String x:Key="DpmDeviceName">Device Name</s:String>
+    <s:String x:Key="DpmDeviceUser">User</s:String>
 
     <!--  DataGrid Columns  -->
     <s:String x:Key="DpmDgSelect">Select</s:String>
     <s:String x:Key="DpmDgPortType">Port Type</s:String>
+    <s:String x:Key="DpmDgPortSpeed">Port Speed</s:String>
     <s:String x:Key="DpmDgPortTag">Port Tag</s:String>
     <s:String x:Key="DpmDgPortSlot">Slot</s:String>
     <s:String x:Key="DpmDgPortSlotTooltip">Port slot position</s:String>
@@ -401,5 +411,8 @@
 
     <!--  ComputerPage  -->
     <s:String x:Key="CpAddDevice">Deployment device</s:String>
+    <s:String x:Key="CpDeleteDeployment">Undo deployment</s:String>
 
+    <!--  UserDataImportWindow  -->
+    <s:String x:Key="UdwImportTitle">Import User Data</s:String>
 </ResourceDictionary>

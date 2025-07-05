@@ -60,7 +60,7 @@
             <TextBlock
                 x:Name="InfoTextBox"
                 Margin="10"
-                d:Text="255.255.255.252"
+                d:Text="当前选中终端XXX"
                 FontSize="16"
                 Opacity="0.5"
                 ToolTip="一次选中多个终端时，仅显示第一个终端的信息" />
@@ -311,8 +311,7 @@
                 <Label
                     x:Name="LabelA"
                     VerticalAlignment="Center"
-                    Content="自定义字段A:"
-                    ToolTip="自定义字段A" />
+                    Content="{DynamicResource NmpDgTagA}" />
                 <ComboBox
                     x:Name="TagA"
                     Width="250"
@@ -345,8 +344,7 @@
                 <Label
                     x:Name="LabelB"
                     VerticalAlignment="Center"
-                    Content="自定义字段B:"
-                    ToolTip="自定义字段B" />
+                    Content="{DynamicResource NmpDgTagB}" />
                 <ComboBox
                     x:Name="TagB"
                     Width="250"
@@ -370,8 +368,7 @@
                 <Label
                     x:Name="LabelC"
                     VerticalAlignment="Center"
-                    Content="自定义字段C:"
-                    ToolTip="自定义字段C" />
+                    Content="{DynamicResource NmpDgTagC}" />
                 <TextBox
                     x:Name="TagC"
                     Width="250"
@@ -393,8 +390,7 @@
                 <Label
                     x:Name="LabelD"
                     VerticalAlignment="Center"
-                    Content="自定义字段D:"
-                    ToolTip="自定义字段D" />
+                    Content="{DynamicResource NmpDgTagD}" />
                 <TextBox
                     x:Name="TagD"
                     Width="250"
@@ -416,8 +412,7 @@
                 <Label
                     x:Name="LabelE"
                     VerticalAlignment="Center"
-                    Content="自定义字段E:"
-                    ToolTip="自定义字段E" />
+                    Content="{DynamicResource NmpDgTagE}" />
                 <TextBox
                     x:Name="TagE"
                     Width="250"
@@ -439,8 +434,7 @@
                 <Label
                     x:Name="LabelF"
                     VerticalAlignment="Center"
-                    Content="自定义字段F:"
-                    ToolTip="自定义字段F" />
+                    Content="{DynamicResource NmpDgTagF}" />
                 <TextBox
                     x:Name="TagF"
                     Width="250"

@@ -24,6 +24,8 @@ namespace ThinkITAM.Windows.Computer
             DataBridge.DataBridge.SelectAssetInfo = null;
             FindAssetWindow findAsset = new FindAssetWindow();
 
+            findAsset.Owner=this;
+
             if (findAsset.ShowDialog() == true)
             {
                 if (DataBridge.DataBridge.SelectAssetInfo != null)

@@ -60,7 +60,7 @@ namespace ThinkITAM.DatabaseOperation
             {
                 DataSource = config.Path
             };
-            if (!string.IsNullOrEmpty(config.Password))
+            if (!string.IsNullOrWhiteSpace(config.Password))
             {
                 builder.Password = config.Password;
             }

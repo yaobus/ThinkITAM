@@ -115,13 +115,13 @@ namespace ThinkITAM.Functions.IPAddressHelper
                 switch (radix)
                 {
                     case 2:
-                        result += (string.IsNullOrEmpty(result) ? "" : ".") + part;
+                        result += (string.IsNullOrWhiteSpace(result) ? "" : ".") + part;
                         break;
                     case 10:
-                        result += (string.IsNullOrEmpty(result) ? "" : ".") + decimalValue.ToString();
+                        result += (string.IsNullOrWhiteSpace(result) ? "" : ".") + decimalValue.ToString();
                         break;
                     case 16:
-                        result += (string.IsNullOrEmpty(result) ? "" : ".") + decimalValue.ToString("X2");
+                        result += (string.IsNullOrWhiteSpace(result) ? "" : ".") + decimalValue.ToString("X2");
                         break;
                 }
             }

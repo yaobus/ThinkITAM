@@ -1528,7 +1528,7 @@ namespace ThinkITAM.FunctionPage
 
                 //string roomNote = reader["RoomNote"].ToString();
 
-                //room.RoomNote = !string.IsNullOrEmpty(roomNote)
+                //room.RoomNote = !string.IsNullOrWhiteSpace(roomNote)
                 //    ? roomNote
                 //    : "";
 

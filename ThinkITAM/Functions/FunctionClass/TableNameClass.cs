@@ -24,7 +24,7 @@ namespace ThinkITAM.Functions.FunctionClass
             }
 
 
-            if (string.IsNullOrEmpty(AssetId))
+            if (string.IsNullOrWhiteSpace(AssetId))
                 return string.Empty;
 
             switch (AssetId[0])

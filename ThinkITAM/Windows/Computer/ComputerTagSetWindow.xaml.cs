@@ -34,6 +34,7 @@ namespace ThinkITAM.Windows.Computer
 
                     dynamic settings = JsonConvert.DeserializeObject(tags);
 
+
                     TagA.Text = settings.TagA;
                     TagB.Text = settings.TagB;
                     TagC.Text = settings.TagC;

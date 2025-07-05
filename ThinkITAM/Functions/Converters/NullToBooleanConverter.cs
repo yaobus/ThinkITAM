@@ -6,7 +6,7 @@ public class NullToBooleanConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value == null || (value is string && string.IsNullOrEmpty((string)value));
+        return value == null || (value is string && string.IsNullOrWhiteSpace((string)value));
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

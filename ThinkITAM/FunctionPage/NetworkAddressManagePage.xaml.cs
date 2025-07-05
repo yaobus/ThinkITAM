@@ -1689,7 +1689,7 @@ public partial class NetworkAddressManagePage : UserControl
 
     private void BrowserCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(browserInfos[BrowserCombobox.SelectedIndex].Path))
+        if (!string.IsNullOrWhiteSpace(browserInfos[BrowserCombobox.SelectedIndex].Path))
         {
             DataBridge.DataBridge.SelectBrowser = browserInfos[BrowserCombobox.SelectedIndex].Path;
         }
@@ -1865,7 +1865,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private void PortComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(portList[PortComboBox.SelectedIndex].Port))
+        if (!string.IsNullOrWhiteSpace(portList[PortComboBox.SelectedIndex].Port))
         {
             DataBridge.DataBridge.SelectPort = portList[PortComboBox.SelectedIndex].Port.ToString();
         }
@@ -1882,7 +1882,7 @@ public partial class NetworkAddressManagePage : UserControl
         int index = ProtocolCombobox.SelectedIndex;
 
 
-        if (!string.IsNullOrEmpty(protocolInfos[index].Protocol))
+        if (!string.IsNullOrWhiteSpace(protocolInfos[index].Protocol))
         {
             DataBridge.DataBridge.Protocol = protocolInfos[index].Protocol;
         }

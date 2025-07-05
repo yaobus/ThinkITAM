@@ -60,7 +60,7 @@
                 VerticalAlignment="Center"
                 Click="GlobalRadioButton_OnClick"
                 Content="全局默认标签"
-                IsChecked="True"
+                IsChecked="False"
                 Style="{StaticResource MaterialDesignSecondaryRadioButton}"
                 ToolTip="低优先级(存在网段独有标签时将优先显示独有标签)" />
 
@@ -172,7 +172,23 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
-
+            <StackPanel Margin="10,5" Orientation="Vertical">
+                <Label
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Content="自定义字段E:" />
+                <TextBox
+                    x:Name="TagE"
+                    Width="240"
+                    Height="28"
+                    Margin="10,0,10,0"
+                    Padding="3"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
 
             <StackPanel Margin="10,5" Orientation="Vertical">
                 <Label
@@ -192,23 +208,7 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
 
-            <StackPanel Margin="10,5" Orientation="Vertical">
-                <Label
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    Content="自定义字段E:" />
-                <TextBox
-                    x:Name="TagE"
-                    Width="240"
-                    Height="28"
-                    Margin="10,0,10,0"
-                    Padding="3"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-            </StackPanel>
+
         </StackPanel>
 
 

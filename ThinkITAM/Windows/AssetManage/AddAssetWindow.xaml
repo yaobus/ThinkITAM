@@ -349,7 +349,7 @@
                                     Padding="0"
                                     Click="FindUser_OnClick">
                                     <StackPanel>
-                                        <materialDesign:PackIcon Kind="Magnify" />
+                                        <materialDesign:PackIcon Kind="AccountSearchOutline" />
                                     </StackPanel>
 
                                 </Button>

@@ -894,7 +894,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static PortLinkClass GetLinkNodeInfo(string assetId, int uid)
         {
-            if (string.IsNullOrEmpty(assetId))
+            if (string.IsNullOrWhiteSpace(assetId))
                 return null;
 
             var node = new PortLinkClass();

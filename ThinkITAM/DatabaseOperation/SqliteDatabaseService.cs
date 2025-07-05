@@ -187,9 +187,9 @@ namespace ThinkITAM.DatabaseOperation
 
         public bool CheckAndAddColumnIfNotExists(string tableName, string columnName, string columnType)
         {
-            if (string.IsNullOrEmpty(tableName)) throw new ArgumentException("表名不能为空", nameof(tableName));
-            if (string.IsNullOrEmpty(columnName)) throw new ArgumentException("字段名不能为空", nameof(columnName));
-            if (string.IsNullOrEmpty(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
+            if (string.IsNullOrWhiteSpace(tableName)) throw new ArgumentException("表名不能为空", nameof(tableName));
+            if (string.IsNullOrWhiteSpace(columnName)) throw new ArgumentException("字段名不能为空", nameof(columnName));
+            if (string.IsNullOrWhiteSpace(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
 
             using var connection = CreateConnection();
 

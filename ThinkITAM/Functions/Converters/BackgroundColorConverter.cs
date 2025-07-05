@@ -12,7 +12,7 @@ namespace ThinkITAM.Functions.Converters
             object parameter,
             CultureInfo culture)
         {
-            if (value is string str && !string.IsNullOrEmpty(str))
+            if (value is string str && !string.IsNullOrWhiteSpace(str))
             {
                 char firstChar = str[0];
 

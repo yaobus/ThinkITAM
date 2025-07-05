@@ -12,9 +12,10 @@
     Title="ThinkITAM"
     Width="810"
     Height="500"
+
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="MainWindow_OnLoaded"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
     Style="{StaticResource ResourceKey=MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

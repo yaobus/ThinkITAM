@@ -85,7 +85,7 @@
                                     Click="FindAsset_OnClick"
                                     ToolTip="查找资产">
                                     <StackPanel>
-                                        <materialDesign:PackIcon Kind="Magnify" />
+                                        <materialDesign:PackIcon Kind="HomeSearchOutline" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
@@ -568,7 +568,7 @@
                                     Click="LoadPreset_OnClick"
                                     ToolTip="查找该型号是否存在预设端口方案">
                                     <StackPanel>
-                                        <materialDesign:PackIcon Kind="Magnify" />
+                                        <materialDesign:PackIcon Kind="TextSearchVariant" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>

@@ -8,7 +8,7 @@ namespace ThinkITAM.Functions.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str && !string.IsNullOrEmpty(str))
+            if (value is string str && !string.IsNullOrWhiteSpace(str))
             {
                 if (str.Length > 0 && str[0] == '3')
                 {

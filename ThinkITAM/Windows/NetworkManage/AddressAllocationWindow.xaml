@@ -235,7 +235,7 @@
                             Padding="0"
                             Click="FindUser_OnClick">
                             <StackPanel>
-                                <materialDesign:PackIcon Kind="Magnify" />
+                                <materialDesign:PackIcon Kind="AccountSearchOutline" />
                             </StackPanel>
 
                         </Button>
@@ -649,7 +649,7 @@
                             Padding="0"
                             Click="FindAsset_Click">
                             <StackPanel>
-                                <materialDesign:PackIcon Kind="Magnify" />
+                                <materialDesign:PackIcon Kind="HomeSearchOutline" />
                             </StackPanel>
 
                         </Button>

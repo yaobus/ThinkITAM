@@ -73,6 +73,12 @@
             set;
         }
 
+        public string? User
+        {
+            get;
+            set;
+        }
+
 
         public string? Model
         {
@@ -80,6 +86,39 @@
             set;
         }
 
+        public string? TagA
+        {
+            get;
+            set;
+        }
+
+        public string? TagB
+        {
+            get;
+            set;
+        }
+        public string? TagC
+        {
+            get;
+            set;
+        }
+        public string? TagD
+        {
+            get;
+            set;
+        }
+
+        public string? TagE
+        {
+            get;
+            set;
+        }
+
+        public string? TagF
+        {
+            get;
+            set;
+        }
 
         public string? ToolTip
         {

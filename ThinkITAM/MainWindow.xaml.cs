@@ -400,7 +400,17 @@ public partial class MainWindow : Window
                 {
                     foreach (var item in loaded)
                     {
-                        configs.Add(item);
+                        if (item.Type.ToLower() != "sqlite")
+                        {
+                            configs.Add(item);
+                        }
+                        else
+                        {
+                            configs.Add(item);
+                        }
+
+
+
                     }
                 }
             }

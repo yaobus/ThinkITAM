@@ -15,7 +15,7 @@ namespace ThinkITAM.Functions.Converters
                 string deviceId = values[1] as string;
 
                 // 优先使用DeviceId
-                if (!string.IsNullOrEmpty(deviceId))
+                if (!string.IsNullOrWhiteSpace(deviceId))
                 {
                     char firstChar = deviceId[0];
                     switch (firstChar)
@@ -24,7 +24,7 @@ namespace ThinkITAM.Functions.Converters
                             return ColorConverterClass.ColorToBrush("#00c853"); // 终端设备
                     }
                 }
-                else if (!string.IsNullOrEmpty(rackId)) // 如果没有deviceId，则检查rackId
+                else if (!string.IsNullOrWhiteSpace(rackId)) // 如果没有deviceId，则检查rackId
                 {
                     char firstChar = rackId[0];
                     switch (firstChar)

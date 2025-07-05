@@ -1352,8 +1352,6 @@
                             <TabItem.Header>
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon
-                                        Width="20"
-                                        Height="20"
                                         Kind="IpNetworkOutline"
                                         Opacity="0.5" />
                                     <!--<TextBlock VerticalAlignment="Center" Text="网段信息" />-->
@@ -1447,12 +1445,11 @@
                             </StackPanel>
 
                         </TabItem>
+
                         <TabItem Height="24" Padding="0">
                             <TabItem.Header>
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <materialDesign:PackIcon
-                                        Width="20"
-                                        Height="20"
                                         Kind="TagMultipleOutline"
                                         Opacity="0.5" />
                                     <!--<TextBlock VerticalAlignment="Center" Text="标注信息" />-->

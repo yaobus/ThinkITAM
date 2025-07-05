@@ -401,20 +401,20 @@ public partial class UserDataImportWindow : Window
         // 检查顺序是否正确：如果后面的字段有值，则前面的字段必须有值
 
         // 如果 unitsInfo 有值，则 groupsInfo 必须有值
-        if (!string.IsNullOrEmpty(unitsInfo) && string.IsNullOrEmpty(groupsInfo))
+        if (!string.IsNullOrWhiteSpace(unitsInfo) && string.IsNullOrWhiteSpace(groupsInfo))
             return false;
 
         // 如果 groupsInfo 有值，则 departmentInfo 必须有值
-        if (!string.IsNullOrEmpty(groupsInfo) && string.IsNullOrEmpty(departmentInfo))
+        if (!string.IsNullOrWhiteSpace(groupsInfo) && string.IsNullOrWhiteSpace(departmentInfo))
             return false;
 
         // 如果 departmentInfo 有值，则 organizationInfo 必须有值
-        if (!string.IsNullOrEmpty(departmentInfo) && string.IsNullOrEmpty(organizationInfo))
+        if (!string.IsNullOrWhiteSpace(departmentInfo) && string.IsNullOrWhiteSpace(organizationInfo))
             return false;
 
         // 如果 organizationInfo 没有值，但其他字段有值，则不符合规则
-        if (string.IsNullOrEmpty(organizationInfo) &&
-            (!string.IsNullOrEmpty(departmentInfo) || !string.IsNullOrEmpty(groupsInfo) || !string.IsNullOrEmpty(unitsInfo)))
+        if (string.IsNullOrWhiteSpace(organizationInfo) &&
+            (!string.IsNullOrWhiteSpace(departmentInfo) || !string.IsNullOrWhiteSpace(groupsInfo) || !string.IsNullOrWhiteSpace(unitsInfo)))
             return false;
 
         // 所有条件都满足，返回 true

@@ -278,13 +278,16 @@
                             Text="1000" />
                     </StackPanel>
                     <Button
+                        x:Name="Export"
                         Grid.Column="3"
                         Width="30"
                         Height="30"
                         Padding="0"
                         BorderThickness="0"
                         Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="导出扫描结果">
+                        ToolTip="导出扫描结果"
+                        Click="Export_OnClick"
+                        >
                         <materialDesign:PackIcon Kind="TrayArrowDown" />
                     </Button>
 

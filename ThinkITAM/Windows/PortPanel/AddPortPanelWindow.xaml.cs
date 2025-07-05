@@ -35,7 +35,7 @@ namespace ThinkITAM.Windows.PortPanel
             string str = PortIdBox.Text;
 
             // 检查字符串是否为空或空字符串
-            if (!string.IsNullOrEmpty(str))
+            if (!string.IsNullOrWhiteSpace(str))
             {
                 // 取出字符串的最后一位
                 string lastChar = str.Substring(str.Length - 1);
