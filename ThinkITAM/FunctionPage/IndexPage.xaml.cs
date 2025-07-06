@@ -212,7 +212,7 @@ namespace ThinkITAM.FunctionPage
                     //tagInfo.PinToStart =  Convert.ToInt32(row["PinToStart"]);
                     string url = $"{tagInfo.Protocol}{tagInfo.Host}";
 
-                    if (tagInfo.Port.Length == 0)//未配置端口
+                    if (string.IsNullOrWhiteSpace(tagInfo.Port))//未配置端口
                     {
                         tagInfo.Url = url;
                     }

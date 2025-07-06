@@ -76,6 +76,7 @@ public partial class AddressCollectWindow : Window
 
 
         BrowserCombobox.ItemsSource = browserInfos;
+
         if (address != null)
         {
             var info = new IndexTagViewModel();
@@ -146,6 +147,7 @@ public partial class AddressCollectWindow : Window
 
         int index = 0;
 
+        browserInfos.Add(new BrowserInfoViewModel());
         foreach (var row in rows)
         {
             index++;

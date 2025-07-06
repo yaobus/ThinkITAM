@@ -92,7 +92,7 @@
                             materialDesign:TextFieldAssist.LeadingIcon="Protocol"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                             Text="{Binding Protocol, Mode=TwoWay}"
-                            ToolTip="https://或者http://" />
+                            ToolTip="https://或http://或\\" />
 
                     </StackPanel>
                     <StackPanel

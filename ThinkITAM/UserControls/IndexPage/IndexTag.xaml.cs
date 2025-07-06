@@ -22,11 +22,11 @@ namespace ThinkITAM.UserControls.IndexPage
             var tagInfo = (sender as Button).DataContext as ViewModels.Index.IndexTagViewModel;
 
             string url = $"{tagInfo.Protocol}{tagInfo.Host}";
+
             string browser = tagInfo.Browser;
 
-
-
-            if (tagInfo.Port == null)//未配置端口
+            
+            if (string.IsNullOrWhiteSpace( tagInfo.Port))//未配置端口
             {
                 tagInfo.Url = url;
             }
@@ -98,7 +98,6 @@ namespace ThinkITAM.UserControls.IndexPage
                 switch (menuItem.Header.ToString())
                 {
                     case "删除标签":
-
 
 
                         string portSql;
