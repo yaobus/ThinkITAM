@@ -1102,10 +1102,13 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="1"
-            Margin="2.5,2.5,2.5,5">
+            Padding="0"
+            Margin="2.5,2.5,5,5"
+            HorizontalAlignment="Stretch"
+            BorderThickness="0">
             <Grid
                 x:Name="DeviceDetailInfo"
-                Margin="10,0"
+                Margin="0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center">
 
