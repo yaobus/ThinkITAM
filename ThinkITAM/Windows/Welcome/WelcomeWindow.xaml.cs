@@ -53,7 +53,7 @@ public partial class WelcomeWindow : Window
             string appDir = AppDomain.CurrentDomain.BaseDirectory;
 
             // 构建 UpdateInfo.txt 的完整路径
-            string filePath = Path.Combine(appDir, "Resources\\UpdateInfo\\UpdateInfo.txt");
+            string filePath = Path.Combine(appDir, "Resources\\UpdateInfo\\UpdateInfo.md");
 
             // 判断文件是否存在
             if (File.Exists(filePath))

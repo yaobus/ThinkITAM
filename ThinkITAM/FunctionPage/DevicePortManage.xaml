@@ -1102,8 +1102,8 @@
         <materialDesign:Card
             Grid.Row="2"
             Grid.Column="1"
-            Padding="0"
             Margin="2.5,2.5,5,5"
+            Padding="0"
             HorizontalAlignment="Stretch"
             BorderThickness="0">
             <Grid

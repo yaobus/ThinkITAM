@@ -55,12 +55,11 @@
                         materialDesign:ElevationAssist.Elevation="Dp1"
                         Background="#52c7b8"
                         BorderBrush="Transparent"
+                        Click="EditButton_OnClick"
                         Content="{materialDesign:PackIcon PencilBoxOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="编辑建筑信息" 
-                        Click="EditButton_OnClick"
-                        />
+                        ToolTip="编辑建筑信息" />
 
                     <Button
                         x:Name="DeleteButton"
@@ -71,12 +70,11 @@
                         Background="#Cf3539"
                         BorderBrush="Transparent"
                         BorderThickness="0"
+                        Click="DeleteButton_OnClick"
                         Content="{materialDesign:PackIcon DeleteOutline}"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="删除建筑"
-                        Click="DeleteButton_OnClick"
-                        />
+                        ToolTip="删除建筑" />
 
 
                     <ProgressBar
@@ -108,12 +106,11 @@
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    MouseDoubleClick="BuildingListView_OnMouseDoubleClick"
+                    SelectionChanged="BuildingListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible"
-                    SelectionChanged="BuildingListView_OnSelectionChanged"
-                    MouseDoubleClick="BuildingListView_OnMouseDoubleClick"
-                    >
+                    Visibility="Visible">
 
 
                     <DataGrid.Columns>

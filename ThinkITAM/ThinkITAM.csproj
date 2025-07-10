@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -23,7 +23,6 @@
     <None Remove="Resources\Logo\Logo44x44.png" />
     <None Remove="Resources\Template\AssetTemplate.xlsx" />
     <None Remove="Resources\Template\UserInfoTemplate.xlsx" />
-    <None Remove="Resources\UpdateInfo\UpdateInfo.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +48,7 @@
     <Content Include="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\UpdateInfo\UpdateInfo.txt">
+    <Content Include="Resources\UpdateInfo\UpdateInfo.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

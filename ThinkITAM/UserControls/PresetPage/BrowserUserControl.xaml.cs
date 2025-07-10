@@ -307,8 +307,9 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    string query = $"DELETE FROM  Browser WHERE Port='{info.Browser}' AND Path='{info.Path}'";
+                    string query = $"DELETE FROM  Browser WHERE Browser='{info.Browser}' AND Path='{info.Path}'";
 
+                   
 
                     GlobalVariables.DbService.ExecuteNonQuery(query);
 
