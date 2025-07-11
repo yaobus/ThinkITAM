@@ -155,7 +155,11 @@ namespace ThinkITAM.FunctionPage
 
             if (!string.IsNullOrWhiteSpace(keyWord))
             {
-                filter = $"WHERE ( Building LIKE '%{keyWord}%' OR Address LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' )";
+                filter = $"WHERE ( Building LIKE '%{keyWord}%' OR Address LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%' )  AND (Del != 1 OR Del IS NULL) ";
+            }
+            else
+            {
+                filter = "WHERE (Del != 1 OR Del IS NULL)";
             }
 
             //第一步：读取所有建筑信息
@@ -248,9 +252,9 @@ namespace ThinkITAM.FunctionPage
 
                 var selectedNode = e.NewValue;
 
-                if (selectedNode is UserControls.Computer.DeviceFloor) //如果是建筑信息
+                if (selectedNode is UserControls.Computer.DeviceFloor) //如果是楼层信息
                 {
-
+                    DeleteBuildingButton.IsEnabled = false;
                     // 如果选择的是子节点类型，则处理子节点的逻辑
                     var childNode = selectedNode as UserControls.Computer.DeviceFloor;
 
@@ -270,7 +274,7 @@ namespace ThinkITAM.FunctionPage
                 }
                 else if (selectedNode is TreeViewItem) //如果是建筑信息
                 {
-
+                    DeleteBuildingButton.IsEnabled = true;
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
                     // 判断节点是否展开
@@ -696,5 +700,35 @@ namespace ThinkITAM.FunctionPage
 
         }
 
+        private void DeleteBuildingButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("确定要删除该建筑吗？该操作不可恢复！\r此操作将同步导致面板管理页面无法访问该建筑信息！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+
+                var query = $"SELECT COUNT(OnTheLine) FROM Bu_{DataBridge.DataBridge.SelectBuildingId} WHERE OnTheLine > 0";
+
+                int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+
+                if (count > 0)
+                {
+                    MessageBox.Show("该建筑物内有端口位于链路上，无法进行删除", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    var sql = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{DataBridge.DataBridge.SelectBuildingId}'";
+
+                    GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                    LoadTreeList();
+                }
+
+
+
+            }
+
+        }
     }
 }

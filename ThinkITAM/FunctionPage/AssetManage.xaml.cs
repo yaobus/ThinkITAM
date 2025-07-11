@@ -30,6 +30,7 @@ namespace ThinkITAM.FunctionPage
         public AssetManage()
         {
             InitializeComponent();
+            AssetDataGrid.ItemsSource = assetViewModels;
         }
 
 
@@ -298,8 +299,6 @@ namespace ThinkITAM.FunctionPage
                 NumberBlock.Text = "0";
                 HeaderCheckBox.IsChecked = false;
 
-
-
                 AssetTreeView.IsEnabled = false;
 
                 assetViewModels.Clear();
@@ -387,7 +386,7 @@ namespace ThinkITAM.FunctionPage
 
             LoadAssetInfos(assetType, deviceType);
 
-            AssetDataGrid.ItemsSource = assetViewModels;
+           
             //加载网段标签
             //LoadCustomTag();
 
@@ -566,6 +565,7 @@ namespace ThinkITAM.FunctionPage
             {
                 EditAssetButton.IsEnabled = true;
                 DeleteAssetButton.IsEnabled = true;
+                AddAssetLog.IsEnabled = true;
 
                 var selectedItem = (AssetViewModel)AssetDataGrid.SelectedItem;
                 var info = selectedItem as AssetViewModel;
@@ -587,6 +587,7 @@ namespace ThinkITAM.FunctionPage
                 NowSelectedItem = null;
                 EditAssetButton.IsEnabled = false;
                 DeleteAssetButton.IsEnabled = false;
+                AddAssetLog.IsEnabled=false;
             }
 
             // }
@@ -1054,5 +1055,275 @@ namespace ThinkITAM.FunctionPage
 
             }
         }
+
+        private void AdvancedSearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            LoadSearchAssetInfos(SearchKeyWord2.Text);
+
+
+        }
+
+
+        private void LoadSearchAssetInfos(string? searchKeyword)
+        {
+            assetViewModels.Clear();
+
+            // 构建模糊匹配部分
+            string likeConditions = BuildSearchFilter(searchKeyword);
+
+
+            string sql = $"SELECT * FROM Asset WHERE  (Del != 1 OR Del IS NULL) AND {likeConditions}";
+
+
+
+            Console.WriteLine(sql);
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+            int i = 0;
+
+
+            foreach (var row in rows)
+            {
+                var item = new AssetViewModel();
+                i++;
+                item.Index = i;
+                item.Id = Convert.ToInt32(row["Id"].ToString());
+                item.AssetId = row["AssetId"].ToString();
+                item.AssetQrCode = row["AssetQrCode"].ToString();
+                item.AssetType = row["AssetType"].ToString();
+                item.DeviceType = row["DeviceType"].ToString();
+
+                item.AssetTag = row["AssetTag"].ToString();
+                item.TagNumber = row["AssetNumber"].ToString();
+                item.AssetNumber = item.AssetTag + item.TagNumber;
+
+                string purchaseDate = row["PurchaseDate"].ToString();
+                DateTime time1;
+                if (purchaseDate.Length > 0)
+                {
+                    time1 = DateTime.Parse(row["PurchaseDate"].ToString());
+                    item.PurchaseDate = time1.ToString("d");
+                }
+                else
+                {
+
+                    item.PurchaseDate = null;
+                }
+
+                item.PurchasePrice = row["PurchasePrice"].ToString();
+                item.Manufacturer = row["Manufacturer"].ToString();
+                item.Model = row["Model"].ToString();
+                item.SerialNumber = row["SerialNumber"].ToString();
+                item.Configuration = row["Configuration"].ToString();
+                item.Location = row["Location"].ToString();
+                item.UserOrganization = row["UserOrganization"].ToString();
+                item.UserDepartment = row["UserDepartment"].ToString();
+                item.UserGroup = row["UserGroup"].ToString();
+                item.Unit = row["UserUnit"].ToString();
+                item.User = row["User"].ToString();
+                item.UserPhone = row["UserPhone"].ToString();
+                item.Consumer = row["Consumer"].ToString();
+                item.AssetStatus = row["AssetStatus"].ToString();
+                item.UsedYear = row["UsedYear"].ToString();
+
+                string timeStr = row["ScrapDate"].ToString();
+
+                if (timeStr.Length > 3)
+                {
+                    DateTime time2 = DateTime.Parse(timeStr);
+                    item.ScrapDate = time2.ToString("d");
+
+                }
+                else
+                {
+                    item.ScrapDate = null;
+                }
+
+
+
+                item.Notes = row["Notes"].ToString();
+                item.TagA = row["TagA"].ToString();
+                item.TagB = row["TagB"].ToString();
+                item.TagC = row["TagC"].ToString();
+                item.TagD = row["TagD"].ToString();
+                item.TagE = row["TagE"].ToString();
+                item.TagF = row["TagF"].ToString();
+
+
+
+                assetViewModels.Add(item);
+            }
+
+
+        }
+
+        // 所有需要模糊匹配的字段列表（排除 Id, AssetId, AssetQrCode, AssetType, DeviceType）
+        private static readonly List<string> SearchableFields = new List<string>
+        {
+          "AssetType","DeviceType","AssetTag", "AssetNumber", "PurchaseDate", "PurchasePrice",
+            "Manufacturer", "Model", "SerialNumber", "Configuration",
+            "Location", "UserOrganization", "UserDepartment", "UserGroup",
+            "User", "UserPhone", "Consumer", "AssetStatus", "UsedYear",
+            "ScrapDate", "Notes", "TagA", "TagB", "TagC", "TagD", "TagE", "TagF", "UserUnit"
+        };
+
+        /// <summary>
+        /// 构建搜索条件
+        /// </summary>
+        /// <param name="assetType"></param>
+        /// <param name="deviceType"></param>
+        /// <param name="searchKeyword"></param>
+        /// <returns></returns>
+        public static string BuildSearchFilter(string searchKeyword)
+        {
+
+            string filter = string.Empty;
+
+            int index = 0;
+
+            foreach (var field in SearchableFields)
+            {
+                index++;
+
+                if (index == SearchableFields.Count)
+                {
+                    filter += $"{field} LIKE '%{searchKeyword}%'";
+                }
+                else
+                {
+                    filter += $"{field} LIKE '%{searchKeyword}%' OR ";
+                }
+
+               
+
+
+            }
+
+
+
+            return filter;
+        }
+
+        private void ClearSearchKeyWord2_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            SearchKeyWord2.Text=null;
+
+            assetViewModels.Clear();
+
+            string sql = $"SELECT * FROM Asset WHERE (Del != 1 OR Del IS NULL)";
+
+
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+            int i = 0;
+
+
+            foreach (var row in rows)
+            {
+                var item = new AssetViewModel();
+                i++;
+                item.Index = i;
+                item.Id = Convert.ToInt32(row["Id"].ToString());
+                item.AssetId = row["AssetId"].ToString();
+                item.AssetQrCode = row["AssetQrCode"].ToString();
+                item.AssetType = row["AssetType"].ToString();
+                item.DeviceType = row["DeviceType"].ToString();
+
+                item.AssetTag = row["AssetTag"].ToString();
+                item.TagNumber = row["AssetNumber"].ToString();
+                item.AssetNumber = item.AssetTag + item.TagNumber;
+
+                string purchaseDate = row["PurchaseDate"].ToString();
+                DateTime time1;
+                if (purchaseDate.Length > 0)
+                {
+                    time1 = DateTime.Parse(row["PurchaseDate"].ToString());
+                    item.PurchaseDate = time1.ToString("d");
+                }
+                else
+                {
+
+                    item.PurchaseDate = null;
+                }
+
+                item.PurchasePrice = row["PurchasePrice"].ToString();
+                item.Manufacturer = row["Manufacturer"].ToString();
+                item.Model = row["Model"].ToString();
+                item.SerialNumber = row["SerialNumber"].ToString();
+                item.Configuration = row["Configuration"].ToString();
+                item.Location = row["Location"].ToString();
+                item.UserOrganization = row["UserOrganization"].ToString();
+                item.UserDepartment = row["UserDepartment"].ToString();
+                item.UserGroup = row["UserGroup"].ToString();
+                item.Unit = row["UserUnit"].ToString();
+                item.User = row["User"].ToString();
+                item.UserPhone = row["UserPhone"].ToString();
+                item.Consumer = row["Consumer"].ToString();
+                item.AssetStatus = row["AssetStatus"].ToString();
+                item.UsedYear = row["UsedYear"].ToString();
+
+                string timeStr = row["ScrapDate"].ToString();
+
+                if (timeStr.Length > 3)
+                {
+                    DateTime time2 = DateTime.Parse(timeStr);
+                    item.ScrapDate = time2.ToString("d");
+
+                }
+                else
+                {
+                    item.ScrapDate = null;
+                }
+
+
+
+                item.Notes = row["Notes"].ToString();
+                item.TagA = row["TagA"].ToString();
+                item.TagB = row["TagB"].ToString();
+                item.TagC = row["TagC"].ToString();
+                item.TagD = row["TagD"].ToString();
+                item.TagE = row["TagE"].ToString();
+                item.TagF = row["TagF"].ToString();
+
+                //var asset = new AssetInfoUserControl();
+
+                //asset.DataContext= item;
+
+                //AssetListView.Items.Add(asset);
+
+                assetViewModels.Add(item);
+            }
+
+
+        }
+
+
+        private void SearchKeyWord2_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LoadSearchAssetInfos(SearchKeyWord2.Text);
+            }
+        }
+
+        private void AddAssetLog_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new AddAssetLogWindow();
+            var window = Window.GetWindow(this);
+
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            newWindow.ShowDialog();
+        }
     }
+
+
 }

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DocumentFormat.OpenXml.EMMA;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.PortPanel;
 using ThinkITAM.Windows.PresetWindows;
@@ -157,6 +158,8 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
+
+
             var index = BuildingListView.SelectedIndex;
 
             if (index != -1)
@@ -167,16 +170,29 @@ namespace ThinkITAM.UserControls.PresetPage
                 var message = $"确定要删除吗？\r建筑:{info.Building}\r所在地址:{info.Address}";
 
 
-                var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
+                var result = MessageBox.Show("确定要删除该建筑吗？该操作不可恢复！\r此操作将同步导致终端管理页面和面板管理页面无法访问该建筑信息！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    string query = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{info.BuildingId}';";
 
-                    GlobalVariables.DbService.ExecuteNonQuery(query);
+                        var query = $"SELECT COUNT(OnTheLine) FROM Bu_{info.BuildingId} WHERE OnTheLine > 0";
 
-                    LoadBuildingInfos();
+                        int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+
+                        if (count > 0)
+                        {
+                            MessageBox.Show("该建筑物内有端口位于链路上，无法进行删除", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                        else
+                        {
+                            var sql = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{info.BuildingId}';";
+
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                            LoadBuildingInfos();
+                        }
+
 
                 }
 

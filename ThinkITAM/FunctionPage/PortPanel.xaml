@@ -237,6 +237,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
 
@@ -254,7 +255,7 @@
                         <materialDesign:PackIcon
                             Width="20"
                             Height="20"
-                            Margin="0,0,5,0"
+                            Margin="0,0,0,0"
                             VerticalAlignment="Center"
                             Kind="House" />
                         <TextBlock
@@ -273,12 +274,16 @@
                     Click="AddButton_OnClick"
                     Style="{StaticResource MaterialDesignFlatLightButton}"
                     ToolTip="{DynamicResource PpAddRoomPort}">
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <Grid Margin="0,0,5,0">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Grid Margin="0,0,0,0">
                             <materialDesign:PackIcon
                                 Width="20"
                                 Height="20"
                                 VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Kind="ApplicationOutline" />
                             <materialDesign:PackIcon
                                 Width="10"
@@ -295,6 +300,32 @@
                     </StackPanel>
 
                 </Button>
+
+                <Button
+                    x:Name="DeleteBuildingButton"
+                    Grid.Column="2"
+                    Margin="0,10,0,5"
+                    Padding="0"
+                    Click="DeleteBuildingButton_OnClick"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                    ToolTip="{DynamicResource PpDeleteBuilding}">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <Grid Margin="0,0,0,0">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="Red"
+                                Kind="DeleteOutline" />
+
+                        </Grid>
+
+                    </StackPanel>
+
+                </Button>
+
             </Grid>
         </materialDesign:Card>
 

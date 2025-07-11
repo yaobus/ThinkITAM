@@ -242,21 +242,7 @@ namespace ThinkITAM.Windows.Computer
             {
 
                 AssetUser.Text = DataBridge.DataBridge.SelectPeopleViewModel.Name;
-                //if (DataBridge.DataBridge.SelectAssetInfo != null)
-                //{
-                //    //var info = DataBridge.DataBridge.SelectAssetInfo;
 
-                //    //AssetType.DataContext = info;
-
-                //    //AssetNumber.DataContext = info;
-
-                //    //DeviceType.DataContext = info;
-
-
-                //}
-
-
-                //加载资产信息
 
             }
         }

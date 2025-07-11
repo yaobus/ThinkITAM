@@ -21,9 +21,11 @@ namespace ThinkITAM.UserControls.IndexPage
         {
             var tagInfo = (sender as Button).DataContext as ViewModels.Index.IndexTagViewModel;
 
-            string url = $"{tagInfo.Protocol}{tagInfo.Host}";
+            string url =FixSmbPath( $"{tagInfo.Protocol}{tagInfo.Host}");
 
             string browser = tagInfo.Browser;
+
+
 
             
             if (string.IsNullOrWhiteSpace( tagInfo.Port))//未配置端口
@@ -35,7 +37,7 @@ namespace ThinkITAM.UserControls.IndexPage
                 tagInfo.Url = $"{url}:{tagInfo.Port}";
             }
 
-
+            Console.WriteLine(tagInfo.Url);
 
             try
             {
@@ -47,7 +49,6 @@ namespace ThinkITAM.UserControls.IndexPage
                 {
                     Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
                 }
-
 
 
             }
@@ -63,7 +64,47 @@ namespace ThinkITAM.UserControls.IndexPage
 
         }
 
+        /// <summary>
+        /// 修正SMB路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string FixSmbPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return path;
 
+            // 判断是否是 SMB 路径（以 \\ 或 // 开头）
+            if ((path.StartsWith("\\\\") || path.StartsWith("//")) == false)
+            {
+                return path; // 非 SMB 路径，直接返回
+            }
+
+            // 统一使用反斜杠
+            path = path.Replace('/', '\\');
+
+            // 分割路径中的层级
+            string[] parts = path.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries);
+
+            // SMB 路径最少需要 server 和 share，所以至少要两个部分
+            if (parts.Length < 2)
+                return path;
+
+            // 构造基础路径：\\server\share
+            string basePath = "\\\\" + parts[0] + "\\" + parts[1];
+
+            // 补足路径层级至 4 层
+            if (parts.Length < 4)
+            {
+                for (int i = parts.Length; i < 4; i++)
+                {
+                    basePath += "\\";
+                }
+            }
+
+            return basePath;
+        }
+    
 
         /// <summary>
         /// 右键菜单

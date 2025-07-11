@@ -294,6 +294,7 @@
     <s:String x:Key="PpAddBuilding">添加建筑</s:String>
     <s:String x:Key="PpBuilding">建筑</s:String>
     <s:String x:Key="PpAddRoomPort">添加端口</s:String>
+    <s:String x:Key="PpDeleteBuilding">删除建筑</s:String>
     <s:String x:Key="PpRoomPort">端口</s:String>
     <s:String x:Key="PpDeletePort">删除端口</s:String>
 
@@ -466,6 +467,10 @@
     <s:String x:Key="UdwImportTitle">导入用户信息</s:String>
 
 
-
+    <!--  AddAssetLogWindow  -->
+    <s:String x:Key="AalEventDate">事件日期</s:String>
+    <s:String x:Key="AalContent">事件内容</s:String>
+    <s:String x:Key="AalAboutUser">相关用户</s:String>
+    <s:String x:Key="AalAboutNote">备注信息</s:String>
 
 </ResourceDictionary>
