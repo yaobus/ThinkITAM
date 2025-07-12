@@ -811,13 +811,14 @@ namespace ThinkITAM.FunctionPage
                 int index = 0;
                 foreach (var item in assetViewModels)
                 {
+                    index++;
                     if (item.IsSelected == true)
                     {
                         string filePath = $"{path}/{item.AssetId}.png";
 
                         GenerateAssetTagImage(item, filePath);
                     }
-                    index++;
+                    
                 }
 
                 var message = $"导出完毕,共{index}个文件\r是否打开文件夹？";

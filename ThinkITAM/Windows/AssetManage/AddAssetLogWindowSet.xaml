@@ -57,10 +57,9 @@
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Right"
-            Style="{StaticResource MaterialDesignIconButton}"
-            ToolTip="恢复默认标签"
             Click="ResetButton_OnClick"
-            >
+            Style="{StaticResource MaterialDesignIconButton}"
+            ToolTip="恢复默认标签">
             <materialDesign:PackIcon Kind="BackupRestore" />
         </Button>
 
