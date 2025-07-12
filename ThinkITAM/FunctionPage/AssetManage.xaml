@@ -1366,6 +1366,7 @@
                             GridLinesVisibility="None"
                             IsReadOnly="True"
                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
                             SelectionUnit="FullRow">
                             <DataGrid.Columns>
 
