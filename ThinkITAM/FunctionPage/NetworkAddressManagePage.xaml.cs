@@ -1578,6 +1578,8 @@ public partial class NetworkAddressManagePage : UserControl
     {
         IpAddressTagWindow set = new IpAddressTagWindow();
 
+        set.Owner = Window.GetWindow(this);
+
         if (set.ShowDialog() == true)
         {
 

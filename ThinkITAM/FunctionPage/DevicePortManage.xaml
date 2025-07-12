@@ -422,7 +422,7 @@
                                 Click="SetButton_OnClick"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource DpmSetButton}">
-                                <materialDesign:PackIcon Kind="Settings" />
+                                <materialDesign:PackIcon Kind="TagEditOutline" />
                             </Button>
 
                         </StackPanel>

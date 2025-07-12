@@ -8,9 +8,10 @@
     xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="添加资产履历"
-    Width="400"
-    Height="450"
+    Width="650"
+    Height="530"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AddAssetLogWindow_OnLoaded"
     ResizeMode="NoResize"
     Style="{StaticResource ResourceKey=MaterialDesignWindow}"
     WindowStartupLocation="CenterOwner"
@@ -26,11 +27,16 @@
             <RowDefinition Height="Auto" />
 
         </Grid.RowDefinitions>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
 
         <StackPanel
             Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
@@ -45,45 +51,78 @@
                 Margin="10"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="添加资产履历" />
+            <TextBlock
+                x:Name="AssetNumber"
+                Margin="10"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
 
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center">
+
+
+            <Button
+                x:Name="LogTagsSetting"
+                Width="32"
+                Height="32"
+                Margin="5,0"
+                d:Background="Teal"
+                materialDesign:ElevationAssist.Elevation="Dp1"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Click="LogTagsSetting_OnClick"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="自定义履历表标签">
+                <materialDesign:PackIcon Foreground="AliceBlue" Kind="TagEditOutline" />
+            </Button>
+
+        </StackPanel>
+
         <StackPanel
             Grid.Row="1"
+            Grid.Column="0"
+            Margin="10"
             HorizontalAlignment="Center"
             Orientation="Vertical">
 
             <StackPanel
-                Margin="{StaticResource DefaultMargin}"
+                Margin="10,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label
+                    Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="{DynamicResource AalEventDate}" />
                 <DatePicker
-                    x:Name="EnableDate"
-                    Width="300"
+                    x:Name="EventDate"
+                    Width="250"
                     Height="28"
-                    Margin="0,0,0,0"
+                    Margin="5,0,10,10"
                     Padding="5,5,0,0"
                     VerticalAlignment="Center"
                     Language="zh-cn"
-                    Text="{Binding EventDate}"
                     MouseDoubleClick="EnableDate_OnMouseDoubleClick"
-                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                    Text="{Binding EventDate}" />
             </StackPanel>
 
-            <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+            <StackPanel Margin="10,0" Orientation="Vertical">
                 <Label
+                    Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="{DynamicResource AalContent}" />
                 <TextBox
-                    x:Name="Note2"
-                    Width="300"
+                    x:Name="EventContent"
+                    Width="250"
                     Height="28"
-                    Margin="0,0"
+                    Margin="5,0,10,10"
                     Padding="3"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -94,7 +133,7 @@
             </StackPanel>
 
             <StackPanel
-                Margin="0,0"
+                Margin="10,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Orientation="Vertical">
@@ -108,13 +147,13 @@
 
                     <TextBox
                         x:Name="AssetUser"
-                        Width="235"
+                        Width="185"
                         Height="28"
-                        Margin="0,0,5,0"
+                        Margin="5,0,5,10"
                         Padding="3"
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                        materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
+                        materialDesign:TextFieldAssist.LeadingIcon="UserOutline"
                         BorderThickness="0.5"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -124,30 +163,33 @@
                         x:Name="FindUser"
                         Width="60"
                         Height="28"
-                        Margin="0,0,0,0"
+                        Margin="0,0,0,10"
                         Padding="0"
                         BorderThickness="0"
                         Click="FindUser_OnClick"
                         ToolTip="查找用户">
                         <StackPanel>
-                            <materialDesign:PackIcon Kind="Magnify" />
+                            <materialDesign:PackIcon Kind="AccountSearchOutline" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
+
+
             </StackPanel>
 
 
 
-            <StackPanel Margin="{StaticResource DefaultMargin}" Orientation="Vertical">
+            <StackPanel Margin="10,0" Orientation="Vertical">
                 <Label
+                    Margin="0,5"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="{DynamicResource AalAboutNote}" />
                 <TextBox
                     x:Name="Note"
-                    Width="300"
+                    Width="250"
                     Height="28"
-                    Margin="0,0"
+                    Margin="5,0,10,10"
                     Padding="3"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -156,8 +198,169 @@
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding Note}" />
             </StackPanel>
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelA"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagA}" />
+                <TextBox
+                    x:Name="TagA"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagA}" />
+            </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="2" Margin="10,0">
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10"
+            Orientation="Vertical">
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelB"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagB}" />
+                <TextBox
+                    x:Name="TagB"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagB}" />
+            </StackPanel>
+
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelC"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagC}" />
+                <TextBox
+                    x:Name="TagC"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagC}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelD"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagD}" />
+                <TextBox
+                    x:Name="TagD"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagD}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelE"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagE}" />
+                <TextBox
+                    x:Name="TagE"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagE}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    x:Name="LabelF"
+                    Margin="0,5"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource NmpDgTagF}" />
+                <TextBox
+                    x:Name="TagF"
+                    Width="250"
+                    Height="28"
+                    Margin="5,0,10,10"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
+                    BorderThickness="0.5"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding TagF}" />
+            </StackPanel>
+
+
+
+        </StackPanel>
+
+
+
+        <Grid
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10,0">
 
 
             <Button
@@ -165,6 +368,7 @@
                 Width="150"
                 Margin="10,10"
                 HorizontalAlignment="Right"
+                Click="SaveButton_OnClick"
                 Content="保存"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}" />
         </Grid>

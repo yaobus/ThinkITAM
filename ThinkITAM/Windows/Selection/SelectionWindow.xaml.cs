@@ -142,6 +142,7 @@ public partial class SelectionWindow : Window
         t.Add("Computer");
         t.Add("Models");
         t.Add("BookmarkGroupOrder");
+        t.Add("AssetLog");
 
         string message = string.Empty;
 

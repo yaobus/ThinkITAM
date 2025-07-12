@@ -1391,6 +1391,10 @@ namespace ThinkITAM.DatabaseOperation
                             case "BookmarkGroupOrder":
                                 sql =$"CREATE TABLE  BookmarkGroupOrder  ( TypeGroup  text, DisplayOrder integer, Del  integer );";
                                 break;
+
+                            case "AssetLog":
+                                sql = $"CREATE TABLE AssetLog  (UID integer, AssetId  text,  EventDate DATE, EventContent  text,  AboutUser text,  Note  text ,  TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT,   Del integer);";
+                                break;
                         }
 
 
@@ -1616,6 +1620,10 @@ namespace ThinkITAM.DatabaseOperation
                                 sql = $"CREATE TABLE  `BookmarkGroupOrder`  ( `TypeGroup`  VARCHAR(64), `DisplayOrder` INT, `Del`  INT );";
                                 break;
 
+
+                            case "AssetLog":
+                                sql = $"CREATE TABLE `AssetLog`  ( `UID` INT , `AssetId`   VARCHAR(64), `EventDate` DATE, `EventContent` text,`AboutUser` VARCHAR(64), `Note`   VARCHAR(64) ,  `TagA` VARCHAR(64), `TagB` VARCHAR(64), `TagC` VARCHAR(64), `TagD` VARCHAR(64), `TagE` VARCHAR(64), `TagF` VARCHAR(64),   `Del`  INT );";
+                                break;
                         }
 
 

@@ -473,4 +473,6 @@
     <s:String x:Key="AalAboutUser">相关用户</s:String>
     <s:String x:Key="AalAboutNote">备注信息</s:String>
 
+    <s:String x:Key="AalCustomTitle">自定义履历字段</s:String>
+
 </ResourceDictionary>

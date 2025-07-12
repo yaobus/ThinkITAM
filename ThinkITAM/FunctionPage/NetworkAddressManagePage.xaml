@@ -434,7 +434,7 @@
                                     Click="SetButton_Click"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpSetNetworkTag}">
-                                    <materialDesign:PackIcon Kind="Settings" />
+                                    <materialDesign:PackIcon Kind="TagEditOutline" />
                                 </Button>
 
                             </StackPanel>

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using QRCoder;
@@ -31,6 +32,7 @@ namespace ThinkITAM.FunctionPage
         {
             InitializeComponent();
             AssetDataGrid.ItemsSource = assetViewModels;
+            LogList.ItemsSource=logs;
         }
 
 
@@ -64,8 +66,24 @@ namespace ThinkITAM.FunctionPage
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
                 AssetTagCard.TagA.Content = settings.TagA;
+
             }
 
+
+            var tags2 = DbClass.LoadWindowTag("AddAssetLog");
+
+            if (tags2 != null)
+            {
+                dynamic settings2 = JsonConvert.DeserializeObject(tags2);
+
+                LabelA.Text = settings2.TagA;
+                LabelB.Text = settings2.TagB;
+                LabelC.Text = settings2.TagC;
+                LabelD.Text = settings2.TagD;
+                LabelE.Text = settings2.TagE;
+                LabelF.Text = settings2.TagF;
+
+            }
         }
 
 
@@ -565,7 +583,7 @@ namespace ThinkITAM.FunctionPage
             {
                 EditAssetButton.IsEnabled = true;
                 DeleteAssetButton.IsEnabled = true;
-                AddAssetLog.IsEnabled = true;
+                LogPanel.Visibility = Visibility.Visible;
 
                 var selectedItem = (AssetViewModel)AssetDataGrid.SelectedItem;
                 var info = selectedItem as AssetViewModel;
@@ -580,18 +598,71 @@ namespace ThinkITAM.FunctionPage
                     qrCodeImage.GetHbitmap(),
                     IntPtr.Zero,
                     Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()); ;
+                    BitmapSizeOptions.FromEmptyOptions());
+
+
+                if (AssetInfoExpander.IsExpanded == true)
+                {
+
+                    LoadAssetLogs(info.AssetId);
+
+                }
+
             }
             else
             {
                 NowSelectedItem = null;
                 EditAssetButton.IsEnabled = false;
                 DeleteAssetButton.IsEnabled = false;
-                AddAssetLog.IsEnabled=false;
+                LogPanel.Visibility = Visibility.Collapsed;
+
+                logs.Clear();
             }
 
-            // }
+            
         }
+        ObservableCollection<AssetLogViewModel> logs=new ObservableCollection<AssetLogViewModel>();
+        /// <summary>
+        /// 加载所选资产的日志信息
+        /// </summary>
+        /// <param name="assetId"></param>
+        private void LoadAssetLogs(string assetId)
+        {
+            logs.Clear();
+            if (!string.IsNullOrWhiteSpace(assetId))
+            {
+                var sql = $"SELECT AssetLog.*, UserInfo.Name FROM AssetLog INNER JOIN UserInfo ON AssetLog.AboutUser = UserInfo.UserID WHERE AssetId='{assetId}'";
+
+                var rows =GlobalVariables.DbService.ExecuteQuery(sql);
+                int index = 0;
+                foreach (var row in rows)
+                {
+                    index++;
+                    var info = new AssetLogViewModel();
+
+                    info.Index = index;
+                    info.UID = Convert.ToInt32(row["UID"]);
+                    info.AssetId = row["AssetId"].ToString();
+                    info.EventDate = row["EventDate"].ToString();
+                    info.EventContent = row["EventContent"].ToString();
+                    info.AboutUser = row["AboutUser"].ToString();
+                    info.Note = row["Note"].ToString();
+                    info.Name = row["Name"].ToString();
+                    info.TagA = row["TagA"].ToString();
+                    info.TagB = row["TagB"].ToString();
+                    info.TagC = row["TagC"].ToString();
+                    info.TagD = row["TagD"].ToString();
+                    info.TagE = row["TagE"].ToString();
+                    info.TagF = row["TagF"].ToString();
+                    logs.Add(info);
+                }
+
+
+            }
+
+        }
+
+
         /// <summary>
         /// 生成二维码
         /// </summary>
@@ -1313,7 +1384,9 @@ namespace ThinkITAM.FunctionPage
 
         private void AddAssetLog_OnClick(object sender, RoutedEventArgs e)
         {
-            var newWindow = new AddAssetLogWindow();
+            var info = assetViewModels[AssetDataGrid.SelectedIndex];
+
+            var newWindow = new AddAssetLogWindow(info);
             var window = Window.GetWindow(this);
 
             if (window != null)
@@ -1322,6 +1395,43 @@ namespace ThinkITAM.FunctionPage
             }
 
             newWindow.ShowDialog();
+
+            if (newWindow.DialogResult == true)
+            {
+                LoadAssetLogs(info.AssetId);
+            }
+
+        }
+
+        private void AssetInfoExpander_OnExpanded(object sender, RoutedEventArgs e)
+        {
+            if (AssetInfoExpander.IsExpanded == true)
+            {
+
+                LoadAssetLogs(NowSelectedItem.AssetId);
+
+            }
+        }
+
+        private void LogTagsSetting_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            var newWindow = new AddAssetLogWindowSet();
+
+            var window = Window.GetWindow(this);
+
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            newWindow.ShowDialog();
+
+            if (newWindow.DialogResult == true)
+            {
+                LoadTags();
+            }
+
         }
     }
 

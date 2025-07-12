@@ -3,17 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ThinkITAM.UserControls.Asset"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:Background="AliceBlue"
-    d:Height="768"
-    d:Width="1366"
+    d:Height="1080"
+    d:Width="1920"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AssetManage_OnLoaded"
     mc:Ignorable="d">
+    <UserControl.Resources>
 
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+    </UserControl.Resources>
 
 
     <Grid>
@@ -268,8 +273,8 @@
                             BorderThickness="0"
                             Click="SetButton_OnClick"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="自定义标签">
-                            <materialDesign:PackIcon Kind="Settings" />
+                            ToolTip="自定义资产信息标签">
+                            <materialDesign:PackIcon Kind="TagEditOutline" />
                         </Button>
 
 
@@ -326,7 +331,11 @@
 
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel
+                        x:Name="LogPanel"
+                        d:Visibility="Visible"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
 
                         <ProgressBar
                             Width="40"
@@ -336,35 +345,51 @@
                             Value="100" />
 
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                        <Button
+                            x:Name="AddAssetLog"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            d:Background="Teal"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="AddAssetLog_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="添加资产履历信息">
+                            <materialDesign:PackIcon Foreground="AliceBlue" Kind="PlaylistPlus" />
+                        </Button>
 
 
-
-                            <Button
-                                x:Name="AddAssetLog"
-                                Width="32"
-                                Height="32"
-                                Margin="5,0"
-                                materialDesign:ElevationAssist.Elevation="Dp1"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                Click="AddAssetLog_OnClick"
-                                IsEnabled="False"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                ToolTip="添加资产履历">
-                                <materialDesign:PackIcon Kind="PlaylistPlus" />
-                            </Button>
-
+                        <Button
+                            x:Name="LogTagsSetting"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            d:Background="Teal"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="LogTagsSetting_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="自定义履历表标签">
+                            <materialDesign:PackIcon Foreground="AliceBlue" Kind="TagEditOutline" />
+                        </Button>
 
 
+                        <ToggleButton
+                            x:Name="AssetCardView"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            d:Background="Teal"
+                            materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=EyeOutline}"
+                            Content="{materialDesign:PackIcon Kind=EyeOffOutline}"
+                            Foreground="AliceBlue"
+                            IsChecked="True"
+                            Style="{StaticResource MaterialDesignActionToggleButton}"
+                            ToolTip="隐藏或显示资产信息卡" />
 
-
-                        </Grid>
 
 
                     </StackPanel>
@@ -555,7 +580,7 @@
                                 <DataTemplate>
                                     <Grid>
                                         <TextBlock
-                                            HorizontalAlignment="Left"
+                                            HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontWeight="ExtraBold"
                                             Text="{Binding Index}" />
@@ -1309,8 +1334,10 @@
                     x:Name="AssetInfoExpander"
                     Grid.Row="1"
                     MinHeight="50"
+                    MaxHeight="350"
                     Margin="0"
                     HorizontalAlignment="Stretch"
+                    Expanded="AssetInfoExpander_OnExpanded"
                     Foreground="#2f9f9f">
                     <Expander.Header>
                         <StackPanel Orientation="Horizontal">
@@ -1325,86 +1352,339 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <DataGrid
-                            x:Name="ResumeList"
+                            x:Name="LogList"
                             Grid.Row="0"
                             Grid.Column="0"
                             Margin="0,0,0,10"
                             HorizontalAlignment="Stretch"
                             AutoGenerateColumns="False"
+                            Background="Transparent"
+                            GridLinesVisibility="None"
                             IsReadOnly="True"
                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
                             SelectionUnit="FullRow">
                             <DataGrid.Columns>
-                                <DataGridTextColumn>
-                                    <DataGridTextColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Margin="0,0,5,0" Kind="DateRange" />
-                                            <TextBlock Text="序号" />
-                                        </StackPanel>
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Index" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn>
-                                    <DataGridTextColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Margin="0,0,5,0" Kind="DateRange" />
-                                            <TextBlock Text="日期" />
-                                        </StackPanel>
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Index" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn>
-                                    <DataGridTextColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Margin="0,0,5,0" Kind="DateRange" />
-                                            <TextBlock Text="操作内容" />
-                                        </StackPanel>
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Index" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
 
-                                <DataGridTextColumn>
-                                    <DataGridTextColumn.Header>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Margin="0,0,5,0" Kind="DateRange" />
-                                            <TextBlock Text="相关责任人" />
-                                        </StackPanel>
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Index" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
 
-                                <DataGridTextColumn>
-                                    <DataGridTextColumn.Header>
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                                    <DataGridTemplateColumn.Header>
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Margin="0,0,5,0" Kind="DateRange" />
-                                            <TextBlock Text="备注" />
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="Numbers" />
+                                            <TextBlock
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="序号" />
                                         </StackPanel>
-                                    </DataGridTextColumn.Header>
-                                    <DataGridTextColumn.Binding>
-                                        <Binding Path="Index" />
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding Index}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="EventDate">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="CalendarRange" />
+                                            <TextBlock
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource AalEventDate}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding EventDate}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="EventContent">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="CalendarEdit" />
+                                            <TextBlock
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource AalContent}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding EventContent}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="UserOutline" />
+                                            <TextBlock
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource AalAboutUser}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding Name}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Note">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="NotebookOutline" />
+                                            <TextBlock
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource AalAboutNote}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding Note}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagA">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelA"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagA}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagA}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagB">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelB"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagB}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagB}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagC">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelC"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagC}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagC}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagD">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelD"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagD}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagD}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagE">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelE"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagE}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagE}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="TagF">
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                Kind="TagHeartOutline" />
+                                            <TextBlock
+                                                x:Name="LabelF"
+                                                Margin="5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{DynamicResource NmpDgTagF}" />
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="ExtraBold"
+                                                    Text="{Binding TagF}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
                             </DataGrid.Columns>
                         </DataGrid>
+
                         <controls:AssetTagTemplateUserControl
                             x:Name="AssetTagCard"
                             Grid.Column="1"
                             Width="400"
-                            Height="250" />
+                            Height="250"
+                            Visibility="{Binding IsChecked, ElementName=AssetCardView, Converter={StaticResource BoolToVisibilityConverter}}" />
                     </Grid>
                 </Expander>
 
