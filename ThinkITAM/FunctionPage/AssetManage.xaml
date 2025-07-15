@@ -41,7 +41,8 @@
             Height="50"
             Margin="5,5,2.5,2.5"
             VerticalAlignment="Center"
-            materialDesign:ElevationAssist.Elevation="Dp1">
+            materialDesign:ElevationAssist.Elevation="Dp1"
+            Visibility="Collapsed">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -76,7 +77,45 @@
         </materialDesign:Card>
 
 
-
+        <materialDesign:Card
+            Grid.Row="0"
+            Grid.Column="0"
+            Height="50"
+            Margin="5,5,2.5,2.5"
+            VerticalAlignment="Center"
+            materialDesign:ElevationAssist.Elevation="Dp1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="ClearSearchKeyWord2"
+                    Click="ClearSearchKeyWord2_OnClick"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                </Button>
+                <TextBox
+                    x:Name="SearchKeyWord2"
+                    Grid.Column="1"
+                    MinWidth="200"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0"
+                    KeyDown="SearchKeyWord2_OnKeyDown"
+                    Opacity="0.3" />
+                <Button
+                    x:Name="AdvancedSearchButton"
+                    Grid.Column="2"
+                    Click="AdvancedSearchButton_OnClick"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                </Button>
+            </Grid>
+        </materialDesign:Card>
 
 
 
@@ -281,55 +320,7 @@
 
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
 
-                        <ProgressBar
-                            Width="40"
-                            Height="1"
-                            Opacity="0.3"
-                            Orientation="Vertical"
-                            Value="100" />
-
-
-                        <materialDesign:Card
-                            Height="40"
-                            Margin="5"
-                            VerticalAlignment="Center"
-                            materialDesign:ElevationAssist.Elevation="Dp1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Button
-                                    x:Name="ClearSearchKeyWord2"
-                                    Click="ClearSearchKeyWord2_OnClick"
-                                    Style="{StaticResource MaterialDesignToolButton}">
-                                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
-                                </Button>
-                                <TextBox
-                                    x:Name="SearchKeyWord2"
-                                    Grid.Column="1"
-                                    MinWidth="200"
-                                    Margin="8,0,0,0"
-                                    VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
-                                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                    BorderThickness="0"
-                                    KeyDown="SearchKeyWord2_OnKeyDown"
-                                    Opacity="0.3" />
-                                <Button
-                                    x:Name="AdvancedSearchButton"
-                                    Grid.Column="2"
-                                    Click="AdvancedSearchButton_OnClick"
-                                    Style="{StaticResource MaterialDesignToolButton}">
-                                    <materialDesign:PackIcon Margin="5,0" Kind="Search" />
-                                </Button>
-                            </Grid>
-                        </materialDesign:Card>
-
-                    </StackPanel>
 
                     <StackPanel
                         x:Name="LogPanel"
