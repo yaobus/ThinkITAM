@@ -5,7 +5,7 @@ namespace ThinkITAM.Functions.FunctionClass
     public class OpenUrlClass
     {
 
-        public static void OpenUrlInSpecificBrowser(string url, string browserPath)
+        public static void OpenUrlInSpecificBrowser(string url, string browserPath = null)
         {
             try
             {

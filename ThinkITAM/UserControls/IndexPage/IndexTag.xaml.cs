@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.Windows.NetworkManage;
 
 namespace ThinkITAM.UserControls.IndexPage
@@ -21,13 +22,13 @@ namespace ThinkITAM.UserControls.IndexPage
         {
             var tagInfo = (sender as Button).DataContext as ViewModels.Index.IndexTagViewModel;
 
-            string url =FixSmbPath( $"{tagInfo.Protocol}{tagInfo.Host}");
+            string url = FixSmbPath($"{tagInfo.Protocol}{tagInfo.Host}");
 
             string browser = tagInfo.Browser;
 
 
 
-            
+
             if (string.IsNullOrWhiteSpace( tagInfo.Port))//未配置端口
             {
                 tagInfo.Url = url;
@@ -37,17 +38,42 @@ namespace ThinkITAM.UserControls.IndexPage
                 tagInfo.Url = $"{url}:{tagInfo.Port}";
             }
 
-            Console.WriteLine(tagInfo.Url);
+
+
 
             try
             {
-                if (browser != null && browser.Length > 0)//有指定浏览器
+                if (!string.IsNullOrWhiteSpace(browser))//有指定浏览器
                 {
-                    Functions.FunctionClass.OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
+                   
+                    OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
+
                 }
                 else
                 {
-                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+
+                    var type = ProtocolDetector.DetectProtocol(tagInfo.Url);
+
+
+
+                    switch (type)
+                    {
+                        case ProtocolType.HTTP:
+                        case ProtocolType.HTTPS:
+                            OpenUrlClass.OpenUrlInSpecificBrowser(tagInfo.Url, browser);
+                           
+                            break;
+
+                        case ProtocolType.FILE:
+                        case ProtocolType.SMB:
+                        case ProtocolType.OTHER:
+                        case ProtocolType.Unknown:
+                        case ProtocolType.FTP:
+                            Process.Start("explorer.exe", tagInfo.Url);
+                            break;
+                    }
+
+
                 }
 
 
