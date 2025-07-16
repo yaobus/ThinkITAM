@@ -195,7 +195,16 @@ namespace ThinkITAM.Windows.PresetWindows
                     }
                     else
                     {
-                        MessageBox.Show("该建筑已存在");
+                        var result = MessageBox.Show("该建筑已存在，但被标记为删除，是否恢复？", "提示", MessageBoxButton.YesNo);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            var query = $"UPDATE  Buildings SET Del  = NULL WHERE  Building='{building}' AND Address='{address}'";
+                            GlobalVariables.DbService.ExecuteQuery(query);
+                            this.DialogResult = true;
+                        }
+
+                       
                     }
                 }
 

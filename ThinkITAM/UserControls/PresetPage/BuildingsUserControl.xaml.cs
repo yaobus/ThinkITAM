@@ -175,7 +175,12 @@ namespace ThinkITAM.UserControls.PresetPage
                 if (result == MessageBoxResult.Yes)
                 {
 
+                    
+
+                    if (GlobalVariables.DbService.IsTableExists($"Bu_{info.BuildingId}"))
+                    {
                         var query = $"SELECT COUNT(OnTheLine) FROM Bu_{info.BuildingId} WHERE OnTheLine > 0";
+
 
                         int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
@@ -188,10 +193,25 @@ namespace ThinkITAM.UserControls.PresetPage
                         {
                             var sql = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{info.BuildingId}';";
 
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+                           
+
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
 
                             LoadBuildingInfos();
                         }
+
+                    }
+                    else
+                    {
+                        var sql = $"UPDATE Buildings SET Del = 1 WHERE BuildingId ='{info.BuildingId}';";
+
+                        GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                        LoadBuildingInfos();
+                    }
+
+
+
 
 
                 }
