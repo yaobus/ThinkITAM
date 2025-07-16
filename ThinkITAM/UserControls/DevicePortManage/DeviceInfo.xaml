@@ -103,6 +103,7 @@
                     <Grid
                         Grid.Column="0"
                         Margin="5,0,0,0"
+                        MinWidth="90"
                         HorizontalAlignment="Stretch">
                         <Grid.OpacityMask>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -119,6 +120,7 @@
                             FontWeight="Bold"
                             Foreground="AliceBlue"
                             Opacity="0.3"
+                            MinWidth="90"
                             Text="{Binding Description}"
                             ToolTip="{Binding Description}" />
 

@@ -252,6 +252,7 @@
     <s:String x:Key="PpDeleteBuilding">Delete Building</s:String>
     <s:String x:Key="PpRoomPort">Port</s:String>
     <s:String x:Key="PpDeletePort">Delete Port</s:String>
+    <s:String x:Key="PpEditPort">Edit Port</s:String>
 
 
     <!--  PresetPage  -->

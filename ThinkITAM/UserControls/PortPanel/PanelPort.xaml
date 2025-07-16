@@ -68,6 +68,10 @@
                 <ContextMenu>
                     <MenuItem
                         Click="MenuItem_OnClick"
+                        Header="{DynamicResource PpEditPort}"
+                        Tag="Edit" />
+                    <MenuItem
+                        Click="MenuItem_OnClick"
                         Header="{DynamicResource PpDeletePort}"
                         Tag="Delete" />
                 </ContextMenu>

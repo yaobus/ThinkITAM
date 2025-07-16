@@ -85,25 +85,6 @@ namespace ThinkITAM.UserControls.PortPanel
                 DataBridge.DataBridge.PortPanelLinkViewList.Clear();
             }
 
-            var infos = new ObservableCollection<PortClass>();
-
-            var info = this.DataContext as PortClass;
-
-            if (info != null)
-            {
-                infos.Add(info);
-
-                var newWindow = new PortPanelEditWindow(infos);
-
-                var window = Window.GetWindow(this);
-                if (window != null)
-                {
-                    newWindow.Owner = window;
-                }
-
-                newWindow.ShowDialog();
-            }
-
 
 
 
@@ -213,6 +194,32 @@ namespace ThinkITAM.UserControls.PortPanel
 
                         }
 
+
+
+
+                        break;
+
+                    case "Edit":
+
+
+                        var infos = new ObservableCollection<PortClass>();
+
+                        var info = this.DataContext as PortClass;
+
+                        if (info != null)
+                        {
+                            infos.Add(info);
+
+                            var newWindow = new PortPanelEditWindow(infos);
+
+                            var window = Window.GetWindow(this);
+                            if (window != null)
+                            {
+                                newWindow.Owner = window;
+                            }
+
+                            newWindow.ShowDialog();
+                        }
 
 
 

@@ -297,6 +297,7 @@
     <s:String x:Key="PpDeleteBuilding">删除建筑</s:String>
     <s:String x:Key="PpRoomPort">端口</s:String>
     <s:String x:Key="PpDeletePort">删除端口</s:String>
+    <s:String x:Key="PpEditPort">编辑端口</s:String>
 
     <!--  PresetPage  -->
     <s:String x:Key="PrpOrganization">组织机构管理</s:String>
