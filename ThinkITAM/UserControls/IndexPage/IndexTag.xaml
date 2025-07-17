@@ -74,21 +74,34 @@
 
                     <Grid Grid.Row="0" Grid.Column="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition MinWidth="130" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="5,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            d:Text="快速访问标签"
-                            FontWeight="Bold"
-                            Foreground="AliceBlue"
-                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            Text="{Binding Name}" />
 
+                        <Border Grid.Column="0">
+                            <Border.OpacityMask>
+                                <LinearGradientBrush x:Name="MaskBrush" StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="Black" />
+                                    <GradientStop Offset="0.75" Color="Black" />
+                                    <GradientStop Offset="1" Color="Transparent" />
+                                </LinearGradientBrush>
+                            </Border.OpacityMask>
+                            <Grid>
+                                <TextBlock
+                                    x:Name="TextBlock"
+                                    Grid.Column="0"
+                                    Margin="5,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    d:Text="快速访问标签"
+                                    FontWeight="Bold"
+                                    Foreground="AliceBlue"
+                                    SizeChanged="TextBlock_OnSizeChanged"
+                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                    Text="{Binding Name}"
+                                    ToolTip="{Binding Name}" />
+                            </Grid>
+                        </Border>
                         <Grid
                             Grid.Column="1"
                             Opacity="0.8"

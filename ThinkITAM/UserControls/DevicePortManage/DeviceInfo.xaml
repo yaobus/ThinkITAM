@@ -58,25 +58,31 @@
                         <ColumnDefinition Width="50*" />
                         <ColumnDefinition Width="50*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" Margin="5,0,0,0">
-                        <Grid.OpacityMask>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+
+                    <Border Grid.Column="0">
+                        <Border.OpacityMask>
+                            <LinearGradientBrush x:Name="MaskBrush2" StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="Black" />
-                                <GradientStop Offset="0.7" Color="Black" />
+                                <GradientStop Offset="0.75" Color="Black" />
                                 <GradientStop Offset="1" Color="Transparent" />
                             </LinearGradientBrush>
-                        </Grid.OpacityMask>
-                        <TextBlock
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            d:Text="接入交换机"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="AliceBlue"
-                            Text="{Binding DeviceType}"
-                            ToolTip="{Binding DeviceType}" />
+                        </Border.OpacityMask>
 
-                    </Grid>
+                        <Grid Margin="5,0,0,0">
+                            <TextBlock
+                                x:Name="TextBlock0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                d:Text="接入交换机"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Foreground="AliceBlue"
+                                SizeChanged="TextBlock0_OnSizeChanged"
+                                Text="{Binding DeviceType}"
+                                ToolTip="{Binding DeviceType}" />
+
+                        </Grid>
+                    </Border>
                     <TextBlock
                         Grid.Column="1"
                         Margin="5,0,0,0"
@@ -100,31 +106,29 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Grid
-                        Grid.Column="0"
-                        Margin="5,0,0,0"
-                        MinWidth="90"
-                        HorizontalAlignment="Stretch">
-                        <Grid.OpacityMask>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <Border Grid.Column="0">
+                        <Border.OpacityMask>
+                            <LinearGradientBrush x:Name="MaskBrush" StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="Black" />
                                 <GradientStop Offset="0.75" Color="Black" />
                                 <GradientStop Offset="1" Color="Transparent" />
                             </LinearGradientBrush>
-                        </Grid.OpacityMask>
-                        <TextBlock
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            d:Text="服务器网段"
-                            FontSize="12"
-                            FontWeight="Bold"
-                            Foreground="AliceBlue"
-                            Opacity="0.3"
-                            MinWidth="90"
-                            Text="{Binding Description}"
-                            ToolTip="{Binding Description}" />
+                        </Border.OpacityMask>
+                        <Grid Margin="5,0,0,0">
+                            <TextBlock
+                                x:Name="TextBlock"
+                                MinWidth="90"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                d:Text="服务器网段"
+                                Foreground="AliceBlue"
+                                Opacity="0.3"
+                                SizeChanged="TextBlock_OnSizeChanged"
+                                Text="{Binding Description}"
+                                ToolTip="{Binding Description}" />
+                        </Grid>
+                    </Border>
 
-                    </Grid>
 
                     <Grid
                         Grid.Column="1"
@@ -146,7 +150,10 @@
                     </Grid>
                 </Grid>
 
+
             </Grid>
+
+
 
 
 

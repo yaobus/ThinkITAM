@@ -83,35 +83,37 @@
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.OpacityMask>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+
+                    <Border Grid.Column="0">
+                        <Border.OpacityMask>
+                            <LinearGradientBrush x:Name="MaskBrush" StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="Black" />
                                 <GradientStop Offset="0.75" Color="Black" />
                                 <GradientStop Offset="1" Color="Transparent" />
                             </LinearGradientBrush>
-                        </Grid.OpacityMask>
+                        </Border.OpacityMask>
+                        <Grid>
+                            <TextBlock
+                                x:Name="TextBlock"
+                                Grid.Column="0"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                d:Text="地址信息"
+                                FontWeight="Bold"
+                                Foreground="AliceBlue"
+                                Opacity="0.3"
+                                SizeChanged="TextBlock_OnSizeChanged"
+                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                Text="{Binding Address}"
+                                ToolTip="{Binding Address}"
+                                Visibility="Visible" />
 
-
-                        <TextBlock
-                            Margin="5,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            d:Text="地址信息"
-                            FontWeight="Bold"
-                            Foreground="AliceBlue"
-                            Opacity="0.3"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                            Text="{Binding Address}"
-                            Visibility="Visible" />
-
-
-
-                    </Grid>
-
+                        </Grid>
+                    </Border>
                     <TextBlock
                         Grid.Column="1"
                         Margin="0,0,10,0"
