@@ -57,22 +57,22 @@
     <s:String x:Key="ApwMdPrompt">Please complete all information</s:String>
 
     <!--  SelectionWindow  -->
-    <s:String x:Key="SwMenuSelect">Function Selection List</s:String>
-    <s:String x:Key="SwDashboard">Asset Overview</s:String>
-    <s:String x:Key="SwNetwork">Network Segment Management</s:String>
-    <s:String x:Key="SwDevicePort">Device Port Management</s:String>
-    <s:String x:Key="SwIndexTag">Url Collection Management</s:String>
-    <s:String x:Key="SwLink">Link Information Management</s:String>
-    <s:String x:Key="SwAsset">Asset Information Management</s:String>
-    <s:String x:Key="SwPreset">Preset Management</s:String>
-    <s:String x:Key="SwPanelPort">Panel Port Management</s:String>
-    <s:String x:Key="SwToolBox">Maintenance Toolkit</s:String>
-    <s:String x:Key="SwComputer">General Terminal Management</s:String>
+    <s:String x:Key="SwMenuSelect">Function</s:String>
+    <s:String x:Key="SwDashboard">Dashboard</s:String>
+    <s:String x:Key="SwNetwork">Network</s:String>
+    <s:String x:Key="SwDevicePort">Device</s:String>
+    <s:String x:Key="SwIndexTag">Favorites</s:String>
+    <s:String x:Key="SwLink">Link</s:String>
+    <s:String x:Key="SwAsset">Asset</s:String>
+    <s:String x:Key="SwPreset">Preset</s:String>
+    <s:String x:Key="SwPanelPort">Panel Port</s:String>
+    <s:String x:Key="SwToolBox">ToolBox</s:String>
+    <s:String x:Key="SwComputer">Endpoints</s:String>
     <s:String x:Key="SwAbout">About</s:String>
     <s:String x:Key="SwHelp">Help</s:String>
 
     <!--  Dashboard  -->
-    <s:String x:Key="DasNetwork">Network Segment</s:String>
+    <s:String x:Key="DasNetwork">Network</s:String>
     <s:String x:Key="DasNetworkNote">Network segment and available IP address information</s:String>
     <s:String x:Key="DasNetworkCount">Total Segments</s:String>
     <s:String x:Key="DasNetworkIpCount">Total IPs</s:String>
@@ -94,7 +94,7 @@
     <s:String x:Key="DasAssetNote">Asset information and logs</s:String>
     <s:String x:Key="DasAssetType">Asset Types</s:String>
     <s:String x:Key="DasAssetCount">Total Assets</s:String>
-    <s:String x:Key="DasAssetPortUsed">UnDeployed Assets</s:String>
+    <s:String x:Key="DasAssetPortUsed">UnDeployed</s:String>
 
     <!--  NetworkAddressManagePage  -->
     <s:String x:Key="NmpAddNetwork">Add Network Segment</s:String>
