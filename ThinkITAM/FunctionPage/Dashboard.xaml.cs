@@ -41,10 +41,19 @@ public partial class Dashboard : UserControl
 
         dashboard.NetworkCount = StatisticsClass.StatisticsNetworkCount();
         dashboard.IpAddressCount = StatisticsClass.StatisticsIpAddressCount();
+        dashboard.AvailableAddressCount = dashboard.IpAddressCount - StatisticsClass.StatisticsAvailableAddressCount();
+
         dashboard.DeviceCount = StatisticsClass.StatisticsDevicesCount();
         dashboard.ComputerCount = StatisticsClass.StatisticsComputerCount();
+        dashboard.AvailableDevicePortCount = StatisticsClass.StatisticAvailableDevicePortCount();
+
         dashboard.LinkCount = StatisticsClass.StatisticsLinkCount();
         dashboard.LinkNodeCount = StatisticsClass.StatisticsNodeCount();
+        dashboard.RackUnusedPortCount = StatisticsClass.StatisticAvailableRackPortCount();
+
+        dashboard.AssetTypeCount = StatisticsClass.StatisticAssetTypeCount();
+        dashboard.AssetCount = StatisticsClass.StatisticAssetCount();
+        dashboard.AssetUnDeploy= StatisticsClass.StatisticsAssetUnDeploy();
 
         this.DataContext = dashboard;
     }

@@ -94,20 +94,20 @@
     <s:String x:Key="DasDevice">设备信息总览</s:String>
     <s:String x:Key="DasDeviceNote">设备信息及设备端口信息</s:String>
     <s:String x:Key="DasDeviceCount">设备总数</s:String>
-    <s:String x:Key="DasDevicePortCount">端口总数</s:String>
-    <s:String x:Key="DasDevicePortNoUse">可用端口数</s:String>
+    <s:String x:Key="DasDevicePortCount">通用终端</s:String>
+    <s:String x:Key="DasDevicePortNoUse">空置设备端口</s:String>
 
     <s:String x:Key="DasLink">链路信息总览</s:String>
     <s:String x:Key="DasLinkNote">链路及设备连接信息</s:String>
     <s:String x:Key="DasLinkCount">链路总数</s:String>
-    <s:String x:Key="DasLinkUsed">链路节点数量</s:String>
-    <s:String x:Key="DasLinkNoUse">可用链路数</s:String>
+    <s:String x:Key="DasLinkUsed">链路节点总数</s:String>
+    <s:String x:Key="DasLinkNoUse">空置机架端口</s:String>
 
     <s:String x:Key="DasAsset">资产信息总览</s:String>
     <s:String x:Key="DasAssetNote">资产信息及资产日志</s:String>
     <s:String x:Key="DasAssetType">资产类型数</s:String>
     <s:String x:Key="DasAssetCount">资产总数</s:String>
-    <s:String x:Key="DasAssetPortUsed">在用资产数</s:String>
+    <s:String x:Key="DasAssetPortUsed">未部署资产</s:String>
 
 
     <!--  NetworkAddressManagePage  -->

@@ -222,7 +222,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="8192" />
+                                        Text="{Binding AvailableAddressCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -375,7 +375,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="256" />
+                                        Text="{Binding AvailableDevicePortCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -527,7 +527,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="512" />
+                                        Text="{Binding RackUnusedPortCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -627,7 +627,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="32" />
+                                        Text="{Binding AssetTypeCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -653,7 +653,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="512" />
+                                        Text="{Binding AssetCount}" />
 
                                     <TextBlock
                                         Grid.Row="1"
@@ -679,7 +679,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="20"
                                         Opacity="0.9"
-                                        Text="256" />
+                                        Text="{Binding AssetUnDeploy}" />
 
                                     <TextBlock
                                         Grid.Row="1"

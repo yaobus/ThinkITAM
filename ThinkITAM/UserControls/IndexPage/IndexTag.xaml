@@ -128,27 +128,37 @@
 
 
 
-
-                    <Grid Grid.Row="1" Grid.Column="1">
-
-
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="5,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            d:Text="http://192.168.0.1"
-                            FontWeight="Bold"
-                            Foreground="AliceBlue"
-                            Opacity="0.5"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                            Text="{Binding Url}" />
+                    <Border Grid.Row="1" Grid.Column="1">
+                        <Border.OpacityMask>
+                            <LinearGradientBrush x:Name="MaskBrush2" StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="Black" />
+                                <GradientStop Offset="0.75" Color="Black" />
+                                <GradientStop Offset="1" Color="Transparent" />
+                            </LinearGradientBrush>
+                        </Border.OpacityMask>
+                        <Grid>
 
 
+                            <TextBlock
+                                x:Name="TextBlock2"
+                                Grid.Column="0"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                d:Text="http://192.168.0.1"
+                                FontWeight="Bold"
+                                Foreground="AliceBlue"
+                                Opacity="0.5"
+                                SizeChanged="TextBlock2_OnSizeChanged"
+                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                Text="{Binding Url}"
+                                ToolTip="{Binding Url}" />
 
 
-                    </Grid>
 
+
+                        </Grid>
+                    </Border>
                 </Grid>
 
 

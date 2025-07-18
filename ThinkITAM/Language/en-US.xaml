@@ -81,20 +81,20 @@
     <s:String x:Key="DasDevice">Device</s:String>
     <s:String x:Key="DasDeviceNote">Device and port information</s:String>
     <s:String x:Key="DasDeviceCount">Total Devices</s:String>
-    <s:String x:Key="DasDevicePortCount">Total Ports</s:String>
-    <s:String x:Key="DasDevicePortNoUse">Available Ports</s:String>
+    <s:String x:Key="DasDevicePortCount">Endpoints</s:String>
+    <s:String x:Key="DasDevicePortNoUse">Unused port</s:String>
 
     <s:String x:Key="DasLink">Link</s:String>
     <s:String x:Key="DasLinkNote">Link and device connection information</s:String>
     <s:String x:Key="DasLinkCount">Total Links</s:String>
     <s:String x:Key="DasLinkUsed">Links Nodes</s:String>
-    <s:String x:Key="DasLinkNoUse">Available Links</s:String>
+    <s:String x:Key="DasLinkNoUse">Unused Rack port</s:String>
 
     <s:String x:Key="DasAsset">Asset</s:String>
     <s:String x:Key="DasAssetNote">Asset information and logs</s:String>
     <s:String x:Key="DasAssetType">Asset Types</s:String>
     <s:String x:Key="DasAssetCount">Total Assets</s:String>
-    <s:String x:Key="DasAssetPortUsed">Assets In Use</s:String>
+    <s:String x:Key="DasAssetPortUsed">UnDeployed Assets</s:String>
 
     <!--  NetworkAddressManagePage  -->
     <s:String x:Key="NmpAddNetwork">Add Network Segment</s:String>
