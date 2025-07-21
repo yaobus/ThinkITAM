@@ -15,7 +15,7 @@ public partial class App : Application
         base.OnStartup(e);
 
         //订阅全局异常信息
-        //this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+        this.DispatcherUnhandledException += App_DispatcherUnhandledException;
 
 
 
