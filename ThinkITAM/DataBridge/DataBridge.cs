@@ -14,12 +14,12 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.22";
+        public static string Version = "1.0.23";
 
         /// <summary>
         /// 更新次数，用于数据库字段升级
         /// </summary>
-        public static int VersionNumber = 22;
+        public static int VersionNumber = 23;
 
         /// <summary>
         /// 当前打开的数据库类型
@@ -66,6 +66,11 @@ namespace ThinkITAM.DataBridge
         /// 当前选中网段的自定义标签
         /// </summary>
         public static dynamic SelectNetworkTags;
+
+        /// <summary>
+        /// 当前选中的IP地址的自定义标签
+        /// </summary>
+        public static dynamic SelectIpAddressTags;
 
         /// <summary>
         /// 当前是否是日志查看模式,0为IP分配没啥，1为日志查看模式
@@ -118,6 +123,8 @@ namespace ThinkITAM.DataBridge
         /// 当前选择的人员信息
         /// </summary>
         public static PeopleViewModel SelectPeopleViewModel = new PeopleViewModel();
+
+
 
         //---------------------资产模块--------------------
 

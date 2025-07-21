@@ -120,8 +120,12 @@
                             Tag="Collect" />
                         <MenuItem
                             Click="MenuItem_OnClick"
-                            Header="{DynamicResource NmpWolCollect}"
+                            Header="{DynamicResource NmpAddWol}"
                             Tag="Wol" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpCopy}"
+                            Tag="Copy" />
                     </ContextMenu>
                 </Button.ContextMenu>
 

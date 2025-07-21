@@ -1,7 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Media;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Newtonsoft.Json;
+using ThinkITAM.DatabaseOperation;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
@@ -353,6 +357,102 @@ public partial class IpAddressInfo : UserControl
 
                     wake.ShowDialog();
                     break;
+
+
+                case "Copy":
+
+                    //网段信息
+                    var net = DataBridge.DataBridge.SelectNetworkInfo;
+
+                    var tag = DataBridge.DataBridge.SelectNetworkTags;
+
+                    //IP信息
+                    var copyInfo = this.DataContext as IpAddressInfoListViewMode;
+
+                    var infoString = "";
+
+
+                    infoString += $"[网段信息]\r";
+                    infoString += $"网段名称:{net.Name}\r";
+                    infoString += $"网段备注:{net.Description}\r";
+                    infoString += $"网段地址:{net.Network}\r";
+                    infoString += $"子网掩码:{net.Netmask}\r";
+
+                    if (tag != null)
+                    {
+
+                        infoString += $"{tag.TagA}:{net.TagA}\r";
+                        infoString += $"{tag.TagB}:{net.TagB}\r";
+                        infoString += $"{tag.TagC}:{net.TagC}\r";
+                        infoString += $"{tag.TagD}:{net.TagD}\r";
+                        infoString += $"{tag.TagE}:{net.TagE}\r";
+                        infoString += $"{tag.TagF}:{net.TagF}\r";
+
+                    }
+                    else
+                    {
+                        infoString += $"TagA:{net.TagA}\r";
+                        infoString += $"TagB:{net.TagB}\r";
+                        infoString += $"TagC:{net.TagC}\r";
+                        infoString += $"TagD:{net.TagD}\r";
+                        infoString += $"TagE:{net.TagE}\r";
+                        infoString += $"TagF:{net.TagF}\r";
+                    }
+
+
+                    infoString += "[地址信息]" + "\r";
+
+
+                    infoString += $"地址:{DataBridge.DataBridge.SelectNetwork}" + copyInfo.Address + "\r";
+                    infoString += "用户:" + copyInfo.User + "\r";
+                    infoString += $"主机名:{copyInfo.HostName}\r";
+                    infoString += $"MAC:{copyInfo.MacAddress}\r";
+
+                    if (DataBridge.DataBridge.SelectIpAddressTags != null)
+                    {
+                        var tag2 = DataBridge.DataBridge.SelectIpAddressTags;
+
+                        infoString += $"{tag2.TagA}:{copyInfo.TagA}\r";
+                        infoString += $"{tag2.TagB}:{copyInfo.TagB}\r";
+                        infoString += $"{tag2.TagC}:{copyInfo.TagC}\r";
+                        infoString += $"{tag2.TagD}:{copyInfo.TagD}\r";
+                        infoString += $"{tag2.TagE}:{copyInfo.TagE}\r";
+                        infoString += $"{tag2.TagF}:{copyInfo.TagF}\r";
+                    }
+                    else
+                    {
+                        infoString += $"TagA:{copyInfo.TagA}\r";
+                        infoString += $"TagB:{copyInfo.TagB}\r";
+                        infoString += $"TagC:{copyInfo.TagC}\r";
+                        infoString += $"TagD:{copyInfo.TagD}\r";
+                        infoString += $"TagE:{copyInfo.TagE}\r";
+                        infoString += $"TagF:{copyInfo.TagF}\r";
+                    }
+
+                    PlayEmbeddedSound();
+                    Clipboard.SetDataObject(infoString);
+                    break;
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 播放提示音
+    /// </summary>
+    public void PlayEmbeddedSound()
+    {
+        // 获取当前程序集
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // 资源路径格式：命名空间.文件夹.文件名.wav
+        using (var stream = assembly.GetManifestResourceStream("ThinkITAM.Resources.Sounds.CopySounds.wav"))
+        {
+            if (stream != null)
+            {
+                var player = new SoundPlayer(stream);
+                player.Play(); // 异步播放
+                // player.PlaySync(); // 同步播放
             }
         }
     }

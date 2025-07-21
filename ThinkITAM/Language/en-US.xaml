@@ -170,8 +170,8 @@
     <s:String x:Key="NmpPortScan">Port scan</s:String>
     <s:String x:Key="NmpPingIp">Ping</s:String>
     <s:String x:Key="NmpIpCollect">Add Collect</s:String>
-    <s:String x:Key="NmpWolCollect">Add Wol</s:String>
-
+    <s:String x:Key="NmpAddWol">Add Wol</s:String>
+    <s:String x:Key="NmpCopy">Copy Info</s:String>
 
     <!--  DevicePortManagePage  -->
     <s:String x:Key="DpmAddDevice">Add Device</s:String>

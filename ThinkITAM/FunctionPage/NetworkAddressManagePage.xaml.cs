@@ -509,8 +509,9 @@ public partial class NetworkAddressManagePage : UserControl
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
 
-                //标签存到全局变量
-                DataBridge.DataBridge.SelectNetworkTags = settings;
+             
+                //IP地址标签存到全局变量
+                DataBridge.DataBridge.SelectIpAddressTags = settings;
 
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
@@ -521,6 +522,10 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
+            }
+            else
+            {
+                DataBridge.DataBridge.SelectIpAddressTags = null;
             }
 
         }
@@ -959,7 +964,7 @@ public partial class NetworkAddressManagePage : UserControl
         {
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
-
+            SelectNetworkTags = settings;
 
             if (!string.IsNullOrWhiteSpace(settings.TagA))
             {

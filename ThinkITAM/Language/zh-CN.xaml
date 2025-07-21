@@ -203,8 +203,8 @@
     <s:String x:Key="NmpPortScan">端口扫描</s:String>
     <s:String x:Key="NmpPingIp">Ping测试</s:String>
     <s:String x:Key="NmpIpCollect">添加收藏</s:String>
-    <s:String x:Key="NmpWolCollect">添加WOL</s:String>
-
+    <s:String x:Key="NmpAddWol">添加WOL</s:String>
+    <s:String x:Key="NmpCopy">复制信息</s:String>
 
 
 
