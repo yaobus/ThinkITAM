@@ -404,7 +404,7 @@ public partial class IpAddressInfo : UserControl
 
 
                     infoString += $"地址:{DataBridge.DataBridge.SelectNetwork}" + copyInfo.Address + "\r";
-                    infoString += "用户:" + copyInfo.User + "\r";
+                    infoString += "用户:" + copyInfo.Name + "\r";
                     infoString += $"主机名:{copyInfo.HostName}\r";
                     infoString += $"MAC:{copyInfo.MacAddress}\r";
 
