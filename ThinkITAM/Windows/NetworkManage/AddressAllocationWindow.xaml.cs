@@ -120,7 +120,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         private void LoadTags()
         {
-            var tags = DataBridge.DataBridge.SelectNetworkTags;
+            var tags = DataBridge.DataBridge.SelectIpAddressTags;
 
             if (tags != null)
             {

@@ -538,7 +538,7 @@ public partial class NetworkAddressManagePage : UserControl
                 dynamic settings = JsonConvert.DeserializeObject(tags);
 
                 //标签存到全局变量
-                DataBridge.DataBridge.SelectNetworkTags = settings;
+                DataBridge.DataBridge.SelectIpAddressTags = settings;
 
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
