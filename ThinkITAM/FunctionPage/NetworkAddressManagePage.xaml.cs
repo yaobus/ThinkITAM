@@ -2282,35 +2282,55 @@ public partial class NetworkAddressManagePage : UserControl
         }
     }
 
+
+    /// <summary>
+    /// 打开数据导出向导
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
     {
 
-        if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
+        var newWindow = new AddressExportWizardWindow();
+
+        newWindow.Owner = Window.GetWindow(this);
+
+        if (newWindow.ShowDialog() == true)
         {
-            MessageBox.Show("没有可导出的数据。");
-            return;
-        }
 
-        var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+            
 
-        // 创建保存文件对话框
-        SaveFileDialog saveFileDialog = new SaveFileDialog
-        {
-            Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
-            FilterIndex = 1,
-            RestoreDirectory = true,
-            FileName = fileName  // 默认文件名
-        };
-
-        if (saveFileDialog.ShowDialog() == true)
-        {
-            string selectedFilePath = saveFileDialog.FileName;
-
-
-            // 调用导出方法
-            ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath);
         }
 
 
+        #region MyRegion
+
+        //if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
+        //{
+        //    MessageBox.Show("没有可导出的数据。");
+        //    return;
+        //}
+
+        //var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+        //// 创建保存文件对话框
+        //SaveFileDialog saveFileDialog = new SaveFileDialog
+        //{
+        //    Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+        //    FilterIndex = 1,
+        //    RestoreDirectory = true,
+        //    FileName = fileName  // 默认文件名
+        //};
+
+        //if (saveFileDialog.ShowDialog() == true)
+        //{
+        //    string selectedFilePath = saveFileDialog.FileName;
+
+
+        //    // 调用导出方法
+        //    ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath);
+        //}
+
+        #endregion
     }
 }

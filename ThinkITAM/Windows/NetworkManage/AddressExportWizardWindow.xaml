@@ -1,0 +1,262 @@
+﻿<Window x:Class="ThinkITAM.Windows.NetworkManage.AddressExportWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ThinkITAM.Windows.NetworkManage"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="地址导出向导"
+        Width="800"
+        Height="720"
+        FontFamily="{StaticResource HarmonyOsFontFamily}"
+        ResizeMode="NoResize"
+        Style="{StaticResource MaterialDesignWindow}"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Loaded="AddressExportWizardWindow_OnLoaded"
+
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <CheckBox
+                Content="Dark"
+                IsChecked="True"
+                Style="{StaticResource MaterialDesignDarkCheckBox}"
+                />
+
+            <CheckBox
+                Content="Dark"
+                IsChecked="True"
+                Style="{StaticResource MaterialDesignDarkCheckBox}"
+                />
+
+        </StackPanel>
+
+        <DataGrid
+            x:Name="NetworkInfosDataGrid"
+            Margin="10"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow"
+            AutoGenerateColumns="False"
+            Background="Transparent"
+            CanUserAddRows="False"
+
+            >
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn CanUserSort="False">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+
+                            <CheckBox
+                                x:Name="HeaderCheckBox"
+                                Width="24"
+                                Height="24"
+                                IsThreeState="True" />
+
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Text="选择"
+                                ToolTip="选择端口" />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel VerticalAlignment="Top">
+                                <ToggleButton
+                                    x:Name="SelectToggleButton"
+                                    Padding="0"
+                                    BorderThickness="0"
+
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+                                    >
+                                    <materialDesign:PackIcon
+                                        Width="20"
+                                        Height="20"
+                                        Kind="CheckboxBlankOutline" />
+
+                                    <ToggleButton.Style>
+                                        <Style BasedOn="{StaticResource MaterialDesignActionLightToggleButton}" TargetType="ToggleButton">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Background" Value="LightSeaGreen" />
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="False">
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ToggleButton.Style>
+
+                                </ToggleButton>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Index">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="IpOutline" />
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="序号"
+                                />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="ExtraBold"
+                                Text="{Binding Index}" />
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="IpOutline" />
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="网段名称"
+                                />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="ExtraBold"
+                                Text="{Binding Name}" />
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Network">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="IpOutline" />
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="网段地址"
+                                />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="ExtraBold"
+                                Text="{Binding Network}" />
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Netmask">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="IpOutline" />
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="子网掩码"
+                                />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="ExtraBold"
+                                Text="{Binding Netmask}" />
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Description">
+                    <DataGridTemplateColumn.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="IpOutline" />
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Text="网段备注"
+                                />
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                FontWeight="ExtraBold"
+                                Text="{Binding Description}" />
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+
+        </DataGrid>
+
+
+
+    </Grid>
+</Window>

@@ -3,6 +3,12 @@
 
     public class NetworkInfoViewMode
     {
+
+        public bool IsSelected
+        {
+            get; set;
+        }
+
         //索引
         public int Index
         {
