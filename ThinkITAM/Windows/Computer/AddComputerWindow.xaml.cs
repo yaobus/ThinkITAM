@@ -250,6 +250,17 @@ namespace ThinkITAM.Windows.Computer
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
+            if (string.IsNullOrWhiteSpace(AssetNumber.Text))
+            {
+
+                var message = $"必须选择要部署的终端设备资产！";
+
+                MessageBox.Show(message, "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+
             //验证已有设备数量是否达到上限
             int computerCount = StatisticsClass.StatisticsComputerCount();
 
