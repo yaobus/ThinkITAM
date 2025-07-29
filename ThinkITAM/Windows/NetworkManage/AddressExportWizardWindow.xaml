@@ -65,7 +65,7 @@
                             <TextBlock
                                 Margin="5,0"
                                 VerticalAlignment="Center"
-                                FontSize="20"
+                                FontSize="14"
                                 Text="选择"
                                 ToolTip="选择端口" />
                         </StackPanel>
