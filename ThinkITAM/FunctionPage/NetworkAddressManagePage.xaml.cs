@@ -1149,7 +1149,6 @@ public partial class NetworkAddressManagePage : UserControl
                 info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
                 info.LinkDeviceId = row["LinkDevice"].ToString();
 
-
                 info.TagA = row["TagA"].ToString();
                 info.TagB = row["TagB"].ToString();
                 info.TagC = row["TagC"].ToString();

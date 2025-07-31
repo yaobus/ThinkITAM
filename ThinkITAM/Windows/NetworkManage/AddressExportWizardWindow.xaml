@@ -256,7 +256,20 @@
 
         </DataGrid>
 
+        <Grid
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="10">
 
+            <Button
+                x:Name="ExportButton"
+                Width="150"
+                HorizontalAlignment="Right"
+                BorderThickness="0"
+                Click="ExportButton_OnClick"
+                Content="保存" />
+
+        </Grid>
 
     </Grid>
 </Window>
