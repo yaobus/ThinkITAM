@@ -17,6 +17,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.Export;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.Windows.AssetManage;
 using ThinkITAM.Windows.PresetWindows;
 using Size = System.Windows.Size;
@@ -48,6 +49,9 @@ namespace ThinkITAM.FunctionPage
             LoadAssetTreeviewInfos();
         }
 
+
+        private dynamic settingTags;
+
         /// <summary>
         /// 加载自定义标签
         /// </summary>
@@ -58,6 +62,7 @@ namespace ThinkITAM.FunctionPage
             if (tags != null)
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
+                settingTags = settings;
 
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
@@ -1074,12 +1079,17 @@ namespace ThinkITAM.FunctionPage
                 FileName = $"AssetInfo{fileName}"  // 默认文件名
             };
 
+            var expInfo = new CommonExportClass();
+            expInfo.Type = 2;
+            expInfo.WindowTags = settingTags;
+
+
             if (saveFileDialog.ShowDialog() == true)
             {
                 string selectedFilePath = saveFileDialog.FileName;
 
                 // 调用导出方法
-                ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath);
+                ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath,expInfo);
             }
 
         }

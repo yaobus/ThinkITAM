@@ -136,8 +136,8 @@
     <s:String x:Key="NmpDgSelect">选择</s:String>
     <s:String x:Key="NmpDgSelectNote">选择IP地址</s:String>
 
-    <s:String x:Key="NmpDgIp">选择</s:String>
-    <s:String x:Key="NmpDgIpNote">选择IP地址</s:String>
+    <s:String x:Key="NmpDgIp">IP</s:String>
+    <s:String x:Key="NmpDgIpNote">IP地址</s:String>
 
     <s:String x:Key="NmpDgPing">PING</s:String>
     <s:String x:Key="NmpDgPingNote">PING检测状态及响应时间</s:String>

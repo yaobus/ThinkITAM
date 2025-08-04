@@ -566,6 +566,23 @@
                     Orientation="Horizontal"
                     Visibility="Visible">
 
+                    <Button
+                        x:Name="MultipleDataExport"
+                        Width="32"
+                        Height="32"
+                        Margin="5,0"
+                        HorizontalAlignment="Right"
+                        materialDesign:ElevationAssist.Elevation="Dp1"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        Click="MultipleDataExport_OnClick"
+                        IsEnabled="True"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="多重数据导出向导">
+
+                        <materialDesign:PackIcon Kind="DatabaseExportOutline" />
+
+                    </Button>
 
 
                     <Button
@@ -582,9 +599,7 @@
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="导出当前网段信息">
 
-                        <materialDesign:PackIcon Kind="DatabaseExportOutline" />
-
-
+                        <materialDesign:PackIcon Kind="TableArrowRight" />
 
                     </Button>
 

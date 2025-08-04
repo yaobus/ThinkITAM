@@ -60,7 +60,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         LoadNetworkInfo2();
 
-        LoadCustomTag();
+        //LoadCustomTag();
 
         //加载网段信息备注标签
         LoadTags();
@@ -491,11 +491,11 @@ public partial class NetworkAddressManagePage : UserControl
     /// <summary>
     /// 加载IP地址信息自定义标签
     /// </summary>
-    private void LoadCustomTag()
+    private void LoadCustomTag(string tableName)
     {
-        var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+        var tagWindow = "IpAddressInfoTag" + tableName;
 
-        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+       string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -756,7 +756,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
                     //加载网段标签
-                    LoadCustomTag();
+                    LoadCustomTag($"Net_{parentTableName}");
 
                     //加载网段备注
                     //LoadNetworkNote(info);
@@ -900,7 +900,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
         //加载网段标签
-        LoadCustomTag();
+        LoadCustomTag(treeNode.TableName);
 
         //加载网段备注
         LoadNetworkNote(info);
@@ -1587,7 +1587,7 @@ public partial class NetworkAddressManagePage : UserControl
         if (set.ShowDialog() == true)
         {
 
-            LoadCustomTag();
+            LoadCustomTag(DataBridge.DataBridge.NetworkTableName);
 
         }
 
@@ -2290,6 +2290,49 @@ public partial class NetworkAddressManagePage : UserControl
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
     {
 
+
+        #region MyRegion
+
+        if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
+        {
+            MessageBox.Show("没有可导出的数据。");
+            return;
+        }
+
+        var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+        // 创建保存文件对话框
+        SaveFileDialog saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+            FilterIndex = 1,
+            RestoreDirectory = true,
+            FileName = fileName  // 默认文件名
+        };
+
+        var expInfo = new ExportNetworkInfoClass();
+        expInfo.WindowTags = DataBridge.DataBridge.SelectIpAddressTags;
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            string selectedFilePath = saveFileDialog.FileName;
+
+
+            // 调用导出方法
+            ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath,expInfo);
+        }
+
+        #endregion
+    }
+
+
+    /// <summary>
+    /// 多重数据导出向导
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void MultipleDataExport_OnClick(object sender, RoutedEventArgs e)
+    {
         var newWindow = new AddressExportWizardWindow();
 
         newWindow.Owner = Window.GetWindow(this);
@@ -2297,39 +2340,8 @@ public partial class NetworkAddressManagePage : UserControl
         if (newWindow.ShowDialog() == true)
         {
 
-            
+
 
         }
-
-
-        #region MyRegion
-
-        //if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
-        //{
-        //    MessageBox.Show("没有可导出的数据。");
-        //    return;
-        //}
-
-        //var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
-
-        //// 创建保存文件对话框
-        //SaveFileDialog saveFileDialog = new SaveFileDialog
-        //{
-        //    Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
-        //    FilterIndex = 1,
-        //    RestoreDirectory = true,
-        //    FileName = fileName  // 默认文件名
-        //};
-
-        //if (saveFileDialog.ShowDialog() == true)
-        //{
-        //    string selectedFilePath = saveFileDialog.FileName;
-
-
-        //    // 调用导出方法
-        //    ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath);
-        //}
-
-        #endregion
     }
 }

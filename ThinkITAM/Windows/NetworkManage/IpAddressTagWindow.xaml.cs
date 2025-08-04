@@ -27,12 +27,12 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
 
-                LocalRadioButton.IsEnabled = true;
+                //LocalRadioButton.IsEnabled = true;
             }
             else
             {
                 tagWindow = "IpAddressInfoTag";
-                LocalRadioButton.IsEnabled = false;
+                //LocalRadioButton.IsEnabled = false;
             }
 
 
@@ -233,6 +233,15 @@ namespace ThinkITAM.Windows.NetworkManage
                     TagE.Text = settings.TagE;
                     TagF.Text = settings.TagF;
 
+                }
+                else
+                {
+                    TagA.Text=String.Empty;
+                    TagB.Text = String.Empty;
+                    TagC.Text = String.Empty;
+                    TagD.Text = String.Empty;
+                    TagE.Text = String.Empty;
+                    TagF.Text = String.Empty;
                 }
             }
 

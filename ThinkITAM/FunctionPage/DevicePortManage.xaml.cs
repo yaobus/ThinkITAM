@@ -12,6 +12,7 @@ using ThinkITAM.Functions.Export;
 using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
 using ThinkITAM.ViewModels.AssetManage;
+using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.Others;
 using ThinkITAM.Windows.DevicePortManage;
 using ThinkITAM.Windows.NetworkManage;
@@ -211,7 +212,7 @@ public partial class DevicePortManage : UserControl
 
                     DataBridge.DataBridge.SelectDeviceTableInfo = info;
 
-                    //加载网段标签
+                    //加载设备标签
                     LoadCustomTag();
 
                     await LoadPortInfos(info);
@@ -842,6 +843,7 @@ public partial class DevicePortManage : UserControl
     private string settingTags;
 
 
+
     /// <summary>
     /// 加载端口信息自定义标签
     /// </summary>
@@ -850,7 +852,6 @@ public partial class DevicePortManage : UserControl
 
         //加载端口自定义标签
         var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
-
 
 
 
@@ -1295,13 +1296,17 @@ public partial class DevicePortManage : UserControl
             FileName = fileName  // 默认文件名
         };
 
+        var expInfo = new CommonExportClass();
+        expInfo.Type = 1;
+        expInfo.WindowTags = settingTags;
+
         if (saveFileDialog.ShowDialog() == true)
         {
             string selectedFilePath = saveFileDialog.FileName;
 
 
             // 调用导出方法
-            ExcelExporter.ExportToExcel(DataBridge.DataBridge.PortDetailedInfos, selectedFilePath);
+            ExcelExporter.ExportToExcel(DataBridge.DataBridge.PortDetailedInfos, selectedFilePath,expInfo);
         }
 
 
