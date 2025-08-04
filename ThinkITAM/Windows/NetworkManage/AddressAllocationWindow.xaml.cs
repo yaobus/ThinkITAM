@@ -73,32 +73,32 @@ namespace ThinkITAM.Windows.NetworkManage
                 this.DataContext = selectedItemsCollection[0];
 
 
-                if (selectedItemsCollection.Count > 7)//数量太多，仅显示一部分
+                if (selectedItemsCollection.Count > 4)//数量太多，仅显示一部分
                 {
                     string str = null;
                     int i = 0;
                     foreach (var item in selectedItemsCollection)
                     {
                         i++;
-                        str += $"{item.Address}、";
-                        if (i == 6)
+                        str += $"{item.FullAddress}、";
+                        if (i == 3)
                         {
                             break;
                         }
                     }
                     str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-                    SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
+                    SelectedAddress.Text =  str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
                 }
                 else//全部显示
                 {
                     string str = null;
                     foreach (var item in selectedItemsCollection)
                     {
-                        str += $"{item.Address}、";
+                        str += $"{item.FullAddress}、";
 
                     }
                     str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-                    SelectedAddress.Text = DataBridge.DataBridge.SelectNetwork + str;
+                    SelectedAddress.Text = str;
                 }
 
             }
@@ -289,25 +289,33 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void SaveInfoToDb(IpAddressInfoListViewMode info)
         {
-            string tableName = DataBridge.DataBridge.NetworkTableName;
+            string tableName = info.TableName;
 
             string sql = $"UPDATE {tableName} SET User = '{info.User}', AddressStatus = '{info.AddressStatus}', AddressColor = '{info.AddressColor}', HostName = '{info.HostName}', MacAddress = '{info.MacAddress}', LinkDevice = '{info.LinkDeviceId}', TagA = '{info.TagA}', TagB = '{info.TagB}', TagC = '{info.TagC}', TagD = '{info.TagD}', TagE = '{info.TagE}', TagF = '{info.TagF}' WHERE Address = {info.Address}";
 
+            Console.WriteLine(sql);
 
             GlobalVariables.DbService.ExecuteNonQuery(sql);
 
 
-            //如果关联的资产ID在Computer表中，则写入IP信息到Computer表中LinkIp字段
-            var query = $" SELECT COUNT (*) FROM Computer WHERE AssetId = '{info.LinkDeviceId}'";
-
-            var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
-
-            if (count > 0)
+            if (!string.IsNullOrWhiteSpace( info.LinkDeviceId))
             {
-                query = $"UPDATE Computer SET LinkIp = '{DataBridge.DataBridge.SelectNetwork}{info.Address}' WHERE AssetId = '{info.LinkDeviceId}'";
+                //如果关联的资产ID在Computer表中，则写入IP信息到Computer表中LinkIp字段
+                var query = $" SELECT COUNT(*) FROM Computer WHERE AssetId = '{info.LinkDeviceId}'";
 
-                GlobalVariables.DbService.ExecuteNonQuery(query);
+                var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
+
+                if (count > 0)
+                {
+                    query = $"UPDATE Computer SET LinkIp = '{info.FullAddress}' WHERE AssetId = '{info.LinkDeviceId}'";
+
+                    Console.WriteLine(query);
+                    GlobalVariables.DbService.ExecuteNonQuery(query);
+                }
             }
+
+
+
 
         }
 

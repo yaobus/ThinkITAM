@@ -403,10 +403,10 @@
                                 Value="100" />
 
                             <StackPanel
-                                Grid.Column="2"
                                 HorizontalAlignment="Left"
                                 Orientation="Horizontal"
                                 Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+
 
                                 <Button
                                     x:Name="ReSort"
@@ -439,6 +439,61 @@
 
                             </StackPanel>
 
+                            <StackPanel
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                                <ProgressBar
+                                    Width="40"
+                                    Height="1"
+                                    Opacity="0.3"
+                                    Orientation="Vertical"
+                                    Value="100" />
+
+                                <ToggleButton
+                                    x:Name="GlobalToggleButton"
+                                    Margin="5,0"
+                                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=DatabaseSearchOutline}"
+                                    Click="GlobalToggleButton_OnClick"
+                                    Content="{materialDesign:PackIcon Kind=LayersSearchOutline}"
+                                    Style="{StaticResource MaterialDesignActionToggleButton}"
+                                    ToolTip="全局搜索/局部搜索" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        x:Name="ClearGlobalSearchKeyWord"
+                                        Click="ClearGlobalSearchKeyWord_OnClick"
+                                        Style="{StaticResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                                    </Button>
+                                    <TextBox
+                                        x:Name="GlobalSearchKeyWord"
+                                        Grid.Column="1"
+                                        MinWidth="200"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                        BorderThickness="0"
+                                        KeyDown="GlobalSearchKeyWord_OnKeyDown"
+                                        Opacity="0.3" />
+                                    <Button
+                                        x:Name="GlobalSearchButton"
+                                        Grid.Column="2"
+                                        Click="GlobalSearchButton_OnClick"
+                                        Style="{StaticResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                                    </Button>
+                                </Grid>
+
+
+                            </StackPanel>
 
                             <StackPanel
                                 x:Name="MultipleAllocationPanel"
@@ -735,6 +790,35 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Address">
+                                <DataGridTemplateColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="IpOutline" />
+                                        <TextBlock
+                                            Margin="5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="14"
+                                            Text="{DynamicResource NmpDgIpFull}" />
+                                    </StackPanel>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="20"
+                                                FontWeight="ExtraBold"
+                                                Text="{Binding FullAddress}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
 
                             <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PingTime">
                                 <DataGridTemplateColumn.Header>

@@ -8,6 +8,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
     {
         private bool isSelected;
         private int address;
+        private string fullAddress;
         private bool addressType;
         private int addressStatus;
         private int addressColor;
@@ -38,7 +39,7 @@ namespace ThinkITAM.ViewModels.NetworkManage
         private string tagE;
         private string tagF;
         private string addressToolTip;
-
+        private string tableName;
 
         /// <summary>
         /// 地址索引
@@ -77,6 +78,21 @@ namespace ThinkITAM.ViewModels.NetworkManage
             }
         }
 
+        /// <summary>
+        /// 完整地址
+        /// </summary>
+        public string FullAddress
+        {
+            get => fullAddress;
+            set
+            {
+                if (fullAddress != value)
+                {
+                    fullAddress = value;
+                    OnPropertyChanged(nameof(FullAddress));
+                }
+            }
+        }
 
 
         public bool AddressType
@@ -472,6 +488,19 @@ namespace ThinkITAM.ViewModels.NetworkManage
                 {
                     addressToolTip = value;
                     OnPropertyChanged(nameof(AddressToolTip));
+                }
+            }
+        }
+
+        public string TableName
+        {
+            get => tableName;
+            set
+            {
+                if (tableName != value)
+                {
+                    tableName = value;
+                    OnPropertyChanged(nameof(TableName));
                 }
             }
         }

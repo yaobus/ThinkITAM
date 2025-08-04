@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -495,7 +496,7 @@ public partial class NetworkAddressManagePage : UserControl
     {
         var tagWindow = "IpAddressInfoTag" + tableName;
 
-       string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -509,7 +510,7 @@ public partial class NetworkAddressManagePage : UserControl
             {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
 
-             
+
                 //IP地址标签存到全局变量
                 DataBridge.DataBridge.SelectIpAddressTags = settings;
 
@@ -568,31 +569,6 @@ public partial class NetworkAddressManagePage : UserControl
 
 
     /// <summary>
-    /// 计算IP地址使用率
-    /// </summary>
-    /// <param name="tableName"></param>
-    /// <returns></returns>
-    private double CalculateUseValue(string tableName)
-    {
-        //查询表对应共有的IP数量
-        string sqlTemp = $"SELECT COUNT(*) FROM {tableName}";
-
-        var all = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-
-
-        sqlTemp = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus != 1";
-
-        var used = DbClass.ExecuteScalarTableNum(sqlTemp);
-
-
-        return ((double)used / all) * 100;
-
-    }
-
-
-
-    /// <summary>
     /// 网段信息加载状态,0为未加载，1表示正在加载
     /// </summary>
     private int NetworkLoadStatus = 0;
@@ -610,6 +586,8 @@ public partial class NetworkAddressManagePage : UserControl
 
         selectedSubNetworkInfoViewModel = null;
         DataExport.IsEnabled = false;
+        GlobalToggleButton.IsChecked = false;
+        ShowModeButton.IsEnabled = true;
 
         if (e != null)
         {
@@ -758,10 +736,9 @@ public partial class NetworkAddressManagePage : UserControl
                     //加载网段标签
                     LoadCustomTag($"Net_{parentTableName}");
 
-                    //加载网段备注
-                    //LoadNetworkNote(info);
 
-                    await LoadAddressInfo(tableName);
+
+                    await LoadAddressInfo(tableName, 0);
 
 
                 }
@@ -1080,120 +1057,253 @@ public partial class NetworkAddressManagePage : UserControl
 
 
     /// <summary>
-    /// 加载地址信息
+    /// 获取子网信息
     /// </summary>
     /// <param name="tableName"></param>
-    private async Task LoadAddressInfo(string tableName)
+    /// <param name="loadMode">加载模式，0为默认模式，1为强制刷新</param>
+    /// <returns></returns>
+    private async Task LoadAddressInfo(string tableName, int loadMode = 0, ExportNetworkInfoClass expInfo = null)
     {
+
+        int prefixIndex = ExtractSubNumber(tableName);
 
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
-
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
-
-
-
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-            int index2 = 0;
-            foreach (var row in rows)
+            if (loadMode == 0)
             {
-                var info = new IpAddressInfoListViewMode();
+                string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
-                info.Index = index2;
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                index2++;
+               
 
-                info.Address = Convert.ToInt32(row["Address"].ToString());
-                int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
-
-                info.AddressStatus = addressStatus;
-
-                Brush brush;
+                string prefix = GetNetworkNamePrefix(GetAllNetworkForNetworkId("1", tableName)[prefixIndex]);
 
 
-                if (addressStatus == 0 || addressStatus == 4)
+                int index2 = 0;
+                
+                foreach (var row in rows)
                 {
-                    info.AddressType = false;
+                    var info = new IpAddressInfoListViewMode();
+                    info.TableName=tableName;
+                    info.Index = index2;
+
+                    index2++;
+
+                    info.Address = Convert.ToInt32(row["Address"].ToString());
+
+                    info.FullAddress = $"{prefix}{info.Address}";
+
+                    int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
+
+                    info.AddressStatus = addressStatus;
+
+                    Brush brush;
+
+
+                    if (addressStatus == 0 || addressStatus == 4)
+                    {
+                        info.AddressType = false;
+                    }
+                    else
+                    {
+                        info.AddressType = true;
+                    }
+
+
+                    try
+                    {
+                        info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+                    }
+                    catch (Exception e)
+                    {
+                        info.AddressColor = 0;
+                    }
+
+
+                    info.PingTime = "N/A";
+                    info.PingStatusColor = Brushes.Azure;
+                    info.User = row["User"].ToString();
+                    info.Name = row["Name"].ToString();
+                    info.Organization = row["Organization"].ToString();
+                    info.Department = row["Department"].ToString();
+                    info.Group = row["UserGroup"].ToString();
+                    info.Unit = row["UserUnit"].ToString();
+                    info.Phone = row["Phone"].ToString();
+                    info.HostName = row["HostName"].ToString();
+                    info.MacAddress = row["MacAddress"].ToString();
+
+
+                    info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+                    info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
+                    info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
+                    info.LinkDeviceId = row["LinkDevice"].ToString();
+
+                    info.TagA = row["TagA"].ToString();
+                    info.TagB = row["TagB"].ToString();
+                    info.TagC = row["TagC"].ToString();
+                    info.TagD = row["TagD"].ToString();
+                    info.TagE = row["TagE"].ToString();
+                    info.TagF = row["TagF"].ToString();
+                    var tip = JoInTip(info);
+                    info.AddressToolTip = tip;
+
+
+                    var itemToUpdate = IpAddressInfoLists.FirstOrDefault(item => item.Address == info.Address);
+                    int index = IpAddressInfoLists.IndexOf(itemToUpdate);
+
+                    if (itemToUpdate != null)
+                    {
+
+                        itemToUpdate.AddressStatus = info.AddressStatus;
+                        itemToUpdate.AddressColor = info.AddressColor;
+                        itemToUpdate.PingTime = info.PingTime;
+                        itemToUpdate.PingStatusColor = info.PingStatusColor;
+                        itemToUpdate.User = info.User;
+                        itemToUpdate.Name = info.Name;
+                        itemToUpdate.Organization = info.Organization;
+                        itemToUpdate.Department = info.Department;
+                        itemToUpdate.Group = info.Group;
+                        itemToUpdate.Phone = info.Phone;
+                        itemToUpdate.HostName = info.HostName;
+                        itemToUpdate.MacAddress = info.MacAddress;
+                        itemToUpdate.LinkDevice = info.LinkDevice;
+                        itemToUpdate.TagA = info.TagA;
+                        itemToUpdate.TagB = info.TagB;
+                        itemToUpdate.TagC = info.TagC;
+                        itemToUpdate.TagD = info.TagD;
+                        itemToUpdate.TagE = info.TagE;
+                        itemToUpdate.TagF = info.TagF;
+                        itemToUpdate.AddressToolTip = tip;
+
+
+
+
+                    }
+
+
+
+                }
+
+            }
+            else
+            {
+                IpAddressInfoLists.Clear();
+                //SelectAddress.Clear();
+                DataBridge.DataBridge.IpAddressInfoLists.Clear();
+
+                //获取当前选中的网段
+                string[] segments = tableName.ToString().Split('_');
+                string networkId = segments[1];
+                //var networkInfo = dbClass.GetNetworkInfoFromId(networkId);
+
+
+
+                //获取子表数量
+
+
+                if (LoadMode == 0) //切换面板
+                {
+                    AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+
+                    GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
+
                 }
                 else
                 {
-                    info.AddressType = true;
+                    GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+
+                    AddressListView.Visibility = Visibility.Visible;//列表显示
+
                 }
 
 
-                try
-                {
-                    info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
-                }
-                catch (Exception e)
-                {
-                    info.AddressColor = 0;
-                }
 
 
-                info.PingTime = "N/A";
-                info.PingStatusColor = Brushes.Azure;
-                info.User = row["User"].ToString();
-                info.Name = row["Name"].ToString();
-                info.Organization = row["Organization"].ToString();
-                info.Department = row["Department"].ToString();
-                info.Group = row["UserGroup"].ToString();
-                info.Unit = row["UserUnit"].ToString();
-                info.Phone = row["Phone"].ToString();
-                info.HostName = row["HostName"].ToString();
-                info.MacAddress = row["MacAddress"].ToString();
+                string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
 
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-                info.LinkDeviceAssetTag = row["AssetTag"].ToString();
-                info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
-                info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
-                info.LinkDeviceId = row["LinkDevice"].ToString();
+                string prefix = GetNetworkNamePrefix(GetAllNetworkForNetworkId("1", tableName)[prefixIndex]);
 
-                info.TagA = row["TagA"].ToString();
-                info.TagB = row["TagB"].ToString();
-                info.TagC = row["TagC"].ToString();
-                info.TagD = row["TagD"].ToString();
-                info.TagE = row["TagE"].ToString();
-                info.TagF = row["TagF"].ToString();
-                var tip = JoInTip(info);
-                info.AddressToolTip = tip;
+                int index2 = 0;
 
-
-                var itemToUpdate = IpAddressInfoLists.FirstOrDefault(item => item.Address == info.Address);
-                int index = IpAddressInfoLists.IndexOf(itemToUpdate);
-
-                if (itemToUpdate != null)
+                foreach (var row in rows)
                 {
 
-                    itemToUpdate.AddressStatus = info.AddressStatus;
-                    itemToUpdate.AddressColor = info.AddressColor;
-                    itemToUpdate.PingTime = info.PingTime;
-                    itemToUpdate.PingStatusColor = info.PingStatusColor;
-                    itemToUpdate.User = info.User;
-                    itemToUpdate.Name = info.Name;
-                    itemToUpdate.Organization = info.Organization;
-                    itemToUpdate.Department = info.Department;
-                    itemToUpdate.Group = info.Group;
-                    itemToUpdate.Phone = info.Phone;
-                    itemToUpdate.HostName = info.HostName;
-                    itemToUpdate.MacAddress = info.MacAddress;
-                    itemToUpdate.LinkDevice = info.LinkDevice;
-                    itemToUpdate.TagA = info.TagA;
-                    itemToUpdate.TagB = info.TagB;
-                    itemToUpdate.TagC = info.TagC;
-                    itemToUpdate.TagD = info.TagD;
-                    itemToUpdate.TagE = info.TagE;
-                    itemToUpdate.TagF = info.TagF;
-                    itemToUpdate.AddressToolTip = tip;
+                    var info = new IpAddressInfoListViewMode();
+                    info.TableName = tableName;
+                    info.Index = index2;
+                    index2++;
+
+                    info.Address = Convert.ToInt32(row["Address"].ToString());
+                    info.FullAddress = $"{prefix}{info.Address}";
+                    int status = Convert.ToInt32(row["AddressStatus"].ToString());
+
+                    info.AddressStatus = status;
+
+                    Brush brush;
 
 
+                    if (status == 0 || status == 4)
+                    {
+                        info.AddressType = false;
+                    }
+                    else
+                    {
+                        info.AddressType = true;
+                    }
 
 
+                    try
+                    {
+                        info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+                    }
+                    catch (Exception e)
+                    {
+                        info.AddressColor = 0;
+                    }
+
+
+                    info.PingTime = "N/A";
+                    info.PingStatusColor = Brushes.Azure;
+                    info.User = row["User"].ToString();
+                    info.Name = row["Name"].ToString();
+                    info.Organization = row["Organization"].ToString();
+                    info.Department = row["Department"].ToString();
+                    info.Group = row["UserGroup"].ToString();
+                    info.Unit = row["UserUnit"].ToString();
+                    info.Phone = row["Phone"].ToString();
+                    info.HostName = row["HostName"].ToString();
+                    info.MacAddress = row["MacAddress"].ToString();
+                    info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+                    info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
+                    info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
+                    info.LinkDeviceId = row["LinkDevice"].ToString();
+                    info.TagA = row["TagA"].ToString();
+                    info.TagB = row["TagB"].ToString();
+                    info.TagC = row["TagC"].ToString();
+                    info.TagD = row["TagD"].ToString();
+                    info.TagE = row["TagE"].ToString();
+                    info.TagF = row["TagF"].ToString();
+
+                    var tip = JoInTip(info);
+
+
+                    //if (LoadMode == 0) //逐步加载
+                    //{
+                    await Task.Delay(1);
+
+                    //}
+
+
+                    info.AddressToolTip = tip;
+
+                    IpAddressInfoLists.Add(info);
                 }
-
-
 
             }
+
 
 
 
@@ -1237,7 +1347,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-
+            string prefix = GetNetworkNamePrefix(GetAllNetworkForNetworkId("1", tableName)[prefixIndex]);
 
             int index2 = 0;
 
@@ -1245,11 +1355,12 @@ public partial class NetworkAddressManagePage : UserControl
             {
 
                 var info = new IpAddressInfoListViewMode();
-
+                info.TableName = tableName;
                 info.Index = index2;
                 index2++;
 
                 info.Address = Convert.ToInt32(row["Address"].ToString());
+                info.FullAddress = $"{prefix}{info.Address}";
                 int status = Convert.ToInt32(row["AddressStatus"].ToString());
 
                 info.AddressStatus = status;
@@ -1324,12 +1435,475 @@ public partial class NetworkAddressManagePage : UserControl
 
     }
 
-    /// <summary>
-    /// 根据输入内容拼接提示信息
+
+    // <summary>
+    /// 从输入字符串中提取 "SubX" 中的数字 X。
+    /// 例如：Net_7BD947C1CN_Sub0 → 返回 0；My_Sub123 → 返回 123。
     /// </summary>
-    /// <param name="info"></param>
+    /// <param name="input">要搜索的字符串</param>
+    /// <returns>找到的数字，未找到时返回 null</returns>
+    public static int ExtractSubNumber(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return 0;
+
+        // 正则表达式：匹配 "Sub" 后面跟着一个或多个数字
+        Match match = Regex.Match(input, @"Sub(\d+)");
+
+        if (match.Success)
+        {
+            // 提取括号中捕获的数字部分
+            string numberStr = match.Groups[1].Value;
+            if (int.TryParse(numberStr, out int number))
+            {
+                return number;
+            }
+        }
+
+        return 0; // 未匹配到
+    }
+
+
+    /// <summary>
+    /// 加载筛选的地址信息
+    /// </summary>
+    /// <param name="tableName"></param>
+    private async Task LoadAddressInfo(string tableName, string keyword, ExportNetworkInfoClass expInfo = null)
+    {
+
+
+        IpAddressInfoLists.Clear();
+        //SelectAddress.Clear();
+        DataBridge.DataBridge.IpAddressInfoLists.Clear();
+
+
+
+        //获取子表数量
+
+
+        if (LoadMode == 0) //切换面板
+        {
+            AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+
+            GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
+
+        }
+        else
+        {
+            GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+
+            AddressListView.Visibility = Visibility.Visible;//列表显示
+
+        }
+
+
+
+
+
+
+        string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%'  OR {tableName}.Address LIKE '%{keyword}%' ORDER BY Address ASC;";
+
+
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+        string prefix = GetNetworkNamePrefix(GetAllNetworkForNetworkId("1", tableName)[0]);
+
+        int index2 = 0;
+
+        foreach (var row in rows)
+        {
+
+            var info = new IpAddressInfoListViewMode();
+            info.TableName = tableName;
+            info.Index = index2;
+            index2++;
+
+            info.Address = Convert.ToInt32(row["Address"].ToString());
+
+            info.FullAddress = $"{prefix}{info.Address}";
+
+            int status = Convert.ToInt32(row["AddressStatus"].ToString());
+
+            info.AddressStatus = status;
+
+            Brush brush;
+
+
+            if (status == 0 || status == 4)
+            {
+                info.AddressType = false;
+            }
+            else
+            {
+                info.AddressType = true;
+            }
+
+
+            try
+            {
+                info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+            }
+            catch (Exception e)
+            {
+                info.AddressColor = 0;
+            }
+
+
+            info.PingTime = "N/A";
+            info.PingStatusColor = Brushes.Azure;
+            info.User = row["User"].ToString();
+            info.Name = row["Name"].ToString();
+            info.Organization = row["Organization"].ToString();
+            info.Department = row["Department"].ToString();
+            info.Group = row["UserGroup"].ToString();
+            info.Unit = row["UserUnit"].ToString();
+            info.Phone = row["Phone"].ToString();
+            info.HostName = row["HostName"].ToString();
+            info.MacAddress = row["MacAddress"].ToString();
+            info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+            info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
+            info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
+            info.LinkDeviceId = row["LinkDevice"].ToString();
+            info.TagA = row["TagA"].ToString();
+            info.TagB = row["TagB"].ToString();
+            info.TagC = row["TagC"].ToString();
+            info.TagD = row["TagD"].ToString();
+            info.TagE = row["TagE"].ToString();
+            info.TagF = row["TagF"].ToString();
+
+            var tip = JoInTip(info);
+
+
+            //if (LoadMode == 0) //逐步加载
+            //{
+            //await Task.Delay(1);
+
+            //}
+
+
+            info.AddressToolTip = tip;
+
+            IpAddressInfoLists.Add(info);
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+    /// <summary>
+    /// 加载全局筛选的地址信息
+    /// </summary>
+    /// <param name="tableName"></param>
+    private async Task GlobalLoadAddressInfo(string keyword)
+    {
+
+
+        IpAddressInfoLists.Clear();
+        //SelectAddress.Clear();
+        DataBridge.DataBridge.IpAddressInfoLists.Clear();
+
+
+        //获取子表数量
+
+
+        if (LoadMode == 0) //切换面板
+        {
+            AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+
+            GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
+
+        }
+        else
+        {
+            GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+
+            AddressListView.Visibility = Visibility.Visible;//列表显示
+
+        }
+
+        var nets = GetAllNetwork(networkInfos);
+
+        foreach (var net in nets)
+        {
+            var tableName = net.TableName;
+
+
+            string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%' OR {tableName}.Address LIKE '%{keyword}%'  ORDER BY Address ASC;";
+
+
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+            string prefix = GetNetworkNamePrefix(net);
+
+            int index2 = 0;
+
+            foreach (var row in rows)
+            {
+
+                var info = new IpAddressInfoListViewMode();
+
+                info.TableName = tableName;
+
+                info.Index = index2;
+                index2++;
+                info.Address = Convert.ToInt32(row["Address"].ToString());
+                info.FullAddress = $"{prefix}{row["Address"]}";
+
+                int status = Convert.ToInt32(row["AddressStatus"].ToString());
+
+                info.AddressStatus = status;
+
+                Brush brush;
+
+
+                if (status == 0 || status == 4)
+                {
+                    info.AddressType = false;
+                }
+                else
+                {
+                    info.AddressType = true;
+                }
+
+
+                try
+                {
+                    info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+                }
+                catch (Exception e)
+                {
+                    info.AddressColor = 0;
+                }
+
+
+                info.PingTime = "N/A";
+                info.PingStatusColor = Brushes.Azure;
+                info.User = row["User"].ToString();
+                info.Name = row["Name"].ToString();
+                info.Organization = row["Organization"].ToString();
+                info.Department = row["Department"].ToString();
+                info.Group = row["UserGroup"].ToString();
+                info.Unit = row["UserUnit"].ToString();
+                info.Phone = row["Phone"].ToString();
+                info.HostName = row["HostName"].ToString();
+                info.MacAddress = row["MacAddress"].ToString();
+                info.LinkDeviceAssetTag = row["AssetTag"].ToString();
+                info.LinkDeviceAssetNumber = row["AssetNumber"].ToString();
+                info.LinkDevice = info.LinkDeviceAssetTag + info.LinkDeviceAssetNumber;
+                info.LinkDeviceId = row["LinkDevice"].ToString();
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
+
+                //if (LoadMode == 0) //逐步加载
+                //{
+                //await Task.Delay(1);
+
+
+
+                IpAddressInfoLists.Add(info);
+            }
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+    }
+
+
+    /// <summary>
+    /// 获取网段前缀
+    /// </summary>
+    /// <param name="expInfo"></param>
     /// <returns></returns>
-    private string JoInTip(IpAddressInfoListViewMode info)
+    private string GetNetworkNamePrefix(ExportNetworkInfoClass expInfo)
+    {
+        var prefix = string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(expInfo.Range))
+        {
+            var ipRange = expInfo.Range;
+
+
+            string[] parts = ipRange.Split('.');
+            string result = string.Join(".", parts.Take(3));
+
+            prefix = result + ".";
+
+        }
+        else
+        {
+            prefix = expInfo.Network.Substring(0, expInfo.Network.LastIndexOf('.') + 1);
+        }
+
+
+        return prefix;
+    }
+
+    /// <summary>
+    /// 获取所有网段信息，用于全局搜索
+    /// </summary>
+    /// <returns></returns>
+    private ObservableCollection<ExportNetworkInfoClass> GetAllNetwork(List<NetworkInfoViewMode> infos)
+    {
+
+        //要导出的全部表名
+        var exportNetworkInfos = new ObservableCollection<ExportNetworkInfoClass>();
+
+
+        //获取网段信息及网段自定义字段信息，并导出
+        foreach (var item in infos)
+        {
+            //获取子网掩码位数
+            int netmask = SubnetCalculator.SubnetMaskToLength(item.Netmask);
+
+
+            if (netmask >= 24) //小型网段
+            {
+                //网段信息
+                var info = new ExportNetworkInfoClass();
+
+                info.Network = item.Network;
+                info.Netmask = item.Netmask;
+                info.TableName = $"Net_{item.NetworkId}";
+
+                exportNetworkInfos.Add(info);
+            }
+            else //大型网段
+            {
+                (string baseSubnet, ObservableCollection<string> subnetsRanges) =
+                    SubnetCalculator.CalculateSubnets(item.Network, netmask);
+
+                int subIndex = 0;
+
+                foreach (string range in subnetsRanges)
+                {
+
+
+                    subIndex++;
+
+                    var name = $"Net_{item.NetworkId}_Sub{subIndex - 1}";
+
+                    //网段信息
+                    var info = new ExportNetworkInfoClass();
+
+                    info.NetworkId = item.NetworkId;
+                    info.SubId = $"_Sub{subIndex - 1}";
+                    info.Network = item.Network;
+                    info.Netmask = item.Netmask;
+                    info.TableName = name;
+                    info.Range = range;
+
+
+                    exportNetworkInfos.Add(info);
+
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+        return exportNetworkInfos;
+    }
+
+
+    /// <summary>
+    /// 根据网络ID获取网络信息，用于查询地址前缀
+    /// </summary>
+    /// <param name="networkId"></param>
+    /// <returns></returns>
+    private ObservableCollection<ExportNetworkInfoClass> GetAllNetworkForNetworkId(string networkId, string tableName = null)
+    {
+        string id = string.Empty;
+        if (!string.IsNullOrWhiteSpace(tableName))
+        {
+            id = ExtractTenCharCode(tableName);
+        }
+        else
+        {
+            id = networkId;
+        }
+
+
+
+        List<NetworkInfoViewMode> lists = new List<NetworkInfoViewMode>();
+
+        var sql = $"SELECT * FROM Network WHERE NetworkId ='{id}'";
+
+        var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+
+        foreach (var row in rows)
+        {
+            var item = new NetworkInfoViewMode();
+            item.Network= row["Network"].ToString();
+            item.Netmask = row["Netmask"].ToString();
+            item.NetworkId = id;
+            lists.Add(item);
+        }
+
+
+
+
+        return GetAllNetwork(lists);
+    }
+
+
+
+    /// <summary>
+    /// 从输入字符串中提取第一个由10个连续的大写字母和数字组成的子串。
+    /// </summary>
+    /// <param name="input">要搜索的字符串</param>
+    /// <returns>匹配的10位字符串，未找到时返回 null</returns>
+    public static string ExtractTenCharCode(string input)
+    {
+        if (string.IsNullOrEmpty(input) || input.Length < 10)
+            return null;
+
+        // 正则表达式：匹配10个连续的字母（A-Z）或数字（0-9）
+        string pattern = @"[A-Z0-9]{10}";
+        Match match = Regex.Match(input, pattern);
+
+        return match.Success ? match.Value : null;
+    }
+
+
+/// <summary>
+/// 根据输入内容拼接提示信息
+/// </summary>
+/// <param name="info"></param>
+/// <returns></returns>
+private string JoInTip(IpAddressInfoListViewMode info)
     {
         string tip = "";
 
@@ -1526,25 +2100,6 @@ public partial class NetworkAddressManagePage : UserControl
 
 
     /// <summary>
-    /// 颜色代码转换为BRUSH
-    /// </summary>
-    /// <param name="colorCode"></param>
-    /// <returns></returns>
-    private Brush ColorToBrush(string colorCode)
-    {
-        SolidColorBrush brush = Brushes.Transparent;
-
-        if (colorCode != null && colorCode != "")
-        {
-            brush = (SolidColorBrush)(new BrushConverter().ConvertFrom(colorCode));
-        }
-
-        return brush;
-
-    }
-
-
-    /// <summary>
     /// 添加网段按钮
     /// </summary>
     /// <param name="sender"></param>
@@ -1715,7 +2270,7 @@ public partial class NetworkAddressManagePage : UserControl
         await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
 
         int onlineHost = IpAddressInfoLists.Count(item => item.PingTime != "-1");
-        
+
         OnlineHost.Text = onlineHost.ToString();
 
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, false);
@@ -2049,6 +2604,9 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private async void ShowModeButton_OnClick(object sender, RoutedEventArgs e)
     {
+
+        GlobalToggleButton.IsChecked = false;
+
         if (ShowModeButton.IsChecked == true)
         {
 
@@ -2319,7 +2877,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
             // 调用导出方法
-            ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath,expInfo);
+            ExcelExporter.ExportToExcel(IpAddressInfoLists, selectedFilePath, expInfo);
         }
 
         #endregion
@@ -2344,4 +2902,65 @@ public partial class NetworkAddressManagePage : UserControl
 
         }
     }
+
+
+
+    private void ClearGlobalSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+    {
+        GlobalSearchKeyWord.Text = null;
+        LoadAddressInfo(DataBridge.DataBridge.NetworkTableName, 1);
+    }
+
+    private void GlobalToggleButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (GlobalToggleButton.IsChecked == true)
+        {
+
+            ShowModeButton.IsEnabled = false;
+        }
+        else
+        {
+            ShowModeButton.IsEnabled = true;
+        }
+    }
+
+    //按下回车键
+    private void GlobalSearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        //如果是回车键
+        if (e.Key == Key.Enter)
+        {
+            GlobalSearchButton_OnClick(null, null);
+        }
+    }
+
+    private async void GlobalSearchButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (GlobalToggleButton.IsChecked == true)//全局搜索
+        {
+
+
+            await GlobalLoadAddressInfo(GlobalSearchKeyWord.Text);
+
+        }
+        else//局部搜索
+        {
+            if (string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))//列表无数据
+            {
+                MessageBox.Show("请选择要搜索的网段，或切换为全局搜索。", "无数据", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+
+                LoadAddressInfo(DataBridge.DataBridge.NetworkTableName, GlobalSearchKeyWord.Text);
+
+
+            }
+
+
+
+        }
+    }
+
+
 }

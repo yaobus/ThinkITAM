@@ -120,6 +120,8 @@
     <s:String x:Key="NmpDgSelect">Select</s:String>
     <s:String x:Key="NmpDgSelectNote">Select IP address</s:String>
     <s:String x:Key="NmpDgIp">IP</s:String>
+    <s:String x:Key="NmpDgIpFull">Full IP</s:String>
+
     <s:String x:Key="NmpDgIpNote">Select IP address</s:String>
     <s:String x:Key="NmpDgPing">PING</s:String>
     <s:String x:Key="NmpDgPingNote">Ping status and response time</s:String>
