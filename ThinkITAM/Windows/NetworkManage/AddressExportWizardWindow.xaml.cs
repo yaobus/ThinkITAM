@@ -187,7 +187,10 @@ namespace ThinkITAM.Windows.NetworkManage
             var progress = new Progress<(int Progress, string Message)>(report =>
             {
                 ExportProgressBar.Value = report.Progress;
-                ExportTextBlock.Text=report.Message;
+
+
+
+
             });
 
 
@@ -198,8 +201,8 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 // 调用导出方法
                await ExportMultipleSheetsToExcelAsync(exportNetworkInfos, selectedFilePath, progress);
-                
 
+               MessageBox.Show($"数据已导出至\r{selectedFilePath}", "导出完毕", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
 

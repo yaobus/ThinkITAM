@@ -19,8 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
             <RowDefinition Height="60" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Visibility="Collapsed">
             <CheckBox
@@ -247,28 +247,25 @@
 
 
         </DataGrid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <ProgressBar
                 x:Name="ExportProgressBar"
-                Height="40"
-                Margin="10,0"
+                Height="5"
+                Margin="0,0"
                 Maximum="100"
                 Minimum="0"
                 Value="0" />
-            <TextBlock
-                x:Name="ExportTextBlock"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                d:Text="123" />
+
         </Grid>
 
 
         <Grid
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="0"
             Margin="10">
 
             <Button
+                
                 x:Name="ExportButton"
                 Width="150"
                 HorizontalAlignment="Right"

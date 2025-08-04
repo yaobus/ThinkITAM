@@ -1065,6 +1065,8 @@ public partial class NetworkAddressManagePage : UserControl
     private async Task LoadAddressInfo(string tableName, int loadMode = 0, ExportNetworkInfoClass expInfo = null)
     {
 
+
+
         int prefixIndex = ExtractSubNumber(tableName);
 
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
@@ -2612,13 +2614,9 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
             LoadMode = 1;
 
-            //ListButton.IsEnabled = false;
+
 
             OperationPanel.IsEnabled = false;
-
-
-            //切换显示模式后清空已选地址
-            //selectAddress.Clear();
 
 
             if (IpAddressInfoLists.Count > 0)
@@ -2626,14 +2624,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
                 GraphicalPlan.Visibility = Visibility.Collapsed;
                 AddressListView.Visibility = Visibility.Visible;
 
-                //NetworkTreeView.IsEnabled = false;
-
-
-                //LoadDataAsync(ipAddressInfoLists);
-
-                //GraphicsButton.IsEnabled = true;
-                //NetworkTreeView.IsEnabled = true;
-                //ListButton.IsEnabled = true;
             }
 
 
@@ -2645,47 +2635,15 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
             OperationPanel.IsEnabled = true;
 
-            //GraphicsButton.IsEnabled = false;
-
-            //SingleSelectMode.IsChecked = true;
-
-            //操作类型改为单选模式
-            //OperationType = 0;
-
-
-            //AddressNumber.Text = null;
-            //MultipleAllocationPanel.Visibility = Visibility.Collapsed;
-
-            //切换显示模式后清空已选地址
-            //selectAddress.Clear();
-
-            //ListButton.IsEnabled = false;
             GraphicalPlan.Visibility = Visibility.Visible;
             AddressListView.Visibility = Visibility.Collapsed;
-            //NetworkTreeView.IsEnabled = false;
-
-            //if (IpAddressInfoLists.Count > 0)
-            //{
 
 
-            //    foreach (var info in IpAddressInfoLists)
-            //    {
-            //        var ip = new IpAddressInfo();
+            if (DataBridge.DataBridge.IpAddressInfoLists.Count == 0 && !string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))
+            {
+                await LoadAddressInfo(DataBridge.DataBridge.NetworkTableName, 1);
+            }
 
-            //        ip.AddressAllocationWindowClosed += IpAddressInfo_AddressAllocationWindowClosed;
-
-            //        ip.Margin = new Thickness(5);
-            //        ip.DataContext = info;
-
-            //       // AddressPanel.Children.Add(ip);
-            //        await Task.Delay(1);
-            //    }
-            //}
-
-            //ListButton.IsEnabled = true;
-            //NetworkTreeView.IsEnabled = true;
-
-            //GraphicsButton.IsEnabled = true;
         }
     }
 
@@ -2913,14 +2871,16 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
     private void GlobalToggleButton_OnClick(object sender, RoutedEventArgs e)
     {
+        
         if (GlobalToggleButton.IsChecked == true)
         {
-
             ShowModeButton.IsEnabled = false;
         }
         else
         {
             ShowModeButton.IsEnabled = true;
+            DataBridge.DataBridge.IpAddressInfoLists.Clear();
+
         }
     }
 
