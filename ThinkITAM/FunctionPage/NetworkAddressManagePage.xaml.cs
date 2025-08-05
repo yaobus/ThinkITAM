@@ -207,7 +207,7 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (!string.IsNullOrWhiteSpace(keyWord))
         {
-            filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%') ";
+            filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%' OR TagB LIKE '%{keyWord}%' OR TagC LIKE '%{keyWord}%'  OR TagD LIKE '%{keyWord}%'   OR TagE LIKE '%{keyWord}%'   OR TagF LIKE '%{keyWord}%' )";
         }
 
         string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter}";

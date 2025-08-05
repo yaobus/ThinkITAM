@@ -73,7 +73,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 this.DataContext = selectedItemsCollection[0];
 
 
-                if (selectedItemsCollection.Count > 4)//数量太多，仅显示一部分
+                if (selectedItemsCollection.Count > 3)//数量太多，仅显示一部分
                 {
                     string str = null;
                     int i = 0;
@@ -87,7 +87,8 @@ namespace ThinkITAM.Windows.NetworkManage
                         }
                     }
                     str = str.Substring(0, str.Length - 1);//删除最后一个顿号
-                    SelectedAddress.Text =  str + $"等{DataBridge.DataBridge.SelectAddress.Count}个地址";
+                    SelectedAddress.Text =  str + $"等{DataBridge.DataBridge.SelectAddress.Count-1}个地址";
+                    SelectedAddress.ToolTip= SelectedAddress.Text;
                 }
                 else//全部显示
                 {
@@ -99,6 +100,7 @@ namespace ThinkITAM.Windows.NetworkManage
                     }
                     str = str.Substring(0, str.Length - 1);//删除最后一个顿号
                     SelectedAddress.Text = str;
+                    SelectedAddress.ToolTip = SelectedAddress.Text;
                 }
 
             }
