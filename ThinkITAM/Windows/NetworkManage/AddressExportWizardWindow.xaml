@@ -265,7 +265,6 @@
             Margin="10">
 
             <Button
-                
                 x:Name="ExportButton"
                 Width="150"
                 HorizontalAlignment="Right"
