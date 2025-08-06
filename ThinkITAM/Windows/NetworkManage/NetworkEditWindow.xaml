@@ -142,9 +142,8 @@
                     materialDesign:TextFieldAssist.LeadingIcon="Sort"
                     BorderThickness="0.5"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SortIndex}" 
-                    ToolTip="数字越大越靠前"
-                    />
+                    Text="{Binding SortIndex}"
+                    ToolTip="数字越大越靠前" />
             </StackPanel>
 
 
