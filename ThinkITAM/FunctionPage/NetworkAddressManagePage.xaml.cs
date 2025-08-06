@@ -210,14 +210,15 @@ public partial class NetworkAddressManagePage : UserControl
             filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%' OR TagB LIKE '%{keyWord}%' OR TagC LIKE '%{keyWord}%'  OR TagD LIKE '%{keyWord}%'   OR TagE LIKE '%{keyWord}%'   OR TagF LIKE '%{keyWord}%' )";
         }
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter}";
+        string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter} ";
 
+       
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
         {
-            string query = $"SELECT * FROM Network  WHERE Del != 1 OR Del IS NULL {filter};";
+            string query = $"SELECT * FROM Network  WHERE Del != 1 OR Del IS NULL {filter} ORDER BY SortIndex DESC;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -235,6 +236,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 info.TableName = tableName;
                 info.NetworkId = row["NetworkId"].ToString();
+                info.SortIndex = row["SortIndex"] as int?;
                 info.Name = row["Name"].ToString();
                 info.Description = row["Description"].ToString();
                 info.Network = row["Network"].ToString();
@@ -658,11 +660,10 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-
                     string tableName = info.TableName;
 
                     DataBridge.DataBridge.NetworkTableName = tableName;
-
+                    
 
 
                     //获取子表数量
@@ -705,7 +706,6 @@ public partial class NetworkAddressManagePage : UserControl
 
 
                     DataBridge.DataBridge.SelectNetworkInfo = parentInfo;
-
 
 
 
@@ -835,17 +835,29 @@ public partial class NetworkAddressManagePage : UserControl
             }
 
 
+            var prefix = Functions.FunctionClass.NetworkHelper.GetNetWorkSegment(tableName);
+
+            var fullAddress = $"{prefix}{i}";
+
+            //string sql = $"INSERT INTO `{tableName}` (`Address`,`FullAddress`,`AddressStatus`) VALUES ({i},{fullAddress}, {status})";
+
+            var info = new
+            {
+                Address = i,
+                fullAddress = fullAddress,
+                AddressStatus = status
+
+            };
 
 
-
-
-            string sql = $"INSERT INTO `{tableName}` (`Address`, `AddressStatus`) VALUES ({i}, {status})";
 
 
             //Console.WriteLine(sql);
             //异步执行
 
-            await GlobalVariables.DbService.ExecuteQueryAsync(sql);
+            await GlobalVariables.DbService.InsertEntityAsync($"{tableName}", info);
+
+            //await GlobalVariables.DbService.ExecuteQueryAsync(sql);
 
 
         }
@@ -1067,7 +1079,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-        int prefixIndex = ExtractSubNumber(tableName);
+        int prefixIndex = Functions.FunctionClass.NetworkHelper.ExtractSubNumber(tableName);
 
         if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
@@ -1094,7 +1106,17 @@ public partial class NetworkAddressManagePage : UserControl
 
                     info.Address = Convert.ToInt32(row["Address"].ToString());
 
-                    info.FullAddress = $"{prefix}{info.Address}";
+                    info.FullAddress = row["FullAddress"].ToString();
+                    
+
+                    if (string.IsNullOrWhiteSpace(info.FullAddress))
+                    {
+                        info.FullAddress = $"{prefix}{info.Address}";
+                    }
+
+
+
+                    
 
                     int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
 
@@ -1438,32 +1460,7 @@ public partial class NetworkAddressManagePage : UserControl
     }
 
 
-    // <summary>
-    /// 从输入字符串中提取 "SubX" 中的数字 X。
-    /// 例如：Net_7BD947C1CN_Sub0 → 返回 0；My_Sub123 → 返回 123。
-    /// </summary>
-    /// <param name="input">要搜索的字符串</param>
-    /// <returns>找到的数字，未找到时返回 null</returns>
-    public static int ExtractSubNumber(string input)
-    {
-        if (string.IsNullOrEmpty(input))
-            return 0;
 
-        // 正则表达式：匹配 "Sub" 后面跟着一个或多个数字
-        Match match = Regex.Match(input, @"Sub(\d+)");
-
-        if (match.Success)
-        {
-            // 提取括号中捕获的数字部分
-            string numberStr = match.Groups[1].Value;
-            if (int.TryParse(numberStr, out int number))
-            {
-                return number;
-            }
-        }
-
-        return 0; // 未匹配到
-    }
 
 
     /// <summary>
@@ -1503,7 +1500,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-        string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%'  OR {tableName}.Address LIKE '%{keyword}%' ORDER BY Address ASC;";
+        string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%'  OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%' ORDER BY Address ASC;";
 
 
 
@@ -1639,7 +1636,7 @@ public partial class NetworkAddressManagePage : UserControl
             var tableName = net.TableName;
 
 
-            string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%' OR {tableName}.Address LIKE '%{keyword}%'  ORDER BY Address ASC;";
+            string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%' OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%'  ORDER BY Address ASC;";
 
 
 
@@ -1849,13 +1846,12 @@ public partial class NetworkAddressManagePage : UserControl
         string id = string.Empty;
         if (!string.IsNullOrWhiteSpace(tableName))
         {
-            id = ExtractTenCharCode(tableName);
+            id = Functions.FunctionClass.NetworkHelper.ExtractTenCharCode(tableName);
         }
         else
         {
             id = networkId;
         }
-
 
 
         List<NetworkInfoViewMode> lists = new List<NetworkInfoViewMode>();
@@ -1882,22 +1878,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-    /// <summary>
-    /// 从输入字符串中提取第一个由10个连续的大写字母和数字组成的子串。
-    /// </summary>
-    /// <param name="input">要搜索的字符串</param>
-    /// <returns>匹配的10位字符串，未找到时返回 null</returns>
-    public static string ExtractTenCharCode(string input)
-    {
-        if (string.IsNullOrEmpty(input) || input.Length < 10)
-            return null;
 
-        // 正则表达式：匹配10个连续的字母（A-Z）或数字（0-9）
-        string pattern = @"[A-Z0-9]{10}";
-        Match match = Regex.Match(input, pattern);
-
-        return match.Success ? match.Value : null;
-    }
 
 
 /// <summary>
@@ -2827,6 +2808,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
         };
 
         var expInfo = new ExportNetworkInfoClass();
+       
         expInfo.WindowTags = DataBridge.DataBridge.SelectIpAddressTags;
 
         if (saveFileDialog.ShowDialog() == true)

@@ -37,6 +37,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 foreach (var row in rows)
                 {
                     info.Name = row["Name"].ToString();
+                    info.SortIndex= Convert.ToInt32(row["SortIndex"]);
                     info.Description = row["Description"].ToString();
                     info.Network = row["Network"].ToString();
                     info.Netmask = row["Netmask"].ToString();
@@ -73,11 +74,36 @@ namespace ThinkITAM.Windows.NetworkManage
         }
 
 
+        /// <summary>
+        /// 是否是数字
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool IsNumeric(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+
+            //如果只允许整数，使用 int.TryParse
+            return int.TryParse(text, out _);
+        }
 
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (IsNumeric(SortIndex.Text) == false)
+            {
+
+                MessageBox.Show("网段排序只支持整数\r数字越大越靠前", "输入有误", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                return;
+            }
+
+
             var id = DataBridge.DataBridge.SelectNetworkInfo.NetworkId;
+            var sortIndex= Convert.ToInt32(SortIndex.Text);
             var name = TbName.Text;
             var description = Description.Text;
             var tagA = TagA.Text;
@@ -87,7 +113,7 @@ namespace ThinkITAM.Windows.NetworkManage
             var tagE = TagE.Text;
             var tagF = TagF.Text;
 
-            var sql = $"UPDATE  Network  SET  Name  = '{name}', Description='{description}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}',TagE='{tagE}',TagF='{tagF}' WHERE NetworkId = '{id}'";
+            var sql = $"UPDATE  Network  SET  Name  = '{name}', SortIndex ='{sortIndex}', Description='{description}',TagA='{tagA}',TagB='{tagB}',TagC='{tagC}',TagD='{tagD}',TagE='{tagE}',TagF='{tagF}' WHERE NetworkId = '{id}'";
 
 
             GlobalVariables.DbService.ExecuteNonQuery(sql);

@@ -255,7 +255,8 @@ namespace ThinkITAM.Functions.Export
         {
             var headers = new Dictionary<string, string>
             {
-                {"Address","IP地址"},
+                {"Address","IP号"},
+                {"FullAddress","IP地址"},
                 {"AddressStatus","地址状态"},
                 {"Name","用户名"},
                 {"Organization","组织"},

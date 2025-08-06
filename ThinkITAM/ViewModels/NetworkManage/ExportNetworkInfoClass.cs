@@ -47,4 +47,27 @@ namespace ThinkITAM.ViewModels.NetworkManage
     }
 
 
+    /// 精简网络信息
+    /// </summary>
+    public class TrimNetworkInfoClass
+    { 
+
+        public string NetworkId
+        {
+            get;
+            set;
+        }
+
+        public string Network     
+        {
+            get;
+            set;
+        }
+
+        public string Netmask
+        {
+            get;
+            set;
+        }
+    }
 }

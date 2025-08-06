@@ -6,6 +6,7 @@ using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.Functions.IPAddressHelper;
+using ThinkITAM.ViewModels.NetworkManage;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -191,6 +192,15 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
+            if (IsNumeric(SortIndex.Text) == false)
+            {
+
+                MessageBox.Show("网段排序只支持整数\r数字越大越靠前", "输入有误", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                return;
+            }
+
+
 
             //判断是不是乱写的IP地址
             if (IsValidIp(IpTextBox.Text) == true)
@@ -201,6 +211,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 //网段信息
                 string name = TbName.Text;
                 string description = Description.Text;
+                int sortIndex = Convert.ToInt32(SortIndex.Text);
 
                 string network = Network.Text;
                 string netmask = Netmask.Text;
@@ -256,6 +267,7 @@ namespace ThinkITAM.Windows.NetworkManage
                                 var networkInfo = new
                                 {
                                     NetworkId = networkId,
+                                    SortINdex = sortIndex,
                                     Name = name,
                                     Description = description,
                                     Network = network,
@@ -304,6 +316,7 @@ namespace ThinkITAM.Windows.NetworkManage
                             var networkInfo = new
                             {
                                 NetworkId = networkId,
+                                SortINdex = sortIndex,
                                 Name = name,
                                 Description = description,
                                 Network = network,
@@ -362,6 +375,7 @@ namespace ThinkITAM.Windows.NetworkManage
                                 var networkInfo = new
                                 {
                                     NetworkId = networkId,
+                                    SortINdex = sortIndex,
                                     Name = name,
                                     Description = description,
                                     Network = network,
@@ -385,7 +399,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                                 //装载初始化数据
-                                InitializedNetworkData(networkId);
+                                InitializedNetworkData(networkId,network);
 
 
                                 this.DialogResult = true;
@@ -410,11 +424,12 @@ namespace ThinkITAM.Windows.NetworkManage
                             //创建资产ID字符串，网段ID
                             networkId = $"7{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId($"{network}" + DateTime.Now.ToString("yyyyMMddHHmmss"))).ToUpper()}";
 
-                            Console.WriteLine(networkId);
+                           //Console.WriteLine(networkId);
 
                             var networkInfo = new
                             {
                                 NetworkId = networkId,
+                                SortINdex = sortIndex,
                                 Name = name,
                                 Description = description,
                                 Network = network,
@@ -445,7 +460,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                             //装载初始化数据
-                            InitializedNetworkData(networkId);
+                            InitializedNetworkData(networkId,network);
 
 
                             this.DialogResult = true;
@@ -485,9 +500,24 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
         /// <summary>
+        /// 是否是数字
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool IsNumeric(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+
+            //如果只允许整数，使用 int.TryParse
+             return int.TryParse(text, out _);
+        }
+
+        /// <summary>
         /// 填充网段表单初始数据
         /// </summary>
-        private void InitializedNetworkData(string tableName)
+        private void InitializedNetworkData(string tableName,string network)
         {
             string[] parts = Network.Text.Split('.');
 
@@ -501,8 +531,12 @@ namespace ThinkITAM.Windows.NetworkManage
             int LastIp = Convert.ToInt32(parts[3]);
 
 
+            //获取网段前缀
+            string prefix = network.Substring(0, network.LastIndexOf('.') + 1); ;
 
+            
             int x = Convert.ToInt32(NumBox.Text);
+
 
             for (int i = 0; i < x; i++)
             {
@@ -533,10 +567,11 @@ namespace ThinkITAM.Windows.NetworkManage
                         addressStatus = 1;//1、正常未分配IP，2正常已分配ip，3已分配未启用ip
                     }
                 }
-
+                
                 var info = new
                 {
                     Address = ip,
+                    FullAddress=$"{prefix}{ip}",
                     AddressStatus = addressStatus
                 };
 
@@ -549,6 +584,35 @@ namespace ThinkITAM.Windows.NetworkManage
 
         }
 
+
+        /// <summary>
+        /// 获取网段前缀
+        /// </summary>
+        /// <param name="expInfo"></param>
+        /// <returns></returns>
+        private string GetNetworkNamePrefix(ExportNetworkInfoClass expInfo)
+        {
+            var prefix = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(expInfo.Range))
+            {
+                var ipRange = expInfo.Range;
+
+
+                string[] parts = ipRange.Split('.');
+                string result = string.Join(".", parts.Take(3));
+
+                prefix = result + ".";
+
+            }
+            else
+            {
+                prefix = expInfo.Network.Substring(0, expInfo.Network.LastIndexOf('.') + 1);
+            }
+
+
+            return prefix;
+        }
 
 
 

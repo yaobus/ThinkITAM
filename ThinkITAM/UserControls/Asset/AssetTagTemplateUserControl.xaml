@@ -200,15 +200,14 @@
                 BorderThickness="0.3" />
 
             <Label
-                Padding="0,0,0,3"
                 x:Name="AssetId"
+                Padding="0,0,0,3"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                FontSize="9"
-                Foreground="#2f9f9f" 
-                Content="{Binding AssetId}"
                 d:Content="ABCDEFG12345"
-                />
+                Content="{Binding AssetId}"
+                FontSize="9"
+                Foreground="#2f9f9f" />
         </Grid>
 
         <Label

@@ -89,9 +89,9 @@ namespace ThinkITAM.DatabaseOperation
         {
 
 
-            string sql = $"CREATE TABLE Net_{tableName} ( Address INTEGER, AddressStatus INTEGER, AddressColor TEXT,  User TEXT, HostName TEXT, MacAddress TEXT, LinkDevice TEXT, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT  );";
+            string sql = $"CREATE TABLE Net_{tableName} ( Address INTEGER, FullAddress TEXT ,AddressStatus INTEGER, AddressColor TEXT,  User TEXT, HostName TEXT, MacAddress TEXT, LinkDevice TEXT, TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT  );";
 
-            Console.WriteLine(sql);
+
 
             //GlobalVariables.DbService.ExecuteNonQuery(sql);
             GlobalVariables.DbService.CreateTableFromSql(sql);
@@ -1196,7 +1196,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Network"://网段信息表
 
-                                sql = $"CREATE TABLE \"Network\" (   \"NetworkId\" TEXT,   \"Name\" TEXT,   \"Description\" TEXT,   \"Network\" TEXT,   \"Netmask\" TEXT,   \"Parent\" TEXT,   \"Child\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,  \"TagE\" TEXT,   \"TagF\" TEXT,   \"Del\" integer); ";
+                                sql = $"CREATE TABLE \"Network\" (\"NetworkId\" TEXT,  \"SortIndex\" integer, \"Name\" TEXT,   \"Description\" TEXT,   \"Network\" TEXT,   \"Netmask\" TEXT,   \"Parent\" TEXT,   \"Child\" TEXT,   \"TagA\" TEXT,   \"TagB\" TEXT,   \"TagC\" TEXT,   \"TagD\" TEXT,  \"TagE\" TEXT,   \"TagF\" TEXT,   \"Del\" integer); ";
 
                                 break;
                             case "WindowTag"://窗口注释表
@@ -1426,7 +1426,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Network"://网段信息表
 
-                                sql = $"CREATE TABLE Network (   NetworkId VARCHAR(255),   Name VARCHAR(255),   Description VARCHAR(255),   Network VARCHAR(255),   Netmask VARCHAR(255),   Parent VARCHAR(255),   Child VARCHAR(255),   TagA VARCHAR(255),   TagB VARCHAR(255),   TagC VARCHAR(255),   TagD  VARCHAR(255),   TagE  VARCHAR(255),   TagF  VARCHAR(255) , Del INT);";
+                                sql = $"CREATE TABLE Network ( NetworkId VARCHAR(255),   SortIndex INT,  Name VARCHAR(255),   Description VARCHAR(255),   Network VARCHAR(255),   Netmask VARCHAR(255),   Parent VARCHAR(255),   Child VARCHAR(255),   TagA VARCHAR(255),   TagB VARCHAR(255),   TagC VARCHAR(255),   TagD  VARCHAR(255),   TagE  VARCHAR(255),   TagF  VARCHAR(255) , Del INT);";
 
                                 break;
                             case "WindowTag"://窗口注释表

@@ -19,6 +19,8 @@
             get; set;
         }
 
+        public int? SortIndex{ get; set; }
+
         public string? TableName
         {
             get; set;

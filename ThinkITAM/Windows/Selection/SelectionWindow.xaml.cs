@@ -74,6 +74,8 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Asset", "UserUnit", "TEXT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("NetWork", "SortIndex", "INT");
+
 
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagA", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagB", "TEXT");
@@ -81,6 +83,9 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagD", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagE", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagF", "TEXT");
+
+                    //扩展网段表单字段
+                    ExtendSegmentTable();
 
                     Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
                     Properties.Settings.Default.Save();
@@ -101,6 +106,21 @@ public partial class SelectionWindow : Window
 
 
     }
+
+    /// <summary>
+    /// 对网段表添加字段
+    /// </summary>
+    private void ExtendSegmentTable()
+    {
+        var infos = Functions.FunctionClass.NetworkHelper.GetAllNetworkInfo();
+
+        foreach (var info in infos)
+        {
+            GlobalVariables.DbService.CheckAndAddColumnIfNotExists(info.TableName, "FullAddress", "TEXT");
+        }
+    }
+
+
 
     /// <summary>
     /// 初始化数据库
