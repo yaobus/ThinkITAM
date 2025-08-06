@@ -593,6 +593,8 @@ namespace ThinkITAM.FunctionPage
                 var selectedItem = (AssetViewModel)AssetDataGrid.SelectedItem;
                 var info = selectedItem as AssetViewModel;
 
+
+
                 NowSelectedItem = info;
 
                 AssetTagCard.DataContext = info;

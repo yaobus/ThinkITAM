@@ -181,10 +181,10 @@
 
             <Label
                 HorizontalAlignment="Center"
-                FontSize="8.5"
+                FontSize="9"
                 FontWeight="Bold"
                 Foreground="#2f9f9f">
-                ITAM资产信息二维码
+                ITAM资产二维码
             </Label>
 
             <Border
@@ -200,12 +200,15 @@
                 BorderThickness="0.3" />
 
             <Label
+                Padding="0,0,0,3"
+                x:Name="AssetId"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                FontSize="6.9"
-                Foreground="#2f9f9f">
-                扫描二维码查看更多信息
-            </Label>
+                FontSize="9"
+                Foreground="#2f9f9f" 
+                Content="{Binding AssetId}"
+                d:Content="ABCDEFG12345"
+                />
         </Grid>
 
         <Label

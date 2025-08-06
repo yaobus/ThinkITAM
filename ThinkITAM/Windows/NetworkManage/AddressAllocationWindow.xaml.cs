@@ -406,22 +406,41 @@ namespace ThinkITAM.Windows.NetworkManage
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql);
 
-                    DataBridge.DataBridge.IpAddressInfoLists[address].AddressStatus = 1;
-                    DataBridge.DataBridge.IpAddressInfoLists[address].User = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].AddressColor = 0;
-                    DataBridge.DataBridge.IpAddressInfoLists[address].Organization = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].Department = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].Phone = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].HostName = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].MacAddress = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].LinkDevice = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagA = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagB = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagC = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagD = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagE = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].TagF = "";
-                    DataBridge.DataBridge.IpAddressInfoLists[address].IsSelected = false;
+
+                    item.AddressStatus = 1;
+                    item.User = "";
+                    item.AddressColor = 0;
+                    item.Organization = "";
+                    item.Department = "";
+                    item.Phone="";
+                    item.HostName="";
+                    item.MacAddress = "";
+                    item.LinkDevice="";
+                    item.TagA = "";
+                    item.TagB = "";
+                    item.TagC = "";
+                    item.TagD = "";
+                    item.TagE = "";
+                    item.TagF = "";
+                    item.IsSelected=false;
+
+
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].AddressStatus = 1;
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].User = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].AddressColor = 0;
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].Organization = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].Department = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].Phone = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].HostName = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].MacAddress = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].LinkDevice = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagA = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagB = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagC = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagD = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagE = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].TagF = "";
+                    //DataBridge.DataBridge.IpAddressInfoLists[address].IsSelected = false;
 
                 }
 
