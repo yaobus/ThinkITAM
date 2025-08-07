@@ -12,7 +12,7 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     ResizeMode="NoResize"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
         <Thickness x:Key="DefaultMargin">10,3</Thickness>

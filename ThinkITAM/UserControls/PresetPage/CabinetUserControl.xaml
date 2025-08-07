@@ -115,8 +115,44 @@
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="删除机房或配线间" />
 
+                        <ProgressBar
+                            Width="40"
+                            Height="1"
+                            Opacity="0.3"
+                            Orientation="Vertical"
+                            Value="100" />
 
-
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="ClearSearchKeyWord"
+                                Click="ClearSearchKeyWord_OnClick"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                            </Button>
+                            <TextBox
+                                x:Name="SearchKeyWord"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                KeyDown="SearchKeyWord_OnKeyDown"
+                                Opacity="0.3" />
+                            <Button
+                                x:Name="SearchButton"
+                                Grid.Column="2"
+                                Click="SearchButton_OnClick"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                            </Button>
+                        </Grid>
 
 
 
@@ -389,6 +425,45 @@
                             IsEnabled="False"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="删除机柜信息" />
+
+                        <ProgressBar
+                            Width="40"
+                            Height="1"
+                            Opacity="0.3"
+                            Orientation="Vertical"
+                            Value="100" />
+
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="ClearSearchKeyWord2"
+                                Click="ClearSearchKeyWord2_OnClick"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                            </Button>
+                            <TextBox
+                                x:Name="SearchKeyWord2"
+                                Grid.Column="1"
+                                MinWidth="200"
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                KeyDown="SearchKeyWord2_OnKeyDown"
+                                Opacity="0.3" />
+                            <Button
+                                x:Name="SearchButton2"
+                                Grid.Column="2"
+                                Click="SearchButton2_OnClick"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                            </Button>
+                        </Grid>
 
 
 

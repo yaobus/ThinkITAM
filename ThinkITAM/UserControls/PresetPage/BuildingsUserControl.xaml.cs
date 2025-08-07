@@ -52,12 +52,16 @@ namespace ThinkITAM.UserControls.PresetPage
 
         private ObservableCollection<BuildingInfoClass> buildingInfos = new ObservableCollection<BuildingInfoClass>();
 
-        private void LoadBuildingInfos()
+        private void LoadBuildingInfos(string keyword = null)
         {
             buildingInfos.Clear();
+
             string sql = "SELECT * FROM Buildings WHERE (Del != 1 OR Del IS NULL)";
 
-
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                sql = $"SELECT * FROM Buildings WHERE Building LIKE '%{keyword}%' OR Address LIKE '%{keyword}%' OR User LIKE '%{keyword}%' OR Phone LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' AND (Del != 1 OR Del IS NULL)";
+            }
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -219,5 +223,31 @@ namespace ThinkITAM.UserControls.PresetPage
 
             }
         }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            //如果是回车键
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = string.Empty;
+            LoadBuildingInfos();
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            LoadBuildingInfos(SearchKeyWord.Text);
+
+
+
+        }
+
     }
 }

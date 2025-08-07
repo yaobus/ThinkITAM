@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using DocumentFormat.OpenXml.EMMA;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
 using ThinkITAM.ViewModels.LinkManage;
@@ -812,16 +813,33 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static int GetNextAvailableNumber(string tableName, string field, string filter = null)
         {
-            var usedNumbers = new HashSet<int>();
+            var usedNumbers = new HashSet<int?>();
 
             string sql = $"SELECT {field} FROM {tableName} {filter}"; // 假设Del为0表示未删除的记录   WHERE Del != 1 OR Del IS NULL
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
+
             foreach (var row in rows)
             {
-                usedNumbers.Add(Convert.ToInt32(row[$"{field}"]));
+
+
+                string? sort = row[$"{field}"].ToString();
+
+                if (!string.IsNullOrWhiteSpace(sort))
+                {
+                    usedNumbers.Add(Convert.ToInt32(sort));
+                }
+                else
+                {
+                    usedNumbers.Add(0);
+                }
+
+
+
+                //usedNumbers.Add(row[$"{field}"] as int?);
+
             }
 
 
@@ -1282,7 +1300,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "DeviceRoom"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceRoom\" (   \"DeviceRoomQrId\" text NOT NULL,   \"RoomName\" TEXT,   \"Location\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"Note\" TEXT, \"Del\" integer,  PRIMARY KEY (\"DeviceRoomQrId\") );";
+                                sql = $"CREATE TABLE \"DeviceRoom\" (   \"DeviceRoomQrId\" text NOT NULL,   \"SortIndex\" integer,  \"RoomName\" TEXT,   \"Location\" TEXT,   \"User\" TEXT,   \"UserPhone\" TEXT,   \"Note\" TEXT, \"Del\" integer,  PRIMARY KEY (\"DeviceRoomQrId\") );";
 
 
 
@@ -1299,7 +1317,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "DeviceCabinet"://设备间表
 
-                                sql = $"CREATE TABLE \"DeviceCabinet\" (   \"CabinetId\" text NOT NULL,   \"DeviceRoomQrId\" text,   \"CabinetName\" TEXT,   \"Position\" TEXT,   \"Note\" TEXT,  \"Del\" integer,    PRIMARY KEY (\"CabinetId\") ); ";
+                                sql = $"CREATE TABLE \"DeviceCabinet\" (   \"CabinetId\" text NOT NULL,   \"SortIndex\" integer,  \"DeviceRoomQrId\" text,   \"CabinetName\" TEXT,   \"Position\" TEXT,   \"Note\" TEXT,  \"Del\" integer,    PRIMARY KEY (\"CabinetId\") ); ";
 
 
                                 break;
@@ -1317,7 +1335,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Buildings"://建筑物表
 
-                                sql = $"CREATE TABLE \"Buildings\" (   \"BuildingId\" text NOT NULL,   \"Building\" TEXT,   \"Address\" TEXT,   \"User\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT, \"Del\" integer ,  PRIMARY KEY (\"BuildingId\") );";
+                                sql = $"CREATE TABLE \"Buildings\" (   \"BuildingId\" text NOT NULL, \"SortIndex\" integer,  \"Building\" TEXT,   \"Address\" TEXT,   \"User\" TEXT,   \"Phone\" TEXT,   \"Note\" TEXT, \"Del\" integer ,  PRIMARY KEY (\"BuildingId\") );";
 
 
                                 break;
@@ -1511,7 +1529,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceRoom"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL,   `RoomName` VARCHAR(255),   `Location` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Note` VARCHAR(255), `Del` INT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `RoomName` VARCHAR(255),   `Location` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Note` VARCHAR(255), `Del` INT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
 
                                 break;
@@ -1528,7 +1546,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceCabinet"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` VARCHAR(255),   `Position` VARCHAR(255),   `Note` VARCHAR(255),  `Del` INT,  PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` VARCHAR(255),   `Position` VARCHAR(255),   `Note` VARCHAR(255),  `Del` INT,  PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 
@@ -1546,7 +1564,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Buildings"://建筑物表
 
                                 sql =
-                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL,   `Building` VARCHAR(255),   `Address` VARCHAR(255),   `User` VARCHAR(255),   `Phone` VARCHAR(255),   `Note` VARCHAR(255),  Del INT ,  PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `Building` VARCHAR(255),   `Address` VARCHAR(255),   `User` VARCHAR(255),   `Phone` VARCHAR(255),   `Note` VARCHAR(255),  Del INT ,  PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
                                 break;
 

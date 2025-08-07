@@ -50,11 +50,21 @@ namespace ThinkITAM.UserControls.PresetPage
         }
 
         private ObservableCollection<AddressInfoViewModel> addressInfos = new ObservableCollection<AddressInfoViewModel>();
-        private void LoadAddress()
+        private void LoadAddress(string keyword = null)
         {
             addressInfos.Clear();
+            string query;
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = $"SELECT * FROM Address WHERE Location LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' AND (Del != 1 OR Del IS NULL);";
+            }
+            else
+            {
+                query = "SELECT * FROM Address WHERE (Del != 1 OR Del IS NULL);";
+            }
 
-            string query = "SELECT * FROM Address WHERE (Del != 1 OR Del IS NULL);";
+
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -182,5 +192,32 @@ namespace ThinkITAM.UserControls.PresetPage
 
             }
         }
+
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            //如果是回车键
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = string.Empty;
+            LoadAddress();
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            LoadAddress(SearchKeyWord.Text);
+
+
+
+        }
+
     }
 }

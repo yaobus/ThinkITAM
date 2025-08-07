@@ -84,11 +84,26 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <summary>
         /// 加载人员信息
         /// </summary>
-        private void LoadPeopleInfos()
+        private void LoadPeopleInfos(string keyword = null)
         {
             peopleInfos.Clear();
+            
+            string query;
 
-            string query = "SELECT * FROM UserInfo WHERE (Del != 1 OR Del IS NULL);";
+            
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = $"SELECT * FROM UserInfo WHERE Number LIKE '%{keyword}%'  OR Name LIKE '%{keyword}%'  OR Organization LIKE '%{keyword}%' OR Department LIKE '%{keyword}%' OR UserGroup LIKE '%{keyword}%' OR UserUnit LIKE '%{keyword}%' OR Phone LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' AND (Del != 1 OR Del IS NULL);";
+            }
+            else
+            {
+                query = "SELECT * FROM UserInfo WHERE (Del != 1 OR Del IS NULL);";
+            }
+
+
+          
+
+            Console.WriteLine(query);
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -280,6 +295,31 @@ namespace ThinkITAM.UserControls.PresetPage
                 // 调用导出方法
                 ExcelExporter.ExportToExcel(peopleInfos, selectedFilePath);
             }
+
+        }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            //如果是回车键
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = string.Empty;
+            LoadPeopleInfos();
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            LoadPeopleInfos(SearchKeyWord.Text);
+
+
 
         }
     }

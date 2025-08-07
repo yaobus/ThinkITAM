@@ -1,12 +1,26 @@
-﻿namespace ThinkITAM.ViewModels.NetworkManage
+﻿using System.ComponentModel;
+
+namespace ThinkITAM.ViewModels.NetworkManage
 {
 
-    public class NetworkInfoViewMode
+    public class NetworkInfoViewMode : INotifyPropertyChanged
     {
-
+        //是否选中
+        private bool isSelected;
         public bool IsSelected
         {
-            get; set;
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                if (isSelected != value)
+                {
+                    isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
+                }
+            }
         }
 
         //索引
@@ -105,7 +119,11 @@
             get; set;
         }
 
-
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
 

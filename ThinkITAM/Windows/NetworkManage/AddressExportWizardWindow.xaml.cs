@@ -523,6 +523,81 @@ namespace ThinkITAM.Windows.NetworkManage
 
             return prefix;
         }
+
+
+
+
+        private void HeaderCheckBox_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            CheckBox HeaderCheckBox = sender as CheckBox;
+
+          
+
+            if (HeaderCheckBox != null)
+            {
+                if (HeaderCheckBox.IsChecked == true)
+                {
+                    foreach (var item in networkInfos)
+                    {
+                        item.IsSelected = true;
+
+                    }
+                }
+                else
+                {
+                    foreach (var item in networkInfos)
+                    {
+                        item.IsSelected = false;
+
+                    }
+                }
+
+
+                UpdateHeaderCheckBoxState();
+            }
+
+        }
+
+        /// <summary>
+        /// 更新表头复选框状态
+        /// </summary>
+        private void UpdateHeaderCheckBoxState()
+        {
+            int checkedCount = 0;
+
+            foreach (var item in networkInfos)
+            {
+
+                if (item.IsSelected)
+                {
+                    checkedCount++;
+                }
+
+
+            }
+
+            bool allChecked = checkedCount == networkInfos.Count;
+            bool noneChecked = checkedCount == 0;
+
+            HeaderCheckBox.IsChecked = allChecked ? true : (noneChecked ? false : null);
+
+
+
+
+
+
+        }
+
+        private void SelectToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            UpdateHeaderCheckBoxState();
+        }
+
+        private void SelectToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            UpdateHeaderCheckBoxState();
+        }
     }
 }
 

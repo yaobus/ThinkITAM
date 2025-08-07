@@ -132,9 +132,10 @@
                         VerticalAlignment="Center"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Sort"
+                        MouseDoubleClick="SortIndex_OnMouseDoubleClick"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="0"
-                        ToolTip="数字越大越靠前" />
+                        ToolTip="数字越大越靠前,双击自动获取" />
                 </StackPanel>
 
 

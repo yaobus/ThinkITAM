@@ -236,7 +236,21 @@ public partial class NetworkAddressManagePage : UserControl
 
                 info.TableName = tableName;
                 info.NetworkId = row["NetworkId"].ToString();
-                info.SortIndex = row["SortIndex"] as int?;
+
+                string? sort = row["SortIndex"].ToString();
+
+                if (!string.IsNullOrWhiteSpace(sort))
+                {
+                    info.SortIndex = Convert.ToInt32(sort);
+
+                }
+                else
+                {
+                    info.SortIndex = 0;
+                }
+
+                //info.SortIndex = row["SortIndex"] == DBNull.Value ? null : (int?)row["SortIndex"];
+
                 info.Name = row["Name"].ToString();
                 info.Description = row["Description"].ToString();
                 info.Network = row["Network"].ToString();

@@ -22,18 +22,7 @@
             <RowDefinition Height="60" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Visibility="Collapsed">
-            <CheckBox
-                Content="Dark"
-                IsChecked="True"
-                Style="{StaticResource MaterialDesignDarkCheckBox}" />
 
-            <CheckBox
-                Content="Dark"
-                IsChecked="True"
-                Style="{StaticResource MaterialDesignDarkCheckBox}" />
-
-        </StackPanel>
 
         <DataGrid
             x:Name="NetworkInfosDataGrid"
@@ -56,12 +45,9 @@
                                 x:Name="HeaderCheckBox"
                                 Width="24"
                                 Height="24"
-                                IsThreeState="True"
-                                Visibility="Collapsed" />
-                            <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
-                                Kind="OrderBoolAscendingVariant" />
+                                Click="HeaderCheckBox_OnClick"
+                                IsThreeState="True" />
+
                             <TextBlock
                                 Margin="5,0"
                                 VerticalAlignment="Center"
@@ -77,7 +63,9 @@
                                     x:Name="SelectToggleButton"
                                     Padding="0"
                                     BorderThickness="0"
-                                    IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    Checked="SelectToggleButton_OnChecked"
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Unchecked="SelectToggleButton_OnUnchecked">
                                     <materialDesign:PackIcon
                                         Width="20"
                                         Height="20"

@@ -38,11 +38,19 @@ namespace ThinkITAM.UserControls.PresetPage
         /// <summary>
         /// 加载机房信息
         /// </summary>
-        private void LoadDeviceRoomInfo()
+        private void LoadDeviceRoomInfo(string keyword = null)
         {
             deviceRoomInfos.Clear();
 
             string query = "SELECT * FROM DeviceRoom WHERE (Del != 1 OR Del IS NULL);";
+
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = $"SELECT * FROM DeviceRoom WHERE RoomName LIKE '%{keyword}%' OR Location LIKE '%{keyword}%'  OR User LIKE '%{keyword}%' OR UserPhone LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' AND  (Del != 1 OR Del IS NULL);";
+            }
+
+
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -109,11 +117,17 @@ namespace ThinkITAM.UserControls.PresetPage
             }
         }
 
-        private void LoadCabinetInfo(string deviceRoomQrId)
+        private void LoadCabinetInfo(string deviceRoomQrId, string keyword = null)
         {
             deviceCabinetInfos.Clear();
 
             string query = $"SELECT * FROM DeviceCabinet WHERE DeviceRoomQrId='{deviceRoomQrId}' AND (Del != 1 OR Del IS NULL);";
+
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = $"SELECT * FROM DeviceCabinet WHERE DeviceRoomQrId='{deviceRoomQrId}'  AND (Del != 1 OR Del IS NULL) AND (CabinetName LIKE '%{keyword}%' OR Position LIKE '%{keyword}%' OR Note LIKE '%{keyword}%');";
+            }
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -387,6 +401,55 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
             }
+        }
+
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            //如果是回车键
+            if (e.Key == Key.Enter)
+            {
+                SearchButton_OnClick(null, null);
+            }
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text = string.Empty;
+            LoadDeviceRoomInfo();
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            LoadDeviceRoomInfo(SearchKeyWord.Text);
+
+
+
+        }
+
+
+        private void ClearSearchKeyWord2_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord2.Text = string.Empty;
+
+            LoadCabinetInfo(roomId);
+        }
+
+        private void SearchKeyWord2_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            //如果是回车键
+            if (e.Key == Key.Enter)
+            {
+                SearchButton2_OnClick(null, null);
+            }
+        }
+
+        private void SearchButton2_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            LoadCabinetInfo(roomId,SearchKeyWord2.Text);
         }
     }
 }

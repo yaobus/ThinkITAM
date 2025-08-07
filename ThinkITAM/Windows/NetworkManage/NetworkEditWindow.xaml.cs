@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
@@ -37,7 +39,23 @@ namespace ThinkITAM.Windows.NetworkManage
                 foreach (var row in rows)
                 {
                     info.Name = row["Name"].ToString();
-                    info.SortIndex= Convert.ToInt32(row["SortIndex"]);
+
+                    //info.SortIndex = row["SortIndex"] as int?;
+
+
+                    string? sort = row["SortIndex"].ToString();
+
+                    if (!string.IsNullOrWhiteSpace(sort))
+                    {
+                        info.SortIndex = Convert.ToInt32(sort);
+
+                    }
+                    else
+                    {
+                        info.SortIndex = 0;
+                    }
+
+
                     info.Description = row["Description"].ToString();
                     info.Network = row["Network"].ToString();
                     info.Netmask = row["Netmask"].ToString();
@@ -67,6 +85,10 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
                 this.DataContext = info;
+            }
+            else
+            {
+                SortIndex.Text = DbClass.GetNextAvailableNumber("Network", "SortIndex").ToString();
             }
 
 
@@ -103,7 +125,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
             var id = DataBridge.DataBridge.SelectNetworkInfo.NetworkId;
-            var sortIndex= Convert.ToInt32(SortIndex.Text);
+            var sortIndex= Convert.ToInt32(SortIndex.Text); 
             var name = TbName.Text;
             var description = Description.Text;
             var tagA = TagA.Text;
@@ -195,6 +217,11 @@ namespace ThinkITAM.Windows.NetworkManage
                 TagB.ItemsSource = childList;
 
             }
+        }
+
+        private void SortIndex_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SortIndex.Text = DbClass.GetNextAvailableNumber("Network", "SortIndex").ToString();
         }
     }
 }

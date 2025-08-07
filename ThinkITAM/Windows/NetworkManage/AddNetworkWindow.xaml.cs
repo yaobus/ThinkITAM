@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
@@ -712,7 +713,9 @@ namespace ThinkITAM.Windows.NetworkManage
         }
 
 
-
-
+        private void SortIndex_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SortIndex.Text = DbClass.GetNextAvailableNumber("Network", "SortIndex").ToString();
+        }
     }
 }

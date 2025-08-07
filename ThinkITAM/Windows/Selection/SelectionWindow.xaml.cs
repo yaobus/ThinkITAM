@@ -74,7 +74,7 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Organization", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("UserInfo", "UserUnit", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Asset", "UserUnit", "TEXT");
-                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("NetWork", "SortIndex", "INT");
+
 
 
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagA", "TEXT");
@@ -84,6 +84,11 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagE", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagF", "TEXT");
 
+
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("NetWork", "SortIndex", "INT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("DeviceRoom", "SortIndex", "INT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("DeviceCabinet", "SortIndex", "INT");
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Buildings", "SortIndex", "INT");
                     //扩展网段表单字段
                     ExtendSegmentTable();
 
