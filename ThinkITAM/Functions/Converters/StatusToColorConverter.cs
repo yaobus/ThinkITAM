@@ -8,6 +8,7 @@ public class StatusToColorConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var status = (int)value;
+
         switch (status)
         {
             case 0: return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#939597"));

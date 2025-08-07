@@ -26,6 +26,7 @@ namespace ThinkITAM.Windows.NetworkManage
             if (addressInfos != null)
             {
                 infos = addressInfos;
+
             }
 
 
@@ -38,6 +39,8 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         private bool EditMode = true;
 
+
+        private int addressStatus;
         private void AddressAllocationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
@@ -54,6 +57,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (infos != null)
             {
+                //存储端口状态
+                addressStatus = infos[0].AddressStatus;
+
+                Console.WriteLine(infos[0].AddressStatus);
+
+
                 // 使用LINQ查询筛选出IsSelected为true的所有项
                 var selectedItems = infos.Where(item => item.IsSelected == true).ToList();
 
@@ -538,6 +547,17 @@ namespace ThinkITAM.Windows.NetworkManage
 
                     x++;
                 }
+
+            }
+        }
+
+        private void IsAllocation_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            if (IsAllocation.IsChecked == false)
+            {
+                infos[0].AddressStatus = addressStatus;
 
             }
         }

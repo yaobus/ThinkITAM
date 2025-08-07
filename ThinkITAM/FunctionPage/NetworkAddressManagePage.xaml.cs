@@ -1134,9 +1134,10 @@ public partial class NetworkAddressManagePage : UserControl
 
                     int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
 
-                    info.AddressStatus = addressStatus;
 
-                    Brush brush;
+
+
+                    info.AddressStatus = addressStatus;
 
 
                     if (addressStatus == 0 || addressStatus == 4)
@@ -1280,7 +1281,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     info.AddressStatus = status;
 
-                    Brush brush;
+
 
 
                     if (status == 0 || status == 4)
@@ -1400,10 +1401,8 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Address = Convert.ToInt32(row["Address"].ToString());
                 info.FullAddress = $"{prefix}{info.Address}";
                 int status = Convert.ToInt32(row["AddressStatus"].ToString());
-
+                
                 info.AddressStatus = status;
-
-                Brush brush;
 
 
                 if (status == 0 || status == 4)
