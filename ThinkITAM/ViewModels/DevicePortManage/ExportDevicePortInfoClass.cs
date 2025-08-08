@@ -12,7 +12,7 @@ namespace ThinkITAM.ViewModels.DevicePortManage
     public class CommonExportClass
     {
         /// <summary>
-        /// 要导出的数据类型 0:IP地址信息 1:设备端口信息 2:资产信息
+        /// 要导出的数据类型 0:IP地址信息 1:设备端口信息 2:资产信息 3:资产LOG
         /// </summary>
         public int Type
         {

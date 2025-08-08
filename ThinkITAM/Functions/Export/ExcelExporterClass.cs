@@ -427,6 +427,42 @@ namespace ThinkITAM.Functions.Export
 
 
                     break;
+                case 3://资产日志
+
+                    headers = new Dictionary<string, string>
+                    {
+                        {"Index","序号"},
+                        {"EventDate","事件日期"},
+                        {"EventContent","事件内容"},
+                        {"Name","相关用户"},
+                        {"Note","备注信息"},
+
+
+
+                        {"TagA","TagA"},
+                        {"TagB","TagB"},
+                        {"TagC","TagC"},
+                        {"TagD","TagD"},
+                        {"TagE","TagE"},
+                        {"TagF","TagF"}
+                    };
+
+
+                    if (expInfo.WindowTags != null)
+                    {
+                        var tags = expInfo.WindowTags;
+
+                        headers["TagA"] = tags.TagA;
+                        headers["TagB"] = tags.TagB;
+                        headers["TagC"] = tags.TagC;
+                        headers["TagD"] = tags.TagD;
+                        headers["TagE"] = tags.TagE;
+                        headers["TagF"] = tags.TagF;
+                    }
+
+
+
+                    break;
             }
 
 

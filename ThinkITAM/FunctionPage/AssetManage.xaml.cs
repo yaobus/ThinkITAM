@@ -636,6 +636,7 @@ namespace ThinkITAM.FunctionPage
         private void LoadAssetLogs(string assetId)
         {
             logs.Clear();
+
             if (!string.IsNullOrWhiteSpace(assetId))
             {
                 var sql = $"SELECT AssetLog.*, UserInfo.Name FROM AssetLog INNER JOIN UserInfo ON AssetLog.AboutUser = UserInfo.UserID WHERE AssetId='{assetId}'";
@@ -665,6 +666,15 @@ namespace ThinkITAM.FunctionPage
                 }
 
 
+            }
+
+            if (logs.Count > 0)
+            {
+                DataLogExport.IsEnabled = true;
+            }
+            else
+            {
+                DataLogExport.IsEnabled = false;
             }
 
         }
@@ -1443,6 +1453,51 @@ namespace ThinkITAM.FunctionPage
             {
                 LoadTags();
             }
+
+        }
+
+
+        /// <summary>
+        /// 日志导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataLogExport_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+
+            if (logs == null || logs.Count == 0)
+            {
+                MessageBox.Show("没有可导出的数据。");
+                return;
+            }
+
+            var fileName = $"({NowSelectedItem.AssetType}-{NowSelectedItem.DeviceType}-{NowSelectedItem.AssetNumber})-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+
+            // 创建保存文件对话框
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                FileName = $"{fileName}"  // 默认文件名
+            };
+
+            var expInfo = new CommonExportClass();
+            expInfo.Type = 3;
+            expInfo.WindowTags = settingTags;
+
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = saveFileDialog.FileName;
+
+                // 调用导出方法
+                ExcelExporter.ExportToExcel(logs, selectedFilePath, expInfo);
+            }
+
+
 
         }
     }

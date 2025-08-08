@@ -814,6 +814,7 @@
                                 <DataTemplate>
                                     <Grid>
                                         <TextBlock
+                                            MaxWidth="200"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             FontWeight="ExtraBold"
@@ -1335,9 +1336,35 @@
                             <materialDesign:PackIcon
                                 Width="20"
                                 Height="20"
-                                Margin="0,0,10,0"
-                                Kind="FormatListChecks" />
-                            <TextBlock VerticalAlignment="Center" Text="资产履历" />
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                Kind="MathLog" />
+
+                            <TextBlock
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                Text="资产履历" />
+
+                            <Button
+                                x:Name="DataLogExport"
+                                Width="28"
+                                Height="16"
+                                Margin="5,0"
+                                Padding="0"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Click="DataLogExport_OnClick"
+                                IsEnabled="False"
+                                Style="{StaticResource MaterialDesignFlatLightButton}"
+                                ToolTip="资产履历导出">
+
+                                <materialDesign:PackIcon Kind="TableArrowRight" />
+
+
+
+                            </Button>
+
                         </StackPanel>
                     </Expander.Header>
                     <Grid>
