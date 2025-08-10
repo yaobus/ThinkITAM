@@ -345,6 +345,7 @@ namespace ThinkITAM.Windows.DevicePortManage
                     portModes.Add("Hybrid");
                     portModes.Add("Trunk");
                     portModes.Add("Access");
+                    portModes.Add("Route");
                 }
             }
 

@@ -689,8 +689,8 @@
                 <CheckBox
                     x:Name="IsAllocation"
                     Margin="20,0,0,0"
-                    Content="是否启用分配"
                     Click="IsAllocation_OnClick"
+                    Content="是否启用分配"
                     IsChecked="{Binding AddressStatus, Converter={StaticResource AddressStatusToBoolConverter}, Mode=OneWay}"
                     Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
 

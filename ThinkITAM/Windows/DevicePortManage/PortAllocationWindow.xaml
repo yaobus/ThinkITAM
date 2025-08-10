@@ -272,7 +272,7 @@
                         <ListBox
                             x:Name="PortColor"
                             Width="250"
-                            Height="30"
+                            Height="28"
                             Margin="0,0,10,0"
                             SelectedIndex="{Binding PortColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectionChanged="PortColor_OnSelectionChanged"
@@ -536,13 +536,15 @@
                         <TextBox
                             x:Name="TagF"
                             Width="250"
-                            Height="28"
+                            Height="90"
                             Padding="3"
                             VerticalAlignment="Center"
-                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="False"
                             materialDesign:TextFieldAssist.LeadingIcon="TagHeart"
+                            AcceptsReturn="True"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding TagF, Mode=TwoWay}" />
+                            Text="{Binding TagF, Mode=TwoWay}"
+                            VerticalScrollBarVisibility="Auto" />
                     </StackPanel>
 
                     <StackPanel
