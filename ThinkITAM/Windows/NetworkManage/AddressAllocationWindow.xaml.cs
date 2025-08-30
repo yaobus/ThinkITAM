@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Media;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
@@ -60,7 +63,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 //存储端口状态
                 addressStatus = infos[0].AddressStatus;
 
-                Console.WriteLine(infos[0].AddressStatus);
+               // Console.WriteLine(infos[0].AddressStatus);
 
 
                 // 使用LINQ查询筛选出IsSelected为true的所有项
@@ -561,5 +564,71 @@ namespace ThinkITAM.Windows.NetworkManage
 
             }
         }
+
+
+        /// <summary>
+        /// 按下鼠标左键时，将地址放到剪切板
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectedAddress_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+
+                // 使用LINQ查询筛选出IsSelected为true的所有项
+                var selectedItems = infos.Where(item => item.IsSelected == true).ToList();
+
+                // 将这些筛选出来的项放入一个新的ObservableCollection中
+                var selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
+
+               
+                if (selectedItemsCollection.Count > 0) //数量太多，仅显示一部分
+                {
+                    var addressStr = String.Empty;
+
+                    foreach (var item in selectedItemsCollection)
+                    {
+
+                        addressStr += $"{item.FullAddress}\r";
+
+                    }
+
+                    //放到剪切板
+                    PlayEmbeddedSound();
+                    Clipboard.SetDataObject(addressStr);
+                }
+
+
+
+            }
+
+
+        }
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                              
+        /// <summary>
+        /// 播放提示音
+        /// </summary>
+        public void PlayEmbeddedSound()
+        {
+            // 获取当前程序集
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // 资源路径格式：命名空间.文件夹.文件名.wav
+            using (var stream = assembly.GetManifestResourceStream("ThinkITAM.Resources.Sounds.CopySounds.wav"))
+            {
+                if (stream != null)
+                {
+                    var player = new SoundPlayer(stream);
+                    player.Play(); // 异步播放
+                    // player.PlaySync(); // 同步播放
+                }
+            }
+        }
+
     }
 }

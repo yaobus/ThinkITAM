@@ -188,7 +188,9 @@
                 <TextBlock
                     x:Name="SelectedAddress"
                     d:Text="192.168.0.2"
+                    Cursor="Hand"
                     FontWeight="ExtraBold"
+                    MouseDown="SelectedAddress_OnMouseDown"
                     Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
 
             </StackPanel>
