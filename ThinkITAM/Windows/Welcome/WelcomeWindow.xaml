@@ -46,7 +46,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid x:Name="QrGrid" Grid.Column="1">
+            <Grid x:Name="QrGrid" Grid.Column="1" Visibility="Collapsed">
                 <Image
                     Margin="10"
                     Source="/Resources/Image/QR.png"

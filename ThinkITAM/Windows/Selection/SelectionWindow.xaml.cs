@@ -214,14 +214,19 @@ public partial class SelectionWindow : Window
     /// <summary>
     /// 清空全局变量
     /// </summary>
-    private void ClearGlobleValue()
+    private void ClearGlobalValue(int index=0)
     {
-        DataBridge.DataBridge.NetworkTableName = null;
-        DataBridge.DataBridge.OperationType = 0;
-        DataBridge.DataBridge.IpAddressInfoLists.Clear();
-        DataBridge.DataBridge.LoadedNetworkSegment = null;
-        DataBridge.DataBridge.LinkViewList.Clear();
-        DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+        if (index > 0)
+        {
+            DataBridge.DataBridge.NetworkTableName = null;
+            DataBridge.DataBridge.OperationType = 0;
+            DataBridge.DataBridge.IpAddressInfoLists.Clear();
+            DataBridge.DataBridge.LoadedNetworkSegment = null;
+            DataBridge.DataBridge.LinkViewList.Clear();
+            DataBridge.DataBridge.PortPanelLinkViewList.Clear();
+        }
+
+
     }
 
     private void TopControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -254,7 +259,8 @@ public partial class SelectionWindow : Window
     private void MenuList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         int index = MenuList.SelectedIndex;
-        ClearGlobleValue();
+
+        ClearGlobalValue(index);
 
         MenuList2.SelectedIndex = -1;
 
