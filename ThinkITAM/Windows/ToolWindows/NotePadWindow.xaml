@@ -20,6 +20,7 @@
     WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:ViewModeToColumnWidthConverter x:Key="ViewModeToColumnWidthConverter" />
     </Window.Resources>
 
     <Grid>
@@ -573,15 +574,6 @@
                                 Kind="ContentSave" />
                         </Button>
                     </StackPanel>
-                    <ToggleButton
-                        x:Name="ViewMode"
-                        Grid.Column="1"
-                        Margin="10"
-                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=EyeOutline}"
-                        Content="{materialDesign:PackIcon Kind=EyeClosed}"
-                        IsChecked="True"
-                        Style="{StaticResource MaterialDesignActionToggleButton}"
-                        ToolTip="显示\隐藏预览区" />
 
                 </StackPanel>
             </Grid>
@@ -592,36 +584,34 @@
             Grid.RowSpan="2"
             Grid.Column="1"
             Margin="2.5,2.5,5,5">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    x:Name="InputTextBox"
-                    Grid.Column="0"
-                    Margin="10"
-                    AcceptsReturn="True"
-                    HorizontalScrollBarVisibility="Auto"
-                    VerticalScrollBarVisibility="Auto" />
 
-                <GridSplitter
-                    Grid.Column="1"
-                    Width="3"
-                    Margin="0,10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Stretch"
-                    Background="DarkGray"
-                    ResizeDirection="Columns"
-                    ShowsPreview="False"
-                    Visibility="{Binding IsChecked, ElementName=ViewMode, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Grid x:Name="ViewGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Expander Grid.Column="0" ExpandDirection="Right">
+                    <TextBox
+                        x:Name="InputTextBox"
+                        Margin="10"
+                        HorizontalAlignment="Stretch"
+                        AcceptsReturn="True"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto" />
+
+                </Expander>
 
                 <wpf:MarkdownViewer
-                    Grid.Column="2"
+                    x:Name="MarkdownViewer"
+                    Grid.Column="1"
                     Margin="10"
-                    Markdown="{Binding Text, ElementName=InputTextBox}"
-                    Visibility="{Binding IsChecked, ElementName=ViewMode, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    HorizontalAlignment="Stretch"
+                    Markdown="{Binding Text, ElementName=InputTextBox}" />
+
+
+
+
             </Grid>
 
         </materialDesign:Card>
@@ -634,8 +624,8 @@
             Grid.RowSpan="3"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            MessageQueue="{materialDesign:MessageQueue}"
-            Margin="0,0,0,10" />
+            Margin="0,0,0,10"
+            MessageQueue="{materialDesign:MessageQueue}" />
     </Grid>
 
 

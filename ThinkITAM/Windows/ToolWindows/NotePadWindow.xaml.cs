@@ -46,6 +46,8 @@ namespace ThinkITAM.Windows.ToolWindows
         /// </summary>
         private void LoadNoteBooks()
         {
+            NoteTree.Items.Clear();
+
             // 第一步，从数据库取出所有笔记本名称（去重）
 
             var query = $"SELECT DISTINCT NoteGroup FROM NoteBook WHERE Del != 1 OR Del IS NULL ;";
@@ -602,13 +604,13 @@ namespace ThinkITAM.Windows.ToolWindows
                 {
                     var editDate = DateTime.Now;
                     var note = InputTextBox.Text;
-
+                    var name = NoteName.Text;
                     var data = new
                     {
                         NoteId = noteBook["NoteId"],
                         NoteGroup = noteBook["NoteGroup"],
                         NoteUnit = noteBook["NoteUnit"],
-                        NoteName = noteBook["NoteName"],
+                        NoteName = name,
                         CreatedDate = noteBook["CreatedDate"],
                         EditDate = editDate,
                         Note = note
@@ -621,8 +623,12 @@ namespace ThinkITAM.Windows.ToolWindows
 
                     GlobalVariables.DbService.UpdateEntity("NoteBook", data, conditions);
 
-                    
                     SendMessage("已保存",1);
+
+                    if (name != noteBook["NoteName"])
+                    {
+                        LoadNoteBooks();
+                    }
 
                 }
                 else
@@ -641,7 +647,11 @@ namespace ThinkITAM.Windows.ToolWindows
 
 
 
-
+        /// <summary>
+        /// 发送通知
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="time"></param>
         private void SendMessage(string message,int time)
         {
             var duration = time;
@@ -655,6 +665,10 @@ namespace ThinkITAM.Windows.ToolWindows
                 true,
                 TimeSpan.FromSeconds(duration));
         }
+
+
+
+
 
 
     }
