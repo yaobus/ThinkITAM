@@ -1413,6 +1413,10 @@ namespace ThinkITAM.DatabaseOperation
                             case "AssetLog":
                                 sql = $"CREATE TABLE AssetLog  (UID integer, AssetId  text,  EventDate DATE, EventContent  text,  AboutUser text,  Note  text ,  TagA TEXT, TagB TEXT, TagC TEXT, TagD TEXT, TagE TEXT, TagF TEXT,   Del integer);";
                                 break;
+
+                            case "NoteBook":
+                                sql = $"CREATE TABLE NoteBook  (NoteId  text,NoteGroup Text, NoteUnit Text, NoteName Text, CreatedDate DATE, EditDate DATE,Note  text, Del integer);";
+                                break;
                         }
 
 
@@ -1642,6 +1646,12 @@ namespace ThinkITAM.DatabaseOperation
                             case "AssetLog":
                                 sql = $"CREATE TABLE `AssetLog`  ( `UID` INT , `AssetId`   VARCHAR(64), `EventDate` DATE, `EventContent` text,`AboutUser` VARCHAR(64), `Note`   VARCHAR(64) ,  `TagA` VARCHAR(64), `TagB` VARCHAR(64), `TagC` VARCHAR(64), `TagD` VARCHAR(64), `TagE` VARCHAR(64), `TagF` VARCHAR(64),   `Del`  INT );";
                                 break;
+
+
+                            case "NoteBook":
+                                sql = $"CREATE TABLE `NoteBook`  (`NoteId`  VARCHAR(64),`NoteGroup` VARCHAR(64), `NoteUnit`VARCHAR(64), `NoteName` VARCHAR(64), `CreatedDate` DATE,`EditDate` DATE, `Note`  text, `Del` integer);";
+                                break;
+
                         }
 
 

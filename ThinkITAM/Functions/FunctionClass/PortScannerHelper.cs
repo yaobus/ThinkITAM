@@ -80,8 +80,8 @@ namespace ThinkITAM.Functions.FunctionClass
                 Title = title,
                 Prompt = message,
                 ConfirmButtonText = "确认",
-                TitleColor = Brushes.AliceBlue,
-                PromptColor = Brushes.AliceBlue
+                TitleColor = Brushes.DimGray,
+                PromptColor = Brushes.DimGray
 
             };
 

@@ -1,12 +1,643 @@
-﻿<Window x:Class="ThinkITAM.Windows.ToolWindows.NotePadWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
-        mc:Ignorable="d"
-        Title="NotePadWindow" Height="450" Width="800">
+﻿<Window
+    x:Class="ThinkITAM.Windows.ToolWindows.NotePadWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
+    Title="记事本"
+    Width="1366"
+    Height="768"
+    MinWidth="1366"
+    MinHeight="768"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="NotePadWindow_OnLoaded"
+    ResizeMode="CanResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
     <Grid>
-        <RichTextBox/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+
+
+
+        <materialDesign:Card
+            Grid.Row="0"
+            Grid.Column="0"
+            Height="50"
+            Margin="5,5,2.5,2.5"
+            VerticalAlignment="Center"
+            materialDesign:ElevationAssist.Elevation="Dp1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ClearSearchKeyWord" Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                </Button>
+                <TextBox
+                    x:Name="SearchKeyWord"
+                    Grid.Column="1"
+                    MinWidth="200"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                    materialDesign:HintAssist.HintOpacity="0.3"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0" />
+                <Button
+                    x:Name="SearchButton"
+                    Grid.Column="2"
+                    Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5,2.5,2.5,2.5">
+
+            <TreeView
+                x:Name="NoteTree"
+                MinWidth="220"
+                SelectedItemChanged="NoteTree_OnSelectedItemChanged" />
+
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="5,2.5,2.5,5">
+            <Grid
+                Margin="10,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <materialDesign:PopupBox
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    Padding="0"
+                    BorderThickness="0">
+
+                    <materialDesign:PopupBox.ToggleContent>
+
+                        <materialDesign:ColorZone
+                            Width="80"
+                            Height="32"
+                            Background="Transparent"
+                            ClipToBounds="False"
+                            CornerRadius="5">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="PlusBoxOutline" />
+
+
+                        </materialDesign:ColorZone>
+
+                    </materialDesign:PopupBox.ToggleContent>
+
+                    <StackPanel>
+
+                        <Button
+                            x:Name="AddButton"
+                            Margin="10"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="{DynamicResource IpAdd}">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="TagPlusOutline" />
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddButtonTitle}" />
+                            </StackPanel>
+                        </Button>
+
+
+
+                        <Button
+                            x:Name="AddGroupButton"
+                            Margin="10"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="{DynamicResource IpAddGroup}">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="Group" />
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddGroup}" />
+                            </StackPanel>
+
+                        </Button>
+
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+
+
+
+
+
+                <Button
+                    x:Name="EditButton"
+                    Grid.Column="1"
+                    Margin="10"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Kind="OrderAlphabeticalAscending" />
+                </Button>
+
+
+
+
+
+                <Button
+                    x:Name="DeleteButton"
+                    Grid.Column="2"
+                    Margin="10"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Foreground="#Cf3539"
+                        Kind="DeleteOutline" />
+
+                </Button>
+
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="2.5,5,5,2.5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ToolBarTray
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Background="Transparent">
+                    <ToolBar
+                        Background="Transparent"
+                        ClipToBounds="False"
+                        Style="{StaticResource MaterialDesignToolBar}">
+
+                        <Button
+                            x:Name="OverStrikingButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="OverStrikingButton_OnClick"
+                            ToolTip="加粗">
+                            <materialDesign:PackIcon Kind="FormatBold" />
+                        </Button>
+
+                        <Button
+                            x:Name="FormatItalicButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="FormatItalicButton_OnClick"
+                            ToolTip="斜体">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatItalic" />
+                        </Button>
+
+                        <Button
+                            x:Name="ListBulletedButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="ListBulletedButton_OnClick"
+                            ToolTip="无序列表">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatListBulleted" />
+                        </Button>
+
+                        <Button
+                            x:Name="FormatListNumberedButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="FormatListNumberedButton_OnClick"
+                            ToolTip="有序列表">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatListNumbered" />
+                        </Button>
+                        <materialDesign:PopupBox
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            Padding="0"
+                            BorderThickness="0"
+                            ToolTip="标题">
+
+                            <materialDesign:PopupBox.ToggleContent>
+
+                                <materialDesign:ColorZone
+                                    Width="48"
+                                    Height="32"
+                                    Background="Transparent"
+                                    ClipToBounds="False"
+                                    CornerRadius="5">
+                                    <materialDesign:PackIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="FormatHeaderPound" />
+
+
+                                </materialDesign:ColorZone>
+
+                            </materialDesign:PopupBox.ToggleContent>
+
+                            <StackPanel>
+
+                                <Button
+                                    x:Name="SetH1"
+                                    Margin="10"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="SetH1_OnClick"
+                                    Cursor="Hand"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="一级标题">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Kind="FormatHeader1" />
+
+                                    </StackPanel>
+                                </Button>
+
+                                <Button
+                                    x:Name="SetH2"
+                                    Margin="10"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="SetH2_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="二级标题">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Kind="FormatHeader2" />
+
+                                    </StackPanel>
+
+                                </Button>
+                                <Button
+                                    x:Name="SetH3"
+                                    Margin="10"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="SetH3_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="三级标题">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Kind="FormatHeader3" />
+
+                                    </StackPanel>
+
+                                </Button>
+                                <Button
+                                    x:Name="SetH4"
+                                    Margin="10"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="SetH4_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="四级标题">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Kind="FormatHeader4" />
+
+                                    </StackPanel>
+
+                                </Button>
+                                <Button
+                                    x:Name="SetH5"
+                                    Margin="10"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="SetH5_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="五级标题">
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="20"
+                                            Height="20"
+                                            Kind="FormatHeader5" />
+
+                                    </StackPanel>
+
+                                </Button>
+
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+
+
+                        <Separator />
+
+                        <Button
+                            x:Name="SubscriptButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="SubscriptButton_OnClick">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatSubscript" />
+                        </Button>
+
+
+                        <Button
+                            x:Name="SuperscriptButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="SuperscriptButton_OnClick">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatSuperscript" />
+                        </Button>
+
+                        <Separator />
+
+                        <Button
+                            x:Name="MinusLineButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="MinusLineButton_OnClick"
+                            ToolTip="分割线">
+                            <materialDesign:PackIcon Kind="Minus" />
+                        </Button>
+                        <Separator />
+                        <Button
+                            x:Name="CodeJsonButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="CodeJsonButton_OnClick"
+                            ToolTip="代码块">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="CodeJson" />
+                        </Button>
+
+                        <Button
+                            x:Name="FormatQuoteOpenButton"
+                            Width="48"
+                            Height="32"
+                            Padding="0"
+                            Click="FormatQuoteOpenButton_OnClick"
+                            ToolTip="引用块">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="FormatQuoteOpen" />
+                        </Button>
+                        <Separator />
+                        <Border
+                            Height="35"
+                            Margin="5,0"
+                            Padding="0"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0.5"
+                            CornerRadius="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox
+                                    x:Name="ImageUrl"
+                                    Width="100"
+                                    Height="24"
+                                    Margin="5,0"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="0.5"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    ToolTip="在线图片URL" />
+
+                                <Button
+                                    x:Name="ImageButton"
+                                    Width="32"
+                                    Height="32"
+                                    Padding="0"
+                                    Click="ImageButton_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="插入在线图片">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="FileImagePlusOutline" />
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Height="35"
+                            Padding="0"
+                            BorderBrush="DarkGray"
+                            BorderThickness="0.5"
+                            CornerRadius="5">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+
+                                <materialDesign:NumericUpDown
+                                    x:Name="NumX"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Maximum="100"
+                                    Minimum="2"
+                                    ToolTip="行" />
+
+                                <materialDesign:NumericUpDown
+                                    x:Name="NumY"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    ToolTip="列" />
+
+                                <Button
+                                    x:Name="TableButton"
+                                    Width="32"
+                                    Height="32"
+                                    Padding="0"
+                                    Click="TableButton_OnClick"
+                                    Style="{StaticResource MaterialDesignFlatLightButton}"
+                                    ToolTip="插入表格">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="TablePlus" />
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+
+
+                    </ToolBar>
+                </ToolBarTray>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            x:Name="NoteName"
+                            Width="100"
+                            Height="24"
+                            Margin="5,0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            BorderThickness="0.5"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            ToolTip="笔记名称" />
+
+                        <Button
+                            x:Name="SaveButton"
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Click="SaveButton_OnClick"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="保存">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="ContentSave" />
+                        </Button>
+                    </StackPanel>
+                    <ToggleButton
+                        x:Name="ViewMode"
+                        Grid.Column="1"
+                        Margin="10"
+                        materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=EyeOutline}"
+                        Content="{materialDesign:PackIcon Kind=EyeClosed}"
+                        IsChecked="True"
+                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                        ToolTip="显示\隐藏预览区" />
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Margin="2.5,2.5,5,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="InputTextBox"
+                    Grid.Column="0"
+                    Margin="10"
+                    AcceptsReturn="True"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto" />
+
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="3"
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Background="DarkGray"
+                    ResizeDirection="Columns"
+                    ShowsPreview="False"
+                    Visibility="{Binding IsChecked, ElementName=ViewMode, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                <wpf:MarkdownViewer
+                    Grid.Column="2"
+                    Margin="10"
+                    Markdown="{Binding Text, ElementName=InputTextBox}"
+                    Visibility="{Binding IsChecked, ElementName=ViewMode, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </Grid>
+
+        </materialDesign:Card>
+
+
+
+        <materialDesign:Snackbar
+            x:Name="SnackbarThree"
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            MessageQueue="{materialDesign:MessageQueue}"
+            Margin="0,0,0,10" />
     </Grid>
+
+
+
 </Window>

@@ -82,6 +82,16 @@ namespace ThinkITAM.FunctionPage
         }
 
 
+        private void NotePadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+           NotePadWindow notePadWindow = new NotePadWindow();
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                notePadWindow.Owner = window;
+            }
+            notePadWindow.ShowDialog();
+        }
     }
 
 

@@ -168,7 +168,7 @@ public partial class SelectionWindow : Window
         t.Add("Models");
         t.Add("BookmarkGroupOrder");
         t.Add("AssetLog");
-
+        t.Add("NoteBook");
         string message = string.Empty;
 
         foreach (var table in t)
