@@ -17,7 +17,8 @@
     Loaded="NotePadWindow_OnLoaded"
     ResizeMode="CanResize"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:ViewModeToColumnWidthConverter x:Key="ViewModeToColumnWidthConverter" />
@@ -50,7 +51,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ClearSearchKeyWord" Style="{StaticResource MaterialDesignToolButton}">
+                <Button
+                    x:Name="ClearSearchKeyWord"
+                    Click="ClearSearchKeyWord_OnClick"
+                    Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox
@@ -62,10 +66,12 @@
                     materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
                     materialDesign:HintAssist.HintOpacity="0.3"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                    BorderThickness="0" />
+                    BorderThickness="0"
+                    KeyDown="SearchKeyWord_OnKeyDown" />
                 <Button
                     x:Name="SearchButton"
                     Grid.Column="2"
+                    Click="SearchButton_OnClick"
                     Style="{StaticResource MaterialDesignToolButton}">
                     <materialDesign:PackIcon Margin="5,0" Kind="Search" />
                 </Button>
@@ -80,7 +86,14 @@
             <TreeView
                 x:Name="NoteTree"
                 MinWidth="220"
-                SelectedItemChanged="NoteTree_OnSelectedItemChanged" />
+                PreviewMouseLeftButtonDown="NoteTree_OnPreviewMouseLeftButtonDown"
+                SelectedItemChanged="NoteTree_OnSelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
 
         </materialDesign:Card>
 
@@ -100,84 +113,10 @@
                 </Grid.ColumnDefinitions>
 
 
-                <materialDesign:PopupBox
-                    Grid.Column="0"
-                    Margin="10,0,0,0"
-                    Padding="0"
-                    BorderThickness="0">
-
-                    <materialDesign:PopupBox.ToggleContent>
-
-                        <materialDesign:ColorZone
-                            Width="80"
-                            Height="32"
-                            Background="Transparent"
-                            ClipToBounds="False"
-                            CornerRadius="5">
-                            <materialDesign:PackIcon
-                                Width="20"
-                                Height="20"
-                                Padding="0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Kind="PlusBoxOutline" />
-
-
-                        </materialDesign:ColorZone>
-
-                    </materialDesign:PopupBox.ToggleContent>
-
-                    <StackPanel>
-
-                        <Button
-                            x:Name="AddButton"
-                            Margin="10"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="{DynamicResource IpAdd}">
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Kind="TagPlusOutline" />
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddButtonTitle}" />
-                            </StackPanel>
-                        </Button>
-
-
-
-                        <Button
-                            x:Name="AddGroupButton"
-                            Margin="10"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Style="{StaticResource MaterialDesignFlatLightButton}"
-                            ToolTip="{DynamicResource IpAddGroup}">
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Kind="Group" />
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource IpAddGroup}" />
-                            </StackPanel>
-
-                        </Button>
-
-                    </StackPanel>
-                </materialDesign:PopupBox>
-
-
-
-
-
 
                 <Button
-                    x:Name="EditButton"
-                    Grid.Column="1"
+                    x:Name="AddButton"
+                    Grid.Column="0"
                     Margin="10"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
@@ -186,8 +125,13 @@
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
-                        Kind="OrderAlphabeticalAscending" />
+                        Kind="NotePlusOutline" />
+
                 </Button>
+
+
+
+
 
 
 
@@ -549,16 +493,6 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBox
-                            x:Name="NoteName"
-                            Width="100"
-                            Height="24"
-                            Margin="5,0"
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            BorderThickness="0.5"
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            ToolTip="笔记名称" />
 
                         <Button
                             x:Name="SaveButton"
@@ -590,27 +524,62 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="24" />
+                </Grid.RowDefinitions>
 
-                <Expander Grid.Column="0" ExpandDirection="Right">
+
+                <Expander
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    ExpandDirection="Right">
                     <TextBox
                         x:Name="InputTextBox"
+                        MinWidth="400"
                         Margin="10"
                         HorizontalAlignment="Stretch"
                         AcceptsReturn="True"
                         HorizontalScrollBarVisibility="Auto"
+                        TextChanged="InputTextBox_OnTextChanged"
                         VerticalScrollBarVisibility="Auto" />
 
                 </Expander>
 
                 <wpf:MarkdownViewer
                     x:Name="MarkdownViewer"
+                    Grid.Row="0"
                     Grid.Column="1"
                     Margin="10"
                     HorizontalAlignment="Stretch"
                     Markdown="{Binding Text, ElementName=InputTextBox}" />
 
 
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    VerticalAlignment="Center"
+                    IsEnabled="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
+                    <Label
+                        x:Name="NoteBookName"
+                        Grid.Column="0"
+                        Margin="10,0"
+                        d:Content="TEXTXX"
+                        Background="Transparent" />
+                    <Label
+                        x:Name="NoteBookCount"
+                        Grid.Column="1"
+                        Margin="10,0"
+                        HorizontalAlignment="Right"
+                        d:Content="65500"
+                        Background="Transparent" />
+                </Grid>
 
             </Grid>
 
@@ -622,8 +591,7 @@
             x:Name="SnackbarThree"
             Grid.Row="0"
             Grid.RowSpan="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             Margin="0,0,0,10"
             MessageQueue="{materialDesign:MessageQueue}" />
     </Grid>

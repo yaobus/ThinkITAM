@@ -34,7 +34,6 @@
 
 
                 <StackPanel
-                    Grid.Column="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
@@ -65,9 +64,13 @@
 
 
 
-                <StackPanel Orientation="Vertical">
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <StackPanel
+                        Grid.Row="0"
                         Margin="0,5"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -158,19 +161,16 @@
 
                     </StackPanel>
 
-
                     <DataGrid
                         x:Name="RoomListView"
+                        Grid.Row="1"
                         Margin="0,5,0,10"
-                        d:Visibility="Visible"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
-                        DataContext="vm:DeviceRoomClass"
                         MouseDoubleClick="RoomListView_OnMouseDoubleClick"
                         SelectionChanged="RoomListView_OnSelectionChanged"
                         SelectionMode="Extended"
-                        SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        SelectionUnit="FullRow">
 
 
                         <DataGrid.Columns>
@@ -338,7 +338,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
 
             </materialDesign:Card>
 
@@ -377,8 +377,14 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="2.5,2.5,5,5">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
                     <StackPanel
+                        Grid.Row="0"
                         Margin="0,5"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
@@ -473,16 +479,15 @@
 
                     <DataGrid
                         x:Name="CabinetListView"
+                        Grid.Row="1"
                         Margin="0,5,0,10"
-                        d:Visibility="Visible"
+                        VerticalAlignment="Stretch"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
-                        DataContext="vm:CabinetClass"
                         MouseDoubleClick="CabinetListView_OnMouseDoubleClick"
                         SelectionChanged="CabinetListView_OnSelectionChanged"
                         SelectionMode="Extended"
-                        SelectionUnit="FullRow"
-                        Visibility="Visible">
+                        SelectionUnit="FullRow">
 
 
                         <DataGrid.Columns>
@@ -599,15 +604,16 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </materialDesign:Card>
 
 
 
 
-
-
         </Grid>
+
+
+
 
 
 

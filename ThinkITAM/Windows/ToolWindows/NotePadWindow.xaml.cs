@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Shapes;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.Others;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -44,89 +46,190 @@ namespace ThinkITAM.Windows.ToolWindows
         /// <summary>
         /// 加载笔记本
         /// </summary>
-        private void LoadNoteBooks()
+        private void LoadNoteBooks(string keyword=null)
         {
-            NoteTree.Items.Clear();
+            //NoteTree.Items.Clear();
 
-            // 第一步，从数据库取出所有笔记本名称（去重）
 
-            var query = $"SELECT DISTINCT NoteGroup FROM NoteBook WHERE Del != 1 OR Del IS NULL ;";
+            string query = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = $"SELECT DISTINCT * FROM NoteBook WHERE( Del != 1 OR Del IS NULL)  AND  (NoteGroup LIKE '%{keyword}%' OR NoteUnit Like '%{keyword}%' OR NoteName LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' )";
+
+            }
+            else
+            {
+                query = $"SELECT DISTINCT * FROM NoteBook WHERE Del != 1 OR Del IS NULL ;";
+            }
+
+            
+
+            var noteList = new List<NoteBookViewModel>();
+
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            // 遍历笔记本名称列表，然后取出笔记本全部章节（去重）
-
             foreach (var row in rows)
             {
-                TreeViewItem groupItem = new TreeViewItem
-                {
-                    Header = row["NoteGroup"],
-                    Tag = row["NoteGroup"]
-                };
+                var node = new NoteBookViewModel();
+                node.BookGroup= row["NoteGroup"].ToString();
+                node.BookUnit= row["NoteUnit"].ToString();
+                node.BookName= row["NoteName"].ToString();
+                node.NoteId= row["NoteId"].ToString();
+                node.CreatedDate= row["CreatedDate"].ToString();
+                node.EditDate= row["EditDate"].ToString();
+                node.Note= row["Note"].ToString();
 
-                var sql =
-                    $"SELECT DISTINCT NoteUnit FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}';";
-
-                var units = GlobalVariables.DbService.ExecuteQuery(sql);
-
-                foreach (var unit in units)
-                {
-
-                    TreeViewItem item = new TreeViewItem
-                    {
-                        Header = $"{unit["NoteUnit"]}",
-                        Tag = new { Group = row["NoteGroup"], Unit = unit["NoteUnit"] }
-                    };
-
-
-                    //遍历章节列表，生成 TreeViewItem 并添加到 TreeView 控件中
-
-                    var sql2 =
-                        $"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}' AND NoteUnit = '{unit["NoteUnit"]}';";
-
-
-
-                    var notes = GlobalVariables.DbService.ExecuteQuery(sql2);
-
-
-                    foreach (var note in notes)
-                    {
-
-
-                        TreeViewItem book = new TreeViewItem()
-                        {
-                            Header = note["NoteName"],
-                            Tag = new
-                            {
-                                Group = note["NoteGroup"], Unit = note["NoteUnit"], NoteName = note["NoteName"],
-                                NoteId = note["NoteId"]
-                            }
-                        };
-
-
-                        item.Items.Add(book);
-                    }
-
-                    if (item.Items.Count > 0)
-                    {
-                        groupItem.Items.Add(item);
-                    }
-
-
-                }
-
-
-                NoteTree.Items.Add(groupItem);
-
-
+                noteList.Add(node);
 
             }
+
+
+
+            // 遍历笔记本名称列表，然后取出笔记本全部章节（去重）
+
+            var treeData = BuildTree(noteList);
+
+            NoteTree.ItemsSource=treeData;
+
+            //foreach (var row in rows)
+            //{
+            //    TreeViewItem groupItem = new TreeViewItem
+            //    {
+            //        Header = row["NoteGroup"],
+            //        Tag = row["NoteGroup"]
+            //    };
+
+            //    var sql =
+            //        $"SELECT DISTINCT NoteUnit FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}';";
+
+            //    var units = GlobalVariables.DbService.ExecuteQuery(sql);
+
+            //    foreach (var unit in units)
+            //    {
+
+            //        TreeViewItem item = new TreeViewItem
+            //        {
+            //            Header = $"{unit["NoteUnit"]}",
+            //            Tag = new { Group = row["NoteGroup"], Unit = unit["NoteUnit"] }
+            //        };
+
+
+            //        //遍历章节列表，生成 TreeViewItem 并添加到 TreeView 控件中
+
+            //        var sql2 =$"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}' AND NoteUnit = '{unit["NoteUnit"]}';";
+
+
+
+            //        var notes = GlobalVariables.DbService.ExecuteQuery(sql2);
+
+
+            //        foreach (var note in notes)
+            //        {
+            //            if (string.IsNullOrWhiteSpace(note.ToString()))
+            //            {
+            //                TreeViewItem book = new TreeViewItem()
+            //                {
+            //                    Header = note["NoteName"],
+            //                    Tag = new
+            //                    {
+            //                        Group = note["NoteGroup"],
+            //                        Unit = note["NoteUnit"],
+            //                        NoteName = note["NoteName"],
+            //                        NoteId = note["NoteId"]
+            //                    }
+            //                };
+
+            //                groupItem.Items.Add(book);
+            //            }
+            //            else
+            //            {
+            //                TreeViewItem book = new TreeViewItem()
+            //                {
+            //                    Header = note["NoteName"],
+            //                    Tag = new
+            //                    {
+            //                        Group = note["NoteGroup"],
+            //                        Unit = note["NoteUnit"],
+            //                        NoteName = note["NoteName"],
+            //                        NoteId = note["NoteId"]
+            //                    }
+            //                };
+
+
+            //                item.Items.Add(book);
+            //            }
+
+
+            //        }
+
+            //        if (item.Items.Count > 0)
+            //        {
+            //            groupItem.Items.Add(item);
+            //        }
+
+
+            //    }
+
+
+            //    NoteTree.Items.Add(groupItem);
+
+
+
+            //}
 
 
 
 
         }
 
+        private ObservableCollection<TreeItem> BuildTree(List<NoteBookViewModel> records)
+        {
+            var treeItems = new ObservableCollection<TreeItem>();
+            var groupDict = new Dictionary<string, TreeItem>();
+
+            foreach (var record in records)
+            {
+                if (string.IsNullOrEmpty(record.BookGroup))
+                    continue; // 跳过无效数据
+
+                // 获取或创建 BookGroup 节点
+                if (!groupDict.TryGetValue(record.BookGroup, out TreeItem groupItem))
+                {
+                    groupItem = new TreeItem { Name = record.BookGroup };
+                    groupDict[record.BookGroup] = groupItem;
+                    treeItems.Add(groupItem);
+                }
+
+                // 判断 BookUnit 是否为空
+                if (string.IsNullOrEmpty(record.BookUnit))
+                {
+                    // 直接添加 BookName 到 BookGroup 下
+                    groupItem.Children.Add(new TreeItem { Name = record.BookName, Tag = record });
+                }
+                else
+                {
+                    // 查找或创建 BookUnit 节点
+                    TreeItem unitItem = null;
+                    var existingUnit = groupItem.Children.FirstOrDefault(c => c.Name == record.BookUnit);
+                    if (existingUnit != null && existingUnit.Tag == null) // Tag 为 null 表示它是分组节点，不是 BookName
+                    {
+                        unitItem = existingUnit;
+                    }
+                    else
+                    {
+                        unitItem = new TreeItem { Name = record.BookUnit };
+                        groupItem.Children.Add(unitItem);
+                    }
+
+                    // 将 BookName 添加到 BookUnit 节点下
+                    unitItem.Children.Add(new TreeItem { Name = record.BookName, Tag = record });
+                }
+            }
+
+            return treeItems;
+        }
 
 
         /// <summary>
@@ -555,91 +658,160 @@ namespace ThinkITAM.Windows.ToolWindows
 
 
 
-        private Dictionary<string, object> noteBook = null;
+        private NoteBookViewModel noteBook = new NoteBookViewModel();
 
         private void NoteTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            //获取选中的 TreeViewItem
-            var selectedItem = NoteTree.SelectedItem as TreeViewItem;
-            if (selectedItem != null)
+
+
+            if (NoteTree.SelectedItem is TreeItem selectedItem)
             {
-                //检查是否有子项节点，如果有则展开当前节点
-                //如果没有子节点，则认为是具体的笔记本，加载内容
-                if (selectedItem.Items.Count > 0)
+                // 判断是否是叶子节点（没有子节点）
+                if (selectedItem.Children == null || selectedItem.Children.Count == 0)
                 {
-                    selectedItem.IsExpanded = !selectedItem.IsExpanded; // 切换展开/收起状态
-                }
-                else
-                {
-                    //获取笔记本名称
-                    dynamic noteTag = selectedItem.Tag;
-                    string noteId = noteTag.NoteId;
-
-                    NoteName.Text = noteTag.NoteName;
-
-
-                    //查询数据库，获取对应笔记本的内容
-                    var query =
-                        $"SELECT * FROM NoteBook WHERE  NoteId = '{noteId}' AND (Del != 1 OR Del IS NULL) LIMIT 1;";
-                    var rows = GlobalVariables.DbService.ExecuteQuery(query);
-                    if (rows.Count > 0)
+                    // 是叶子节点 -> 它代表一个 BookName
+                    if (selectedItem.Tag is NoteBookViewModel record)
                     {
-                        noteBook = rows[0];
-                        //显示内容到 TextBox
-                        InputTextBox.Text = rows[0]["Note"].ToString();
-                    }
-                    else
-                    {
-                        InputTextBox.Text = ""; //如果没有内容，清空 TextBox
+                        noteBook = record;
+
+                        // 假设你想显示 BookName + BookGroup + BookUnit 等信息
+                        string detail = record.Note;
+
+                        InputTextBox.Text = detail;
+
+
+                        //查询数据库，获取对应笔记本的内容
+                        var query =
+                            $"SELECT * FROM NoteBook WHERE  NoteId = '{record.NoteId}' AND (Del != 1 OR Del IS NULL) LIMIT 1;";
+                        var rows = GlobalVariables.DbService.ExecuteQuery(query);
+                        if (rows.Count > 0)
+                        {
+
+                            InputTextBox.Text = rows[0]["Note"].ToString();
+
+
+                        }
+                        else
+                        {
+                            InputTextBox.Text = ""; //如果没有内容，清空 TextBox
+                            NoteBookCount.Content = 0;
+                        }
+
+
+
+
+
+
+
+
+                        var path = string.Empty;
+                        if (!string.IsNullOrWhiteSpace(record.BookUnit))
+                        {
+                             path = $"{record.BookGroup}/{record.BookUnit}/{record.BookName}";
+                        }
+                        else
+                        {
+                            path= $"{record.BookGroup}/{record.BookName}";
+                        }
+
+                        NoteBookName.Content = path;
                     }
                 }
+
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ////获取选中的 TreeViewItem
+            //var selectedItem = NoteTree.SelectedItem as TreeViewItem;
+            //if (selectedItem != null)
+            //{
+            //    //检查是否有子项节点，如果有则展开当前节点
+            //    //如果没有子节点，则认为是具体的笔记本，加载内容
+            //    if (selectedItem.Items.Count > 0)
+            //    {
+            //        selectedItem.IsExpanded = !selectedItem.IsExpanded; // 切换展开/收起状态
+            //    }
+            //    else
+            //    {
+            //        var node = selectedItem.Tag as NoteBookViewModel;
+
+            //        InputTextBox.Text=node.Note;
+
+            //        ////获取笔记本名称
+            //        //dynamic noteTag = selectedItem.Tag;
+            //        //string noteId = noteTag.NoteId;
+
+            //        //NoteBookName.Content = noteTag.NoteName;
+
+
+            //        ////查询数据库，获取对应笔记本的内容
+            //        //var query =
+            //        //    $"SELECT * FROM NoteBook WHERE  NoteId = '{noteId}' AND (Del != 1 OR Del IS NULL) LIMIT 1;";
+            //        //var rows = GlobalVariables.DbService.ExecuteQuery(query);
+            //        //if (rows.Count > 0)
+            //        //{
+            //        //    noteBook = rows[0];
+            //        //    //显示内容到 TextBox
+            //        //    InputTextBox.Text = rows[0]["Note"].ToString();
+
+            //        //    NoteBookCount.Content = InputTextBox.Text.Length.ToString();
+            //        //}
+            //        //else
+            //        //{
+            //        //    InputTextBox.Text = ""; //如果没有内容，清空 TextBox
+            //        //    NoteBookCount.Content = 0;
+            //        //}
+            //    }
+            //}
         }
 
         private async void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(NoteName.Text))
-            {
-                if (!string.IsNullOrWhiteSpace(noteBook["NoteId"].ToString()))
+
+                if (!string.IsNullOrWhiteSpace(noteBook.NoteId))
                 {
                     var editDate = DateTime.Now;
                     var note = InputTextBox.Text;
-                    var name = NoteName.Text;
                     var data = new
                     {
-                        NoteId = noteBook["NoteId"],
-                        NoteGroup = noteBook["NoteGroup"],
-                        NoteUnit = noteBook["NoteUnit"],
-                        NoteName = name,
-                        CreatedDate = noteBook["CreatedDate"],
+                        NoteId = noteBook.NoteId,
+                        NoteGroup = noteBook.BookGroup,
+                        NoteUnit = noteBook.BookUnit,
+                        NoteName = noteBook.BookName,
+                        CreatedDate = noteBook.CreatedDate,
                         EditDate = editDate,
                         Note = note
                     };
 
                     var conditions = new
                     {
-                        NoteId = noteBook["NoteId"]
+                        NoteId = noteBook.NoteId
                     };
 
                     GlobalVariables.DbService.UpdateEntity("NoteBook", data, conditions);
 
                     SendMessage("已保存",1);
 
-                    if (name != noteBook["NoteName"])
-                    {
-                        LoadNoteBooks();
-                    }
+                
 
                 }
                 else
                 {
                     MessageBox.Show("请先选择要编辑的笔记", "未选择笔记");
                 }
-            }
-            else
-            {
-                MessageBox.Show("笔记标题名称不得为空", "缺少必要信息");
-            }
 
 
 
@@ -667,9 +839,59 @@ namespace ThinkITAM.Windows.ToolWindows
         }
 
 
+        private void InputTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            NoteBookCount.Content= InputTextBox.Text.Length.ToString();
+        }
 
+        private void NoteTree_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var treeView = sender as TreeView;
+            var pos = e.GetPosition(treeView);
+            var hit = treeView.InputHitTest(pos) as DependencyObject;
 
+            var treeViewItem = GetAncestor<TreeViewItem>(hit);
+            if (treeViewItem == null) return;
 
+            // 获取绑定的数据项
+            if (treeViewItem.Header is TreeItem item)
+            {
+                // 只有当该节点有子节点时，才手动处理展开/折叠
+                if (item.Children != null && item.Children.Count > 0)
+                {
+                    // 阻止默认行为，手动切换展开状态
+                    e.Handled = true;
+                    treeViewItem.IsExpanded = !treeViewItem.IsExpanded;
+                }
+                // 如果是叶子节点（如 BookName），不处理展开，让系统处理选中
+                // 即：不设置 e.Handled = true，允许事件继续传播
+            }
+        }
 
+        static T GetAncestor<T>(DependencyObject obj) where T : class
+        {
+            while (obj != null && !(obj is T))
+                obj = VisualTreeHelper.GetParent(obj);
+            return obj as T;
+        }
+
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            LoadNoteBooks(SearchKeyWord.Text);
+        }
+
+        private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+        {
+            SearchKeyWord.Text=string.Empty;
+            LoadNoteBooks();
+        }
+
+        private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter)
+            {
+                LoadNoteBooks(SearchKeyWord.Text);
+            }
+        }
     }
 }

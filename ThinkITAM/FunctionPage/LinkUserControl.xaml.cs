@@ -1970,7 +1970,7 @@ namespace ThinkITAM.FunctionPage
                     tableName = "Racks";
                     tableField = "RackId";
                     type = "机架";
-                    sql = $"SELECT COUNT(OnTheLine) FROM Ra_{id}";
+                    sql = $"SELECT COUNT(OnTheLine) FROM Ra_{id} WHERE OnTheLine > 0";
                     sql2 = $"DROP TABLE Ra_{id};";
 
                 }
@@ -1979,12 +1979,12 @@ namespace ThinkITAM.FunctionPage
                     tableName = "Devices";
                     tableField = "AssetId";
                     type = "设备";
-                    sql = $"SELECT COUNT(OnTheLine) FROM De_{id} ";
+                    sql = $"SELECT COUNT(OnTheLine) FROM De_{id} WHERE OnTheLine > 0";
                     sql2 = $"DROP TABLE De_{id};";
                     sql3 = $"UPDATE Asset SET Deploy = NULL WHERE AssetId='{id}'";
                 }
 
-
+               
 
                 var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 

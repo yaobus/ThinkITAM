@@ -823,7 +823,7 @@
                                         Width="60"
                                         Height="60"
                                         VerticalAlignment="Center"
-                                        Foreground="CornflowerBlue"
+                                        Foreground="AliceBlue"
                                         Kind="NotebookPlus" />
 
                                     <Grid
@@ -840,7 +840,7 @@
                                             VerticalAlignment="Center"
                                             FontSize="24"
                                             Foreground="AliceBlue"
-                                            Text="Wake On Lan" />
+                                            Text="{DynamicResource TpNoteBook}" />
 
 
                                         <TextBlock
@@ -850,7 +850,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="{DynamicResource TpWakeTooltip}"
+                                            Text="{DynamicResource TpNoteBookTooltip}"
                                             TextWrapping="Wrap" />
                                     </Grid>
 
@@ -881,7 +881,7 @@
                                             FontSize="20"
                                             Foreground="AliceBlue"
                                             Opacity="0.9"
-                                            Text="{DynamicResource TpWakeOnLan}" />
+                                            Text="{DynamicResource TpNoteBook}" />
 
                                         <TextBlock
                                             Grid.Row="1"
@@ -891,7 +891,7 @@
                                             FontSize="12"
                                             Foreground="AliceBlue"
                                             Opacity="0.5"
-                                            Text="{DynamicResource TpWakeOnLanTooltip}" />
+                                            Text="{DynamicResource TpNoteBookDescription}" />
                                     </Grid>
 
                                 </Grid>

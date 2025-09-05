@@ -6,15 +6,45 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:presetPage="clr-namespace:ThinkITAM.UserControls.PresetPage"
-    MinWidth="1200"
-    MinHeight="700"
     d:Background="DimGray"
     d:Height="768"
     d:Width="1366"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="PresetPage_OnLoaded"
     mc:Ignorable="d">
+    <UserControl.Resources>
 
+        <Style x:Key="OrganizationUserControlPageStyle" TargetType="presetPage:OrganizationUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+
+        <Style x:Key="PeopleUserControlPageStyle" TargetType="presetPage:PeopleUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+        <Style x:Key="AddressUserControlPageStyle" TargetType="presetPage:AddressUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+        <Style x:Key="CabinetUserControlPageStyle" TargetType="presetPage:CabinetUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+        <Style x:Key="BuildingsUserControlPageStyle" TargetType="presetPage:BuildingsUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+        <Style x:Key="AssetTypeUserControlPageStyle" TargetType="presetPage:AssetTypeUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+        <Style x:Key="BrowserUserControlPageStyle" TargetType="presetPage:BrowserUserControl">
+            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+            <Setter Property="Height" Value="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=WrapPanel}}" />
+        </Style>
+
+    </UserControl.Resources>
 
 
 
@@ -258,7 +288,7 @@
         </materialDesign:Card>
 
 
-        <StackPanel
+        <WrapPanel
             x:Name="PresetSubPanel"
             Grid.Row="0"
             Grid.RowSpan="3"

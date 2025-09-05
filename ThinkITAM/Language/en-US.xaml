@@ -299,7 +299,9 @@
     <s:String x:Key="TpWakeOnLanTooltip">Wake LAN hosts remotely</s:String>
 
 
-
+    <s:String x:Key="TpNoteBook">NoteBook</s:String>
+    <s:String x:Key="TpNoteBookTooltip">Simple notepad</s:String>
+    <s:String x:Key="TpNoteBookDescription">Support Markdown</s:String>
 
     <!--  AddAssetWindow-2025年5月29日  -->
     <s:String x:Key="AawAssetType">Asset Type</s:String>

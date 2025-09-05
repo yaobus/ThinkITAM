@@ -120,13 +120,6 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Grid.Row="1"
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
 
                     <DataGrid
                         x:Name="OneListView"
@@ -296,13 +289,6 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Grid.Row="1"
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
                     <DataGrid
                         x:Name="ThreeListView"
                         Grid.Row="2"
@@ -471,13 +457,7 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Grid.Row="1"
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
+
 
                     <DataGrid
                         x:Name="TowListView"
@@ -644,13 +624,7 @@
 
                     </StackPanel>
 
-                    <ProgressBar
-                        Grid.Row="1"
-                        Height="1"
-                        Margin="0"
-                        Opacity="0.3"
-                        Orientation="Horizontal"
-                        Value="100" />
+
                     <DataGrid
                         x:Name="FourListView"
                         Grid.Row="2"

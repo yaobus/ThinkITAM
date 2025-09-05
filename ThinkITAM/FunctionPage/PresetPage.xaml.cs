@@ -304,16 +304,10 @@ namespace ThinkITAM.FunctionPage
                     case 0:
 
                         PresetSubPanel.Children.Clear();
-                        OrganizationUserControl organization = new OrganizationUserControl();
+                        var organization = new OrganizationUserControl();
 
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        organization.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        organization.VerticalAlignment = VerticalAlignment.Stretch;
-                        organization.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        organization.Height = PresetSubPanel.ActualHeight; // 绑定高度
-
-
+                        organization.Style = (Style)FindResource("OrganizationUserControlPageStyle");
 
                         PresetSubPanel.Children.Add(organization);
 
@@ -322,14 +316,10 @@ namespace ThinkITAM.FunctionPage
                     case 1:
 
                         PresetSubPanel.Children.Clear();
-                        PeopleUserControl peopleUserControl = new PeopleUserControl();
+                        var peopleUserControl = new PeopleUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        peopleUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        peopleUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        peopleUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        peopleUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
 
+                        peopleUserControl.Style = (Style)FindResource("PeopleUserControlPageStyle");
                         PresetSubPanel.Children.Add(peopleUserControl);
 
                         break;
@@ -337,13 +327,11 @@ namespace ThinkITAM.FunctionPage
                     case 2:
 
                         PresetSubPanel.Children.Clear();
-                        AddressUserControl addressUserControl = new AddressUserControl();
+                        var addressUserControl = new AddressUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        addressUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        addressUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        addressUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        addressUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        addressUserControl.Style = (Style)FindResource("AddressUserControlPageStyle");
+
 
                         PresetSubPanel.Children.Add(addressUserControl);
 
@@ -354,13 +342,11 @@ namespace ThinkITAM.FunctionPage
 
 
                         PresetSubPanel.Children.Clear();
-                        CabinetUserControl cabinetUserControl = new CabinetUserControl();
+                        var cabinetUserControl = new CabinetUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        cabinetUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        cabinetUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        cabinetUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        cabinetUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        cabinetUserControl.Style = (Style)FindResource("CabinetUserControlPageStyle");
+
 
                         PresetSubPanel.Children.Add(cabinetUserControl);
 
@@ -370,13 +356,11 @@ namespace ThinkITAM.FunctionPage
 
                         PresetSubPanel.Children.Clear();
 
-                        BuildingsUserControl buildingsUserControl = new BuildingsUserControl();
+                        var buildingsUserControl = new BuildingsUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        buildingsUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        buildingsUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        buildingsUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        buildingsUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        buildingsUserControl.Style = (Style)FindResource("BuildingsUserControlPageStyle");
+
 
                         PresetSubPanel.Children.Add(buildingsUserControl);
 
@@ -386,13 +370,11 @@ namespace ThinkITAM.FunctionPage
 
                         PresetSubPanel.Children.Clear();
 
-                        AssetTypeUserControl assetTypeUserControl = new AssetTypeUserControl();
+                        var assetTypeUserControl = new AssetTypeUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        assetTypeUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        assetTypeUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        assetTypeUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        assetTypeUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        assetTypeUserControl.Style = (Style)FindResource("AssetTypeUserControlPageStyle");
+
 
                         PresetSubPanel.Children.Add(assetTypeUserControl);
 
@@ -405,13 +387,12 @@ namespace ThinkITAM.FunctionPage
 
                         PresetSubPanel.Children.Clear();
 
-                        BrowserUserControl browserUserControl = new BrowserUserControl();
+                        var browserUserControl = new BrowserUserControl();
 
-                        // 设置用户控件的尺寸与 StackPanel 一致
-                        browserUserControl.HorizontalAlignment = HorizontalAlignment.Stretch;
-                        browserUserControl.VerticalAlignment = VerticalAlignment.Stretch;
-                        browserUserControl.Width = PresetSubPanel.ActualWidth; // 绑定宽度
-                        browserUserControl.Height = PresetSubPanel.ActualHeight; // 绑定高度
+
+                        browserUserControl.Style = (Style)FindResource("BrowserUserControlPageStyle");
+
+
 
                         PresetSubPanel.Children.Add(browserUserControl);
 
