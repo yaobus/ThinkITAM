@@ -23,6 +23,7 @@
     <None Remove="Resources\Logo\Logo44x44.png" />
     <None Remove="Resources\Template\AssetTemplate.xlsx" />
     <None Remove="Resources\Template\UserInfoTemplate.xlsx" />
+    <None Remove="Resources\UpdateInfo\MarkdownHelp.md" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +34,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Template\UserInfoTemplate.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\UpdateInfo\MarkdownHelp.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ThinkItamlogo.ico" />

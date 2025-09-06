@@ -17,7 +17,7 @@
     Loaded="NotePadWindow_OnLoaded"
     ResizeMode="CanResize"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -121,17 +121,33 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Click="AddButton_OnClick"
                     Style="{StaticResource MaterialDesignFlatLightButton}">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
-                        Kind="NotePlusOutline" />
+                        Kind="BookPlusOutline" />
 
                 </Button>
 
 
 
+                <Button
+                    x:Name="EditButton"
+                    Grid.Column="1"
+                    Margin="10"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="EditButton_OnClick"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignFlatLightButton}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Kind="NotebookEditOutline" />
 
+                </Button>
 
 
 
@@ -144,13 +160,14 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Click="DeleteButton_OnClick"
                     IsEnabled="False"
                     Style="{StaticResource MaterialDesignFlatLightButton}">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
                         Foreground="#Cf3539"
-                        Kind="DeleteOutline" />
+                        Kind="NotebookRemoveOutline" />
 
                 </Button>
 
@@ -495,6 +512,19 @@
                     <StackPanel Orientation="Horizontal">
 
                         <Button
+                            x:Name="HelpButton"
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            Click="HelpButton_OnClick"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            ToolTip="装载语法帮助">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="HelpRhombusOutline" />
+                        </Button>
+                        <Button
                             x:Name="SaveButton"
                             Width="32"
                             Height="32"
@@ -533,6 +563,7 @@
                 <Expander
                     Grid.Row="0"
                     Grid.Column="0"
+                    d:IsExpanded="True"
                     ExpandDirection="Right">
                     <TextBox
                         x:Name="InputTextBox"
@@ -540,6 +571,7 @@
                         Margin="10"
                         HorizontalAlignment="Stretch"
                         AcceptsReturn="True"
+                        BorderThickness="0.5"
                         HorizontalScrollBarVisibility="Auto"
                         TextChanged="InputTextBox_OnTextChanged"
                         VerticalScrollBarVisibility="Auto" />
@@ -562,23 +594,75 @@
                     VerticalAlignment="Center"
                     IsEnabled="False">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-
-                    <Label
-                        x:Name="NoteBookName"
+                    <StackPanel
                         Grid.Column="0"
-                        Margin="10,0"
-                        d:Content="TEXTXX"
-                        Background="Transparent" />
-                    <Label
-                        x:Name="NoteBookCount"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            VerticalAlignment="Center"
+                            Kind="NotebookOutline"
+                            Opacity="0.3" />
+
+                        <Label
+                            x:Name="NoteBookName"
+                            Grid.Column="0"
+                            Margin="10,0"
+                            d:Content="TEXTXX"
+                            Background="Transparent" />
+                    </StackPanel>
+
+                    <StackPanel
                         Grid.Column="1"
-                        Margin="10,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            VerticalAlignment="Center"
+                            Kind="TimelinePlusOutline"
+                            Opacity="0.3" />
+
+                        <Label
+                            x:Name="CreateDate"
+                            Margin="10,0"
+                            d:Content="TEXTXX"
+                            Background="Transparent" />
+
+                        <Separator Margin="5,0" Padding="0" />
+
+                        <materialDesign:PackIcon
+                            x:Name="EditIcon"
+                            VerticalAlignment="Center"
+                            Kind="TimelineCheckOutline"
+                            Opacity="0.3"
+                            Visibility="Hidden" />
+
+                        <Label
+                            x:Name="EditDate"
+                            Margin="10,0"
+                            d:Content="TEXTXX"
+                            Background="Transparent" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="2"
                         HorizontalAlignment="Right"
-                        d:Content="65500"
-                        Background="Transparent" />
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            VerticalAlignment="Center"
+                            Kind="TextLong"
+                            Opacity="0.3" />
+                        <Label
+                            x:Name="NoteBookCount"
+                            Margin="10,0"
+                            HorizontalAlignment="Right"
+                            d:Content="65500"
+                            Background="Transparent" />
+                    </StackPanel>
                 </Grid>
 
             </Grid>

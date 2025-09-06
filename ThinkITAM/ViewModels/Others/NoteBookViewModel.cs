@@ -9,15 +9,15 @@ namespace ThinkITAM.ViewModels.Others
 {
    public class NoteBookViewModel
     {
-        public string BookGroup
+        public string NoteGroup
         {
             get; set;
         }
-        public string BookUnit
+        public string NoteUnit
         {
             get; set;
         }
-        public string BookName
+        public string NoteName
         {
             get; set;
         }
@@ -40,6 +40,12 @@ namespace ThinkITAM.ViewModels.Others
         }
 
         public string Note
+        {
+            get;
+            set;
+        }
+
+        public int Del
         {
             get;
             set;

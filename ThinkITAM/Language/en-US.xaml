@@ -298,7 +298,6 @@
     <s:String x:Key="TpWakeOnLan">Wake-on-LAN</s:String>
     <s:String x:Key="TpWakeOnLanTooltip">Wake LAN hosts remotely</s:String>
 
-
     <s:String x:Key="TpNoteBook">NoteBook</s:String>
     <s:String x:Key="TpNoteBookTooltip">Simple notepad</s:String>
     <s:String x:Key="TpNoteBookDescription">Support Markdown</s:String>

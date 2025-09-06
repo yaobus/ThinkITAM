@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Presentation;
 using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.Others;
+using Path = System.IO.Path;
 
 namespace ThinkITAM.Windows.ToolWindows
 {
@@ -73,12 +77,12 @@ namespace ThinkITAM.Windows.ToolWindows
             foreach (var row in rows)
             {
                 var node = new NoteBookViewModel();
-                node.BookGroup= row["NoteGroup"].ToString();
-                node.BookUnit= row["NoteUnit"].ToString();
-                node.BookName= row["NoteName"].ToString();
+                node.NoteGroup= row["NoteGroup"].ToString();
+                node.NoteUnit= row["NoteUnit"].ToString();
+                node.NoteName= row["NoteName"].ToString();
                 node.NoteId= row["NoteId"].ToString();
-                node.CreatedDate= row["CreatedDate"].ToString();
-                node.EditDate= row["EditDate"].ToString();
+                node.CreatedDate=row["CreatedDate"].ToString();
+                node.EditDate = row["EditDate"].ToString();
                 node.Note= row["Note"].ToString();
 
                 noteList.Add(node);
@@ -93,92 +97,6 @@ namespace ThinkITAM.Windows.ToolWindows
 
             NoteTree.ItemsSource=treeData;
 
-            //foreach (var row in rows)
-            //{
-            //    TreeViewItem groupItem = new TreeViewItem
-            //    {
-            //        Header = row["NoteGroup"],
-            //        Tag = row["NoteGroup"]
-            //    };
-
-            //    var sql =
-            //        $"SELECT DISTINCT NoteUnit FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}';";
-
-            //    var units = GlobalVariables.DbService.ExecuteQuery(sql);
-
-            //    foreach (var unit in units)
-            //    {
-
-            //        TreeViewItem item = new TreeViewItem
-            //        {
-            //            Header = $"{unit["NoteUnit"]}",
-            //            Tag = new { Group = row["NoteGroup"], Unit = unit["NoteUnit"] }
-            //        };
-
-
-            //        //遍历章节列表，生成 TreeViewItem 并添加到 TreeView 控件中
-
-            //        var sql2 =$"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL) AND NoteGroup = '{row["NoteGroup"]}' AND NoteUnit = '{unit["NoteUnit"]}';";
-
-
-
-            //        var notes = GlobalVariables.DbService.ExecuteQuery(sql2);
-
-
-            //        foreach (var note in notes)
-            //        {
-            //            if (string.IsNullOrWhiteSpace(note.ToString()))
-            //            {
-            //                TreeViewItem book = new TreeViewItem()
-            //                {
-            //                    Header = note["NoteName"],
-            //                    Tag = new
-            //                    {
-            //                        Group = note["NoteGroup"],
-            //                        Unit = note["NoteUnit"],
-            //                        NoteName = note["NoteName"],
-            //                        NoteId = note["NoteId"]
-            //                    }
-            //                };
-
-            //                groupItem.Items.Add(book);
-            //            }
-            //            else
-            //            {
-            //                TreeViewItem book = new TreeViewItem()
-            //                {
-            //                    Header = note["NoteName"],
-            //                    Tag = new
-            //                    {
-            //                        Group = note["NoteGroup"],
-            //                        Unit = note["NoteUnit"],
-            //                        NoteName = note["NoteName"],
-            //                        NoteId = note["NoteId"]
-            //                    }
-            //                };
-
-
-            //                item.Items.Add(book);
-            //            }
-
-
-            //        }
-
-            //        if (item.Items.Count > 0)
-            //        {
-            //            groupItem.Items.Add(item);
-            //        }
-
-
-            //    }
-
-
-            //    NoteTree.Items.Add(groupItem);
-
-
-
-            //}
-
 
 
 
@@ -191,40 +109,40 @@ namespace ThinkITAM.Windows.ToolWindows
 
             foreach (var record in records)
             {
-                if (string.IsNullOrEmpty(record.BookGroup))
+                if (string.IsNullOrEmpty(record.NoteGroup))
                     continue; // 跳过无效数据
 
                 // 获取或创建 BookGroup 节点
-                if (!groupDict.TryGetValue(record.BookGroup, out TreeItem groupItem))
+                if (!groupDict.TryGetValue(record.NoteGroup, out TreeItem groupItem))
                 {
-                    groupItem = new TreeItem { Name = record.BookGroup };
-                    groupDict[record.BookGroup] = groupItem;
+                    groupItem = new TreeItem { Name = record.NoteGroup };
+                    groupDict[record.NoteGroup] = groupItem;
                     treeItems.Add(groupItem);
                 }
 
                 // 判断 BookUnit 是否为空
-                if (string.IsNullOrEmpty(record.BookUnit))
+                if (string.IsNullOrEmpty(record.NoteUnit))
                 {
                     // 直接添加 BookName 到 BookGroup 下
-                    groupItem.Children.Add(new TreeItem { Name = record.BookName, Tag = record });
+                    groupItem.Children.Add(new TreeItem { Name = record.NoteName, Tag = record });
                 }
                 else
                 {
                     // 查找或创建 BookUnit 节点
                     TreeItem unitItem = null;
-                    var existingUnit = groupItem.Children.FirstOrDefault(c => c.Name == record.BookUnit);
+                    var existingUnit = groupItem.Children.FirstOrDefault(c => c.Name == record.NoteUnit);
                     if (existingUnit != null && existingUnit.Tag == null) // Tag 为 null 表示它是分组节点，不是 BookName
                     {
                         unitItem = existingUnit;
                     }
                     else
                     {
-                        unitItem = new TreeItem { Name = record.BookUnit };
+                        unitItem = new TreeItem { Name = record.NoteUnit };
                         groupItem.Children.Add(unitItem);
                     }
 
                     // 将 BookName 添加到 BookUnit 节点下
-                    unitItem.Children.Add(new TreeItem { Name = record.BookName, Tag = record });
+                    unitItem.Children.Add(new TreeItem { Name = record.NoteName, Tag = record });
                 }
             }
 
@@ -655,10 +573,63 @@ namespace ThinkITAM.Windows.ToolWindows
             InsertAtLineStart("##### ");
         }
 
+        /// <summary>
+        /// 更新显示当前选中笔记的信息
+        /// </summary>
+        private void UpdateInfo()
+        {
+            if (noteBook!=null)
+            {
+                var path = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(noteBook.NoteUnit))
+                {
+                    path = $"{noteBook.NoteGroup}/{noteBook.NoteUnit}/{noteBook.NoteName}";
+                }
+                else
+                {
+                    path = $"{noteBook.NoteGroup}/{noteBook.NoteName}";
+                }
+
+                var cd = noteBook.CreatedDate.ToString();
+
+                CreateDate.Content = string.Format(cd, "yyyy-MM-dd HH:mm:ss");
 
 
 
-        private NoteBookViewModel noteBook = new NoteBookViewModel();
+                if (!string.IsNullOrWhiteSpace(noteBook.EditDate.ToString()))
+                {
+                    //日期格式化
+   
+                    var d = string.Format(noteBook.EditDate.ToString(), "yyyy-MM-dd HH:mm:ss");
+
+                    EditDate.Content = d;
+                    EditIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    EditDate.Content = null;
+                    EditIcon.Visibility = Visibility.Hidden;
+                }
+
+                
+                NoteBookName.Content = path;
+            }
+            else
+            {
+                NoteBookName.Content = null;
+                CreateDate.Content = null;
+                EditDate.Content = null;
+                EditIcon.Visibility = Visibility.Hidden;
+            }
+
+        }
+
+
+        private NoteBookViewModel noteBook = null;
+
+
+
 
         private void NoteTree_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -673,6 +644,9 @@ namespace ThinkITAM.Windows.ToolWindows
                     if (selectedItem.Tag is NoteBookViewModel record)
                     {
                         noteBook = record;
+
+                        EditButton.IsEnabled = true;
+                        DeleteButton.IsEnabled = true;
 
                         // 假设你想显示 BookName + BookGroup + BookUnit 等信息
                         string detail = record.Note;
@@ -698,84 +672,18 @@ namespace ThinkITAM.Windows.ToolWindows
                         }
 
 
+                        UpdateInfo();
 
-
-
-
-
-
-                        var path = string.Empty;
-                        if (!string.IsNullOrWhiteSpace(record.BookUnit))
-                        {
-                             path = $"{record.BookGroup}/{record.BookUnit}/{record.BookName}";
-                        }
-                        else
-                        {
-                            path= $"{record.BookGroup}/{record.BookName}";
-                        }
-
-                        NoteBookName.Content = path;
+                    }
+                    else
+                    {
+                        EditButton.IsEnabled = false;
+                        DeleteButton.IsEnabled = false;
                     }
                 }
 
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            ////获取选中的 TreeViewItem
-            //var selectedItem = NoteTree.SelectedItem as TreeViewItem;
-            //if (selectedItem != null)
-            //{
-            //    //检查是否有子项节点，如果有则展开当前节点
-            //    //如果没有子节点，则认为是具体的笔记本，加载内容
-            //    if (selectedItem.Items.Count > 0)
-            //    {
-            //        selectedItem.IsExpanded = !selectedItem.IsExpanded; // 切换展开/收起状态
-            //    }
-            //    else
-            //    {
-            //        var node = selectedItem.Tag as NoteBookViewModel;
-
-            //        InputTextBox.Text=node.Note;
-
-            //        ////获取笔记本名称
-            //        //dynamic noteTag = selectedItem.Tag;
-            //        //string noteId = noteTag.NoteId;
-
-            //        //NoteBookName.Content = noteTag.NoteName;
-
-
-            //        ////查询数据库，获取对应笔记本的内容
-            //        //var query =
-            //        //    $"SELECT * FROM NoteBook WHERE  NoteId = '{noteId}' AND (Del != 1 OR Del IS NULL) LIMIT 1;";
-            //        //var rows = GlobalVariables.DbService.ExecuteQuery(query);
-            //        //if (rows.Count > 0)
-            //        //{
-            //        //    noteBook = rows[0];
-            //        //    //显示内容到 TextBox
-            //        //    InputTextBox.Text = rows[0]["Note"].ToString();
-
-            //        //    NoteBookCount.Content = InputTextBox.Text.Length.ToString();
-            //        //}
-            //        //else
-            //        //{
-            //        //    InputTextBox.Text = ""; //如果没有内容，清空 TextBox
-            //        //    NoteBookCount.Content = 0;
-            //        //}
-            //    }
-            //}
         }
 
         private async void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -788,9 +696,9 @@ namespace ThinkITAM.Windows.ToolWindows
                     var data = new
                     {
                         NoteId = noteBook.NoteId,
-                        NoteGroup = noteBook.BookGroup,
-                        NoteUnit = noteBook.BookUnit,
-                        NoteName = noteBook.BookName,
+                        NoteGroup = noteBook.NoteGroup,
+                        NoteUnit = noteBook.NoteUnit,
+                        NoteName = noteBook.NoteName,
                         CreatedDate = noteBook.CreatedDate,
                         EditDate = editDate,
                         Note = note
@@ -865,6 +773,13 @@ namespace ThinkITAM.Windows.ToolWindows
                 }
                 // 如果是叶子节点（如 BookName），不处理展开，让系统处理选中
                 // 即：不设置 e.Handled = true，允许事件继续传播
+
+                noteBook = null;
+                UpdateInfo();
+                EditButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+                InputTextBox.Text = null;
+
             }
         }
 
@@ -893,5 +808,135 @@ namespace ThinkITAM.Windows.ToolWindows
                 LoadNoteBooks(SearchKeyWord.Text);
             }
         }
+
+        private void AddButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new AddNoteBookWindow();
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            if (newWindow.ShowDialog() == true)
+            {
+                LoadNoteBooks();
+            }
+
+        }
+
+        private void EditButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new AddNoteBookWindow(noteBook);
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                newWindow.Owner = window;
+            }
+
+            if (newWindow.ShowDialog() == true)
+            {
+                UpdateInfo();
+                LoadNoteBooks();
+            }
+        }
+
+        private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(noteBook.NoteId))
+            {
+                var sql = $"UPDATE NoteBook SET Del=1 WHERE NoteId='{noteBook.NoteId}';";
+
+                noteBook.Del = 1;
+
+                var conditions = new { NoteId = noteBook.NoteId };
+                
+                GlobalVariables.DbService.UpdateEntity("NoteBook", noteBook, conditions);
+
+                SendMessage($"笔记{noteBook.NoteName}已标记删除！", 1);
+                noteBook = null;
+                InputTextBox.Text = null;
+                UpdateInfo();
+                LoadNoteBooks();
+            }
+
+
+
+        }
+
+        private void HelpButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            //从软件所在目录读取UpdateInfo.txt文件
+            string help = ReadMarkdownHelp();
+
+            var sql = $"SELECT COUNT(*) FROM NoteBook WHERE NoteId ='THINKITAM'";
+            var count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
+
+            var helpNote = new
+            {
+                NoteId = "THINKITAM",
+                NoteGroup = "ThinkITAM",
+                NoteUnit = "Markdown",
+                NoteName = "Syntax",
+                Note = help,
+                CreatedDate = DateTime.Now.ToString(),
+                EditDate = DateTime.Now.ToString(),
+                Del = string.Empty
+
+            };
+
+            if (count > 0)
+            {
+                var con = new { NoteId = "THINKITAM" };
+
+                GlobalVariables.DbService.UpdateEntity("NoteBook", helpNote, con);
+            }
+            else
+            {
+                GlobalVariables.DbService.InsertEntity("NoteBook", helpNote);
+            }
+
+
+
+        }
+
+
+
+
+
+        private string ReadMarkdownHelp()
+        {
+            try
+            {
+                // 获取当前应用程序所在目录
+                string appDir = AppDomain.CurrentDomain.BaseDirectory;
+
+                // 构建 UpdateInfo.txt 的完整路径
+                string filePath = Path.Combine(appDir, "Resources\\UpdateInfo\\MarkdownHelp.md");
+
+                // 判断文件是否存在
+                if (File.Exists(filePath))
+                {
+                    // 读取文件内容到字符串
+                    return File.ReadAllText(filePath, Encoding.UTF8);
+                }
+                else
+                {
+                    return null; // 文件不存在
+                }
+            }
+            catch (Exception ex)
+            {
+                // 出错处理
+                MessageBox.Show($"读取文件时发生错误：{ex.Message}");
+                return null;
+            }
+        }
+
     }
 }

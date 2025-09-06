@@ -1,0 +1,134 @@
+﻿<Window
+    x:Class="ThinkITAM.Windows.ToolWindows.AddNoteBookWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="添加笔记"
+    Width="400"
+    Height="350"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AddNoteBookWindow_OnLoaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="10,0"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <materialDesign:PackIcon
+                Width="40"
+                Height="40"
+                Kind="NotebookPlusOutline" />
+
+            <TextBlock
+                x:Name="TitleTextBlock"
+                Margin="10"
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="添加笔记" />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Orientation="Vertical">
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="添加或选择笔记本" />
+                <ComboBox
+                    x:Name="NoteBookName"
+                    Width="300"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="NotebookOutline"
+                    IsEditable="True"
+                    MaxDropDownHeight="300"
+                    SelectionChanged="NoteBookName_OnSelectionChanged"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            </StackPanel>
+
+
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="添加或选择章节" />
+                <ComboBox
+                    x:Name="UnitsCombobox"
+                    Width="300"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="BookOpenVariantOutline"
+                    IsEditable="True"
+                    MaxDropDownHeight="300"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+            </StackPanel>
+
+
+            <StackPanel
+                Margin="{StaticResource DefaultMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="笔记名称" />
+                <TextBox
+                    x:Name="NoteName"
+                    Width="300"
+                    Height="28"
+                    Padding="3"
+                    VerticalAlignment="Center"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="BookPlusOutline"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+            </StackPanel>
+        </StackPanel>
+
+        <Button
+            x:Name="SaveButton"
+            Grid.Row="2"
+            Width="150"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Click="SaveButton_OnClick"
+            Content="保存" />
+    </Grid>
+
+</Window>

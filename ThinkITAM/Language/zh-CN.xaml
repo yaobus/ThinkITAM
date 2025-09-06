@@ -345,6 +345,9 @@
     <s:String x:Key="TpWakeOnLan">网络唤醒</s:String>
     <s:String x:Key="TpWakeOnLanTooltip">网络唤醒局域网主机</s:String>
 
+    <s:String x:Key="TpNoteBook">记事本</s:String>
+    <s:String x:Key="TpNoteBookTooltip">简易记事本</s:String>
+    <s:String x:Key="TpNoteBookDescription">支持Markdown语法</s:String>
 
     <!--  AddAssetWindow-2025年5月29日  -->
     <s:String x:Key="AawAssetType">*资产类型</s:String>

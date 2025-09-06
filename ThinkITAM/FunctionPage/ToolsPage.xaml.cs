@@ -16,17 +16,19 @@ namespace ThinkITAM.FunctionPage
             InitializeComponent();
         }
 
+
+
         private void PortScanToolButton_OnClick(object sender, RoutedEventArgs e)
         {
             PortScanWindow portScanWindow = new PortScanWindow(null);
 
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                portScanWindow.Owner = window;
-            }
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    portScanWindow.Owner = window;
+            //}
 
-            portScanWindow.ShowDialog();
+            portScanWindow.Show();
 
         }
 
@@ -34,13 +36,13 @@ namespace ThinkITAM.FunctionPage
         {
             MacVendor macVendor = new MacVendor();
 
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                macVendor.Owner = window;
-            }
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    macVendor.Owner = window;
+            //}
 
-            macVendor.ShowDialog();
+            macVendor.Show();
 
         }
 
@@ -48,49 +50,49 @@ namespace ThinkITAM.FunctionPage
         {
             NetworkHelper networkHelper = new NetworkHelper();
 
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                networkHelper.Owner = window;
-            }
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    networkHelper.Owner = window;
+            //}
 
-            networkHelper.ShowDialog();
+            networkHelper.Show();
         }
 
         private void DiskCalculationButton_OnClick(object sender, RoutedEventArgs e)
         {
             StorageCalculationWindow storageCalculationWindow = new StorageCalculationWindow();
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                storageCalculationWindow.Owner = window;
-            }
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    storageCalculationWindow.Owner = window;
+            //}
 
-            storageCalculationWindow.ShowDialog();
+            storageCalculationWindow.Show();
         }
 
         private void WakeOnLanButton_OnClick(object sender, RoutedEventArgs e)
         {
             WakeOnLanWindow wakeOnLanWindow = new WakeOnLanWindow();
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                wakeOnLanWindow.Owner = window;
-            }
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    wakeOnLanWindow.Owner = window;
+            //}
 
-            wakeOnLanWindow.ShowDialog();
+            wakeOnLanWindow.Show();
         }
 
 
         private void NotePadButton_OnClick(object sender, RoutedEventArgs e)
         {
            NotePadWindow notePadWindow = new NotePadWindow();
-            var window = Window.GetWindow(this);
-            if (window != null)
-            {
-                notePadWindow.Owner = window;
-            }
-            notePadWindow.ShowDialog();
+            //var window = Window.GetWindow(this);
+            //if (window != null)
+            //{
+            //    notePadWindow.Owner = window;
+            //}
+            notePadWindow.Show();
         }
     }
 
