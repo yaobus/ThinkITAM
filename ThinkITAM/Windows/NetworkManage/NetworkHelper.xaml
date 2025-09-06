@@ -13,7 +13,7 @@
     MinHeight="850"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <Thickness x:Key="DefaultMargin">10,3</Thickness>

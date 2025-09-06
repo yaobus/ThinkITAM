@@ -1415,7 +1415,7 @@ namespace ThinkITAM.DatabaseOperation
                                 break;
 
                             case "NoteBook":
-                                sql = $"CREATE TABLE NoteBook  (NoteId  text,NoteGroup Text, NoteUnit Text, NoteName Text, CreatedDate DATE, EditDate DATE,Note  text, Del integer);";
+                                sql = $"CREATE TABLE NoteBook  (NoteId  text,NoteGroup Text, NoteUnit Text, NoteName Text, CreatedDate DATE, EditDate DATE,Note  text,DisplayOrder integer, Del integer);";
                                 break;
                         }
 
@@ -1649,7 +1649,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
                             case "NoteBook":
-                                sql = $"CREATE TABLE `NoteBook`  (`NoteId`  VARCHAR(64),`NoteGroup` VARCHAR(64), `NoteUnit`VARCHAR(64), `NoteName` VARCHAR(64), `CreatedDate` DATE,`EditDate` DATE, `Note`  text, `Del` integer);";
+                                sql = $"CREATE TABLE `NoteBook`  (`NoteId`  VARCHAR(64),`NoteGroup` VARCHAR(64), `NoteUnit`VARCHAR(64), `NoteName` VARCHAR(64), `CreatedDate` DATE,`EditDate` DATE, `Note`  text,`DisplayOrder` integer, `Del` integer);";
                                 break;
 
                         }

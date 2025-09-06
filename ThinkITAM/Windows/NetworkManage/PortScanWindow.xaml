@@ -14,7 +14,7 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="PortScanWindow_OnLoaded"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>

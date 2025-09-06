@@ -59,12 +59,12 @@ namespace ThinkITAM.Windows.ToolWindows
 
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                query = $"SELECT DISTINCT * FROM NoteBook WHERE( Del != 1 OR Del IS NULL)  AND  (NoteGroup LIKE '%{keyword}%' OR NoteUnit Like '%{keyword}%' OR NoteName LIKE '%{keyword}%' OR Note LIKE '%{keyword}%' )";
+                query = $"SELECT DISTINCT * FROM NoteBook WHERE( Del != 1 OR Del IS NULL)  AND  (NoteGroup LIKE '%{keyword}%' OR NoteUnit Like '%{keyword}%' OR NoteName LIKE '%{keyword}%' OR Note LIKE '%{keyword}%') ORDER BY DisplayOrder DESC";
 
             }
             else
             {
-                query = $"SELECT DISTINCT * FROM NoteBook WHERE Del != 1 OR Del IS NULL ;";
+                query = $"SELECT DISTINCT * FROM NoteBook WHERE Del != 1 OR Del IS NULL ORDER BY DisplayOrder DESC ;";
             }
 
             
@@ -83,7 +83,24 @@ namespace ThinkITAM.Windows.ToolWindows
                 node.NoteId= row["NoteId"].ToString();
                 node.CreatedDate=row["CreatedDate"].ToString();
                 node.EditDate = row["EditDate"].ToString();
-                node.Note= row["Note"].ToString();
+                node.Note = row["Note"].ToString();
+
+                int displayOrder = 0;
+
+                try
+                {
+                    displayOrder = Convert.ToInt32(row["DisplayOrder"]);
+                }
+                catch (Exception e)
+                {
+                    // ignored
+                }
+
+
+                node.DisplayOrder = displayOrder;
+
+                
+
 
                 noteList.Add(node);
 
@@ -691,7 +708,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
                 if (!string.IsNullOrWhiteSpace(noteBook.NoteId))
                 {
-                    var editDate = DateTime.Now;
+                    var editDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss");
                     var note = InputTextBox.Text;
                     var data = new
                     {
@@ -902,7 +919,7 @@ namespace ThinkITAM.Windows.ToolWindows
             }
 
 
-
+            LoadNoteBooks();
         }
 
 

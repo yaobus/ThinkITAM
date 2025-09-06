@@ -20,6 +20,10 @@
     <s:String x:Key="Login">验证密码</s:String>
     <s:String x:Key="ForgetPassword">忘记密码</s:String>
 
+
+    <s:String x:Key="LocalHelp">本地帮助</s:String>
+    <s:String x:Key="OnlineHelp">在线帮助</s:String>
+
     <!--  Windows.MainWindow连接失败MessageDialogHost  -->
     <s:String x:Key="MainOpenFailedPrompt">数据库打开失败,请检查数据库配置</s:String>
     <s:String x:Key="MainOpenFailedTitle">打开失败</s:String>

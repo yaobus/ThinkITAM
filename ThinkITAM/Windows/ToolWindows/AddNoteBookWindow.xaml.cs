@@ -47,6 +47,7 @@ public partial class AddNoteBookWindow : Window
             NoteBookName.SelectedItem = noteBookViewModel.NoteGroup;
             UnitsCombobox.SelectedItem = noteBookViewModel.NoteUnit;
             NoteName.Text = noteBookViewModel.NoteName;
+            DisplayOrder.Text = noteBookViewModel.DisplayOrder.ToString();
         }
 
 
@@ -87,22 +88,22 @@ public partial class AddNoteBookWindow : Window
 
         if (!string.IsNullOrWhiteSpace(group))
         {
-            var query = $"SELECT DISTINCT NoteUnit FROM NoteBook WHERE (Del != 1 OR Del IS NULL ) AND NoteGroup='{group}';";
+            var query = $"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL ) AND NoteGroup='{group}';";
 
             
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
-
+            int order = 0;
             foreach (var row in rows)
             {
                 if (!string.IsNullOrWhiteSpace(row["NoteUnit"].ToString()))
                 {
                     noteUnits.Add(row["NoteUnit"].ToString());
                 }
-
+                order = row["DisplayOrder"] == DBNull.Value ? 0 : int.Parse(row["DisplayOrder"].ToString());
             }
 
-           
+            DisplayOrder.Text = order.ToString();
         }
 
 
@@ -125,7 +126,8 @@ public partial class AddNoteBookWindow : Window
                         NoteUnit = UnitsCombobox.Text,
                         NoteName = NoteName.Text,
                         CreatedDate = noteBookViewModel.CreatedDate,
-                        EditDate= DateTime.Now.ToString()
+                        EditDate= DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss"),
+                        DisplayOrder = string.IsNullOrWhiteSpace(DisplayOrder.Text) ? 0 : int.Parse(DisplayOrder.Text)
 
                     };
 
@@ -147,7 +149,8 @@ public partial class AddNoteBookWindow : Window
                         NoteGroup = NoteBookName.Text,
                         NoteUnit = UnitsCombobox.Text,
                         NoteName = NoteName.Text,
-                        CreatedDate = date
+                        CreatedDate = date,
+                        DisplayOrder = string.IsNullOrWhiteSpace(DisplayOrder.Text) ? 0 : int.Parse(DisplayOrder.Text)
 
                     };
                     GlobalVariables.DbService.InsertEntity("NoteBook", note);
@@ -167,6 +170,38 @@ public partial class AddNoteBookWindow : Window
 
 
 
+        }
+    }
+
+    /// <summary>
+    /// 限制输入的数据类型
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void DisplayOrder_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        // 只允许数字字符
+        if (!char.IsDigit(e.Text, e.Text.Length - 1))
+        {
+            e.Handled = true; // 阻止非数字输入
+        }
+    }
+
+
+    private void DisplayOrder_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = sender as TextBox;
+        string text = textBox.Text;
+
+        // 移除所有非数字字符
+        string cleanedText = new string(text.Where(char.IsDigit).ToArray());
+
+        // 如果文本被修改了，更新 TextBox
+        if (text != cleanedText)
+        {
+            textBox.Text = cleanedText;
+            // 将光标移动到文本末尾
+            textBox.CaretIndex = cleanedText.Length;
         }
     }
 }

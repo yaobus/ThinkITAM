@@ -10,6 +10,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using ThinkITAM.DatabaseOperation;
 using ThinkITAM.DataBridge;
+using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.InformationDisplay;
 using ThinkITAM.ViewModels.DataBaseConfig;
 using ThinkITAM.Windows.Project;
@@ -608,31 +609,58 @@ public partial class MainWindow : Window
 
     private void HelpButton_OnClick(object sender, RoutedEventArgs e)
     {
-        // 1. 弹出保存对话框让用户选择路径
-        SaveFileDialog saveFileDialog = new SaveFileDialog();
-        saveFileDialog.Filter = "PDF 文件 (*.pdf)|*.pdf";
-        saveFileDialog.FileName = "ThinkITAM使用手册.pdf";
 
-        if (saveFileDialog.ShowDialog() == true)
+
+
+        //加载帮助文档
+        var result = MessageBox.Show("是否打开本地帮助?\r选否将会在默认浏览器打开在线帮助", "选择帮助文档", MessageBoxButton.YesNoCancel);
+
+        if (result == MessageBoxResult.Yes)
         {
-            string destinationPath = saveFileDialog.FileName;
 
             // 2. 获取嵌入资源或者本地文件内容
             string sourceFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Document\\ThinkITAM使用手册.pdf");
 
+
+
             try
             {
-                // 3. 复制文件到目标位置
-                File.Copy(sourceFilePath, destinationPath, overwrite: true);
-
-                // 4. 打开资源管理器并定位到该文件夹
-                Process.Start("explorer.exe", $"/select,\"{destinationPath}\"");
+                // 检查文件是否存在
+                if (File.Exists(sourceFilePath))
+                {
+                    // 启动默认程序打开PDF
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = sourceFilePath,
+                        UseShellExecute = true  // 必须为 true 才能使用默认程序
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("帮助文件不存在！", "文件未找到", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"无法导出帮助文档：{ex.Message}");
+                // 捕获可能的异常（如无默认程序、权限问题等）
+                MessageBox.Show($"无法打开帮助文件：{ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
+        else
+        {
+
+
+            if (result == MessageBoxResult.No)
+            {
+                OpenUrlClass.OpenUrlInSpecificBrowser("https://thinkitam.goeasy.work/", null);
+            }
+            
+        }
+
+
+
+
 
     }
 
@@ -645,5 +673,10 @@ public partial class MainWindow : Window
             newWindow.Owner = this;
             newWindow.ShowDialog();
         }
+    }
+
+    private void OnlineHelpButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        OpenUrlClass.OpenUrlInSpecificBrowser("https://thinkitam.goeasy.work/", null);
     }
 }

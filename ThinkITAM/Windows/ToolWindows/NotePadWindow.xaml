@@ -186,7 +186,8 @@
                 <ToolBarTray
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Background="Transparent">
+                    Background="Transparent"
+                    IsEnabled="{Binding ElementName=InputTextBox, Path=IsKeyboardFocusWithin, Mode=OneWay}">
                     <ToolBar
                         Background="Transparent"
                         ClipToBounds="False"

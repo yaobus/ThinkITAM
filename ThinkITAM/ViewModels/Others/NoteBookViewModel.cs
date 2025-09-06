@@ -45,6 +45,12 @@ namespace ThinkITAM.ViewModels.Others
             set;
         }
 
+        public int DisplayOrder
+        {
+            get;
+            set;
+        }
+
         public int Del
         {
             get;

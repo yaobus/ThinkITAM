@@ -49,6 +49,7 @@
                 x:Name="Sipam"
                 Margin="10"
                 HorizontalAlignment="Center"
+                Cursor="Hand"
                 MouseDown="Sipam_OnMouseDown"
                 Style="{StaticResource MaterialDesignBody1TextBlock}"
                 Text="https://github.com/yaobus/SIPAM" />
@@ -56,6 +57,7 @@
                 x:Name="IpamNote"
                 Margin="10"
                 HorizontalAlignment="Center"
+                Cursor="Hand"
                 MouseDown="IpamNote_OnMouseDown"
                 Style="{StaticResource MaterialDesignBody1TextBlock}"
                 Text="https://github.com/yaobus/IPAM-NOTE" />

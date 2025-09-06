@@ -16,7 +16,7 @@
     MinHeight="768"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="WakeOnLanWindow_OnLoaded"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />

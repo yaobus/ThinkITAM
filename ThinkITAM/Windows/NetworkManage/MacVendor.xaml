@@ -14,7 +14,7 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="MacVendor_OnLoaded"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid>

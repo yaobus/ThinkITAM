@@ -17,6 +17,9 @@
     <s:String x:Key="Login">Verify Password</s:String>
     <s:String x:Key="ForgetPassword">Forget Password</s:String>
 
+    <s:String x:Key="LocalHelp">Local Help</s:String>
+    <s:String x:Key="OnlineHelp">Online Help</s:String>
+
     <!--  Windows.MainWindow Connection Failed MessageDialogHost  -->
     <s:String x:Key="MainOpenFailedPrompt">Failed to open database, please check database configuration</s:String>
     <s:String x:Key="MainOpenFailedTitle">Open Failed</s:String>

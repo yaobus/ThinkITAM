@@ -14,7 +14,7 @@
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     SizeChanged="StorageCalculationWindow_OnSizeChanged"
     Style="{StaticResource MaterialDesignWindow}"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
