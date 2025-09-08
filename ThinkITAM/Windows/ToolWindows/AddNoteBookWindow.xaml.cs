@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.Others;
@@ -100,7 +101,18 @@ public partial class AddNoteBookWindow : Window
                 {
                     noteUnits.Add(row["NoteUnit"].ToString());
                 }
-                order = row["DisplayOrder"] == DBNull.Value ? 0 : int.Parse(row["DisplayOrder"].ToString());
+               
+              
+
+                try
+                {
+                    order = Convert.ToInt32(row["DisplayOrder"]);
+                }
+                catch (Exception )
+                {
+                    // ignored
+                }
+               
             }
 
             DisplayOrder.Text = order.ToString();
@@ -119,6 +131,8 @@ public partial class AddNoteBookWindow : Window
             {
                 if (noteBookViewModel != null)
                 {
+
+
                     var updateNote = new
                     {
                         NoteId = noteBookViewModel.NoteId,

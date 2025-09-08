@@ -44,13 +44,16 @@ namespace ThinkITAM.Windows.ToolWindows
             MessageQueue = new SnackbarMessageQueue();
         }
 
-        public SnackbarMessageQueue MessageQueue { get; set; }
+        public SnackbarMessageQueue MessageQueue
+        {
+            get; set;
+        }
 
 
         /// <summary>
         /// 加载笔记本
         /// </summary>
-        private void LoadNoteBooks(string keyword=null)
+        private void LoadNoteBooks(string keyword = null)
         {
             //NoteTree.Items.Clear();
 
@@ -67,7 +70,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 query = $"SELECT DISTINCT * FROM NoteBook WHERE Del != 1 OR Del IS NULL ORDER BY DisplayOrder DESC ;";
             }
 
-            
+
 
             var noteList = new List<NoteBookViewModel>();
 
@@ -77,11 +80,11 @@ namespace ThinkITAM.Windows.ToolWindows
             foreach (var row in rows)
             {
                 var node = new NoteBookViewModel();
-                node.NoteGroup= row["NoteGroup"].ToString();
-                node.NoteUnit= row["NoteUnit"].ToString();
-                node.NoteName= row["NoteName"].ToString();
-                node.NoteId= row["NoteId"].ToString();
-                node.CreatedDate=row["CreatedDate"].ToString();
+                node.NoteGroup = row["NoteGroup"].ToString();
+                node.NoteUnit = row["NoteUnit"].ToString();
+                node.NoteName = row["NoteName"].ToString();
+                node.NoteId = row["NoteId"].ToString();
+                node.CreatedDate = row["CreatedDate"].ToString();
                 node.EditDate = row["EditDate"].ToString();
                 node.Note = row["Note"].ToString();
 
@@ -99,7 +102,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
                 node.DisplayOrder = displayOrder;
 
-                
+
 
 
                 noteList.Add(node);
@@ -112,7 +115,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
             var treeData = BuildTree(noteList);
 
-            NoteTree.ItemsSource=treeData;
+            NoteTree.ItemsSource = treeData;
 
 
 
@@ -595,7 +598,7 @@ namespace ThinkITAM.Windows.ToolWindows
         /// </summary>
         private void UpdateInfo()
         {
-            if (noteBook!=null)
+            if (noteBook != null)
             {
                 var path = string.Empty;
 
@@ -617,7 +620,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 if (!string.IsNullOrWhiteSpace(noteBook.EditDate.ToString()))
                 {
                     //日期格式化
-   
+
                     var d = string.Format(noteBook.EditDate.ToString(), "yyyy-MM-dd HH:mm:ss");
 
                     EditDate.Content = d;
@@ -629,7 +632,7 @@ namespace ThinkITAM.Windows.ToolWindows
                     EditIcon.Visibility = Visibility.Hidden;
                 }
 
-                
+
                 NoteBookName.Content = path;
             }
             else
@@ -706,37 +709,37 @@ namespace ThinkITAM.Windows.ToolWindows
         private async void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-                if (!string.IsNullOrWhiteSpace(noteBook.NoteId))
+            if (noteBook != null)
+            {
+                var editDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss");
+                var note = InputTextBox.Text;
+                var data = new
                 {
-                    var editDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss");
-                    var note = InputTextBox.Text;
-                    var data = new
-                    {
-                        NoteId = noteBook.NoteId,
-                        NoteGroup = noteBook.NoteGroup,
-                        NoteUnit = noteBook.NoteUnit,
-                        NoteName = noteBook.NoteName,
-                        CreatedDate = noteBook.CreatedDate,
-                        EditDate = editDate,
-                        Note = note
-                    };
+                    NoteId = noteBook.NoteId,
+                    NoteGroup = noteBook.NoteGroup,
+                    NoteUnit = noteBook.NoteUnit,
+                    NoteName = noteBook.NoteName,
+                    CreatedDate = noteBook.CreatedDate,
+                    EditDate = editDate,
+                    Note = note
+                };
 
-                    var conditions = new
-                    {
-                        NoteId = noteBook.NoteId
-                    };
-
-                    GlobalVariables.DbService.UpdateEntity("NoteBook", data, conditions);
-
-                    SendMessage("已保存",1);
-
-                
-
-                }
-                else
+                var conditions = new
                 {
-                    MessageBox.Show("请先选择要编辑的笔记", "未选择笔记");
-                }
+                    NoteId = noteBook.NoteId
+                };
+
+                GlobalVariables.DbService.UpdateEntity("NoteBook", data, conditions);
+
+                SendMessage("已保存", 1);
+
+
+
+            }
+            else
+            {
+                MessageBox.Show("请先选择要编辑的笔记", "未选择笔记");
+            }
 
 
 
@@ -749,7 +752,7 @@ namespace ThinkITAM.Windows.ToolWindows
         /// </summary>
         /// <param name="message"></param>
         /// <param name="time"></param>
-        private void SendMessage(string message,int time)
+        private void SendMessage(string message, int time)
         {
             var duration = time;
 
@@ -766,7 +769,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void InputTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            NoteBookCount.Content= InputTextBox.Text.Length.ToString();
+            NoteBookCount.Content = InputTextBox.Text.Length.ToString();
         }
 
         private void NoteTree_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -814,13 +817,13 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void ClearSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
         {
-            SearchKeyWord.Text=string.Empty;
+            SearchKeyWord.Text = string.Empty;
             LoadNoteBooks();
         }
 
         private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key==Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 LoadNoteBooks(SearchKeyWord.Text);
             }
@@ -864,22 +867,32 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(noteBook.NoteId))
+
+            var result = MessageBox.Show("是否要删除所选笔记？", "警告", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
-                var sql = $"UPDATE NoteBook SET Del=1 WHERE NoteId='{noteBook.NoteId}';";
 
-                noteBook.Del = 1;
+                if (noteBook != null && !string.IsNullOrWhiteSpace(noteBook.NoteId))
+                {
+                    var sql = $"UPDATE NoteBook SET Del=1 WHERE NoteId='{noteBook.NoteId}';";
 
-                var conditions = new { NoteId = noteBook.NoteId };
-                
-                GlobalVariables.DbService.UpdateEntity("NoteBook", noteBook, conditions);
+                    noteBook.Del = 1;
 
-                SendMessage($"笔记{noteBook.NoteName}已标记删除！", 1);
-                noteBook = null;
-                InputTextBox.Text = null;
-                UpdateInfo();
-                LoadNoteBooks();
+                    var conditions = new { NoteId = noteBook.NoteId };
+
+                    GlobalVariables.DbService.UpdateEntity("NoteBook", noteBook, conditions);
+
+                    SendMessage($"笔记{noteBook.NoteName}已标记删除！", 1);
+                    noteBook = null;
+                    InputTextBox.Text = null;
+                    UpdateInfo();
+                    LoadNoteBooks();
+                }
             }
+
+
+
 
 
 
@@ -903,8 +916,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 Note = help,
                 CreatedDate = DateTime.Now.ToString(),
                 EditDate = DateTime.Now.ToString(),
-                Del = string.Empty
-
+                Del = 0
             };
 
             if (count > 0)
