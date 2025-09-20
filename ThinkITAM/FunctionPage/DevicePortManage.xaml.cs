@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using ThinkITAM.UserControls.Asset;
 using ThinkITAM.UserControls.DevicePortManage;
 using ThinkITAM.ViewModels.AssetManage;
 using ThinkITAM.ViewModels.DevicePortManage;
+using ThinkITAM.ViewModels.Index;
 using ThinkITAM.ViewModels.Others;
 using ThinkITAM.Windows.DevicePortManage;
 using ThinkITAM.Windows.NetworkManage;
@@ -21,6 +23,7 @@ using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 
 namespace ThinkITAM.FunctionPage;
+
 /// <summary>
 /// DevicePortManage.xaml 的交互逻辑
 /// </summary>
@@ -35,24 +38,20 @@ public partial class DevicePortManage : UserControl
 
     private void DevicePortManage_OnLoaded(object sender, RoutedEventArgs e)
     {
-
         LoadTags();
 
         DataBridge.DataBridge.PortSelectCount.CollectionChanged += PortSelectCount_CollectionChanged;
 
         LoadAssetTreeViewInfos();
+
+        DevicePortsPanel.ItemsSource = devicePortsViewModels;
     }
 
     private void PortSelectCount_CollectionChanged(object? sender,
         System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
-
         // 使用Dispatcher来更新UI
-        NumberBlock.Dispatcher.Invoke(() =>
-        {
-            NumberBlock.Text = GetSelectedCount().ToString();
-
-        });
+        NumberBlock.Dispatcher.Invoke(() => { NumberBlock.Text = GetSelectedCount().ToString(); });
     }
 
     private void AddButton_OnClick(object sender, RoutedEventArgs e)
@@ -68,10 +67,8 @@ public partial class DevicePortManage : UserControl
         }
 
 
-
         if (addDevice.ShowDialog() == true)
         {
-
             // 当子窗口关闭后执行这里的代码
             LoadAssetTreeViewInfos();
 
@@ -79,7 +76,6 @@ public partial class DevicePortManage : UserControl
             //LoadTags();
         }
     }
-
 
 
     private ObservableCollection<AssetTypeViewModel> assetTypes = new ObservableCollection<AssetTypeViewModel>();
@@ -93,7 +89,8 @@ public partial class DevicePortManage : UserControl
 
         if (!string.IsNullOrWhiteSpace(keyWord))
         {
-            filter = $"AND ( AssetNumber LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%')";
+            filter =
+                $"AND ( AssetNumber LIKE '%{keyWord}%' OR Model LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR User LIKE '%{keyWord}%')";
         }
 
         string sqlTemp = $"SELECT COUNT(*) FROM Devices  WHERE Del != 1 OR Del IS NULL {filter}";
@@ -119,9 +116,10 @@ public partial class DevicePortManage : UserControl
 
                 string assetTypeInfo = row["AssetType"].ToString();
 
-                info.AssetType = assetTypeInfo;//资产类型
+                info.AssetType = assetTypeInfo; //资产类型
 
-                sqlTemp = $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND (Del != 1 OR Del IS NULL) {filter}";
+                sqlTemp =
+                    $"SELECT * FROM Devices  WHERE AssetType = '{assetTypeInfo}' AND (Del != 1 OR Del IS NULL) {filter}";
 
                 var rows2 = GlobalVariables.DbService.ExecuteQuery(sqlTemp);
 
@@ -152,7 +150,7 @@ public partial class DevicePortManage : UserControl
                 }
 
 
-                info.DeviceTypeCount = "设备总数:" + index2;//设备类型总数
+                info.DeviceTypeCount = "设备总数:" + index2; //设备类型总数
 
                 var assetTypeControl = new AssetTypeUserControl();
 
@@ -169,23 +167,14 @@ public partial class DevicePortManage : UserControl
             }
 
 
-
             //Organization.ItemsSource = organizationInfo;
-
-
-
-
-
-
-
         }
     }
 
 
-
     private async void AssetTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
-        DataExport.IsEnabled = false;//导出按钮可用
+        DataExport.IsEnabled = false; //导出按钮可用
 
         if (e != null)
         {
@@ -195,16 +184,14 @@ public partial class DevicePortManage : UserControl
             PortManagePanel.Children.Clear();
 
 
-
             if (this.IsLoaded == true)
             {
-
                 // 获取用户选择的项
                 var selectedNode = e.NewValue;
 
                 if (selectedNode is DeviceInfo) //如果是子项
                 {
-                    DataExport.IsEnabled = true;//导出按钮可用
+                    DataExport.IsEnabled = true; //导出按钮可用
                     // 如果选择的是子节点类型，则处理子节点的逻辑
                     DeviceInfo childNode = selectedNode as DeviceInfo;
 
@@ -218,16 +205,15 @@ public partial class DevicePortManage : UserControl
                     await LoadPortInfos(info);
 
 
-                    await AnalysisPortInfos();
+                    //await AnalysisPortInfos();
 
-
-
+                     AnalysisPortInfos2();
+                    
                     //加载设备信息
                     LoadDeviceInfo(info);
 
                     EditButton.IsEnabled = true;
                     DeleteButton.IsEnabled = true;
-
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
@@ -249,14 +235,9 @@ public partial class DevicePortManage : UserControl
                             selectedItem.IsExpanded = true;
                         }
                     }
-
                 }
-
             }
-
-
         }
-
     }
 
     /// <summary>
@@ -275,7 +256,6 @@ public partial class DevicePortManage : UserControl
 
         foreach (var row in rows)
         {
-
             info.AssetNumber = row["AssetNumber"].ToString();
             info.AssetType = row["AssetType"].ToString();
             info.DeviceType = row["DeviceType"].ToString();
@@ -292,9 +272,6 @@ public partial class DevicePortManage : UserControl
 
         DeviceDetailInfo.DataContext = info;
     }
-
-
-
 
 
     /// <summary>
@@ -332,8 +309,6 @@ public partial class DevicePortManage : UserControl
                 info.VlanId = row["VlanId"].ToString();
 
 
-
-
                 //如果颜色索引数据库返回值为空数据，则使用默认颜色
 
                 if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
@@ -356,8 +331,6 @@ public partial class DevicePortManage : UserControl
                 }
 
 
-
-
                 info.TagA = row["TagA"].ToString();
                 info.TagB = row["TagB"].ToString();
                 info.TagC = row["TagC"].ToString();
@@ -369,13 +342,8 @@ public partial class DevicePortManage : UserControl
                 info.ToolTip = JoinTip(info);
 
                 DataBridge.DataBridge.PortDetailedInfos.Add(info);
-
             }
-
-
-
         }
-
     }
 
     /// <summary>
@@ -405,8 +373,6 @@ public partial class DevicePortManage : UserControl
             case 3:
                 tip += $"端口状态: 故障\r";
                 break;
-
-
         }
 
         //端口类型，E为以太网口，F为光纤口，D为硬盘，M为管理口
@@ -433,11 +399,10 @@ public partial class DevicePortManage : UserControl
         }
 
 
-
         //VLAN或RAID
         if (!string.IsNullOrWhiteSpace(info.VlanId))
         {
-            if (info.PortType == "D")//如果是磁盘插槽
+            if (info.PortType == "D") //如果是磁盘插槽
             {
                 tip += $"RAID类型: {info.VlanId}\r";
             }
@@ -445,10 +410,7 @@ public partial class DevicePortManage : UserControl
             {
                 tip += $"VLAN ID: {info.VlanId}\r";
             }
-
         }
-
-
 
 
         if (settingTags != null)
@@ -466,6 +428,7 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签A: {info.TagA}\r";
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagB))
             {
                 if (!string.IsNullOrWhiteSpace(settings.TagB))
@@ -477,6 +440,7 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签B: {info.TagB}\r";
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagC))
             {
                 if (!string.IsNullOrWhiteSpace(settings.TagC))
@@ -488,6 +452,7 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签C: {info.TagC}\r";
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagD))
             {
                 if (!string.IsNullOrWhiteSpace(settings.TagD))
@@ -499,6 +464,7 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签D: {info.TagD}\r";
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagE))
             {
                 if (!string.IsNullOrWhiteSpace(settings.TagE))
@@ -510,6 +476,7 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签A: {info.TagE}\r";
                 }
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagF))
             {
                 if (!string.IsNullOrWhiteSpace(settings.TagF))
@@ -521,53 +488,42 @@ public partial class DevicePortManage : UserControl
                     tip += $"自定义标签F: {info.TagF}\r";
                 }
             }
-
         }
         else
         {
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
-
                 tip += $"自定义标签A: {info.TagA}\r";
-
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagB))
             {
-
-
                 tip += $"自定义标签B: {info.TagB}\r";
-
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagC))
             {
-
                 tip += $"自定义标签C: {info.TagC}\r";
-
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagD))
             {
-
                 tip += $"自定义标签D: {info.TagD}\r";
-
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagE))
             {
-
                 tip += $"自定义标签A: {info.TagE}\r";
-
             }
+
             if (!string.IsNullOrWhiteSpace(info.TagF))
             {
-
                 tip += $"自定义标签F: {info.TagF}\r";
-
             }
-
         }
 
 
         return tip.TrimEnd('\r');
-
     }
 
     /// <summary>
@@ -593,10 +549,7 @@ public partial class DevicePortManage : UserControl
                 port.DataContext = item;
 
 
-                PortManagePanel.Dispatcher.Invoke(() =>
-                {
-                    PortManagePanel.Children.Add(port);
-                });
+                PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(port); });
 
 
                 await Task.Delay(1);
@@ -607,14 +560,8 @@ public partial class DevicePortManage : UserControl
             separator.Width = 10000; // 设置横线的宽度，根据需要调整
             separator.Opacity = 0.3;
 
-            PortManagePanel.Dispatcher.Invoke(() =>
-            {
-                PortManagePanel.Children.Add(separator);
-            });
-
+            PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(separator); });
         }
-
-
     }
 
 
@@ -647,11 +594,8 @@ public partial class DevicePortManage : UserControl
             {
                 DataBridge.DataBridge.PortOperationType = 1;
             }
-
         }
-
     }
-
 
 
     /// <summary>
@@ -665,9 +609,9 @@ public partial class DevicePortManage : UserControl
         {
             MultipleAllocationPanel.Visibility = Visibility.Collapsed;
 
-            DataBridge.DataBridge.SelectPortMode = 0;//默认选择未分配地址
+            DataBridge.DataBridge.SelectPortMode = 0; //默认选择未分配地址
 
-            DataBridge.DataBridge.PortOperationType = 0;//模式为单选模式
+            DataBridge.DataBridge.PortOperationType = 0; //模式为单选模式
 
 
             ClearSelectedPort();
@@ -684,8 +628,6 @@ public partial class DevicePortManage : UserControl
             //    AnalysisPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
             //}
         }
-
-
     }
 
     /// <summary>
@@ -699,16 +641,10 @@ public partial class DevicePortManage : UserControl
         {
             MultipleAllocationPanel.Visibility = Visibility.Visible;
 
-            DataBridge.DataBridge.PortOperationType = 1;//模式为多选模式
+            DataBridge.DataBridge.PortOperationType = 1; //模式为多选模式
             //DataBridge.DataBridge.SelectPortMode = 0;
         }
-
-
-
-
     }
-
-
 
 
     /// <summary>
@@ -718,7 +654,6 @@ public partial class DevicePortManage : UserControl
     /// <param name="e"></param>
     private async void MultipleAllocationButton_Click(object sender, RoutedEventArgs e)
     {
-
         if (GetSelectedCount() < 1)
         {
             return;
@@ -764,8 +699,6 @@ public partial class DevicePortManage : UserControl
             {
                 DataBridge.DataBridge.PortOperationType = 1;
             }
-
-
         }
     }
 
@@ -778,7 +711,6 @@ public partial class DevicePortManage : UserControl
     private void ClearSelected_OnClick(object sender, RoutedEventArgs e)
     {
         ClearSelectedPort();
-
     }
 
     /// <summary>
@@ -788,10 +720,9 @@ public partial class DevicePortManage : UserControl
     {
         foreach (var item in DataBridge.DataBridge.PortDetailedInfos.ToList()) // ToList()创建了一个快照，避免在遍历时修改集合引发的问题
         {
-
             item.IsSelected = false;
-
         }
+
         DataBridge.DataBridge.PortSelectCount.Clear();
     }
 
@@ -806,9 +737,7 @@ public partial class DevicePortManage : UserControl
     }
 
 
-    private int LoadMode = 0;//0为图形化加载，1为列表化加载
-
-
+    private int LoadMode = 0; //0为图形化加载，1为列表化加载
 
 
     /// <summary>
@@ -830,9 +759,7 @@ public partial class DevicePortManage : UserControl
 
         if (set.ShowDialog() == true)
         {
-
             LoadCustomTag();
-
         }
     }
 
@@ -843,22 +770,18 @@ public partial class DevicePortManage : UserControl
     private string settingTags;
 
 
-
     /// <summary>
     /// 加载端口信息自定义标签
     /// </summary>
     private void LoadCustomTag()
     {
-
         //加载端口自定义标签
         var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
-
 
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
 
 
         if (num > 0) //存在本地自定义标签
@@ -877,9 +800,7 @@ public partial class DevicePortManage : UserControl
                 TagD.Text = settings.TagD;
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
-
             }
-
         }
         else //全局标签
         {
@@ -895,7 +816,6 @@ public partial class DevicePortManage : UserControl
                 TagD.Text = settings.TagD;
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
-
             }
             else
             {
@@ -906,13 +826,8 @@ public partial class DevicePortManage : UserControl
                 TagE.Text = "自定义标签E";
                 TagF.Text = "自定义标签F";
             }
-
         }
-
-
-
     }
-
 
 
     /// <summary>
@@ -930,15 +845,13 @@ public partial class DevicePortManage : UserControl
                 column.SortDirection = null;
             }
         }
+
         PortListView.ItemsSource = DataBridge.DataBridge.PortDetailedInfos;
     }
 
 
-
-
     private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
     {
-
         var toggleButton = sender as FrameworkElement;
 
         if (toggleButton != null)
@@ -947,7 +860,6 @@ public partial class DevicePortManage : UserControl
 
             if (rowData != null)
             {
-
                 // 在这里运行你的逻辑代码
                 string portType = rowData.PortType;
 
@@ -970,19 +882,16 @@ public partial class DevicePortManage : UserControl
                     DataBridge.DataBridge.PortSelectCount.Add(portName);
                     UpdateNumberBlock();
                 }
-                else//当前选择的不是第一个地址
+                else //当前选择的不是第一个地址
                 {
-
                     //判断当前选择的地址是已分配还是未分配
-                    if (portMode == DataBridge.DataBridge.SelectPortMode && portType == DataBridge.DataBridge.SelectPortType)//同种类型的地址则添加到列表中，否则不添加
+                    if (portMode == DataBridge.DataBridge.SelectPortMode &&
+                        portType == DataBridge.DataBridge.SelectPortType) //同种类型的地址则添加到列表中，否则不添加
                     {
-
                         rowData.IsSelected = true;
                         string portName = $"{rowData.PortType}{rowData.PortSlotNumber}{rowData.PortId}";
 
                         DataBridge.DataBridge.PortSelectCount.Add(portName);
-
-
                     }
                     else
                     {
@@ -993,7 +902,6 @@ public partial class DevicePortManage : UserControl
                     //AddressNumber.Text = SelectAddress.Count.ToString();
                     UpdateNumberBlock();
                 }
-
             }
         }
     }
@@ -1019,11 +927,9 @@ public partial class DevicePortManage : UserControl
 
                 //DataBridge.DataBridge.PortSelectCount.RemoveAt(0);
                 UpdateNumberBlock();
-
             }
         }
     }
-
 
 
     /// <summary>
@@ -1033,8 +939,6 @@ public partial class DevicePortManage : UserControl
     private int GetSelectedCount()
     {
         return DataBridge.DataBridge.PortDetailedInfos.Sum(item => Convert.ToInt32(item.IsSelected));
-
-
     }
 
     /// <summary>
@@ -1042,7 +946,6 @@ public partial class DevicePortManage : UserControl
     /// </summary>
     private void UpdateNumberBlock()
     {
-
         // 确保在UI线程上执行更新
         Application.Current.Dispatcher.Invoke(() =>
         {
@@ -1057,7 +960,6 @@ public partial class DevicePortManage : UserControl
 
     private void PortListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-
         DependencyObject dep = (DependencyObject)e.OriginalSource;
 
         // 迭代视觉树以找到 DataGridRow
@@ -1107,10 +1009,8 @@ public partial class DevicePortManage : UserControl
         }
 
 
-
         if (allocationWindow.ShowDialog() == true)
         {
-
             //清空已选端口列表
             ClearSelectedPort();
 
@@ -1132,7 +1032,6 @@ public partial class DevicePortManage : UserControl
             {
                 DataBridge.DataBridge.PortOperationType = 1;
             }
-
         }
     }
 
@@ -1156,25 +1055,26 @@ public partial class DevicePortManage : UserControl
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-
-
         var result = MessageBox.Show("确定要删除该设备吗？\r该操作不可逆！", "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
         if (result == MessageBoxResult.Yes)
         {
             //查询是否有端口已经在链路上
-            var sql = $"SELECT COUNT(OnTheLine)  FROM De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId} WHERE OnTheLine IS NOT NULL ";
+            var sql =
+                $"SELECT COUNT(OnTheLine)  FROM De_{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId} WHERE OnTheLine IS NOT NULL ";
 
-            
+
             int count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(sql));
 
             if (count > 0)
             {
-                MessageBox.Show($"设备上有{count}个端口已经在链路上，无法删除！", "无法删除", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"设备上有{count}个端口已经在链路上，无法删除！", "无法删除", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             else
             {
-                var query = $"DELETE FROM  Devices  WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+                var query =
+                    $"DELETE FROM  Devices  WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
                 GlobalVariables.DbService.ExecuteNonQuery(query);
 
 
@@ -1182,16 +1082,14 @@ public partial class DevicePortManage : UserControl
                 GlobalVariables.DbService.ExecuteNonQuery(query);
 
 
-                query = $"UPDATE Asset SET Deploy = NULL WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
+                query =
+                    $"UPDATE Asset SET Deploy = NULL WHERE AssetId = '{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}'";
 
 
                 GlobalVariables.DbService.ExecuteNonQuery(query);
                 LoadAssetTreeViewInfos();
             }
-
-
         }
-
     }
 
 
@@ -1212,9 +1110,6 @@ public partial class DevicePortManage : UserControl
             MultipleAllocationPanel.Visibility = Visibility.Collapsed;
             DataBridge.DataBridge.PortOperationType = 0;
         }
-
-
-
     }
 
     /// <summary>
@@ -1224,21 +1119,21 @@ public partial class DevicePortManage : UserControl
     /// <param name="e"></param>
     private void EditButton_OnClick(object sender, RoutedEventArgs e)
     {
-        DeviceEditWindow newWindow = new DeviceEditWindow();
+        //DeviceEditWindow newWindow = new DeviceEditWindow();
 
+        DeviceCreateGuideWindow newWindow = new DeviceCreateGuideWindow();
 
         //窗口放中间
         var window = Window.GetWindow(this);
+
         if (window != null)
         {
             newWindow.Owner = window;
         }
 
 
-
         if (newWindow.ShowDialog() == true)
         {
-
             // 当子窗口关闭后执行这里的代码
             LoadAssetTreeViewInfos();
 
@@ -1275,8 +1170,6 @@ public partial class DevicePortManage : UserControl
 
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
     {
-
-
         if (DataBridge.DataBridge.PortDetailedInfos == null || DataBridge.DataBridge.PortDetailedInfos.Count == 0)
         {
             MessageBox.Show("没有可导出的数据。");
@@ -1284,8 +1177,8 @@ public partial class DevicePortManage : UserControl
         }
 
 
-
-        var fileName = $"{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+        var fileName =
+            $"{DataBridge.DataBridge.SelectDeviceTableInfo.AssetId}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
 
         // 创建保存文件对话框
         SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -1293,7 +1186,7 @@ public partial class DevicePortManage : UserControl
             Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
             FilterIndex = 1,
             RestoreDirectory = true,
-            FileName = fileName  // 默认文件名
+            FileName = fileName // 默认文件名
         };
 
         var expInfo = new CommonExportClass();
@@ -1306,14 +1199,9 @@ public partial class DevicePortManage : UserControl
 
 
             // 调用导出方法
-            ExcelExporter.ExportToExcel(DataBridge.DataBridge.PortDetailedInfos, selectedFilePath,expInfo);
+            ExcelExporter.ExportToExcel(DataBridge.DataBridge.PortDetailedInfos, selectedFilePath, expInfo);
         }
-
-
-
-
     }
-
 
 
     /// <summary>
@@ -1321,14 +1209,12 @@ public partial class DevicePortManage : UserControl
     /// </summary>
     private void LoadTags()
     {
-
         settingTags = DbClass.LoadWindowTag("AddDevice");
 
 
         if (settingTags != null)
         {
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
-
 
 
             if (!string.IsNullOrWhiteSpace(settings.TagA))
@@ -1384,10 +1270,45 @@ public partial class DevicePortManage : UserControl
             {
                 HintAssist.SetHint(TagFTextBox, "TagF");
             }
-
         }
-
     }
 
+
+    private ObservableCollection<DevicePortsViewModel> devicePortsViewModels =
+        new ObservableCollection<DevicePortsViewModel>();
+
+    /// <summary>
+    /// 解析端口配置
+    /// </summary>
+    private void   AnalysisPortInfos2()
+    {
+        
+        var groupedItems = DataBridge.DataBridge.PortDetailedInfos
+            .GroupBy(item => new { item.PortSlotNumber, item.PortType });
+        foreach (var group in groupedItems)
+        {
+            var devicePorts = new DevicePortsViewModel();
+            
+            devicePorts.SoltNumber = "123456";
+
+            var ports = new ObservableCollection<PortDetailedInfo>();
+            
+            foreach (var item in group) 
+            {
+                /*
+                var port = new DevicePort();
+                port.PortAllocationWindowClosed += PortAllocationWindowClosed;
+                port.Margin = new Thickness(5);
+                item.FullPortId = $"{item.PortSlotNumber}{item.PortId}";
+                port.DataContext = item;
+                */
+                ports.Add(item);
+               
+            }
+
+            devicePorts.Ports = ports;
+            devicePortsViewModels.Add(devicePorts);
+        }
+    }
 
 }

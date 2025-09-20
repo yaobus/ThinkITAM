@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:ThinkITAM.FunctionPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:devicePortManage="clr-namespace:ThinkITAM.UserControls.DevicePortManage"
     MinWidth="1200"
     MinHeight="700"
     d:Background="AliceBlue"
@@ -539,11 +540,36 @@
                 <ScrollViewer
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
-                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Inverse}">
+                    Visibility="Collapsed">
 
                     <WrapPanel x:Name="PortManagePanel" Margin="5" />
                 </ScrollViewer>
 
+                <ScrollViewer
+                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Inverse}"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl
+                        x:Name="DevicePortsPanel">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <devicePortManage:PortsPanel Margin="0,10" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+
+
+                </ScrollViewer>
 
 
                 <DataGrid
