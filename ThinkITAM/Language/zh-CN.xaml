@@ -230,6 +230,8 @@
     <s:String x:Key="DpmDeviceModel">设备型号</s:String>
     <s:String x:Key="DpmDeviceName">设备名称</s:String>
     <s:String x:Key="DpmDeviceUser">责任人</s:String>
+    <s:String x:Key="DpmAddSlot">添加板卡</s:String>
+    <s:String x:Key="DpmDeleteSlot">删除板卡</s:String>
 
 
     <s:String x:Key="DpmDgSelect">选择</s:String>
@@ -248,6 +250,8 @@
     <s:String x:Key="DpmDgPortLink">关联链路</s:String>
     <s:String x:Key="DpmDgPortLinkToolTip">端口所在的链路</s:String>
     <s:String x:Key="DpmDgPortColor">颜色标记</s:String>
+
+
 
 
     <!--  IndexPage  -->
@@ -441,6 +445,12 @@
     <s:String x:Key="FlBack">返回</s:String>
     <s:String x:Key="FlConfirm">确定</s:String>
     <s:String x:Key="FlIndex">序号</s:String>
+
+
+    <!--  AddDeviceSlotWindow-2025年9月21日  -->
+    <s:String x:Key="AdsAddSlotTitle">添加板卡</s:String>
+
+
 
 
     <!--  PortAllocationWindow  -->

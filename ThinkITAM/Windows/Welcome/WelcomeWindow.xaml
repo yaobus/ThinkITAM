@@ -30,7 +30,7 @@
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="欢迎参与ThinkITAM预览测试" />
+                Text="欢迎使用ThinkITAM预览版" />
             <TextBlock
                 Margin="10,0"
                 VerticalAlignment="Center"

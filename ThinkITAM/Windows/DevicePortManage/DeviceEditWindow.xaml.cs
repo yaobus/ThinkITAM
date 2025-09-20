@@ -163,10 +163,6 @@ public partial class DeviceEditWindow : Window
     }
 
 
-    private void UseDepartment_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
 
 
     private List<string> childList = new List<string>();

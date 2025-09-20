@@ -6,6 +6,7 @@ using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.LinkManage;
 using ThinkITAM.Windows.LinkWindows;
+using static ThinkITAM.ViewModels.DevicePortManage.PortTypeClass;
 
 namespace ThinkITAM.Windows.DevicePortManage
 {
@@ -29,59 +30,62 @@ namespace ThinkITAM.Windows.DevicePortManage
             InitializeComponent();
 
 
-            portInfos = DataBridge.DataBridge.PortDetailedInfos.Where(port => port.IsSelected).ToList();
+                portInfos = DataBridge.DataBridge.PortDetailedInfos.Where(port => port.IsSelected).ToList();
 
 
 
-            if (portInfos.Count == 1)
-            {
-                this.portInfo = portInfos[0];
-                this.DataContext = portInfo;
-                SelectedPort.Text = portInfo.FullPortId;
-
-                portInfo.PropertyChanged += PortInfo_PropertyChanged;
-
-            }
-            else
-            {
-                if (portInfos.Count == 0)
+                if (portInfos.Count == 1)
                 {
-                    return;
-                }
+                    this.portInfo = portInfos[0];
+                    this.DataContext = portInfo;
+                    SelectedPort.Text = portInfo.FullPortId;
 
-
-                //取出其中一个端口，用于存储修改后的信息
-                this.portInfo = portInfos[0];
-                this.DataContext = portInfo;
-                portInfo.PropertyChanged += PortInfo_PropertyChanged;
-
-
-
-                string text = null;
-
-                if (portInfos.Count <= 5)
-                {
-                    for (int i = 0; i < portInfos.Count; i++)
-                    {
-                        text += portInfos[i].FullPortId + ";";
-
-                    }
-
+                    portInfo.PropertyChanged += PortInfo_PropertyChanged;
 
                 }
                 else
                 {
-                    for (int i = 0; i < 6; i++)
+                    if (portInfos.Count == 0)
                     {
-                        text += portInfos[i].FullPortId + ";";
+                        return;
+                    }
+
+
+                    //取出其中一个端口，用于存储修改后的信息
+                    this.portInfo = portInfos[0];
+                    this.DataContext = portInfo;
+                    portInfo.PropertyChanged += PortInfo_PropertyChanged;
+
+
+
+                    string text = null;
+
+                    if (portInfos.Count <= 5)
+                    {
+                        for (int i = 0; i < portInfos.Count; i++)
+                        {
+                            text += portInfos[i].FullPortId + ";";
+
+                        }
+
 
                     }
-                    text += $"等{portInfos.Count}个端口";
+                    else
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            text += portInfos[i].FullPortId + ";";
+
+                        }
+                        text += $"等{portInfos.Count}个端口";
+                    }
+
+
+                    SelectedPort.Text = text;
                 }
 
 
-                SelectedPort.Text = text;
-            }
+            
 
 
 

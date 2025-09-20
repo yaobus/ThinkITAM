@@ -184,6 +184,13 @@ namespace ThinkITAM.DataBridge
         public static int CreatedDevice = 0;
 
 
+        /// <summary>
+        /// 修改了设备板卡信息
+        /// </summary>
+        public static ObservableCollection<int> ChangedDevicePorts = new ObservableCollection<int>();
+
+
+
         //-------------------------LinkManage----------------------------
 
         /// <summary>

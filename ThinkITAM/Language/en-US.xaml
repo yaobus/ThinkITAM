@@ -195,6 +195,8 @@
     <s:String x:Key="DpmDeviceModel">Device Model</s:String>
     <s:String x:Key="DpmDeviceName">Device Name</s:String>
     <s:String x:Key="DpmDeviceUser">User</s:String>
+    <s:String x:Key="DpmAddSlot">Add function card</s:String>
+    <s:String x:Key="DpmDeleteSlot">Remove function card</s:String>
 
     <!--  DataGrid Columns  -->
     <s:String x:Key="DpmDgSelect">Select</s:String>
@@ -213,6 +215,9 @@
     <s:String x:Key="DpmDgPortLink">Link</s:String>
     <s:String x:Key="DpmDgPortLinkToolTip">Link containing this port</s:String>
     <s:String x:Key="DpmDgPortColor">Color Tag</s:String>
+
+
+
 
     <!--  IndexPage  -->
     <s:String x:Key="IpAdd">Add Bookmark</s:String>
@@ -394,6 +399,10 @@
     <s:String x:Key="FlBack">Back</s:String>
     <s:String x:Key="FlConfirm">Confirm</s:String>
     <s:String x:Key="FlIndex">Index</s:String>
+
+    <!--  AddDeviceSlotWindow-2025年9月21日  -->
+    <s:String x:Key="AdsAddSlotTitle">Add function card</s:String>
+
 
     <!--  PortAllocationWindow  -->
     <s:String x:Key="PawSelectedPort">Selected Port</s:String>

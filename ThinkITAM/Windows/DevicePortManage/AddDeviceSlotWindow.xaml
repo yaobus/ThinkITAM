@@ -1,0 +1,302 @@
+﻿<Window
+    x:Class="ThinkITAM.Windows.DevicePortManage.AddDeviceSlotWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ThinkITAM.Windows.DevicePortManage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="添加设备板卡"
+    Width="630"
+    Height="350"
+    FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AddDeviceSlotWindow_OnLoaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource MaterialDesignWindow}"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Thickness x:Key="DefaultMargin">10,3</Thickness>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0">
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="20,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+                <materialDesign:PackIcon
+                    Width="40"
+                    Height="40"
+                    VerticalAlignment="Center"
+                    Kind="ServerOutline" />
+
+                <TextBlock
+                    Margin="10"
+                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                    Text="{DynamicResource AdsAddSlotTitle}" />
+
+            </StackPanel>
+
+
+
+            <StackPanel
+                Grid.Row="0"
+                Margin="20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+
+
+                <TextBlock
+                    x:Name="AssetNumberTextBox"
+                    Margin="10"
+                    d:Text="N-SW-HX01"
+                    FontSize="16"
+                    Opacity="0.5" />
+
+            </StackPanel>
+
+        </Grid>
+
+
+
+
+
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource DcgPortType}" />
+                    <ComboBox
+                        x:Name="PortType"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="5,0,0,0"
+                        MaxDropDownHeight="300"
+                        SelectedIndex="0"
+                        SelectionChanged="PortType_OnSelectionChanged"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="以太网口" />
+                        <ComboBoxItem Content="光纤网口" />
+                        <ComboBoxItem Content="管理网口" />
+                        <ComboBoxItem Content="硬盘插槽" />
+                    </ComboBox>
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource DcgSlot}" />
+                    <ComboBox
+                        x:Name="SlotNumber"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="5,0,0,0"
+                        MaxDropDownHeight="200"
+                        SelectedIndex="0"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBoxItem Content="0" />
+                        <ComboBoxItem Content="1" />
+                        <ComboBoxItem Content="2" />
+                        <ComboBoxItem Content="3" />
+                        <ComboBoxItem Content="4" />
+                        <ComboBoxItem Content="5" />
+                        <ComboBoxItem Content="6" />
+                        <ComboBoxItem Content="7" />
+                        <ComboBoxItem Content="8" />
+                        <ComboBoxItem Content="9" />
+                        <ComboBoxItem Content="10" />
+                        <ComboBoxItem Content="11" />
+                        <ComboBoxItem Content="" />
+
+                    </ComboBox>
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource DcgPortSpeed}" />
+                    <ComboBox
+                        x:Name="PortSpeed"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="5,0,0,0"
+                        IsEditable="True"
+                        MaxDropDownHeight="200"
+                        SelectedIndex="2"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                </StackPanel>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource DcgPortNumber}" />
+                    <ComboBox
+                        x:Name="PortPrefix"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="5,0,0,0"
+                        IsEditable="True"
+                        MaxDropDownHeight="300"
+                        SelectedIndex="0"
+                        Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Margin="10,16,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource 'DcgPortNumberRange '}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox
+                            x:Name="FirstNumber"
+                            Width="60"
+                            Height="28"
+                            Margin="0,0,5,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="FirstPage"
+                            KeyDown="FirstNumber_OnKeyDown"
+                            LostFocus="FirstNumber_OnLostFocus"
+                            PreviewTextInput="FirstNumber_OnPreviewTextInput"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            Text="0" />
+                        <TextBlock
+                            Width="15"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="---" />
+                        <TextBox
+                            x:Name="LastNumber"
+                            Width="60"
+                            Height="28"
+                            Margin="5,0,10,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                            materialDesign:TextFieldAssist.LeadingIcon="LastPage"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                        <TextBlock
+                            Width="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Σ" />
+                        <TextBox
+                            x:Name="PortCount"
+                            Width="60"
+                            Height="28"
+                            Margin="5,0,10,0"
+                            Padding="3"
+                            VerticalAlignment="Center"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource DcgPortCount}" />
+                    <Slider
+                        x:Name="PortSlider"
+                        Width="230"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        materialDesign:SliderAssist.HideActiveTrack="True"
+                        Maximum="52"
+                        Minimum="1"
+                        Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
+                        TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                        TickPlacement="BottomRight"
+                        ValueChanged="PortSlider_OnValueChanged"
+                        Value="0" />
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Button
+            x:Name="SaveButton"
+            Grid.Row="2"
+            Width="100"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Click="SaveButton_OnClick"
+            Content="{DynamicResource ApwSave}"
+            Style="{StaticResource MaterialDesignRaisedLightButton}" />
+    </Grid>
+</Window>

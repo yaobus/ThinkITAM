@@ -36,6 +36,7 @@
             <materialDesign:PackIcon
                 Width="40"
                 Height="40"
+                VerticalAlignment="Center"
                 Kind="NewspaperPlus" />
 
             <TextBlock

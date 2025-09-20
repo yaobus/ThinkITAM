@@ -78,7 +78,7 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             //if (SlotNumber.SelectedIndex != -1)
             //{
-            if (SlotNumber.Text != "" && SlotNumber.Text != null)
+            if (!string.IsNullOrWhiteSpace(SlotNumber.Text))
             {
                 slotNumber = Convert.ToInt32(SlotNumber.Text);
             }
@@ -115,7 +115,6 @@ namespace ThinkITAM.Windows.DevicePortManage
             conf.PortCount = portCount;
             portInfos.Add(conf);
 
-            Console.WriteLine(conf);
 
             #endregion
 
