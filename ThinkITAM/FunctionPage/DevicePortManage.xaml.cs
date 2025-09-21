@@ -198,8 +198,8 @@ public partial class DevicePortManage : UserControl
             //清空已选端口列表
             ClearSelectedPort();
 
-            PortManagePanel.Children.Clear();
-
+            //PortManagePanel.Children.Clear();
+            devicePortsViewModels.Clear();
 
             if (this.IsLoaded == true)
             {
@@ -304,7 +304,8 @@ public partial class DevicePortManage : UserControl
 
         if (tableName != "" && tableName != null)
         {
-            PortManagePanel.Children.Clear();
+            //PortManagePanel.Children.Clear(); 
+            devicePortsViewModels.Clear();
 
             DataBridge.DataBridge.PortDetailedInfos.Clear();
 
@@ -546,43 +547,43 @@ public partial class DevicePortManage : UserControl
         return tip.TrimEnd('\r');
     }
 
-    /// <summary>
-    /// 解析端口配置
-    /// </summary>
-    private async Task AnalysisPortInfos()
-    {
-        //图形化解析
+    ///// <summary>
+    ///// 解析端口配置
+    ///// </summary>
+    //private async Task AnalysisPortInfos()
+    //{
+    //    //图形化解析
 
-        //把具有相同PortSlotNumber和PortType的项分组
+    //    //把具有相同PortSlotNumber和PortType的项分组
 
-        var groupedItems = DataBridge.DataBridge.PortDetailedInfos
-            .GroupBy(item => new { item.PortSlotNumber, item.PortType });
-        foreach (var group in groupedItems)
-        {
-            foreach (var item in group) // 直接遍历group中的元素
-            {
-                var port = new DevicePort();
+    //    var groupedItems = DataBridge.DataBridge.PortDetailedInfos
+    //        .GroupBy(item => new { item.PortSlotNumber, item.PortType });
+    //    foreach (var group in groupedItems)
+    //    {
+    //        foreach (var item in group) // 直接遍历group中的元素
+    //        {
+    //            var port = new DevicePort();
 
-                port.PortAllocationWindowClosed += PortAllocationWindowClosed;
-                port.Margin = new Thickness(5);
-                item.FullPortId = $"{item.PortSlotNumber}{item.PortId}";
-                port.DataContext = item;
-
-
-                PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(port); });
+    //            port.PortAllocationWindowClosed += PortAllocationWindowClosed;
+    //            port.Margin = new Thickness(5);
+    //            item.FullPortId = $"{item.PortSlotNumber}{item.PortId}";
+    //            port.DataContext = item;
 
 
-                await Task.Delay(1);
-            }
+    //            PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(port); });
 
-            // 添加分割线
-            Separator separator = new Separator();
-            separator.Width = 10000; // 设置横线的宽度，根据需要调整
-            separator.Opacity = 0.3;
 
-            PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(separator); });
-        }
-    }
+    //            await Task.Delay(1);
+    //        }
+
+    //        // 添加分割线
+    //        Separator separator = new Separator();
+    //        separator.Width = 10000; // 设置横线的宽度，根据需要调整
+    //        separator.Opacity = 0.3;
+
+    //        PortManagePanel.Dispatcher.Invoke(() => { PortManagePanel.Children.Add(separator); });
+    //    }
+    //}
 
 
     /// <summary>
