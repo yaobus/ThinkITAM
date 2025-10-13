@@ -1028,10 +1028,9 @@ public partial class NetworkAddressManagePage : UserControl
     }
 
     /// <summary>
-    /// 自定义标签
+    /// 自定义网段信息标签
     /// </summary>
     private dynamic settingTags = null;
-
 
 
     /// <summary>
@@ -1968,15 +1967,17 @@ private string JoInTip(IpAddressInfoListViewMode info)
         }
 
 
-        if (settingTags != null)
+        if (DataBridge.DataBridge.SelectIpAddressTags != null)
         {
-            var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
+
+
+            var settings = DataBridge.DataBridge.SelectIpAddressTags;
 
 
 
             if (!string.IsNullOrWhiteSpace(info.TagA))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagA))
+                if (!string.IsNullOrWhiteSpace(settings.TagA.ToString()))
                 {
                     tip += $"{settings.TagA}: {info.TagA}\r";
                 }
@@ -1987,7 +1988,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             }
             if (!string.IsNullOrWhiteSpace(info.TagB))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagB))
+                if (!string.IsNullOrWhiteSpace(settings.TagB.ToString()))
                 {
                     tip += $"{settings.TagB}: {info.TagB}\r";
                 }
@@ -1998,7 +1999,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             }
             if (!string.IsNullOrWhiteSpace(info.TagC))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagC))
+                if (!string.IsNullOrWhiteSpace(settings.TagC.ToString()))
                 {
                     tip += $"{settings.TagC}: {info.TagC}\r";
                 }
@@ -2009,7 +2010,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             }
             if (!string.IsNullOrWhiteSpace(info.TagD))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagD))
+                if (!string.IsNullOrWhiteSpace(settings.TagD.ToString()))
                 {
                     tip += $"{settings.TagD}: {info.TagD}\r";
                 }
@@ -2020,7 +2021,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             }
             if (!string.IsNullOrWhiteSpace(info.TagE))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagE))
+                if (!string.IsNullOrWhiteSpace(settings.TagE.ToString()))
                 {
                     tip += $"{settings.TagE}: {info.TagE}\r";
                 }
@@ -2031,7 +2032,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             }
             if (!string.IsNullOrWhiteSpace(info.TagF))
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagF))
+                if (!string.IsNullOrWhiteSpace(settings.TagF.ToString()))
                 {
                     tip += $"{settings.TagF}: {info.TagF}\r";
                 }
