@@ -9,11 +9,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="ThinkITAM"
-    d:Width="1920"
-    d:Height="1080"
-    MinWidth="1280"
-    MinHeight="720"
+    MinWidth="1400"
+    MinHeight="900"
     d:Background="DimGray"
+    d:Height="1080"
+    d:Width="1920"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="SelectionWindow_OnLoaded"
     ResizeMode="CanResize"
@@ -106,301 +106,309 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
-        <ListView
-            x:Name="MenuList"
-            Grid.Column="0"
-            Width="45"
-            HorizontalAlignment="Left"
-            Opacity="0.8"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            SelectionChanged="MenuList_OnSelectionChanged">
-            <ListViewItem Margin="0,2">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
 
 
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+            <ListView
+                x:Name="MenuList2"
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="45"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Opacity="0.8"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectionChanged="MenuList2_OnSelectionChanged">
 
-                    <materialDesign:PackIcon
-                        x:Name="MenuIcon"
-                        Width="32"
-                        Height="32"
-                        VerticalAlignment="Center"
-                        Kind="MenuClose" />
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwMenuSelect}" />
-
-                </StackPanel>
-            </ListViewItem>
-
-
-
-
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="ViewDashboardVariant" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwDashboard}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="IpNetworkOutline" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwNetwork}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="Ethernet" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwDevicePort}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="StarOutline" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwIndexTag}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-
-
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="RelationOnlyOneToOnlyOne" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwLink}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="Warehouse" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwAsset}" />
-
-
-                </StackPanel>
-
-            </ListViewItem>
-
-
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <Grid>
                         <materialDesign:PackIcon
                             Width="28"
                             Height="28"
                             VerticalAlignment="Center"
-                            Kind="ApplicationOutline" />
+                            Kind="PaletteSwatch" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwPreset}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
                         <materialDesign:PackIcon
-                            Width="15"
-                            Height="15"
-                            HorizontalAlignment="Center"
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="HelpBoxOutline" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwHelp}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="InformationVariantCircleOutline" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwAbout}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+            </ListView>
+            <ListView
+                x:Name="MenuList"
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="45"
+                HorizontalAlignment="Left"
+                Opacity="0.8"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                SelectionChanged="MenuList_OnSelectionChanged">
+                <ListViewItem Margin="0,2">
+
+
+
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            x:Name="MenuIcon"
+                            Width="32"
+                            Height="32"
+                            VerticalAlignment="Center"
+                            Kind="MenuClose" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwMenuSelect}" />
+
+                    </StackPanel>
+                </ListViewItem>
+
+
+
+
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="ViewDashboardVariant" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwDashboard}" />
+
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="IpNetworkOutline" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwNetwork}" />
+
+
+                    </StackPanel>
+
+                </ListViewItem>
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
                             VerticalAlignment="Center"
                             Kind="Ethernet" />
 
-                    </Grid>
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwPanelPort}" />
-
-                </StackPanel>
-
-            </ListViewItem>
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwDevicePort}" />
 
 
+                    </StackPanel>
 
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                </ListViewItem>
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-                    <Grid>
                         <materialDesign:PackIcon
                             Width="28"
                             Height="28"
                             VerticalAlignment="Center"
-                            Kind="DesktopTowerMonitor" />
+                            Kind="StarOutline" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwIndexTag}" />
 
 
-                    </Grid>
+                    </StackPanel>
 
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwComputer}" />
+                </ListViewItem>
 
-                </StackPanel>
 
-            </ListViewItem>
 
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-                    <Grid>
                         <materialDesign:PackIcon
                             Width="28"
                             Height="28"
                             VerticalAlignment="Center"
-                            Kind="ToolboxOutline" />
+                            Kind="RelationOnlyOneToOnlyOne" />
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwLink}" />
 
 
-                    </Grid>
+                    </StackPanel>
 
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwToolBox}" />
-
-                </StackPanel>
-
-            </ListViewItem>
-
-        </ListView>
+                </ListViewItem>
 
 
-        <ListView
-            x:Name="MenuList2"
-            Grid.Column="0"
-            Width="45"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Opacity="0.8"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            SelectionChanged="MenuList2_OnSelectionChanged">
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="28"
+                            Height="28"
+                            VerticalAlignment="Center"
+                            Kind="Warehouse" />
 
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="PaletteSwatch" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwPreset}" />
-
-                </StackPanel>
-
-            </ListViewItem>
-
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="HelpBoxOutline" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwHelp}" />
-
-                </StackPanel>
-
-            </ListViewItem>
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwAsset}" />
 
 
-            <ListViewItem Margin="0,2">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    </StackPanel>
 
-                    <materialDesign:PackIcon
-                        Width="28"
-                        Height="28"
-                        VerticalAlignment="Center"
-                        Kind="InformationVariantCircleOutline" />
-
-                    <TextBlock
-                        Margin="10"
-                        VerticalAlignment="Center"
-                        Text="{DynamicResource SwAbout}" />
-
-                </StackPanel>
-
-            </ListViewItem>
-
-        </ListView>
+                </ListViewItem>
 
 
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <Grid>
+                            <materialDesign:PackIcon
+                                Width="28"
+                                Height="28"
+                                VerticalAlignment="Center"
+                                Kind="ApplicationOutline" />
+                            <materialDesign:PackIcon
+                                Width="15"
+                                Height="15"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="Ethernet" />
+
+                        </Grid>
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwPanelPort}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <Grid>
+                            <materialDesign:PackIcon
+                                Width="28"
+                                Height="28"
+                                VerticalAlignment="Center"
+                                Kind="DesktopTowerMonitor" />
+
+
+                        </Grid>
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwComputer}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+                <ListViewItem Margin="0,2">
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <Grid>
+                            <materialDesign:PackIcon
+                                Width="28"
+                                Height="28"
+                                VerticalAlignment="Center"
+                                Kind="ToolboxOutline" />
+
+
+                        </Grid>
+
+                        <TextBlock
+                            Margin="10"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource SwToolBox}" />
+
+                    </StackPanel>
+
+                </ListViewItem>
+
+            </ListView>
+
+        </Grid>
 
 
         <Grid

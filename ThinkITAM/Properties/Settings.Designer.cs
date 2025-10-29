@@ -94,5 +94,17 @@ namespace ThinkITAM.Properties {
                 this["VersionNumber"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WindowSizeWarn {
+            get {
+                return ((bool)(this["WindowSizeWarn"]));
+            }
+            set {
+                this["WindowSizeWarn"] = value;
+            }
+        }
     }
 }

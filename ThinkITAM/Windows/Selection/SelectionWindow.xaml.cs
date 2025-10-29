@@ -209,6 +209,8 @@ public partial class SelectionWindow : Window
         }
         else // 否则，居中显示窗口
         {
+            this.Width = 1920;
+            this.Height = 1080;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
@@ -478,6 +480,8 @@ public partial class SelectionWindow : Window
 
 
     }
+
+
 }
 
 
