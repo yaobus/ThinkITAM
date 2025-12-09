@@ -38,5 +38,22 @@ namespace ThinkITAM.FunctionPage
         {
             VersionTextBlock.Text = DataBridge.DataBridge.Version;
         }
+
+        private void Chip_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string uri = "ms-windows-store://review/?ProductId=9P4L15BSJWR0"; 
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(uri)
+                {
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                // 可选：处理异常（例如系统不支持该协议）
+                Console.WriteLine(ex);
+            }
+        }
     }
 }

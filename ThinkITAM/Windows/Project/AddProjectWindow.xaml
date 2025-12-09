@@ -53,8 +53,9 @@
                 Text="{Binding Type, Mode=OneWay}">
 
                 <ComboBoxItem Content="Sqlite" />
-                <!--<ComboBoxItem Content="Mysql" />
+                <ComboBoxItem Content="Mysql" />
                 <ComboBoxItem Content="MariaDB" />
+                <!--
                 <ComboBoxItem Content="SqlServer" />-->
 
             </ComboBox>
@@ -75,6 +76,7 @@
         <Grid
             x:Name="SqliteProjectPlane"
             Grid.Row="1"
+            d:Visibility="Visible"
             Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -103,6 +105,7 @@
 
                         <Label
                             HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
                             Content="{DynamicResource ApwSqliteNew}"
                             Opacity="0.4" />
 
@@ -111,7 +114,7 @@
                             Margin="5,0"
                             HorizontalAlignment="Right"
                             Click="NewToggleButton_OnClick"
-                            Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                            Style="{StaticResource MaterialDesignSwitchLightToggleButton}" />
                     </StackPanel>
 
                 </Grid>
@@ -119,13 +122,17 @@
                     x:Name="DbFilePath"
                     Grid.Row="1"
                     Margin="5"
-                    Padding="5,10,35,10"
+                    Padding="5,10,65,10"
                     BorderThickness="0.2"
+                    IsReadOnly="True"
+                    MouseDown="DbFilePath_MouseDown"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding Path, Mode=OneWay}" />
                 <Button
                     x:Name="BrowseButton"
                     Grid.Row="1"
+                    Width="65"
+                    Margin="5,0"
                     HorizontalAlignment="Right"
                     Click="BrowseButton_OnClick"
                     Style="{StaticResource MaterialDesignToolButton}">
@@ -158,7 +165,7 @@
         <Grid
             x:Name="OtherDatabasePlane"
             Grid.Row="1"
-            d:Visibility="Visible"
+            d:Visibility="Hidden"
             Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

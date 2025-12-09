@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
@@ -323,6 +324,17 @@ namespace ThinkITAM.Windows.Project
             var encryptJson = Functions.Protector.PasswordProtector.Encrypt(json);
 
             File.WriteAllText(configFilePath, encryptJson);
+        }
+
+        private void DbFilePath_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+            if(e.ChangedButton == MouseButton.Left)
+            {
+                BrowseButton_OnClick(null, null);
+            }
+
+
         }
     }
 
