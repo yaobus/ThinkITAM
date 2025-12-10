@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using ThinkITAM.Functions.FunctionClass;
+using ThinkITAM.Windows.AboutWindow;
 
 namespace ThinkITAM.FunctionPage
 {
@@ -16,23 +17,7 @@ namespace ThinkITAM.FunctionPage
         }
 
 
-        private void Sipam_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //如果按下的是鼠标左键，则在浏览器中打开SIPAM官网
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/SIPAM", null);
-            }
-        }
 
-        private void IpamNote_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //如果按下的是鼠标左键，则在浏览器中打开SIPAM官网
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/IPAM-NOTE", null);
-            }
-        }
 
         private void About_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -54,6 +39,67 @@ namespace ThinkITAM.FunctionPage
                 // 可选：处理异常（例如系统不支持该协议）
                 Console.WriteLine(ex);
             }
+        }
+
+        private void Sipam_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/SIPAM", null);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+              
+            }
+
+
+        }
+
+        private void IpamNote_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/IPAM-NOTE", null);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                
+            }
+        }
+
+
+        /// <summary>
+        /// 显示反馈页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Feedback_OnClick(object sender, RoutedEventArgs e)
+        {
+            var feedbackPage = new FeedbackPage();
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                feedbackPage.Owner = window;
+            }
+
+            feedbackPage.ShowDialog();
+
+        }
+
+        private void DonateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var donatePage = new DonatePage();
+
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                donatePage.Owner = window;
+            }
+
+            donatePage.ShowDialog();
         }
     }
 }

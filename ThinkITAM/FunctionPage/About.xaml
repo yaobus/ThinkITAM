@@ -13,86 +13,154 @@
     Loaded="About_OnLoaded"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <TextBlock
+        <TextBlock
+            Margin="10"
+            HorizontalAlignment="Center"
+            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+            Style="{StaticResource MaterialDesignHeadline2TextBlock}"
+            Text="ThinkITAM" />
+
+        <TextBlock
+            x:Name="VersionTextBlock"
+            Margin="10"
+            HorizontalAlignment="Center"
+            d:Text="1.0.XX"
+            FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+
+        <TextBlock
+            Margin="10"
+            HorizontalAlignment="Center"
+            Style="{StaticResource MaterialDesignBody1TextBlock}"
+            Text="Copyright © 2025  Yaobus All Rights Reserved" />
+
+
+        <StackPanel
+            Margin="0,50,0,0"
+            HorizontalAlignment="Center"
+            Opacity="0.7"
+            Orientation="Horizontal">
+
+            <Button
+                x:Name="Sipam"
+                Width="150"
                 Margin="10"
                 HorizontalAlignment="Center"
-                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
-                Style="{StaticResource MaterialDesignHeadline2TextBlock}"
-                Text="ThinkITAM" />
+                Click="Sipam_OnClick"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Kind="Github" />
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Text="SIPAM" />
+                </StackPanel>
+            </Button>
 
-            <TextBlock
-                x:Name="VersionTextBlock"
+
+
+            <Button
+                x:Name="IpamNote"
+                Width="150"
                 Margin="10"
                 HorizontalAlignment="Center"
-                d:Text="1.0.XX"
-                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
-                Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
-
-            <TextBlock
-                Margin="10"
-                HorizontalAlignment="Center"
-                Style="{StaticResource MaterialDesignBody1TextBlock}"
-                Text="Copyright © 2025  Yaobus All Rights Reserved" />
-
-            <StackPanel
-                Margin="0,50,0,0"
-                Opacity="0.5"
-                Orientation="Vertical">
-
-                <TextBlock
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                    Text="开源版本:" />
-                <TextBlock
-                    x:Name="Sipam"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Cursor="Hand"
-                    MouseDown="Sipam_OnMouseDown"
-                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                    Text="https://github.com/yaobus/SIPAM" />
-                <TextBlock
-                    x:Name="IpamNote"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Cursor="Hand"
-                    MouseDown="IpamNote_OnMouseDown"
-                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                    Text="https://github.com/yaobus/IPAM-NOTE" />
+                Click="IpamNote_OnClick"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Kind="Github" />
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Text="IPAM-NOTE" />
+                </StackPanel>
+            </Button>
 
 
-                <Button
-                    Width="200"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    Click="Chip_Click"
-                    Style="{StaticResource MaterialDesignOutlinedLightButton}">
-                    <StackPanel Orientation="Horizontal" >
-                        <materialDesign:PackIcon Kind="ThumbUpOutline" Margin="0" VerticalAlignment="Center"/>
-                        <TextBlock Text="赏个好评" Margin="10,0" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-
-
-
-
-            </StackPanel>
-            <!--  9P4L15BSJWR0  -->
 
 
         </StackPanel>
 
+        <StackPanel
+            HorizontalAlignment="Center"
+            Opacity="0.7"
+            Orientation="Horizontal">
 
-    </Grid>
+            <Button
+                Width="150"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Click="Chip_Click"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Kind="ThumbUpOutline" />
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Text="赏个好评" />
+                </StackPanel>
+            </Button>
+
+            <Button
+                x:Name="DonateButton"
+                Width="150"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Click="DonateButton_OnClick"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Kind="HandCoinOutline" />
+                    <TextBlock
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Text="赏口饭吃" />
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+        <Button
+            x:Name="Feedback"
+            Width="150"
+            Margin="10"
+            HorizontalAlignment="Center"
+            Click="Feedback_OnClick"
+            Opacity="0.7"
+            Style="{StaticResource MaterialDesignOutlinedLightButton}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon
+                    Margin="0"
+                    VerticalAlignment="Center"
+                    Kind="Qqchat" />
+                <TextBlock
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Text="我要反馈" />
+            </StackPanel>
+        </Button>
+
+    </StackPanel>
+    <!--  9P4L15BSJWR0  -->
+
+
+
+
+
 
 
 </UserControl>
