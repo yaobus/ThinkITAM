@@ -85,38 +85,49 @@ public partial class AddNoteBookWindow : Window
 
         noteUnits.Clear();
 
-        string group = noteGroups[NoteBookName.SelectedIndex];
 
-        if (!string.IsNullOrWhiteSpace(group))
+        var x = NoteBookName.SelectedIndex;
+        if (x>0)
         {
-            var query = $"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL ) AND NoteGroup='{group}';";
 
-            
+            string group = noteGroups[NoteBookName.SelectedIndex];
 
-            var rows = GlobalVariables.DbService.ExecuteQuery(query);
-            int order = 0;
-            foreach (var row in rows)
+
+
+            if (!string.IsNullOrWhiteSpace(group))
             {
-                if (!string.IsNullOrWhiteSpace(row["NoteUnit"].ToString()))
-                {
-                    noteUnits.Add(row["NoteUnit"].ToString());
-                }
-               
-              
+                var query = $"SELECT * FROM NoteBook WHERE (Del != 1 OR Del IS NULL ) AND NoteGroup='{group}';";
 
-                try
+
+
+                var rows = GlobalVariables.DbService.ExecuteQuery(query);
+                int order = 0;
+                foreach (var row in rows)
                 {
-                    order = Convert.ToInt32(row["DisplayOrder"]);
+                    if (!string.IsNullOrWhiteSpace(row["NoteUnit"].ToString()))
+                    {
+                        noteUnits.Add(row["NoteUnit"].ToString());
+                    }
+
+
+
+                    try
+                    {
+                        order = Convert.ToInt32(row["DisplayOrder"]);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+
                 }
-                catch (Exception )
-                {
-                    // ignored
-                }
-               
+
+                DisplayOrder.Text = order.ToString();
             }
 
-            DisplayOrder.Text = order.ToString();
         }
+
+
 
 
 

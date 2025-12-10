@@ -633,7 +633,7 @@
                         Click="MultipleDataExport_OnClick"
                         IsEnabled="True"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="多重数据导出向导">
+                        ToolTip="多重数据导出向导" Cursor="Hand">
 
                         <materialDesign:PackIcon Kind="DatabaseExportOutline" />
 

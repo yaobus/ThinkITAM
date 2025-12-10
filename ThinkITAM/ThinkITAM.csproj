@@ -17,8 +17,10 @@
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Light.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Medium.ttf" />
     <None Remove="Resources\Fonts\HarmonyOS_Sans_SC_Regular.ttf" />
+    <None Remove="Resources\Image\AliPay.png" />
     <None Remove="Resources\Image\Background.png" />
     <None Remove="Resources\Image\QR.png" />
+    <None Remove="Resources\Image\WeChat.png" />
     <None Remove="Resources\Logo\Logo150x150.png" />
     <None Remove="Resources\Logo\Logo44x44.png" />
     <None Remove="Resources\Template\AssetTemplate.xlsx" />
@@ -113,11 +115,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\AliPay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\Background.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\QR.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\WeChat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Logo\Logo310x150.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

@@ -71,8 +71,8 @@ namespace ThinkITAM.Windows.LinkWindows
         {
             peopleInfos.Clear();
 
-            string query = "SELECT * FROM UserInfo;";
-
+            string query = "SELECT * FROM UserInfo WHERE (Del != 1 OR Del IS NULL);";
+           
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
