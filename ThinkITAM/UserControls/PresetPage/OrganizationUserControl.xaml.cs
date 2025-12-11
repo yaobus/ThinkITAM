@@ -47,7 +47,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             organizationInfos.Clear();
 
-            string query = $"SELECT DISTINCT Organization FROM Organization WHERE  ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) {sqlsub}";
+            string query = $"SELECT DISTINCT Organization FROM Organization WHERE  ( Department IS  NULL OR Department = '') AND ( UserGroups IS NULL OR UserGroups = '' ) {sqlsub}";
 
             Console.WriteLine(query);
 
@@ -106,7 +106,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
                 string name = organizationInfos[OneListView.SelectedIndex].Organization;
 
-                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{name}' AND ( Department IS NOT NULL OR Department != '') AND ( GROUPS IS NULL OR GROUPS = '')  {sqlsub}";
+                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{name}' AND ( Department IS NOT NULL OR Department != '') AND ( UserGroups IS NULL OR UserGroups = '')  {sqlsub}";
 
 
 
@@ -150,7 +150,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 {
                     string name2 = departmentInfos[TowListView.SelectedIndex].Department;
 
-                    string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (Groups IS NOT NULL OR Groups != '')  {sqlsub}";
+                    string query = $"SELECT DISTINCT UserGroups FROM Organization WHERE Organization='{name}' AND Department='{name2}' AND (UserGroups IS NOT NULL OR UserGroups != '')  {sqlsub}";
 
 
 
@@ -164,7 +164,7 @@ namespace ThinkITAM.UserControls.PresetPage
                         GroupViewModel info = new GroupViewModel();
 
                         info.Index = index;
-                        info.Group = row["Groups"].ToString();
+                        info.Group = row["UserGroups"].ToString();
 
                         groupsInfos.Add(info);
                     }
@@ -264,7 +264,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             departmentInfos.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization ='{organization}' AND(Department IS NOT NULL OR Department !='') AND (Groups IS NULL OR Groups = '')  {sqlsub}";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization ='{organization}' AND(Department IS NOT NULL OR Department !='') AND (UserGroups IS NULL OR UserGroups = '')  {sqlsub}";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -296,7 +296,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             groupsInfos.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization ='{organization}' AND Department='{department}' AND (Groups IS NOT NULL OR Groups != '')  {sqlsub}";
+            string query = $"SELECT DISTINCT UserGroups FROM Organization WHERE Organization ='{organization}' AND Department='{department}' AND (UserGroups IS NOT NULL OR UserGroups != '')  {sqlsub}";
 
             Console.WriteLine(query);
 
@@ -309,7 +309,7 @@ namespace ThinkITAM.UserControls.PresetPage
                 GroupViewModel info = new GroupViewModel();
 
                 info.Index = index;
-                info.Group = row["Groups"].ToString();
+                info.Group = row["UserGroups"].ToString();
 
                 groupsInfos.Add(info);
             }
@@ -323,7 +323,7 @@ namespace ThinkITAM.UserControls.PresetPage
         {
             unitInfos.Clear();
 
-            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organization}' AND Department='{department}' AND Groups='{group}' AND (UserUnit IS NOT NULL OR UserUnit != '')  {sqlsub}";
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organization}' AND Department='{department}' AND UserGroups='{group}' AND (UserUnit IS NOT NULL OR UserUnit != '')  {sqlsub}";
 
 
 
@@ -409,7 +409,7 @@ namespace ThinkITAM.UserControls.PresetPage
             {
 
 
-                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (UserGroups IS NULL OR UserGroups = '')";
 
                 Console.WriteLine(sql);
 
@@ -436,7 +436,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND (Groups IS NULL OR Groups = '')";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND (UserGroups IS NULL OR UserGroups = '')";
 
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -461,7 +461,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}'";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND UserGroups = '{groups}'";
 
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
@@ -572,7 +572,7 @@ namespace ThinkITAM.UserControls.PresetPage
 
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND Groups = '{groups}' AND UserUnit = '{unit}'";
+                string sql = $"UPDATE  Organization  SET  Del  = 1 WHERE Organization = '{organization}' AND Department = '{department}' AND UserGroups = '{groups}' AND UserUnit = '{unit}'";
 
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);

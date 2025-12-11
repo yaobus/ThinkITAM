@@ -1234,7 +1234,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Organization"://组织架构
 
-                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"Groups\" TEXT,   \"UserUnit\" TEXT,  \"Note\" TEXT ,   \"Del\" integer);";
+                                sql = $"CREATE TABLE \"Organization\" (   \"Organization\" TEXT,   \"Department\" TEXT,   \"UserGroups\" TEXT,   \"UserUnit\" TEXT,  \"Note\" TEXT ,   \"Del\" integer);";
 
 
 
@@ -1357,7 +1357,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "CustomSetting"://自定义设置-用户编号前缀等内容
 
-                                sql = $"CREATE TABLE \"CustomSetting\" (   \"Option\" TEXT,   \"Content\" TEXT,   \"Note\" TEXT);";
+                                sql = $"CREATE TABLE \"CustomSetting\" (   \"CustomOption\" TEXT,   \"Content\" TEXT,   \"Note\" TEXT);";
 
 
                                 break;
@@ -1469,7 +1469,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Organization"://组织架构
 
                                 sql =
-                                    $"CREATE TABLE Organization (   Organization VARCHAR(255),   Department VARCHAR(255),   Groups VARCHAR(255),  UserUnit VARCHAR(255),   Note VARCHAR(255) , Del INT);";
+                                    $"CREATE TABLE Organization (   Organization VARCHAR(255),   Department VARCHAR(255),   UserGroups VARCHAR(255),  UserUnit VARCHAR(255),   Note VARCHAR(255) , Del INT);";
 
 
                                 break;
@@ -1500,25 +1500,25 @@ namespace ThinkITAM.DatabaseOperation
                             case "Asset"://资产表
 
                                 sql =
-                                    $"CREATE TABLE `Asset` (   `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   `AssetId` VARCHAR(255),   `AssetQrCode` VARCHAR(255),   `AssetType` VARCHAR(255),   `DeviceType` VARCHAR(255),   `AssetTag` VARCHAR(255),   `AssetNumber` INT,   `PurchaseDate` VARCHAR(255),   `PurchasePrice` VARCHAR(255),   `Manufacturer` VARCHAR(255),   `Model` VARCHAR(64),   `SerialNumber` VARCHAR(255),   `Configuration` TEXT,   `Location` VARCHAR(255),   `UserOrganization` VARCHAR(255),   `UserDepartment` VARCHAR(255),  `UserGroup` VARCHAR(255),  `UserUnit` VARCHAR(255), `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Consumer` VARCHAR(255),   `AssetStatus` VARCHAR(255),   `UsedYear` TEXT,   `ScrapDate` VARCHAR(255),   `Notes` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255),  `Deploy` INT, `Del` INT  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Asset` (   `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,   `AssetId` VARCHAR(255),   `AssetQrCode` VARCHAR(255),   `AssetType` VARCHAR(255),   `DeviceType` VARCHAR(255),   `AssetTag` VARCHAR(255),   `AssetNumber` INT,   `PurchaseDate` VARCHAR(255),   `PurchasePrice` VARCHAR(255),   `Manufacturer` VARCHAR(255),   `Model` VARCHAR(64),   `SerialNumber` VARCHAR(255),   `Configuration` TEXT,   `Location` VARCHAR(255),   `UserOrganization` VARCHAR(255),   `UserDepartment` VARCHAR(255),  `UserGroup` VARCHAR(255),  `UserUnit` VARCHAR(255), `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Consumer` VARCHAR(255),   `AssetStatus` VARCHAR(255),   `UsedYear` TEXT,   `ScrapDate` VARCHAR(255),   `Notes` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255),  `Deploy` INT, `Del` INT  ) ENGINE=InnoDB ;";
                                 break;
 
                             case "Browser"://浏览器路径表
 
                                 sql =
-                                    $"CREATE TABLE `Browser` (   `Browser` VARCHAR(255),   `Path` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Browser` (   `Browser` VARCHAR(255),   `Path` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB ;";
 
                                 break;
 
                             case "PortList"://浏览器路径表
 
                                 sql =
-                                    $"CREATE TABLE `PortList` (   `Port` INT,   `Note` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `PortList` (   `Port` INT,   `Note` VARCHAR(255) ) ENGINE=InnoDB ;";
                                 break;
 
                             case "ModelPreset"://型号预设表
 
-                                sql = $"CREATE TABLE `ModelPreset` (   `Model` VARCHAR(255),   `Preset` TEXT ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                sql = $"CREATE TABLE `ModelPreset` (   `Model` VARCHAR(255),   `Preset` TEXT ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1526,14 +1526,14 @@ namespace ThinkITAM.DatabaseOperation
                             case "Devices"://设备总表
 
                                 sql =
-                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` VARCHAR(255),   `DeviceType` VARCHAR(255),   `Model` VARCHAR(255),   `Description` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `EnableDate` VARCHAR(255),   `DeviceRoom` VARCHAR(255),   `DeviceCabinet` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255), `Del` INT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Devices` (   `AssetId` VARCHAR(255) NOT NULL,   `AssetNumber` VARCHAR(255) NOT NULL,   `AssetType` VARCHAR(255),   `DeviceType` VARCHAR(255),   `Model` VARCHAR(255),   `Description` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `EnableDate` VARCHAR(255),   `DeviceRoom` VARCHAR(255),   `DeviceCabinet` VARCHAR(255),   `TagA` VARCHAR(255),   `TagB` VARCHAR(255),   `TagC` VARCHAR(255),   `TagD` VARCHAR(255),   `TagE` VARCHAR(255),   `TagF` VARCHAR(255), `Del` INT,   PRIMARY KEY (`AssetId`, `AssetNumber`) ) ENGINE=InnoDB ;";
 
                                 break;
 
                             case "DeviceRoom"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `RoomName` VARCHAR(255),   `Location` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Note` VARCHAR(255), `Del` INT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceRoom` (   `DeviceRoomQrId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `RoomName` VARCHAR(255),   `Location` VARCHAR(255),   `User` VARCHAR(255),   `UserPhone` VARCHAR(255),   `Note` VARCHAR(255), `Del` INT,   PRIMARY KEY (`DeviceRoomQrId`) ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1542,7 +1542,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
                                 sql =
-                                    $"CREATE TABLE `Protocol` (   `Protocol` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Protocol` (   `Protocol` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB ;";
 
                                 break;
 
@@ -1550,7 +1550,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "DeviceCabinet"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` VARCHAR(255),   `Position` VARCHAR(255),   `Note` VARCHAR(255),  `Del` INT,  PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `DeviceCabinet` (   `CabinetId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `DeviceRoomQrId` VARCHAR(255),   `CabinetName` VARCHAR(255),   `Position` VARCHAR(255),   `Note` VARCHAR(255),  `Del` INT,  PRIMARY KEY (`CabinetId`) ) ENGINE=InnoDB ;";
 
                                 break;
 
@@ -1558,7 +1558,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Racks"://设备间表
 
                                 sql =
-                                    $"CREATE TABLE `Racks` (   `RackId` VARCHAR(255) NOT NULL,   `CabinetId` VARCHAR(255),   `RackName` VARCHAR(255),   `RackGroup` VARCHAR(255),   `RackNote` VARCHAR(255),   `SlotInfos` VARCHAR(255),   `SlotCount` INT, Del INT,   PRIMARY KEY (`RackId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Racks` (   `RackId` VARCHAR(255) NOT NULL,   `CabinetId` VARCHAR(255),   `RackName` VARCHAR(255),   `RackGroup` VARCHAR(255),   `RackNote` VARCHAR(255),   `SlotInfos` VARCHAR(255),   `SlotCount` INT, Del INT,   PRIMARY KEY (`RackId`) ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1568,21 +1568,21 @@ namespace ThinkITAM.DatabaseOperation
                             case "Buildings"://建筑物表
 
                                 sql =
-                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `Building` VARCHAR(255),   `Address` VARCHAR(255),   `User` VARCHAR(255),   `Phone` VARCHAR(255),   `Note` VARCHAR(255),  Del INT ,  PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Buildings` (   `BuildingId` VARCHAR(255) NOT NULL, `SortIndex` INT,   `Building` VARCHAR(255),   `Address` VARCHAR(255),   `User` VARCHAR(255),   `Phone` VARCHAR(255),   `Note` VARCHAR(255),  Del INT ,  PRIMARY KEY (`BuildingId`) ) ENGINE=InnoDB ;";
 
                                 break;
 
                             case "ScanPorts"://扫描端口预设表
 
                                 sql =
-                                    $"CREATE TABLE `ScanPorts` (   `Name` VARCHAR(255),   `Ports` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `ScanPorts` (   `Name` VARCHAR(255),   `Ports` VARCHAR(255) ) ENGINE=InnoDB ;";
 
                                 break;
 
                             case "Notes"://收藏夹分组
 
                                 sql =
-                                    $"CREATE TABLE `Notes` (   `NoteId` VARCHAR(255) NOT NULL,   `Note` VARCHAR(255),   PRIMARY KEY (`NoteId`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Notes` (   `NoteId` VARCHAR(255) NOT NULL,   `Note` VARCHAR(255),   PRIMARY KEY (`NoteId`) ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1590,14 +1590,14 @@ namespace ThinkITAM.DatabaseOperation
                             case "CustomSetting"://自定义设置
 
                                 sql =
-                                    $"CREATE TABLE `CustomSetting` (   `Option` VARCHAR(255),   `Content` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `CustomSetting` (   `CustomOption` VARCHAR(255),   `Content` VARCHAR(255),   `Note` VARCHAR(255) ) ENGINE=InnoDB ;";
 
                                 break;
 
                             case "Bookmark"://导航索引
 
                                 sql =
-                                    $"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(255) PRIMARY KEY,   `TypeGroup` VARCHAR(255),   `Name` VARCHAR(255),   `Protocol` VARCHAR(255),   `Host` VARCHAR(255),   `Port` VARCHAR(255),   `Color` INT,   `Browser` VARCHAR(255), `PinToStart` INT, `Del` INT ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(255) PRIMARY KEY,   `TypeGroup` VARCHAR(255),   `Name` VARCHAR(255),   `Protocol` VARCHAR(255),   `Host` VARCHAR(255),   `Port` VARCHAR(255),   `Color` INT,   `Browser` VARCHAR(255), `PinToStart` INT, `Del` INT ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1606,7 +1606,7 @@ namespace ThinkITAM.DatabaseOperation
                             case "Link"://主链路表
 
                                 sql =
-                                    $"CREATE TABLE `Link` (   `Link_ID` INT AUTO_INCREMENT PRIMARY KEY,   `Alias` VARCHAR(255) NOT NULL,   `Create_Time` DATETIME DEFAULT CURRENT_TIMESTAMP,   `Update_Time` DATETIME DEFAULT CURRENT_TIMESTAMP ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Link` (   `Link_ID` INT AUTO_INCREMENT PRIMARY KEY,   `Alias` VARCHAR(255) NOT NULL,   `Create_Time` DATETIME DEFAULT CURRENT_TIMESTAMP,   `Update_Time` DATETIME DEFAULT CURRENT_TIMESTAMP ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1621,19 +1621,19 @@ namespace ThinkITAM.DatabaseOperation
                             case "WakeOnLan":
 
                                 sql =
-                                    $"CREATE TABLE `WakeOnLan` (   `UID` INT NOT NULL,   `HostGroup` VARCHAR(255),   `Name` VARCHAR(255),   `IpAddress` VARCHAR(255),   `NetMask` VARCHAR(255),   `Mac` VARCHAR(255),   `Port` VARCHAR(255),   `Note` VARCHAR(255),   `PinToStart` INT,   PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `WakeOnLan` (   `UID` INT NOT NULL,   `HostGroup` VARCHAR(255),   `Name` VARCHAR(255),   `IpAddress` VARCHAR(255),   `NetMask` VARCHAR(255),   `Mac` VARCHAR(255),   `Port` VARCHAR(255),   `Note` VARCHAR(255),   `PinToStart` INT,   PRIMARY KEY (`UID`) ) ENGINE=InnoDB ;";
 
 
                                 break;
                             case "Computer":
 
                                 sql =
-                                    $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16),`LinkIp` VARCHAR(255), TagA  VARCHAR(255),  TagB  VARCHAR(255),  TagC  VARCHAR(255),  TagD  VARCHAR(255),  TagE  VARCHAR(255),  TagF  VARCHAR(255),  `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                    $"CREATE TABLE `Computer` (   `UID` INT NOT NULL,   `DeviceId` VARCHAR(16),   `AssetId`  VARCHAR(16),   `AssetUser` VARCHAR(16),   `PortId` INT,   `PortTag`  VARCHAR(255),   `PortType` VARCHAR(8),   `PortStatus` VARCHAR(8),   `OnTheLine` INT, `PortColor` INT, `PortGroup` VARCHAR(255),  `BuildingId` VARCHAR(16), `Floor` VARCHAR(16),`Room` VARCHAR(16),`LinkIp` VARCHAR(255), TagA  VARCHAR(255),  TagB  VARCHAR(255),  TagC  VARCHAR(255),  TagD  VARCHAR(255),  TagE  VARCHAR(255),  TagF  VARCHAR(255),  `Del` INT,  PRIMARY KEY (`UID`) ) ENGINE=InnoDB ;";
                                 break;
 
                             case "Models":
 
-                                sql = $"CREATE TABLE `Models` ( `AssetType` VARCHAR(64), `DeviceType` VARCHAR(64), `Model` VARCHAR(64) )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+                                sql = $"CREATE TABLE `Models` ( `AssetType` VARCHAR(64), `DeviceType` VARCHAR(64), `Model` VARCHAR(64) )ENGINE=InnoDB ;";
 
                                 break;
 

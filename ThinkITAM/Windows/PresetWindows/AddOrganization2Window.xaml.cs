@@ -55,7 +55,7 @@ public partial class AddOrganization2Window : Window
         var departmentInfo = department.Replace(" ", "");
 
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '');";
+        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND (UserGroups IS NULL OR UserGroups = '');";
 
 
 
@@ -77,7 +77,7 @@ public partial class AddOrganization2Window : Window
         else
         {
 
-            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') AND Del = 1 ;";
+            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (UserGroups IS NULL OR UserGroups = '') AND Del = 1 ;";
 
 
             var num2 = DbClass.ExecuteScalarTableNum(sql);
@@ -92,7 +92,7 @@ public partial class AddOrganization2Window : Window
 
 
                     string sql2 =
-                        $"UPDATE  Organization  SET  Del  = NULL WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (Groups IS NULL OR Groups = '') ";
+                        $"UPDATE  Organization  SET  Del  = NULL WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND (UserGroups IS NULL OR UserGroups = '') ";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;
@@ -121,7 +121,7 @@ public partial class AddOrganization2Window : Window
     {
         organizationInfo.Clear();
 
-        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) AND (Del != 1 OR Del IS NULL);";
+        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( UserGroups IS NULL OR UserGroups = '' ) AND (Del != 1 OR Del IS NULL);";
 
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -149,7 +149,7 @@ public partial class AddOrganization2Window : Window
         {
             departmentInfo.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (UserGroups IS NULL OR UserGroups = '') AND (Del != 1 OR Del IS NULL);";
 
             Console.WriteLine(query);
 

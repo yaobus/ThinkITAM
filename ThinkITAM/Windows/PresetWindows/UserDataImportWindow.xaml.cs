@@ -258,7 +258,7 @@ public partial class UserDataImportWindow : Window
             //判断二级组织是否单独存在，不存在则创建
             if (!string.IsNullOrWhiteSpace(departmentInfo))
             {
-                query = $"SELECT COUNT(Department) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='')";
+                query = $"SELECT COUNT(Department) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (UserGroups IS NULL OR UserGroups ='')";
 
                 count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
@@ -275,13 +275,13 @@ public partial class UserDataImportWindow : Window
                 else
                 {
                     //存在，但是已删除
-                    query = $"SELECT COUNT( Department) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='') AND Del = 1";
+                    query = $"SELECT COUNT( Department) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND (UserGroups IS NULL OR UserGroups ='') AND Del = 1";
 
                     count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
                     if (count == 1)
                     {
-                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (Groups IS NULL OR Groups ='') ";
+                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND (UserGroups IS NULL OR UserGroups ='') ";
                         GlobalVariables.DbService.ExecuteNonQuery(query);
 
                     }
@@ -293,7 +293,7 @@ public partial class UserDataImportWindow : Window
             //判断三级组织是否单独存在，不存在则创建
             if (!string.IsNullOrWhiteSpace(groupsInfo))
             {
-                query = $"SELECT COUNT(Groups) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}'  AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='')";
+                query = $"SELECT COUNT(UserGroups) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}'  AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='')";
 
                 count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
@@ -303,7 +303,7 @@ public partial class UserDataImportWindow : Window
                     {
                         Organization = organizationInfo,
                         Department = departmentInfo,
-                        Groups = groupsInfo
+                        UserGroups = groupsInfo
                     };
 
                     GlobalVariables.DbService.InsertEntity("Organization", info);
@@ -311,13 +311,13 @@ public partial class UserDataImportWindow : Window
                 else
                 {
                     //存在，但是已删除
-                    query = $"SELECT COUNT( Groups) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') AND Del = 1";
+                    query = $"SELECT COUNT(UserGroups) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND UserGroups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') AND Del = 1";
 
                     count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
                     if (count == 1)
                     {
-                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') ";
+                        query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND UserGroups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='') ";
                         GlobalVariables.DbService.ExecuteNonQuery(query);
 
                     }
@@ -327,7 +327,7 @@ public partial class UserDataImportWindow : Window
 
 
             string sqlTemp =
-                $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
+                $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND UserGroups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
 
             var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -348,13 +348,13 @@ public partial class UserDataImportWindow : Window
             else
             {
                 //存在，但是已删除
-                query = $"SELECT COUNT(UserUnit) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND UserUnit ='{unitsInfo}' AND Del = 1";
+                query = $"SELECT COUNT(UserUnit) FROM Organization WHERE Organization='{organizationInfo}'  AND Department='{departmentInfo}' AND UserGroups='{groupsInfo}' AND UserUnit ='{unitsInfo}' AND Del = 1";
 
                 count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
                 if (count == 1)
                 {
-                    query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND Groups='{groupsInfo}' AND UserUnit ='{unitsInfo}' ";
+                    query = $"UPDATE Organization SET Del = NULL WHERE  Organization='{organizationInfo}' AND Department='{departmentInfo}' AND UserGroups='{groupsInfo}' AND UserUnit ='{unitsInfo}' ";
                     GlobalVariables.DbService.ExecuteNonQuery(query);
 
                 }

@@ -61,7 +61,7 @@ public partial class AddPeopleWindow : Window
     /// </summary>
     private void LoadUserNumberPrefix()
     {
-        string query = "SELECT Content FROM CustomSetting WHERE Option='UserNumberPrefix';";
+        string query = "SELECT Content FROM CustomSetting WHERE CustomOption='UserNumberPrefix';";
 
         var prefix = GlobalVariables.DbService.ExecuteScalar(query);
 
@@ -147,7 +147,7 @@ public partial class AddPeopleWindow : Window
         {
             departmentInfo.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND Groups IS NULL AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND UserGroups IS NULL AND (Del != 1 OR Del IS NULL);";
 
 
 
@@ -269,7 +269,7 @@ public partial class AddPeopleWindow : Window
         var groupsInfo = groups.Replace(" ", "");
         var unitsInfo = units.Replace(" ", "");
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND UserGroups ='{groupsInfo}' AND UserUnit ='{unitsInfo}'";
 
 
 
@@ -277,7 +277,7 @@ public partial class AddPeopleWindow : Window
 
         if (num <= 0)
         {
-            var info = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo, UserUnit = unitsInfo };
+            var info = new { Organization = organizationInfo, Department = departmentInfo, UserGroups = groupsInfo, UserUnit = unitsInfo };
 
 
             GlobalVariables.DbService.InsertEntity("Organization", info);
@@ -369,7 +369,7 @@ public partial class AddPeopleWindow : Window
     /// </summary>
     private string GetUserNumberPrefix()
     {
-        string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
+        string query = "SELECT Content  FROM CustomSetting WHERE CustomOption='UserNumberPrefix';";
 
 
         var prefix = GlobalVariables.DbService.ExecuteScalar(query);
@@ -394,7 +394,7 @@ public partial class AddPeopleWindow : Window
         {
             groupsInfo.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND UserUnit IS NULL AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserGroups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (UserGroups IS NOT NULL OR UserGroups != '') AND UserUnit IS NULL AND (Del != 1 OR Del IS NULL);";
 
 
 
@@ -402,7 +402,7 @@ public partial class AddPeopleWindow : Window
 
             foreach (var row in rows)
             {
-                groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["UserGroups"].ToString());
             }
 
 
@@ -424,16 +424,14 @@ public partial class AddPeopleWindow : Window
     {
         if (prefix != NameTextBox.Text)
         {
-            string sqlTemp = $"SELECT COUNT(*) FROM CustomSetting WHERE Option ='UserNumberPrefix'";
+            string sqlTemp = $"SELECT COUNT(*) FROM CustomSetting WHERE CustomOption ='UserNumberPrefix'";
 
             //查询记录是否存在
             var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
             if (countNum == 0)//判断记录是否存在，不存在的情况
             {
-                var info = new { Option = "UserNumberPrefix", Content = NameTextBox.Text };
-
-                //string sql = $"INSERT INTO \"CustomSetting\" (\"Option\", \"Content\") VALUES ('UserNumberPrefix', '{NameTextBox.Text}')";
+                var info = new { CustomOption = "UserNumberPrefix", Content = NameTextBox.Text };
 
 
                 GlobalVariables.DbService.InsertEntity("CustomSetting", info);
@@ -442,7 +440,7 @@ public partial class AddPeopleWindow : Window
             }
             else//存在
             {
-                string sql = $"UPDATE  CustomSetting  SET  Content  = '{NameTextBox.Text}' WHERE Option ='UserNumberPrefix'";
+                string sql = $"UPDATE  CustomSetting  SET  Content  = '{NameTextBox.Text}' WHERE CustomOption ='UserNumberPrefix'";
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }
@@ -516,7 +514,7 @@ public partial class AddPeopleWindow : Window
         {
             unitInfos.Clear();
 
-            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}'  AND UserGroups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != 1 OR Del IS NULL);";
 
 
 

@@ -123,7 +123,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// </summary>
         private string GetUserNumberPrefix()
         {
-            string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
+            string query = "SELECT Content  FROM CustomSetting WHERE CustomOption='UserNumberPrefix';";
 
 
             var prefix = GlobalVariables.DbService.ExecuteScalar(query);
@@ -176,7 +176,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 departmentInfo.Clear();
 
-                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != '0' OR Del IS NULL);";
+                string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (UserGroups IS NULL OR UserGroups = '') AND (Del != '0' OR Del IS NULL);";
 
                 Console.WriteLine(query);
 
@@ -216,7 +216,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 groupsInfo.Clear();
 
-                string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Del != '0' OR Del IS NULL);";
+                string query = $"SELECT DISTINCT UserGroups FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex].ToString()}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND (UserGroups IS NOT NULL OR UserGroups != '') AND (Del != '0' OR Del IS NULL);";
 
                 Console.WriteLine(query);
 
@@ -225,7 +225,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
                 foreach (var row in rows)
                 {
-                    groupsInfo.Add(row["Groups"].ToString());
+                    groupsInfo.Add(row["UserGroups"].ToString());
                 }
 
 
@@ -262,7 +262,7 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 unitInfos.Clear();
 
-                string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex]}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND Groups = '{groupsInfo[GroupBox.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
+                string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[OrganizationBox.SelectedIndex]}' AND Department = '{departmentInfo[DepartmentBox.SelectedIndex]}' AND UserGroups = '{groupsInfo[GroupBox.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != '0' OR Del IS NULL);";
 
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);

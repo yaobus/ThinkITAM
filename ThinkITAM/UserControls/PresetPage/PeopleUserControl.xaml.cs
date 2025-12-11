@@ -62,7 +62,7 @@ namespace ThinkITAM.UserControls.PresetPage
         /// </summary>
         private string GetUserNumberPrefix()
         {
-            string query = "SELECT Content  FROM CustomSetting WHERE Option='UserNumberPrefix';";
+            string query = "SELECT Content  FROM CustomSetting WHERE CustomOption='UserNumberPrefix';";
 
 
             var prefix = GlobalVariables.DbService.ExecuteScalar(query);

@@ -46,7 +46,7 @@ public partial class AddOrganizationWindow : Window
         var organizationInfo = organization.Replace(" ", "");
 
 
-        string sqlTemp = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '');";
+        string sqlTemp = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (UserGroups IS NULL OR UserGroups = '');";
 
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -63,7 +63,7 @@ public partial class AddOrganizationWindow : Window
         else
         {
 
-            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '');";
+            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (UserGroups IS NULL OR UserGroups = '');";
 
             var num2 = DbClass.ExecuteScalarTableNum(sql);
 
@@ -73,7 +73,7 @@ public partial class AddOrganizationWindow : Window
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    string sql2 = $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (Groups IS NULL OR Groups = '')";
+                    string sql2 = $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND (Department IS NULL OR Department = '') AND (UserGroups IS NULL OR UserGroups = '')";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
                     this.DialogResult = true;
@@ -104,7 +104,7 @@ public partial class AddOrganizationWindow : Window
     {
         organizationInfo.Clear();
 
-        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( GROUPS IS NULL OR GROUPS = '' ) AND (Del != 1 OR Del IS NULL);";
+        string query = $"SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( UserGroups IS NULL OR UserGroups = '' ) AND (Del != 1 OR Del IS NULL);";
 
         // Console.WriteLine(query);
 

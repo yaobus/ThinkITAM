@@ -68,7 +68,7 @@ public partial class AddOrganization4Window : Window
         var groupsInfo = groups.Replace(" ", "");
         var unitInfo = unit.Replace(" ", "");
 
-        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND Groups = '{groupsInfo}' AND UserUnit = '{unitInfo}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM Organization WHERE Organization ='{organizationInfo}' AND Department = '{departmentInfo}' AND UserGroups = '{groupsInfo}' AND UserUnit = '{unitInfo}'";
 
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
@@ -76,7 +76,7 @@ public partial class AddOrganization4Window : Window
         if (num <= 0)
         {
 
-            var org = new { Organization = organizationInfo, Department = departmentInfo, Groups = groupsInfo, UserUnit = unitInfo };
+            var org = new { Organization = organizationInfo, Department = departmentInfo, UserGroups = groupsInfo, UserUnit = unitInfo };
 
             //string sql = $"INSERT INTO  \"Organization\" (\"Organization\", \"Department\", \"Groups\") VALUES ('{organizationInfo}', '{departmentInfo}', '{groupsInfo}')";
 
@@ -88,7 +88,7 @@ public partial class AddOrganization4Window : Window
         else
         {
 
-            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND   Groups = '{groupsInfo}' AND   UserUnit = '{unitInfo}' AND Del = 1 ;";
+            string sql = $"SELECT COUNT( * )  FROM Organization  WHERE Organization = '{organizationInfo}' AND  Department = '{departmentInfo}' AND   UserGroups = '{groupsInfo}' AND   UserUnit = '{unitInfo}' AND Del = 1 ;";
 
             var num2 = DbClass.ExecuteScalarTableNum(sql);
 
@@ -99,7 +99,7 @@ public partial class AddOrganization4Window : Window
                 if (result == MessageBoxResult.Yes)
                 {
                     string sql2 =
-                        $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND  Department = '{department}' AND   Groups = '{groupsInfo}' AND   UserUnit = '{unitInfo}'";
+                        $"UPDATE Organization SET Del = NULL WHERE Organization = '{organization}' AND  Department = '{department}' AND   UserGroups = '{groupsInfo}' AND   UserUnit = '{unitInfo}'";
 
                     GlobalVariables.DbService.ExecuteNonQuery(sql2);
 
@@ -129,7 +129,7 @@ public partial class AddOrganization4Window : Window
     {
         organizationInfo.Clear();
 
-        string query = "SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( Groups IS NULL OR Groups = '' ) AND (Del != 1 OR Del IS NULL);";
+        string query = "SELECT DISTINCT Organization FROM Organization WHERE ( Department IS  NULL OR Department = '') AND ( UserGroups IS NULL OR UserGroups = '' ) AND (Del != 1 OR Del IS NULL);";
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -153,7 +153,7 @@ public partial class AddOrganization4Window : Window
         {
             departmentInfo.Clear();
 
-            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (Groups IS NULL OR Groups = '') AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT Department FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex].ToString()}' AND (Department IS NOT NULL OR Department != '') AND (UserGroups IS NULL OR UserGroups = '') AND (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -192,14 +192,14 @@ public partial class AddOrganization4Window : Window
         {
             groupsInfo.Clear();
 
-            string query = $"SELECT DISTINCT Groups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (Groups IS NOT NULL OR Groups != '') AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserGroups FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND (UserGroups IS NOT NULL OR UserGroups != '') AND (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
             foreach (var row in rows)
             {
-                groupsInfo.Add(row["Groups"].ToString());
+                groupsInfo.Add(row["UserGroups"].ToString());
             }
 
 
@@ -226,7 +226,7 @@ public partial class AddOrganization4Window : Window
         {
             unitInfos.Clear();
 
-            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND Groups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != 1 OR Del IS NULL);";
+            string query = $"SELECT DISTINCT UserUnit FROM Organization WHERE Organization='{organizationInfo[Organization.SelectedIndex]}' AND Department = '{departmentInfo[Department.SelectedIndex]}' AND UserGroups = '{groupsInfo[Groups.SelectedIndex]}' AND (UserUnit IS NOT NULL OR UserUnit != '') AND (Del != 1 OR Del IS NULL);";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);

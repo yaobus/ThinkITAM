@@ -36,6 +36,15 @@ public partial class SelectionWindow : Window
         //标题栏显示版本号
         //this.Title += $" Ver {DataBridge.DataBridge.Version}";
 
+        switch (DataBridge.DataBridge.NowOpenedDataBaseType)
+        {
+            case "mysql":
+                SetCharset();
+                break;
+        }
+
+        
+
         LoadingIndicator.Visibility = Visibility.Visible;
         await Task.Run(async () =>
         {
@@ -110,6 +119,7 @@ public partial class SelectionWindow : Window
                 case "mysql":
                 case "mariadb":
 
+
                     ModifyFieldNameMysql();
 
                     break;
@@ -122,6 +132,58 @@ public partial class SelectionWindow : Window
 
 
     }
+
+
+    /// <summary>
+    /// 修改数据库字段编码字符集为utf8mb4
+    /// </summary>
+    private void SetCharset()
+    {
+       var versionStr = GlobalVariables.DbService.ExecuteScalar("SELECT VERSION();").ToString();
+
+
+       // 2. 判断是否为 MariaDB
+       bool isMariaDb = versionStr.IndexOf("mariadb", StringComparison.OrdinalIgnoreCase) >= 0;
+
+       if (isMariaDb)
+       {
+           // MariaDB 不使用 utf8mb4_0900_ai_ci，跳过
+           return;
+       }
+
+       // 3. 提取主版本号（如 "8.0.33" -> Version(8,0,33)）
+       string cleanVersion = versionStr.Split('-', ' ')[0]; // 去掉后缀如 "-log"
+       if (!Version.TryParse(cleanVersion, out Version version))
+       {
+          
+           Console.WriteLine(versionStr);
+
+       }
+
+       // 4. 仅当 MySQL 且版本 >= 8.0 时执行 ALTER
+       if (version.Major >= 8)
+       {
+           string alterSql = $@"
+                ALTER DATABASE `{GlobalVariables.dbConfig.DatabaseName}`
+                CHARACTER SET utf8mb4
+                COLLATE utf8mb4_0900_ai_ci;";
+
+           Console.WriteLine(alterSql);
+
+           Console.WriteLine(GlobalVariables.DbService.ExecuteNonQuery(alterSql));
+
+            return; // 成功执行
+       }
+
+       return ; // 未满足条件，未执行
+
+
+
+
+    }
+
+
+
 
     /// <summary>
     /// 对网段表添加字段
@@ -137,12 +199,15 @@ public partial class SelectionWindow : Window
     }
 
     /// <summary>
-    /// 修改字段名称
+    /// 修改SQLITE字段名称
     /// </summary>
     private void ModifyFieldNameSqlite()
     {
 
         var query = "ALTER TABLE WindowTag RENAME COLUMN Window TO WindowName;";
+        
+
+
 
         try
         {
@@ -154,10 +219,39 @@ public partial class SelectionWindow : Window
             Console.WriteLine(e);
            
         }
-        
+
+
+        //修改组织架构字段
+        query = "ALTER TABLE Organization RENAME COLUMN Groups TO UserGroups;";
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+        }
+
+        // 修改自定义字段字段
+        query = "ALTER TABLE CustomSetting RENAME COLUMN Option TO CustomOption;";
+
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+        }
     }
 
-
+    /// <summary>
+    /// 修改mysql字段名称
+    /// </summary>
     private void ModifyFieldNameMysql()
     {
         var query = "ALTER TABLE WindowTag RENAME COLUMN `Window` TO WindowName;";
@@ -172,6 +266,33 @@ public partial class SelectionWindow : Window
             Console.WriteLine(e);
 
         }
+
+        query = "ALTER TABLE Organization RENAME COLUMN `Groups` TO UserGroups;";
+
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+        }
+
+        query = "ALTER TABLE CustomSetting RENAME COLUMN `Option` TO CustomOption;";
+
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+        }
+
     }
 
 
@@ -279,16 +400,6 @@ public partial class SelectionWindow : Window
 
     }
 
-    private void TopControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-
-
-
-
-
-
-    }
 
 
 
@@ -447,7 +558,7 @@ public partial class SelectionWindow : Window
             case 0:
 
                 FunctionPanel.Children.Clear();
-                PresetPage presetPage = new PresetPage();
+                var presetPage = new PresetPage();
 
                 presetPage.Style = (Style)FindResource("PresetPageStyle");
 
