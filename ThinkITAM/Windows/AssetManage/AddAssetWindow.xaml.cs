@@ -397,26 +397,46 @@ public partial class AddAssetWindow : Window
     /// <param name="e"></param>
     private void BuyDate_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
     {
-        DateTime nowDate = DateTime.Now;
 
-        var buyDate = (DateTime)BuyDate.SelectedDate;
-
-
-
-
-        int x;
-
-        if (ScrapDate.SelectedDate != null)
+        if (BuyDate.SelectedDate.HasValue)
         {
+            var buyDate = BuyDate.SelectedDate.Value;
+            // 使用 buyDate 进行后续操作
 
-            x = ((DateTime)ScrapDate.SelectedDate).Year - buyDate.Year;
+            var nowDate = DateTime.Now;
+
+            int x;
+
+            if (ScrapDate.SelectedDate != null)
+            {
+
+                x = ((DateTime)ScrapDate.SelectedDate).Year - buyDate.Year;
+            }
+            else
+            {
+                x = nowDate.Year - buyDate.Year;
+            }
+
+            ServiceLife.Text = x.ToString();
+
+
         }
         else
         {
-            x = nowDate.Year - buyDate.Year;
+            // 处理未选择日期的情况
         }
 
-        ServiceLife.Text = x.ToString();
+
+
+
+       
+
+        
+
+
+
+
+
     }
 
 
@@ -449,7 +469,7 @@ public partial class AddAssetWindow : Window
                     DeviceType = DeviceType.Text,
                     AssetTag = AssetTag.Text,
                     AssetNumber = Convert.ToInt32(AssetNumber.Text),
-                    PurchaseDate = BuyDate.SelectedDate.ToString(),
+                    PurchaseDate = BuyDate.SelectedDate?.ToString("yyyy-MM-dd") ?? "",
                     PurchasePrice = Price.Text,
                     Manufacturer = Maker.Text,
                     Model = Model.Text,
@@ -465,7 +485,7 @@ public partial class AddAssetWindow : Window
                     Consumer = Consumer.Text,
                     AssetStatus = AssetStatus.Text,
                     UsedYear = ServiceLife.Text,
-                    ScrapDate = ScrapDate.SelectedDate.ToString(),
+                    ScrapDate = ScrapDate.SelectedDate?.ToString("yyyy-MM-dd") ?? "",
                     Notes = Description.Text,
                     TagA = TagA.Text,
                     TagB = TagB.Text,
@@ -506,7 +526,7 @@ public partial class AddAssetWindow : Window
                     DeviceType = DeviceType.Text,
                     AssetTag = AssetTag.Text,
                     AssetNumber = Convert.ToInt32(AssetNumber.Text),
-                    PurchaseDate = BuyDate.SelectedDate.ToString(),
+                    PurchaseDate = BuyDate.SelectedDate?.ToString("yyyy-MM-dd") ?? "",
                     PurchasePrice = Price.Text,
                     Manufacturer = Maker.Text,
                     Model = Model.Text,
@@ -522,7 +542,7 @@ public partial class AddAssetWindow : Window
                     Consumer = Consumer.Text,
                     AssetStatus = AssetStatus.Text,
                     UsedYear = ServiceLife.Text,
-                    ScrapDate = ScrapDate.SelectedDate.ToString(),
+                    ScrapDate = ScrapDate.SelectedDate?.ToString("yyyy-MM-dd") ?? "",
                     Notes = Description.Text,
                     TagA = TagA.Text,
                     TagB = TagB.Text,

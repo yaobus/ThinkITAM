@@ -803,7 +803,7 @@ public partial class DevicePortManage : UserControl
         var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
 
 
-        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 

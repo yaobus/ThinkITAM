@@ -21,7 +21,7 @@ namespace ThinkITAM.Windows.Computer
             string tagWindow = "ComputerTag";
 
 
-            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
             var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 

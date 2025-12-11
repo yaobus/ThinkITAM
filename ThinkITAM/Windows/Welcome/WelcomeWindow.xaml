@@ -71,8 +71,8 @@
 
 
                 <wpf:MarkdownViewer
-                    FontFamily="{StaticResource HarmonyOsFontFamily}"
                     x:Name="UpdateInfo"
+                    FontFamily="{StaticResource HarmonyOsFontFamily}"
                     FontSize="20"
                     VirtualizingStackPanel.IsVirtualizing="True"
                     VirtualizingStackPanel.VirtualizationMode="Recycling" />

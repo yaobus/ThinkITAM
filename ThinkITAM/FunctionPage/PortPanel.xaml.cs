@@ -689,7 +689,7 @@ namespace ThinkITAM.FunctionPage
             //加载端口自定义标签
             var tagWindow = "PortPanelTag";
 
-            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
             var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 

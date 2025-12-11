@@ -20,7 +20,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static string LoadWindowTag(string windowName)
         {
-            string sql = $"SELECT Tags FROM WindowTag WHERE Window = '{windowName}'";
+            string sql = $"SELECT Tags FROM WindowTag WHERE WindowName = '{windowName}'";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -764,7 +764,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <param name="tags"></param>
         public static void SaveWindowTag(string windowName, string tags)
         {
-            var sql = $"SELECT COUNT(*) FROM WindowTag WHERE Window = '{windowName}'";
+            var sql = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName = '{windowName}'";
 
 
 
@@ -1219,7 +1219,7 @@ namespace ThinkITAM.DatabaseOperation
                                 break;
                             case "WindowTag"://窗口注释表
 
-                                sql = $"CREATE TABLE \"WindowTag\" (   \"Window\" TEXT,   \"Tags\" TEXT );";
+                                sql = $"CREATE TABLE \"WindowTag\" (   \"WindowName\" TEXT,   \"Tags\" TEXT );";
 
 
                                 break;
@@ -1453,7 +1453,7 @@ namespace ThinkITAM.DatabaseOperation
                                 break;
                             case "WindowTag"://窗口注释表
 
-                                sql = $"CREATE TABLE WindowTag (Window VARCHAR(255), Tags  VARCHAR(255));";
+                                sql = $"CREATE TABLE WindowTag (WindowName VARCHAR(255), Tags  VARCHAR(255));";
 
 
                                 break;

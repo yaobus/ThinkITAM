@@ -79,6 +79,8 @@ public partial class SelectionWindow : Window
 
 
 
+
+
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagA", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagB", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagC", "TEXT");
@@ -91,8 +93,14 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("DeviceRoom", "SortIndex", "INT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("DeviceCabinet", "SortIndex", "INT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Buildings", "SortIndex", "INT");
+
+
+
                     //扩展网段表单字段
                     ExtendSegmentTable();
+
+                    //修改字段名称
+                    ModifyFieldNameSqlite();
 
                     Properties.Settings.Default.VersionNumber = DataBridge.DataBridge.VersionNumber;
                     Properties.Settings.Default.Save();
@@ -102,6 +110,7 @@ public partial class SelectionWindow : Window
                 case "mysql":
                 case "mariadb":
 
+                    ModifyFieldNameMysql();
 
                     break;
             }
@@ -127,6 +136,43 @@ public partial class SelectionWindow : Window
         }
     }
 
+    /// <summary>
+    /// 修改字段名称
+    /// </summary>
+    private void ModifyFieldNameSqlite()
+    {
+
+        var query = "ALTER TABLE WindowTag RENAME COLUMN Window TO WindowName;";
+
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+           
+        }
+        
+    }
+
+
+    private void ModifyFieldNameMysql()
+    {
+        var query = "ALTER TABLE WindowTag RENAME COLUMN `Window` TO WindowName;";
+
+        try
+        {
+
+            GlobalVariables.DbService.ExecuteQuery(query);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+        }
+    }
 
 
     /// <summary>

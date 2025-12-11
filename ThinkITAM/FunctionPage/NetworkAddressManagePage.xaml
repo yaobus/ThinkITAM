@@ -631,9 +631,10 @@
                         BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="MultipleDataExport_OnClick"
+                        Cursor="Hand"
                         IsEnabled="True"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="多重数据导出向导" Cursor="Hand">
+                        ToolTip="多重数据导出向导">
 
                         <materialDesign:PackIcon Kind="DatabaseExportOutline" />
 

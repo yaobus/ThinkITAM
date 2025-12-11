@@ -39,7 +39,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
             if (tagWindow != "IpAddressInfoTag") //存在自定义标签
             {
-                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -66,7 +66,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 }
                 else
                 {
-                    sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='IpAddressInfoTag'";
+                    sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='IpAddressInfoTag'";
 
                     num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -96,7 +96,7 @@ namespace ThinkITAM.Windows.NetworkManage
             else//全局标签或者默认标签
             {
 
-                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='IpAddressInfoTag'";
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='IpAddressInfoTag'";
 
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -201,7 +201,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
-                string sql = $"DELETE FROM  WindowTag  WHERE Window = '{tagWindow}'";
+                string sql = $"DELETE FROM  WindowTag  WHERE WindowName = '{tagWindow}'";
 
                 GlobalVariables.DbService.ExecuteNonQuery(sql);
             }

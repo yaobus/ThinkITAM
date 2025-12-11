@@ -364,7 +364,7 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             var tagWindow = "IpAddressInfoTag" + windowName;
 
-            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+            string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
             var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 

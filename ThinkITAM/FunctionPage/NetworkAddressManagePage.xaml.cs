@@ -512,7 +512,7 @@ public partial class NetworkAddressManagePage : UserControl
     {
         var tagWindow = "IpAddressInfoTag" + tableName;
 
-        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 

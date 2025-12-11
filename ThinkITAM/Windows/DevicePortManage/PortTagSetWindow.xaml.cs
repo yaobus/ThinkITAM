@@ -36,7 +36,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             if (tagWindow != "DevicePortTag")//存在自定义标签
             {
 
-                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='{tagWindow}'";
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
@@ -64,7 +64,7 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
             else//默认标签
             {
-                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE Window ='DevicePortTag'";
+                string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='DevicePortTag'";
 
                 var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
