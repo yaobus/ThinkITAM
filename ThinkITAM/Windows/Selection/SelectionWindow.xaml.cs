@@ -207,11 +207,8 @@ public partial class SelectionWindow : Window
         var query = "ALTER TABLE WindowTag RENAME COLUMN Window TO WindowName;";
         
 
-
-
         try
         {
-
             GlobalVariables.DbService.ExecuteQuery(query);
         }
         catch (Exception e)

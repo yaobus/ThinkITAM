@@ -76,9 +76,10 @@ namespace ThinkITAM.Windows.NetworkManage
         /// 通过传入的资产标签加载资产信息
         /// </summary>
         /// <param name="id"></param>
-        private void LoadSelectAssetInfo(string id = null)
+        private void LoadSelectAssetInfo(string? id = null)
         {
             //Console.WriteLine("01、开始加载资产信息...");
+            
 
             assetViewModels.Clear();
 
@@ -128,11 +129,11 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.DeviceType = row["DeviceType"].ToString();
                 item.AssetNumber = row["AssetTag"].ToString() + row["AssetNumber"].ToString();
 
-                AssetType.Text = item.AssetType;
-                DeviceType.Text = item.DeviceType;
+                //AssetType.Text = item.AssetType;
+                //DeviceType.Text = item.DeviceType;
 
 
-                string purchaseDate = row["PurchaseDate"].ToString();
+                var purchaseDate = row["PurchaseDate"].ToString();
                 DateTime time1;
                 if (purchaseDate.Length > 0)
                 {
@@ -141,7 +142,6 @@ namespace ThinkITAM.Windows.NetworkManage
                 }
                 else
                 {
-
                     item.PurchaseDate = null;
                 }
 
@@ -187,11 +187,7 @@ namespace ThinkITAM.Windows.NetworkManage
                 item.TagE = row["TagE"].ToString();
                 item.TagF = row["TagF"].ToString();
 
-                //var asset = new AssetInfoUserControl();
 
-                //asset.DataContext= item;
-
-                //AssetListView.Items.Add(asset);
 
                 assetViewModels.Add(item);
             }
@@ -264,12 +260,12 @@ namespace ThinkITAM.Windows.NetworkManage
                 DeviceType.ItemsSource = deviceTypeInfos;
 
 
-                string assetType = assetTypeInfos[AssetType.SelectedIndex];
+                //string assetType = assetTypeInfos[AssetType.SelectedIndex];
 
-                if (!string.IsNullOrWhiteSpace(assetType))
-                {
-                    LoadAssetInfos(assetType, null);
-                }
+                //if (!string.IsNullOrWhiteSpace(assetType))
+                //{
+                //    LoadAssetInfos(assetType, null);
+                //}
 
 
 
@@ -285,22 +281,22 @@ namespace ThinkITAM.Windows.NetworkManage
         private void DeviceType_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            if (DeviceType.SelectedIndex != -1 && loadStatus == 0)
-            {
-                string assetType = assetTypeInfos[AssetType.SelectedIndex];
+            //if (DeviceType.SelectedIndex != -1 && loadStatus == 0)
+            //{
+            //    string assetType = assetTypeInfos[AssetType.SelectedIndex];
 
-                string deviceType = deviceTypeInfos[DeviceType.SelectedIndex];
+            //    string deviceType = deviceTypeInfos[DeviceType.SelectedIndex];
 
-                LoadAssetInfos(assetType, deviceType);
+            //    LoadAssetInfos(assetType, deviceType);
 
-            }
+            //}
 
         }
 
         ObservableCollection<AssetViewModel> assetViewModels = new ObservableCollection<AssetViewModel>();
 
 
-        private void LoadAssetInfos(string assetType, string? deviceType)
+        private void LoadAssetInfos(string? assetType, string? deviceType)
         {
             assetViewModels.Clear();
 
@@ -457,15 +453,49 @@ namespace ThinkITAM.Windows.NetworkManage
         private void FilterButton_OnClick(object sender, RoutedEventArgs e)
         {
 
-            AssetTag.Text = null;
-            Model.Text = null;
-            Description.Text = null;
 
-            DataBridge.DataBridge.SelectAssetInfo = null;
-            AssetType.SelectedIndex = -1;
-            DeviceType.SelectedIndex = -1;
-            assetViewModels.Clear();
-            LoadSelectAssetInfo();
+            //AssetTag.Text = string.Empty;
+            //Model.Text = string.Empty;
+            //Description.Text = string.Empty;
+
+            //DataBridge.DataBridge.SelectAssetInfo = new();
+
+            //LoadSelectAssetInfo();
+            //AssetType.SelectedIndex = -1;
+            //DeviceType.SelectedIndex = -1;
+
+           
+        }
+
+        private void LoadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var assetType = string.Empty;
+            var deviceType = string.Empty;
+
+
+            if (AssetType.SelectedIndex != -1)
+            {
+                 assetType = assetTypeInfos[AssetType.SelectedIndex];
+            }
+
+            if (DeviceType.SelectedIndex != -1)
+            {
+                deviceType = deviceTypeInfos[DeviceType.SelectedIndex];
+            }
+
+
+            if (string.IsNullOrWhiteSpace(assetType))
+            {
+                LoadSelectAssetInfo();
+            }
+            else
+            {
+                LoadAssetInfos(assetType, deviceType);
+            }
+
+
+
+            
         }
     }
 }

@@ -14,12 +14,12 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.33";
+        public static string Version = "1.0.34";
 
         /// <summary>
         /// 更新次数，用于数据库字段升级
         /// </summary>
-        public static int VersionNumber = 33;
+        public static int VersionNumber = 34;
 
         /// <summary>
         /// 当前打开的数据库类型
@@ -30,13 +30,13 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 当前所选网段名称
         /// </summary>
-        public static string NetworkTableName = null;
+        public static string NetworkTableName = string.Empty;
 
 
         /// <summary>
         /// 当前所选网段地址，用于地址分配
         /// </summary>
-        public static string SelectNetwork = null;
+        public static string SelectNetwork = string.Empty;
 
         /// <summary>
         /// 当前选中的网段信息
@@ -52,8 +52,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 当前加载的的网段
         /// </summary>
-        /// </summary>
-        public static string LoadedNetworkSegment;
+        public static string LoadedNetworkSegment= string.Empty;
 
         /// <summary>
         /// 修改了IP地址颜色列表
@@ -146,7 +145,7 @@ namespace ThinkITAM.DataBridge
         /// <summary>
         /// 新增设备端口页面查找后选择的设备信息
         /// </summary>
-        public static AssetViewModel SelectAssetInfo = null;
+        public static AssetViewModel SelectAssetInfo = new();
 
         /// <summary>
         /// 当前选中的设备表信息

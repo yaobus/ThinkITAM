@@ -31,6 +31,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
 
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Vertical">
@@ -146,28 +147,45 @@
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                 </StackPanel>
 
-                <StackPanel
-                    Margin="{StaticResource DefaultMargin}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
+                <Grid Margin="{StaticResource DefaultMargin}" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
                     <CheckBox
                         x:Name="FilterButton"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
                         materialDesign:CheckBoxAssist.CheckBoxSize="28"
                         Click="FilterButton_OnClick"
                         Content="仅加载未部署资产"
                         IsChecked="True" />
-                </StackPanel>
+
+                    <Button
+                        x:Name="LoadButton"
+                        Grid.Column="1"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Click="LoadButton_OnClick"
+                        Style="{StaticResource MaterialDesignRaisedLightButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HomeSearchOutline" />
+                            <TextBlock Margin="10,0,0,0" Text="加载" />
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+
+
+
 
 
 
             </StackPanel>
-            <Grid
-                Grid.Row="1"
-                Width="230"
-                Margin="10"
-                HorizontalAlignment="Left">
+            <Grid Grid.Row="1" Margin="{StaticResource DefaultMargin}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -184,7 +202,7 @@
                     x:Name="SaveButton"
                     Grid.Column="1"
                     Width="100"
-                    Margin="0,0"
+                    Margin="0,0,10,0"
                     HorizontalAlignment="Right"
                     Click="SaveButton_OnClick"
                     Content="确定" />

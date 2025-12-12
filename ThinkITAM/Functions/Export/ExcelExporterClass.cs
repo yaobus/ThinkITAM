@@ -258,6 +258,7 @@ namespace ThinkITAM.Functions.Export
                 {"Address","IP号"},
                 {"FullAddress","IP地址"},
                 {"AddressStatus","地址状态"},
+                {"PingTime","Ping延时"},
                 {"Name","用户名"},
                 {"Organization","组织"},
                 {"Department","部门"},

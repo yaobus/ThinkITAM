@@ -1431,6 +1431,7 @@
                         materialDesign:HintAssist.Hint="{DynamicResource NmpDgOnline}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="LanConnect"
+                        FontSize="12"
                         IsEnabled="False"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 

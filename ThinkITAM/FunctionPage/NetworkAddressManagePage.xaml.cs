@@ -2266,9 +2266,27 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
 
-        int onlineHost = IpAddressInfoLists.Count(item => item.PingTime != "-1");
+        var onlineHost = IpAddressInfoLists.Count(item => item.PingTime != "-1");
 
-        OnlineHost.Text = onlineHost.ToString();
+        var onlineString = onlineHost.ToString();
+
+        if (IpAddressInfoLists.Count > 0)
+        {
+            var value = ((double)onlineHost / IpAddressInfoLists.Count)*100;
+            
+            var rounded = Math.Round(value, 2);
+
+            if (rounded > 0)
+            {
+                onlineString += $" ({rounded}%)";
+            }
+
+
+        }
+
+
+
+        OnlineHost.Text = onlineString;
 
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, false);
     }

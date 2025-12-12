@@ -444,8 +444,7 @@
                                 BorderThickness="0"
                                 Click="AddSlot_OnClick"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                ToolTip="{DynamicResource DpmAddSlot}"
-                                >
+                                ToolTip="{DynamicResource DpmAddSlot}">
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="24"
