@@ -45,9 +45,13 @@ namespace ThinkITAM.FunctionPage
         }
 
 
-        private async void ReloadIndex(string query = null)
+        private async void ReloadIndex(string query)
         {
-            if (query != null)
+            Console.WriteLine("ReloadIndex:"+query);
+
+            tags.Clear();
+
+            if (!string.IsNullOrWhiteSpace(query))
             {
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -322,13 +326,13 @@ namespace ThinkITAM.FunctionPage
             };
 
             // 显示对话框
-            bool result = (bool)await DialogHost.Show(dialog, "MessageDialogHost");
+            var result = (bool)await DialogHost.Show(dialog, "MessageDialogHost");
 
             if (result)
             {
-                int index = GroupsListView.SelectedIndex;
-                string group = groups[index].Group;
-                string sql = $"UPDATE  BookmarkGroupOrder SET Del=1 WHERE TypeGroup = '{group}'";
+                var index = GroupsListView.SelectedIndex;
+                var group = groups[index].Group;
+                var sql = $"UPDATE  BookmarkGroupOrder SET Del=1 WHERE TypeGroup = '{group}'";
                 await GlobalVariables.DbService.ExecuteQueryAsync(sql);
             }
 

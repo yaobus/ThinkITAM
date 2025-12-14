@@ -178,7 +178,7 @@ public partial class AddressCollectWindow : Window
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-        int index = Groups.SelectedIndex;
+        var index = Groups.SelectedIndex;
 
 
         if (index != -1)
@@ -201,9 +201,10 @@ public partial class AddressCollectWindow : Window
     /// <param name="e"></param>
     private void Agree_OnClick(object sender, RoutedEventArgs e)
     {
-        int index = Groups.SelectedIndex;
-        string group = groups[index];
-        string sql = $"UPDATE  BookmarkGroupOrder  SET Del=1 WHERE TypeGroup = '{group}'";
+
+        var group = Groups.SelectedItem.ToString();
+
+        var sql = $"UPDATE  BookmarkGroupOrder  SET Del=1 WHERE TypeGroup = '{group}'";
 
         GlobalVariables.DbService.ExecuteNonQuery(sql);
         Reject_OnClick(null, null);
@@ -369,7 +370,7 @@ public partial class AddressCollectWindow : Window
                         };
 
                         // 显示对话框
-                        bool result = (bool)await DialogHost.Show(dialog, "CollectDeleteDialogHost");
+                        var result = (bool)await DialogHost.Show(dialog, "CollectDeleteDialogHost");
 
                         if (result)
                         {
@@ -385,9 +386,9 @@ public partial class AddressCollectWindow : Window
 
                     }
 
-                    string indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
+                    var indexId = $"X{AssetCodeClass.GenerateChecksum(AssetIdCreate.CreateAssetId(Guid.NewGuid().ToString())).ToUpper()}";
 
-                    int status = 0;
+                    var status = 0;
 
                     if (PinToStart.IsChecked == true)
                     {

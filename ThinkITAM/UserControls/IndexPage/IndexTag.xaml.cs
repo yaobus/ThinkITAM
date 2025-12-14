@@ -170,21 +170,21 @@ namespace ThinkITAM.UserControls.IndexPage
 
 
                         string portSql;
+
                         if (tagInfo.Port.Length == 0)
                         {
-                            portSql = $"(\"Port\"='' OR \"Port\" IS NULL) ";
+                            portSql = $"(Port='' OR Port IS NULL) ";
                         }
                         else
                         {
-                            portSql = $" \"Port\" = '{tagInfo.Port}' ";
+                            portSql = $"Port = '{tagInfo.Port}' ";
                         }
 
 
-
-                        string sql = $"DELETE FROM \"Bookmark\" WHERE ( \"TypeGroup\"='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
-
+                        var sql = $"DELETE FROM Bookmark WHERE ( TypeGroup='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
 
 
+                       
 
                         GlobalVariables.DbService.ExecuteNonQuery(sql);
 

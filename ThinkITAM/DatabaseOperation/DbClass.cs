@@ -58,7 +58,7 @@ namespace ThinkITAM.DatabaseOperation
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="netmask"></param>
-        public static void CreateNetworkTableSub(string ipAddress, int netmask, string tableName)
+        public async static Task CreateNetworkTableSub(string ipAddress, int netmask, string tableName)
         {
             var info = SubnetCalculator.CalculateSubnets(ipAddress, netmask);
 
@@ -86,7 +86,7 @@ namespace ThinkITAM.DatabaseOperation
         /// 创建网段对应ip详表,256个地址以下的网段
         /// </summary>
         /// <param name="query"></param>
-        public static void CreateNetworkTable(string tableName)
+        public async static void CreateNetworkTable(string tableName)
         {
 
 
@@ -95,7 +95,7 @@ namespace ThinkITAM.DatabaseOperation
 
 
             //GlobalVariables.DbService.ExecuteNonQuery(sql);
-            GlobalVariables.DbService.CreateTableFromSql(sql);
+           await GlobalVariables.DbService.CreateTableFromSqlAsync(sql);
 
 
 
