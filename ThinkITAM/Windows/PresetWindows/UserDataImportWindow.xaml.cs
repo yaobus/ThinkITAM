@@ -159,6 +159,7 @@ public partial class UserDataImportWindow : Window
 
                 //保存组织机构信息
 
+               
 
                 if (SaveOrganizationInfo(data.Organization, data.Department, data.UserGroup, data.UserUnit) == true)
                 {
@@ -293,7 +294,7 @@ public partial class UserDataImportWindow : Window
             //判断三级组织是否单独存在，不存在则创建
             if (!string.IsNullOrWhiteSpace(groupsInfo))
             {
-                query = $"SELECT COUNT(UserGroups) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}'  AND Groups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='')";
+                query = $"SELECT COUNT(UserGroups) FROM Organization WHERE Organization='{organizationInfo}' AND Department='{departmentInfo}'  AND UserGroups='{groupsInfo}' AND (UserUnit IS NULL OR UserUnit ='')";
 
                 count = Convert.ToInt32(GlobalVariables.DbService.ExecuteScalar(query));
 
@@ -337,7 +338,7 @@ public partial class UserDataImportWindow : Window
                 {
                     Organization = organizationInfo,
                     Department = departmentInfo,
-                    Groups = groupsInfo,
+                    UserGroups = groupsInfo,
                     UserUnit = unitsInfo
                 };
 
