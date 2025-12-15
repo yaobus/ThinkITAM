@@ -214,6 +214,8 @@ public partial class DevicePortManage : UserControl
 
                     DeviceTypeViewModel info = childNode.DataContext as DeviceTypeViewModel;
 
+                    Console.WriteLine("info:" + info.AssetId);
+
                     DataBridge.DataBridge.SelectDeviceTableInfo = info;
 
                     //加载设备标签
@@ -800,7 +802,12 @@ public partial class DevicePortManage : UserControl
     private void LoadCustomTag()
     {
         //加载端口自定义标签
-        var tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
+        var tagWindow = "DevicePortTag";
+
+        if (DataBridge.DataBridge.SelectDeviceTableInfo != null)
+        {
+            tagWindow += DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
+        }
 
 
         string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";

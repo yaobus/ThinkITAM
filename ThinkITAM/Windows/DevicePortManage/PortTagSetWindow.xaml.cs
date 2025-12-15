@@ -143,7 +143,7 @@ namespace ThinkITAM.Windows.DevicePortManage
         {
             string tagWindow;
 
-            if (GlobalRadioButton.IsChecked == true)//全局
+            if (GlobalRadioButton.IsChecked == true || DataBridge.DataBridge.SelectDeviceTableInfo == null)//全局
             {
 
                 tagWindow = "DevicePortTag";
@@ -151,7 +151,6 @@ namespace ThinkITAM.Windows.DevicePortManage
             }
             else//本地
             {
-
 
                 tagWindow = "DevicePortTag" + DataBridge.DataBridge.SelectDeviceTableInfo.AssetId;
 

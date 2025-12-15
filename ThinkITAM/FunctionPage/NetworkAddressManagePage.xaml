@@ -365,7 +365,7 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
                                 Click="StatusTestButton_OnClick"
-                                Content="{materialDesign:PackIcon Radar}"
+                                Content="{materialDesign:PackIcon Radar,Size=24}"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource NmpPingAddress}" />
 
@@ -382,7 +382,7 @@
                                 BorderBrush="Transparent"
                                 BorderThickness="0"
                                 Click="ArpTestButton_Click"
-                                Content="{materialDesign:PackIcon FileFindOutline}"
+                                Content="{materialDesign:PackIcon FileFindOutline,Size=24}"
                                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                 ToolTip="{DynamicResource NmpGetHostName}" />
 
@@ -420,7 +420,8 @@
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpResetSort}"
                                     Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
-                                    <materialDesign:PackIcon Kind="Restore" />
+                                    <materialDesign:PackIcon Kind="Restore"                                     Width="24"
+                                    Height="24"></materialDesign:PackIcon>
                                 </Button>
 
                                 <Button
@@ -434,7 +435,8 @@
                                     Click="SetButton_Click"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpSetNetworkTag}">
-                                    <materialDesign:PackIcon Kind="TagEditOutline" />
+                                    <materialDesign:PackIcon Kind="TagEditOutline"                                     Width="24"
+                                    Height="24"/>
                                 </Button>
 
                             </StackPanel>
@@ -454,9 +456,9 @@
                                 <ToggleButton
                                     x:Name="GlobalToggleButton"
                                     Margin="5,0"
-                                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=DatabaseSearchOutline}"
+                                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=DatabaseSearchOutline, Size=24}"
                                     Click="GlobalToggleButton_OnClick"
-                                    Content="{materialDesign:PackIcon Kind=LayersSearchOutline}"
+                                    Content="{materialDesign:PackIcon Kind=LayersSearchOutline,Size=24}"
                                     Style="{StaticResource MaterialDesignActionToggleButton}"
                                     ToolTip="全局搜索/局部搜索" />
 
@@ -470,7 +472,8 @@
                                         x:Name="ClearGlobalSearchKeyWord"
                                         Click="ClearGlobalSearchKeyWord_OnClick"
                                         Style="{StaticResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline" />
+                                        <materialDesign:PackIcon Margin="5,0,5,0" Kind="ClearCircleOutline"                                     Width="24"
+                                    Height="24"/>
                                     </Button>
                                     <TextBox
                                         x:Name="GlobalSearchKeyWord"

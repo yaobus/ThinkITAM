@@ -796,7 +796,7 @@ namespace ThinkITAM.DatabaseOperation
                     Tags = tags
                 };
 
-                var conditions = new { Window = windowName };
+                var conditions = new { WindowName = windowName };
 
                 GlobalVariables.DbService.UpdateEntity("WindowTag", tagInfo, conditions);
 
