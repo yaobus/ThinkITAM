@@ -21,14 +21,13 @@ namespace ThinkITAM.Windows.NetworkManage
         private void AddNetworkWindowSet_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-
             var tags = DbClass.LoadWindowTag("AddNetwork");
 
-            if (tags != null)
-            {
-                dynamic settings = JsonConvert.DeserializeObject(tags);
 
-                TagA.Text = settings.TagA;
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+                if (settings != null)
+                {
+                    TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
                 TagD.Text = settings.TagD;

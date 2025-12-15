@@ -701,14 +701,16 @@ namespace ThinkITAM.FunctionPage
                 if (tags != null)
                 {
                     dynamic settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
+                    if (settings != null)
+                    {
+                        LabelA.Content = settings.TagA;
+                        LabelB.Content = settings.TagB;
+                        LabelC.Content = settings.TagC;
+                        LabelD.Content = settings.TagD;
+                        LabelE.Content = settings.TagE;
+                        LabelF.Content = settings.TagF;
 
-                    LabelA.Content = settings.TagA;
-                    LabelB.Content = settings.TagB;
-                    LabelC.Content = settings.TagC;
-                    LabelD.Content = settings.TagD;
-                    LabelE.Content = settings.TagE;
-                    LabelF.Content = settings.TagF;
-
+                    }
                 }
 
             }

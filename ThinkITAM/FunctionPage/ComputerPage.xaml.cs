@@ -131,10 +131,11 @@ namespace ThinkITAM.FunctionPage
 
             var tags = DbClass.LoadWindowTag("ComputerTag");
 
-            if (tags != null)
-            {
-                dynamic settings = JsonConvert.DeserializeObject(tags);
 
+            dynamic settings = JsonConvert.DeserializeObject(tags);
+
+            if (settings != null)
+            {
                 TagA.Content = settings.TagA;
                 TagB.Content = settings.TagB;
                 TagC.Content = settings.TagC;
@@ -142,6 +143,9 @@ namespace ThinkITAM.FunctionPage
                 TagE.Content = settings.TagE;
                 TagF.Content = settings.TagF;
             }
+
+
+
 
         }
 
@@ -682,21 +686,28 @@ namespace ThinkITAM.FunctionPage
             {
                 var tags = DbClass.LoadWindowTag(tagWindow);
 
-                if (tags != null)
-                {
-                    dynamic settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
 
+
+
+
+                dynamic settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
+
+
+                if (settings != null)
+                {
                     TagA.Content = settings.TagA;
                     TagB.Content = settings.TagB;
                     TagC.Content = settings.TagC;
                     TagD.Content = settings.TagD;
                     TagE.Content = settings.TagE;
                     TagF.Content = settings.TagF;
-
                 }
 
+
+
+
             }
-           
+
 
         }
 

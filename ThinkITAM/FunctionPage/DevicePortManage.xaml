@@ -499,10 +499,10 @@
                                     Foreground="LawnGreen"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource DpmMultipleAllocationButton}">
-                                    <materialDesign:PackIcon 
-                                        Kind="Play" 
+                                    <materialDesign:PackIcon
                                         Width="24"
-                                        Height="24"/>
+                                        Height="24"
+                                        Kind="Play" />
                                 </Button>
 
                                 <Button
@@ -517,7 +517,10 @@
                                     Foreground="OrangeRed"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource DpmClearSelected}">
-                                    <materialDesign:PackIcon Kind="Delete" Height="24" Width="24"/>
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Delete" />
                                 </Button>
 
                             </StackPanel>

@@ -510,72 +510,103 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadCustomTag(string tableName)
     {
-        var tagWindow = "IpAddressInfoTag" + tableName;
 
-        string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
+        var t = DbClass.LoadWindowTag("IpAddressInfoTag", tableName);
 
-        var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+        Console.WriteLine("IpAddressInfoTag"+tableName);
 
-
-
-        if (num > 0) //存在本地自定义标签
+        if (t != null)
         {
-            var tags = DbClass.LoadWindowTag(tagWindow);
+            var list = t.ToList();
 
-            if (tags != null)
+            string tags = list[0].Value;
+
+
+            dynamic settings = JsonConvert.DeserializeObject(tags);
+
+            if (settings != null)
             {
-                dynamic settings = JsonConvert.DeserializeObject(tags);
-
-
-                //IP地址标签存到全局变量
-                DataBridge.DataBridge.SelectIpAddressTags = settings;
-
                 TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
                 TagD.Text = settings.TagD;
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
-
-
-
             }
-            else
-            {
-                DataBridge.DataBridge.SelectIpAddressTags = null;
-            }
+
+
 
         }
-        else //全局标签
-        {
-            var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
-            if (tags != null)
-            {
-                dynamic settings = JsonConvert.DeserializeObject(tags);
 
-                //标签存到全局变量
-                DataBridge.DataBridge.SelectIpAddressTags = settings;
 
-                TagA.Text = settings.TagA;
-                TagB.Text = settings.TagB;
-                TagC.Text = settings.TagC;
-                TagD.Text = settings.TagD;
-                TagE.Text = settings.TagE;
-                TagF.Text = settings.TagF;
 
-            }
-            else
-            {
-                TagA.Text = "自定义标签A";
-                TagB.Text = "自定义标签B";
-                TagC.Text = "自定义标签C";
-                TagD.Text = "自定义标签D";
-                TagE.Text = "自定义标签E";
-                TagF.Text = "自定义标签F";
-            }
+        //var tagWindow = "IpAddressInfoTag" + tableName;
 
-        }
+        //string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
+
+        //var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+
+        //if (num > 0) //存在本地自定义标签
+        //{
+        //    var tags = DbClass.LoadWindowTag(tagWindow);
+
+        //    if (tags != null)
+        //    {
+        //        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+
+        //        //IP地址标签存到全局变量
+        //        DataBridge.DataBridge.SelectIpAddressTags = settings;
+
+        //        TagA.Text = settings.TagA;
+        //        TagB.Text = settings.TagB;
+        //        TagC.Text = settings.TagC;
+        //        TagD.Text = settings.TagD;
+        //        TagE.Text = settings.TagE;
+        //        TagF.Text = settings.TagF;
+
+
+
+        //    }
+        //    else
+        //    {
+        //        DataBridge.DataBridge.SelectIpAddressTags = null;
+        //    }
+
+        //}
+        //else //全局标签
+        //{
+        //    var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
+
+        //    if (tags != null)
+        //    {
+        //        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+        //        //标签存到全局变量
+        //        DataBridge.DataBridge.SelectIpAddressTags = settings;
+
+        //        TagA.Text = settings.TagA;
+        //        TagB.Text = settings.TagB;
+        //        TagC.Text = settings.TagC;
+        //        TagD.Text = settings.TagD;
+        //        TagE.Text = settings.TagE;
+        //        TagF.Text = settings.TagF;
+
+        //    }
+        //    else
+        //    {
+        //        TagA.Text = "自定义标签A";
+        //        TagB.Text = "自定义标签B";
+        //        TagC.Text = "自定义标签C";
+        //        TagD.Text = "自定义标签D";
+        //        TagE.Text = "自定义标签E";
+        //        TagF.Text = "自定义标签F";
+        //    }
+
+        //}
 
 
 
@@ -746,10 +777,10 @@ public partial class NetworkAddressManagePage : UserControl
                     }
 
 
-
+                    Console.WriteLine(775);
                     //加载网段标签
-                    LoadCustomTag($"Net_{parentTableName}");
-
+                    LoadCustomTag($"{tableName}");
+                    
 
 
                     await LoadAddressInfo(tableName, 0);
@@ -901,9 +932,9 @@ public partial class NetworkAddressManagePage : UserControl
         DataBridge.DataBridge.SelectNetworkInfo = info;
 
 
-
+        Console.WriteLine(930);
         //加载网段标签
-        LoadCustomTag(treeNode.TableName);
+        LoadCustomTag(DataBridge.DataBridge.NetworkTableName);
 
         //加载网段备注
         LoadNetworkNote(info);
@@ -2138,7 +2169,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (set.ShowDialog() == true)
         {
-
+            Console.WriteLine(2167);
             LoadCustomTag(DataBridge.DataBridge.NetworkTableName);
 
         }

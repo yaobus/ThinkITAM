@@ -341,13 +341,15 @@ public partial class AddAssetWindow : Window
         if (tags != null)
         {
             dynamic settings = JsonConvert.DeserializeObject(tags);
-
-            LabelA.Content = settings.TagA + ":";
-            LabelB.Content = settings.TagB + ":";
-            LabelC.Content = settings.TagC + ":";
-            LabelD.Content = settings.TagD + ":";
-            LabelE.Content = settings.TagE + ":";
-            LabelF.Content = settings.TagF + ":";
+            if (settings != null)
+            {
+                LabelA.Content = settings.TagA + ":";
+                LabelB.Content = settings.TagB + ":";
+                LabelC.Content = settings.TagC + ":";
+                LabelD.Content = settings.TagD + ":";
+                LabelE.Content = settings.TagE + ":";
+                LabelF.Content = settings.TagF + ":";
+            }
         }
 
     }

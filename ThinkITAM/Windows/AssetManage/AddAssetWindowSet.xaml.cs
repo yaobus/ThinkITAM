@@ -24,14 +24,15 @@ public partial class AddAssetWindowSet : Window
         if (tags != null)
         {
             dynamic settings = JsonConvert.DeserializeObject(tags);
-
-            TagA.Text = settings.TagA;
-            TagB.Text = settings.TagB;
-            TagC.Text = settings.TagC;
-            TagD.Text = settings.TagD;
-            TagE.Text = settings.TagE;
-            TagF.Text = settings.TagF;
-
+            if (settings != null)
+            {
+                TagA.Text = settings.TagA;
+                TagB.Text = settings.TagB;
+                TagC.Text = settings.TagC;
+                TagD.Text = settings.TagD;
+                TagE.Text = settings.TagE;
+                TagF.Text = settings.TagF;
+            }
         }
     }
     private void SaveButton_OnClick(object sender, RoutedEventArgs e)

@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Documents;
 using DocumentFormat.OpenXml.EMMA;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.IPAddressHelper;
@@ -20,7 +22,7 @@ namespace ThinkITAM.DatabaseOperation
         /// <returns></returns>
         public static string LoadWindowTag(string windowName)
         {
-            string sql = $"SELECT Tags FROM WindowTag WHERE WindowName = '{windowName}'";
+            var sql = $"SELECT Tags FROM WindowTag WHERE WindowName = '{windowName}'";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(sql);
 
@@ -30,8 +32,56 @@ namespace ThinkITAM.DatabaseOperation
             }
             else
             {
+                return string.Empty;
+            }
+        }
+
+
+
+        /// <summary>
+        /// 加载自定义窗口标签，返回字典，区分全局标签和特殊标签，0位全局标签，1位特殊标签
+        /// </summary>
+        /// <param name="defaultName">默认名称</param>
+        /// <param name="specialName">特殊名称</param>
+        /// <returns></returns>
+        public static Dictionary<string, string> LoadWindowTag(string defaultName, string? specialName)
+        {
+            var result = new Dictionary<string, string>();
+
+            var name = defaultName;
+
+            //特殊名称为空，则使用默认名称
+            if (!string.IsNullOrWhiteSpace(specialName))
+            {
+                name += specialName;
+            }
+
+            var sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{name}'";
+
+            var num = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+            string? tags;
+
+            if (num > 0)
+            {
+                tags = LoadWindowTag(name);
+                result[name] = tags;
+            }
+            else
+            {
+                tags = LoadWindowTag(defaultName);
+                result[defaultName] = tags;
+            }
+
+            if (tags != string.Empty)
+            {
+               return result;
+            }
+            else
+            {
                 return null;
             }
+
         }
 
 

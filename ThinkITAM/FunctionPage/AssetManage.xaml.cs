@@ -59,9 +59,12 @@ namespace ThinkITAM.FunctionPage
         {
             var tags = DbClass.LoadWindowTag("AddAsset");
 
-            if (tags != null)
+
+            dynamic settings = JsonConvert.DeserializeObject(tags);
+
+            if (settings != null)
             {
-                dynamic settings = JsonConvert.DeserializeObject(tags);
+
                 settingTags = settings;
 
                 TagA.Text = settings.TagA;
@@ -71,24 +74,28 @@ namespace ThinkITAM.FunctionPage
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
                 AssetTagCard.TagA.Content = settings.TagA;
-
             }
+
+
 
 
             var tags2 = DbClass.LoadWindowTag("AddAssetLog");
 
-            if (tags2 != null)
-            {
-                dynamic settings2 = JsonConvert.DeserializeObject(tags2);
 
+            dynamic settings2 = JsonConvert.DeserializeObject(tags2);
+
+            if (settings2 != null)
+            {
                 LabelA.Text = settings2.TagA;
                 LabelB.Text = settings2.TagB;
                 LabelC.Text = settings2.TagC;
                 LabelD.Text = settings2.TagD;
                 LabelE.Text = settings2.TagE;
                 LabelF.Text = settings2.TagF;
-
             }
+
+
+
         }
 
 

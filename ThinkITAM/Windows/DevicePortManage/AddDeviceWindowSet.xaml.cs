@@ -23,11 +23,10 @@ namespace ThinkITAM.Windows.DevicePortManage
 
             var tags = DbClass.LoadWindowTag("AddDevice");
 
-            if (tags != null)
-            {
                 dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                TagA.Text = settings.TagA;
+                if (settings != null)
+                {
+                    TagA.Text = settings.TagA;
                 TagB.Text = settings.TagB;
                 TagC.Text = settings.TagC;
                 TagD.Text = settings.TagD;

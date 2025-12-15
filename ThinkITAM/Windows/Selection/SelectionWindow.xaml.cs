@@ -34,7 +34,7 @@ public partial class SelectionWindow : Window
     private async void SelectionWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
         //标题栏显示版本号
-        //this.Title += $" Ver {DataBridge.DataBridge.Version}";
+        this.Title += ("-" + GlobalVariables.dbConfig.NickName);
 
         switch (DataBridge.DataBridge.NowOpenedDataBaseType)
         {

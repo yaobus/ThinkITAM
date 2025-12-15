@@ -64,7 +64,7 @@
                 VerticalAlignment="Center"
                 Click="GlobalRadioButton_OnClick"
                 Content="{DynamicResource PawGlobalTag}"
-                IsChecked="True"
+                IsChecked="False"
                 Style="{StaticResource MaterialDesignSecondaryRadioButton}"
                 ToolTip="{DynamicResource PawGlobalTagTooltip}" />
 

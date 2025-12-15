@@ -120,11 +120,11 @@ public partial class DeviceEditWindow : Window
 
         var tags = DbClass.LoadWindowTag("AddDevice");
 
-        if (tags != null)
-        {
-            dynamic settings = JsonConvert.DeserializeObject(tags);
 
-            LabelA.Content = settings.TagA + ":";
+            dynamic settings = JsonConvert.DeserializeObject(tags);
+            if (settings != null)
+            {
+                LabelA.Content = settings.TagA + ":";
             LabelB.Content = settings.TagB + ":";
             LabelC.Content = settings.TagC + ":";
             LabelD.Content = settings.TagD + ":";

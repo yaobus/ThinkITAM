@@ -824,13 +824,15 @@ public partial class DevicePortManage : UserControl
                 settingTags = tags;
 
                 var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
-
-                TagA.Text = settings.TagA;
-                TagB.Text = settings.TagB;
-                TagC.Text = settings.TagC;
-                TagD.Text = settings.TagD;
-                TagE.Text = settings.TagE;
-                TagF.Text = settings.TagF;
+                if (settings != null)
+                {
+                    TagA.Text = settings.TagA;
+                    TagB.Text = settings.TagB;
+                    TagC.Text = settings.TagC;
+                    TagD.Text = settings.TagD;
+                    TagE.Text = settings.TagE;
+                    TagF.Text = settings.TagF;
+                }
             }
         }
         else //全局标签
@@ -841,12 +843,15 @@ public partial class DevicePortManage : UserControl
             {
                 settingTags = tags;
                 var settings = JsonConvert.DeserializeObject<TagViewModel>(tags);
-                TagA.Text = settings.TagA;
-                TagB.Text = settings.TagB;
-                TagC.Text = settings.TagC;
-                TagD.Text = settings.TagD;
-                TagE.Text = settings.TagE;
-                TagF.Text = settings.TagF;
+                if (settings != null)
+                {
+                    TagA.Text = settings.TagA;
+                    TagB.Text = settings.TagB;
+                    TagC.Text = settings.TagC;
+                    TagD.Text = settings.TagD;
+                    TagE.Text = settings.TagE;
+                    TagF.Text = settings.TagF;
+                }
             }
             else
             {

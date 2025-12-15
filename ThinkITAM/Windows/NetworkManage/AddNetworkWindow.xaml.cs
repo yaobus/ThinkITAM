@@ -668,12 +668,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
             Console.WriteLine("TAGS:" + tags);
 
-            if (tags != null)
-            {
+
                 dynamic settings = JsonConvert.DeserializeObject(tags);
 
-
-                LabelA.Content = settings.TagA + ":";
+                if (settings != null)
+                {
+                    LabelA.Content = settings.TagA + ":";
                 LabelB.Content = settings.TagB + ":";
                 LabelC.Content = settings.TagC + ":";
                 LabelD.Content = settings.TagD + ":";

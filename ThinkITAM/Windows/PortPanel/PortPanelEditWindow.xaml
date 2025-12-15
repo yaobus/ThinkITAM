@@ -63,8 +63,7 @@
                 d:Text="255.255.255.252"
                 FontSize="16"
                 Opacity="0.5"
-                ToolTip="一次选中多个终端时，仅显示第一个终端的信息"
-                />
+                ToolTip="一次选中多个终端时，仅显示第一个终端的信息" />
 
 
 
@@ -77,11 +76,11 @@
             Orientation="Vertical">
 
             <StackPanel
-                Visibility="Collapsed"
                 Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Orientation="Vertical">
+                Orientation="Vertical"
+                Visibility="Collapsed">
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -91,20 +90,20 @@
                     Width="250"
                     Height="28"
                     Padding="3"
-                    IsEnabled="False"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="AlphaNCircleOutline"
                     BorderThickness="0.5"
+                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding AssetNumber}" />
             </StackPanel>
             <StackPanel
-                Visibility="Collapsed"
                 Margin="{StaticResource DefaultMargin}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Orientation="Vertical">
+                Orientation="Vertical"
+                Visibility="Collapsed">
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -114,11 +113,11 @@
                     Width="250"
                     Height="28"
                     Padding="3"
-                    IsEnabled="False"
                     VerticalAlignment="Center"
                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
                     materialDesign:TextFieldAssist.LeadingIcon="Link"
                     BorderThickness="0.5"
+                    IsEnabled="False"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding OnTheLine}" />
             </StackPanel>
@@ -246,9 +245,8 @@
                     x:Name="PortColor"
                     Width="250"
                     Height="30"
-                    SelectionChanged="PortColor_SelectionChanged"
                     SelectedIndex="{Binding PortColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-
+                    SelectionChanged="PortColor_SelectionChanged"
                     Style="{StaticResource MaterialDesignToolToggleListBox}">
                     <ListBoxItem
                         Width="26"
@@ -327,11 +325,11 @@
                     Width="250"
                     Height="28"
                     Padding="0"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     IsEditable="True"
                     MaxDropDownHeight="300"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     SelectedItem="{Binding TagA}"
                     SelectionChanged="TagA_OnSelectionChanged"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
@@ -361,11 +359,11 @@
                     Width="250"
                     Height="28"
                     Padding="0"
+                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     BorderThickness="0.5"
                     IsEditable="True"
                     MaxDropDownHeight="300"
-                    materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                    materialDesign:TextFieldAssist.LeadingIcon="Tag"
                     SelectedItem="{Binding TagB}"
                     Style="{StaticResource MaterialDesignOutlinedComboBox}" />
             </StackPanel>
@@ -479,8 +477,8 @@
                 HorizontalAlignment="Right"
                 BorderThickness="0"
                 Click="SaveButton_OnClick"
-                ToolTip="只影响可修改内容"
-                Content="保存" />
+                Content="保存"
+                ToolTip="只影响可修改内容" />
 
         </Grid>
     </Grid>

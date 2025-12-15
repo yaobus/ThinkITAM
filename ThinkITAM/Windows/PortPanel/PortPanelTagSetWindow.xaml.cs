@@ -29,11 +29,11 @@ namespace ThinkITAM.Windows.PortPanel
             {
                 var tags = DbClass.LoadWindowTag(tagWindow);
 
-                if (tags != null)
+
+
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+                if (settings != null)
                 {
-
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
-
                     TagA.Text = settings.TagA;
                     TagB.Text = settings.TagB;
                     TagC.Text = settings.TagC;

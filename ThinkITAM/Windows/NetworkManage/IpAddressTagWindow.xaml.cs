@@ -49,12 +49,11 @@ namespace ThinkITAM.Windows.NetworkManage
 
                     var tags = DbClass.LoadWindowTag(tagWindow);
 
-                    if (tags != null)
-                    {
-                       
+ 
                         dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                        TagA.Text = settings.TagA;
+                        if (settings != null)
+                        {
+                            TagA.Text = settings.TagA;
                         TagB.Text = settings.TagB;
                         TagC.Text = settings.TagC;
                         TagD.Text = settings.TagD;
@@ -76,11 +75,11 @@ namespace ThinkITAM.Windows.NetworkManage
 
                         var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
-                        if (tags != null)
-                        {
+      
                            dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                            TagA.Text = settings.TagA;
+                           if (settings != null)
+                           {
+                                TagA.Text = settings.TagA;
                             TagB.Text = settings.TagB;
                             TagC.Text = settings.TagC;
                             TagD.Text = settings.TagD;
@@ -106,12 +105,12 @@ namespace ThinkITAM.Windows.NetworkManage
 
                     var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
-                    if (tags != null)
-                    {
+
                       
                         dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                        TagA.Text = settings.TagA;
+                        if (settings != null)
+                        {
+                            TagA.Text = settings.TagA;
                         TagB.Text = settings.TagB;
                         TagC.Text = settings.TagC;
                         TagD.Text = settings.TagD;
@@ -216,34 +215,75 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <param name="e"></param>
         private void LocalRadioButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (LocalRadioButton.IsChecked == true)
+            var t = DbClass.LoadWindowTag("IpAddressInfoTag", DataBridge.DataBridge.NetworkTableName);
+
+            if (t != null)
             {
-                var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+                var list = t.ToList();
 
-                var tags = DbClass.LoadWindowTag(tagWindow);
+                //Console.WriteLine(list[0].Key);
 
-                if (tags != null)
+                //if (list[0].Key == "IpAddressInfoTag")
+                //{
+                //    GlobalRadioButton.IsChecked = true;
+                //}
+                //else
+                //{
+                //    LocalRadioButton.IsChecked = true;
+                //}
+
+                string tags = list[0].Value;
+
+
+                dynamic settings = JsonConvert.DeserializeObject(tags);
+                if (settings != null)
                 {
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
-
                     TagA.Text = settings.TagA;
                     TagB.Text = settings.TagB;
                     TagC.Text = settings.TagC;
                     TagD.Text = settings.TagD;
                     TagE.Text = settings.TagE;
                     TagF.Text = settings.TagF;
-
-                }
-                else
-                {
-                    TagA.Text=String.Empty;
-                    TagB.Text = String.Empty;
-                    TagC.Text = String.Empty;
-                    TagD.Text = String.Empty;
-                    TagE.Text = String.Empty;
-                    TagF.Text = String.Empty;
                 }
             }
+
+
+
+
+
+
+
+
+
+
+            //if (LocalRadioButton.IsChecked == true)
+            //{
+            //    var tagWindow = "IpAddressInfoTag" + DataBridge.DataBridge.NetworkTableName;
+
+            //    var tags = DbClass.LoadWindowTag(tagWindow);
+
+            //    if (tags != null)
+            //    {
+            //        dynamic settings = JsonConvert.DeserializeObject(tags);
+
+            //        TagA.Text = settings.TagA;
+            //        TagB.Text = settings.TagB;
+            //        TagC.Text = settings.TagC;
+            //        TagD.Text = settings.TagD;
+            //        TagE.Text = settings.TagE;
+            //        TagF.Text = settings.TagF;
+
+            //    }
+            //    else
+            //    {
+            //        TagA.Text=String.Empty;
+            //        TagB.Text = String.Empty;
+            //        TagC.Text = String.Empty;
+            //        TagD.Text = String.Empty;
+            //        TagE.Text = String.Empty;
+            //        TagF.Text = String.Empty;
+            //    }
+            //}
 
 
         }
@@ -259,11 +299,10 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 var tags = DbClass.LoadWindowTag("IpAddressInfoTag");
 
-                if (tags != null)
-                {
-                    dynamic settings = JsonConvert.DeserializeObject(tags);
-
-                    TagA.Text = settings.TagA;
+dynamic settings = JsonConvert.DeserializeObject(tags);
+                    if (settings != null)
+                    {
+                        TagA.Text = settings.TagA;
                     TagB.Text = settings.TagB;
                     TagC.Text = settings.TagC;
                     TagD.Text = settings.TagD;
