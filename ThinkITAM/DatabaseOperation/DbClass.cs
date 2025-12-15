@@ -774,9 +774,9 @@ namespace ThinkITAM.DatabaseOperation
 
             if (rowCount == 0)//库中没有，插入数据
             {
-                var tagInfo = new ViewModels.DatabaseEntity.Window.WindowTagViewModel()
+                var tagInfo = new 
                 {
-                    Window = windowName,
+                    WindowName = windowName,
                     Tags = tags
                 };
 
@@ -790,9 +790,9 @@ namespace ThinkITAM.DatabaseOperation
             {
 
 
-                var tagInfo = new ViewModels.DatabaseEntity.Window.WindowTagViewModel()
+                var tagInfo = new
                 {
-                    Window = windowName,
+                    WindowName = windowName,
                     Tags = tags
                 };
 
