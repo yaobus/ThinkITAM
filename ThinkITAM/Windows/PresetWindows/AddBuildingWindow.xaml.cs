@@ -125,8 +125,11 @@ namespace ThinkITAM.Windows.PresetWindows
 
         private void PeopleCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Phone.Text = peopleInfos[PeopleCombobox.SelectedIndex].Phone;
-            Note.Text = peopleInfos[PeopleCombobox.SelectedIndex].Note;
+            if (PeopleCombobox.SelectedIndex!=-1)
+            {
+
+                Phone.Text = peopleInfos[PeopleCombobox.SelectedIndex].Phone;
+                Note.Text = peopleInfos[PeopleCombobox.SelectedIndex].Note; }
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)

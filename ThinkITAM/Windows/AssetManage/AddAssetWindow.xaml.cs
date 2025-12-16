@@ -644,7 +644,9 @@ public partial class AddAssetWindow : Window
 
     private void ModelsComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Model.Text = modelList[ModelsComboBox.SelectedIndex];
+        if (ModelsComboBox.SelectedIndex!=-1) {
+
+        Model.Text = modelList[ModelsComboBox.SelectedIndex]; }
     }
 
     private void ModelsComboBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -108,6 +108,8 @@ namespace ThinkITAM.Windows.ToolWindows
 
         private void RaidComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
             if (this.IsLoaded)
             {
                 UpdateNumber();

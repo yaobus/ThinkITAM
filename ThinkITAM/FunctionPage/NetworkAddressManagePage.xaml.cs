@@ -999,61 +999,62 @@ public partial class NetworkAddressManagePage : UserControl
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
             SelectNetworkTags = settings;
+            if (settings != null)
+            {
+                if (!string.IsNullOrWhiteSpace(settings.TagA))
+                {
+                    HintAssist.SetHint(TagATextBox, settings.TagA);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagATextBox, "TagA");
+                }
 
-            if (!string.IsNullOrWhiteSpace(settings.TagA))
-            {
-                HintAssist.SetHint(TagATextBox, settings.TagA);
-            }
-            else
-            {
-                HintAssist.SetHint(TagATextBox, "TagA");
-            }
+                if (!string.IsNullOrWhiteSpace(settings.TagB))
+                {
+                    HintAssist.SetHint(TagBTextBox, settings.TagB);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagBTextBox, "TagB");
+                }
 
-            if (!string.IsNullOrWhiteSpace(settings.TagB))
-            {
-                HintAssist.SetHint(TagBTextBox, settings.TagB);
-            }
-            else
-            {
-                HintAssist.SetHint(TagBTextBox, "TagB");
-            }
+                if (!string.IsNullOrWhiteSpace(settings.TagC))
+                {
+                    HintAssist.SetHint(TagCTextBox, settings.TagC);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagCTextBox, "TagC");
+                }
 
-            if (!string.IsNullOrWhiteSpace(settings.TagC))
-            {
-                HintAssist.SetHint(TagCTextBox, settings.TagC);
-            }
-            else
-            {
-                HintAssist.SetHint(TagCTextBox, "TagC");
-            }
+                if (!string.IsNullOrWhiteSpace(settings.TagD))
+                {
+                    HintAssist.SetHint(TagDTextBox, settings.TagD);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagDTextBox, "TagD");
+                }
 
-            if (!string.IsNullOrWhiteSpace(settings.TagD))
-            {
-                HintAssist.SetHint(TagDTextBox, settings.TagD);
-            }
-            else
-            {
-                HintAssist.SetHint(TagDTextBox, "TagD");
-            }
+                if (!string.IsNullOrWhiteSpace(settings.TagE))
+                {
+                    HintAssist.SetHint(TagETextBox, settings.TagE);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagETextBox, "TagE");
+                }
 
-            if (!string.IsNullOrWhiteSpace(settings.TagE))
-            {
-                HintAssist.SetHint(TagETextBox, settings.TagE);
+                if (!string.IsNullOrWhiteSpace(settings.TagF))
+                {
+                    HintAssist.SetHint(TagFTextBox, settings.TagF);
+                }
+                else
+                {
+                    HintAssist.SetHint(TagFTextBox, "TagF");
+                }
             }
-            else
-            {
-                HintAssist.SetHint(TagETextBox, "TagE");
-            }
-
-            if (!string.IsNullOrWhiteSpace(settings.TagF))
-            {
-                HintAssist.SetHint(TagFTextBox, settings.TagF);
-            }
-            else
-            {
-                HintAssist.SetHint(TagFTextBox, "TagF");
-            }
-
         }
 
     }
@@ -2004,116 +2005,117 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
             var settings = DataBridge.DataBridge.SelectIpAddressTags;
 
-
-
-            if (!string.IsNullOrWhiteSpace(info.TagA))
+            if (settings != null)
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagA.ToString()))
+
+                if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
-                    tip += $"{settings.TagA}: {info.TagA}\r";
+                    if (!string.IsNullOrWhiteSpace(settings.TagA.ToString()))
+                    {
+                        tip += $"{settings.TagA}: {info.TagA}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签A: {info.TagA}\r";
+                    }
                 }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagB))
                 {
-                    tip += $"自定义标签A: {info.TagA}\r";
+                    if (!string.IsNullOrWhiteSpace(settings.TagB.ToString()))
+                    {
+                        tip += $"{settings.TagB}: {info.TagB}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签B: {info.TagB}\r";
+                    }
                 }
+                if (!string.IsNullOrWhiteSpace(info.TagC))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagC.ToString()))
+                    {
+                        tip += $"{settings.TagC}: {info.TagC}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签C: {info.TagC}\r";
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(info.TagD))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagD.ToString()))
+                    {
+                        tip += $"{settings.TagD}: {info.TagD}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签D: {info.TagD}\r";
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(info.TagE))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagE.ToString()))
+                    {
+                        tip += $"{settings.TagE}: {info.TagE}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签A: {info.TagE}\r";
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(info.TagF))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagF.ToString()))
+                    {
+                        tip += $"{settings.TagF}: {info.TagF}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签F: {info.TagF}\r";
+                    }
+                }
+
             }
-            if (!string.IsNullOrWhiteSpace(info.TagB))
+            else
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagB.ToString()))
+                if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
-                    tip += $"{settings.TagB}: {info.TagB}\r";
+
+                    tip += $"自定义标签Aa: {info.TagA}\r";
+
                 }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagB))
                 {
+
+
                     tip += $"自定义标签B: {info.TagB}\r";
+
                 }
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagC))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagC.ToString()))
+                if (!string.IsNullOrWhiteSpace(info.TagC))
                 {
-                    tip += $"{settings.TagC}: {info.TagC}\r";
-                }
-                else
-                {
+
                     tip += $"自定义标签C: {info.TagC}\r";
+
                 }
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagD))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagD.ToString()))
+                if (!string.IsNullOrWhiteSpace(info.TagD))
                 {
-                    tip += $"{settings.TagD}: {info.TagD}\r";
-                }
-                else
-                {
+
                     tip += $"自定义标签D: {info.TagD}\r";
+
                 }
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagE))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagE.ToString()))
+                if (!string.IsNullOrWhiteSpace(info.TagE))
                 {
-                    tip += $"{settings.TagE}: {info.TagE}\r";
-                }
-                else
-                {
+
                     tip += $"自定义标签A: {info.TagE}\r";
+
                 }
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagF))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagF.ToString()))
+                if (!string.IsNullOrWhiteSpace(info.TagF))
                 {
-                    tip += $"{settings.TagF}: {info.TagF}\r";
-                }
-                else
-                {
+
                     tip += $"自定义标签F: {info.TagF}\r";
+
                 }
             }
-
-        }
-        else
-        {
-            if (!string.IsNullOrWhiteSpace(info.TagA))
-            {
-
-                tip += $"自定义标签Aa: {info.TagA}\r";
-
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagB))
-            {
-
-
-                tip += $"自定义标签B: {info.TagB}\r";
-
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagC))
-            {
-
-                tip += $"自定义标签C: {info.TagC}\r";
-
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagD))
-            {
-
-                tip += $"自定义标签D: {info.TagD}\r";
-
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagE))
-            {
-
-                tip += $"自定义标签A: {info.TagE}\r";
-
-            }
-            if (!string.IsNullOrWhiteSpace(info.TagF))
-            {
-
-                tip += $"自定义标签F: {info.TagF}\r";
-
-            }
-
         }
 
 
@@ -2278,10 +2280,15 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
     private void BrowserCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!string.IsNullOrWhiteSpace(browserInfos[BrowserCombobox.SelectedIndex].Path))
+        if (BrowserCombobox.SelectedIndex!=-1)
         {
-            DataBridge.DataBridge.SelectBrowser = browserInfos[BrowserCombobox.SelectedIndex].Path;
+            if (!string.IsNullOrWhiteSpace(browserInfos[BrowserCombobox.SelectedIndex].Path))
+            {
+                DataBridge.DataBridge.SelectBrowser = browserInfos[BrowserCombobox.SelectedIndex].Path;
+            }
         }
+
+
     }
 
 
@@ -2486,18 +2493,21 @@ private string JoInTip(IpAddressInfoListViewMode info)
     private void ProtocolCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
-        int index = ProtocolCombobox.SelectedIndex;
-
-
-        if (!string.IsNullOrWhiteSpace(protocolInfos[index].Protocol))
+        if (ProtocolCombobox.SelectedIndex != -1)
         {
-            DataBridge.DataBridge.Protocol = protocolInfos[index].Protocol;
-        }
-        else
-        {
-            DataBridge.DataBridge.Protocol = "http://";
-        }
 
+            int index = ProtocolCombobox.SelectedIndex;
+
+
+            if (!string.IsNullOrWhiteSpace(protocolInfos[index].Protocol))
+            {
+                DataBridge.DataBridge.Protocol = protocolInfos[index].Protocol;
+            }
+            else
+            {
+                DataBridge.DataBridge.Protocol = "http://";
+            }
+        }
 
     }
 

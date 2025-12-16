@@ -440,111 +440,114 @@ public partial class DevicePortManage : UserControl
         {
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
-            if (!string.IsNullOrWhiteSpace(info.TagA))
+            if (settings != null)
             {
-                if (!string.IsNullOrWhiteSpace(settings.TagA))
+
+                if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
-                    tip += $"{settings.TagA}: {info.TagA}\r";
+                    if (!string.IsNullOrWhiteSpace(settings.TagA))
+                    {
+                        tip += $"{settings.TagA}: {info.TagA}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签A: {info.TagA}\r";
+                    }
                 }
-                else
+
+                if (!string.IsNullOrWhiteSpace(info.TagB))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagB))
+                    {
+                        tip += $"{settings.TagB}: {info.TagB}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签B: {info.TagB}\r";
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(info.TagC))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagC))
+                    {
+                        tip += $"{settings.TagC}: {info.TagC}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签C: {info.TagC}\r";
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(info.TagD))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagD))
+                    {
+                        tip += $"{settings.TagD}: {info.TagD}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签D: {info.TagD}\r";
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(info.TagE))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagE))
+                    {
+                        tip += $"{settings.TagE}: {info.TagE}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签A: {info.TagE}\r";
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(info.TagF))
+                {
+                    if (!string.IsNullOrWhiteSpace(settings.TagF))
+                    {
+                        tip += $"{settings.TagF}: {info.TagF}\r";
+                    }
+                    else
+                    {
+                        tip += $"自定义标签F: {info.TagF}\r";
+                    }
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
                     tip += $"自定义标签A: {info.TagA}\r";
                 }
-            }
 
-            if (!string.IsNullOrWhiteSpace(info.TagB))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagB))
-                {
-                    tip += $"{settings.TagB}: {info.TagB}\r";
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagB))
                 {
                     tip += $"自定义标签B: {info.TagB}\r";
                 }
-            }
 
-            if (!string.IsNullOrWhiteSpace(info.TagC))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagC))
-                {
-                    tip += $"{settings.TagC}: {info.TagC}\r";
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagC))
                 {
                     tip += $"自定义标签C: {info.TagC}\r";
                 }
-            }
 
-            if (!string.IsNullOrWhiteSpace(info.TagD))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagD))
-                {
-                    tip += $"{settings.TagD}: {info.TagD}\r";
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagD))
                 {
                     tip += $"自定义标签D: {info.TagD}\r";
                 }
-            }
 
-            if (!string.IsNullOrWhiteSpace(info.TagE))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagE))
-                {
-                    tip += $"{settings.TagE}: {info.TagE}\r";
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagE))
                 {
                     tip += $"自定义标签A: {info.TagE}\r";
                 }
-            }
 
-            if (!string.IsNullOrWhiteSpace(info.TagF))
-            {
-                if (!string.IsNullOrWhiteSpace(settings.TagF))
-                {
-                    tip += $"{settings.TagF}: {info.TagF}\r";
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(info.TagF))
                 {
                     tip += $"自定义标签F: {info.TagF}\r";
                 }
             }
         }
-        else
-        {
-            if (!string.IsNullOrWhiteSpace(info.TagA))
-            {
-                tip += $"自定义标签A: {info.TagA}\r";
-            }
-
-            if (!string.IsNullOrWhiteSpace(info.TagB))
-            {
-                tip += $"自定义标签B: {info.TagB}\r";
-            }
-
-            if (!string.IsNullOrWhiteSpace(info.TagC))
-            {
-                tip += $"自定义标签C: {info.TagC}\r";
-            }
-
-            if (!string.IsNullOrWhiteSpace(info.TagD))
-            {
-                tip += $"自定义标签D: {info.TagD}\r";
-            }
-
-            if (!string.IsNullOrWhiteSpace(info.TagE))
-            {
-                tip += $"自定义标签A: {info.TagE}\r";
-            }
-
-            if (!string.IsNullOrWhiteSpace(info.TagF))
-            {
-                tip += $"自定义标签F: {info.TagF}\r";
-            }
-        }
-
 
         return tip.TrimEnd('\r');
     }
@@ -1253,6 +1256,7 @@ public partial class DevicePortManage : UserControl
         {
             var settings = JsonConvert.DeserializeObject<TagViewModel>(settingTags);
 
+            if(settings!=null){
 
             if (!string.IsNullOrWhiteSpace(settings.TagA))
             {
@@ -1306,6 +1310,7 @@ public partial class DevicePortManage : UserControl
             else
             {
                 HintAssist.SetHint(TagFTextBox, "TagF");
+            }
             }
         }
     }

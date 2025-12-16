@@ -111,19 +111,21 @@ namespace ThinkITAM.Windows.Scan
 
         private void ComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            isScanning = false;
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(3);
+            if (ComboBox.SelectedIndex!=-1)
+            {
+                isScanning = false;
+                _timer = new DispatcherTimer();
+                _timer.Interval = TimeSpan.FromSeconds(3);
 
-            videoSource = new VideoCaptureDevice(videoDevices[ComboBox.SelectedIndex].MonikerString);
+                videoSource = new VideoCaptureDevice(videoDevices[ComboBox.SelectedIndex].MonikerString);
 
-            videoSource.NewFrame += VideoSource_NewFrame;
+                videoSource.NewFrame += VideoSource_NewFrame;
 
 
-            videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
-            videoSource.Start();
+                videoSource.NewFrame += new NewFrameEventHandler(video_NewFrame);
+                videoSource.Start();
 
-            _timer.Tick += _timer_Tick; ;
+                _timer.Tick += _timer_Tick; }
         }
 
         private void _timer_Tick(object? sender, EventArgs e)

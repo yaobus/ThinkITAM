@@ -105,11 +105,13 @@ namespace ThinkITAM.Windows.LinkWindows
 
         private void PeopleCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (PeopleCombobox.SelectedIndex!=-1) { 
+
             int index = PeopleCombobox.SelectedIndex;
 
 
             PeopleName.Text = peopleInfos[index].Name;
-            Phone.Text = peopleInfos[index].Phone;
+            Phone.Text = peopleInfos[index].Phone;}
         }
 
 
