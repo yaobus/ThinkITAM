@@ -518,7 +518,7 @@ namespace ThinkITAM.Windows.NetworkManage
         /// <summary>
         /// 填充网段表单初始数据
         /// </summary>
-        private void InitializedNetworkData(string tableName,string network)
+        private void InitializedNetworkData2(string tableName,string network)
         {
             string[] parts = Network.Text.Split('.');
 
@@ -545,8 +545,6 @@ namespace ThinkITAM.Windows.NetworkManage
                 int addressStatus = 0;
 
                 int ip = firstIp + i;
-
-
 
                 List<string> lockip = new List<string>();
 
@@ -585,7 +583,43 @@ namespace ThinkITAM.Windows.NetworkManage
 
         }
 
+        private async Task InitializedNetworkData(string tableName, string network)
+        {
+            // 解析输入
+            string[] netParts = Network.Text.Split('.');
+            string[] bcastParts = Broadcast.Text.Split('.');
 
+            int firstIp = Convert.ToInt32(netParts[3]);
+            int lastIp = Convert.ToInt32(bcastParts[3]);
+            int totalIps = Convert.ToInt32(NumBox.Text); // 应为 256
+
+            string prefix = network.Substring(0, network.LastIndexOf('.') + 1);
+
+            // === 第一步：批量插入所有 IP（初始状态 = 1）===
+            var values = new List<string>();
+            for (int i = 0; i < totalIps; i++)
+            {
+                int suffix = firstIp + i;
+                string fullIp = $"{prefix}{suffix}";
+                // 注意：对字符串做 SQL 转义（防注入），此处简化；实际建议用参数化或转义单引号
+                values.Add($"({suffix}, '{fullIp.Replace("'", "''")}', 1)");
+            }
+
+            string insertSql = $@" INSERT INTO Net_{tableName} (Address, FullAddress, AddressStatus) VALUES {string.Join(", ", values)};";
+
+            await GlobalVariables.DbService.ExecuteNonQueryAsync(insertSql);
+
+            // === 第二步：标记网段地址 ===
+            string updateNetworkSql = $@" UPDATE Net_{tableName} SET AddressStatus = 0 WHERE Address = {firstIp};";
+
+            await GlobalVariables.DbService.ExecuteNonQueryAsync(updateNetworkSql);
+
+            // === 第三步：标记广播地址 ===
+            string updateBroadcastSql = $@" UPDATE Net_{tableName} SET AddressStatus = 4 WHERE Address = {lastIp};";
+
+            await GlobalVariables.DbService.ExecuteNonQueryAsync(updateBroadcastSql);
+
+        }
         /// <summary>
         /// 获取网段前缀
         /// </summary>

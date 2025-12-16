@@ -859,7 +859,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     /// <param name="tableName">分表名称</param>
     /// <param name="addressStatus">是否存在网段地址或广播地址0为存在网段地址，1为普通地址，4为存在广播地址</param>
-    private async Task InitializationSubNetworkTable(string tableName, int addressStatus = 1)
+    private async Task InitializationSubNetworkTable2(string tableName, int addressStatus = 1)
     {
         int status; //0、为网段IP，1、正常未分配IP，2正常已分配ip，3已分配未启用ip，4、广播IP
 
@@ -910,6 +910,50 @@ public partial class NetworkAddressManagePage : UserControl
 
     }
 
+    /// <summary>
+    /// 大型网段，分表初始化数据装填（优化版：批量插入 + 条件更新）
+    /// </summary>
+    /// <param name="tableName">分表名称</param>
+    /// <param name="addressStatus">
+    ///     表的特殊标识：
+    ///     0 = 本表包含网段地址（Address=0 应设为 0），
+    ///     4 = 本表包含广播地址（Address=255 应设为 4），
+    ///     1 = 普通表（全为可用地址）
+    /// </param>
+    private async Task InitializationSubNetworkTable(string tableName, int addressStatus = 1)
+    {
+        // 1. 获取前缀（如 "192.168.0."）
+        var prefix = Functions.FunctionClass.NetworkHelper.GetNetWorkSegment(tableName);
+
+        // 2. 构建批量 VALUES（256 行，初始状态全为 1）
+        var values = new List<string>();
+        for (int i = 0; i < 256; i++)
+        {
+            var fullAddress = $"{prefix}{i}";
+            // 转义单引号防注入（虽然 prefix 通常可信，但安全起见）
+            fullAddress = fullAddress.Replace("'", "''");
+            values.Add($"({i}, '{fullAddress}', 1)");
+        }
+
+        // 3. 执行批量插入
+        var insertSql = $@" INSERT INTO `{tableName}` (`Address`, `FullAddress`, `AddressStatus`) VALUES {string.Join(", ", values)};";
+
+        await GlobalVariables.DbService.ExecuteNonQueryAsync(insertSql);
+
+        // 4. 如果是网段表（addressStatus == 0），更新 Address = 0
+        if (addressStatus == 0)
+        {
+            var updateNetworkSql = $@" UPDATE `{tableName}` SET `AddressStatus` = 0 WHERE `Address` = 0;";
+            await GlobalVariables.DbService.ExecuteNonQueryAsync(updateNetworkSql);
+        }
+
+        // 5. 如果是广播表（addressStatus == 4），更新 Address = 255
+        if (addressStatus == 4)
+        {
+            var updateBroadcastSql = $@" UPDATE `{tableName}` SET `AddressStatus` = 4 WHERE `Address` = 255;";
+            await GlobalVariables.DbService.ExecuteNonQueryAsync(updateBroadcastSql);
+        }
+    }
 
     /// <summary>
     /// 加载所选网段的信息

@@ -291,6 +291,12 @@ namespace ThinkITAM.DatabaseOperation
             if (string.IsNullOrWhiteSpace(columnType)) throw new ArgumentException("字段类型不能为空", nameof(columnType));
 
             using var connection = CreateConnection();
+            //判断数据库是否打开，如果没有则打开
+            if (!connection.State.Equals(ConnectionState.Open))
+            {
+                connection.Open();
+            }
+
 
             bool exists = ColumnExists(tableName, columnName, connection);
 

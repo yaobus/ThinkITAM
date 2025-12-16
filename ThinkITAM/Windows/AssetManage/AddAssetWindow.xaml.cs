@@ -183,7 +183,7 @@ public partial class AddAssetWindow : Window
             AssetNumber.Text = "";
 
 
-            string query = $"SELECT  DeviceType FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}';";
+            var query = $"SELECT  DeviceType FROM AssetTag WHERE AssetType='{assetTypeInfos[AssetType.SelectedIndex].ToString()}';";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -219,15 +219,18 @@ public partial class AddAssetWindow : Window
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-            string tag = "";
-
+            var tag = string.Empty;
+            //var autocomplete = 0;
 
             foreach (var row in rows)
             {
                 tag = row["AssetTag"].ToString();
+
+                //autocomplete = (row["Autocomplete"] as int?) ?? 0;
+
             }
 
-
+            //_autocomplete = autocomplete;
 
             if (tag != "")
             {
@@ -244,7 +247,10 @@ public partial class AddAssetWindow : Window
         }
     }
 
-
+    /// <summary>
+    /// 资产标签自动空位补全总长度
+    /// </summary>
+    ///private int _autocomplete = 0;
 
     /// <summary>
     /// 查询并创建资产编号

@@ -101,7 +101,7 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Buildings", "SortIndex", "INT");
 
 
-                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
+                    //GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
 
                     //扩展网段表单字段
                     ExtendSegmentTable();
@@ -117,7 +117,7 @@ public partial class SelectionWindow : Window
                 case "mysql":
                 case "mariadb":
 
-                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
+                    //GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
                     ModifyFieldNameMysql();
 
                     break;
@@ -333,7 +333,7 @@ public partial class SelectionWindow : Window
         t.Add("BookmarkGroupOrder");
         t.Add("AssetLog");
         t.Add("NoteBook");
-        string message = string.Empty;
+        var message = string.Empty;
 
         foreach (var table in t)
         {

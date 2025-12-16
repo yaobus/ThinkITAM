@@ -110,6 +110,15 @@ namespace ThinkITAM.Windows.PresetWindows
                 var deviceType = DeviceType.Text.Replace(" ", "");
                 var assetTag = AssetTag.Text.Replace(" ", "");
 
+                //var item = Autocomplete.Text;
+                //var autocomplete = 0;
+
+                //if (item != null)
+                //{
+                //    autocomplete = Convert.ToInt32( item);
+                    
+                //}
+
                 if (assetTag.EndsWith("-") == false)
                 {
                     // 如果最后一个字符不是 "-"，则添加 "-"
@@ -121,12 +130,13 @@ namespace ThinkITAM.Windows.PresetWindows
                 if (inputInfo != null)
                 {
 
-                    var assettagInfo = new
+                    var assetTagInfo = new
                     {
                         AssetType = assetType,
                         DeviceType = deviceType,
                         AssetTag = assetTag,
                         Note = Note.Text
+
                     };
 
                     var conditions = new
@@ -134,7 +144,7 @@ namespace ThinkITAM.Windows.PresetWindows
                         AssetTag = assetTag
                     };
 
-                    GlobalVariables.DbService.UpdateEntity("AssetTag", assettagInfo, conditions);
+                    GlobalVariables.DbService.UpdateEntity("AssetTag", assetTagInfo, conditions);
 
                     this.DialogResult = true;
                 }
@@ -158,16 +168,17 @@ namespace ThinkITAM.Windows.PresetWindows
                         if (num <= 0)//如果都没有
                         {
 
-                            var assettagInfo = new
+                            var assetTagInfo = new
                             {
                                 AssetType = assetType,
                                 DeviceType = deviceType,
                                 AssetTag = assetTag,
                                 Note = Note.Text
+                                
                             };
 
 
-                            GlobalVariables.DbService.InsertEntity("AssetTag", assettagInfo);
+                            GlobalVariables.DbService.InsertEntity("AssetTag", assetTagInfo);
 
                             this.DialogResult = true;
 
