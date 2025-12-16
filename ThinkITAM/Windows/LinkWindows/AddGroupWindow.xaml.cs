@@ -92,7 +92,29 @@ public partial class AddGroupWindow : Window
                 }
                 else
                 {
-                    MessageBox.Show("机柜/分组名重复，请误重复添加", "有问题需要注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    //已存在，判断是否是已删除
+                    sqlTemp = $"SELECT COUNT(*) FROM DeviceCabinet WHERE DeviceRoomQrId ='{deviceRoomQrId}' AND CabinetName='{groupName}' AND Del = 1";
+
+                    countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
+
+
+                    if (countNum > 0)
+                    {
+                        var result = MessageBox.Show($"正在添加的{groupName}已被标记为删除，是否恢复？","是否恢复删除项",MessageBoxButton.YesNo,MessageBoxImage.Information);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            sqlTemp = $"UPDATE DeviceCabinet  SET Del = NULL WHERE DeviceRoomQrId ='{deviceRoomQrId}' AND CabinetName='{groupName}'";
+                            GlobalVariables.DbService.ExecuteNonQuery(sqlTemp);
+                            this.DialogResult = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("机柜/分组名重复，请误重复添加", "有问题需要注意", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
+
+                    
                 }
             }
 

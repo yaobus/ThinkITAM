@@ -87,9 +87,6 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Asset", "UserUnit", "TEXT");
 
 
-
-
-
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagA", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagB", "TEXT");
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Computer", "TagC", "TEXT");
@@ -104,6 +101,7 @@ public partial class SelectionWindow : Window
                     GlobalVariables.DbService.CheckAndAddColumnIfNotExists("Buildings", "SortIndex", "INT");
 
 
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
 
                     //扩展网段表单字段
                     ExtendSegmentTable();
@@ -119,7 +117,7 @@ public partial class SelectionWindow : Window
                 case "mysql":
                 case "mariadb":
 
-
+                    GlobalVariables.DbService.CheckAndAddColumnIfNotExists("AssetTag", "Autocomplete", "INT");
                     ModifyFieldNameMysql();
 
                     break;
