@@ -9,7 +9,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    Width="210"
+    Width="225"
     Height="115"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
@@ -191,7 +191,7 @@
                         Grid.Row="3"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        d:Text="A-1"
+                        d:Text="256.256.256.256"
                         FontSize="12"
                         FontWeight="Bold"
                         Text="{Binding LinkIp}" />
