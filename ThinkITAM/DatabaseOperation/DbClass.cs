@@ -1646,8 +1646,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Bookmark"://导航索引
 
-                                sql =
-                                    $"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(255) PRIMARY KEY,   `TypeGroup` VARCHAR(255),   `Name` VARCHAR(255),   `Protocol` VARCHAR(255),   `Host` VARCHAR(255),   `Port` VARCHAR(255),   `Color` INT,   `Browser` VARCHAR(255), `PinToStart` INT, `Del` INT ) ENGINE=InnoDB ;";
+                                sql =$"CREATE TABLE `Bookmark` (   `IndexId` VARCHAR(255) PRIMARY KEY,   `TypeGroup` VARCHAR(255),   `Name` VARCHAR(255),   `Protocol` VARCHAR(255),   `Host` VARCHAR(255),   `Port` VARCHAR(255),   `Color` INT,   `Browser` VARCHAR(255), `PinToStart` INT, `Del` INT ) ENGINE=InnoDB ;";
 
 
                                 break;
@@ -1655,8 +1654,7 @@ namespace ThinkITAM.DatabaseOperation
 
                             case "Link"://主链路表
 
-                                sql =
-                                    $"CREATE TABLE `Link` (   `Link_ID` INT AUTO_INCREMENT PRIMARY KEY,   `Alias` VARCHAR(255) NOT NULL,   `Create_Time` DATETIME DEFAULT CURRENT_TIMESTAMP,   `Update_Time` DATETIME DEFAULT CURRENT_TIMESTAMP ) ENGINE=InnoDB ;";
+                                sql =$"CREATE TABLE `Link` (   `Link_ID` INT AUTO_INCREMENT PRIMARY KEY,   `Alias` VARCHAR(255) NOT NULL,   `Create_Time` DATETIME DEFAULT CURRENT_TIMESTAMP,   `Update_Time` DATETIME DEFAULT CURRENT_TIMESTAMP ) ENGINE=InnoDB ;";
 
 
                                 break;

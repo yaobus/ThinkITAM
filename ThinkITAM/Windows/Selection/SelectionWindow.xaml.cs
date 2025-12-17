@@ -298,7 +298,7 @@ public partial class SelectionWindow : Window
     {
 
 
-        List<string> t = new List<string>();
+        var t = new List<string>();
 
         t.Add("Network");
         t.Add("UserInfo");
@@ -347,6 +347,7 @@ public partial class SelectionWindow : Window
 
         }
 
+        Console.WriteLine(message);
 
     }
 
