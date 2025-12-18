@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using ThinkITAM.DatabaseOperation;
@@ -37,8 +38,8 @@ namespace ThinkITAM.Windows.PortPanel
             // 检查字符串是否为空或空字符串
             if (!string.IsNullOrWhiteSpace(str))
             {
-                // 取出字符串的最后一位
-                string lastChar = str.Substring(str.Length - 1);
+                // 取出字符串的最后的数字
+                string lastChar = ExtractTrailingDigits(str);
 
                 // 判断是否为整数
                 int intValue;
@@ -48,8 +49,8 @@ namespace ThinkITAM.Windows.PortPanel
 
                 if (isInt)
                 {
-                    // 取出除最后一位外的其他部分
-                    string withoutLastChar = str.Substring(0, str.Length - 1);
+                    // 取出除最后数字外的其他部分
+                    string withoutLastChar = str.Substring(0, str.Length - lastChar.Length);
 
                     //int num = Convert.ToInt32(lastChar);
 
@@ -129,6 +130,20 @@ namespace ThinkITAM.Windows.PortPanel
             //第四步，加载端口自定义分组
 
             //LoadGroups();
+        }
+
+        /// <summary>
+        /// 取出字符串尾部数字
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ExtractTrailingDigits(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return null; // 或返回空字符串 ""
+
+            var match = Regex.Match(input, @"\d+$");
+            return match.Success ? match.Value : null;
         }
 
 
