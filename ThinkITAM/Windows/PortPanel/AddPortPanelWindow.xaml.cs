@@ -336,43 +336,76 @@ namespace ThinkITAM.Windows.PortPanel
         /// <param name="e"></param>
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
+
             var info = CheckInput();
 
             if (info.Item1 == 0)
             {
                 PreviewButton_OnClick(null, null);
 
-                string buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
+                var buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
 
                 DbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
 
+                var floor = FloorCombobox.Text;
 
-                string floor = FloorCombobox.Text;
+                var room = RoomCombobox.Text;
 
-                string room = RoomCombobox.Text;
+                var portType = PortTypeCombobox.Text;
 
-                string portType = PortTypeCombobox.Text;
+                var portGroup = GroupCombobox.Text;
 
-                string portGroup = GroupCombobox.Text;
-
-                string roomNote = RoomNote.Text;
-
+                var roomNote = RoomNote.Text;
 
 
+
+                //如果填写了备注则保存
+                if (!string.IsNullOrWhiteSpace(roomNote))
+                {
+                    //先看备注是否存在
+                    var noteId = $"{buildingId}{floor}{room}";
+
+                    var query = $"SELECT COUNT(*) FROM Notes WHERE NoteId='{noteId}'";
+
+                    var countNum = DbClass.ExecuteScalarTableNum(query);
+
+                    string sqlNote;
+
+                    if (countNum == 0)
+                    {
+
+                        var noteInfo = new { NoteId = noteId, Note = roomNote };
+
+                        //sqlNote = $"INSERT INTO \"Notes\" (\"NoteId\", \"Note\") VALUES ('{noteId}', '{roomNote}')";
+
+                        GlobalVariables.DbService.InsertEntity("Notes", noteInfo);
+                    }
+                    else
+                    {
+                        sqlNote = $"UPDATE  Notes  SET  Note  = '{roomNote}' WHERE  NoteId  = '{noteId}'";
+                        GlobalVariables.DbService.ExecuteNonQuery(sqlNote);
+                    }
+
+
+                }
+
+                var message = "以下端口已存在,该端口将不会被添加:\r";
+                var count = 0;
 
                 foreach (var port in portList)
                 {
                     //先看端口是否存在
-                    string sqlTemp = $"SELECT COUNT(*) FROM Bu_{buildingId} WHERE  RoomId='{floor}'AND RoomId='{room}' AND PortId='{port}'";
+                    var sqlTemp = $"SELECT COUNT(*) FROM Bu_{buildingId} WHERE SlotId='{floor}' AND RoomId='{room}' AND PortId='{port}'";
                     var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-                    string message = "以下端口已存在,该端口将不会被添加:\r";
-                    int count = 0;
+
                     if (countNum == 0)//端口不存在
                     {
+                        var uid = GetNextAvailableNumber(buildingId);
 
                         var buildingInfo = new
                         {
+                            UID = uid,
                             SlotId = floor,
                             RoomId = room,
                             PortType = portType,
@@ -381,8 +414,8 @@ namespace ThinkITAM.Windows.PortPanel
                             PortColor = portColor
                         };
 
+                        //string sql = $"INSERT INTO \"Bu_{buildingId}\" (\"UID\", \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\",  \"PortColor\") VALUES ( '{uid}', '{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
 
-                        //string sql = $"INSERT INTO \"bu_{buildingId}\" ( \"SlotId\", \"RoomId\", \"PortType\", \"PortId\", \"PortGroup\", \"PortColor\") VALUES ('{floor}', '{room}', '{portType}', '{port}', '{portGroup}','{portColor}')";
 
                         GlobalVariables.DbService.InsertEntity($"Bu_{buildingId}", buildingInfo);
 
@@ -393,21 +426,25 @@ namespace ThinkITAM.Windows.PortPanel
                         count++;
                     }
 
-                    if (count > 0)
-                    {
-                        MessageBox.Show(message, "存在重复端口", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
 
+
+                }
+
+                if (count > 0)
+                {
+                    MessageBox.Show(message, "存在重复端口", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
                 //更新房间备注
                 UpdateRoomNote(room);
 
+               
             }
             else
             {
                 MessageBox.Show(info.Item2, "注意！", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         /// <summary>
@@ -576,19 +613,19 @@ namespace ThinkITAM.Windows.PortPanel
             {
                 PreviewButton_OnClick(null, null);
 
-                string buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
+                var buildingId = buildingInfos[BuildingCombobox.SelectedIndex].BuildingId;
 
                 DbClass.CreateDynamicsTableIfNotExists(buildingId, 1);
 
-                string floor = FloorCombobox.Text;
+                var floor = FloorCombobox.Text;
 
-                string room = RoomCombobox.Text;
+                var room = RoomCombobox.Text;
 
-                string portType = PortTypeCombobox.Text;
+                var portType = PortTypeCombobox.Text;
 
-                string portGroup = GroupCombobox.Text;
+                var portGroup = GroupCombobox.Text;
 
-                string roomNote = RoomNote.Text;
+                var roomNote = RoomNote.Text;
 
 
 
@@ -596,11 +633,11 @@ namespace ThinkITAM.Windows.PortPanel
                 if (!string.IsNullOrWhiteSpace(roomNote))
                 {
                     //先看备注是否存在
-                    string noteId = $"{buildingId}{floor}{room}";
+                    var noteId = $"{buildingId}{floor}{room}";
 
-                    string query = $"SELECT COUNT(*) FROM Notes WHERE NoteId='{noteId}'";
+                    var query = $"SELECT COUNT(*) FROM Notes WHERE NoteId='{noteId}'";
 
-                    int countNum = DbClass.ExecuteScalarTableNum(query);
+                    var countNum = DbClass.ExecuteScalarTableNum(query);
 
                     string sqlNote;
 
@@ -620,24 +657,21 @@ namespace ThinkITAM.Windows.PortPanel
                     }
 
 
-
-
-
                 }
 
+                var message = "以下端口已存在,该端口将不会被添加:\r";
+                var count = 0;
 
                 foreach (var port in portList)
                 {
                     //先看端口是否存在
-                    string sqlTemp =
-                        $"SELECT COUNT(*) FROM Bu_{buildingId} WHERE SlotId='{floor}' AND RoomId='{room}' AND PortId='{port}'";
+                    var sqlTemp =$"SELECT COUNT(*) FROM Bu_{buildingId} WHERE SlotId='{floor}' AND RoomId='{room}' AND PortId='{port}'";
                     var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-                    string message = "以下端口已存在,该端口将不会被添加:\r";
-                    int count = 0;
+
                     if (countNum == 0)//端口不存在
                     {
-                        int uid = GetNextAvailableNumber(buildingId);
+                        var uid = GetNextAvailableNumber(buildingId);
 
                         var buildingInfo = new
                         {
@@ -662,11 +696,13 @@ namespace ThinkITAM.Windows.PortPanel
                         count++;
                     }
 
-                    if (count > 0)
-                    {
-                        MessageBox.Show(message, "存在重复端口", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
 
+
+                }
+
+                if (count > 0)
+                {
+                    MessageBox.Show(message, "存在重复端口", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
                 //更新房间备注

@@ -41,7 +41,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private int loadMode = 1;
 
-        private string filter = $"AND( Deploy IS NULL OR Deploy='')";
+        private string filter = $"AND( Deploy IS NULL OR Deploy='') AND (Del != 1 OR Del IS NULL) ";
 
         private void FindAssetWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -470,6 +470,7 @@ namespace ThinkITAM.Windows.NetworkManage
         private void LoadButton_OnClick(object sender, RoutedEventArgs e)
         {
             var assetType = string.Empty;
+
             var deviceType = string.Empty;
 
 
