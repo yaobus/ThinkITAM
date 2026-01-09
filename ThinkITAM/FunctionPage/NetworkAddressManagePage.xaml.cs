@@ -532,6 +532,8 @@ public partial class NetworkAddressManagePage : UserControl
                 TagD.Text = settings.TagD;
                 TagE.Text = settings.TagE;
                 TagF.Text = settings.TagF;
+
+                DataBridge.DataBridge.SelectIpAddressTags = settings;
             }
 
 
