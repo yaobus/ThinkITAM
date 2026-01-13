@@ -10,7 +10,7 @@
         /// <summary>
         /// IP地址数量限制，8192个
         /// </summary>
-        public static readonly int IpAddressCount = 12288;
+        public static readonly int IpAddressCount = 16384;
 
         /// <summary>
         ///  设备数量限制，1024个
