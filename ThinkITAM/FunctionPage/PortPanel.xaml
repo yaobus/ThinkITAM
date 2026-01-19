@@ -11,8 +11,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:portPanel="clr-namespace:ThinkITAM.UserControls.PortPanel"
     xmlns:portPanelViewModel="clr-namespace:ThinkITAM.ViewModels.PortPanel"
-    MinWidth="1366"
-    MinHeight="768"
     d:Background="AliceBlue"
     d:Height="768"
     d:Width="1366"
