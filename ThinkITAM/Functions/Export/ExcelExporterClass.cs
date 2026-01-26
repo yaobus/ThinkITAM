@@ -367,13 +367,16 @@ namespace ThinkITAM.Functions.Export
 
                         var tags = JsonConvert.DeserializeObject<TagViewModel>(ts);
 
+                        if (tags != null)
+                        {
+                            headers["TagA"] = tags.TagA;
+                            headers["TagB"] = tags.TagB;
+                            headers["TagC"] = tags.TagC;
+                            headers["TagD"] = tags.TagD;
+                            headers["TagE"] = tags.TagE;
+                            headers["TagF"] = tags.TagF;
+                        }
 
-                        headers["TagA"] = tags.TagA;
-                        headers["TagB"] = tags.TagB;
-                        headers["TagC"] = tags.TagC;
-                        headers["TagD"] = tags.TagD;
-                        headers["TagE"] = tags.TagE;
-                        headers["TagF"] = tags.TagF;
                     }
 
 
