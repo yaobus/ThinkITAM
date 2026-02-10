@@ -725,7 +725,10 @@
                         MouseDoubleClick="AddressListView_OnMouseDoubleClick"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Collapsed">
+                        Visibility="Collapsed"
+                        VirtualizingStackPanel.IsVirtualizing="True" 
+                        VirtualizingStackPanel.VirtualizationMode="Recycling"
+                        >
                         <DataGrid.Columns>
 
                             <DataGridTemplateColumn CanUserSort="False">
