@@ -213,7 +213,6 @@ public partial class NetworkAddressManagePage : UserControl
         string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter} ";
 
        
-
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
@@ -273,8 +272,13 @@ public partial class NetworkAddressManagePage : UserControl
 
                 if (subMask < 24) //如果是大型网段
                 {
+                    var dict = GetUseValue(tableName, info.Netmask,info.Network);
+
+
                     //总使用率
-                    info.Percentage = GetUseValue(tableName, info.Netmask, info.Network);
+                    info.Percentage = dict.Percentage;
+
+                    info.AddressCount = dict.AddressCount;
 
                     NetworkTreeView.Items.Add(GetSubnetsFromDatabase(info, subMask));
 
@@ -282,9 +286,14 @@ public partial class NetworkAddressManagePage : UserControl
                 else //如果是普通网段
                 {
 
-                    //查询地址使用率
-                    info.Percentage = GetUseValue(tableName, info.Netmask);
+                    var dict = GetUseValue(tableName, info.Netmask);
 
+                    //总使用率
+                    info.Percentage = dict.Percentage;
+
+                    info.AddressCount = dict.AddressCount;
+
+   
                     var myCustomControl = new NetworkInfo();
 
                     myCustomControl.TableName = tableName;
@@ -312,60 +321,103 @@ public partial class NetworkAddressManagePage : UserControl
 
     }
 
+    private class NetworkUsedInfo
+    {
+        /// <summary>
+        /// 地址使用率
+        /// </summary>
+        public double Percentage
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 已用地址数/网段地址总数
+        /// </summary>
+        public string AddressCount
+        {
+            get;
+            set;
+        }
+
+    }
+
+
     /// <summary>
     /// 获取网段使用率
     /// </summary>
     /// <param name="tableName"></param>
     /// <returns></returns>
-    private int GetUseValue(string tableName, string netMask, string network = null)
+    private  NetworkUsedInfo GetUseValue(string tableName, string netMask, string network = null)
     {
+        var useInfo = new NetworkUsedInfo();
 
-        int maskLength = IPAddressCalculations.SubnetMaskToCidr(netMask);
 
-        var addressCount = IPAddressCalculations.AddressCount(maskLength) - 2;
+        var maskLength = IPAddressCalculations.SubnetMaskToCidr(netMask);
+
+        double addressCount = IPAddressCalculations.AddressCount(maskLength);
 
         //Console.WriteLine($"addressCount{addressCount}");
 
-        int value = 0;
+        double value = 0;
+
+        string count ;
+
 
         if (maskLength < 24)//如果是大型网段
         {
             var info = SubnetCalculator.CalculateSubnets(network, maskLength);
 
-            int index = 0;
-            int useNum = 0;
+            var index = 0;
+
+            var useNum = 0;
 
             foreach (var sub in info.Item2)
             {
                 //创建新的数据表名
-                string newName = tableName + $"_Sub{index}";
+                var newName = tableName + $"_Sub{index}";
 
                 useNum += GetNetWorkUsedAddress(newName);
 
                 index++;
             }
 
-            value = Convert.ToInt32((useNum * 100) / addressCount);
+            value = (useNum * 100) / addressCount;
 
+            value = Math.Round(value, 1);
+
+            count = $"{useNum}/{addressCount}";
+
+            useInfo.Percentage = value;
+            useInfo.AddressCount = count;
         }
         else
         {
-            int useNum = GetNetWorkUsedAddress(tableName);
+            var useNum = GetNetWorkUsedAddress(tableName);
 
             // Console.WriteLine($"useNum{useNum}");
 
+            value =(useNum * 100) / addressCount;
 
-            value = Convert.ToInt32((useNum * 100) / addressCount);
+            value = Math.Round(value, 1);
+
+            count = $"{useNum}/{addressCount}";
+
+            useInfo.Percentage = value;
+            useInfo.AddressCount = count;
+
         }
 
 
 
 
 
-
-        return value;
+        return useInfo;
 
     }
+
+
+
 
     /// <summary>
     /// 获取网段已用地址数量
@@ -454,7 +506,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
 
-            int useNum = GetNetWorkUsedAddress(tableName);
+            var useNum = GetNetWorkUsedAddress(tableName);
 
 
             SubNetworkInfoViewModel subNetworkInfo = new SubNetworkInfoViewModel() //子节点控件文本
@@ -464,7 +516,8 @@ public partial class NetworkAddressManagePage : UserControl
                 TableName = tableName,
                 Network = info.Network,
                 Netmask = info.Netmask,
-                Percentage = Convert.ToInt32((useNum * 100) / 254),
+                Percentage = Math.Round(useNum / 2.56, 1),
+                AddressCount = $"{useNum}/256",
                 Note = GetSubNetworkNote(tableName)
             };
 

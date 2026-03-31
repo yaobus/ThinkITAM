@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -49,9 +50,9 @@ public partial class AddPeopleWindow : Window
         else
         {
             UserNumber.Dispatcher.Invoke(() =>
-            {
-                UserNumber.Text = GetNextAvailableNumber().ToString();
-            });
+                {
+                    UserNumber.Text = GetNextAvailableNumber().ToString();
+                });
         }
 
     }
@@ -68,9 +69,9 @@ public partial class AddPeopleWindow : Window
         if (prefix != null)
         {
             UserNumberPrefix.Dispatcher.Invoke(() =>
-                {
-                    UserNumberPrefix.Text = prefix.ToString();
-                });
+                    {
+                        UserNumberPrefix.Text = prefix.ToString();
+                    });
         }
         else
         {
@@ -122,7 +123,7 @@ public partial class AddPeopleWindow : Window
         organizationInfo.Clear();
 
         string query = "SELECT DISTINCT Organization FROM Organization WHERE  Department IS NULL AND (Del != 1 OR Del IS NULL);";
-       
+
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -211,6 +212,7 @@ public partial class AddPeopleWindow : Window
 
         }
 
+        this.DialogResult = true;
     }
 
     private (int, string) CheckInput()
@@ -316,7 +318,7 @@ public partial class AddPeopleWindow : Window
 
 
         GlobalVariables.DbService.InsertEntity("UserInfo", info);
-        this.DialogResult = true;
+       
 
 
     }
@@ -403,7 +405,7 @@ public partial class AddPeopleWindow : Window
             foreach (var row in rows)
             {
                 groupsInfo.Add(row["UserGroups"].ToString());
-            }
+    }
 
 
 
@@ -500,9 +502,9 @@ public partial class AddPeopleWindow : Window
     private void UserNumber_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         UserNumber.Dispatcher.Invoke(() =>
-        {
-            UserNumber.Text = GetNextAvailableNumber().ToString();
-        });
+                 {
+                     UserNumber.Text = GetNextAvailableNumber().ToString();
+                 });
     }
 
     private ObservableCollection<string> unitInfos = new ObservableCollection<string>();
@@ -533,5 +535,82 @@ public partial class AddPeopleWindow : Window
         {
             unitInfos.Clear();
         }
+    }
+
+
+    /// <summary>
+    /// 保存并接着添加
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void SaveButton2_OnClick(object sender, RoutedEventArgs e)
+    {
+
+
+        var info = CheckInput();
+
+        if (info.Item1 == 0)
+        {
+            SaveOrganizationInfo(Organization.Text, Department.Text, Groups.Text, Units.Text);
+
+            if (peopleInfo != null)
+            {
+                UpdateUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text, Phone.Text, Note.Text);
+            }
+            else
+            {
+                SaveUserInfo(UserNumber.Text, User.Text, Organization.Text, Department.Text, Groups.Text, Units.Text, Phone.Text, Note.Text);
+            }
+
+        }
+        else
+        {
+
+
+            var dialog = new ConfirmationDialog
+            {
+                Title = "注意",
+                Prompt = $"{info.Item2}",
+                ConfirmButtonText = "确认",
+
+
+            };
+
+            // 显示对话框
+            await DialogHost.Show(dialog, "MessageDialogHost");
+            
+        }
+
+
+
+
+        //获取一个新获取一个新的用户编号
+        UserNumber.Dispatcher.Invoke(() =>
+        {
+            UserNumber.Text = GetNextAvailableNumber().ToString();
+        });
+
+        User.Dispatcher.Invoke(() =>
+        {
+            User.Text = "";
+        });
+
+        Phone.Dispatcher.Invoke(() =>
+        {
+            Phone.Text = "";
+        });
+
+        Note.Dispatcher.Invoke(() =>
+        {
+            Note.Text = "";
+        });
+
+    }
+
+
+
+    private void AddPeopleWindow_OnClosing(object? sender, CancelEventArgs e)
+    {
+        this.DialogResult = true;
     }
 }

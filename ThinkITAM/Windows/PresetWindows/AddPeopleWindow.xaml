@@ -9,6 +9,7 @@
     Title="添加用户信息"
     Width="600"
     Height="400"
+    Closing="AddPeopleWindow_OnClosing"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="AddPeopleWindow_OnLoaded"
     ResizeMode="NoResize"
@@ -277,14 +278,44 @@
             </StackPanel>
         </Grid>
 
-        <Button
-            x:Name="SaveButton"
+        <StackPanel
             Grid.Row="2"
-            Width="150"
-            Margin="10"
             HorizontalAlignment="Right"
-            Click="SaveButton_OnClick"
-            Content="保存" />
+            Orientation="Horizontal">
+            <Button
+                x:Name="SaveButton2"
+                Width="150"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Click="SaveButton2_OnClick"
+                ToolTip="连续添加用户">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="ContentSavePlusOutline" />
+
+                    <Label>保存</Label>
+
+                </StackPanel>
+
+            </Button>
+
+            <Button
+                x:Name="SaveButton"
+                Width="150"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Click="SaveButton_OnClick"
+                ToolTip="单次添加用户">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="ContentSaveOutline" />
+                    <Label>保存并关闭</Label>
+
+                </StackPanel>
+
+            </Button>
+
+        </StackPanel>
+
+
 
         <materialDesign:DialogHost
             Grid.Row="0"

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.Preset;
+using ThinkITAM.Windows.PresetWindows;
 
 namespace ThinkITAM.Windows.NetworkManage
 {
@@ -310,10 +311,7 @@ namespace ThinkITAM.Windows.NetworkManage
             }
 
 
-
-
-
-        }
+                         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -343,6 +341,29 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
             LoadPeopleInfos(org, dep, group, unit, UserName.Text);
+
+        }
+
+        private void AddPeopleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+
+
+            var addPeople = new AddPeopleWindow();
+
+
+            //窗口放中间
+            var window = Window.GetWindow(this);
+            if (window != null)
+            {
+                addPeople.Owner = window;
+            }
+
+            if (addPeople.ShowDialog() == true)
+            {
+
+                LoadPeopleInfos();
+
+            }
 
         }
     }

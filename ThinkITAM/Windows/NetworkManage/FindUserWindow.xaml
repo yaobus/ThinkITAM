@@ -7,8 +7,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="查找用户"
-    MinWidth="1000"
-    MinHeight="450"
+    Width="1280"
+    Height="720"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="FindUserWindow_OnLoaded"
     Style="{StaticResource MaterialDesignWindow}"
@@ -168,6 +168,31 @@
 
                 </StackPanel>
 
+
+
+                <StackPanel
+                    Margin="{StaticResource DefaultMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+
+                    <Button
+                        x:Name="AddPeopleButton"
+                        Width="250"
+                        Height="28"
+                        Margin="0,0,10,0"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        Click="AddPeopleButton_OnClick">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="AccountPlusOutline" />
+                            <Label>添加新用户</Label>
+                        </StackPanel>
+
+
+                    </Button>
+
+                </StackPanel>
 
 
             </StackPanel>

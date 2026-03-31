@@ -78,6 +78,17 @@ namespace ThinkITAM.ViewModels.NetworkManage
         }
 
 
+
+        /// <summary>
+        /// 地址数量  已用/总数
+        /// </summary>
+        public string? AddressCount
+        {
+            get;
+            set;
+        }
+
+
         //使用率
         public double Percentage
         {

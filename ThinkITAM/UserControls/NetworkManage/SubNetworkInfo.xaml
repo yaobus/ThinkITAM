@@ -88,27 +88,60 @@
                         Opacity="0.5"
                         Value="{Binding Percentage}" />
 
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
-                        <TextBlock
-                            Margin="0,0,0,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Foreground="AliceBlue"
-                            Opacity="0.5"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                            Text="{Binding Percentage}" />
+                    <Grid
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                        <TextBlock
-                            Margin="0,0,5,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Foreground="AliceBlue"
-                            Opacity="0.3"
-                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                            Text="%" />
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" >
 
-                    </StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Foreground="AliceBlue"
+                                Opacity="0.5"
+                                Text="{Binding Percentage}"
+                                d:Text="50"
+                                />
+
+                            <TextBlock
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Foreground="AliceBlue"
+                                Opacity="0.5"
+                                Text="%"
+                                d:Text="%"
+                                />
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1">
+
+                            <TextBlock
+                                Margin="0,0,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Foreground="AliceBlue"
+                                Opacity="0.5"
+                                FontSize="8"
+                                d:Text="128/256"
+                                Text="{Binding  AddressCount}" />
+
+
+                        </StackPanel>
+
+
+
+                    </Grid>
+
+
                 </Grid>
 
             </Grid>
