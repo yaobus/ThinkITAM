@@ -668,6 +668,8 @@ namespace ThinkITAM.FunctionPage
 
         }
         ObservableCollection<AssetLogViewModel> logs = new ObservableCollection<AssetLogViewModel>();
+        
+        
         /// <summary>
         /// 加载所选资产的日志信息
         /// </summary>
@@ -899,45 +901,57 @@ namespace ThinkITAM.FunctionPage
         /// <param name="filePath"></param>
         public void GenerateAssetTagImage(AssetViewModel data, string filePath)
         {
-            // 创建控件实例
-            var assetTagControl = new AssetTagTemplateUserControl();
 
-            // 设置数据上下文
-            assetTagControl.DataContext = data;
+            #region MyRegion
 
 
-            Bitmap qrCodeImage = GenerateQRCode(data.AssetQrCode);
+            //// 创建控件实例
+            //var assetTagControl = new AssetTagTemplateUserControl();
 
-            assetTagControl.BarcodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(
-            qrCodeImage.GetHbitmap(),
-            IntPtr.Zero,
-            Int32Rect.Empty,
-            BitmapSizeOptions.FromEmptyOptions()); ;
+            //// 设置数据上下文
+            //assetTagControl.DataContext = data;
 
 
+            //Bitmap qrCodeImage = GenerateQRCode(data.AssetQrCode);
+
+            //assetTagControl.BarcodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(
+            //qrCodeImage.GetHbitmap(),
+            //IntPtr.Zero,
+            //Int32Rect.Empty,
+            //BitmapSizeOptions.FromEmptyOptions()); ;
 
 
-            // 测量和布置控件
-            assetTagControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            assetTagControl.Arrange(new Rect(new Size(assetTagControl.DesiredSize.Width, assetTagControl.DesiredSize.Height)));
-            assetTagControl.UpdateLayout();
 
-            // 创建 RenderTargetBitmap
-            RenderTargetBitmap bitmap = new RenderTargetBitmap(
-            (int)assetTagControl.ActualWidth, (int)assetTagControl.ActualHeight, 96, 96, PixelFormats.Pbgra32);
 
-            // 渲染控件内容
-            bitmap.Render(assetTagControl);
+            //// 测量和布置控件
+            //assetTagControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            //assetTagControl.Arrange(new Rect(new Size(assetTagControl.DesiredSize.Width, assetTagControl.DesiredSize.Height)));
+            //assetTagControl.UpdateLayout();
 
-            // 保存为 PNG 文件
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmap));
-                encoder.Save(fileStream);
-            }
+            //// 创建 RenderTargetBitmap
+            //RenderTargetBitmap bitmap = new RenderTargetBitmap(
+            //(int)assetTagControl.ActualWidth, (int)assetTagControl.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+
+            //// 渲染控件内容
+            //bitmap.Render(assetTagControl);
+
+            //// 保存为 PNG 文件
+            //using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    var encoder = new PngBitmapEncoder();
+            //    encoder.Frames.Add(BitmapFrame.Create(bitmap));
+            //    encoder.Save(fileStream);
+            //}
+
+
+
+            #endregion
+
+
+
+            ExportAssetTagImage.GenerateAssetTagImage(data,filePath,80,50,ExportAssetTagImage.Unit.Millimeter,300); 
+
         }
-
 
 
         private void AssetDataGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)

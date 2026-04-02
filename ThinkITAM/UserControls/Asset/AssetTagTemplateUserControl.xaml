@@ -201,7 +201,7 @@
                 FontSize="9"
                 FontWeight="Bold"
                 Foreground="#2f9f9f">
-                ITAM资产二维码
+                资产二维码
             </Label>
 
             <Border
@@ -223,7 +223,7 @@
                 VerticalAlignment="Bottom"
                 d:Content="ABCDEFG12345"
                 Content="{Binding AssetId}"
-                FontSize="9"
+                FontSize="10"
                 Foreground="#2f9f9f" />
         </Grid>
 
