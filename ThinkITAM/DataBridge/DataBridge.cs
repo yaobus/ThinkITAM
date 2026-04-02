@@ -132,7 +132,10 @@ namespace ThinkITAM.DataBridge
         /// </summary>
         public static AssetTypeViewModel SelectAssetTypeViewmodel = null;
 
-
+        /// <summary>
+        /// 自定义公司名称
+        /// </summary>
+        public static string CompanyName = string.Empty;
 
         //---------------------设备端口管理模块--------------------
 

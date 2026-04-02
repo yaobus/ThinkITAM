@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using ThinkITAM.ViewModels.DevicePortManage;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
-using static Azure.Core.HttpHeader;
+
 
 namespace ThinkITAM.Functions.Export
 {

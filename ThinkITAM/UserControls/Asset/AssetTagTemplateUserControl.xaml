@@ -9,6 +9,7 @@
     Width="400"
     Height="250"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
+    Loaded="AssetTagTemplateUserControl_OnLoaded"
     mc:Ignorable="d">
     <Grid Background="AliceBlue">
 
@@ -30,11 +31,21 @@
             <Label
                 Margin="10,0"
                 VerticalAlignment="Center"
-                FontSize="20"
-                FontWeight="Bold">
+                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                FontSize="20">
                 资产基本信息卡
             </Label>
 
+            <Label
+                Margin="0,3,10,0"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="ThinkITAM"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="AliceBlue"
+                Opacity="0.3" />
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -56,6 +67,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding AssetNumber}" />
         </StackPanel>
 
@@ -78,6 +90,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding Manufacturer}" />
         </StackPanel>
 
@@ -100,6 +113,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding Model}" />
         </StackPanel>
 
@@ -122,6 +136,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding User}" />
         </StackPanel>
 
@@ -144,6 +159,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding UserPhone}" />
         </StackPanel>
         <StackPanel Grid.Row="7" Orientation="Horizontal">
@@ -165,6 +181,7 @@
                 FontSize="12"
                 FontWeight="Bold"
                 Foreground="#2f9f9f"
+                IsReadOnly="True"
                 Text="{Binding TagA}" />
         </StackPanel>
 
@@ -210,21 +227,77 @@
                 Foreground="#2f9f9f" />
         </Grid>
 
-        <Label
-            Grid.Row="8"
-            Margin="0,3,10,0"
-            Padding="0"
-            HorizontalAlignment="Right"
-            FontSize="20"
-            FontWeight="Bold"
-            Foreground="#2f9f9f"
-            Opacity="0.3">
-            ThinkITAM
-        </Label>
-        <Label
+
+        <Grid Grid.Row="8" Background="#2f9f9f">
+            <Label
+                x:Name="CustomizeCompanyTag"
+                Width="380"
+                Margin="10,0,5,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="ThinkITAM-点击修改本字段标签"
+                Cursor="Hand"
+                FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
+                FontSize="12"
+                Foreground="AliceBlue"
+                MouseDown="CustomizeTag_OnMouseDown" />
+        </Grid>
+
+        <materialDesign:DialogHost
+            x:Name="SaveCustomizeTagDialogHost"
             Grid.Row="0"
-            Grid.RowSpan="8"
-            Width="400"
-            Height="250" />
+            Grid.RowSpan="3"
+            d:Visibility="Collapsed"
+            CloseOnClickAway="True"
+            DialogClosed="SaveCustomizeTagDialogHost_OnDialogClosed"
+            DialogContentUniformCornerRadius="5"
+            DialogTheme="Inherit">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel Margin="10">
+                    <TextBlock
+                        Width="300"
+                        MaxWidth="400"
+                        FontSize="14"
+                        Text="输入自定义标签" />
+                    <TextBox
+                        x:Name="CompanyNameTextBox"
+                        Margin="0,14,0,0"
+                        HorizontalAlignment="Stretch"
+                        FontSize="14" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button
+                            x:Name="SaveCustomizeTag"
+                            Margin="0,8,8,0"
+                            Click="SaveCustomizeTag_OnClick"
+                            Content="保存"
+                            IsDefault="True"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                            x:Name="CancelButton"
+                            Margin="0,8,8,0"
+                            Click="CancelButton_OnClick"
+                            Content="关闭"
+                            IsCancel="False"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    False
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+
+
+        </materialDesign:DialogHost>
+
+
     </Grid>
 </UserControl>

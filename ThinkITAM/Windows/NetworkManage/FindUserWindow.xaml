@@ -233,12 +233,11 @@
                 d:Visibility="Visible"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
+                ColumnReordered="PeopleListView_OnColumnReordered"
                 SelectionChanged="PeopleListView_OnSelectionChanged"
                 SelectionMode="Extended"
                 SelectionUnit="FullRow"
-                Visibility="Visible"
-                ColumnReordered="PeopleListView_OnColumnReordered"
-                >
+                Visibility="Visible">
 
 
                 <DataGrid.Columns>

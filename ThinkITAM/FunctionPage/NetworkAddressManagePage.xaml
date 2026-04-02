@@ -396,8 +396,8 @@
 
                             <StackPanel
                                 HorizontalAlignment="Left"
-                                Orientation="Horizontal"
                                 d:Visibility="Visible"
+                                Orientation="Horizontal"
                                 Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -430,14 +430,13 @@
                                     Click="ReSortColumnOrder_OnClick"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="{DynamicResource NmpResetColumnOrderSort}"
-                                    Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}"
-                                    >
+                                    Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="24"
                                         Kind="TableRefresh" />
                                 </Button>
-                                
+
                                 <Button
                                     x:Name="SetButton"
                                     Width="32"
@@ -730,14 +729,14 @@
                         AutoGenerateColumns="False"
                         Background="Transparent"
                         CanUserAddRows="False"
+                        ColumnReordered="AddressListView_OnColumnReordered"
                         MouseDoubleClick="AddressListView_OnMouseDoubleClick"
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
-                        Visibility="Collapsed"
+                        Thumb.DragCompleted="ColumnWidthChanged"
                         VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Recycling"
-                        ColumnReordered="AddressListView_OnColumnReordered"
-                        Thumb.DragCompleted="ColumnWidthChanged">
+                        Visibility="Collapsed">
                         <DataGrid.Columns>
 
                             <DataGridTemplateColumn CanUserSort="False" SortMemberPath="Select">
@@ -770,9 +769,7 @@
                                                 <materialDesign:PackIcon Kind="CheckboxBlankOutline" />
 
                                                 <ToggleButton.Style>
-                                                    <Style
-                                                        BasedOn="{StaticResource MaterialDesignActionLightToggleButton}"
-                                                        TargetType="ToggleButton">
+                                                    <Style BasedOn="{StaticResource MaterialDesignActionLightToggleButton}" TargetType="ToggleButton">
                                                         <Style.Triggers>
                                                             <Trigger Property="IsChecked" Value="True">
                                                                 <Setter Property="Background" Value="LightSeaGreen" />
@@ -808,8 +805,7 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="#008080"
-                                              Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
@@ -837,8 +833,7 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="#008080"
-                                              Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
                                             <TextBlock
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
@@ -897,8 +892,7 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="Green"
-                                              Background="{Binding AddressColor, Converter={StaticResource CustomColorIndexToColor}}" />
+                                        <Grid d:Background="Green" Background="{Binding AddressColor, Converter={StaticResource CustomColorIndexToColor}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

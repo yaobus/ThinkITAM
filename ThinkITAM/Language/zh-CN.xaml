@@ -127,7 +127,7 @@
 
     <s:String x:Key="NmpResetSort">重置排序</s:String>
     <s:String x:Key="NmpResetColumnOrderSort">删除列排序规则</s:String>
-    
+
     <s:String x:Key="NmpSetNetworkTag">设置网段信息标签</s:String>
     <s:String x:Key="NmpSelectedIp">当前选中的IP数量</s:String>
     <s:String x:Key="NmpConfigSelectedIp">配置所选IP地址</s:String>

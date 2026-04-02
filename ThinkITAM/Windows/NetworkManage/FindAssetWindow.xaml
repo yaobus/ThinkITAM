@@ -220,13 +220,12 @@
                 Margin="0,0,0,10"
                 HorizontalAlignment="Stretch"
                 AutoGenerateColumns="False"
+                ColumnReordered="AssetDataGrid_OnColumnReordered"
                 IsReadOnly="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 SelectionChanged="AssetDataGrid_OnSelectionChanged"
-                SelectionUnit="FullRow"
-                ColumnReordered="AssetDataGrid_OnColumnReordered"
-                >
+                SelectionUnit="FullRow">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn CanUserSort="True" SortMemberPath="Index">

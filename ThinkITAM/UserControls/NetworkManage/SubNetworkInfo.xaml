@@ -92,33 +92,30 @@
                     <Grid
                         Margin="0,0,10,0"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        >
+                        VerticalAlignment="Center">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
 
                             <TextBlock
                                 Margin="0,0,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                d:Text="50"
                                 Foreground="AliceBlue"
                                 Opacity="0.5"
-                                Text="{Binding Percentage}"
-                                d:Text="50"
-                                />
+                                Text="{Binding Percentage}" />
 
                             <TextBlock
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                d:Text="%"
                                 Foreground="AliceBlue"
                                 Opacity="0.5"
-                                Text="%"
-                                d:Text="%"
-                                />
+                                Text="%" />
 
                         </StackPanel>
 
@@ -128,11 +125,11 @@
                                 Margin="0,0,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
+                                d:Text="128/256"
+                                FontSize="8"
                                 Foreground="AliceBlue"
                                 Opacity="0.5"
-                                FontSize="8"
-                                d:Text="128/256"
-                                Text="{Binding  AddressCount}" />
+                                Text="{Binding AddressCount}" />
 
 
                         </StackPanel>

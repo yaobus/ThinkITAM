@@ -13,8 +13,7 @@
     Loaded="PeopleUserControl_OnLoaded"
     mc:Ignorable="d">
 
-    <materialDesign:TransitioningContent
-        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -129,8 +128,8 @@
                         </Button>
 
                         <Button
-                            Grid.Column="3"
                             x:Name="ReSortColumnOrder"
+                            Grid.Column="3"
                             Width="32"
                             Height="32"
                             Margin="5,0"
@@ -139,8 +138,7 @@
                             BorderThickness="0"
                             Click="ReSortColumnOrder_OnClick"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                            ToolTip="{DynamicResource NmpResetColumnOrderSort}"
-                            Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                            ToolTip="{DynamicResource NmpResetColumnOrderSort}">
                             <materialDesign:PackIcon
                                 Width="24"
                                 Height="24"
@@ -216,12 +214,12 @@
                     d:Visibility="Visible"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
+                    ColumnReordered="PeopleListView_OnColumnReordered"
                     MouseDoubleClick="PeopleListView_OnMouseDoubleClick"
                     SelectionChanged="PeopleListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible"
-                    ColumnReordered="PeopleListView_OnColumnReordered">
+                    Visibility="Visible">
 
 
                     <DataGrid.Columns>

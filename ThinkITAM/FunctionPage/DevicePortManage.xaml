@@ -400,8 +400,8 @@
                             </Button>
 
                             <Button
-                                Grid.Column="3"
                                 x:Name="ReSortColumnOrder"
+                                Grid.Column="3"
                                 Width="32"
                                 Height="32"
                                 Margin="5,0"
@@ -417,7 +417,7 @@
                                     Height="24"
                                     Kind="TableRefresh" />
                             </Button>
-                            
+
                             <Button
                                 x:Name="SetButton"
                                 Width="32"
@@ -628,13 +628,11 @@
                     AutoGenerateColumns="False"
                     Background="Transparent"
                     CanUserAddRows="False"
+                    ColumnReordered="PortListView_OnColumnReordered"
                     MouseDoubleClick="PortListView_OnMouseDoubleClick"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
-                    ColumnReordered="PortListView_OnColumnReordered"
-                    
-                    >
+                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
                     <DataGrid.Columns>
 
                         <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Select">

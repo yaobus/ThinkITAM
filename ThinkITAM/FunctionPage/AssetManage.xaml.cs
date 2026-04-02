@@ -33,7 +33,7 @@ namespace ThinkITAM.FunctionPage
         {
             InitializeComponent();
             AssetDataGrid.ItemsSource = assetViewModels;
-            LogList.ItemsSource=logs;
+            LogList.ItemsSource = logs;
         }
 
 
@@ -47,11 +47,13 @@ namespace ThinkITAM.FunctionPage
 
             // 加载资产树
             LoadAssetTreeviewInfos();
-            
-            
+
+            // 加载用户自定义公司标签
+            LoadCustomizeCompanyTag();
+
             //加载表单列排序
             Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(AssetDataGrid);
-            
+
             //加载表单列排序
             Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(LogList);
         }
@@ -103,6 +105,29 @@ namespace ThinkITAM.FunctionPage
 
 
 
+        }
+
+
+        /// <summary>
+        /// 加载用户自定义公司标签
+        /// </summary>
+        private void LoadCustomizeCompanyTag()
+        {
+            var query = "SELECT Content FROM CustomSetting WHERE CustomOption='CustomizeCompanyTag';";
+
+            var prefix = GlobalVariables.DbService.ExecuteScalar(query);
+
+            if (prefix != null)
+            {
+                DataBridge.DataBridge.CompanyName = prefix.ToString();
+            }
+            else
+            {
+                // SaveCustomizeTagDialogHost.IsOpen = true;
+            }
+
+
+            
         }
 
 
@@ -166,7 +191,7 @@ namespace ThinkITAM.FunctionPage
                         deviceInfo.AssetType = assetTypeInfo;
 
                         string sql = $"SELECT COUNT(*) FROM Asset WHERE AssetType = '{assetTypeInfo}' AND DeviceType = '{deviceInfo.DeviceType}' AND (Del != 1 OR Del IS NULL)";
-                        
+
                         deviceInfo.AssetCount = DbClass.ExecuteScalarTableNum(sql);
 
                         device.DataContext = deviceInfo;
@@ -423,7 +448,7 @@ namespace ThinkITAM.FunctionPage
 
             LoadAssetInfos(assetType, deviceType);
 
-           
+
             //加载网段标签
             //LoadCustomTag();
 
@@ -616,10 +641,10 @@ namespace ThinkITAM.FunctionPage
                 Bitmap qrCodeImage = GenerateQRCode(info.AssetQrCode);
 
                 AssetTagCard.BarcodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(
-                    qrCodeImage.GetHbitmap(),
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
+                qrCodeImage.GetHbitmap(),
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
 
 
                 if (AssetInfoExpander.IsExpanded == true)
@@ -640,9 +665,9 @@ namespace ThinkITAM.FunctionPage
                 logs.Clear();
             }
 
-            
+
         }
-        ObservableCollection<AssetLogViewModel> logs=new ObservableCollection<AssetLogViewModel>();
+        ObservableCollection<AssetLogViewModel> logs = new ObservableCollection<AssetLogViewModel>();
         /// <summary>
         /// 加载所选资产的日志信息
         /// </summary>
@@ -655,7 +680,7 @@ namespace ThinkITAM.FunctionPage
             {
                 var sql = $"SELECT AssetLog.*, UserInfo.Name FROM AssetLog INNER JOIN UserInfo ON AssetLog.AboutUser = UserInfo.UserID WHERE AssetId='{assetId}'";
 
-                var rows =GlobalVariables.DbService.ExecuteQuery(sql);
+                var rows = GlobalVariables.DbService.ExecuteQuery(sql);
                 int index = 0;
                 foreach (var row in rows)
                 {
@@ -849,7 +874,7 @@ namespace ThinkITAM.FunctionPage
 
                         GenerateAssetTagImage(item, filePath);
                     }
-                    
+
                 }
 
                 var message = $"导出完毕,共{index}个文件\r是否打开文件夹？";
@@ -884,10 +909,10 @@ namespace ThinkITAM.FunctionPage
             Bitmap qrCodeImage = GenerateQRCode(data.AssetQrCode);
 
             assetTagControl.BarcodeImage.Source = Imaging.CreateBitmapSourceFromHBitmap(
-                qrCodeImage.GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions()); ;
+            qrCodeImage.GetHbitmap(),
+            IntPtr.Zero,
+            Int32Rect.Empty,
+            BitmapSizeOptions.FromEmptyOptions()); ;
 
 
 
@@ -899,7 +924,7 @@ namespace ThinkITAM.FunctionPage
 
             // 创建 RenderTargetBitmap
             RenderTargetBitmap bitmap = new RenderTargetBitmap(
-                (int)assetTagControl.ActualWidth, (int)assetTagControl.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            (int)assetTagControl.ActualWidth, (int)assetTagControl.ActualHeight, 96, 96, PixelFormats.Pbgra32);
 
             // 渲染控件内容
             bitmap.Render(assetTagControl);
@@ -1115,7 +1140,7 @@ namespace ThinkITAM.FunctionPage
                 string selectedFilePath = saveFileDialog.FileName;
 
                 // 调用导出方法
-                ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath,expInfo);
+                ExcelExporter.ExportToExcel(assetViewModels, selectedFilePath, expInfo);
             }
 
         }
@@ -1268,13 +1293,13 @@ namespace ThinkITAM.FunctionPage
 
         // 所有需要模糊匹配的字段列表（排除 Id, AssetId, AssetQrCode, AssetType, DeviceType）
         private static readonly List<string> SearchableFields = new List<string>
-        {
-          "AssetType","DeviceType","AssetTag", "AssetNumber", "PurchaseDate", "PurchasePrice",
-            "Manufacturer", "Model", "SerialNumber", "Configuration",
-            "Location", "UserOrganization", "UserDepartment", "UserGroup",
-            "User", "UserPhone", "Consumer", "AssetStatus", "UsedYear",
-            "ScrapDate", "Notes", "TagA", "TagB", "TagC", "TagD", "TagE", "TagF", "UserUnit"
-        };
+                                                                        {
+                                                                        "AssetType","DeviceType","AssetTag", "AssetNumber", "PurchaseDate", "PurchasePrice",
+                                                                        "Manufacturer", "Model", "SerialNumber", "Configuration",
+                                                                        "Location", "UserOrganization", "UserDepartment", "UserGroup",
+                                                                        "User", "UserPhone", "Consumer", "AssetStatus", "UsedYear",
+                                                                        "ScrapDate", "Notes", "TagA", "TagB", "TagC", "TagD", "TagE", "TagF", "UserUnit"
+                                                                        };
 
         /// <summary>
         /// 构建搜索条件
@@ -1303,7 +1328,7 @@ namespace ThinkITAM.FunctionPage
                     filter += $"{field} LIKE '%{searchKeyword}%' OR ";
                 }
 
-               
+
 
 
             }
@@ -1316,7 +1341,7 @@ namespace ThinkITAM.FunctionPage
         private void ClearSearchKeyWord2_OnClick(object sender, RoutedEventArgs e)
         {
 
-            SearchKeyWord2.Text=null;
+            SearchKeyWord2.Text = null;
 
             assetViewModels.Clear();
 
@@ -1441,7 +1466,7 @@ namespace ThinkITAM.FunctionPage
 
         private void AssetInfoExpander_OnExpanded(object sender, RoutedEventArgs e)
         {
-            if (AssetInfoExpander.IsExpanded == true)
+            if (AssetInfoExpander.IsExpanded == true && NowSelectedItem != null)
             {
 
                 LoadAssetLogs(NowSelectedItem.AssetId);
@@ -1524,21 +1549,21 @@ namespace ThinkITAM.FunctionPage
         {
             Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(LogList);
         }
-        
+
         private void ReSortColumnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             // 删除排序配置
             Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(AssetDataGrid);
         }
-        
-        
+
+
         private void ReSortLogListColumnOrder_OnClick(object sender, RoutedEventArgs e)
         {
             // 删除排序配置
             Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(LogList);
         }
-        
-        
+
+
     }
 
 
