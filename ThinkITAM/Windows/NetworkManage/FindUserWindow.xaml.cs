@@ -24,10 +24,14 @@ namespace ThinkITAM.Windows.NetworkManage
         {
 
 
-            PeopleListView.ItemsSource = peopleInfos;
+            FindPeopleListView.ItemsSource = peopleInfos;
 
             LoadPeopleInfos();
             LoadOrganizationInfo();
+            
+            
+            //加载表单列排序
+            Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(FindPeopleListView);
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
 
-            PeopleListView.ItemsSource = peopleInfos;
+            FindPeopleListView.ItemsSource = peopleInfos;
 
 
         }
@@ -302,9 +306,9 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void PeopleListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PeopleListView.SelectedIndex != -1)
+            if (FindPeopleListView.SelectedIndex != -1)
             {
-                var info = peopleInfos[PeopleListView.SelectedIndex];
+                var info = peopleInfos[FindPeopleListView.SelectedIndex];
                 Number.Text = info.UserNumber;
                 UserName.Text = info.Name;
                 DataBridge.DataBridge.SelectPeopleViewModel = info;
@@ -315,9 +319,9 @@ namespace ThinkITAM.Windows.NetworkManage
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (PeopleListView.SelectedIndex != -1)
+            if (FindPeopleListView.SelectedIndex != -1)
             {
-                var info = peopleInfos[PeopleListView.SelectedIndex];
+                var info = peopleInfos[FindPeopleListView.SelectedIndex];
 
                 DataBridge.DataBridge.SelectPeopleViewModel = info;
                 this.DialogResult = true;
@@ -365,6 +369,11 @@ namespace ThinkITAM.Windows.NetworkManage
 
             }
 
+        }
+
+        private void PeopleListView_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+        {
+            Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(FindPeopleListView);
         }
     }
 }

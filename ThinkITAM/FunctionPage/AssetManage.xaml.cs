@@ -47,6 +47,13 @@ namespace ThinkITAM.FunctionPage
 
             // 加载资产树
             LoadAssetTreeviewInfos();
+            
+            
+            //加载表单列排序
+            Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(AssetDataGrid);
+            
+            //加载表单列排序
+            Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(LogList);
         }
 
 
@@ -1507,6 +1514,31 @@ namespace ThinkITAM.FunctionPage
 
 
         }
+
+        private void AssetDataGrid_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+        {
+            Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(AssetDataGrid);
+        }
+
+        private void LogList_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+        {
+            Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(LogList);
+        }
+        
+        private void ReSortColumnOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            // 删除排序配置
+            Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(AssetDataGrid);
+        }
+        
+        
+        private void ReSortLogListColumnOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            // 删除排序配置
+            Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(LogList);
+        }
+        
+        
     }
 
 

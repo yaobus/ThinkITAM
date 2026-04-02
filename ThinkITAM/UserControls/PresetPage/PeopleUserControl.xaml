@@ -13,7 +13,8 @@
     Loaded="PeopleUserControl_OnLoaded"
     mc:Ignorable="d">
 
-    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+    <materialDesign:TransitioningContent
+        OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -93,15 +94,13 @@
                             Value="100" />
 
 
-
-
-
                     </StackPanel>
 
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Button
@@ -127,6 +126,25 @@
                             Click="SearchButton_OnClick"
                             Style="{StaticResource MaterialDesignToolButton}">
                             <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                        </Button>
+
+                        <Button
+                            Grid.Column="3"
+                            x:Name="ReSortColumnOrder"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="ReSortColumnOrder_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="{DynamicResource NmpResetColumnOrderSort}"
+                            Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="TableRefresh" />
                         </Button>
                     </Grid>
 
@@ -156,7 +174,6 @@
                                 Kind="DatabaseImportOutline" />
 
 
-
                         </Button>
                         <Button
                             x:Name="DataExport"
@@ -176,7 +193,6 @@
                                 Width="24"
                                 Height="24"
                                 Kind="DatabaseExportOutline" />
-
 
 
                         </Button>
@@ -204,7 +220,8 @@
                     SelectionChanged="PeopleListView_OnSelectionChanged"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="Visible">
+                    Visibility="Visible"
+                    ColumnReordered="PeopleListView_OnColumnReordered">
 
 
                     <DataGrid.Columns>
@@ -236,7 +253,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserNumber">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -287,7 +304,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
 
 
                         <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Organization">
@@ -449,11 +465,9 @@
                         </DataGridTemplateColumn>
 
 
-
                     </DataGrid.Columns>
 
                 </DataGrid>
-
 
 
                 <!--<ListView

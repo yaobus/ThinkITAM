@@ -41,10 +41,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// <summary>
     /// Snackbar消息
     /// </summary>
-    public SnackbarMessageQueue MessageQueue
-    {
-        get; set;
-    }
+    public SnackbarMessageQueue MessageQueue { get; set; }
 
     /// <summary>
     /// 页面启动的时候加载信息
@@ -53,9 +50,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="e"></param>
     private async void NetworkAddressManage_OnLoaded(object sender, RoutedEventArgs e)
     {
-
-
-
         AddressPanel.ItemsSource = IpAddressInfoLists;
 
 
@@ -79,6 +73,9 @@ public partial class NetworkAddressManagePage : UserControl
 
 
         DataBridge.DataBridge.SelectAddress.CollectionChanged += IpAddressInfoLists_CollectionChanged;
+
+        //加载表单列排序
+       Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(AddressListView);
     }
 
     /// <summary>
@@ -97,37 +94,28 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void IpAddressInfoLists_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void IpAddressInfoLists_CollectionChanged(object? sender,
+        System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         int sum = GetSelectedAddressCount();
 
 
         if (sum > 0)
         {
-
-            AddressNumber.Dispatcher.Invoke(() =>
-            {
-                AddressNumber.Text = sum.ToString();
-            });
-
+            AddressNumber.Dispatcher.Invoke(() => { AddressNumber.Text = sum.ToString(); });
 
 
             MultipleAllocationPanel.Visibility = Visibility.Visible;
         }
         else
         {
-
             MultipleAllocationPanel.Visibility = Visibility.Collapsed;
         }
-
-
-
     }
 
 
-
-
-    private ObservableCollection<ViewModels.Preset.ProtocolClass> protocolInfos = new ObservableCollection<ProtocolClass>();
+    private ObservableCollection<ViewModels.Preset.ProtocolClass> protocolInfos =
+        new ObservableCollection<ProtocolClass>();
 
     private void LoadProtocolInfo()
     {
@@ -153,10 +141,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             protocolInfos.Add(info);
         }
-
     }
-
-
 
 
     ObservableCollection<PortViewModel> portList = new ObservableCollection<PortViewModel>();
@@ -183,15 +168,12 @@ public partial class NetworkAddressManagePage : UserControl
 
             foreach (var row in rows)
             {
-
                 var port = new PortViewModel();
 
                 port.Port = row["Port"].ToString();
 
                 portList.Add(port);
             }
-
-
         }
     }
 
@@ -207,12 +189,13 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (!string.IsNullOrWhiteSpace(keyWord))
         {
-            filter = $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%' OR TagB LIKE '%{keyWord}%' OR TagC LIKE '%{keyWord}%'  OR TagD LIKE '%{keyWord}%'   OR TagE LIKE '%{keyWord}%'   OR TagF LIKE '%{keyWord}%' )";
+            filter =
+                $"AND  (Name LIKE '%{keyWord}%' OR Network LIKE '%{keyWord}%' OR Description LIKE '%{keyWord}%' OR TagA LIKE '%{keyWord}%' OR TagB LIKE '%{keyWord}%' OR TagC LIKE '%{keyWord}%'  OR TagD LIKE '%{keyWord}%'   OR TagE LIKE '%{keyWord}%'   OR TagF LIKE '%{keyWord}%' )";
         }
 
         string sqlTemp = $"SELECT COUNT(*) FROM Network WHERE Del != 1 OR Del IS NULL {filter} ";
 
-       
+
         var num = DbClass.ExecuteScalarTableNum(sqlTemp);
 
         if (num > 0)
@@ -241,7 +224,6 @@ public partial class NetworkAddressManagePage : UserControl
                 if (!string.IsNullOrWhiteSpace(sort))
                 {
                     info.SortIndex = Convert.ToInt32(sort);
-
                 }
                 else
                 {
@@ -265,14 +247,12 @@ public partial class NetworkAddressManagePage : UserControl
                 //info.Percentage = CalculateUseValue(tableName);
 
 
-
-
                 IPAddress mask = IPAddress.Parse(info.Netmask);
                 int subMask = IPAddressCalculations.CalculateSubnetMaskLength(mask);
 
                 if (subMask < 24) //如果是大型网段
                 {
-                    var dict = GetUseValue(tableName, info.Netmask,info.Network);
+                    var dict = GetUseValue(tableName, info.Netmask, info.Network);
 
 
                     //总使用率
@@ -281,11 +261,9 @@ public partial class NetworkAddressManagePage : UserControl
                     info.AddressCount = dict.AddressCount;
 
                     NetworkTreeView.Items.Add(GetSubnetsFromDatabase(info, subMask));
-
                 }
                 else //如果是普通网段
                 {
-
                     var dict = GetUseValue(tableName, info.Netmask);
 
                     //总使用率
@@ -293,7 +271,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     info.AddressCount = dict.AddressCount;
 
-   
+
                     var myCustomControl = new NetworkInfo();
 
                     myCustomControl.TableName = tableName;
@@ -303,22 +281,12 @@ public partial class NetworkAddressManagePage : UserControl
                 }
 
 
-
                 await Task.Delay(50);
 
 
                 networkInfos.Add(info);
             }
-
-
-
-
-
         }
-
-
-
-
     }
 
     private class NetworkUsedInfo
@@ -326,20 +294,12 @@ public partial class NetworkAddressManagePage : UserControl
         /// <summary>
         /// 地址使用率
         /// </summary>
-        public double Percentage
-        {
-            get; set;
-        }
+        public double Percentage { get; set; }
 
         /// <summary>
         /// 已用地址数/网段地址总数
         /// </summary>
-        public string AddressCount
-        {
-            get;
-            set;
-        }
-
+        public string AddressCount { get; set; }
     }
 
 
@@ -348,7 +308,7 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     /// <param name="tableName"></param>
     /// <returns></returns>
-    private  NetworkUsedInfo GetUseValue(string tableName, string netMask, string network = null)
+    private NetworkUsedInfo GetUseValue(string tableName, string netMask, string network = null)
     {
         var useInfo = new NetworkUsedInfo();
 
@@ -361,10 +321,10 @@ public partial class NetworkAddressManagePage : UserControl
 
         double value = 0;
 
-        string count ;
+        string count;
 
 
-        if (maskLength < 24)//如果是大型网段
+        if (maskLength < 24) //如果是大型网段
         {
             var info = SubnetCalculator.CalculateSubnets(network, maskLength);
 
@@ -397,7 +357,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             // Console.WriteLine($"useNum{useNum}");
 
-            value =(useNum * 100) / addressCount;
+            value = (useNum * 100) / addressCount;
 
             value = Math.Round(value, 1);
 
@@ -405,18 +365,11 @@ public partial class NetworkAddressManagePage : UserControl
 
             useInfo.Percentage = value;
             useInfo.AddressCount = count;
-
         }
 
 
-
-
-
         return useInfo;
-
     }
-
-
 
 
     /// <summary>
@@ -426,12 +379,11 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns></returns>
     private int GetNetWorkUsedAddress(string tableName)
     {
-        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus NOT IN (0, 1, 4);";//查询已分配的地址数量
+        string sql = $"SELECT COUNT(*) FROM {tableName} WHERE AddressStatus NOT IN (0, 1, 4);"; //查询已分配的地址数量
 
 
         return DbClass.ExecuteScalarTableNum(sql);
     }
-
 
 
     private ObservableCollection<BrowserInfoViewModel> browserInfos = new ObservableCollection<BrowserInfoViewModel>();
@@ -441,7 +393,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadBrowserInfo()
     {
-
         browserInfos.Clear();
 
         string query = "SELECT * FROM Browser;";
@@ -464,26 +415,17 @@ public partial class NetworkAddressManagePage : UserControl
         }
 
 
-
         BrowserCombobox.ItemsSource = browserInfos;
         if (browserInfos.Count > 0)
         {
-
             BrowserCombobox.SelectedIndex = 0;
             DataBridge.DataBridge.SelectBrowser = browserInfos[0].Path;
-
         }
-
-
-
-
     }
-
 
 
     private TreeViewItem GetSubnetsFromDatabase(NetworkInfoViewMode info, int subnetMask)
     {
-
         (string baseSubnet, ObservableCollection<string> subnetsRanges) =
             SubnetCalculator.CalculateSubnets(info.Network, subnetMask);
 
@@ -503,7 +445,6 @@ public partial class NetworkAddressManagePage : UserControl
             subIndex++;
 
             string tableName = info.TableName + $"_Sub{subIndex - 1}";
-
 
 
             var useNum = GetNetWorkUsedAddress(tableName);
@@ -528,19 +469,15 @@ public partial class NetworkAddressManagePage : UserControl
             subNetwork.DataContext = subNetworkInfo; //子节点文本与子节点控件关联
 
             rootNode.Items.Add(subNetwork);
-
         }
 
 
-
         return rootNode;
-
     }
 
 
     private string GetSubNetworkNote(string tableName)
     {
-
         var sql = $"SELECT Note FROM Notes WHERE NoteId='{tableName}'";
 
         //如果返回内容不为null
@@ -552,7 +489,6 @@ public partial class NetworkAddressManagePage : UserControl
         {
             return string.Empty;
         }
-
     }
 
 
@@ -563,10 +499,9 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadCustomTag(string tableName)
     {
-
         var t = DbClass.LoadWindowTag("IpAddressInfoTag", tableName);
 
-        Console.WriteLine("IpAddressInfoTag"+tableName);
+        Console.WriteLine("IpAddressInfoTag" + tableName);
 
         if (t != null)
         {
@@ -588,12 +523,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                 DataBridge.DataBridge.SelectIpAddressTags = settings;
             }
-
-
-
         }
-
-
 
 
         //var tagWindow = "IpAddressInfoTag" + tableName;
@@ -601,7 +531,6 @@ public partial class NetworkAddressManagePage : UserControl
         //string sqlTemp = $"SELECT COUNT(*) FROM WindowTag WHERE WindowName ='{tagWindow}'";
 
         //var num = DbClass.ExecuteScalarTableNum(sqlTemp);
-
 
 
         //if (num > 0) //存在本地自定义标签
@@ -622,7 +551,6 @@ public partial class NetworkAddressManagePage : UserControl
         //        TagD.Text = settings.TagD;
         //        TagE.Text = settings.TagE;
         //        TagF.Text = settings.TagF;
-
 
 
         //    }
@@ -662,12 +590,7 @@ public partial class NetworkAddressManagePage : UserControl
         //    }
 
         //}
-
-
-
     }
-
-
 
 
     /// <summary>
@@ -685,7 +608,6 @@ public partial class NetworkAddressManagePage : UserControl
 
     private async void NetworkTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
-
         selectedSubNetworkInfoViewModel = null;
         DataExport.IsEnabled = false;
         GlobalToggleButton.IsChecked = false;
@@ -728,17 +650,13 @@ public partial class NetworkAddressManagePage : UserControl
                     DataBridge.DataBridge.SelectNetwork = addresSegment;
 
 
-
-
                     await LoadSelectNetworkInfo(treeNode);
-
-
                 }
                 else if (selectedNode is SubNetworkInfo) //如果是子项
                 {
                     //子节点
                     SelectedNetworkType = 1;
-                    DataExport.IsEnabled = true;//导出按钮可用
+                    DataExport.IsEnabled = true; //导出按钮可用
 
 
                     // 如果选择的是子节点类型，则处理子节点的逻辑
@@ -755,15 +673,12 @@ public partial class NetworkAddressManagePage : UserControl
                     string addresSegment = $"{ipParts1[0]}.{ipParts1[1]}.{ipParts1[2]}.";
 
 
-
                     DataBridge.DataBridge.SelectNetwork = addresSegment;
-
 
 
                     string tableName = info.TableName;
 
                     DataBridge.DataBridge.NetworkTableName = tableName;
-                    
 
 
                     //获取子表数量
@@ -781,10 +696,8 @@ public partial class NetworkAddressManagePage : UserControl
                     int subNum = Convert.ToInt32(ipParts[2].Replace("Sub", ""));
 
 
-
                     //父级节点表名
                     string parentTableName = $"{ipParts[1]}";
-
 
 
                     string query = $"SELECT * FROM Network WHERE NetworkId ='{parentTableName}';";
@@ -801,12 +714,10 @@ public partial class NetworkAddressManagePage : UserControl
                         parentInfo.Description = row["Description"].ToString();
                         parentInfo.Network = row["Network"].ToString();
                         parentInfo.Netmask = row["Netmask"].ToString();
-
                     }
 
 
                     DataBridge.DataBridge.SelectNetworkInfo = parentInfo;
-
 
 
                     if (num == 0) //如果是空表
@@ -817,7 +728,6 @@ public partial class NetworkAddressManagePage : UserControl
                         {
                             //装载初始化数据
                             await InitializationSubNetworkTable(tableName, 0);
-
                         }
                         else if (subNum == subTableNum - 1) //当前为最后一个表（subTableNum - 1）表示这是最后一个分表
                         {
@@ -835,18 +745,14 @@ public partial class NetworkAddressManagePage : UserControl
                     Console.WriteLine(775);
                     //加载网段标签
                     LoadCustomTag($"{tableName}");
-                    
 
 
                     await LoadAddressInfo(tableName, 0);
-
-
                 }
                 else if (selectedNode is TreeViewItem) //如果是带有子节点的表项
                 {
-
                     SelectedNetworkType = 0;
-                    DataExport.IsEnabled = false;//禁用导出按钮
+                    DataExport.IsEnabled = false; //禁用导出按钮
 
                     LoadedNetworkSegment = null;
 
@@ -855,11 +761,8 @@ public partial class NetworkAddressManagePage : UserControl
                     TreeViewItem selectedItem = selectedNode as TreeViewItem;
 
 
-
-
                     if (selectedItem != null)
                     {
-
                         var item = selectedItem.Header as NetworkInfo;
                         var info = item.DataContext as NetworkInfoViewMode;
                         DataBridge.DataBridge.SelectNetworkInfo = info;
@@ -881,9 +784,7 @@ public partial class NetworkAddressManagePage : UserControl
                             selectedItem.IsExpanded = true;
                         }
                     }
-
                 }
-
             }
 
             NetworkLoadStatus = 0;
@@ -896,8 +797,6 @@ public partial class NetworkAddressManagePage : UserControl
             EditButton.IsEnabled = false;
             DeleteButton.IsEnabled = false;
         }
-
-
     }
 
     private Task SendMessage(string message)
@@ -946,10 +845,7 @@ public partial class NetworkAddressManagePage : UserControl
                 Address = i,
                 fullAddress = fullAddress,
                 AddressStatus = status
-
             };
-
-
 
 
             //Console.WriteLine(sql);
@@ -958,11 +854,7 @@ public partial class NetworkAddressManagePage : UserControl
             await GlobalVariables.DbService.InsertEntityAsync($"{tableName}", info);
 
             //await GlobalVariables.DbService.ExecuteQueryAsync(sql);
-
-
         }
-
-
     }
 
     /// <summary>
@@ -991,7 +883,8 @@ public partial class NetworkAddressManagePage : UserControl
         }
 
         // 3. 执行批量插入
-        var insertSql = $@" INSERT INTO `{tableName}` (`Address`, `FullAddress`, `AddressStatus`) VALUES {string.Join(", ", values)};";
+        var insertSql =
+            $@" INSERT INTO `{tableName}` (`Address`, `FullAddress`, `AddressStatus`) VALUES {string.Join(", ", values)};";
 
         await GlobalVariables.DbService.ExecuteNonQueryAsync(insertSql);
 
@@ -1040,12 +933,7 @@ public partial class NetworkAddressManagePage : UserControl
 
 
         await LoadAddressInfo(treeNode.TableName);
-
-
-
     }
-
-
 
 
     /// <summary>
@@ -1055,7 +943,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns>返回这个网段有多少个分表</returns>
     private (string, ObservableCollection<string>) AnalysisTableNameToNetworkInfo(string network, string netmask)
     {
-
         Network.Text = network;
         MaskText.Text = netmask;
         UpdateIPCalculations();
@@ -1074,14 +961,12 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadNetworkNote(NetworkInfoViewMode networkInfo)
     {
-
         TagATextBox.Text = networkInfo.TagA;
         TagBTextBox.Text = networkInfo.TagB;
         TagCTextBox.Text = networkInfo.TagC;
         TagDTextBox.Text = networkInfo.TagD;
         TagETextBox.Text = networkInfo.TagE;
         TagFTextBox.Text = networkInfo.TagF;
-
     }
 
     /// <summary>
@@ -1089,7 +974,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     private void LoadTags()
     {
-
         settingTags = DbClass.LoadWindowTag("AddNetwork");
 
 
@@ -1155,7 +1039,6 @@ public partial class NetworkAddressManagePage : UserControl
                 }
             }
         }
-
     }
 
     /// <summary>
@@ -1174,7 +1057,6 @@ public partial class NetworkAddressManagePage : UserControl
             IPAddress ip;
             if (IPAddress.TryParse(Network.Text, out ip))
             {
-
                 IPAddress mask = IPAddress.Parse(MaskText.Text);
                 int maskLength = IPAddressCalculations.CalculateSubnetMaskLength(mask);
 
@@ -1205,13 +1087,6 @@ public partial class NetworkAddressManagePage : UserControl
     }
 
 
-
-
-
-
-
-
-
     /// <summary>
     /// 获取子网信息
     /// </summary>
@@ -1220,30 +1095,27 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns></returns>
     private async Task LoadAddressInfo(string tableName, int loadMode = 0, ExportNetworkInfoClass expInfo = null)
     {
-
-
-
         int prefixIndex = Functions.FunctionClass.NetworkHelper.ExtractSubNumber(tableName);
 
-        if (tableName == LoadedNetworkSegment)//表示当前加载的网段与上次加载的网段一致，则需要后台刷新
+        if (tableName == LoadedNetworkSegment) //表示当前加载的网段与上次加载的网段一致，则需要后台刷新
         {
             if (loadMode == 0)
             {
-                string query = $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
+                string query =
+                    $"SELECT  {tableName}.*,  UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup,UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber FROM  {tableName} LEFT JOIN UserInfo  ON {tableName}.User = UserInfo.UserId LEFT JOIN   Asset  ON   {tableName}.LinkDevice = Asset.AssetId ORDER BY Address ASC;";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
-               
 
                 string prefix = GetNetworkNamePrefix(GetAllNetworkForNetworkId("1", tableName)[prefixIndex]);
 
 
                 int index2 = 0;
-                
+
                 foreach (var row in rows)
                 {
                     var info = new IpAddressInfoListViewMode();
-                    info.TableName=tableName;
+                    info.TableName = tableName;
                     info.Index = index2;
 
                     index2++;
@@ -1251,7 +1123,7 @@ public partial class NetworkAddressManagePage : UserControl
                     info.Address = Convert.ToInt32(row["Address"].ToString());
 
                     info.FullAddress = row["FullAddress"].ToString();
-                    
+
 
                     if (string.IsNullOrWhiteSpace(info.FullAddress))
                     {
@@ -1259,12 +1131,7 @@ public partial class NetworkAddressManagePage : UserControl
                     }
 
 
-
-                    
-
                     int addressStatus = Convert.ToInt32(row["AddressStatus"].ToString());
-
-
 
 
                     info.AddressStatus = addressStatus;
@@ -1282,7 +1149,9 @@ public partial class NetworkAddressManagePage : UserControl
 
                     try
                     {
-                        info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+                        info.AddressColor = row["AddressColor"] != DBNull.Value
+                            ? Convert.ToInt32(row["AddressColor"])
+                            : 0;
                     }
                     catch (Exception e)
                     {
@@ -1323,7 +1192,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                     if (itemToUpdate != null)
                     {
-
                         itemToUpdate.AddressStatus = info.AddressStatus;
                         itemToUpdate.AddressColor = info.AddressColor;
                         itemToUpdate.PingTime = info.PingTime;
@@ -1344,16 +1212,8 @@ public partial class NetworkAddressManagePage : UserControl
                         itemToUpdate.TagE = info.TagE;
                         itemToUpdate.TagF = info.TagF;
                         itemToUpdate.AddressToolTip = tip;
-
-
-
-
                     }
-
-
-
                 }
-
             }
             else
             {
@@ -1367,29 +1227,25 @@ public partial class NetworkAddressManagePage : UserControl
                 //var networkInfo = dbClass.GetNetworkInfoFromId(networkId);
 
 
-
                 //获取子表数量
 
 
                 if (LoadMode == 0) //切换面板
                 {
-                    AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+                    AddressListView.Visibility = Visibility.Collapsed; //列表隐藏
 
-                    GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
-
+                    GraphicalPlan.Visibility = Visibility.Visible; //图形外面板显示
                 }
                 else
                 {
-                    GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+                    GraphicalPlan.Visibility = Visibility.Collapsed; //图形外面板隐藏
 
-                    AddressListView.Visibility = Visibility.Visible;//列表显示
-
+                    AddressListView.Visibility = Visibility.Visible; //列表显示
                 }
 
 
-
-
-                string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
+                string query =
+                    $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
 
                 var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1399,7 +1255,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 foreach (var row in rows)
                 {
-
                     var info = new IpAddressInfoListViewMode();
                     info.TableName = tableName;
                     info.Index = index2;
@@ -1410,8 +1265,6 @@ public partial class NetworkAddressManagePage : UserControl
                     int status = Convert.ToInt32(row["AddressStatus"].ToString());
 
                     info.AddressStatus = status;
-
-
 
 
                     if (status == 0 || status == 4)
@@ -1426,7 +1279,9 @@ public partial class NetworkAddressManagePage : UserControl
 
                     try
                     {
-                        info.AddressColor = row["AddressColor"] != DBNull.Value ? Convert.ToInt32(row["AddressColor"]) : 0;
+                        info.AddressColor = row["AddressColor"] != DBNull.Value
+                            ? Convert.ToInt32(row["AddressColor"])
+                            : 0;
                     }
                     catch (Exception e)
                     {
@@ -1470,13 +1325,7 @@ public partial class NetworkAddressManagePage : UserControl
 
                     IpAddressInfoLists.Add(info);
                 }
-
             }
-
-
-
-
-
         }
         else
         {
@@ -1490,29 +1339,25 @@ public partial class NetworkAddressManagePage : UserControl
             //var networkInfo = dbClass.GetNetworkInfoFromId(networkId);
 
 
-
             //获取子表数量
 
 
             if (LoadMode == 0) //切换面板
             {
-                AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+                AddressListView.Visibility = Visibility.Collapsed; //列表隐藏
 
-                GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
-
+                GraphicalPlan.Visibility = Visibility.Visible; //图形外面板显示
             }
             else
             {
-                GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+                GraphicalPlan.Visibility = Visibility.Collapsed; //图形外面板隐藏
 
-                AddressListView.Visibility = Visibility.Visible;//列表显示
-
+                AddressListView.Visibility = Visibility.Visible; //列表显示
             }
 
 
-
-
-            string query = $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
+            string query =
+                $"SELECT  {tableName}.*,  UserInfo.Name,  UserInfo.Organization,  UserInfo.Department,  UserInfo.UserGroup, UserInfo.UserUnit,  UserInfo.Phone, Asset.AssetTag,  Asset.AssetNumber FROM  {tableName}  LEFT JOIN  UserInfo  ON  {tableName}.User = UserInfo.UserId LEFT JOIN  Asset  ON  {tableName}.LinkDevice = Asset.AssetId  ORDER BY Address ASC;";
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
 
@@ -1522,7 +1367,6 @@ public partial class NetworkAddressManagePage : UserControl
 
             foreach (var row in rows)
             {
-
                 var info = new IpAddressInfoListViewMode();
                 info.TableName = tableName;
                 info.Index = index2;
@@ -1531,7 +1375,7 @@ public partial class NetworkAddressManagePage : UserControl
                 info.Address = Convert.ToInt32(row["Address"].ToString());
                 info.FullAddress = $"{prefix}{info.Address}";
                 int status = Convert.ToInt32(row["AddressStatus"].ToString());
-                
+
                 info.AddressStatus = status;
 
 
@@ -1591,19 +1435,12 @@ public partial class NetworkAddressManagePage : UserControl
 
                 IpAddressInfoLists.Add(info);
             }
-
-
         }
-
 
 
         //表示当前加载的网段
         LoadedNetworkSegment = tableName;
-
     }
-
-
-
 
 
     /// <summary>
@@ -1612,12 +1449,9 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="tableName"></param>
     private async Task LoadAddressInfo(string tableName, string keyword, ExportNetworkInfoClass expInfo = null)
     {
-
-
         IpAddressInfoLists.Clear();
         //SelectAddress.Clear();
         DataBridge.DataBridge.IpAddressInfoLists.Clear();
-
 
 
         //获取子表数量
@@ -1625,26 +1459,20 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (LoadMode == 0) //切换面板
         {
-            AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+            AddressListView.Visibility = Visibility.Collapsed; //列表隐藏
 
-            GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
-
+            GraphicalPlan.Visibility = Visibility.Visible; //图形外面板显示
         }
         else
         {
-            GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+            GraphicalPlan.Visibility = Visibility.Collapsed; //图形外面板隐藏
 
-            AddressListView.Visibility = Visibility.Visible;//列表显示
-
+            AddressListView.Visibility = Visibility.Visible; //列表显示
         }
 
 
-
-
-
-
-        string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%'  OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%' ORDER BY Address ASC;";
-
+        string query =
+            $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%'  OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%' ORDER BY Address ASC;";
 
 
         var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -1655,7 +1483,6 @@ public partial class NetworkAddressManagePage : UserControl
 
         foreach (var row in rows)
         {
-
             var info = new IpAddressInfoListViewMode();
             info.TableName = tableName;
             info.Index = index2;
@@ -1728,17 +1555,7 @@ public partial class NetworkAddressManagePage : UserControl
 
             IpAddressInfoLists.Add(info);
         }
-
-
-
-
-
-
-
     }
-
-
-
 
 
     /// <summary>
@@ -1747,8 +1564,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// <param name="tableName"></param>
     private async Task GlobalLoadAddressInfo(string keyword)
     {
-
-
         IpAddressInfoLists.Clear();
         //SelectAddress.Clear();
         DataBridge.DataBridge.IpAddressInfoLists.Clear();
@@ -1759,17 +1574,15 @@ public partial class NetworkAddressManagePage : UserControl
 
         if (LoadMode == 0) //切换面板
         {
-            AddressListView.Visibility = Visibility.Collapsed;//列表隐藏
+            AddressListView.Visibility = Visibility.Collapsed; //列表隐藏
 
-            GraphicalPlan.Visibility = Visibility.Visible;//图形外面板显示
-
+            GraphicalPlan.Visibility = Visibility.Visible; //图形外面板显示
         }
         else
         {
-            GraphicalPlan.Visibility = Visibility.Collapsed;//图形外面板隐藏
+            GraphicalPlan.Visibility = Visibility.Collapsed; //图形外面板隐藏
 
-            AddressListView.Visibility = Visibility.Visible;//列表显示
-
+            AddressListView.Visibility = Visibility.Visible; //列表显示
         }
 
         var nets = GetAllNetwork(networkInfos);
@@ -1779,8 +1592,8 @@ public partial class NetworkAddressManagePage : UserControl
             var tableName = net.TableName;
 
 
-            string query = $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%' OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%'  ORDER BY Address ASC;";
-
+            string query =
+                $"SELECT {tableName}.*, UserInfo.Name, UserInfo.Organization, UserInfo.Department, UserInfo.UserGroup, UserInfo.UserUnit, UserInfo.Phone, Asset.AssetTag, Asset.AssetNumber  FROM {tableName} LEFT JOIN UserInfo ON {tableName}.User = UserInfo.UserId LEFT JOIN Asset ON {tableName}.LinkDevice = Asset.AssetId  WHERE UserInfo.Name LIKE '%{keyword}%'  OR {tableName}.HostName LIKE '%{keyword}%'  OR {tableName}.MacAddress LIKE '%{keyword}%'  OR UserInfo.Organization LIKE '%{keyword}%'  OR UserInfo.Department LIKE '%{keyword}%'  OR UserInfo.UserGroup LIKE '%{keyword}%'  OR UserInfo.UserUnit LIKE '%{keyword}%'  OR UserInfo.Phone LIKE '%{keyword}%'  OR Asset.AssetTag LIKE '%{keyword}%'  OR {tableName}.TagA LIKE '%{keyword}%'  OR {tableName}.TagB LIKE '%{keyword}%'  OR {tableName}.TagC LIKE '%{keyword}%'  OR {tableName}.TagD LIKE '%{keyword}%'  OR {tableName}.TagE LIKE '%{keyword}%'  OR {tableName}.TagF LIKE '%{keyword}%' OR {tableName}.Address LIKE '%{keyword}%' OR {tableName}.FullAddress LIKE '%{keyword}%'  ORDER BY Address ASC;";
 
 
             var rows = GlobalVariables.DbService.ExecuteQuery(query);
@@ -1791,7 +1604,6 @@ public partial class NetworkAddressManagePage : UserControl
 
             foreach (var row in rows)
             {
-
                 var info = new IpAddressInfoListViewMode();
 
                 info.TableName = tableName;
@@ -1855,26 +1667,9 @@ public partial class NetworkAddressManagePage : UserControl
                 //await Task.Delay(1);
 
 
-
                 IpAddressInfoLists.Add(info);
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -1896,7 +1691,6 @@ public partial class NetworkAddressManagePage : UserControl
             string result = string.Join(".", parts.Take(3));
 
             prefix = result + ".";
-
         }
         else
         {
@@ -1913,7 +1707,6 @@ public partial class NetworkAddressManagePage : UserControl
     /// <returns></returns>
     private ObservableCollection<ExportNetworkInfoClass> GetAllNetwork(List<NetworkInfoViewMode> infos)
     {
-
         //要导出的全部表名
         var exportNetworkInfos = new ObservableCollection<ExportNetworkInfoClass>();
 
@@ -1945,8 +1738,6 @@ public partial class NetworkAddressManagePage : UserControl
 
                 foreach (string range in subnetsRanges)
                 {
-
-
                     subIndex++;
 
                     var name = $"Net_{item.NetworkId}_Sub{subIndex - 1}";
@@ -1963,15 +1754,8 @@ public partial class NetworkAddressManagePage : UserControl
 
 
                     exportNetworkInfos.Add(info);
-
                 }
-
             }
-
-
-
-
-
         }
 
 
@@ -1984,7 +1768,8 @@ public partial class NetworkAddressManagePage : UserControl
     /// </summary>
     /// <param name="networkId"></param>
     /// <returns></returns>
-    private ObservableCollection<ExportNetworkInfoClass> GetAllNetworkForNetworkId(string networkId, string tableName = null)
+    private ObservableCollection<ExportNetworkInfoClass> GetAllNetworkForNetworkId(string networkId,
+        string tableName = null)
     {
         string id = string.Empty;
         if (!string.IsNullOrWhiteSpace(tableName))
@@ -2007,29 +1792,23 @@ public partial class NetworkAddressManagePage : UserControl
         foreach (var row in rows)
         {
             var item = new NetworkInfoViewMode();
-            item.Network= row["Network"].ToString();
+            item.Network = row["Network"].ToString();
             item.Netmask = row["Netmask"].ToString();
             item.NetworkId = id;
             lists.Add(item);
         }
 
 
-
-
         return GetAllNetwork(lists);
     }
 
 
-
-
-
-
-/// <summary>
-/// 根据输入内容拼接提示信息
-/// </summary>
-/// <param name="info"></param>
-/// <returns></returns>
-private string JoInTip(IpAddressInfoListViewMode info)
+    /// <summary>
+    /// 根据输入内容拼接提示信息
+    /// </summary>
+    /// <param name="info"></param>
+    /// <returns></returns>
+    private string JoInTip(IpAddressInfoListViewMode info)
     {
         string tip = "";
 
@@ -2050,9 +1829,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             case 4:
                 tip += $"地址状态: 广播地址\r";
                 break;
-
         }
-
 
 
         if (!string.IsNullOrWhiteSpace(info.User))
@@ -2078,8 +1855,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
             {
                 tip += $"用户电话: {info.Phone}\r";
             }
-
-
         }
 
         if (!string.IsNullOrWhiteSpace(info.HostName))
@@ -2100,13 +1875,10 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (DataBridge.DataBridge.SelectIpAddressTags != null)
         {
-
-
             var settings = DataBridge.DataBridge.SelectIpAddressTags;
 
             if (settings != null)
             {
-
                 if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagA.ToString()))
@@ -2118,6 +1890,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签A: {info.TagA}\r";
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagB))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagB.ToString()))
@@ -2129,6 +1902,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签B: {info.TagB}\r";
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagC))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagC.ToString()))
@@ -2140,6 +1914,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签C: {info.TagC}\r";
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagD))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagD.ToString()))
@@ -2151,6 +1926,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签D: {info.TagD}\r";
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagE))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagE.ToString()))
@@ -2162,6 +1938,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签A: {info.TagE}\r";
                     }
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagF))
                 {
                     if (!string.IsNullOrWhiteSpace(settings.TagF.ToString()))
@@ -2173,46 +1950,37 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         tip += $"自定义标签F: {info.TagF}\r";
                     }
                 }
-
             }
             else
             {
                 if (!string.IsNullOrWhiteSpace(info.TagA))
                 {
-
                     tip += $"自定义标签Aa: {info.TagA}\r";
-
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagB))
                 {
-
-
                     tip += $"自定义标签B: {info.TagB}\r";
-
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagC))
                 {
-
                     tip += $"自定义标签C: {info.TagC}\r";
-
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagD))
                 {
-
                     tip += $"自定义标签D: {info.TagD}\r";
-
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagE))
                 {
-
                     tip += $"自定义标签A: {info.TagE}\r";
-
                 }
+
                 if (!string.IsNullOrWhiteSpace(info.TagF))
                 {
-
                     tip += $"自定义标签F: {info.TagF}\r";
-
                 }
             }
         }
@@ -2220,12 +1988,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         return tip.TrimEnd('\r');
     }
-
-
-
-
-
-
 
 
     /// <summary>
@@ -2247,19 +2009,13 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (addNetwork.ShowDialog() == true)
         {
-
             // 当子窗口关闭后执行这里的代码
             LoadNetworkInfo2();
 
             //加载网段信息备注标签
             LoadTags();
         }
-
     }
-
-
-
-
 
 
     private void SetButton_Click(object sender, RoutedEventArgs e)
@@ -2272,65 +2028,40 @@ private string JoInTip(IpAddressInfoListViewMode info)
         {
             Console.WriteLine(2167);
             LoadCustomTag(DataBridge.DataBridge.NetworkTableName);
-
         }
-
     }
-
-
-
 
 
     private void LogExpander_OnExpanded(object sender, RoutedEventArgs e)
     {
-
-
         if (LogExpander.IsExpanded)
         {
             DataBridge.DataBridge.OperationType = 4;
         }
-
-
-
     }
 
     private void LogExpander_OnCollapsed(object sender, RoutedEventArgs e)
     {
         DataBridge.DataBridge.OperationType = 0;
         SingleSelectMode.IsChecked = true;
-
     }
-
-
-
 
 
     private async void SingleSelectMode_OnClick(object sender, RoutedEventArgs e)
     {
-
         if (SingleSelectMode.IsChecked == true)
         {
             DataBridge.DataBridge.OperationType = 0;
 
 
-
-
             if (GetSelectedAddressCount() > 0)
             {
-
                 ClearSelectedAddress();
 
                 await LoadAddressInfo(DataBridge.DataBridge.NetworkTableName);
             }
-
         }
-
     }
-
-
-
-
-
 
 
     private void MultipleSelectMode_OnClick(object sender, RoutedEventArgs e)
@@ -2340,12 +2071,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             ClearSelectedAddress();
             DataBridge.DataBridge.OperationType = 1;
         }
-
-
-
-
     }
-
 
 
     private void OpenBrowserMode_OnClick(object sender, RoutedEventArgs e)
@@ -2354,7 +2080,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
         {
             DataBridge.DataBridge.OperationType = 2;
         }
-
     }
 
     private void PingMode_OnClick(object sender, RoutedEventArgs e)
@@ -2366,7 +2091,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
     }
 
 
-
     private void LogModeButton_OnClick(object sender, RoutedEventArgs e)
     {
         if (LogModeButton.IsChecked == true)
@@ -2376,20 +2100,16 @@ private string JoInTip(IpAddressInfoListViewMode info)
     }
 
 
-
     private void BrowserCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (BrowserCombobox.SelectedIndex!=-1)
+        if (BrowserCombobox.SelectedIndex != -1)
         {
             if (!string.IsNullOrWhiteSpace(browserInfos[BrowserCombobox.SelectedIndex].Path))
             {
                 DataBridge.DataBridge.SelectBrowser = browserInfos[BrowserCombobox.SelectedIndex].Path;
             }
         }
-
-
     }
-
 
 
     /// <summary>
@@ -2409,18 +2129,15 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (IpAddressInfoLists.Count > 0)
         {
-            var value = ((double)onlineHost / IpAddressInfoLists.Count)*100;
-            
+            var value = ((double)onlineHost / IpAddressInfoLists.Count) * 100;
+
             var rounded = Math.Round(value, 2);
 
             if (rounded > 0)
             {
                 onlineString += $" ({rounded}%)";
             }
-
-
         }
-
 
 
         OnlineHost.Text = onlineString;
@@ -2440,7 +2157,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (sum > 0)
         {
-            AddressAllocationWindow addressAllocationWindow = new AddressAllocationWindow(DataBridge.DataBridge.IpAddressInfoLists);
+            AddressAllocationWindow addressAllocationWindow =
+                new AddressAllocationWindow(DataBridge.DataBridge.IpAddressInfoLists);
 
 
             //窗口放中间
@@ -2452,14 +2170,11 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
             if (addressAllocationWindow.ShowDialog() == true)
             {
-
                 LoadAddressInfo(DataBridge.DataBridge.NetworkTableName);
 
                 ClearSelectedAddress();
-
             }
         }
-
     }
 
 
@@ -2468,13 +2183,12 @@ private string JoInTip(IpAddressInfoListViewMode info)
     /// </summary>
     private void ClearSelectedAddress()
     {
-
         // 使用LINQ查询筛选出IsSelected为true的所有项
         var selectedItems = DataBridge.DataBridge.IpAddressInfoLists.Where(item => item.IsSelected == true).ToList();
 
         // 将这些筛选出来的项放入一个新的ObservableCollection中
-        ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection = new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
-
+        ObservableCollection<IpAddressInfoListViewMode> selectedItemsCollection =
+            new ObservableCollection<IpAddressInfoListViewMode>(selectedItems);
 
 
         foreach (var item in selectedItemsCollection)
@@ -2488,7 +2202,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
     private async void ArpTestButton_Click(object sender, RoutedEventArgs e)
     {
-
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, true);
         await PingTesterClass.PingAddressesAsync(IpAddressInfoLists);
         ButtonProgressAssist.SetIsIndeterminate(StatusTestButton, false);
@@ -2496,23 +2209,18 @@ private string JoInTip(IpAddressInfoListViewMode info)
         ButtonProgressAssist.SetIsIndeterminate(ArpTestButton, true);
         await DeviceInfoUpdater.UpdateDeviceInfoListAsync(IpAddressInfoLists);
         ButtonProgressAssist.SetIsIndeterminate(ArpTestButton, false);
-
-
-
     }
-
-
 
 
     private void PortComboBox_OnKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Delete)//删除端口号
+        if (e.Key == Key.Delete) //删除端口号
         {
-            MessageBoxResult result = MessageBox.Show("是否从历史记录删除所选端口", "删除？", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            MessageBoxResult result =
+                MessageBox.Show("是否从历史记录删除所选端口", "删除？", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
-
                 string sql = $"DELETE FROM  PortList  WHERE Port = {PortComboBox.Text}";
 
                 GlobalVariables.DbService.ExecuteQuery(sql);
@@ -2526,15 +2234,14 @@ private string JoInTip(IpAddressInfoListViewMode info)
             {
                 int port = Convert.ToInt32(PortComboBox.Text);
 
-                if (port > 0 && port < 65536)//判断端口是否合法
+                if (port > 0 && port < 65536) //判断端口是否合法
                 {
                     string sqlTemp = $"SELECT COUNT(*) FROM PortList WHERE Port ={port}";
 
                     var countNum = DbClass.ExecuteScalarTableNum(sqlTemp);
 
-                    if (countNum == 0)//判断端口是否已存在，不存在的情况
+                    if (countNum == 0) //判断端口是否已存在，不存在的情况
                     {
-
                         var portInfo = new ViewModels.DatabaseEntity.Network.PortListViewModel()
                         {
                             Port = port
@@ -2546,28 +2253,18 @@ private string JoInTip(IpAddressInfoListViewMode info)
                         DataBridge.DataBridge.SelectPort = port.ToString();
                         LoadPort();
                     }
-
                 }
                 else
                 {
                     MessageBox.Show("端口不合法\r端口值应介于1-65536之间", "端口号有误", MessageBoxButton.OK, MessageBoxImage.Warning);
                     PortComboBox.Text = "";
                 }
-
-
             }
             catch (Exception exception)
             {
                 MessageBox.Show("端口号应该为整数数字", "端口号有误", MessageBoxButton.OK, MessageBoxImage.Warning);
                 PortComboBox.Text = "";
             }
-
-
-
-
-
-
-
         }
     }
 
@@ -2591,10 +2288,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
     //协议被改选
     private void ProtocolCombobox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
         if (ProtocolCombobox.SelectedIndex != -1)
         {
-
             int index = ProtocolCombobox.SelectedIndex;
 
 
@@ -2607,12 +2302,10 @@ private string JoInTip(IpAddressInfoListViewMode info)
                 DataBridge.DataBridge.Protocol = "http://";
             }
         }
-
     }
 
     private void SelectToggleButton_Checked(object sender, RoutedEventArgs e)
     {
-
         var toggleButton = sender as FrameworkElement;
 
         if (toggleButton != null)
@@ -2621,7 +2314,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
             if (rowData != null)
             {
-
                 int addressStatus = rowData.AddressStatus;
 
                 int sum = GetSelectedAddressCount();
@@ -2636,18 +2328,14 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
 
                     DataBridge.DataBridge.SelectAddress.Add(rowData.Address);
-
                 }
-                else//当前选择的不是第一个地址
+                else //当前选择的不是第一个地址
                 {
-
                     //判断当前选择的地址是已分配还是未分配
-                    if (addressStatus == DataBridge.DataBridge.AddressStatus)//同种类型的地址则添加到列表中，否则不添加
+                    if (addressStatus == DataBridge.DataBridge.AddressStatus) //同种类型的地址则添加到列表中，否则不添加
                     {
-
                         rowData.IsSelected = true;
                         DataBridge.DataBridge.SelectAddress.Add(rowData.Address);
-
                     }
                     else
                     {
@@ -2656,9 +2344,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
                     }
 
                     //AddressNumber.Text = SelectAddress.Count.ToString();
-
                 }
-
             }
         }
     }
@@ -2674,7 +2360,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
             {
                 rowData.IsSelected = false;
                 DataBridge.DataBridge.SelectAddress.Add(rowData.Address);
-
             }
         }
     }
@@ -2687,7 +2372,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
     /// <param name="e"></param>
     private void AddressListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-
         //DependencyObject dep = (DependencyObject)e.OriginalSource;
 
         //// 迭代视觉树以找到 DataGridRow
@@ -2722,8 +2406,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
             // 逻辑代码
             RunOnDoubleClick(datas);
         }
-
-
     }
 
 
@@ -2759,14 +2441,11 @@ private string JoInTip(IpAddressInfoListViewMode info)
     /// <param name="e"></param>
     private async void ShowModeButton_OnClick(object sender, RoutedEventArgs e)
     {
-
         GlobalToggleButton.IsChecked = false;
 
         if (ShowModeButton.IsChecked == true)
         {
-
             LoadMode = 1;
-
 
 
             OperationPanel.IsEnabled = false;
@@ -2776,11 +2455,7 @@ private string JoInTip(IpAddressInfoListViewMode info)
             {
                 GraphicalPlan.Visibility = Visibility.Collapsed;
                 AddressListView.Visibility = Visibility.Visible;
-
             }
-
-
-
         }
         else
         {
@@ -2792,15 +2467,13 @@ private string JoInTip(IpAddressInfoListViewMode info)
             AddressListView.Visibility = Visibility.Collapsed;
 
 
-            if (DataBridge.DataBridge.IpAddressInfoLists.Count == 0 && !string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))
+            if (DataBridge.DataBridge.IpAddressInfoLists.Count == 0 &&
+                !string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))
             {
                 await LoadAddressInfo(DataBridge.DataBridge.NetworkTableName, 1);
             }
-
         }
     }
-
-
 
 
     /// <summary>
@@ -2814,7 +2487,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         LoadNetworkInfo2();
     }
-
 
 
     /// <summary>
@@ -2833,9 +2505,9 @@ private string JoInTip(IpAddressInfoListViewMode info)
                 column.SortDirection = null;
             }
         }
+
         AddressListView.ItemsSource = IpAddressInfoLists;
     }
-
 
 
     /// <summary>
@@ -2858,7 +2530,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
     /// <param name="e"></param>
     private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var message = $"确定删除\r网段名称:{SelectNetworkInfo.Name}\r网段地址:{SelectNetworkInfo.Network}\r子网掩码:{SelectNetworkInfo.Netmask}吗";
+        var message =
+            $"确定删除\r网段名称:{SelectNetworkInfo.Name}\r网段地址:{SelectNetworkInfo.Network}\r子网掩码:{SelectNetworkInfo.Netmask}吗";
 
 
         var result = MessageBox.Show(message, "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -2866,7 +2539,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (result == MessageBoxResult.Yes)
         {
-            string query = $"UPDATE Network SET Del = 1 WHERE NetworkId ='{DataBridge.DataBridge.SelectNetworkInfo.NetworkId}';";
+            string query =
+                $"UPDATE Network SET Del = 1 WHERE NetworkId ='{DataBridge.DataBridge.SelectNetworkInfo.NetworkId}';";
 
             // Console.WriteLine(query);
             GlobalVariables.DbService.ExecuteNonQuery(query);
@@ -2878,17 +2552,15 @@ private string JoInTip(IpAddressInfoListViewMode info)
             //加载网段信息备注标签
             LoadTags();
         }
-
-
-
     }
+
     /// <summary>
     /// 当前选中的网段信息，0位根节点，1为子节点,用于弹出不同的备注编辑框
     /// </summary>
     private int SelectedNetworkType = 0;
+
     private void EditButton_OnClick(object sender, RoutedEventArgs e)
     {
-
         Window newWindow;
 
         if (SelectedNetworkType == 0)
@@ -2901,8 +2573,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
         }
 
 
-
-
         //窗口放中间
         var window = Window.GetWindow(this);
         if (window != null)
@@ -2913,7 +2583,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (newWindow.ShowDialog() == true)
         {
-
             // 当子窗口关闭后执行这里的代码
             LoadNetworkInfo2();
 
@@ -2937,8 +2606,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
         {
             LoadNetworkInfo2();
         }
-
-
     }
 
     private void SearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
@@ -2958,8 +2625,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
     /// <param name="e"></param>
     private void DataExport_OnClick(object sender, RoutedEventArgs e)
     {
-
-
         #region MyRegion
 
         if (IpAddressInfoLists == null || IpAddressInfoLists.Count == 0)
@@ -2968,7 +2633,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
             return;
         }
 
-        var fileName = $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+        var fileName =
+            $"{DataBridge.DataBridge.SelectNetwork.Substring(0, DataBridge.DataBridge.SelectNetwork.Length - 1)}-{DateTime.Now.ToString("yyyyMMddHHmmss")}";
 
         // 创建保存文件对话框
         SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -2976,11 +2642,11 @@ private string JoInTip(IpAddressInfoListViewMode info)
             Filter = "Excel 文件 (*.xlsx)|*.xlsx|所有文件 (*.*)|*.*",
             FilterIndex = 1,
             RestoreDirectory = true,
-            FileName = fileName  // 默认文件名
+            FileName = fileName // 默认文件名
         };
 
         var expInfo = new ExportNetworkInfoClass();
-       
+
         expInfo.WindowTags = DataBridge.DataBridge.SelectIpAddressTags;
 
         if (saveFileDialog.ShowDialog() == true)
@@ -3009,12 +2675,8 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
         if (newWindow.ShowDialog() == true)
         {
-
-
-
         }
     }
-
 
 
     private void ClearGlobalSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
@@ -3025,7 +2687,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
     private void GlobalToggleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        
         if (GlobalToggleButton.IsChecked == true)
         {
             ShowModeButton.IsEnabled = false;
@@ -3034,7 +2695,6 @@ private string JoInTip(IpAddressInfoListViewMode info)
         {
             ShowModeButton.IsEnabled = true;
             DataBridge.DataBridge.IpAddressInfoLists.Clear();
-
         }
     }
 
@@ -3050,31 +2710,48 @@ private string JoInTip(IpAddressInfoListViewMode info)
 
     private async void GlobalSearchButton_OnClick(object sender, RoutedEventArgs e)
     {
-        if (GlobalToggleButton.IsChecked == true)//全局搜索
+        if (GlobalToggleButton.IsChecked == true) //全局搜索
         {
-
-
             await GlobalLoadAddressInfo(GlobalSearchKeyWord.Text);
-
         }
-        else//局部搜索
+        else //局部搜索
         {
-            if (string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName))//列表无数据
+            if (string.IsNullOrWhiteSpace(DataBridge.DataBridge.NetworkTableName)) //列表无数据
             {
                 MessageBox.Show("请选择要搜索的网段，或切换为全局搜索。", "无数据", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-
                 LoadAddressInfo(DataBridge.DataBridge.NetworkTableName, GlobalSearchKeyWord.Text);
-
-
             }
-
-
-
         }
     }
 
 
+    /// <summary>
+    /// 调整了表头排序
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void AddressListView_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+    {
+        Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(AddressListView);
+    }
+    
+    /// <summary>
+    /// 调整了列宽度
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ColumnWidthChanged(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+    {
+        // 拖动分割线结束后触发
+        Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(AddressListView);
+    }
+
+    private void ReSortColumnOrder_OnClick(object sender, RoutedEventArgs e)
+    {
+        // 删除排序配置
+        Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(AddressListView);
+    }
 }

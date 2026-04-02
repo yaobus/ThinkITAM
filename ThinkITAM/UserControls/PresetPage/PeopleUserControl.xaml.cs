@@ -49,6 +49,10 @@ namespace ThinkITAM.UserControls.PresetPage
             PeopleListView.ItemsSource = peopleInfos;
 
             LoadPeopleInfos();
+            
+            
+            //加载表单列排序
+            Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(PeopleListView);
         }
 
 
@@ -321,6 +325,17 @@ namespace ThinkITAM.UserControls.PresetPage
 
 
 
+        }
+
+        private void PeopleListView_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+        {
+            Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(PeopleListView);
+        }
+        
+        private void ReSortColumnOrder_OnClick(object sender, RoutedEventArgs e)
+        {
+            // 删除排序配置
+            Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(PeopleListView);
         }
     }
 }

@@ -105,9 +105,6 @@
                     </Button>
 
 
-
-
-
                     <Button
                         x:Name="DeleteButton"
                         Grid.Column="2"
@@ -133,16 +130,10 @@
         </Grid>
 
 
-
-
-
         <Grid
             Grid.Row="0"
             Grid.Column="0"
             Margin="5,5,2.5,2.5">
-
-
-
 
 
             <Button
@@ -391,7 +382,6 @@
                         </StackPanel>
 
 
-
                         <StackPanel
                             Grid.Column="2"
                             HorizontalAlignment="Right"
@@ -407,6 +397,7 @@
                             <StackPanel
                                 HorizontalAlignment="Left"
                                 Orientation="Horizontal"
+                                d:Visibility="Visible"
                                 Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
 
@@ -428,6 +419,25 @@
                                         Kind="Restore" />
                                 </Button>
 
+                                <Button
+                                    x:Name="ReSortColumnOrder"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="5,0"
+                                    materialDesign:ElevationAssist.Elevation="Dp1"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="ReSortColumnOrder_OnClick"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                    ToolTip="{DynamicResource NmpResetColumnOrderSort}"
+                                    Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    >
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="TableRefresh" />
+                                </Button>
+                                
                                 <Button
                                     x:Name="SetButton"
                                     Width="32"
@@ -587,7 +597,6 @@
                                     ToolTip="{DynamicResource NmpSelectProtocol}" />
 
 
-
                                 <ComboBox
                                     x:Name="PortComboBox"
                                     Width="100"
@@ -618,7 +627,6 @@
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     ToolTip="{DynamicResource NmpSelectBrowser}" />
                             </StackPanel>
-
 
 
                         </StackPanel>
@@ -726,12 +734,13 @@
                         SelectionMode="Extended"
                         SelectionUnit="FullRow"
                         Visibility="Collapsed"
-                        VirtualizingStackPanel.IsVirtualizing="True" 
+                        VirtualizingStackPanel.IsVirtualizing="True"
                         VirtualizingStackPanel.VirtualizationMode="Recycling"
-                        >
+                        ColumnReordered="AddressListView_OnColumnReordered"
+                        Thumb.DragCompleted="ColumnWidthChanged">
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn CanUserSort="False">
+                            <DataGridTemplateColumn CanUserSort="False" SortMemberPath="Select">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
@@ -761,7 +770,9 @@
                                                 <materialDesign:PackIcon Kind="CheckboxBlankOutline" />
 
                                                 <ToggleButton.Style>
-                                                    <Style BasedOn="{StaticResource MaterialDesignActionLightToggleButton}" TargetType="ToggleButton">
+                                                    <Style
+                                                        BasedOn="{StaticResource MaterialDesignActionLightToggleButton}"
+                                                        TargetType="ToggleButton">
                                                         <Style.Triggers>
                                                             <Trigger Property="IsChecked" Value="True">
                                                                 <Setter Property="Background" Value="LightSeaGreen" />
@@ -778,7 +789,6 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
 
 
                             <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Address">
@@ -798,7 +808,8 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                        <Grid d:Background="#008080"
+                                              Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
                                             <TextBlock
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
@@ -810,7 +821,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Address">
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="FullAddress">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
@@ -826,7 +837,8 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="#008080" Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                        <Grid d:Background="#008080"
+                                              Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
                                             <TextBlock
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
@@ -868,7 +880,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PingTime">
+                            <DataGridTemplateColumn CanUserSort="True" SortMemberPath="ColorTag">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon
@@ -885,11 +897,11 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Grid d:Background="Green" Background="{Binding AddressColor, Converter={StaticResource CustomColorIndexToColor}}" />
+                                        <Grid d:Background="Green"
+                                              Background="{Binding AddressColor, Converter={StaticResource CustomColorIndexToColor}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
 
 
                             <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
@@ -1357,8 +1369,6 @@
                     </DataGrid>
 
 
-
-
                     <!--  Visibility="{Binding Path=IsChecked, ElementName=GraphicsButton, Converter={StaticResource BoolToVisibilityConverter}}"  -->
 
 
@@ -1519,7 +1529,6 @@
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
-
                                 <TextBox
                                     x:Name="Last"
                                     Width="130"
@@ -1556,7 +1565,6 @@
                                     materialDesign:TextFieldAssist.LeadingIcon="Counter"
                                     IsEnabled="False"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-
 
 
                             </StackPanel>
@@ -1614,7 +1622,6 @@
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
-
                                 <TextBox
                                     x:Name="TagDTextBox"
                                     Width="130"
@@ -1653,14 +1660,12 @@
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
-
                             </StackPanel>
 
 
                         </TabItem>
                     </TabControl>
                 </materialDesign:Card>
-
 
 
             </Grid>

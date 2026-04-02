@@ -49,6 +49,10 @@ public partial class DevicePortManage : UserControl
 
 
         DataBridge.DataBridge.ChangedDevicePorts.CollectionChanged += ChangedDevicePorts_CollectionChanged;
+        
+        
+        //加载表单列排序
+        Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(PortListView);
     }
 
 
@@ -1379,5 +1383,21 @@ public partial class DevicePortManage : UserControl
 
 
         }
+    }
+    
+    /// <summary>
+    /// 调整了表头排序
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void PortListView_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+    {
+        Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(PortListView);
+    }
+    
+    private void ReSortColumnOrder_OnClick(object sender, RoutedEventArgs e)
+    {
+        // 删除排序配置
+        Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(PortListView);
     }
 }

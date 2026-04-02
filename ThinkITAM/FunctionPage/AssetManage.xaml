@@ -316,7 +316,24 @@
                             <materialDesign:PackIcon Kind="TagEditOutline" />
                         </Button>
 
-
+                        <Button
+                            Grid.Column="3"
+                            x:Name="ReSortColumnOrder"
+                            Width="32"
+                            Height="32"
+                            Margin="5,0"
+                            materialDesign:ElevationAssist.Elevation="Dp1"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="ReSortColumnOrder_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="{DynamicResource NmpResetColumnOrderSort}"
+                            Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Kind="TableRefresh" />
+                        </Button>
 
                     </StackPanel>
 
@@ -497,10 +514,12 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                     SelectionChanged="AssetDataGrid_OnSelectionChanged"
                     SelectionMode="Extended"
-                    SelectionUnit="FullRow">
+                    SelectionUnit="FullRow"
+                    ColumnReordered="AssetDataGrid_OnColumnReordered"
+                    >
                     <DataGrid.Columns>
 
-                        <DataGridTemplateColumn CanUserSort="False">
+                        <DataGridTemplateColumn CanUserSort="False" SortMemberPath="Select">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
 
@@ -1348,7 +1367,7 @@
                             <Button
                                 x:Name="DataLogExport"
                                 Width="28"
-                                Height="16"
+                                Height="28"
                                 Margin="5,0"
                                 Padding="0"
                                 materialDesign:ElevationAssist.Elevation="Dp1"
@@ -1359,12 +1378,28 @@
                                 Style="{StaticResource MaterialDesignFlatLightButton}"
                                 ToolTip="资产履历导出">
 
-                                <materialDesign:PackIcon Kind="TableArrowRight" />
+                                <materialDesign:PackIcon Kind="DatabaseExportOutline" />
 
 
 
                             </Button>
 
+                            <Button
+                                x:Name="ReSortLogListColumnOrder"
+                                Width="28"
+                                Height="28"
+                                Margin="5,0"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Click="ReSortLogListColumnOrder_OnClick"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="{DynamicResource NmpResetColumnOrderSort}"
+                                Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <materialDesign:PackIcon
+                                    Kind="TableRefresh" Width="16" Height="16"/>
+                            </Button>
+                            
                         </StackPanel>
                     </Expander.Header>
                     <Grid>
@@ -1385,7 +1420,9 @@
                             IsReadOnly="True"
                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                            SelectionUnit="FullRow">
+                            SelectionUnit="FullRow"
+                            ColumnReordered="LogList_OnColumnReordered"
+                            >
                             <DataGrid.Columns>
 
 

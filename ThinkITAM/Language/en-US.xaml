@@ -110,6 +110,7 @@
     <s:String x:Key="NmpPingAddress">Check online status of selected network addresses</s:String>
     <s:String x:Key="NmpGetHostName">Detect hostnames and MACs of online addresses</s:String>
     <s:String x:Key="NmpResetSort">Reset Sorting</s:String>
+    <s:String x:Key="NmpResetColumnOrderSort">Reset Column Sorting</s:String>
     <s:String x:Key="NmpSetNetworkTag">Set Network Segment Tags</s:String>
     <s:String x:Key="NmpSelectedIp">Currently Selected IP Count</s:String>
     <s:String x:Key="NmpConfigSelectedIp">Configure Selected IPs</s:String>

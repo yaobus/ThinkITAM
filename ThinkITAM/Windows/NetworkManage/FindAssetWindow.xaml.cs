@@ -30,7 +30,7 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
 
-            AssetDataGrid.ItemsSource = assetViewModels;
+            FindAssetDataGrid.ItemsSource = assetViewModels;
 
             if (mode != 1)
             {
@@ -62,11 +62,12 @@ namespace ThinkITAM.Windows.NetworkManage
             {
                 loadStatus = 1;
                 LoadSelectAssetInfo(SelectAssetId);
-                AssetDataGrid.SelectedIndex = 0;
+                FindAssetDataGrid.SelectedIndex = 0;
                 loadStatus = 0;
             }
 
-
+            //加载表单列排序
+            Functions.DataGridColumn.DataGridColumnOrderClass.LoadColumnOrder(FindAssetDataGrid);
         }
 
         //是否加载资产信息
@@ -421,10 +422,10 @@ namespace ThinkITAM.Windows.NetworkManage
         {
             DataBridge.DataBridge.SelectAssetInfo = null;
             // 检查选中项是否非空，以避免空引用异常
-            if (AssetDataGrid.SelectedItem != null)
+            if (FindAssetDataGrid.SelectedItem != null)
             {
                 // 通过 SelectedItem 属性获取选中的行数据
-                var selectedRowData = AssetDataGrid.SelectedItem as AssetViewModel;
+                var selectedRowData = FindAssetDataGrid.SelectedItem as AssetViewModel;
 
                 DataBridge.DataBridge.SelectAssetInfo = selectedRowData;
 
@@ -497,6 +498,11 @@ namespace ThinkITAM.Windows.NetworkManage
 
 
             
+        }
+
+        private void AssetDataGrid_OnColumnReordered(object? sender, DataGridColumnEventArgs e)
+        {
+            Functions.DataGridColumn.DataGridColumnOrderClass.SaveColumnOrder(FindAssetDataGrid);
         }
     }
 }

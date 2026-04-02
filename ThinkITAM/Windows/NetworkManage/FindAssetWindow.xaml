@@ -215,7 +215,7 @@
         <Grid Grid.Column="1">
 
             <DataGrid
-                x:Name="AssetDataGrid"
+                x:Name="FindAssetDataGrid"
                 Grid.Column="0"
                 Margin="0,0,0,10"
                 HorizontalAlignment="Stretch"
@@ -224,10 +224,12 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 SelectionChanged="AssetDataGrid_OnSelectionChanged"
-                SelectionUnit="FullRow">
+                SelectionUnit="FullRow"
+                ColumnReordered="AssetDataGrid_OnColumnReordered"
+                >
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Index">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Numeric1Box" />
@@ -239,7 +241,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="AssetNumber">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="TagText" />
@@ -250,7 +252,7 @@
                             <Binding Path="AssetNumber" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="PurchaseDate">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CalendarText" />
@@ -261,7 +263,7 @@
                             <Binding Path="PurchaseDate" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="PurchasePrice">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CurrencyUsd" />
@@ -273,7 +275,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Manufacturer">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Factory" />
@@ -285,7 +287,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Model">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Devices" />
@@ -297,7 +299,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="SerialNumber">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="BarcodeScanner" />
@@ -309,7 +311,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Configuration">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Settings" />
@@ -321,7 +323,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Location">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="MapMarker" />
@@ -333,7 +335,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="UserOrganization">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountMultiple" />
@@ -345,7 +347,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="UserDepartment">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountSupervisor" />
@@ -359,7 +361,7 @@
 
 
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="User">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Account" />
@@ -371,7 +373,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="UserPhone">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Phone" />
@@ -383,7 +385,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Consumer">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="AccountCircle" />
@@ -395,7 +397,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Status">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="CheckCircle" />
@@ -407,7 +409,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="UsedYear">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Calendar" />
@@ -419,7 +421,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="ScrapDate">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Delete" />
@@ -430,7 +432,7 @@
                             <Binding Path="ScrapDate" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="Notes">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Note" />
@@ -442,7 +444,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagA">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
@@ -455,7 +457,7 @@
                     </DataGridTextColumn>
 
 
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagB">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
@@ -466,7 +468,7 @@
                             <Binding Path="TagB" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagC">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
@@ -477,7 +479,7 @@
                             <Binding Path="TagC" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagD">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
@@ -488,7 +490,7 @@
                             <Binding Path="TagD" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagE">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />
@@ -499,7 +501,7 @@
                             <Binding Path="TagE" />
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn>
+                    <DataGridTextColumn CanUserSort="True" SortMemberPath="TagF">
                         <DataGridTextColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Margin="0,0,5,0" Kind="Tag" />

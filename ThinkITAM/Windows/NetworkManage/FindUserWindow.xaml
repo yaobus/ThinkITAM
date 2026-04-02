@@ -228,7 +228,7 @@
         <Grid Grid.Column="1">
 
             <DataGrid
-                x:Name="PeopleListView"
+                x:Name="FindPeopleListView"
                 Margin="0,0,0,10"
                 d:Visibility="Visible"
                 AutoGenerateColumns="False"
@@ -236,7 +236,9 @@
                 SelectionChanged="PeopleListView_OnSelectionChanged"
                 SelectionMode="Extended"
                 SelectionUnit="FullRow"
-                Visibility="Visible">
+                Visibility="Visible"
+                ColumnReordered="PeopleListView_OnColumnReordered"
+                >
 
 
                 <DataGrid.Columns>
@@ -268,7 +270,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Name">
+                    <DataGridTemplateColumn CanUserSort="True" SortMemberPath="UserNumber">
                         <DataGridTemplateColumn.Header>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon

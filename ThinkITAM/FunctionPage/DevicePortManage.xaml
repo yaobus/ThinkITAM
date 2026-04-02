@@ -400,6 +400,25 @@
                             </Button>
 
                             <Button
+                                Grid.Column="3"
+                                x:Name="ReSortColumnOrder"
+                                Width="32"
+                                Height="32"
+                                Margin="5,0"
+                                materialDesign:ElevationAssist.Elevation="Dp1"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Click="ReSortColumnOrder_OnClick"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                ToolTip="{DynamicResource NmpResetColumnOrderSort}"
+                                Visibility="{Binding Path=IsChecked, ElementName=ListButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Kind="TableRefresh" />
+                            </Button>
+                            
+                            <Button
                                 x:Name="SetButton"
                                 Width="32"
                                 Height="32"
@@ -612,10 +631,13 @@
                     MouseDoubleClick="PortListView_OnMouseDoubleClick"
                     SelectionMode="Extended"
                     SelectionUnit="FullRow"
-                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                    Visibility="{Binding IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}"
+                    ColumnReordered="PortListView_OnColumnReordered"
+                    
+                    >
                     <DataGrid.Columns>
 
-                        <DataGridTemplateColumn CanUserSort="True">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="Select">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -691,7 +713,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortTag">
+                        <DataGridTemplateColumn CanUserSort="True" SortMemberPath="PortSpeed">
                             <DataGridTemplateColumn.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon
