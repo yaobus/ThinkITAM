@@ -15,13 +15,14 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="5" />
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
             <RowDefinition Height="28" />
+            <RowDefinition Height="5" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -228,7 +229,7 @@
         </Grid>
 
 
-        <Grid Grid.Row="8" Background="#2f9f9f">
+        <Grid Grid.Row="9" Background="#2f9f9f">
             <Label
                 x:Name="CustomizeCompanyTag"
                 Width="380"
@@ -246,7 +247,7 @@
         <materialDesign:DialogHost
             x:Name="SaveCustomizeTagDialogHost"
             Grid.Row="0"
-            Grid.RowSpan="3"
+            Grid.RowSpan="9"
             d:Visibility="Collapsed"
             CloseOnClickAway="True"
             DialogClosed="SaveCustomizeTagDialogHost_OnDialogClosed"
