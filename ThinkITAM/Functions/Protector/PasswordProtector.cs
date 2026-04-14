@@ -96,6 +96,7 @@ namespace ThinkITAM.Functions.Protector
             iv = hash.Skip(16).Take(16).ToArray(); // AES IV
         }
 
+
         public static string Encrypt(string plainText)
         {
             GetAesKeyAndIV(out var key, out var iv);

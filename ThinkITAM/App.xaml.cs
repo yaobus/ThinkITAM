@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
+using Dapper;
+using ThinkITAM.Properties;
 
 namespace ThinkITAM;
 
@@ -13,6 +15,9 @@ public partial class App : Application
 
 
         base.OnStartup(e);
+
+        Settings.Default.Upgrade();
+
 
         //订阅全局异常信息
         this.DispatcherUnhandledException += App_DispatcherUnhandledException;

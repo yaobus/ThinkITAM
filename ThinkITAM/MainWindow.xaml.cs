@@ -39,6 +39,7 @@ public partial class MainWindow : Window
         VersionLabel.Content="Ver "+DataBridge.DataBridge.Version;
 
         InitializationStatus();
+
         ShowWelcome();
 
         GetEncryptString();
@@ -212,11 +213,12 @@ public partial class MainWindow : Window
     private void GetEncryptString()
     {
 
+        LoadPassPortStr();
 
+
+        //如果不存在加密字符串，显示设置密码界面，否则显示登录界面
         if (string.IsNullOrWhiteSpace(Properties.Settings.Default.EncryptString))
         {
-
-
             SetPasswordZone.Visibility = Visibility.Visible;
             LoginZone.Visibility = Visibility.Collapsed;
             ProjectZone.Visibility = Visibility.Collapsed;
@@ -226,6 +228,49 @@ public partial class MainWindow : Window
             SetPasswordZone.Visibility = Visibility.Collapsed;
             LoginZone.Visibility = Visibility.Visible;
         }
+
+
+    }
+
+    /// <summary>
+    /// 加载通行证
+    /// </summary>
+    private void LoadPassPortStr()
+    {
+
+        // 获取当前用户的文档目录
+        var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+        var dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+        var configFilePath = Path.Combine(dbConfigPath, "PassPort.e");
+
+        // 如果目录不存在，则创建
+        if (!Directory.Exists(dbConfigPath))
+        {
+            Directory.CreateDirectory(dbConfigPath);
+        }
+
+        var str = string.Empty;
+
+        try
+        {
+             str = File.ReadAllText(configFilePath);
+
+             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.EncryptString))
+             {
+                 Properties.Settings.Default.EncryptString = str;
+                 Properties.Settings.Default.Save();
+             }
+
+        }
+        catch (Exception e)
+        {
+            Properties.Settings.Default.EncryptString = string.Empty;
+        }
+
+
+       
+
 
 
     }
@@ -244,10 +289,8 @@ public partial class MainWindow : Window
     /// </summary>
     private void SaveSetting()
     {
-
-
+        
         Properties.Settings.Default.LanguageIndex = LanguageComboBox.SelectedIndex;
-
 
         Properties.Settings.Default.Save();
 
@@ -301,9 +344,13 @@ public partial class MainWindow : Window
             else //保存密码
             {
 
-                string passwordString = Functions.Protector.PasswordProtector.Encrypt2(PasswordBoxAgain.Password);
+                var passwordString = Functions.Protector.PasswordProtector.Encrypt2(PasswordBoxAgain.Password);
 
                 Properties.Settings.Default.EncryptString = passwordString;
+
+                //保存密码摘要到文件
+                SavePasswordStrToFile(passwordString);
+
 
                 Properties.Settings.Default.Save();
 
@@ -317,6 +364,28 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
+    /// 保存密码摘要到文件
+    /// </summary>
+    /// <param name="passwordStr"></param>
+    private void SavePasswordStrToFile(string passwordStr)
+    {
+        // 获取当前用户的文档目录
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+        string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+        string configFilePath = Path.Combine(dbConfigPath, "PassPort.e");
+
+        // 如果目录不存在，则创建
+        if (!Directory.Exists(dbConfigPath))
+        {
+            Directory.CreateDirectory(dbConfigPath);
+        }
+
+        File.WriteAllText(configFilePath, passwordStr);
+    }
+
+
+    /// <summary>
     /// 验证密码
     /// </summary>
     /// <param name="sender"></param>
@@ -324,22 +393,20 @@ public partial class MainWindow : Window
     /// <exception cref="NotImplementedException"></exception>
     private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
     {
-        string passwordString = Functions.Protector.PasswordProtector.Encrypt2(InputPasswordBox.Password);
-
+        var passwordString = Functions.Protector.PasswordProtector.Encrypt2(InputPasswordBox.Password);
 
 
         if (passwordString != Properties.Settings.Default.EncryptString)
         {
-            string title = (string)FindResource("CdFailedVerificationTitle");
-            string prompt = (string)FindResource("CdFailedVerificationPrompt");
-            string confirm = (string)FindResource("CdConfirm");
+            var title = (string)FindResource("CdFailedVerificationTitle");
+            var prompt = (string)FindResource("CdFailedVerificationPrompt");
+            var confirm = (string)FindResource("CdConfirm");
 
             var dialog = new ConfirmationDialog
             {
                 Title = $"{title}",
                 Prompt = $"{prompt}",
                 ConfirmButtonText = $"{confirm}"
-
             };
 
             // 显示对话框
@@ -347,7 +414,6 @@ public partial class MainWindow : Window
         }
         else //验证成功,解密加载数据库配置文件
         {
-
 
             ProjectZone.Visibility = Visibility.Visible;
             LoginZone.Visibility = Visibility.Collapsed;
@@ -401,8 +467,10 @@ public partial class MainWindow : Window
                 {
                     foreach (var item in loaded)
                     {
+
                         if (item.Type.ToLower() != "sqlite")
                         {
+                           
                             configs.Add(item);
                         }
                         else
@@ -484,11 +552,6 @@ public partial class MainWindow : Window
             // 创建服务实例
             GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
         }
-
-
-
-
-
 
 
     }
@@ -595,13 +658,25 @@ public partial class MainWindow : Window
             //删除配置文件
 
             // 获取当前用户的文档目录
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
-            string dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
-            string configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var appDataPath = Path.Combine(documentsPath, "ThinkITAM");  // 自定义应用数据目录
+            var dbConfigPath = Path.Combine(appDataPath, "DatabaseConfig");
+            var configFilePath = Path.Combine(dbConfigPath, "DatabaseConfig.json");
 
+            var passPort= Path.Combine(dbConfigPath, "PassPort.e");
 
-            File.Delete(configFilePath);
+           
+
+            try
+            {
+                File.Delete(configFilePath);
+                File.Delete(passPort);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+              
+            }
 
             GetEncryptString();
         }
