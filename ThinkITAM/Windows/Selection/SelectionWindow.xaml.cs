@@ -415,11 +415,15 @@ public partial class SelectionWindow : Window
 
     private void MenuList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        int index = MenuList.SelectedIndex;
+        var index = MenuList.SelectedIndex;
 
         ClearGlobalValue(index);
 
         MenuList2.SelectedIndex = -1;
+
+        //用于控制台输出在看板页面限制弹出鼠标右键
+        DataBridge.DataBridge.SelectedFunction = index;
+
 
         switch (index)
         {
@@ -447,7 +451,7 @@ public partial class SelectionWindow : Window
             case 1:
 
                 FunctionPanel.Children.Clear();
-                Dashboard dashboard = new Dashboard();
+                var dashboard = new Dashboard();
 
                 dashboard.Style = (Style)FindResource("DashboardStyle");
 
@@ -456,7 +460,7 @@ public partial class SelectionWindow : Window
 
             case 2:
                 FunctionPanel.Children.Clear();
-                NetworkAddressManagePage addressManage = new NetworkAddressManagePage();
+                var addressManage = new NetworkAddressManagePage();
 
                 addressManage.Style = (Style)FindResource("NetworkAddressManagePageStyle");
 
@@ -465,7 +469,7 @@ public partial class SelectionWindow : Window
 
             case 3:
                 FunctionPanel.Children.Clear();
-                FunctionPage.DevicePortManage devicePortManage = new FunctionPage.DevicePortManage();
+                var devicePortManage = new FunctionPage.DevicePortManage();
 
                 devicePortManage.Style = (Style)FindResource("DevicePortManageStyle");
 
@@ -475,7 +479,7 @@ public partial class SelectionWindow : Window
 
             case 4:
                 FunctionPanel.Children.Clear();
-                IndexPage indexPage = new IndexPage();
+                var indexPage = new IndexPage();
 
                 indexPage.Style = (Style)FindResource("IndexPageStyle");
 
@@ -486,7 +490,7 @@ public partial class SelectionWindow : Window
             case 5:
 
                 FunctionPanel.Children.Clear();
-                LinkUserControl linkUserControl = new LinkUserControl();
+                var linkUserControl = new LinkUserControl();
 
                 linkUserControl.Style = (Style)FindResource("LinkUserControlPageStyle");
 
@@ -519,7 +523,7 @@ public partial class SelectionWindow : Window
             case 8:
                 FunctionPanel.Children.Clear();
 
-                ComputerPage computer = new ComputerPage();
+                var computer = new ComputerPage();
 
                 computer.Style = (Style)FindResource("ComputerStyle");
 
@@ -529,7 +533,7 @@ public partial class SelectionWindow : Window
             case 9:
                 FunctionPanel.Children.Clear();
 
-                ToolsPage toolsPage = new ToolsPage();
+                var toolsPage = new ToolsPage();
 
                 toolsPage.Style = (Style)FindResource("ToolsPageStyle");
 

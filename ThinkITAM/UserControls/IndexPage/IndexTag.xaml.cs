@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
@@ -17,6 +18,7 @@ namespace ThinkITAM.UserControls.IndexPage
         public IndexTag()
         {
             InitializeComponent();
+           
         }
 
 
@@ -24,9 +26,9 @@ namespace ThinkITAM.UserControls.IndexPage
         {
             var tagInfo = (sender as Button).DataContext as ViewModels.Index.IndexTagViewModel;
 
-            string url = FixSmbPath($"{tagInfo.Protocol}{tagInfo.Host}");
+            var url = FixSmbPath($"{tagInfo.Protocol}{tagInfo.Host}");
 
-            string browser = tagInfo.Browser;
+            var browser = tagInfo.Browser;
 
 
 
@@ -141,81 +143,87 @@ namespace ThinkITAM.UserControls.IndexPage
         /// <param name="e"></param>
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            ViewModels.Index.IndexTagViewModel tagInfo = null;
-            var menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                var contextMenu = menuItem.Parent as ContextMenu;
-                if (contextMenu != null)
+           
+
+
+                ViewModels.Index.IndexTagViewModel tagInfo = null;
+                var menuItem = sender as MenuItem;
+                if (menuItem != null)
                 {
-                    var button = contextMenu.PlacementTarget as Button;
-                    if (button != null)
+                    var contextMenu = menuItem.Parent as ContextMenu;
+                    if (contextMenu != null)
                     {
-                        tagInfo = button.DataContext as ViewModels.Index.IndexTagViewModel;
-                        // 在这里进行进一步的操作...
+                        var button = contextMenu.PlacementTarget as Button;
+                        if (button != null)
+                        {
+                            tagInfo = button.DataContext as ViewModels.Index.IndexTagViewModel;
+                            // 在这里进行进一步的操作...
+                        }
                     }
                 }
-            }
 
-            //string url = DataBridge.DataBridge.SelectNetwork + selectAddress;
-
+                //string url = DataBridge.DataBridge.SelectNetwork + selectAddress;
 
 
-            if (menuItem != null)
-            {
-                // 根据菜单项的不同进行相应的处理
-                switch (menuItem.Header.ToString())
+
+                if (menuItem != null)
                 {
-                    case "删除标签":
+                    // 根据菜单项的不同进行相应的处理
+                    switch (menuItem.Header.ToString())
+                    {
+                        case "删除标签":
 
+                            string portSql;
 
-                        string portSql;
-
-                        if (tagInfo.Port.Length == 0)
-                        {
-                            portSql = $"(Port='' OR Port IS NULL) ";
-                        }
-                        else
-                        {
-                            portSql = $"Port = '{tagInfo.Port}' ";
-                        }
-
-
-                        var sql = $"DELETE FROM Bookmark WHERE ( TypeGroup='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
-
-
-                       
-
-                        GlobalVariables.DbService.ExecuteNonQuery(sql);
-
-                        DataBridge.DataBridge.modifyIndexTags.Add("1");
-
-                        break;
-
-                    case "编辑标签":
-
-                        if (tagInfo != null)
-                        {
-                            AddressCollectWindow addressCollectWindow = new AddressCollectWindow(null, tagInfo);
-                            //窗口放中间
-                            var window = Window.GetWindow(this);
-                            if (window != null)
+                            if (tagInfo.Port.Length == 0)
                             {
-                                addressCollectWindow.Owner = window;
+                                portSql = $"(Port='' OR Port IS NULL) ";
+                            }
+                            else
+                            {
+                                portSql = $"Port = '{tagInfo.Port}' ";
                             }
 
-                            addressCollectWindow.ShowDialog();
 
-
-                        }
-
-                        break;
+                            var sql = $"DELETE FROM Bookmark WHERE ( TypeGroup='{tagInfo.Group}' AND Protocol='{tagInfo.Protocol}' AND Host='{tagInfo.Host}' AND {portSql})";
 
 
 
 
+                            GlobalVariables.DbService.ExecuteNonQuery(sql);
+
+                            DataBridge.DataBridge.modifyIndexTags.Add("1");
+
+                            break;
+
+                        case "编辑标签":
+
+                            if (tagInfo != null)
+                            {
+                                var addressCollectWindow = new AddressCollectWindow(null, tagInfo);
+                                //窗口放中间
+                                var window = Window.GetWindow(this);
+                                if (window != null)
+                                {
+                                    addressCollectWindow.Owner = window;
+                                }
+
+                                addressCollectWindow.ShowDialog();
+
+
+                            }
+
+                            break;
+
+
+
+
+                    }
                 }
-            }
+            
+
+
+
         }
 
 
@@ -292,6 +300,20 @@ namespace ThinkITAM.UserControls.IndexPage
                 MaskBrush2.GradientStops[0].Offset = 1;
                 MaskBrush2.GradientStops[1].Offset = 1;
                 MaskBrush2.GradientStops[2].Offset = 1;
+            }
+        }
+
+
+
+
+
+        private void IndexButton_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            // 判断条件
+            if (DataBridge.DataBridge.SelectedFunction == 1)
+            {
+                // 条件不满足时，取消右键菜单弹出
+                e.Handled = true;
             }
         }
     }

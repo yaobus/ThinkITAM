@@ -56,18 +56,18 @@
                     Stretch="None" />
                 <Label
                     Margin="20,20"
-                    Opacity="0.6"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Content="ThinkITAM反馈交流群"
-                    FontSize="14" />
+                    FontSize="14"
+                    Opacity="0.6" />
                 <Label
                     Margin="20,0"
-                    Opacity="0.6"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Content="请备注(ThinkITAM)"
-                    FontSize="12" />
+                    FontSize="12"
+                    Opacity="0.6" />
 
             </Grid>
 

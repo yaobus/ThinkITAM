@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="ThinkITAM"
-
     d:Background="DimGray"
     d:Height="1080"
     d:Width="1920"

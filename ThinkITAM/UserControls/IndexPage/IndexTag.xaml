@@ -27,13 +27,13 @@
                 Height="50"
                 Padding="0"
                 Click="IndexButton_OnClick"
+                ContextMenuOpening="IndexButton_OnContextMenuOpening"
                 Style="{StaticResource MaterialDesignFlatLightButton}"
                 ToolTip="{Binding Browser, Converter={StaticResource ToolTipConverter}}">
                 <Button.ContextMenu>
                     <ContextMenu>
                         <MenuItem Click="MenuItem_OnClick" Header="删除标签" />
                         <MenuItem Click="MenuItem_OnClick" Header="编辑标签" />
-
                     </ContextMenu>
                 </Button.ContextMenu>
                 <Grid Width="200">

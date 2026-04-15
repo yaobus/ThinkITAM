@@ -11,20 +11,28 @@ namespace ThinkITAM.DataBridge
     class DataBridge
     {
 
+
         /// <summary>
         /// 版本号
         /// </summary>
-        public static string Version = "1.0.45";
+        public static string Version = "1.0.46";
 
         /// <summary>
         /// 更新次数，用于数据库字段升级
         /// </summary>
-        public static int VersionNumber = 45;
+        public static int VersionNumber = 46;
 
         /// <summary>
         /// 当前打开的数据库类型
         /// </summary>
         public static string NowOpenedDataBaseType = "sqlite";
+
+
+
+        /// <summary>
+        /// 当前选中的功能模块,用于判断是否打开网址书签的右键菜单
+        /// </summary>
+        public static int SelectedFunction = 1;
 
 
         /// <summary>
