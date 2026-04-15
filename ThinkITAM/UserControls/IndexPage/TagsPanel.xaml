@@ -22,6 +22,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock
+                Margin="5,0,0,0"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
@@ -46,7 +47,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:IndexTag Margin="5,0" DataContext="{Binding}" />
+                        <local:IndexTag Margin="5,5" DataContext="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

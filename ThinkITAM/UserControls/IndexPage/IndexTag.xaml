@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:ThinkITAM.UserControls.IndexPage"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="210"
+    Width="200"
     Height="50"
     Background="Transparent"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
@@ -23,7 +23,7 @@
 
             <Button
                 x:Name="IndexButton"
-                Width="210"
+                Width="200"
                 Height="50"
                 Padding="0"
                 Click="IndexButton_OnClick"
@@ -36,7 +36,7 @@
 
                     </ContextMenu>
                 </Button.ContextMenu>
-                <Grid Width="210">
+                <Grid Width="200">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40" />
