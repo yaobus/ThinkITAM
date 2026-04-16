@@ -77,13 +77,13 @@
     <PackageReference Include="MaterialDesignColors" Version="5.3.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.6" />
     <PackageReference Include="MySqlConnector" Version="2.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Nmap.NET" Version="1.0.4" />
     <PackageReference Include="Nodify" Version="7.2.0" />
-    <PackageReference Include="QRCoder" Version="1.7.0" />
-    <PackageReference Include="System.Management" Version="10.0.5" />
+    <PackageReference Include="QRCoder" Version="1.8.0" />
+    <PackageReference Include="System.Management" Version="10.0.6" />
     <PackageReference Include="ZXing.Net" Version="0.16.11" />
     <PackageReference Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.22" />
   </ItemGroup>

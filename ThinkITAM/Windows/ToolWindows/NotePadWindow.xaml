@@ -568,6 +568,7 @@
                     <TextBox
                         x:Name="InputTextBox"
                         MinWidth="400"
+                        MaxWidth="800"
                         Margin="10"
                         HorizontalAlignment="Stretch"
                         AcceptsReturn="True"
