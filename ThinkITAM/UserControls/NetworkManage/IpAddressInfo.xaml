@@ -131,11 +131,12 @@
 
                 <Button.Style>
                     <!--  继承 MaterialDesignFlatLightButton 并扩展触发器  -->
-                    <Style BasedOn="{StaticResource MaterialDesignFlatLightButton}" TargetType="Button">
+                    <Style BasedOn="{StaticResource MaterialDesignRaisedLightButton}" TargetType="Button">
                         <!--  保留 Material Design 的默认属性  -->
                         <Setter Property="BorderBrush" Value="{StaticResource AnimatedBrush}" />
                         <!--  确保动画画刷优先级  -->
                         <Style.Triggers>
+
                             <!--  当 IsSelected 为 true 时启动动画  -->
                             <DataTrigger Binding="{Binding IsSelected}" Value="True">
                                 <DataTrigger.EnterActions>
