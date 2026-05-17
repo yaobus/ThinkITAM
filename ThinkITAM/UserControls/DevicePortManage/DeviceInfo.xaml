@@ -78,8 +78,8 @@
                                 FontWeight="Bold"
                                 Foreground="AliceBlue"
                                 SizeChanged="TextBlock0_OnSizeChanged"
-                                Text="{Binding DeviceType}"
-                                ToolTip="{Binding DeviceType}" />
+                                Text="{Binding Description}"
+                                ToolTip="{Binding Description}" />
 
                         </Grid>
                     </Border>
@@ -124,8 +124,8 @@
                                 Foreground="AliceBlue"
                                 Opacity="0.3"
                                 SizeChanged="TextBlock_OnSizeChanged"
-                                Text="{Binding Description}"
-                                ToolTip="{Binding Description}" />
+                                Text="{Binding DeviceType}"
+                                ToolTip="{Binding DeviceType}" />
                         </Grid>
                     </Border>
 
