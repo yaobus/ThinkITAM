@@ -5,10 +5,118 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ThinkITAM.UserControls.WakeOnLan"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     Width="200"
     Height="50"
-    Background="White"
+    Background="transparent"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     mc:Ignorable="d">
-    <Grid />
+
+    <UserControl.Resources>
+        <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
+        <converters:ToolTipConverter x:Key="ToolTipConverter" />
+        <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter" />
+    </UserControl.Resources>
+    
+        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+        <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp3">
+
+            <Button
+                x:Name="WolButton"
+                Width="200"
+                Height="50"
+                Padding="0"
+                Click="WolButton_OnClick"
+                ContextMenuOpening="WolButton_OnContextMenuOpening"
+                Style="{StaticResource MaterialDesignFlatLightButton}"
+                ToolTip="{Binding Browser, Converter={StaticResource ToolTipConverter}}">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="MenuItem_OnClick" Header="移除主机" />
+                        <MenuItem Click="MenuItem_OnClick" Header="编辑主机" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <Grid Width="200">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Background="{Binding Color, Converter={StaticResource IntegerToBrushConverter}}">
+
+                        <materialDesign:PackIcon
+                            Width="32"
+                            Height="32"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="AliceBlue"
+                            Kind="TabletCellphone" />
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Background="Teal" />
+
+
+
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="130" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0">
+                            <Border.OpacityMask>
+                                <LinearGradientBrush x:Name="MaskBrush" StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="Black" />
+                                    <GradientStop Offset="0.75" Color="Black" />
+                                    <GradientStop Offset="1" Color="Transparent" />
+                                </LinearGradientBrush>
+                            </Border.OpacityMask>
+                            <Grid>
+                                <TextBlock
+                                    x:Name="TextBlock"
+                                    Grid.Column="0"
+                                    Margin="5,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    d:Text="快速访问标签"
+                                    FontWeight="Bold"
+                                    Foreground="AliceBlue"
+                                    SizeChanged="TextBlock_OnSizeChanged"
+                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                    Text="{Binding Name}"
+                                    ToolTip="{Binding Name}" />
+                            </Grid>
+                        </Border>
+
+
+                    </Grid>
+
+
+
+
+                </Grid>
+
+
+            </Button>
+
+        </materialDesign:Card>
+    </materialDesign:TransitioningContent>
+
+    
 </UserControl>

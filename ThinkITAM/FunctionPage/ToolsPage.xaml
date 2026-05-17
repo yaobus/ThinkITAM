@@ -689,7 +689,7 @@
                             Padding="0"
                             Click="WakeOnLanButton_OnClick"
                             Style="{StaticResource MaterialDesignFlatLightButton}"
-                            Visibility="Collapsed">
+                            Visibility="Visible">
                             <Grid Width="280" Height="140">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="60*" />

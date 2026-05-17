@@ -25,7 +25,8 @@ namespace ThinkITAM.Windows.ToolWindows
 
 
             HostsDataGrid.ItemsSource = hosts;
-
+            HostPanel.ItemsSource = hosts;
+            
             LoadWakeOnLanHosts();
         }
 
