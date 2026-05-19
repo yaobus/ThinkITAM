@@ -210,6 +210,23 @@ namespace ThinkITAM.Windows.ToolWindows
             }
 
 
+
+            if (string.IsNullOrWhiteSpace(GroupTextBox.Text))
+            {
+
+                var group = GroupTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(group))
+                {
+                    index++;
+
+                    message += index.ToString() + ":分组信息不得为空\r";
+                }
+
+
+            }
+
+
             return (index, message);
         }
 

@@ -30,7 +30,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
             RefreshHostList();
             
-            PingHost(_hostPanelViewModels);
+           
         }
 
         /// <summary>
@@ -317,6 +317,7 @@ namespace ThinkITAM.Windows.ToolWindows
         {
             LoadWakeOnLanHosts();
             await ClassifyHost(hosts);
+            PingHost(_hostPanelViewModels);
         }
 
         /// <summary>
