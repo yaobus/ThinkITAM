@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:ThinkITAM.Windows.ToolWindows"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:others="clr-namespace:ThinkITAM.ViewModels.Others"
     xmlns:wakeOnLan="clr-namespace:ThinkITAM.UserControls.WakeOnLan"
     Title="网络唤醒"
@@ -65,10 +66,10 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1" Orientation="Vertical">
 
-                    <StackPanel Margin="10" Orientation="Horizontal"  Visibility="Collapsed">
+                    <StackPanel Margin="10" Orientation="Horizontal" Visibility="Collapsed">
 
                         <StackPanel
-                           
+
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
@@ -146,259 +147,273 @@
                     </StackPanel>
 
 
-
-
                 </StackPanel>
             </Grid>
         </materialDesign:Card>
 
 
-        
-        
-        <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,5">
-<Grid>
-            <ItemsControl
-                x:Name="HostPanel">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+        <materialDesign:Card Grid.Row="1" Margin="5,2.5,5,5" Background="Transparent">
+            <Grid>
+                <materialDesign:ColorZone
+                    Margin="10"
+                    VerticalAlignment="Stretch"
+                    d:Background="OliveDrab"
+                    CornerRadius="5">
+                    <ScrollViewer
+                        Margin="-5,0,-5,0"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <wakeOnLan:HostUserControl Margin="5" DataContext="{Binding}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
-            
-            <DataGrid
-                x:Name="HostsDataGrid"
-                VerticalAlignment="Stretch"
-                AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                MouseDoubleClick="HostsDataGrid_OnMouseDoubleClick"
-                SelectionMode="Extended"
-                SelectionUnit="FullRow"
-                Visibility="Collapsed"
-                >
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn
-                        Width="100"
-                        CanUserSort="False"
-                        SortMemberPath="CodingType">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="Numbers" />
-                                <TextBlock
-                                    Margin="5,0"
+                        <ItemsControl
+                            x:Name="HostsPanel"
+                            dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <wakeOnLan:HostPanel Margin="0,10" />
+                                    </Grid>
+
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+
+                    </ScrollViewer>
+
+                </materialDesign:ColorZone>
+                
+
+
+                <DataGrid
+                    x:Name="HostsDataGrid"
+                    VerticalAlignment="Stretch"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    MouseDoubleClick="HostsDataGrid_OnMouseDoubleClick"
+                    SelectionMode="Extended"
+                    SelectionUnit="FullRow"
+                    Visibility="Collapsed">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            Width="100"
+                            CanUserSort="False"
+                            SortMemberPath="CodingType">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="序号" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
+                                    Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Numbers" />
                                     <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Index}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn
-                        Width="120"
-                        CanUserSort="False"
-                        SortMemberPath="Resolution">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="Note" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="名称" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Name}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn
-                        Width="150"
-                        CanUserSort="False"
-                        SortMemberPath="SaveDay">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="ExpansionCard" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="MAC地址" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Mac}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-
-                    <DataGridTemplateColumn
-                        Width="120"
-                        CanUserSort="False"
-                        SortMemberPath="Resolution">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="Group" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="群组" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding HostGroup}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
-
-                    
-                    <DataGridTemplateColumn
-                        Width="120"
-                        CanUserSort="False"
-                        SortMemberPath="StorageSpace"
-                        Visibility="Collapsed">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="Hdd" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="状态" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Status}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-                    <DataGridTemplateColumn Width="140" CanUserSort="False">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="PowerSettings" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="网络唤醒" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        x:Name="WakeOnLanButton0"
                                         Margin="5,0"
-                                        Click="WakeOnLanButton0_OnClick"
-                                        Content="网络唤醒"
-                                        IsEnabled="{Binding IpAddress, Converter={StaticResource StringToBooleanConverter}}"
-                                        Style="{StaticResource MaterialDesignRaisedLightButton}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="序号" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Index}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-
-                    <DataGridTemplateColumn Width="140" CanUserSort="False">
-                        <DataGridTemplateColumn.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
-                                    Kind="Delete" />
-                                <TextBlock
-                                    Margin="5,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="14"
-                                    Text="删除" />
-                            </StackPanel>
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Button
-                                        x:Name="DeleteButton"
+                        <DataGridTemplateColumn
+                            Width="120"
+                            CanUserSort="False"
+                            SortMemberPath="Resolution">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Note" />
+                                    <TextBlock
                                         Margin="5,0"
-                                        Content="删除"
-                                        Style="{StaticResource MaterialDesignRaisedLightButton}" />
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-</Grid>
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="名称" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Name}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn
+                            Width="150"
+                            CanUserSort="False"
+                            SortMemberPath="SaveDay">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="ExpansionCard" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="MAC地址" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Mac}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn
+                            Width="120"
+                            CanUserSort="False"
+                            SortMemberPath="Resolution">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Group" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="群组" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding HostGroup}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn
+                            Width="120"
+                            CanUserSort="False"
+                            SortMemberPath="StorageSpace"
+                            Visibility="Collapsed">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Hdd" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="状态" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Status}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn Width="140" CanUserSort="False">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="PowerSettings" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="网络唤醒" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Button
+                                            x:Name="WakeOnLanButton0"
+                                            Margin="5,0"
+                                            Click="WakeOnLanButton0_OnClick"
+                                            Content="网络唤醒"
+                                            IsEnabled="{Binding IpAddress, Converter={StaticResource StringToBooleanConverter}}"
+                                            Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn Width="140" CanUserSort="False">
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Delete" />
+                                    <TextBlock
+                                        Margin="5,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="删除" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Button
+                                            x:Name="DeleteButton"
+                                            Margin="5,0"
+                                            Content="删除"
+                                            Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </materialDesign:Card>
     </Grid>
 </Window>

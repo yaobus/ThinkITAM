@@ -1,7 +1,9 @@
 ﻿
 
 
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ThinkITAM.ViewModels.Others
 {
@@ -193,4 +195,51 @@ namespace ThinkITAM.ViewModels.Others
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+
+    
+    /// <summary>
+    /// Wol窗口HostPanel数据
+    /// </summary>
+    public class HostPanelViewModel : INotifyPropertyChanged
+    {
+        
+        private string _groupName;
+        private ObservableCollection<WakeOnLanHostViewModel> _hosts;
+        
+        public string GroupName
+        {
+            get => _groupName;
+            set
+            {
+                if (_groupName != value)
+                {
+                    _groupName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        public ObservableCollection<WakeOnLanHostViewModel> Hosts
+        {
+            get => _hosts;
+            set
+            {
+                if (_hosts != value)
+                {
+                    _hosts = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        
+        
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+    
 }

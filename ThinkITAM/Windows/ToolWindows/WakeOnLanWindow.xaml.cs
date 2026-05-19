@@ -20,14 +20,13 @@ namespace ThinkITAM.Windows.ToolWindows
         }
 
 
-        private void WakeOnLanWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private async void WakeOnLanWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-
-
             HostsDataGrid.ItemsSource = hosts;
-            HostPanel.ItemsSource = hosts;
-            
+            HostsPanel.ItemsSource = _hostPanelViewModels;
+
             LoadWakeOnLanHosts();
+            await ClassifyHost(hosts);
         }
 
         private void AddHostButton_OnClick(object sender, RoutedEventArgs e)
@@ -46,11 +45,11 @@ namespace ThinkITAM.Windows.ToolWindows
                 //加载数据
                 LoadWakeOnLanHosts();
             }
-
         }
 
 
         private ObservableCollection<WakeOnLanHostViewModel> hosts = new ObservableCollection<WakeOnLanHostViewModel>();
+
         private void LoadWakeOnLanHosts()
         {
             hosts.Clear();
@@ -97,7 +96,6 @@ namespace ThinkITAM.Windows.ToolWindows
                     {
                         host.Port = 9;
                     }
-
                 }
 
                 if (row["PinToStart"] != DBNull.Value)
@@ -119,17 +117,11 @@ namespace ThinkITAM.Windows.ToolWindows
                 }
 
 
-
-
-
-
                 host.Mac = row["Mac"].ToString();
 
 
                 hosts.Add(host);
             }
-
-
         }
 
 
@@ -138,7 +130,6 @@ namespace ThinkITAM.Windows.ToolWindows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private async void WakeOnLanButton0_OnClick(object sender, RoutedEventArgs e)
         {
             var info = HostsDataGrid.SelectedItem as WakeOnLanHostViewModel;
@@ -153,13 +144,11 @@ namespace ThinkITAM.Windows.ToolWindows
                     subnetMask: string.IsNullOrWhiteSpace(info.Netmask) ? null : info.Netmask);
 
                 Console.WriteLine($"已发送WOL包到 {info.Mac}所在IP地址{info.IpAddress}");
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"发送失败: {ex.Message}");
             }
-
         }
 
         /// <summary>
@@ -182,7 +171,6 @@ namespace ThinkITAM.Windows.ToolWindows
                     subnetMask: string.IsNullOrWhiteSpace(info.Netmask) ? null : info.Netmask);
 
                 Console.WriteLine($"已发送WOL包到 {info.Mac}所在网段的广播地址");
-
             }
             catch (Exception ex)
             {
@@ -212,7 +200,6 @@ namespace ThinkITAM.Windows.ToolWindows
             var rowData = row.Item as WakeOnLanHostViewModel;
             if (rowData != null)
             {
-
                 Console.WriteLine(rowData.PinToStart);
 
                 // 逻辑代码
@@ -232,7 +219,46 @@ namespace ThinkITAM.Windows.ToolWindows
                     //加载数据
                     LoadWakeOnLanHosts();
                 }
+            }
+        }
 
+        
+        private ObservableCollection<HostPanelViewModel> _hostPanelViewModels =
+            new ObservableCollection<HostPanelViewModel>();
+        
+
+        /// <summary>
+        /// 加载分组信息
+        /// </summary>
+        private async Task ClassifyHost(ObservableCollection<WakeOnLanHostViewModel> _hosts )
+        {
+            if (hosts.Count > 0)
+            {
+                
+                _hostPanelViewModels.Clear();
+                
+                var groupedByHostGroup = _hosts.GroupBy(p => p.HostGroup);
+                
+                
+                // 遍历每个分组
+                foreach (var group in groupedByHostGroup)
+                {
+                    var hostPanel = new HostPanelViewModel();
+                    hostPanel.GroupName = group.Key;
+
+                    ObservableCollection<WakeOnLanHostViewModel>
+                        gh = new ObservableCollection<WakeOnLanHostViewModel>();
+                    
+                    foreach (var host in group)
+                    {
+                        gh.Add(host);
+                    }
+
+                    hostPanel.Hosts = gh;
+                    
+                    _hostPanelViewModels.Add(hostPanel);
+                }
+               
             }
         }
     }
