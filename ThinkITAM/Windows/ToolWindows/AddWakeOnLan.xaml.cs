@@ -25,7 +25,8 @@ namespace ThinkITAM.Windows.ToolWindows
         private WakeOnLanHostViewModel wakeOnLanHostViewModel;
         private void AddWakeOnLan_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+            LoadHostGroups();
+            GroupTextBox.ItemsSource = hostGroups;
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
@@ -212,5 +213,27 @@ namespace ThinkITAM.Windows.ToolWindows
             return (index, message);
         }
 
+
+        private List<string> hostGroups = new List<string>();
+
+        /// <summary>
+        /// 加载数据库中已有的HostGroup，并去重后展示在界面上供用户选择（例如ComboBox或ListBox）
+        /// </summary>
+        private void LoadHostGroups()
+        {
+            var sql = "SELECT DISTINCT HostGroup FROM WakeOnLan";
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(sql);
+
+            foreach (var row in rows)
+            {
+                // Do something with each distinct HostGroup
+                var hostGroup = row["HostGroup"].ToString();
+                if (!hostGroups.Contains(hostGroup))
+                {
+                    hostGroups.Add(hostGroup);
+                }
+            }
+        }
     }
 }

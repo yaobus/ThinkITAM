@@ -56,6 +56,7 @@
                 materialDesign:TextFieldAssist.LeadingIcon="Laptop"
                 IsEnabled="False"
                 Opacity="0.5"
+                Text="{Binding NowHostName, Mode=OneWay}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
 
@@ -73,6 +74,7 @@
                 materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
                 IsEnabled="False"
                 Opacity="0.5"
+                Text="{Binding NowMacAddress, Mode=OneWay}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <StackPanel

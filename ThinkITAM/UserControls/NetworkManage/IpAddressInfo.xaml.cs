@@ -341,7 +341,18 @@ public partial class IpAddressInfo : UserControl
                     var info = new WakeOnLanHostViewModel();
                     info.IpAddress = url;
                     info.Netmask = DataBridge.DataBridge.SelectNetworkInfo.Netmask;
-                    info.Mac = portInfo.MacAddress;
+
+                    if (string.IsNullOrWhiteSpace(portInfo.MacAddress))
+                    {
+                        info.Mac = portInfo.NowMacAddress;
+                    }
+                    else
+                    {
+                        info.Mac = portInfo.MacAddress;
+                    }
+                    
+                    
+                   
                     info.Port = 9;
 
                     AddWakeOnLan wake = new AddWakeOnLan(info);

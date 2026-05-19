@@ -13,6 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ThinkITAM.DataBridge;
+using ThinkITAM.ViewModels.NetworkManage;
+using ThinkITAM.ViewModels.Others;
+using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.ToolWindows;
 
 namespace ThinkITAM.UserControls.WakeOnLan;
 /// <summary>
@@ -43,7 +48,52 @@ public partial class HostUserControl : UserControl
     /// <param name="e"></param>
     private void MenuItem_OnClick(object sender, RoutedEventArgs e)
     {
-       
+
+        // 获取触发事件的MenuItem
+        var menuItem = sender as MenuItem;
+
+        if (menuItem != null)
+        {
+            var info = this.DataContext as WakeOnLanHostViewModel;
+
+            // 根据菜单项的不同进行相应的处理
+            switch (menuItem.Tag)
+            {
+                case "DeleteHost":
+                   
+                    var sql = $"DELETE FROM WakeOnLan WHERE UID = {info.UID}";
+
+                    var result = MessageBox.Show($"确定要删除主机 {info.Name} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        GlobalVariables.DbService.ExecuteQuery(sql);
+                    }
+                    //冒泡到父级控件，刷新列表
+
+                    break;
+
+                case "EditHost":
+                    // 执行选项2的操作
+                    
+                    AddWakeOnLan wake = new AddWakeOnLan(info);
+
+
+
+                    var window3 = Window.GetWindow(this);
+                    if (window3 != null)
+                    {
+                        wake.Owner = window3;
+                    }
+
+                    wake.ShowDialog();
+
+
+                    break;
+
+            }
+        }
+
     }
 
     /// <summary>

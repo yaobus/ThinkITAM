@@ -70,6 +70,10 @@ namespace ThinkITAM.ViewModels.Others
 
 
         private bool status;
+
+        /// <summary>
+        /// 在线状态，true表示在线，false表示离线
+        /// </summary>
         public bool Status
         {
             get => status;

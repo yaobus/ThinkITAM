@@ -2,11 +2,11 @@
     x:Class="ThinkITAM.UserControls.WakeOnLan.HostUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ThinkITAM.UserControls.WakeOnLan"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:converters="clr-namespace:ThinkITAM.Functions.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="200"
     Height="50"
     Background="transparent"
@@ -18,8 +18,8 @@
         <converters:ToolTipConverter x:Key="ToolTipConverter" />
         <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter" />
     </UserControl.Resources>
-    
-        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
+
+    <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom, Duration=0:0:0.2}">
         <materialDesign:Card Margin="0" materialDesign:ElevationAssist.Elevation="Dp3">
 
             <Button
@@ -33,8 +33,14 @@
                 ToolTip="{Binding Browser, Converter={StaticResource ToolTipConverter}}">
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Click="MenuItem_OnClick" Header="移除主机" />
-                        <MenuItem Click="MenuItem_OnClick" Header="编辑主机" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="移除主机"
+                            Tag="DeleteHost" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="编辑主机"
+                            Tag="EditHost" />
                     </ContextMenu>
                 </Button.ContextMenu>
                 <Grid Width="200">
@@ -53,7 +59,7 @@
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         Grid.Column="0"
-                        Background="{Binding Color, Converter={StaticResource IntegerToBrushConverter}}">
+                        Background="{Binding Status, Converter={StaticResource IntegerToBrushConverter}}">
 
                         <materialDesign:PackIcon
                             Width="32"
@@ -118,5 +124,5 @@
         </materialDesign:Card>
     </materialDesign:TransitioningContent>
 
-    
+
 </UserControl>
