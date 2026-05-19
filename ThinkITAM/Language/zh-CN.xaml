@@ -212,7 +212,10 @@
     <s:String x:Key="NmpIpCollect">添加收藏</s:String>
     <s:String x:Key="NmpAddWol">添加WOL</s:String>
     <s:String x:Key="NmpCopy">复制信息</s:String>
-
+    
+    <s:String x:Key="NmpWol">网络唤醒</s:String>
+    <s:String x:Key="NmpOpen">打开地址</s:String>
+    
 
 
     <!--  DevicePortManagePage  -->

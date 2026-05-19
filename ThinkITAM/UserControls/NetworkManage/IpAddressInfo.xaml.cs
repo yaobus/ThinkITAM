@@ -6,11 +6,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using ThinkITAM.DatabaseOperation;
+using ThinkITAM.FunctionPage;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
 using ThinkITAM.Windows.NetworkManage;
+using ThinkITAM.Windows.Selection;
 using ThinkITAM.Windows.ToolWindows;
+using WOLSharp.Sockets;
 using static ThinkITAM.Windows.NetworkManage.AddressAllocationWindow;
 
 namespace ThinkITAM.UserControls.NetworkManage;
@@ -256,7 +259,7 @@ public partial class IpAddressInfo : UserControl
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+    private async void MenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         int selectAddress = Convert.ToInt32(AddressBlock.Text);
         string url = DataBridge.DataBridge.SelectNetwork + selectAddress;
@@ -334,7 +337,7 @@ public partial class IpAddressInfo : UserControl
 
                     // 执行选项2的操作
                     break;
-                case "Wol":
+                case "AddWol":
 
                     var portInfo = this.DataContext as IpAddressInfoListViewMode;
 
@@ -443,10 +446,74 @@ public partial class IpAddressInfo : UserControl
                     PlayEmbeddedSound();
                     Clipboard.SetDataObject(infoString);
                     break;
+                
+                case"Wol":
+
+                    var wolHost = this.DataContext as IpAddressInfoListViewMode;
+                    
+                    //判断info中的Mac地址是否合法
+                    if (MacConform(wolHost.MacAddress))
+                    {
+                        //通过WOLSharp库发送WOL包
+                        using var wol = new WOLSocket();
+
+            
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (i == 0)
+                            {
+                                //向父级控件发送消息，通过materialDesign:Snackbar控件显示已发送wol包的信息
+
+                                ((SelectionWindow)Window.GetWindow(this)).ShowSnackbar($"已发送WOL数据到主机{wolHost.MacAddress}",2);
+                    
+                            }
+                
+                            await wol.BroadcastAsync(wolHost.MacAddress);
+                            await Task.Delay(1000);
+                        }
+
+                    }
+                    else
+                    {
+                        //冒泡到父级窗口，并弹出Snackbar消息提示
+                       
+                        ((SelectionWindow)Window.GetWindow(this)).ShowSnackbar("MAC地址不合法！无法发送WOL数据包",2);
+
+                    }
+
+                    break;
+                
+                case "Open": 
+                    
+                    var port = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(DataBridge.DataBridge.SelectPort))
+                    {
+                        port = $":{DataBridge.DataBridge.SelectPort}";
+                    }
+
+                    string url2 = $"{DataBridge.DataBridge.Protocol}{url}{port}";
+
+
+
+
+                    OpenUrlClass.OpenUrlInSpecificBrowser(url2, DataBridge.DataBridge.SelectBrowser);
+
+
+                    
+                    break;
             }
         }
     }
 
+    /// <summary>
+    /// 判断字符串是否是MAC
+    /// </summary>
+    /// <returns></returns>
+    private bool MacConform(string mac)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(mac, @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+    }
 
     /// <summary>
     /// 播放提示音

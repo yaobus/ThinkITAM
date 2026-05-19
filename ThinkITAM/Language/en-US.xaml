@@ -179,6 +179,10 @@
     <s:String x:Key="NmpAddWol">Add Wol</s:String>
     <s:String x:Key="NmpCopy">Copy Info</s:String>
 
+    <s:String x:Key="NmpWol">Wake On Lan</s:String>
+    <s:String x:Key="NmpOpen">Open In Browser</s:String>
+
+    
     <!--  DevicePortManagePage  -->
     <s:String x:Key="DpmAddDevice">Add Device</s:String>
     <s:String x:Key="DpmShowMode">Switch Display Mode</s:String>

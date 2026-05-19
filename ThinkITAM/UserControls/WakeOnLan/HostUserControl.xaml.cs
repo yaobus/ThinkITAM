@@ -13,11 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
 using ThinkITAM.ViewModels.NetworkManage;
 using ThinkITAM.ViewModels.Others;
 using ThinkITAM.Windows.NetworkManage;
 using ThinkITAM.Windows.ToolWindows;
+using WOLSharp.Sockets;
 
 namespace ThinkITAM.UserControls.WakeOnLan;
 /// <summary>
@@ -30,11 +32,51 @@ public partial class HostUserControl : UserControl
         InitializeComponent();
     }
 
-    private void WolButton_OnClick(object sender, RoutedEventArgs e)
+    private async void WolButton_OnClick(object sender, RoutedEventArgs e)
     {
+        var info = this.DataContext as WakeOnLanHostViewModel;
+
+        //判断info中的Mac地址是否合法
+        if (MacConform(info.Mac))
+        {
+            //通过WOLSharp库发送WOL包
+            using var wol = new WOLSocket();
+
+            
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == 0)
+                {
+                    //向父级控件发送消息，通过materialDesign:Snackbar控件显示已发送wol包的信息
+                  
+                    ((WakeOnLanWindow)Window.GetWindow(this)).ShowSnackbar($"已发送WOL数据到主机:  {info.Name}\rMAC:  {info.Mac}",2);
+                    
+                }
+                
+                await wol.BroadcastAsync(info.Mac);
+                await Task.Delay(1000);
+            }
+
+        }
+        else
+        {
+         MessageBox.Show("MAC地址格式错误", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        
+        
         
     }
 
+    /// <summary>
+    /// 判断字符串是否是MAC
+    /// </summary>
+    /// <returns></returns>
+    private bool MacConform(string mac)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(mac, @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$");
+    }
+    
+    
     private void WolButton_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
        
@@ -63,13 +105,15 @@ public partial class HostUserControl : UserControl
                    
                     var sql = $"DELETE FROM WakeOnLan WHERE UID = {info.UID}";
 
-                    var result = MessageBox.Show($"确定要删除主机 {info.Name} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show($"确定要删除主机 {info.Name} 吗？\r该操作不可恢复！", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
                     {
                         GlobalVariables.DbService.ExecuteQuery(sql);
                     }
+                    ((WakeOnLanWindow)Window.GetWindow(this)).ShowSnackbar($"已删除主机: {info.Name}\rMAC: {info.Mac}",2);
                     //冒泡到父级控件，刷新列表
+                    ((WakeOnLanWindow)Window.GetWindow(this)).RefreshHostList();
 
                     break;
 
@@ -77,8 +121,6 @@ public partial class HostUserControl : UserControl
                     // 执行选项2的操作
                     
                     AddWakeOnLan wake = new AddWakeOnLan(info);
-
-
 
                     var window3 = Window.GetWindow(this);
                     if (window3 != null)
@@ -88,7 +130,9 @@ public partial class HostUserControl : UserControl
 
                     wake.ShowDialog();
 
-
+                    ((WakeOnLanWindow)Window.GetWindow(this)).ShowSnackbar($"已保存修改: {info.Name}\rMAC: {info.Mac}",2);
+                    //冒泡到父级控件，刷新列表
+                    ((WakeOnLanWindow)Window.GetWindow(this)).RefreshHostList();
                     break;
 
             }

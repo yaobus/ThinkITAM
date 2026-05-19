@@ -181,6 +181,8 @@ namespace ThinkITAM.Functions.FunctionClass
                 ? IPAddress.Parse("ffff:ffff:ffff:ffff::")
                 : IPAddress.Parse("255.255.255.0");
         }
+
+
     }
 }
 

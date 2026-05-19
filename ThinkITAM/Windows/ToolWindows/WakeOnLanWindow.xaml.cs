@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.ViewModels.Others;
@@ -25,10 +28,55 @@ namespace ThinkITAM.Windows.ToolWindows
             HostsDataGrid.ItemsSource = hosts;
             HostsPanel.ItemsSource = _hostPanelViewModels;
 
-            LoadWakeOnLanHosts();
-            await ClassifyHost(hosts);
+            RefreshHostList();
+            
+            PingHost(_hostPanelViewModels);
         }
 
+        /// <summary>
+        /// 持续检测主机在线状态
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void PingHost(ObservableCollection<HostPanelViewModel> _hosts )
+        { 
+            foreach (var group in _hosts)
+            { 
+                foreach (var item in group.Hosts)
+                {
+                    //如果item.IpAddress的内容是IP地址
+                    if (IPAddress.TryParse(item.IpAddress, out IPAddress ip))
+                    {
+                        using (var ping = new Ping())
+                        {
+                            var reply = await ping.SendPingAsync(item.IpAddress, 1000);
+
+                            if (reply.Status == IPStatus.Success) // 在线
+                            {
+                                item.Status = true;
+                            }
+                            else
+                            {
+                                item.Status = false;
+                            }
+                        }
+                        
+                        
+                       
+                    }
+                   
+                    
+                    
+                    
+                }
+            }
+           
+
+        }
+        
+        
+        
+        
         private void AddHostButton_OnClick(object sender, RoutedEventArgs e)
         {
             AddWakeOnLan wake = new AddWakeOnLan();
@@ -43,7 +91,7 @@ namespace ThinkITAM.Windows.ToolWindows
             if (wake.ShowDialog() == true)
             {
                 //加载数据
-                LoadWakeOnLanHosts();
+                RefreshHostList();
             }
         }
 
@@ -217,7 +265,7 @@ namespace ThinkITAM.Windows.ToolWindows
                 if (wake.ShowDialog() == true)
                 {
                     //加载数据
-                    LoadWakeOnLanHosts();
+                    RefreshHostList();
                 }
             }
         }
@@ -260,6 +308,32 @@ namespace ThinkITAM.Windows.ToolWindows
                 }
                
             }
+        }
+
+        /// <summary>
+        /// 刷新WakeOnLan列表
+        /// </summary>
+        public async void RefreshHostList()
+        {
+            LoadWakeOnLanHosts();
+            await ClassifyHost(hosts);
+        }
+
+        /// <summary>
+        /// 显示消息
+        /// </summary>
+        /// <param name="snackbarMessage"></param>
+        public void ShowSnackbar(string snackbarMessage,int duration = 1)
+        {
+           //显示消息
+           Snackbar.MessageQueue.Enqueue(
+               snackbarMessage,
+               null,
+               null,
+               null,
+               false,
+               true,
+               TimeSpan.FromSeconds(duration));
         }
     }
 }

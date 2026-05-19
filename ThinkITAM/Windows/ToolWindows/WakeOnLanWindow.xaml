@@ -420,5 +420,14 @@
                 </DataGrid>
             </Grid>
         </materialDesign:Card>
+        
+        <materialDesign:Snackbar
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            x:Name="Snackbar"
+            Background="#6fc6c5" 
+            Foreground="White" 
+            MessageQueue="{materialDesign:MessageQueue}"
+            />
     </Grid>
 </Window>

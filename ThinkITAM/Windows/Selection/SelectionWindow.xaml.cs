@@ -638,7 +638,22 @@ public partial class SelectionWindow : Window
 
     }
 
-
+    /// <summary>
+    /// 显示消息
+    /// </summary>
+    /// <param name="snackbarMessage"></param>
+    public void ShowSnackbar(string snackbarMessage,int duration = 1)
+    {
+        //显示消息
+        Snackbar.MessageQueue.Enqueue(
+            snackbarMessage,
+            null,
+            null,
+            null,
+            false,
+            true,
+            TimeSpan.FromSeconds(duration));
+    }
 }
 
 

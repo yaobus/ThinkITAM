@@ -121,7 +121,15 @@
                         <MenuItem
                             Click="MenuItem_OnClick"
                             Header="{DynamicResource NmpAddWol}"
+                            Tag="AddWol" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpWol}"
                             Tag="Wol" />
+                        <MenuItem
+                            Click="MenuItem_OnClick"
+                            Header="{DynamicResource NmpOpen}"
+                            Tag="Open" />
                         <MenuItem
                             Click="MenuItem_OnClick"
                             Header="{DynamicResource NmpCopy}"

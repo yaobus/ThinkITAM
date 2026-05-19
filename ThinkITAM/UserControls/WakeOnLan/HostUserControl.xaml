@@ -14,8 +14,8 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <converters:IntegerToBrushConverter x:Key="IntegerToBrushConverter" />
-        <converters:ToolTipConverter x:Key="ToolTipConverter" />
+        <converters:HostOnlineStatusToColorConverter x:Key="HostOnlineStatusToColorConverter" />
+        <converters:HostOnlineStatusToPackIcon x:Key="HostOnlineStatusToPackIcon" />
         <converters:PinToStartIntToVisibilityConverter x:Key="PinToStartIntToVisibilityConverter" />
     </UserControl.Resources>
 
@@ -30,7 +30,7 @@
                 Click="WolButton_OnClick"
                 ContextMenuOpening="WolButton_OnContextMenuOpening"
                 Style="{StaticResource MaterialDesignFlatLightButton}"
-                ToolTip="{Binding Browser, Converter={StaticResource ToolTipConverter}}">
+                ToolTip="{Binding TpWakeOnLanTooltip}">
                 <Button.ContextMenu>
                     <ContextMenu>
                         <MenuItem
@@ -59,7 +59,7 @@
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         Grid.Column="0"
-                        Background="{Binding Status, Converter={StaticResource IntegerToBrushConverter}}">
+                        Background="{Binding Status, Converter={StaticResource HostOnlineStatusToColorConverter}}">
 
                         <materialDesign:PackIcon
                             Width="32"
@@ -67,7 +67,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Foreground="AliceBlue"
-                            Kind="TabletCellphone" />
+                            Kind="{Binding Status,Converter={StaticResource HostOnlineStatusToPackIcon}}" />
 
                     </Grid>
 
@@ -75,7 +75,7 @@
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         Grid.Column="1"
-                        Background="Teal" />
+                        Background="#01847f" />
 
 
 
