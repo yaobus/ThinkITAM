@@ -131,7 +131,7 @@
                             Foreground="AliceBlue"
                             Opacity="0.5"
                             Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                            Text="{Binding MAC}" />
+                            Text="{Binding Mac}" />
 
 
                     </Grid>
