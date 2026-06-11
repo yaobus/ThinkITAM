@@ -75,14 +75,14 @@
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
 
                         <materialDesign:PackIcon
-                            Margin="0"
+                            Margin="5,0"
                             VerticalAlignment="Center"
-                            Kind="ConsoleNetwork" />
+                            Kind="DesktopClassic" />
 
                         <TextBlock
                             Margin="0"
                             VerticalAlignment="Center"
-                            Text="添加" />
+                            Text="新增" />
 
                     </StackPanel>
                 </Button>

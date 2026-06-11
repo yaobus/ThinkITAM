@@ -558,6 +558,7 @@ public partial class MainWindow : Window
 
     private async void ProjectListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
+        //双击项目列表，测试数据库是否可以连接
         if (GlobalVariables.DbService.TestConnection() == true)//连接成功
         {
             SelectionWindow newWindow = new SelectionWindow();
