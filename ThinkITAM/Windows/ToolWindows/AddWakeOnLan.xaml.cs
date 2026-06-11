@@ -81,7 +81,7 @@ namespace ThinkITAM.Windows.ToolWindows
             }
             else
             {
-                MessageBox.Show(info.Item2);
+                MessageBox.Show($"{info.Item2}","提示",MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
         }
@@ -148,7 +148,7 @@ namespace ThinkITAM.Windows.ToolWindows
 
                     index++;
 
-                    message += index.ToString() + ":IP地址不得为空,如果不清楚设备具体IP，可填写设备所在网段广播地址(或设备所在网段任意IP地址，唤醒时选择“广播唤醒”)\r";
+                    message += index.ToString() + ":IP地址用于检测设备是否在线，因此不得为空\r";
 
 
                 }
@@ -226,6 +226,20 @@ namespace ThinkITAM.Windows.ToolWindows
 
             }
 
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+
+                var name = NameTextBox.Text;
+
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    index++;
+
+                    message += index.ToString() + ":名称信息不得为空，缺少名称将影响辨别目标设备\r";
+                }
+
+
+            }
 
             return (index, message);
         }

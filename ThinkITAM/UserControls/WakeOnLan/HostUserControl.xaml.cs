@@ -105,7 +105,7 @@ public partial class HostUserControl : UserControl
                    
                     var sql = $"DELETE FROM WakeOnLan WHERE UID = {info.UID}";
 
-                    var result = MessageBox.Show($"确定要删除主机 {info.Name} 吗？\r该操作不可恢复！", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBox.Show($"确定要删除主机 {info.Name} 吗？\r该操作不可恢复！", "确认删除吗？", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
                     if (result == MessageBoxResult.Yes)
                     {

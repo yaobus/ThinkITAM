@@ -18,6 +18,7 @@
     MinHeight="768"
     FontFamily="{StaticResource HarmonyOsFontFamily}"
     Loaded="WakeOnLanWindow_OnLoaded"
+    Style="{StaticResource MaterialDesignWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -32,7 +33,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-
         </Grid.RowDefinitions>
 
         <materialDesign:Card
@@ -41,13 +41,13 @@
             HorizontalAlignment="Stretch">
 
             <Grid Grid.Row="0" HorizontalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
 
                 <StackPanel
-                    Grid.Row="0"
+                    Grid.Column="0"
                     Margin="10,20,10,10"
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
@@ -64,92 +64,30 @@
                         Text="网络唤醒工具" />
 
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Vertical">
 
-                    <StackPanel
-                        Margin="10"
-                        Orientation="Horizontal"
-                        Visibility="Collapsed">
+                <Button
+                    x:Name="AddHostButton"
+                    Grid.Column="1"
+                    Margin="5,0,5,0"
+                    Click="AddHostButton_OnClick"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}">
 
-                        <StackPanel
-                            HorizontalAlignment="Right"
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+
+                        <materialDesign:PackIcon
+                            Margin="0"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <Label
-                                Width="100"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Content="IP地址:" />
-                            <TextBox
-                                Width="250"
-                                Height="28"
-                                Margin="0,0,30,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="IpNetworkOutline"
-                                IsEnabled="True"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding ElementName=DiskNumberSlider, Path=Value}" />
+                            Kind="ConsoleNetwork" />
 
-                        </StackPanel>
-
-                        <StackPanel
-                            HorizontalAlignment="Left"
+                        <TextBlock
+                            Margin="0"
                             VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <Label
-                                Width="100"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Content="MAC地址:" />
-                            <TextBox
-                                x:Name="MacBox"
-                                Width="250"
-                                Height="28"
-                                Margin="0,0,30,0"
-                                Padding="3"
-                                VerticalAlignment="Center"
-                                materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                                materialDesign:TextFieldAssist.LeadingIcon="ExpansionCard"
-                                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-
-                        </StackPanel>
-
-                        <StackPanel
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-
-                            <Button
-                                x:Name="AddHostButton"
-                                Click="AddHostButton_OnClick"
-                                Content="ADD"
-                                Style="{StaticResource MaterialDesignRaisedLightButton}" />
-                        </StackPanel>
+                            Text="添加" />
 
                     </StackPanel>
+                </Button>
 
 
-                    <StackPanel Margin="10" Orientation="Horizontal">
-
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal" />
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal" />
-                        <StackPanel
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal" />
-
-                    </StackPanel>
-
-
-                </StackPanel>
             </Grid>
         </materialDesign:Card>
 
@@ -420,14 +358,13 @@
                 </DataGrid>
             </Grid>
         </materialDesign:Card>
-        
+
         <materialDesign:Snackbar
+            x:Name="Snackbar"
             Grid.Row="0"
             Grid.RowSpan="2"
-            x:Name="Snackbar"
-            Background="#6fc6c5" 
-            Foreground="White" 
-            MessageQueue="{materialDesign:MessageQueue}"
-            />
+            Background="#6fc6c5"
+            Foreground="White"
+            MessageQueue="{materialDesign:MessageQueue}" />
     </Grid>
 </Window>
