@@ -34,6 +34,30 @@ namespace ThinkITAM.DatabaseOperation
                 return false;
             }
         }
+        
+        ///多线程测试数据库是否能够连接
+        public async Task<bool> TestConnectionAsync()
+        {
+            try
+            {
+                using var connection = CreateConnection();
+                //使用多线程测试数据库是否可以连接，设置3秒超时
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+                await Task.Run(() => connection.Open(), cts.Token);
+                return connection.State == ConnectionState.Open;
+            }
+            catch (OperationCanceledException)
+            {
+               
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        
 
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {

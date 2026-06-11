@@ -92,7 +92,29 @@ namespace ThinkITAM.DatabaseOperation
                 return false;
             }
         }
-
+        
+        ///多线程测试数据库是否能够连接,默认检测时间为3秒
+        public async Task<bool> TestConnectionAsync()
+        {
+            try
+            {
+                using var connection = CreateConnection();
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+                await connection.OpenAsync(cts.Token);
+                return connection.State == ConnectionState.Open;
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("数据库连接超时（3秒）");
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        
         public List<Dictionary<string, object>> ExecuteQuery(string sql, object? param = null)
         {
             Console.WriteLine(sql);

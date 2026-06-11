@@ -559,7 +559,8 @@ public partial class MainWindow : Window
     private async void ProjectListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         //双击项目列表，测试数据库是否可以连接
-        if (GlobalVariables.DbService.TestConnection() == true)//连接成功
+        
+        if (await GlobalVariables.DbService.TestConnectionAsync())//连接成功
         {
             SelectionWindow newWindow = new SelectionWindow();
 
@@ -689,7 +690,7 @@ public partial class MainWindow : Window
 
 
         //加载帮助文档
-        var result = MessageBox.Show("是否打开本地帮助?\r选否将会在默认浏览器打开在线帮助", "选择帮助文档", MessageBoxButton.YesNoCancel);
+        var result = MessageBox.Show("是否打开本地帮助文件?\r", "选择帮助文档", MessageBoxButton.YesNo);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -727,7 +728,7 @@ public partial class MainWindow : Window
         {
 
 
-            if (result == MessageBoxResult.No)
+            if (result == MessageBoxResult.Cancel)
             {
                 OpenUrlClass.OpenUrlInSpecificBrowser("https://thinkitam.goeasy.work/", null);
             }
@@ -744,10 +745,17 @@ public partial class MainWindow : Window
     {
         if (e.ChangedButton == MouseButton.Left)
         {
-
             var newWindow = new WelcomeWindow(1);
             newWindow.Owner = this;
-            newWindow.ShowDialog();
+            
+            try
+            {
+                newWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"打开欢迎窗口失败: {ex.Message}");
+            }
         }
     }
 

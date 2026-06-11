@@ -570,7 +570,7 @@ public partial class SelectionWindow : Window
 
 
                 //加载帮助文档
-                var result = MessageBox.Show("是否打开本地帮助?\r选否将会在默认浏览器打开在线帮助", "选择帮助文档", MessageBoxButton.YesNoCancel);
+                var result = MessageBox.Show("是否打开本地帮助文件?\r", "选择帮助文档", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -608,7 +608,7 @@ public partial class SelectionWindow : Window
                 {
 
 
-                    if (result == MessageBoxResult.No)
+                    if (result == MessageBoxResult.Cancel)
                     {
                         OpenUrlClass.OpenUrlInSpecificBrowser("https://thinkitam.goeasy.work/", null);
                     }

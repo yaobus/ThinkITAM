@@ -10,7 +10,13 @@
         /// </summary>
         /// <returns>是否连接成功</returns>
         bool TestConnection();
-
+        
+        /// <summary>
+        /// 测试数据库连接是否成功
+        /// </summary>
+        /// <returns>是否连接成功</returns>
+        Task<bool> TestConnectionAsync();
+        
         /// <summary>
         /// 同步执行 SQL 查询并返回数据行列表（字典形式）
         /// </summary>
