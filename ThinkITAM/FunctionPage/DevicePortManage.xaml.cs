@@ -300,6 +300,7 @@ public partial class DevicePortManage : UserControl
     }
 
 
+
     /// <summary>
     /// 加载端口信息
     /// </summary>
@@ -373,6 +374,83 @@ public partial class DevicePortManage : UserControl
         }
     }
 
+        /// <summary>
+    /// 搜索端口信息
+    /// </summary>
+    /// <param name="tableName"></param>
+    private async Task LoadPortInfos(DeviceTypeViewModel tableInfo,string keyword)
+    {
+        string tableName = $"De_{tableInfo.AssetId}";
+
+        if (tableName != "" && tableName != null)
+        {
+            //PortManagePanel.Children.Clear(); 
+            devicePortsViewModels.Clear();
+
+            DataBridge.DataBridge.PortDetailedInfos.Clear();
+
+            string query = $"SELECT * FROM {tableName} WHERE PortTag LIKE '%{keyword}%' OR  PortName LIKE '%{keyword}%' OR PortTag LIKE '%{keyword}%' OR TagA LIKE '%{keyword}%' OR TagB LIKE '%{keyword}%' OR TagC LIKE '%{keyword}%' OR TagD LIKE '%{keyword}%' OR TagE LIKE '%{keyword}%' OR TagF LIKE '%{keyword}%';";
+            
+            //SELECT * FROM De_2BDFD7FB6X WHERE PortTag LIKE '%专%' OR  PortnAME LIKE '%专%' OR PortTag LIKE '%专%' OR TagA LIKE '%专%' OR TagB LIKE '%专%' OR TagC LIKE '%专%' OR TagD LIKE '%专%' OR TagE LIKE '%专%' OR TagF LIKE '%专%'
+
+            var rows = GlobalVariables.DbService.ExecuteQuery(query);
+
+
+            foreach (var row in rows)
+            {
+                //读取端口信息，并写入列表
+                var info = new PortDetailedInfo();
+                info.UID = Convert.ToInt32(row["UID"]);
+                info.PortType = row["PortType"].ToString();
+                info.PortSpeed = row["PortSpeed"].ToString();
+                info.PortTag = row["PortTag"].ToString();
+                info.PortSlotNumber = Convert.ToInt32(row["PortSlotNumber"]);
+                info.PortId = row["PortId"].ToString();
+                info.Status = Convert.ToInt32(row["PortStatus"].ToString());
+                info.Mode = row["Mode"].ToString();
+                info.PortName = row["PortName"].ToString();
+                info.VlanId = row["VlanId"].ToString();
+
+
+                //如果颜色索引数据库返回值为空数据，则使用默认颜色
+
+                if (row["PortColor"] == DBNull.Value || row["PortColor"] == string.Empty)
+                {
+                    info.PortColor = 0;
+                }
+                else
+                {
+                    info.PortColor = Convert.ToInt32(row["PortColor"]);
+                }
+
+
+                if (row["OnTheLine"] == DBNull.Value || row["OnTheLine"] == string.Empty)
+                {
+                    info.OnTheLine = -1;
+                }
+                else
+                {
+                    info.OnTheLine = Convert.ToInt32(row["OnTheLine"]);
+                }
+
+
+                info.TagA = row["TagA"].ToString();
+                info.TagB = row["TagB"].ToString();
+                info.TagC = row["TagC"].ToString();
+                info.TagD = row["TagD"].ToString();
+                info.TagE = row["TagE"].ToString();
+                info.TagF = row["TagF"].ToString();
+                info.AssetId = row["AssetId"].ToString();
+
+                info.ToolTip = JoinTip(info);
+
+                DataBridge.DataBridge.PortDetailedInfos.Add(info);
+            }
+        }
+    }
+
+    
+    
     /// <summary>
     /// 自动拼接端口提示信息
     /// </summary>
@@ -1399,5 +1477,35 @@ public partial class DevicePortManage : UserControl
     {
         // 删除排序配置
         Functions.DataGridColumn.DataGridColumnOrderClass.ResetLayout(PortListView);
+    }
+
+    private async void ClearGlobalSearchKeyWord_OnClick(object sender, RoutedEventArgs e)
+    {
+        GlobalSearchKeyWord.Text = null;
+        await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo);
+        //默认搜索结果
+    }
+
+    private void GlobalSearchKeyWord_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        //如果是回车键
+        if (e.Key == Key.Enter)
+        {
+            GlobalSearchButton_OnClick(null, null);
+        }
+    }
+
+    private async void GlobalSearchButton_OnClick(object sender, RoutedEventArgs e)
+    {
+      
+
+        if (!string.IsNullOrWhiteSpace( GlobalSearchKeyWord.Text))
+        {
+            var keyword = GlobalSearchKeyWord.Text;
+            await LoadPortInfos(DataBridge.DataBridge.SelectDeviceTableInfo,keyword);
+        }
+        
+        
+       
     }
 }

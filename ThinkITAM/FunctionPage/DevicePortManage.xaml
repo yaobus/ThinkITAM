@@ -468,11 +468,63 @@
                                     Kind="ServerPlusOutline" />
                             </Button>
 
+                            <StackPanel
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                Visibility="{Binding Path=IsChecked, ElementName=ShowModeButton, Converter={StaticResource BoolToVisibilityConverter}}">
 
+                                <ProgressBar
+                                    Width="40"
+                                    Height="1"
+                                    Opacity="0.3"
+                                    Orientation="Vertical"
+                                    Value="100" />
+                                
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        x:Name="ClearGlobalSearchKeyWord"
+                                        Click="ClearGlobalSearchKeyWord_OnClick"
+                                        Style="{StaticResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Margin="5,0,5,0"
+                                            Kind="ClearCircleOutline" />
+                                    </Button>
+                                    <TextBox
+                                        x:Name="GlobalSearchKeyWord"
+                                        Grid.Column="1"
+                                        MinWidth="200"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        materialDesign:HintAssist.Hint="{DynamicResource NmpSearchKeyWord}"
+                                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                        BorderThickness="0"
+                                        KeyDown="GlobalSearchKeyWord_OnKeyDown"
+                                        Opacity="0.3" />
+                                    <Button
+                                        x:Name="GlobalSearchButton"
+                                        Grid.Column="2"
+                                       Click="GlobalSearchButton_OnClick"
+                                        Style="{StaticResource MaterialDesignToolButton}">
+                                        <materialDesign:PackIcon Margin="5,0" Kind="Search" />
+                                    </Button>
+                                </Grid>
+
+
+                            </StackPanel>
+                        
 
                         </StackPanel>
 
 
+                        
                         <StackPanel
                             Grid.Column="3"
                             HorizontalAlignment="Right"
