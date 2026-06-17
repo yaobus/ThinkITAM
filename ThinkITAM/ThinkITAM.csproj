@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -91,6 +91,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ThinkITAM.Database\ThinkITAM.Database.csproj" />
+    <ProjectReference Include="..\ThinkITAM.Shared\ThinkITAM.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+using System.Windows;
+using SharedImpl = ThinkITAM.Shared.Asset.AssetCodeClass;
 
 namespace ThinkITAM.Functions.FunctionClass
 {
@@ -13,43 +14,23 @@ namespace ThinkITAM.Functions.FunctionClass
         /// <param name="input"></param>
         /// <returns></returns>
         public static string GenerateChecksum(string input)
-        {
-
-            // 计算前15位字符的ASCII码值的总和
-            int sum = 0;
-            foreach (char c in input)
-            {
-                sum += (int)c;
-            }
-
-            // 使用26作为除数，取余得到校验值
-            int checksumValue = sum % 26;
-
-            // 将校验值转换为对应的字符（这里假设A对应0，B对应1，依此类推）
-            char checksumChar = (char)('A' + checksumValue);
-
-            // 返回带有校验字符的16位字符串
-            return input + checksumChar;
-        }
+            => SharedImpl.GenerateChecksum(input);
 
 
         public static bool CheckAssetCode(string input)
         {
-            string sourceStr = input.Substring(0, input.Length - 1);
+            bool result = SharedImpl.CheckAssetCode(input);
 
-            if (GenerateChecksum(sourceStr) == input)
+            if (result)
             {
                 MessageBox.Show("校验成功");
-
-                return true;
-
             }
             else
             {
                 MessageBox.Show("校验失败");
-                return false;
             }
 
+            return result;
         }
 
     }
