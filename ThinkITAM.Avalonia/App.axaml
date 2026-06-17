@@ -1,0 +1,22 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.App"
+             RequestedThemeVariant="Light">
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+    </Application.Styles>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ThinkITAM.Avalonia/Language/zh-CN.axaml" />
+                <ResourceInclude Source="avares://ThinkITAM.Avalonia/Language/en-US.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="HarmonyOsFontFamily">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyMedium">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Medium.ttf#HarmonyOS Sans SC</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyBold">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Bold.ttf#HarmonyOS Sans SC</FontFamily>
+            <FontFamily x:Key="HarmonyOsFontFamilyLight">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Light.ttf#HarmonyOS Sans SC</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

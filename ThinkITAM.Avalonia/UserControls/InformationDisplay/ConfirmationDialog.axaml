@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.UserControls.InformationDisplay.ConfirmationDialog"
+             MinWidth="250" MinHeight="150">
+    <Grid RowDefinitions="60,*,60">
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Margin="10" FontSize="14" FontWeight="ExtraBlack" Foreground="{ReflectionBinding TitleColor}" Text="{ReflectionBinding Title}" />
+        <!-- Prompt -->
+        <TextBlock Grid.Row="1" MaxWidth="400" Margin="10" HorizontalAlignment="Center" FontSize="14" Foreground="{ReflectionBinding PromptColor}" Text="{ReflectionBinding Prompt}" TextWrapping="Wrap" />
+        <!-- Buttons -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*">
+            <Button Grid.Column="0" Margin="10" HorizontalAlignment="Center" Command="{ReflectionBinding ConfirmCommand}" Content="{ReflectionBinding ConfirmButtonText}" Foreground="{ReflectionBinding ConfirmButtonColor}" Classes="outlined" />
+            <Button Grid.Column="1" Margin="10" HorizontalAlignment="Center" Content="{DynamicResource CdClose}" IsCancel="True" Classes="outlined" />
+        </Grid>
+    </Grid>
+</UserControl>

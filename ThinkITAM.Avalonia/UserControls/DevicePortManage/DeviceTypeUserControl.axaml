@@ -1,0 +1,8 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.UserControls.DevicePortManage.DeviceTypeUserControl">
+    <Grid>
+        <TextBlock Text="TODO" />
+    </Grid>
+</UserControl>

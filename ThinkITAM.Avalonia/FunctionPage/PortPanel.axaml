@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.PortPanel"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <!-- Building List -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                Margin="5,5,2.5,5" CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <Button x:Name="AddBuildingButton" Click="AddBuildingButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Plus" />
+                    </Button>
+                    <Button x:Name="DeleteBuildingButton" Click="DeleteBuildingButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Delete" />
+                    </Button>
+                </StackPanel>
+                <ListBox x:Name="BuildingListView" Grid.Row="1"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="BuildingListView_OnSelectionChanged" />
+            </Grid>
+        </Border>
+
+        <!-- Port Panel Area -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                Margin="2.5,2.5,2.5,5" CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <Button x:Name="AddPortButton" Click="AddPortButton_OnClick" Classes="accent" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <material:MaterialIcon Width="18" Height="18" Kind="Plus" />
+                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="添加端口" />
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="DeletePortButton" Click="DeletePortButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Delete" />
+                    </Button>
+                    <Button x:Name="EditPortButton" Click="EditPortButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Pencil" />
+                    </Button>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="PortPanelContent" MinWidth="500" MinHeight="300" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

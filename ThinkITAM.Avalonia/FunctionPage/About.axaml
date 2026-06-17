@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.About"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Margin="10"
+                   HorizontalAlignment="Center"
+                   FontFamily="{DynamicResource HarmonyOsFontFamilyBold}"
+                   FontSize="40"
+                   Text="ThinkITAM" />
+        <TextBlock x:Name="VersionTextBlock"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   FontFamily="{DynamicResource HarmonyOsFontFamilyBold}"
+                   FontSize="16" />
+        <TextBlock Margin="10"
+                   HorizontalAlignment="Center"
+                   FontSize="14"
+                   Text="Copyright © 2025  Yaobus All Rights Reserved" />
+        <StackPanel Margin="0,50,0,0"
+                    HorizontalAlignment="Center"
+                    Opacity="0.7"
+                    Orientation="Horizontal">
+            <Button x:Name="Sipam"
+                    Width="150" Margin="10"
+                    HorizontalAlignment="Center"
+                    Click="Sipam_OnClick"
+                    Classes="outlined">
+                <StackPanel Orientation="Horizontal">
+                    <material:MaterialIcon Margin="0" VerticalAlignment="Center" Kind="Github" />
+                    <TextBlock Margin="10,0" VerticalAlignment="Center" Text="SIPAM" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="IpamNote"
+                    Width="150" Margin="10"
+                    HorizontalAlignment="Center"
+                    Click="IpamNote_OnClick"
+                    Classes="outlined">
+                <StackPanel Orientation="Horizontal">
+                    <material:MaterialIcon Margin="0" VerticalAlignment="Center" Kind="Github" />
+                    <TextBlock Margin="10,0" VerticalAlignment="Center" Text="IPAM-NOTE" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center"
+                    Opacity="0.7"
+                    Orientation="Horizontal">
+            <Button Width="150" Margin="10"
+                    HorizontalAlignment="Center"
+                    Click="Chip_Click"
+                    Classes="outlined">
+                <StackPanel Orientation="Horizontal">
+                    <material:MaterialIcon Margin="0" VerticalAlignment="Center" Kind="ThumbUpOutline" />
+                    <TextBlock Margin="10,0" VerticalAlignment="Center" Text="赏个好评" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="DonateButton"
+                    Width="150" Margin="10"
+                    HorizontalAlignment="Center"
+                    Click="DonateButton_OnClick"
+                    Classes="outlined">
+                <StackPanel Orientation="Horizontal">
+                    <material:MaterialIcon Margin="0" VerticalAlignment="Center" Kind="HandCoinOutline" />
+                    <TextBlock Margin="10,0" VerticalAlignment="Center" Text="赏口饭吃" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Button x:Name="Feedback"
+                Width="150" Margin="10"
+                HorizontalAlignment="Center"
+                Click="Feedback_OnClick"
+                Opacity="0.7"
+                Classes="outlined">
+            <StackPanel Orientation="Horizontal">
+                <material:MaterialIcon Margin="0" VerticalAlignment="Center" Kind="Qqchat" />
+                <TextBlock Margin="10,0" VerticalAlignment="Center" Text="我要反馈" />
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</UserControl>

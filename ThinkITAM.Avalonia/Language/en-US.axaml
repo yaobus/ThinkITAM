@@ -1,0 +1,138 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+
+    <!--  MainWindow  -->
+    <sys:String x:Key="AddProject">Add Project</sys:String>
+    <sys:String x:Key="DelProject">Delete Project</sys:String>
+    <sys:String x:Key="MwWhatNewTooltip">View update log</sys:String>
+
+    <sys:String x:Key="SetPassword">Set Password</sys:String>
+    <sys:String x:Key="SetPasswordAgain">Confirm Password</sys:String>
+    <sys:String x:Key="SavePassword">Save Password</sys:String>
+
+    <sys:String x:Key="InputPassword">Enter Password</sys:String>
+    <sys:String x:Key="Login">Verify Password</sys:String>
+    <sys:String x:Key="ForgetPassword">Forget Password</sys:String>
+
+    <sys:String x:Key="LocalHelp">Local Help</sys:String>
+    <sys:String x:Key="OnlineHelp">Online Help</sys:String>
+
+    <sys:String x:Key="MainOpenFailedPrompt">Failed to open database, please check database configuration</sys:String>
+    <sys:String x:Key="MainOpenFailedTitle">Open Failed</sys:String>
+
+    <sys:String x:Key="CdClose">Close</sys:String>
+    <sys:String x:Key="CdConfirm">Confirm</sys:String>
+    <sys:String x:Key="CdTitle">Please Set Password</sys:String>
+    <sys:String x:Key="CdPrompt">Password cannot be empty</sys:String>
+    <sys:String x:Key="CdPrompt2">Password entries do not match</sys:String>
+    <sys:String x:Key="CdFailedVerificationTitle">Verification Failed</sys:String>
+    <sys:String x:Key="CdFailedVerificationPrompt">Verification failed, incorrect password</sys:String>
+
+    <sys:String x:Key="CdForgetPasswordTitle">Warning</sys:String>
+    <sys:String x:Key="CdForgetPasswordPrompt">This action will delete the configuration file. You will need to re-add the project afterward. Your data content will remain unaffected. Do you wish to continue?</sys:String>
+
+    <sys:String x:Key="ApwTitle">Add Project</sys:String>
+    <sys:String x:Key="ApwType">Select Project Storage Type</sys:String>
+    <sys:String x:Key="ApwSqlitePath">Select Project Storage Path</sys:String>
+    <sys:String x:Key="ApwSqliteNew">New</sys:String>
+    <sys:String x:Key="ApwSqliteName">Set Project Name</sys:String>
+    <sys:String x:Key="ApwSave">Save</sys:String>
+    <sys:String x:Key="ApwHost">Database Host Address</sys:String>
+    <sys:String x:Key="ApwPort">Port Number</sys:String>
+    <sys:String x:Key="ApwUserName">Database Username</sys:String>
+    <sys:String x:Key="ApwPassword">Database Password</sys:String>
+    <sys:String x:Key="ApwDatabaseName">Database Name</sys:String>
+    <sys:String x:Key="ApwProjectName">Set Project Name</sys:String>
+    <sys:String x:Key="ApwMdTitle">Incomplete Information</sys:String>
+    <sys:String x:Key="ApwMdPrompt">Please complete all information</sys:String>
+
+    <sys:String x:Key="SwMenuSelect">Function</sys:String>
+    <sys:String x:Key="SwDashboard">Dashboard</sys:String>
+    <sys:String x:Key="SwNetwork">Network</sys:String>
+    <sys:String x:Key="SwDevicePort">Device</sys:String>
+    <sys:String x:Key="SwIndexTag">Favorites</sys:String>
+    <sys:String x:Key="SwLink">Link</sys:String>
+    <sys:String x:Key="SwAsset">Asset</sys:String>
+    <sys:String x:Key="SwPreset">Preset</sys:String>
+    <sys:String x:Key="SwPanelPort">Panel Port</sys:String>
+    <sys:String x:Key="SwToolBox">ToolBox</sys:String>
+    <sys:String x:Key="SwComputer">Endpoints</sys:String>
+    <sys:String x:Key="SwAbout">About</sys:String>
+    <sys:String x:Key="SwHelp">Help</sys:String>
+
+    <sys:String x:Key="DasNetwork">Network</sys:String>
+    <sys:String x:Key="DasNetworkNote">Network segment and available IP address information</sys:String>
+    <sys:String x:Key="DasNetworkCount">Total Segments</sys:String>
+    <sys:String x:Key="DasNetworkIpCount">Total IPs</sys:String>
+    <sys:String x:Key="DasNetworkIpNoUse">Available IPs</sys:String>
+
+    <sys:String x:Key="DasDevice">Device</sys:String>
+    <sys:String x:Key="DasDeviceNote">Device and port information</sys:String>
+    <sys:String x:Key="DasDeviceCount">Total Devices</sys:String>
+    <sys:String x:Key="DasDevicePortCount">Endpoints</sys:String>
+    <sys:String x:Key="DasDevicePortNoUse">Unused port</sys:String>
+
+    <sys:String x:Key="DasLink">Link</sys:String>
+    <sys:String x:Key="DasLinkNote">Link and device connection information</sys:String>
+    <sys:String x:Key="DasLinkCount">Total Links</sys:String>
+    <sys:String x:Key="DasLinkUsed">Links Nodes</sys:String>
+    <sys:String x:Key="DasLinkNoUse">Unused Rack port</sys:String>
+
+    <sys:String x:Key="DasAsset">Asset</sys:String>
+    <sys:String x:Key="DasAssetNote">Asset information and logs</sys:String>
+    <sys:String x:Key="DasAssetType">Asset Types</sys:String>
+    <sys:String x:Key="DasAssetCount">Total Assets</sys:String>
+    <sys:String x:Key="DasAssetPortUsed">UnDeployed</sys:String>
+
+    <sys:String x:Key="NmpSearchKeyWord">Search Keyword</sys:String>
+    <sys:String x:Key="IpAdd">Add Bookmark</sys:String>
+    <sys:String x:Key="IpAddGroup">Add Group</sys:String>
+    <sys:String x:Key="IpAddButtonTitle">Add Bookmark</sys:String>
+
+    <sys:String x:Key="PrpOrganization">Organization Management</sys:String>
+    <sys:String x:Key="PrpPeople">Personnel Management</sys:String>
+    <sys:String x:Key="PrpAddress">Location Presets</sys:String>
+    <sys:String x:Key="PrpDeviceRoom">Room/Cabinet Management</sys:String>
+    <sys:String x:Key="PrpBuilding">Building Management</sys:String>
+    <sys:String x:Key="PrpAssetGroup">Asset Group Presets</sys:String>
+    <sys:String x:Key="PrpBrowser">Shortcut Presets</sys:String>
+
+    <sys:String x:Key="TpTitle">IT Toolkit</sys:String>
+    <sys:String x:Key="TpIpCalculate">IP Calculator</sys:String>
+    <sys:String x:Key="TpIpCalculateTooltip">Network segment and available IP calculation</sys:String>
+    <sys:String x:Key="TpIpAddress">IP Address</sys:String>
+    <sys:String x:Key="TpIpAddressCalculate">IP Calculation</sys:String>
+    <sys:String x:Key="TpIpNetmask">Subnet Mask</sys:String>
+    <sys:String x:Key="TpIpNetmaskCalculate">Subnet Calculation</sys:String>
+    <sys:String x:Key="TpIpScale">Base Conversion</sys:String>
+    <sys:String x:Key="TpIpScaleTooltip">IP base conversion</sys:String>
+    <sys:String x:Key="TpPortScanTool">Port Scanner</sys:String>
+    <sys:String x:Key="TpPortScanTooltip">Host scanning tool</sys:String>
+    <sys:String x:Key="TpPortScan">Port Scan</sys:String>
+    <sys:String x:Key="TpHostScan">Host Port Scan</sys:String>
+    <sys:String x:Key="TpHostStatus">Host Status</sys:String>
+    <sys:String x:Key="TpHostName">Hostname</sys:String>
+    <sys:String x:Key="TpHostNameMac">Hostname/MAC Query</sys:String>
+    <sys:String x:Key="TpMac">MAC Vendor Lookup</sys:String>
+    <sys:String x:Key="TpMacTooltip">Query vendor by MAC address</sys:String>
+    <sys:String x:Key="TpMacTooltip2">Query vendor by OUI</sys:String>
+    <sys:String x:Key="TpMacTooltip3">Query using IEEE public records</sys:String>
+    <sys:String x:Key="TpStorage">Storage Calculator</sys:String>
+    <sys:String x:Key="TpStorageTooltip">Calculate RAID storage capacity</sys:String>
+    <sys:String x:Key="TpRaidCalculate">RAID Capacity</sys:String>
+    <sys:String x:Key="TpVideoStorage">Video Storage</sys:String>
+    <sys:String x:Key="TpVideoStorageTooltip">Video storage calculation</sys:String>
+    <sys:String x:Key="TpSaveTime">Storage Duration</sys:String>
+    <sys:String x:Key="TpSaveTimeTooltip">Storage duration calculation</sys:String>
+    <sys:String x:Key="TpWakeTooltip">Wake specified host via network</sys:String>
+    <sys:String x:Key="TpWakeOnLan">Wake-on-LAN</sys:String>
+    <sys:String x:Key="TpWakeOnLanTooltip">Wake LAN hosts remotely</sys:String>
+    <sys:String x:Key="TpNoteBook">NoteBook</sys:String>
+    <sys:String x:Key="TpNoteBookTooltip">Simple notepad</sys:String>
+    <sys:String x:Key="TpNoteBookDescription">Support Markdown</sys:String>
+
+    <sys:String x:Key="FlBack">Back</sys:String>
+    <sys:String x:Key="FlConfirm">Confirm</sys:String>
+    <sys:String x:Key="FlIndex">Index</sys:String>
+</ResourceDictionary>

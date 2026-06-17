@@ -1,0 +1,272 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.Dashboard"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <Grid x:Name="InfoGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                <Grid Margin="10" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontFamily="{DynamicResource HarmonyOsFontFamilyBold}"
+                               FontSize="48"
+                               Text="ThinkITAM" />
+                </Grid>
+
+                <UniformGrid Columns="4">
+                    <!-- Network Card -->
+                    <Border Width="300" Height="150" Margin="10"
+                            CornerRadius="5"
+                            Background="#4472C4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="40*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        BorderThickness="0"
+                                        Background="#3360A0"
+                                        Width="50" Height="50" CornerRadius="25">
+                                    <material:MaterialIcon Width="30" Height="30" Kind="Lan" Foreground="White" />
+                                </Button>
+                                <Grid Grid.Column="1" Height="80" Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Margin="0"
+                                               VerticalAlignment="Center"
+                                               FontSize="24" Foreground="White"
+                                               Text="{DynamicResource DasNetwork}" />
+                                    <TextBlock Grid.Row="1" Margin="0" Padding="0"
+                                               VerticalAlignment="Top"
+                                               FontSize="12" Opacity="0.5" Foreground="White"
+                                               Text="{DynamicResource DasNetworkNote}"
+                                               TextWrapping="Wrap" />
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasNetworkCount}" TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasNetworkIpCount}" TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasNetworkIpNoUse}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- Device Card -->
+                    <Border Width="300" Height="150" Margin="10"
+                            CornerRadius="5"
+                            Background="#20B2AA">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="40*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        BorderThickness="0"
+                                        Background="#1A9690"
+                                        Width="50" Height="50" CornerRadius="25">
+                                    <material:MaterialIcon Width="30" Height="30" Kind="Ethernet" Foreground="White" />
+                                </Button>
+                                <Grid Grid.Column="1" Height="80" Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="24" Foreground="White" Text="{DynamicResource DasDevice}" />
+                                    <TextBlock Grid.Row="1" VerticalAlignment="Top" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasDeviceNote}" TextWrapping="Wrap" />
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasDeviceCount}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasDevicePortCount}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasDevicePortNoUse}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- Link Card -->
+                    <Border Width="300" Height="150" Margin="10"
+                            CornerRadius="5"
+                            Background="#FFA500">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="40*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        BorderThickness="0"
+                                        Background="#E09000"
+                                        Width="50" Height="50" CornerRadius="25">
+                                    <material:MaterialIcon Width="30" Height="30" Kind="EthernetCable" Foreground="White" />
+                                </Button>
+                                <Grid Grid.Column="1" Height="80" Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="24" Foreground="White" Text="{DynamicResource DasLink}" />
+                                    <TextBlock Grid.Row="1" VerticalAlignment="Top" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasLinkNote}" TextWrapping="Wrap" />
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasLinkCount}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasLinkUsed}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasLinkNoUse}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- Asset Card -->
+                    <Border Width="300" Height="150" Margin="10"
+                            CornerRadius="5"
+                            Background="#32CD32">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="40*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        BorderThickness="0"
+                                        Background="#28A428"
+                                        Width="50" Height="50" CornerRadius="25">
+                                    <material:MaterialIcon Width="30" Height="30" Kind="Warehouse" Foreground="White" />
+                                </Button>
+                                <Grid Grid.Column="1" Height="80" Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" VerticalAlignment="Center" FontSize="24" Foreground="White" Text="{DynamicResource DasAsset}" />
+                                    <TextBlock Grid.Row="1" VerticalAlignment="Top" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasAssetNote}" TextWrapping="Wrap" />
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasAssetType}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasAssetCount}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="20" Opacity="0.9" Foreground="White" Text="0" />
+                                    <TextBlock HorizontalAlignment="Center" FontSize="12" Opacity="0.5" Foreground="White" Text="{DynamicResource DasAssetPortUsed}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </UniformGrid>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Border MaxWidth="1260" Margin="10"
+                        CornerRadius="5"
+                        Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+                    <ScrollViewer Margin="-5,0,-5,0"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="IndexTagsPanel">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel HorizontalAlignment="Left" Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

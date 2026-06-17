@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.PresetPage"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <!-- Left Navigation -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                Margin="5,5,2.5,5"
+                CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <ListBox x:Name="PresetTreeView"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     SelectionChanged="PresetTreeView_OnSelectionChanged">
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="SitemapOutline" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpOrganization}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="AccountGroup" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpPeople}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="MapOutline" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpAddress}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="ViewCarouselOutline" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpDeviceRoom}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="OfficeBuilding" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpBuilding}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="Devices" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpAssetGroup}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+                <ListBoxItem Margin="0">
+                    <Border Width="295" Height="50" Padding="8" CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <material:MaterialIcon Width="28" Height="28" VerticalAlignment="Center" Kind="GoogleChrome" />
+                            <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource PrpBrowser}" />
+                        </StackPanel>
+                    </Border>
+                </ListBoxItem>
+            </ListBox>
+        </Border>
+
+        <!-- Content Area -->
+        <WrapPanel x:Name="PresetSubPanel"
+                   Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                   Margin="0"
+                   SizeChanged="PresetSubPanel_OnSizeChanged" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.NetworkAddressManagePage"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <!-- Search Bar -->
+        <Border Grid.Row="0" Grid.Column="0"
+                Height="50" Margin="5,5,2.5,2.5"
+                VerticalAlignment="Center"
+                CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ClearSearchKeyWord" Click="ClearSearchKeyWord_OnClick" Background="Transparent" BorderThickness="0">
+                    <material:MaterialIcon Margin="5,0" Kind="ClearCircleOutline" />
+                </Button>
+                <TextBox x:Name="SearchKeyWord" Grid.Column="1" MinWidth="200" Margin="8,0,0,0"
+                         VerticalAlignment="Center" PlaceholderText="{DynamicResource NmpSearchKeyWord}" BorderThickness="0" />
+                <Button x:Name="SearchButton" Grid.Column="2" Click="SearchButton_OnClick" Background="Transparent" BorderThickness="0">
+                    <material:MaterialIcon Margin="5,0" Kind="Search" />
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Network List -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Margin="5,2.5,2.5,2.5"
+                CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <ListBox x:Name="NetworkListView"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectionChanged="NetworkListView_OnSelectionChanged" />
+        </Border>
+
+        <!-- DataGrid Area -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                Margin="2.5,2.5,2.5,5"
+                CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!-- Toolbar -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <Button x:Name="AddNetworkButton" Click="AddNetworkButton_OnClick" Classes="accent" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <material:MaterialIcon Width="18" Height="18" Kind="Plus" />
+                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="{DynamicResource NmpAddNetwork}" />
+                        </StackPanel>
+                    </Button>
+                    <ComboBox x:Name="ShowModeComboBox" Width="150" Margin="5" />
+                </StackPanel>
+                <!-- DataGrid placeholder -->
+                <DataGrid x:Name="AddressDataGrid"
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          CanUserSortColumns="True"
+                          IsReadOnly="True"
+                          GridLinesVisibility="Horizontal"
+                          Margin="5" />
+            </Grid>
+        </Border>
+
+        <!-- Bottom Actions -->
+        <Border Grid.Row="2" Grid.Column="0"
+                Margin="5,2.5,2.5,5"
+                CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid Margin="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="AddButton" Grid.Column="0" Margin="5" BorderThickness="0" Background="Transparent" Click="AddButton_OnClick">
+                    <material:MaterialIcon Width="20" Height="20" Kind="PlusBoxOutline" />
+                </Button>
+                <Button x:Name="EditButton" Grid.Column="1" Margin="5" BorderThickness="0" Background="Transparent" Click="EditButton_OnClick">
+                    <material:MaterialIcon Width="20" Height="20" Kind="Pencil" />
+                </Button>
+                <Button x:Name="DeleteButton" Grid.Column="2" Margin="5" BorderThickness="0" Background="Transparent" Click="DeleteButton_OnClick" IsEnabled="False">
+                    <material:MaterialIcon Width="20" Height="20" Kind="DeleteOutline" Foreground="#Cf3539" />
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

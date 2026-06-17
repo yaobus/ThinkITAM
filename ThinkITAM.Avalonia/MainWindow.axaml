@@ -1,0 +1,244 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:material="using:Material.Icons.Avalonia"
+        x:Class="ThinkITAM.MainWindow"
+        Title="ThinkITAM"
+        Width="810" Height="500"
+        FontFamily="{DynamicResource HarmonyOsFontFamily}"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="310" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Background Image -->
+        <Image Grid.Column="0" Grid.ColumnSpan="2"
+               Opacity="0.5"
+               Source="/Resources/Image/Background.png"
+               Stretch="None" />
+
+        <!-- Project Zone (right panel) -->
+        <Border x:Name="ProjectZone"
+                Grid.Column="1"
+                Margin="10"
+                CornerRadius="5"
+                Opacity="0.8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                IsVisible="False"
+                BoxShadow="0 2 4 0 #40000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="ProjectListView"
+                         Grid.Row="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="ProjectListView_OnSelectionChanged"
+                         DoubleTapped="ProjectListView_OnDoubleTapped">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0" CornerRadius="5"
+                                    Background="{DynamicResource SystemControlHighlightListAccentMediumBrush}"
+                                    BoxShadow="0 1 3 0 #20000000">
+                                <Grid Width="290" Height="50" Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70*" />
+                                        <RowDefinition Height="30*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Margin="5,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="Bold"
+                                                   FontSize="16"
+                                                   Text="{ReflectionBinding NickName}" />
+                                    </Grid>
+                                    <TextBlock Grid.Row="1" Margin="5,0"
+                                               VerticalAlignment="Center"
+                                               Opacity="0.5"
+                                               Text="{ReflectionBinding Path}"
+                                               ToolTip.Tip="{ReflectionBinding Path}" />
+                                    <TextBlock Grid.Row="1" Margin="5,0"
+                                               VerticalAlignment="Center"
+                                               Opacity="0.5"
+                                               Text="{ReflectionBinding Host}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Grid Grid.Row="1" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="AddProjectButton"
+                            Grid.Row="0"
+                            Margin="0,5"
+                            HorizontalAlignment="Stretch"
+                            Click="AddProjectButton_OnClick"
+                            Content="{DynamicResource AddProject}"
+                            Classes="accent" />
+                    <Button x:Name="DelProjectButton"
+                            Grid.Row="1"
+                            Margin="0,5"
+                            HorizontalAlignment="Stretch"
+                            Click="DelProjectButton_OnClick"
+                            Content="{DynamicResource DelProject}"
+                            Classes="accent" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Set Password Zone -->
+        <Border x:Name="SetPasswordZone"
+                Grid.Column="1"
+                Margin="10"
+                VerticalAlignment="Bottom"
+                CornerRadius="5"
+                Opacity="0.8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                IsVisible="False"
+                BoxShadow="0 2 4 0 #40000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                    <StackPanel Margin="10,5" Orientation="Vertical">
+                        <TextBlock Margin="0,5" Text="{DynamicResource SetPassword}" />
+                        <TextBox x:Name="PasswordBox"
+                                 Padding="5"
+                                 PasswordChar="●" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5" Orientation="Vertical">
+                        <TextBlock Margin="0,5" Text="{DynamicResource SetPasswordAgain}" />
+                        <TextBox x:Name="PasswordBoxAgain"
+                                 Padding="5"
+                                 PasswordChar="●" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5" Orientation="Vertical">
+                        <Button x:Name="SavePasswordButton"
+                                Margin="0"
+                                HorizontalAlignment="Stretch"
+                                Click="SavePasswordButton_OnClick"
+                                Content="{DynamicResource SavePassword}"
+                                Classes="accent" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Login Zone -->
+        <Border x:Name="LoginZone"
+                Grid.Column="1"
+                Margin="10"
+                CornerRadius="5"
+                Opacity="0.8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                IsVisible="False"
+                BoxShadow="0 2 4 0 #40000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                    <StackPanel Margin="10,5" Orientation="Vertical">
+                        <TextBlock Margin="0,5" Text="{DynamicResource InputPassword}" />
+                        <TextBox x:Name="InputPasswordBox"
+                                 Padding="5"
+                                 PasswordChar="●"
+                                 KeyDown="InputPasswordBox_OnKeyDown" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5" Orientation="Vertical">
+                        <Button x:Name="LoginButton"
+                                Margin="0,5"
+                                HorizontalAlignment="Stretch"
+                                Click="LoginButton_OnClick"
+                                Content="{DynamicResource Login}"
+                                Classes="accent" />
+                        <Button x:Name="ForgetPasswordButton"
+                                Margin="0,5"
+                                HorizontalAlignment="Stretch"
+                                Click="ForgetPasswordButton_OnClick"
+                                Content="{DynamicResource ForgetPassword}"
+                                Classes="accent" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Left Panel -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <ToggleButton x:Name="ThemeToggleButton"
+                              Width="32" Height="32"
+                              Margin="5"
+                              VerticalAlignment="Top"
+                              Click="ThemeToggleButton_OnClick">
+                    <Panel>
+                        <material:MaterialIcon x:Name="ThemeIcon" Kind="WeatherSunny" Width="16" Height="16" />
+                    </Panel>
+                </ToggleButton>
+
+                <ComboBox x:Name="LanguageComboBox"
+                          Width="120"
+                          Margin="5"
+                          Padding="5"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          HorizontalContentAlignment="Center"
+                          FontSize="12"
+                          MaxDropDownHeight="300"
+                          SelectionChanged="LanguageComboBox_OnSelectionChanged">
+                    <ComboBoxItem Content="简体中文"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                    <ComboBoxItem Content="English"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button x:Name="LocalHelpButton"
+                        Width="32"
+                        Padding="0"
+                        BorderThickness="0"
+                        Click="HelpButton_OnClick"
+                        Cursor="Hand"
+                        Background="Transparent">
+                    <material:MaterialIcon Width="20" Height="20" Kind="HelpRhombusOutline" />
+                </Button>
+
+                <TextBlock x:Name="VersionLabel"
+                           VerticalAlignment="Center"
+                           Margin="5,0"
+                           Cursor="Hand"
+                           PointerPressed="VersionLabel_OnPointerPressed"
+                           ToolTip.Tip="{DynamicResource MwWhatNewTooltip}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

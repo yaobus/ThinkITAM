@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="ThinkITAM.FunctionPage.LinkUserControl"
+             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <!-- Room List -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
+                Margin="5,5,2.5,5" CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <Button x:Name="AddRoomButton" Click="AddRoomButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Plus" />
+                    </Button>
+                    <Button x:Name="AddCabinetButton" Click="AddCabinetButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Server" />
+                    </Button>
+                    <Button x:Name="AddRackButton" Click="AddRackButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Devices" />
+                    </Button>
+                </StackPanel>
+                <ListBox x:Name="RoomListView" Grid.Row="1"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="RoomListView_OnSelectionChanged" />
+            </Grid>
+        </Border>
+
+        <!-- Link Panel Area -->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                Margin="2.5,2.5,2.5,5" CornerRadius="5"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BoxShadow="0 1 2 0 #20000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <ToggleButton x:Name="LinkViewToggle" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Eye" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="LinkManageToggle" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Pencil" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="LinkDeleteToggle" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Delete" />
+                    </ToggleButton>
+                    <Separator Margin="5,0" />
+                    <Button x:Name="RemoveDeviceButton" Click="RemoveDeviceButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Close" />
+                    </Button>
+                    <Button x:Name="ClearRackButton" Click="ClearRackButton_OnClick" Margin="5">
+                        <material:MaterialIcon Width="18" Height="18" Kind="Refresh" />
+                    </Button>
+                    <Button x:Name="SaveLinkButton" Click="SaveLinkButton_OnClick" Classes="accent" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <material:MaterialIcon Width="18" Height="18" Kind="ContentSave" />
+                            <TextBlock Margin="5,0" VerticalAlignment="Center" Text="保存链路" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <!-- Link Panel Content -->
+                <ScrollViewer Grid.Row="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="LinkPanelContent" MinWidth="500" MinHeight="300" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

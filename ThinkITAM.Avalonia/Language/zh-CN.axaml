@@ -1,0 +1,147 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+
+    <!--  MainWindow  -->
+    <sys:String x:Key="AddProject">添加项目</sys:String>
+    <sys:String x:Key="DelProject">删除项目</sys:String>
+    <sys:String x:Key="MwWhatNewTooltip">点击查看更新日志</sys:String>
+
+    <sys:String x:Key="SetPassword">设置密码</sys:String>
+    <sys:String x:Key="SetPasswordAgain">确认密码</sys:String>
+    <sys:String x:Key="SavePassword">保存密码</sys:String>
+
+    <sys:String x:Key="InputPassword">输入密码</sys:String>
+    <sys:String x:Key="Login">验证密码</sys:String>
+    <sys:String x:Key="ForgetPassword">忘记密码</sys:String>
+
+    <sys:String x:Key="LocalHelp">本地帮助</sys:String>
+    <sys:String x:Key="OnlineHelp">在线帮助</sys:String>
+
+    <!--  MainWindow Connection Failed  -->
+    <sys:String x:Key="MainOpenFailedPrompt">数据库打开失败,请检查数据库配置</sys:String>
+    <sys:String x:Key="MainOpenFailedTitle">打开失败</sys:String>
+
+    <!--  ConfirmationDialog  -->
+    <sys:String x:Key="CdClose">关闭</sys:String>
+    <sys:String x:Key="CdConfirm">确认</sys:String>
+    <sys:String x:Key="CdTitle">请设置密码</sys:String>
+    <sys:String x:Key="CdPrompt">密码不得为空</sys:String>
+    <sys:String x:Key="CdPrompt2">两次密码输入不一致</sys:String>
+    <sys:String x:Key="CdFailedVerificationTitle">验证失败</sys:String>
+    <sys:String x:Key="CdFailedVerificationPrompt">验证失败，密码错误</sys:String>
+
+    <sys:String x:Key="CdForgetPasswordTitle">警告</sys:String>
+    <sys:String x:Key="CdForgetPasswordPrompt">此操作将删除配置文件,然后您需要重新添加项目,此操作不影响您的数据内容,是否继续？</sys:String>
+
+    <!--  AddProjectWindow  -->
+    <sys:String x:Key="ApwTitle">添加项目</sys:String>
+    <sys:String x:Key="ApwType">选择项目存储方式</sys:String>
+    <sys:String x:Key="ApwSqlitePath">选择项目存储路径</sys:String>
+    <sys:String x:Key="ApwSqliteNew">新建</sys:String>
+    <sys:String x:Key="ApwSqliteName">设定项目名称</sys:String>
+    <sys:String x:Key="ApwSave">保存</sys:String>
+    <sys:String x:Key="ApwHost">数据库主机地址</sys:String>
+    <sys:String x:Key="ApwPort">端口号</sys:String>
+    <sys:String x:Key="ApwUserName">数据库用户名</sys:String>
+    <sys:String x:Key="ApwPassword">数据库密码</sys:String>
+    <sys:String x:Key="ApwDatabaseName">数据库名称</sys:String>
+    <sys:String x:Key="ApwProjectName">设定项目名称</sys:String>
+    <sys:String x:Key="ApwMdTitle">信息不完整</sys:String>
+    <sys:String x:Key="ApwMdPrompt">请填写完整信息</sys:String>
+
+    <!--  SelectionWindow  -->
+    <sys:String x:Key="SwMenuSelect">功能选择列表</sys:String>
+    <sys:String x:Key="SwDashboard">资产信息总览</sys:String>
+    <sys:String x:Key="SwNetwork">网段资源管理</sys:String>
+    <sys:String x:Key="SwDevicePort">设备端口管理</sys:String>
+    <sys:String x:Key="SwIndexTag">地址收藏管理</sys:String>
+    <sys:String x:Key="SwLink">链路信息管理</sys:String>
+    <sys:String x:Key="SwAsset">资产信息管理</sys:String>
+    <sys:String x:Key="SwPreset">预设信息管理</sys:String>
+    <sys:String x:Key="SwPanelPort">面板端口管理</sys:String>
+    <sys:String x:Key="SwToolBox">运维工具箱</sys:String>
+    <sys:String x:Key="SwComputer">通用终端管理</sys:String>
+    <sys:String x:Key="SwAbout">关于</sys:String>
+    <sys:String x:Key="SwHelp">帮助</sys:String>
+
+    <!--  Dashboard  -->
+    <sys:String x:Key="DasNetwork">网段信息总览</sys:String>
+    <sys:String x:Key="DasNetworkNote">网段信息及可用IP地址信息</sys:String>
+    <sys:String x:Key="DasNetworkCount">网段总数</sys:String>
+    <sys:String x:Key="DasNetworkIpCount">地址总数</sys:String>
+    <sys:String x:Key="DasNetworkIpNoUse">可用地址数</sys:String>
+
+    <sys:String x:Key="DasDevice">设备信息总览</sys:String>
+    <sys:String x:Key="DasDeviceNote">设备信息及设备端口信息</sys:String>
+    <sys:String x:Key="DasDeviceCount">设备总数</sys:String>
+    <sys:String x:Key="DasDevicePortCount">通用终端</sys:String>
+    <sys:String x:Key="DasDevicePortNoUse">空置设备端口</sys:String>
+
+    <sys:String x:Key="DasLink">链路信息总览</sys:String>
+    <sys:String x:Key="DasLinkNote">链路及设备连接信息</sys:String>
+    <sys:String x:Key="DasLinkCount">链路总数</sys:String>
+    <sys:String x:Key="DasLinkUsed">链路节点总数</sys:String>
+    <sys:String x:Key="DasLinkNoUse">空置机架端口</sys:String>
+
+    <sys:String x:Key="DasAsset">资产信息总览</sys:String>
+    <sys:String x:Key="DasAssetNote">资产信息及资产日志</sys:String>
+    <sys:String x:Key="DasAssetType">资产类型数</sys:String>
+    <sys:String x:Key="DasAssetCount">资产总数</sys:String>
+    <sys:String x:Key="DasAssetPortUsed">未部署资产</sys:String>
+
+    <!--  IndexPage  -->
+    <sys:String x:Key="NmpSearchKeyWord">搜索关键字</sys:String>
+    <sys:String x:Key="IpAdd">新增快捷访问链接</sys:String>
+    <sys:String x:Key="IpAddGroup">新增分组</sys:String>
+    <sys:String x:Key="IpAddButtonTitle">新增链接</sys:String>
+
+    <!--  PresetPage  -->
+    <sys:String x:Key="PrpOrganization">组织机构管理</sys:String>
+    <sys:String x:Key="PrpPeople">人员信息管理</sys:String>
+    <sys:String x:Key="PrpAddress">地理位置预设</sys:String>
+    <sys:String x:Key="PrpDeviceRoom">机房机柜管理</sys:String>
+    <sys:String x:Key="PrpBuilding">建筑信息管理</sys:String>
+    <sys:String x:Key="PrpAssetGroup">资产分组预设</sys:String>
+    <sys:String x:Key="PrpBrowser">快捷访问预设</sys:String>
+
+    <!--  ToolsPage  -->
+    <sys:String x:Key="TpTitle">IT 工具箱</sys:String>
+    <sys:String x:Key="TpIpCalculate">IP地址计算器</sys:String>
+    <sys:String x:Key="TpIpCalculateTooltip">网段信息及可用IP地址信息计算</sys:String>
+    <sys:String x:Key="TpIpAddress">IP地址</sys:String>
+    <sys:String x:Key="TpIpAddressCalculate">IP地址计算</sys:String>
+    <sys:String x:Key="TpIpNetmask">子网掩码</sys:String>
+    <sys:String x:Key="TpIpNetmaskCalculate">子网掩码计算</sys:String>
+    <sys:String x:Key="TpIpScale">进制转换</sys:String>
+    <sys:String x:Key="TpIpScaleTooltip">IP进制转换</sys:String>
+    <sys:String x:Key="TpPortScanTool">端口扫描器</sys:String>
+    <sys:String x:Key="TpPortScanTooltip">主机信息扫描辅助工具</sys:String>
+    <sys:String x:Key="TpPortScan">端口扫描</sys:String>
+    <sys:String x:Key="TpHostScan">主机端口扫描</sys:String>
+    <sys:String x:Key="TpHostStatus">主机在线状态</sys:String>
+    <sys:String x:Key="TpHostName">主机名</sys:String>
+    <sys:String x:Key="TpHostNameMac">主机名MAC查询</sys:String>
+    <sys:String x:Key="TpMac">MAC查询厂商</sys:String>
+    <sys:String x:Key="TpMacTooltip">根据MAC地址查询设备生产厂商</sys:String>
+    <sys:String x:Key="TpMacTooltip2">根据厂商识别码OUI查询厂商</sys:String>
+    <sys:String x:Key="TpMacTooltip3">根据IEEE公开的分配信息查询</sys:String>
+    <sys:String x:Key="TpStorage">存储空间计算</sys:String>
+    <sys:String x:Key="TpStorageTooltip">计算RAID后存储空间容量</sys:String>
+    <sys:String x:Key="TpRaidCalculate">RAID容量计算</sys:String>
+    <sys:String x:Key="TpVideoStorage">监控存储</sys:String>
+    <sys:String x:Key="TpVideoStorageTooltip">监控存储空间计算</sys:String>
+    <sys:String x:Key="TpSaveTime">存储时长</sys:String>
+    <sys:String x:Key="TpSaveTimeTooltip">存储时长计算</sys:String>
+    <sys:String x:Key="TpWakeTooltip">通过网络唤醒指定主机</sys:String>
+    <sys:String x:Key="TpWakeOnLan">网络唤醒</sys:String>
+    <sys:String x:Key="TpWakeOnLanTooltip">网络唤醒局域网主机</sys:String>
+    <sys:String x:Key="TpNoteBook">记事本</sys:String>
+    <sys:String x:Key="TpNoteBookTooltip">简易记事本</sys:String>
+    <sys:String x:Key="TpNoteBookDescription">支持Markdown语法</sys:String>
+
+    <!--  FlConfirm/Back  -->
+    <sys:String x:Key="FlBack">返回</sys:String>
+    <sys:String x:Key="FlConfirm">确定</sys:String>
+    <sys:String x:Key="FlIndex">序号</sys:String>
+</ResourceDictionary>

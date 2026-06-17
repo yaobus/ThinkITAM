@@ -1,0 +1,10 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:material="using:Material.Icons.Avalonia"
+        x:Class="ThinkITAM.Windows.PresetWindows.AddBuildingWindow"
+        Title="AddBuildingWindow" Width="500" Height="400"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBlock Text="TODO" />
+    </Grid>
+</Window>

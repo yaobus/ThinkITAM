@@ -1,0 +1,127 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:material="using:Material.Icons.Avalonia"
+        xmlns:functionPage="using:ThinkITAM.FunctionPage"
+        x:Class="ThinkITAM.Windows.Selection.SelectionWindow"
+        Title="ThinkITAM"
+        Width="1920" Height="1080"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid ColumnDefinitions="Auto,*">
+
+        <!-- 左侧导航栏 -->
+        <Grid Grid.Column="0" RowDefinitions="*,Auto">
+
+            <!-- 主菜单 -->
+            <ListBox x:Name="MenuList"
+                     Grid.Row="0"
+                     Width="45"
+                     HorizontalAlignment="Left"
+                     Opacity="0.8"
+                     SelectionChanged="MenuList_OnSelectionChanged">
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon x:Name="MenuIcon" Width="32" Height="32" Kind="Menu" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwMenuSelect}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="ViewDashboardVariant" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwDashboard}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="IpNetworkOutline" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwNetwork}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="Ethernet" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwDevicePort}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="StarOutline" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwIndexTag}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="LanConnect" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwLink}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="Warehouse" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwAsset}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <material:MaterialIcon Width="28" Height="28" Kind="ApplicationOutline" />
+                            <material:MaterialIcon Width="15" Height="15" Kind="Ethernet" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwPanelPort}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="DesktopTowerMonitor" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwComputer}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="ToolboxOutline" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwToolBox}" />
+                    </StackPanel>
+                </ListBoxItem>
+            </ListBox>
+
+            <!-- 底部菜单 -->
+            <ListBox x:Name="MenuList2"
+                     Grid.Row="1"
+                     Width="45"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Bottom"
+                     Opacity="0.8"
+                     SelectionChanged="MenuList2_OnSelectionChanged">
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="PaletteSwatch" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwPreset}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="HelpBoxOutline" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwHelp}" />
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,2">
+                    <StackPanel Orientation="Horizontal">
+                        <material:MaterialIcon Width="28" Height="28" Kind="InformationVariantCircleOutline" />
+                        <TextBlock Margin="10" VerticalAlignment="Center" Text="{DynamicResource SwAbout}" />
+                    </StackPanel>
+                </ListBoxItem>
+            </ListBox>
+        </Grid>
+
+        <!-- 右侧内容区域 -->
+        <Grid Grid.Column="1" Margin="0">
+            <Panel x:Name="FunctionPanel" />
+
+            <!-- 加载指示器 -->
+            <ProgressBar x:Name="LoadingIndicator"
+                         Width="200" Height="200"
+                         IsIndeterminate="True"
+                         IsVisible="False" />
+        </Grid>
+    </Grid>
+</Window>
