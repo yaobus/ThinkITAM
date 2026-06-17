@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    
+    <!-- ===== Material Design 调色板 ===== -->
+    <!-- Primary -->
+    <Color x:Key="PrimaryColor">#4472C4</Color>
+    <Color x:Key="PrimaryLightColor">#7BA0DA</Color>
+    <Color x:Key="PrimaryDarkColor">#2D528A</Color>
+    
+    <!-- Secondary/Accent -->
+    <Color x:Key="SecondaryColor">#20B2AA</Color>
+    <Color x:Key="SecondaryLightColor">#48D1CC</Color>
+    <Color x:Key="SecondaryDarkColor">#178F88</Color>
+    
+    <!-- Surface/Background -->
+    <Color x:Key="SurfaceColor">#FAFAFA</Color>
+    <Color x:Key="BackgroundColor">#F5F5F5</Color>
+    <Color x:Key="CardColor">#FFFFFF</Color>
+    
+    <!-- Error/Warning/Success -->
+    <Color x:Key="ErrorColor">#D32F2F</Color>
+    <Color x:Key="WarningColor">#FFA500</Color>
+    <Color x:Key="SuccessColor">#4CAF50</Color>
+    <Color x:Key="InfoColor">#2196F3</Color>
+    
+    <!-- On-colors -->
+    <Color x:Key="OnPrimaryColor">#FFFFFF</Color>
+    <Color x:Key="OnSecondaryColor">#FFFFFF</Color>
+    <Color x:Key="OnSurfaceColor">#212121</Color>
+    <Color x:Key="OnBackgroundColor">#212121</Color>
+    <Color x:Key="OnErrorColor">#FFFFFF</Color>
+    
+    <!-- 文本色阶 -->
+    <Color x:Key="TextPrimaryColor">#DD000000</Color>
+    <Color x:Key="TextSecondaryColor">#89000000</Color>
+    <Color x:Key="TextDisabledColor">#42000000</Color>
+    
+    <!-- ===== 暗色主题 ===== -->
+    <Color x:Key="DarkSurfaceColor">#1E1E1E</Color>
+    <Color x:Key="DarkBackgroundColor">#121212</Color>
+    <Color x:Key="DarkCardColor">#2D2D2D</Color>
+    <Color x:Key="DarkOnSurfaceColor">#FFFFFF</Color>
+    <Color x:Key="DarkTextPrimaryColor">#FFE0E0E0</Color>
+    <Color x:Key="DarkTextSecondaryColor">#B3FFFFFF</Color>
+    <Color x:Key="DarkTextDisabledColor">#66FFFFFF</Color>
+    
+    <!-- ===== 阴影 ===== -->
+    <Color x:Key="ShadowColor">#30000000</Color>
+    <Color x:Key="ShadowDarkColor">#60000000</Color>
+    
+    <!-- ===== 字体族 ===== -->
+    <FontFamily x:Key="MaterialFontFamily">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
+    <FontFamily x:Key="MaterialFontFamilyBold">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Bold.ttf#HarmonyOS Sans SC</FontFamily>
+    
+    <!-- ===== 圆角/间距常量 ===== -->
+    <sys:Double x:Key="CardCornerRadius">8</sys:Double>
+    <sys:Double x:Key="ButtonCornerRadius">4</sys:Double>
+    <Thickness x:Key="CardPadding">16</Thickness>
+    <Thickness x:Key="PageMargin">10</Thickness>
+</ResourceDictionary>

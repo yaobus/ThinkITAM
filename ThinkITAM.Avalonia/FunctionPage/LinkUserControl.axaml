@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.FunctionPage.LinkUserControl"
-             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+             FontFamily="{DynamicResource MaterialFontFamily}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />
@@ -17,7 +17,7 @@
         <!-- Room List -->
         <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
                 Margin="5,5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
         <!-- Link Panel Area -->
         <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
                 Margin="2.5,2.5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.RowDefinitions>

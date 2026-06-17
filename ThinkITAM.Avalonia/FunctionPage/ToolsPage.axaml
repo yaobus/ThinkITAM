@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.FunctionPage.ToolsPage"
-             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+            FontFamily="{DynamicResource MaterialFontFamily}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -13,7 +13,7 @@
                 <TextBlock Margin="10,0,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           FontFamily="{DynamicResource HarmonyOsFontFamilyBold}"
+                           FontFamily="{DynamicResource MaterialFontFamilyBold}"
                            FontSize="48"
                            Text="{DynamicResource TpTitle}" />
                 <WrapPanel Margin="0" HorizontalAlignment="Center" Orientation="Horizontal">

@@ -1,0 +1,262 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- ============================================================ -->
+    <!-- 1. Button - Raised                                           -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Button.Raised">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnPrimaryColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ButtonCornerRadius}" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.Raised:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryLightColor}" />
+    </Style>
+    <Style Selector="Button.Raised:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDarkColor}" />
+    </Style>
+    <Style Selector="Button.Raised:disabled">
+        <Setter Property="Opacity" Value="0.38" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 2. Button - Flat                                             -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Button.Flat">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ButtonCornerRadius}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.Flat:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#19000000" />
+    </Style>
+    <Style Selector="Button.Flat:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#33000000" />
+    </Style>
+    <Style Selector="Button.Flat:disabled">
+        <Setter Property="Opacity" Value="0.38" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 3. Button - IconButton                                       -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Button.IconButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button.IconButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#19000000" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 4. Border - Card                                             -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Border.Card">
+        <Setter Property="Background" Value="{DynamicResource CardColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource CardCornerRadius}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{DynamicResource CardPadding}" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 5. TextBox - Outlined                                        -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="TextBox.Outlined">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#BDBDBD" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+    </Style>
+    <Style Selector="TextBox.Outlined:focus-within">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="TextBox.Outlined:pointerover">
+        <Setter Property="BorderBrush" Value="#757575" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 6. ComboBox - Outlined                                       -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="ComboBox.Outlined">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#BDBDBD" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MaxDropDownHeight" Value="300" />
+    </Style>
+    <Style Selector="ComboBox.Outlined:pointerover">
+        <Setter Property="BorderBrush" Value="#757575" />
+    </Style>
+    <Style Selector="ComboBox.Outlined:focus-within">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 7. ToggleButton - Action                                     -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="ToggleButton.Action">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+    </Style>
+    <Style Selector="ToggleButton.Action:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#19000000" />
+    </Style>
+    <Style Selector="ToggleButton.Action:checked">
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryColor}" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 8. TabControl - Material                                     -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="TabControl.Material">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+    </Style>
+    <Style Selector="TabControl.Material TabStripItem">
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="TabControl.Material TabStripItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnPrimaryColor}" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 9. TextBlock - SectionTitle                                  -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="TextBlock.SectionTitle">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamilyBold}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="Margin" Value="0,16,0,8" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 10. TextBlock - HeaderText                                   -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="TextBlock.HeaderText">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamilyBold}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Foreground" Value="{DynamicResource OnPrimaryColor}" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 11. ScrollBar                                                -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="ScrollBar">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="ScrollBar Thumb">
+        <Setter Property="Background" Value="#C0C0C0" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="MinWidth" Value="8" />
+        <Setter Property="MinHeight" Value="30" />
+    </Style>
+    <Style Selector="ScrollBar Thumb:pointerover">
+        <Setter Property="Background" Value="#A0A0A0" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 12. Expander - Material                                      -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Expander.Material">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="Background" Value="{DynamicResource CardColor}" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="BorderBrush" Value="#E0E0E0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="8" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 13. Border - Dialog                                          -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Border.Dialog">
+        <Setter Property="Background" Value="{DynamicResource CardColor}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="24" />
+        <Setter Property="MinWidth" Value="320" />
+        <Setter Property="MaxWidth" Value="560" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 14. ToolTip                                                  -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="ToolTip">
+        <Setter Property="Background" Value="#616161" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Padding" Value="8,4" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 15. Border - ColorZone                                       -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Border.ColorZonePrimary">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Padding" Value="12" />
+    </Style>
+    <Style Selector="Border.ColorZonePrimaryDark">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDarkColor}" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Padding" Value="12" />
+    </Style>
+
+    <!-- ============================================================ -->
+    <!-- 16. Border - StatCard                                        -->
+    <!-- ============================================================ -->
+    
+    <Style Selector="Border.StatCard">
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Width" Value="300" />
+        <Setter Property="Height" Value="150" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
+</Styles>

@@ -1,8 +1,9 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.FunctionPage.DevicePortManage"
-             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+             FontFamily="{DynamicResource MaterialFontFamily}"
+             Loaded="DevicePortManage_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />
@@ -18,7 +19,7 @@
         <Border Grid.Row="0" Grid.Column="0"
                 Height="50" Margin="5,5,2.5,2.5"
                 VerticalAlignment="Center" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -30,27 +31,27 @@
                     <material:MaterialIcon Margin="5,0" Kind="ClearCircleOutline" />
                 </Button>
                 <TextBox x:Name="SearchKeyWord" Grid.Column="1" MinWidth="200" Margin="8,0,0,0"
-                         VerticalAlignment="Center" PlaceholderText="搜索关键字" BorderThickness="0" />
+                         VerticalAlignment="Center" Watermark="搜索关键字" BorderThickness="0" />
                 <Button x:Name="SearchButton" Grid.Column="2" Click="SearchButton_OnClick" Background="Transparent" BorderThickness="0">
                     <material:MaterialIcon Margin="5,0" Kind="Search" />
                 </Button>
             </Grid>
         </Border>
 
-        <!-- Device List -->
+        <!-- Device TreeView -->
         <Border Grid.Row="1" Grid.Column="0"
                 Margin="5,2.5,2.5,2.5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
-            <ListBox x:Name="DeviceListView"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     SelectionChanged="DeviceListView_OnSelectionChanged" />
+            <TreeView x:Name="AssetTreeView"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectionChanged="AssetTreeView_OnSelectedItemChanged" />
         </Border>
 
         <!-- DataGrid Area -->
         <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
                 Margin="2.5,2.5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.RowDefinitions>
@@ -58,7 +59,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
-                    <Button x:Name="AddDeviceButton" Click="AddDeviceButton_OnClick" Classes="accent" Margin="5">
+                    <Button x:Name="AddDeviceButton" Click="AddButton_OnClick" Classes="accent" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <material:MaterialIcon Width="18" Height="18" Kind="Plus" />
                             <TextBlock Margin="5,0" VerticalAlignment="Center" Text="新增设备" />
@@ -66,7 +67,7 @@
                     </Button>
                     <ComboBox x:Name="ShowModeComboBox" Width="150" Margin="5" />
                 </StackPanel>
-                <DataGrid x:Name="PortDataGrid"
+                <DataGrid x:Name="PortListView"
                           Grid.Row="1"
                           AutoGenerateColumns="False"
                           CanUserSortColumns="True"
@@ -79,7 +80,7 @@
         <!-- Bottom Actions -->
         <Border Grid.Row="2" Grid.Column="0"
                 Margin="5,2.5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid Margin="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
@@ -87,13 +88,13 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="AddSlotButton" Grid.Column="0" Margin="5" BorderThickness="0" Background="Transparent" Click="AddSlotButton_OnClick">
+                <Button x:Name="AddSlotButton" Grid.Column="0" Margin="5" BorderThickness="0" Background="Transparent" Click="AddSlot_OnClick">
                     <material:MaterialIcon Width="20" Height="20" Kind="PlusBoxOutline" />
                 </Button>
-                <Button x:Name="EditSlotButton" Grid.Column="1" Margin="5" BorderThickness="0" Background="Transparent" Click="EditSlotButton_OnClick">
+                <Button x:Name="EditButton" Grid.Column="1" Margin="5" BorderThickness="0" Background="Transparent" Click="EditButton_OnClick" IsEnabled="False">
                     <material:MaterialIcon Width="20" Height="20" Kind="Pencil" />
                 </Button>
-                <Button x:Name="DeleteSlotButton" Grid.Column="2" Margin="5" BorderThickness="0" Background="Transparent" Click="DeleteSlotButton_OnClick" IsEnabled="False">
+                <Button x:Name="DeleteButton" Grid.Column="2" Margin="5" BorderThickness="0" Background="Transparent" Click="DeleteButton_OnClick" IsEnabled="False">
                     <material:MaterialIcon Width="20" Height="20" Kind="DeleteOutline" Foreground="#Cf3539" />
                 </Button>
             </Grid>

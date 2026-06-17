@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.FunctionPage.IndexPage"
-             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+            FontFamily="{DynamicResource MaterialFontFamily}"
+            Loaded="UserControl_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />
@@ -19,26 +20,26 @@
                 Height="50" Margin="5,5,2.5,2.5"
                 VerticalAlignment="Center"
                 CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
-                BoxShadow="0 1 2 0 #20000000">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="ClearSearchKeyWord"
-                        Click="ClearSearchKeyWord_OnClick"
-                        Background="Transparent"
-                        BorderThickness="0">
-                    <material:MaterialIcon Margin="5,0" Kind="ClearCircleOutline" />
-                </Button>
-                <TextBox x:Name="SearchKeyWord"
-                         Grid.Column="1"
-                         MinWidth="200"
-                         Margin="8,0,0,0"
-                         VerticalAlignment="Center"
-                         PlaceholderText="{DynamicResource NmpSearchKeyWord}"
+               Background="{DynamicResource CardColor}"
+               BoxShadow="0 1 2 0 #20000000">
+           <Grid>
+               <Grid.ColumnDefinitions>
+                   <ColumnDefinition Width="Auto" />
+                   <ColumnDefinition Width="*" />
+                   <ColumnDefinition Width="Auto" />
+               </Grid.ColumnDefinitions>
+               <Button x:Name="ClearSearchKeyWord"
+                       Click="ClearSearchKeyWord_OnClick"
+                       Background="Transparent"
+                       BorderThickness="0">
+                   <material:MaterialIcon Margin="5,0" Kind="ClearCircleOutline" />
+               </Button>
+               <TextBox x:Name="SearchKeyWord"
+                        Grid.Column="1"
+                        MinWidth="200"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        Watermark="{DynamicResource NmpSearchKeyWord}"
                          BorderThickness="0"
                          KeyDown="SearchKeyWord_OnKeyDown" />
                 <Button x:Name="SearchButton"
@@ -55,7 +56,7 @@
         <Border Grid.Row="1" Grid.Column="0"
                 Margin="5,2.5,2.5,2.5"
                 CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <ListBox x:Name="GroupsListView"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -66,9 +67,9 @@
         <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
                 Margin="2.5,2.5,2.5,5"
                 CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+            <ScrollViewer
                           VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="IndexPanel" Padding="10">
                     <ItemsControl.ItemsPanel>
@@ -84,7 +85,7 @@
         <Border Grid.Row="2" Grid.Column="0"
                 Margin="5,2.5,2.5,5"
                 CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid Margin="10,0"
                   HorizontalAlignment="Stretch"

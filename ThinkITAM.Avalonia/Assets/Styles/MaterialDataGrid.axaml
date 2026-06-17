@@ -1,0 +1,45 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="DataGrid.Material">
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialFontFamily}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="RowHeight" Value="36" />
+        <Setter Property="BorderBrush" Value="#E0E0E0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="RowBackground" Value="White" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+    </Style>
+    
+    <!-- 列头样式 -->
+    <Style Selector="DataGrid.Material DataGridColumnHeader">
+        <Setter Property="Background" Value="#F5F5F5" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="BorderBrush" Value="#E0E0E0" />
+    </Style>
+    
+    <!-- 行悬停 -->
+    <Style Selector="DataGrid.Material DataGridRow:pointerover /template/ DataGridCell">
+        <Setter Property="Background" Value="#E3F2FD" />
+    </Style>
+    
+    <!-- 行选中 -->
+    <Style Selector="DataGrid.Material DataGridRow:selected /template/ DataGridCell">
+        <Setter Property="Background" Value="#BBDEFB" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+    </Style>
+    
+    <!-- 单元格 -->
+    <Style Selector="DataGridCell">
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+</Styles>

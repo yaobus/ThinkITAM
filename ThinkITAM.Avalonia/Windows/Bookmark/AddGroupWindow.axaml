@@ -1,0 +1,20 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:material="using:Material.Icons.Avalonia"
+        x:Class="ThinkITAM.Windows.Bookmark.AddGroupWindow"
+        Title="添加分组" Width="400" Height="300"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="0,5" Text="分组名称:" />
+        <TextBox x:Name="GroupNameTextBox" Grid.Row="1" MinHeight="40" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10">
+            <Button x:Name="SaveButton" Content="保存" Classes="accent" Margin="5" />
+            <Button x:Name="CancelButton" Content="取消" Margin="5" IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

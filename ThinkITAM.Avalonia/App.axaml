@@ -1,18 +1,34 @@
-<Application xmlns="https://github.com/avaloniaui"
+﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.App"
              RequestedThemeVariant="Light">
     <Application.Styles>
         <FluentTheme />
+
+        <!-- DataGrid 主题 -->
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+
+        <!-- Material Design 控件样式 -->
+        <StyleInclude Source="/Assets/Styles/MaterialControls.axaml" />
+        <StyleInclude Source="/Assets/Styles/MaterialDataGrid.axaml" />
+        <StyleInclude Source="/Assets/Styles/TreeViewStyles.axaml" />
     </Application.Styles>
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- 多语言资源 -->
                 <ResourceInclude Source="avares://ThinkITAM.Avalonia/Language/zh-CN.axaml" />
                 <ResourceInclude Source="avares://ThinkITAM.Avalonia/Language/en-US.axaml" />
+
+                <!-- Material Design 主题色定义 -->
+                <ResourceInclude Source="/Assets/Styles/MaterialTheme.axaml" />
+
+                <!-- NodifyAvalonia 节点编辑器主题 -->
+
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- 字体资源 -->
             <FontFamily x:Key="HarmonyOsFontFamily">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC</FontFamily>
             <FontFamily x:Key="HarmonyOsFontFamilyMedium">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Medium.ttf#HarmonyOS Sans SC</FontFamily>
             <FontFamily x:Key="HarmonyOsFontFamilyBold">avares://ThinkITAM.Avalonia/Resources/Fonts/HarmonyOS_Sans_SC_Bold.ttf#HarmonyOS Sans SC</FontFamily>

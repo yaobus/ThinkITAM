@@ -2,9 +2,112 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:material="using:Material.Icons.Avalonia"
         x:Class="ThinkITAM.Windows.NetworkManage.AddNetworkWindow"
-        Title="AddNetworkWindow" Width="500" Height="400"
+        Title="新建网段"
+        Width="600" Height="650"
+        FontFamily="{DynamicResource MaterialFontFamily}"
+        Loaded="Window_Loaded"
+        CanResize="False"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <TextBlock Text="TODO" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="10">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <material:MaterialIcon Width="40" Height="40" Kind="NewspaperPlus" />
+                <TextBlock Margin="10" VerticalAlignment="Center" FontSize="20" Text="新建网段" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Form -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="20,0">
+                <!-- 网段名称 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="网段名称:" />
+                    <TextBox x:Name="TbName" Watermark="输入网段名称" Classes="Outlined" />
+                </StackPanel>
+
+                <!-- 网段描述 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="网段备注:" />
+                    <TextBox x:Name="Description" Watermark="输入网段描述" Classes="Outlined" />
+                </StackPanel>
+
+                <!-- 网段排序 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="网段排序:" />
+                    <TextBox x:Name="SortIndex" Text="0" Watermark="数字越大越靠前" Classes="Outlined" />
+                </StackPanel>
+
+                <!-- IP地址 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="IP地址(任意网段内的一个地址):" />
+                    <TextBox x:Name="IpTextBox" Watermark="例如 192.168.1.1" Classes="Outlined" />
+                </StackPanel>
+
+                <!-- 子网掩码滑块 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="子网掩码长度:" />
+                    <Grid ColumnDefinitions="*,60">
+                        <Slider x:Name="MaskSlider" Grid.Column="0"
+                                Minimum="8" Maximum="30" Value="24" />
+                        <TextBlock x:Name="MaskLength" Grid.Column="1"
+                                   Margin="10,0,0,0" VerticalAlignment="Center"
+                                   Text="24" />
+                    </Grid>
+                </StackPanel>
+
+                <!-- 计算结果 -->
+                <Border Margin="0,10" Padding="10" CornerRadius="5"
+                        Background="{DynamicResource CardColor}"
+                        BoxShadow="0 1 2 0 #20000000">
+                    <StackPanel>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                              ColumnDefinitions="Auto,10,*">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="子网掩码:" />
+                            <TextBlock x:Name="Netmask" Grid.Row="0" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="网络地址:" />
+                            <TextBlock x:Name="Network" Grid.Row="1" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="第一个可用地址:" />
+                            <TextBlock x:Name="First" Grid.Row="2" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="最后一个可用地址:" />
+                            <TextBlock x:Name="Last" Grid.Row="3" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="广播地址:" />
+                            <TextBlock x:Name="Broadcast" Grid.Row="4" Grid.Column="2" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="地址总数:" />
+                            <TextBlock x:Name="NumBox" Grid.Row="5" Grid.Column="2" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 自定义字段 -->
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="自定义字段 A:" />
+                    <ComboBox x:Name="TagA" IsEditable="True" />
+                </StackPanel>
+                <StackPanel Margin="0,8" Orientation="Vertical">
+                    <TextBlock Text="自定义字段 B:" />
+                    <ComboBox x:Name="TagB" IsEditable="True" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Margin="10" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button x:Name="CancelButton" Margin="5" Click="CancelButton_OnClick"
+                    Content="取消" Classes="Flat" />
+            <Button x:Name="SaveButton" Margin="5" Click="SaveButton_OnClick"
+                    Content="保存" Classes="Raised" />
+        </StackPanel>
     </Grid>
 </Window>

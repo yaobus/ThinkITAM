@@ -1,0 +1,19 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style Selector="TreeViewItem">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="4,2" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="TreeViewItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="#19000000" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+    <Style Selector="TreeViewItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#0D000000" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+</Styles>

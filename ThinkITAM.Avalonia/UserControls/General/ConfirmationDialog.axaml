@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.UserControls.General.ConfirmationDialog">
@@ -10,8 +10,8 @@
             <TextBlock MaxWidth="400" Margin="0,10,0,0" FontSize="14" Foreground="{ReflectionBinding PromptColor}" Text="{ReflectionBinding Prompt}" TextWrapping="Wrap" />
             <!-- Buttons -->
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="0,8,8,0" Command="{ReflectionBinding ConfirmCommand}" Content="{ReflectionBinding ConfirmButtonText}" Foreground="{ReflectionBinding ConfirmButtonColor}" Classes="flat" />
-                <Button Margin="0,8,8,0" Content="Close" IsCancel="True" Classes="flat" />
+                <Button Margin="0,8,8,0" Command="{ReflectionBinding ConfirmCommand}" Content="{ReflectionBinding ConfirmButtonText}" Foreground="{ReflectionBinding ConfirmButtonColor}" Classes="Flat" />
+                <Button Margin="0,8,8,0" Content="Close" IsCancel="True" Classes="Flat" />
             </StackPanel>
         </StackPanel>
     </Grid>

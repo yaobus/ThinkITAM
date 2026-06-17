@@ -1,8 +1,8 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:material="using:Material.Icons.Avalonia"
              x:Class="ThinkITAM.FunctionPage.ComputerPage"
-             FontFamily="{DynamicResource HarmonyOsFontFamily}">
+             FontFamily="{DynamicResource MaterialFontFamily}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="320" />
@@ -16,7 +16,7 @@
 
         <Border Grid.Row="0" Grid.Column="0" Height="50" Margin="5,5,2.5,2.5"
                 VerticalAlignment="Center" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -27,8 +27,8 @@
                 <Button x:Name="ClearSearchKeyWord" Click="ClearSearchKeyWord_OnClick" Background="Transparent" BorderThickness="0">
                     <material:MaterialIcon Margin="5,0" Kind="ClearCircleOutline" />
                 </Button>
-                <TextBox x:Name="SearchKeyWord" Grid.Column="1" MinWidth="200" Margin="8,0,0,0"
-                         VerticalAlignment="Center" PlaceholderText="搜索关键字" BorderThickness="0" />
+               <TextBox x:Name="SearchKeyWord" Grid.Column="1" MinWidth="200" Margin="8,0,0,0"
+                        VerticalAlignment="Center" Watermark="搜索关键字" BorderThickness="0" />
                 <Button x:Name="SearchButton" Grid.Column="2" Click="SearchButton_OnClick" Background="Transparent" BorderThickness="0">
                     <material:MaterialIcon Margin="5,0" Kind="Search" />
                 </Button>
@@ -36,14 +36,14 @@
         </Border>
 
         <Border Grid.Row="1" Grid.Column="0" Margin="5,2.5,2.5,2.5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
-            <ListBox x:Name="DeviceListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            <ListBox
                      SelectionChanged="DeviceListView_OnSelectionChanged" />
         </Border>
 
         <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="2.5,2.5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid>
                 <Grid.RowDefinitions>
@@ -65,7 +65,7 @@
         </Border>
 
         <Border Grid.Row="2" Grid.Column="0" Margin="5,2.5,2.5,5" CornerRadius="5"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+               Background="{DynamicResource CardColor}"
                 BoxShadow="0 1 2 0 #20000000">
             <Grid Margin="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
