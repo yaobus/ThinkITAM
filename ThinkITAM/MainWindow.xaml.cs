@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
-using ThinkITAM.DatabaseOperation;
+using ThinkITAM.Database;
 using ThinkITAM.DataBridge;
 using ThinkITAM.Functions.FunctionClass;
 using ThinkITAM.UserControls.InformationDisplay;
@@ -549,8 +549,30 @@ public partial class MainWindow : Window
 
             GlobalVariables.dbConfig = dbConfig;
 
+            // 将 ViewModel 转换为 DatabaseConfig
+            var databaseConfig = new DatabaseConfig
+            {
+                Type = dbConfig.Type,
+                NickName = dbConfig.NickName,
+                Path = dbConfig.Path,
+                Host = dbConfig.Host,
+                Port = dbConfig.Port,
+                UserName = dbConfig.UserName,
+                Password = dbConfig.Password,
+                DatabaseName = dbConfig.DatabaseName
+            };
+
             // 创建服务实例
-            GlobalVariables.DbService = DatabaseServiceFactory.CreateService(dbConfig);
+            GlobalVariables.DbService = DatabaseServiceFactory.CreateService(databaseConfig);
+            
+            // 设置当前数据库类型（保留原有逻辑）
+            DataBridge.DataBridge.NowOpenedDataBaseType = dbConfig.Type?.ToLower() switch
+            {
+                "sqlite" => "sqlite",
+                "mysql" or "mariadb" => "mysql",
+                "sqlserver" => "sqlserver",
+                _ => "sqlite"
+            };
         }
 
 
