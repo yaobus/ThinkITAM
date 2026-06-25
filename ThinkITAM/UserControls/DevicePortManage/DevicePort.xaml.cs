@@ -40,6 +40,7 @@ public partial class DevicePort : UserControl
                     case 0: //单选模式
 
                         info.IsSelected = true;
+
                         PortAllocationWindow portAllocationWindow = new PortAllocationWindow();
 
                         string portName = $"{info.PortType}{info.PortSlotNumber}{info.PortId}";

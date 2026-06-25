@@ -191,6 +191,8 @@ public partial class MainWindow : Window
         var inputPassword = InputPasswordBox.Text ?? "";
         var passwordString = PasswordProtector.Encrypt(inputPassword);
 
+        Console.WriteLine("PASS:"+passwordString);
+        
         if (passwordString != AppSettings.EncryptString)
         {
             await Services.DialogService.ShowWarning(
