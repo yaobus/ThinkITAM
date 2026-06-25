@@ -179,6 +179,13 @@ namespace ThinkITAM.Windows.DevicePortManage
                                 PortMode.SelectedIndex = 2;
 
                                 break;
+
+
+                            case "Route":
+
+                                PortMode.SelectedIndex = 3;
+
+                                break;
                             default:
 
                                 PortMode.SelectedIndex = -1;

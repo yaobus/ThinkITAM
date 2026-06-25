@@ -399,17 +399,7 @@ public partial class SelectionWindow : Window
 
 
 
-    /// <summary>
-    /// 扫描资产二维码
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void QrcodeScan_OnClick(object sender, RoutedEventArgs e)
-    {
-        Windows.Scan.ScanWindow scan = new Windows.Scan.ScanWindow();
-        scan.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        scan.ShowDialog();
-    }
+
 
 
 
