@@ -19,27 +19,18 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <TextBlock
-                Margin="10,20,10,10"
+                Margin="10,20,10,0"
                 VerticalAlignment="Center"
                 FontFamily="{StaticResource HarmonyOsFontFamilyBold}"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="欢迎使用ThinkITAM预览版" />
-            <TextBlock
-                Margin="10,0"
-                VerticalAlignment="Center"
-                FontFamily="{StaticResource HarmonyOsFontFamily}"
-                FontSize="14"
-                Foreground="Red"
-                Opacity="0.8"
-                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                Text="本软件为免费软件，如果您花钱购买了本软件，请联系卖家退款!" />
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

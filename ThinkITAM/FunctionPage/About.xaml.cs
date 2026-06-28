@@ -46,7 +46,7 @@ namespace ThinkITAM.FunctionPage
 
             try
             {
-                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/SIPAM", null);
+                OpenUrlClass.OpenUrlInSpecificBrowser("https://github.com/yaobus/ThinkITAM", null);
             }
             catch (Exception exception)
             {

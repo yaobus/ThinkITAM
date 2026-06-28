@@ -8,28 +8,28 @@ namespace ThinkITAM.Shared.Limits
         public static readonly int ScanHostNumber = 512;
 
         /// <summary>
-        /// IP地址数量限制，8192个
+        /// IP地址数量限制
         /// </summary>
-        public static readonly int IpAddressCount = 16384;
+        public static readonly int IpAddressCount = 1048576;
 
         /// <summary>
-        ///  设备数量限制，1024个
+        ///  设备数量限制
         /// </summary>
-        public static readonly int DevicesCount = 1024;
+        public static readonly int DevicesCount = 65536;
 
         /// <summary>
-        /// 机架数量限制，256个
+        /// 机架数量限制
         /// </summary>
-        public static readonly int RackCount = 256;
+        public static readonly int RackCount = 65536;
 
         /// <summary>
-        /// 终端数量限制，2048个
+        /// 终端数量限制
         /// </summary>
-        public static readonly int ComputerCount = 2048;
+        public static readonly int ComputerCount = 65536;
 
         /// <summary>
-        ///  节点数量限制，12288个
+        ///  节点数量限制
         /// </summary>
-        public static readonly int NodeCount = 12288;
+        public static readonly int NodeCount = 65536;
     }
 }

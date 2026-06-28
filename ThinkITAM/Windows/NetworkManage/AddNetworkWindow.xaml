@@ -315,7 +315,7 @@
                         HorizontalAlignment="Right"
                         IsEnabled="True"
                         Maximum="30"
-                        Minimum="20"
+                        Minimum="16"
                         Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
                         TickFrequency="1"
                         TickPlacement="Both"

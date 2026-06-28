@@ -35,7 +35,7 @@
             Margin="10"
             HorizontalAlignment="Center"
             Style="{StaticResource MaterialDesignBody1TextBlock}"
-            Text="Copyright © 2025  Yaobus All Rights Reserved" />
+            Text="Copyright © 2026  Yaobus All Rights Reserved" />
 
 
         <StackPanel
@@ -59,30 +59,11 @@
                     <TextBlock
                         Margin="10,0"
                         VerticalAlignment="Center"
-                        Text="SIPAM" />
+                        Text="ThinkITAM" />
                 </StackPanel>
             </Button>
 
 
-
-            <Button
-                x:Name="IpamNote"
-                Width="150"
-                Margin="10"
-                HorizontalAlignment="Center"
-                Click="IpamNote_OnClick"
-                Style="{StaticResource MaterialDesignOutlinedLightButton}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon
-                        Margin="0"
-                        VerticalAlignment="Center"
-                        Kind="Github" />
-                    <TextBlock
-                        Margin="10,0"
-                        VerticalAlignment="Center"
-                        Text="IPAM-NOTE" />
-                </StackPanel>
-            </Button>
 
 
 
@@ -155,7 +136,7 @@
         </Button>
 
     </StackPanel>
-    <!--  9P4L15BSJWR0  -->
+
 
 
 
