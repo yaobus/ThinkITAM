@@ -1,0 +1,54 @@
+Apache License 2.0 — Additional Terms (Custom)
+Copyright (c) [YEAR] [COPYRIGHT HOLDER]
+
+Preamble
+This Work is licensed under the Apache License, Version 2.0 ("Apache-2.0"), available at http://www.apache.org/licenses/LICENSE-2.0, except as expressly modified by the Additional Terms set forth below. Except as modified by these Additional Terms, all provisions of the Apache-2.0 License apply in full.
+
+1. Additional Terms — Overview
+These Additional Terms supplement and modify the Apache-2.0 License for this Project. They are binding on any Recipients of the Work. If any provision below conflicts with the Apache-2.0 License, these Additional Terms govern for the purposes of this Work.
+
+2. Append-Only Requirement for UpdateInfo.md
+- The file Resources\UpdateInfo\UpdateInfo.md (the "UpdateInfo File") is subject to an append-only requirement.
+- Recipients may add new content only by appending new entries at the end of the file. Deleting, overwriting, reordering, or otherwise modifying existing lines or historical entries is prohibited.
+- Any alteration of existing content in the UpdateInfo File is a breach of these Additional Terms and results in termination of license rights for the offending party, subject to cure provisions in the Apache-2.0 License (where applicable).
+
+3. Protected Files — No Modification
+- The following files are protected and must remain unchanged in any distributed or derivative copies of the Work:
+  - ThinkITAM\FunctionPage\About.xaml
+  - ThinkITAM\Windows\AboutWindow\DonatePage.xaml
+  - ThinkITAM\Windows\AboutWindow\FeedbackPage.xaml
+- "Unchanged" means the textual contents and embedded resources must be preserved exactly as provided in the original Work; removal, replacement, or modification is prohibited.
+
+4. Redistribution Requirements
+- Redistributions (source or binary) must include: (a) a copy of the Apache-2.0 License; (b) a copy of these Additional Terms; (c) the original NOTICE file (if any) and required attributions for third-party components; (d) the protected files from Section 3 unchanged; and (e) the UpdateInfo File in its current state (recipients may further append but may not edit prior entries).
+- Derivative works must clearly document added attributions in NOTICE or equivalent files and must not remove any attributions required by included third-party components.
+
+5. Acknowledgements
+This Project gratefully acknowledges the contributions of many open-source libraries and tools used within the Project. The authors also express thanks to the following development and AI-assistance tools (listed as acknowledgements, not as licensors):
+- JetBrains Rider
+- Microsoft Visual Studio and GitHub integration
+- QWEN
+- Deepseek
+- ChatGPT
+- 豆包
+This list is provided as a courtesy and does not create additional licensing obligations; third-party software remains governed by its own license terms.
+
+6. Enforcement and Remedies
+- Breach of these Additional Terms (including unauthorized modification of protected files or alteration of the UpdateInfo File) terminates the license rights granted under Apache-2.0 to the offending party, subject to any cure procedures available under Apache-2.0.
+- These Additional Terms may affect downstream compatibility or distribution channels; recipients should consult legal counsel before relicensing or combining with incompatible licenses.
+
+7. No Warranty; Limitation of Liability
+- The disclaimers of warranty and limitation of liability in the Apache-2.0 License apply in full and are incorporated by reference.
+
+8. Governing Language and Legal Review
+- The English text of these Additional Terms is authoritative. A translated summary may be provided for convenience only.
+- This file is a draft license supplement and not legal advice. For a binding, jurisdiction-specific license text, seek qualified legal counsel.
+
+---
+中文摘要（便于阅读，非法律文本）:
+- 基于 Apache-2.0，增加两项主要约束：
+  1) Resources\UpdateInfo\UpdateInfo.md 只能追加内容，禁止修改已有条目；
+  2) ThinkITAM\\FunctionPage\\About.xaml、ThinkITAM\\Windows\\AboutWindow\\DonatePage.xaml、ThinkITAM\\Windows\\AboutWindow\\FeedbackPage.xaml 三个文件不得被修改，必须保持原样。
+- 再发布时应包含 Apache-2.0、这些附加条款、NOTICE 与受保护文件；若含第三方组件，需保留其署名与许可说明。
+- 感谢列表包括 JetBrains Rider、Visual Studio/GitHub、QWEN、Deepseek、ChatGPT、豆包 等。
+- 建议由律师审阅以确保可执行性与合规性。

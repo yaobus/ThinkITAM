@@ -1,0 +1,16 @@
+Apache License — Additional Notices
+
+Copyright (c) [YEAR] [COPYRIGHT HOLDER]
+
+This file contains additional attribution notices that supplement the NOTICE file for components distributed under the Apache License, Version 2.0 ("Apache-2.0"). Replace the bracketed fields above with the appropriate year and copyright holder before distributing.
+
+Suggested format for additional attributions (add as needed):
+
+Component: <component-name>
+Copyright: Copyright (c) [YEAR] [OWNER]
+License: Apache-2.0
+Source: <url or repository>
+
+Notes:
+- Do not remove or alter license notices required by third-party components.
+- Keep this file together with the standard Apache-2.0 LICENSE and NOTICE files when redistributing.
