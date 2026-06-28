@@ -44,11 +44,3 @@ This list is provided as a courtesy and does not create additional licensing obl
 - The English text of these Additional Terms is authoritative. A translated summary may be provided for convenience only.
 - This file is a draft license supplement and not legal advice. For a binding, jurisdiction-specific license text, seek qualified legal counsel.
 
----
-中文摘要（便于阅读，非法律文本）:
-- 基于 Apache-2.0，增加两项主要约束：
-  1) Resources\UpdateInfo\UpdateInfo.md 只能追加内容，禁止修改已有条目；
-  2) ThinkITAM\\FunctionPage\\About.xaml、ThinkITAM\\Windows\\AboutWindow\\DonatePage.xaml、ThinkITAM\\Windows\\AboutWindow\\FeedbackPage.xaml 三个文件不得被修改，必须保持原样。
-- 再发布时应包含 Apache-2.0、这些附加条款、NOTICE 与受保护文件；若含第三方组件，需保留其署名与许可说明。
-- 感谢列表包括 JetBrains Rider、Visual Studio/GitHub、QWEN、Deepseek、ChatGPT、豆包 等。
-- 建议由律师审阅以确保可执行性与合规性。
