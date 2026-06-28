@@ -1,5 +1,5 @@
-Apache License 2.0 — Additional Terms (Custom)
-Copyright (c) [YEAR] [COPYRIGHT HOLDER]
+﻿Apache License 2.0 — Additional Terms (Custom)
+Copyright (c) [2026] [Yaobus]
 
 Preamble
 This Work is licensed under the Apache License, Version 2.0 ("Apache-2.0"), available at http://www.apache.org/licenses/LICENSE-2.0, except as expressly modified by the Additional Terms set forth below. Except as modified by these Additional Terms, all provisions of the Apache-2.0 License apply in full.
