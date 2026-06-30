@@ -2,3 +2,7 @@ ThinkITAM是一款用于IP地址分配记录，支持SQLite数据库，MySQL数�
 设备端口分配记录以及网络链路管理的工具，该工具还包含了墙面端口信息管理，简易仓储管理
 IP地址计算器，简易端口扫描器，MAC查询设备厂商，存储空间计算，MarkDown简易记事本等功能
 旨在为IT管理人员提供一站式IT资产管理记录维护工作。
+
+获取软件
+[从应用商店获取]([https://www.baidu.com](https://apps.microsoft.com/detail/9P4L15BSJWR0?hl=zh-cn&gl=CN&ocid=pdpshare) "点击访问应用商店")
+
