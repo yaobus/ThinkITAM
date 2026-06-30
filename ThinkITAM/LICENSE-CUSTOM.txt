@@ -1,46 +1,502 @@
-﻿Apache License 2.0 — Additional Terms (Custom)
-Copyright (c) [2026] [Yaobus]
+﻿Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+
+   "License" shall mean the terms and conditions for use, reproduction,
+   and distribution as defined by Sections 1 through 9 of this document.
+
+   "Licensor" shall mean the copyright owner or entity authorized by
+   the copyright owner that is granting the License.
+
+   "Legal Entity" shall mean the union of the acting entity and all
+   other entities that control, are controlled by, or are under common
+   control with that entity. For the purposes of this definition,
+   "control" means (i) the power, direct or indirect, to cause the
+   direction or management of such entity, whether by contract or
+   otherwise, or (ii) ownership of fifty percent (50%) or more of the
+   outstanding shares, or (iii) beneficial ownership of such entity.
+
+   "You" (or "Your") shall mean an individual or Legal Entity
+   exercising permissions granted by this License.
+
+   "Source" form shall mean the preferred form for making modifications,
+   including but not limited to software source code, documentation
+   source, and configuration files.
+
+   "Object" form shall mean any form resulting from mechanical
+   transformation or translation of a Source form, including but
+   not limited to compiled object code, generated documentation,
+   and conversions to other media types.
+
+   "Work" shall mean the work of authorship, whether in Source or
+   Object form, made available under the License, as indicated by a
+   copyright notice that is included in or attached to the work
+   (an example is provided in the Appendix below).
+
+   "Derivative Works" shall mean any work, whether in Source or Object
+   form, that is based on (or derived from) the Work and for which the
+   editorial revisions, annotations, elaborations, or other modifications
+   represent, as a whole, an original work of authorship. For the purposes
+   of this License, Derivative Works shall not include works that remain
+   separable from, or merely link (or bind by name) to the interfaces of,
+   the Work and Derivative Works thereof.
+
+   "Contribution" shall mean any work of authorship, including
+   the original version of the Work and any modifications or additions
+   to that Work or Derivative Works thereof, that is intentionally
+   submitted to Licensor for inclusion in the Work by the copyright owner
+   or by an individual or Legal Entity authorized to submit on behalf of
+   the copyright owner. For the purposes of this definition, "submitted"
+   means any form of electronic, verbal, or written communication sent
+   to the Licensor or its representatives, including but not limited to
+   communication on electronic mailing lists, source code control systems,
+   and issue tracking systems that are managed by, or on behalf of, the
+   Licensor for the purpose of discussing and improving the Work, but
+   excluding communication that is conspicuously marked or otherwise
+   designated in writing by the copyright owner as "Not a Contribution."
+
+   "Contributor" shall mean Licensor and any individual or Legal Entity
+   on behalf of whom a Contribution has been received by Licensor and
+   subsequently incorporated within the Work.
+
+2. Grant of Copyright License. Subject to the terms and conditions of
+   this License, each Contributor hereby grants to You a perpetual,
+   worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+   copyright license to reproduce, prepare Derivative Works of,
+   publicly display, publicly perform, sublicense, and distribute the
+   Work and such Derivative Works in Source or Object form.
+
+3. Grant of Patent License. Subject to the terms and conditions of
+   this License, each Contributor hereby grants to You a perpetual,
+   worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+   (except as stated in this section) patent license to make, have made,
+   use, offer to sell, sell, import, and otherwise transfer the Work,
+   where such license applies only to those patent claims licensable
+   by such Contributor that are necessarily infringed by their
+   Contribution(s) alone or by combination of their Contribution(s)
+   with the Work to which such Contribution(s) was submitted. If You
+   institute patent litigation against any entity (including a
+   cross-claim or counterclaim in a lawsuit) alleging that the Work
+   or a Contribution incorporated within the Work constitutes direct
+   or contributory patent infringement, then any patent licenses
+   granted to You under this License for that Work shall terminate
+   as of the date such litigation is filed.
+
+4. Redistribution. You may reproduce and distribute copies of the
+   Work or Derivative Works thereof in any medium, with or without
+   modifications, and in Source or Object form, provided that You
+   meet the following conditions:
+
+   (a) You must give any other recipients of the Work or
+       Derivative Works a copy of this License; and
+
+   (b) You must cause any modified files to carry prominent notices
+       stating that You changed the files; and
+
+   (c) You must retain, in the Source form of any Derivative Works
+       that You distribute, all copyright, patent, trademark, and
+       attribution notices from the Source form of the Work,
+       excluding those notices that do not pertain to any part of
+       the Derivative Works; and
+
+   (d) If the Work includes a "NOTICE" text file as part of its
+       distribution, then any Derivative Works that You distribute must
+       include a readable copy of the attribution notices contained
+       within such NOTICE file, excluding those notices that do not
+       pertain to any part of the Derivative Works, in at least one
+       of the following places: within a NOTICE text file distributed
+       as part of the Derivative Works; within the Source form or
+       documentation, if provided along with the Derivative Works; or,
+       within a display generated by the Derivative Works, if and
+       wherever such third-party notices normally appear. The contents
+       of the NOTICE file are for informational purposes only and
+       do not modify the License. You may add Your own attribution
+       notices within Derivative Works that You distribute, alongside
+       or as an addendum to the NOTICE text from the Work, provided
+       that such additional attribution notices cannot be construed
+       as modifying the License.
+
+   You may add Your own copyright statement to Your modifications and
+   may provide additional or different license terms and conditions
+   for use, reproduction, or distribution of Your modifications, or
+   for any such Derivative Works as a whole, provided Your use,
+   reproduction, and distribution of the Work otherwise complies with
+   the conditions stated in this License.
+
+5. Submission of Contributions. Unless You explicitly state otherwise,
+   any Contribution intentionally submitted for inclusion in the Work
+   by You to the Licensor shall be under the terms and conditions of
+   this License, without any additional terms or conditions.
+   Notwithstanding the above, nothing herein shall supersede or modify
+   the terms of any separate license agreement you may have executed
+   with Licensor regarding such Contributions.
+
+6. Trademarks. This License does not grant permission to use the trade
+   names, trademarks, service marks, or product names of the Licensor,
+   except as required for reasonable and customary use in describing the
+   origin of the Work and reproducing the content of the NOTICE file.
+
+7. Disclaimer of Warranty. Unless required by applicable law or
+   agreed to in writing, Licensor provides the Work (and each
+   Contributor provides its Contributions) on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+   implied, including, without limitation, any warranties or conditions
+   of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+   PARTICULAR PURPOSE. You are solely responsible for determining the
+   appropriateness of using or redistributing the Work and assume any
+   risks associated with Your exercise of permissions under this License.
+
+8. Limitation of Liability. In no event and under no legal theory,
+   whether in tort (including negligence), contract, or otherwise,
+   unless required by applicable law (such as deliberate and grossly
+   negligent acts) or agreed to in writing, shall any Contributor be
+   liable to You for damages, including any direct, indirect, special,
+   incidental, or consequential damages of any character arising as a
+   result of this License or out of the use or inability to use the
+   Work (including but not limited to damages for loss of goodwill,
+   work stoppage, computer failure or malfunction, or any and all
+   other commercial damages or losses), even if such Contributor
+   has been advised of the possibility of such damages.
+
+9. Accepting Warranty or Additional Liability. While redistributing
+   the Work or Derivative Works thereof, You may choose to offer,
+   and charge a fee for, acceptance of support, warranty, indemnity,
+   or other liability obligations and/or rights consistent with this
+   License. However, in accepting such obligations, You may act only
+   on Your own behalf and on Your sole responsibility, not on behalf
+   of any other Contributor, and only if You agree to indemnify,
+   defend, and hold each Contributor harmless for any liability
+   incurred by, or claims asserted against, such Contributor by reason
+   of your accepting any such warranty or additional liability.
+
+END OF APACHE LICENSE 2.0 TERMS AND CONDITIONS
+
+
+
+ADDITIONAL TERMS FOR THIS WORK
+
+These Additional Terms govern the Work identified below and modify the
+Apache License 2.0 ("Apache-2.0") above. In the event of any conflict
+between these Additional Terms and the Apache-2.0, these Additional Terms
+shall prevail. All provisions of Apache-2.0 not expressly modified herein
+remain in full force and effect.
+
+Copyright (c) 2026 Yaobus
 
 Preamble
-This Work is licensed under the Apache License, Version 2.0 ("Apache-2.0"), available at http://www.apache.org/licenses/LICENSE-2.0, except as expressly modified by the Additional Terms set forth below. Except as modified by these Additional Terms, all provisions of the Apache-2.0 License apply in full.
+This Work is licensed under the Apache License, Version 2.0, except as
+expressly modified by the Additional Terms set forth below. Except as
+modified by these Additional Terms, all provisions of the Apache-2.0
+License apply in full.
 
 1. Additional Terms — Overview
-These Additional Terms supplement and modify the Apache-2.0 License for this Project. They are binding on any Recipients of the Work. If any provision below conflicts with the Apache-2.0 License, these Additional Terms govern for the purposes of this Work.
+   These Additional Terms supplement and modify the Apache-2.0 License
+   for this Project. They are binding on any Recipients of the Work.
 
 2. Append-Only Requirement for UpdateInfo.md
-- The file Resources\UpdateInfo\UpdateInfo.md (the "UpdateInfo File") is subject to an append-only requirement.
-- Recipients may add new content only by appending new entries at the end of the file. Deleting, overwriting, reordering, or otherwise modifying existing lines or historical entries is prohibited.
-- Any alteration of existing content in the UpdateInfo File is a breach of these Additional Terms and results in termination of license rights for the offending party, subject to cure provisions in the Apache-2.0 License (where applicable).
+   The file Resources\UpdateInfo\UpdateInfo.md (the "UpdateInfo File")
+   is subject to an append-only requirement.
+   (a) Recipients may add new content only by appending new entries at
+       the end of the file.
+   (b) Deleting, overwriting, reordering, or otherwise modifying
+       existing lines or historical entries is prohibited.
+   (c) Any alteration of existing content in the UpdateInfo File is a
+       breach of these Additional Terms and results in termination of
+       license rights for the offending party, subject to cure provisions
+       in the Apache-2.0 License (where applicable).
 
 3. Protected Files — No Modification
-- The following files are protected and must remain unchanged in any distributed or derivative copies of the Work:
-  - ThinkITAM\FunctionPage\About.xaml
-  - ThinkITAM\Windows\AboutWindow\DonatePage.xaml
-  - ThinkITAM\Windows\AboutWindow\FeedbackPage.xaml
-- "Unchanged" means the textual contents and embedded resources must be preserved exactly as provided in the original Work; removal, replacement, or modification is prohibited.
+   The following files are protected and must remain unchanged in any
+   distributed or derivative copies of the Work:
+     - ThinkITAM\FunctionPage\About.xaml
+     - ThinkITAM\Windows\AboutWindow\DonatePage.xaml
+     - ThinkITAM\Windows\AboutWindow\FeedbackPage.xaml
+   "Unchanged" means the textual contents and embedded resources must
+   be preserved exactly as provided in the original Work; removal,
+   replacement, or modification is prohibited.
 
 4. Redistribution Requirements
-- Redistributions (source or binary) must include: (a) a copy of the Apache-2.0 License; (b) a copy of these Additional Terms; (c) the original NOTICE file (if any) and required attributions for third-party components; (d) the protected files from Section 3 unchanged; and (e) the UpdateInfo File in its current state (recipients may further append but may not edit prior entries).
-- Derivative works must clearly document added attributions in NOTICE or equivalent files and must not remove any attributions required by included third-party components.
+   (a) Redistributions (source or binary) must include:
+        (i)   a copy of the Apache-2.0 License;
+        (ii)  a copy of these Additional Terms;
+        (iii) the original NOTICE file (if any) and required
+              attributions for third-party components;
+        (iv)  the protected files from Section 3 unchanged; and
+        (v)   the UpdateInfo File in its current state (recipients may
+              further append but may not edit prior entries).
+   (b) Derivative works must clearly document added attributions in
+       NOTICE or equivalent files and must not remove any attributions
+       required by included third-party components.
 
 5. Acknowledgements
-This Project gratefully acknowledges the contributions of many open-source libraries and tools used within the Project. The authors also express thanks to the following development and AI-assistance tools (listed as acknowledgements, not as licensors):
-- JetBrains Rider
-- Microsoft Visual Studio and GitHub integration
-- QWEN
-- Deepseek
-- ChatGPT
-- 豆包
-This list is provided as a courtesy and does not create additional licensing obligations; third-party software remains governed by its own license terms.
+   This Project gratefully acknowledges the contributions of many
+   open-source libraries and tools used within the Project. The authors
+   also express thanks to the following development and AI-assistance
+   tools (listed as acknowledgements, not as licensors):
+     - JetBrains Rider
+     - Microsoft Visual Studio and GitHub integration
+     - QWEN
+     - Deepseek
+     - ChatGPT
+     - 豆包
+   This list is provided as a courtesy and does not create additional
+   licensing obligations; third-party software remains governed by its
+   own license terms.
 
 6. Enforcement and Remedies
-- Breach of these Additional Terms (including unauthorized modification of protected files or alteration of the UpdateInfo File) terminates the license rights granted under Apache-2.0 to the offending party, subject to any cure procedures available under Apache-2.0.
-- These Additional Terms may affect downstream compatibility or distribution channels; recipients should consult legal counsel before relicensing or combining with incompatible licenses.
+   (a) Breach of these Additional Terms (including unauthorized
+       modification of protected files or alteration of the UpdateInfo
+       File) terminates the license rights granted under Apache-2.0 to
+       the offending party, subject to any cure procedures available
+       under Apache-2.0.
+   (b) These Additional Terms may affect downstream compatibility or
+       distribution channels; recipients should consult legal counsel
+       before relicensing or combining with incompatible licenses.
 
 7. No Warranty; Limitation of Liability
-- The disclaimers of warranty and limitation of liability in the Apache-2.0 License apply in full and are incorporated by reference.
+   The disclaimers of warranty and limitation of liability in the
+   Apache-2.0 License apply in full and are incorporated by reference.
 
-8. Governing Language and Legal Review
-- The English text of these Additional Terms is authoritative. A translated summary may be provided for convenience only.
-- This file is a draft license supplement and not legal advice. For a binding, jurisdiction-specific license text, seek qualified legal counsel.
+END OF ADDITIONAL TERMS
 
+
+
+APPENDIX: How to apply these terms to your files
+
+To apply this License to your work, attach the following boilerplate
+notice, with the fields enclosed by brackets "[]" replaced with your
+own identifying information. (Don't include the brackets!) The text
+should be enclosed in the appropriate comment syntax for the file
+format. We also recommend that a file or class name and description
+of purpose be included on the same "printed page" as the copyright
+notice for easier identification within third-party archives.
+
+   Copyright 2026 Yaobus
+
+   Licensed under the Apache License, Version 2.0 with Additional Terms
+   (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+   implied. See the License for the specific language governing
+   permissions and limitations under the License.
+
+   The License includes Additional Terms that govern certain files and
+   redistribution requirements. You must review the full License text
+   for details.
+
+
+   Apache License
+版本 2.0，2004 年 1 月
+http://www.apache.org/licenses/
+
+使用、复制和分发的条款与条件
+
+1. 定义
+
+   “许可”应指本文档第 1 至 9 条所定义的使用、复制和分发的条款与条件。
+
+   “许可人”应指版权所有者，或由版权所有者授权授予本许可的实体。
+
+   “法律实体”应指行为实体以及控制该实体、受该实体控制或与该实体共同受
+   控制的所有其他实体的集合。就本定义而言，“控制”指 (i) 通过合同或其他
+   方式直接或间接地指导或管理该实体的权力，(ii) 拥有该实体百分之五十
+   （50%）或以上的已发行股份，或 (iii) 该实体的受益所有权。
+
+   “您”（或“您的”）应指行使本许可所授予权限的个人或法律实体。
+
+   “源代码”形式应指进行修改的首选形式，包括但不限于软件源代码、文档源
+   文件和配置文件。
+
+   “目标代码”形式应指对源代码形式进行机械转换或翻译而产生的任何形式，
+   包括但不限于编译后的目标代码、生成的文档以及转换为其他媒体类型的形式。
+
+   “作品”应指根据本许可提供的原创作品，无论是源代码形式还是目标代码形式，
+   并由包含在作品内或附属于作品的版权声明所标明（附录中提供了一个示例）。
+
+   “衍生作品”应指基于（或衍生自）作品的任何作品，无论是源代码形式还是目
+   标代码形式，并且其编辑性修订、注释、阐述或其他修改作为一个整体构成原创
+   作品。就本许可而言，衍生作品不应包括仍可与作品及其衍生作品的接口分离，
+   或仅链接（或按名称绑定）到作品及其衍生作品的接口的作品。
+
+   “贡献”应指由版权所有者或经版权所有者授权提交的个人或法律实体，有意提
+   交给许可人以纳入作品的任何原创作品，包括作品的原始版本以及对作品或其
+   衍生作品的任何修改或补充。就本定义而言，“提交”指发送给许可人或其代表
+   的任何形式的电子、口头或书面通信，包括但不限于在由许可人或代表许可人
+   管理的、旨在讨论和改进作品的电子邮寄列表、源代码控制系统和问题跟踪系
+   统上的通信，但不包括版权所有者明确标记或以书面形式另外指定为“非贡献”
+   的通信。
+
+   “贡献者”应指许可人，以及任何其贡献已被许可人接收并随后纳入作品中的个
+   人或法律实体。
+
+2. 版权许可的授予。在遵守本许可的条款和条件的前提下，每位贡献者特此授予
+   您永久的、全球性的、非排他性的、免费的、免版税的、不可撤销的版权许可，
+   以复制、制作衍生作品、公开展示、公开表演、再许可和分发作品以及此类衍生
+   作品，无论是以源代码形式还是目标代码形式。
+
+3. 专利许可的授予。在遵守本许可的条款和条件的前提下，每位贡献者特此授予
+   您永久的、全球性的、非排他性的、免费的、免版税的、不可撤销的（本节中
+   规定的除外）专利许可，以制造、委托制造、使用、许诺销售、销售、进口以及
+   以其他方式转让作品，但此类许可仅适用于该贡献者可许可的、且其贡献本身或
+   将其贡献与提交该贡献所针对的作品组合而必然侵犯的专利权利要求。如果您对
+   任何实体提起专利诉讼（包括诉讼中的交叉请求或反诉），指控作品或作品中包
+   含的贡献构成直接或辅助专利侵权，则根据本许可授予您对该作品的任何专利许
+   可，将自该诉讼提起之日起终止。
+
+4. 重新分发。您可以在任何媒介上复制和分发作品或其衍生作品的副本，无论是否
+   经过修改，也无论是源代码形式还是目标代码形式，前提是您满足以下条件：
+
+   (a) 您必须向作品或衍生作品的任何其他接收者提供一份本许可的副本；并且
+
+   (b) 您必须使任何经过修改的文件带有显著的声明，说明您已更改这些文件；并且
+
+   (c) 您必须在您分发的任何衍生作品的源代码形式中，保留作品源代码形式中的
+       所有版权、专利、商标和归属声明，但不包括与衍生作品的任何部分无关的
+       声明；并且
+
+   (d) 如果作品包含“NOTICE”文本文件作为其分发的一部分，则您分发的任何衍生
+       作品必须在以下至少一处包含该 NOTICE 文件中所含归属声明的可读副本
+      （不包括与衍生作品的任何部分无关的声明）：作为衍生作品一部分分发的
+       NOTICE 文本文件中；在随衍生作品提供的源代码形式或文档中；或者，在衍
+       生作品生成的显示中（如果并且在此类第三方声明通常出现的位置）。NOTICE
+       文件的内容仅供参考，并不修改本许可。您可以在您分发的衍生作品中添加您
+       自己的归属声明，与作品的 NOTICE 文本并列或作为其附录，前提是此类附加
+       归属声明不能被解释为修改本许可。
+
+   您可以为您的修改添加您自己的版权声明，并可以为您的修改的使用、复制或分
+   发，或为任何此类衍生作品整体提供附加或不同的许可条款和条件，前提是您对
+   作品的使用、复制和分发在其他方面符合本许可中规定的条件。
+
+5. 贡献的提交。除非您明确另有说明，否则您有意提交以纳入作品的任何贡献均应
+   受本许可条款和条件的约束，不附加任何额外的条款或条件。尽管有上述规定，
+   本文中的任何内容均不得取代或修改您可能已与许可人就此类贡献签订的任何单
+   独许可协议的条款。
+
+6. 商标。本许可不授予使用许可人的商品名称、商标、服务标志或产品名称的权限，
+   但在描述作品来源以及复制 NOTICE 文件内容的合理和习惯性使用所必需的范围
+   内除外。
+
+7. 免责声明。除非适用法律要求或书面同意，否则许可人“按原样”提供作品（且
+   每位贡献者“按原样”提供其贡献），不附带任何明示或暗示的担保或条件，包括
+   但不限于对所有权、非侵权、适销性或特定用途适用性的任何担保或条件。您自
+   行负责确定使用或重新分发作品的适当性，并承担您行使本许可下权限所相关的
+   任何风险。
+
+8. 责任限制。在任何情况下，无论基于何种法律理论，无论是侵权（包括过失）、
+   合同还是其他原因，除非适用法律（例如故意和重大过失行为）要求或书面同意，
+   否则任何贡献者均不对您承担损害赔偿责任，包括因本许可或因使用或无法使用
+   作品而产生的任何直接、间接、特殊、附带或后果性损害（包括但不限于商誉损
+   失、停工、计算机故障或失灵，或任何及所有其他商业损害或损失），即使该贡
+   献者已被告知此类损害的可能性。
+
+9. 接受保证或附加责任。在重新分发作品或其衍生作品时，您可以选择提供并向接
+   受者收取费用，以换取与本许可一致的支持、保证、赔偿或其他责任义务和/或
+   权利的接受。但是，在接受此类义务时，您只能代表您自己并自行承担责任，不
+   能代表任何其他贡献者，并且只有您同意赔偿、辩护并使每位贡献者免于因您接
+   受任何此类保证或附加责任而对该贡献者产生的任何责任或对其提出的索赔，您
+   才可以这样做。
+
+Apache License 2.0 条款与条件结束
+
+
+
+本作品的附加条款
+
+以下附加条款管辖上述标识的作品，并修改上述 Apache License 2.0
+（“Apache-2.0”）。如果这些附加条款与 Apache-2.0 有任何冲突，以这些附加
+条款为准。Apache-2.0 中未被本文明确修改的所有条款仍然完全有效。
+
+版权所有 (c) 2026 Yaobus
+
+序言
+本作品根据 Apache License, Version 2.0 进行许可，但下文规定的附加条款明确
+修改的除外。除这些附加条款修改的内容外，Apache-2.0 许可的所有条款完全适用。
+
+1. 附加条款 — 概述
+   这些附加条款补充并修改了本项目的 Apache-2.0 许可。它们对作品的任何接收
+   者具有约束力。
+
+2. UpdateInfo.md 的仅追加要求
+   文件 Resources\UpdateInfo\UpdateInfo.md（“UpdateInfo 文件”）受仅追加要求
+   约束。
+   (a) 接收者只能通过将新条目追加到文件末尾来添加新内容。
+   (b) 禁止删除、覆盖、重新排序或以其他方式修改现有行或历史条目。
+   (c) 对 UpdateInfo 文件中现有内容的任何更改均构成违反这些附加条款，并导
+       致违约方的许可权利终止，但须遵守 Apache-2.0 许可中适用的补救条款
+      （如适用）。
+
+3. 受保护文件 — 不得修改
+   以下文件为受保护文件，在作品的任何分发或衍生副本中必须保持不变：
+     - ThinkITAM\FunctionPage\About.xaml
+     - ThinkITAM\Windows\AboutWindow\DonatePage.xaml
+     - ThinkITAM\Windows\AboutWindow\FeedbackPage.xaml
+   “保持不变”指文本内容和嵌入资源必须完全按照原始作品中提供的方式保留；
+   禁止移除、替换或修改。
+
+4. 重新分发要求
+   (a) 重新分发（源代码或二进制形式）必须包含：
+        (i)   Apache-2.0 许可的副本；
+        (ii)  这些附加条款的副本；
+        (iii) 原始 NOTICE 文件（如有）以及第三方组件所需的归属声明；
+        (iv)  第 3 条中未更改的受保护文件；以及
+        (v)   处于当前状态的 UpdateInfo 文件（接收者可以进一步追加，但不得
+              编辑先前条目）。
+   (b) 衍生作品必须在 NOTICE 或同等文件中清楚地记录添加的归属声明，并且不
+       得移除所包含的第三方组件所要求的任何归属声明。
+
+5. 致谢
+   本项目衷心感谢许多在本项目中使用的开源库和工具的贡献。作者还对以下开发
+   和人工智能辅助工具表示感谢（作为致谢列出，并非许可人）：
+     - JetBrains Rider
+     - Microsoft Visual Studio 和 GitHub 集成
+     - QWEN
+     - Deepseek
+     - ChatGPT
+     - 豆包
+   此列表仅作为礼貌提供，不产生额外的许可义务；第三方软件仍受其自己的许可
+   条款约束。
+
+6. 执行与救济
+   (a) 违反这些附加条款（包括未经授权修改受保护文件或更改 UpdateInfo 文件）
+       将终止根据 Apache-2.0 授予违约方的许可权利，但须遵守 Apache-2.0 下
+       可用的任何补救程序。
+   (b) 这些附加条款可能影响下游兼容性或分发渠道；接收者在重新许可或与不兼
+       容的许可结合之前应咨询法律顾问。
+
+7. 无担保；责任限制
+   Apache-2.0 许可中的担保免责声明和责任限制完全适用，并通过引用纳入本文。
+
+附加条款结束
+
+
+
+附录：如何将这些条款应用于您的文件
+
+要将本许可应用于您的作品，请附上以下样板声明，将方括号“[]”中的字段替换
+为您自己的识别信息。（不要包含方括号！）文本应包含在适合文件格式的注释语
+法中。我们还建议将文件或类名以及用途说明包含在与版权声明相同的“印刷页”上，
+以便于在第三方档案中识别。
+
+   版权所有 2026 Yaobus
+
+   根据 Apache License, Version 2.0 及其附加条款（“本许可”）授权；
+   您除非遵守本许可，否则不得使用此文件。
+   您可以在以下网址获取本许可的副本：
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   除非适用法律要求或书面同意，否则根据本许可分发的软件按“原样”分发，
+   不附带任何明示或暗示的担保或条件。
+   有关本许可下管辖的特定权限和限制，请参阅本许可。
+
+   本许可包含管辖某些文件和重新分发要求的附加条款。
+   您必须查看完整的许可文本以了解详细信息。
